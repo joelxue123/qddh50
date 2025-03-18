@@ -1,0 +1,1006 @@
+ARM GAS  /tmp/cc3QRFMw.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 2
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"ramp_ext_mngr.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.REMNG_Init,"ax",%progbits
+  18              		.align	1
+  19              		.p2align 2,,3
+  20              		.global	REMNG_Init
+  21              		.arch armv7e-m
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  25              		.fpu fpv4-sp-d16
+  27              	REMNG_Init:
+  28              	.LVL0:
+  29              	.LFB1435:
+  30              		.file 1 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c"
+   1:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** /**
+   2:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   ******************************************************************************
+   3:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   * @file    ramp_ext_mngr.c
+   4:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   * @author  Motor Control SDK Team, ST Microelectronics
+   5:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   * @brief   This file provides firmware functions that implement the features
+   6:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   *          of the Ramp Extended Manager component of the Motor Control SDK:
+   7:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   *
+   8:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   ******************************************************************************
+   9:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   * @attention
+  10:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   *
+  11:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   * <h2><center>&copy; Copyright (c) 2024 STMicroelectronics.
+  12:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   * All rights reserved.</center></h2>
+  13:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   *
+  14:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   * This software component is licensed by ST under Ultimate Liberty license
+  15:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   * SLA0044, the "License"; You may not use this file except in compliance with
+  16:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   * the License. You may obtain a copy of the License at:
+  17:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   *                             www.st.com/SLA0044
+  18:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   *
+  19:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   ******************************************************************************
+  20:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   */
+  21:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+  22:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** /* Includes ------------------------------------------------------------------*/
+  23:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #include "ramp_ext_mngr.h"
+  24:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+  25:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** /** @addtogroup MCSDK
+  26:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   * @{
+  27:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   */
+  28:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+ARM GAS  /tmp/cc3QRFMw.s 			page 2
+
+
+  29:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** /** @defgroup RampExtMngr Ramp Manager
+  30:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   * @brief Ramp Extended Manager component of the Motor Control SDK
+  31:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   *
+  32:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   * @todo Document the Ramp Extended Manager "module".
+  33:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   *
+  34:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   * @{
+  35:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   */
+  36:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** /* Private function prototypes -----------------------------------------------*/
+  37:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** uint32_t getScalingFactor(int32_t Target);
+  38:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+  39:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** /**
+  40:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   * @brief  It reset the state variable to zero.
+  41:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   * @param  pHandle related Handle of struct RampMngr_Handle_t
+  42:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   * @retval none.
+  43:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   */
+  44:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** void REMNG_Init(RampExtMngr_Handle_t *pHandle)
+  45:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** {
+  31              		.loc 1 45 1 view -0
+  32              		.cfi_startproc
+  33              		@ args = 0, pretend = 0, frame = 0
+  34              		@ frame_needed = 0, uses_anonymous_args = 0
+  35              		@ link register save eliminated.
+  46:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #ifdef NULL_PTR_CHECK_RMP_EXT_MNG
+  47:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   if (MC_NULL == pHandle)
+  48:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   {
+  49:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     /* Nothing to do */
+  50:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   }
+  51:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   else
+  52:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   {
+  53:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #endif
+  54:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     pHandle->Ext = 0;
+  36              		.loc 1 54 5 view .LVU1
+  37              		.loc 1 54 18 is_stmt 0 view .LVU2
+  38 0000 0023     		movs	r3, #0
+  55:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     pHandle->TargetFinal = 0;
+  56:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     pHandle->RampRemainingStep = 0U;
+  57:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     pHandle->IncDecAmount = 0;
+  58:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     pHandle->ScalingFactor = 1U;
+  39              		.loc 1 58 28 view .LVU3
+  40 0002 0122     		movs	r2, #1
+  55:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     pHandle->TargetFinal = 0;
+  41              		.loc 1 55 26 view .LVU4
+  42 0004 C0E90133 		strd	r3, r3, [r0, #4]
+  56:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     pHandle->IncDecAmount = 0;
+  43              		.loc 1 56 5 is_stmt 1 view .LVU5
+  57:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     pHandle->ScalingFactor = 1U;
+  44              		.loc 1 57 27 is_stmt 0 view .LVU6
+  45 0008 C0E90333 		strd	r3, r3, [r0, #12]
+  46              		.loc 1 58 5 is_stmt 1 view .LVU7
+  47              		.loc 1 58 28 is_stmt 0 view .LVU8
+  48 000c 4261     		str	r2, [r0, #20]
+  59:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #ifdef NULL_PTR_CHECK_RMP_EXT_MNG
+  60:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   }
+  61:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #endif
+  62:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** }
+  49              		.loc 1 62 1 view .LVU9
+  50 000e 7047     		bx	lr
+ARM GAS  /tmp/cc3QRFMw.s 			page 3
+
+
+  51              		.cfi_endproc
+  52              	.LFE1435:
+  54              		.section	.text.REMNG_Calc,"ax",%progbits
+  55              		.align	1
+  56              		.p2align 2,,3
+  57              		.weak	REMNG_Calc
+  58              		.syntax unified
+  59              		.thumb
+  60              		.thumb_func
+  61              		.fpu fpv4-sp-d16
+  63              	REMNG_Calc:
+  64              	.LVL1:
+  65              	.LFB1436:
+  63:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+  64:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #if defined (CCMRAM)
+  65:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #if defined (__ICCARM__)
+  66:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #pragma location = ".ccmram"
+  67:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #elif defined (__CC_ARM) || defined(__GNUC__)
+  68:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** __attribute__((section(".ccmram")))
+  69:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #endif
+  70:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #endif
+  71:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** /**
+  72:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   * @brief  Exec the ramp calculations and returns the current value of the
+  73:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****             state variable.
+  74:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****             It must be called at fixed interval defined in the hExecFreq.
+  75:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   * @param  pHandle related Handle of struct RampMngr_Handle_t
+  76:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   * @retval int32_t value of the state variable
+  77:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   */
+  78:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** __weak int32_t REMNG_Calc(RampExtMngr_Handle_t *pHandle)
+  79:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** {
+  66              		.loc 1 79 1 is_stmt 1 view -0
+  67              		.cfi_startproc
+  68              		@ args = 0, pretend = 0, frame = 0
+  69              		@ frame_needed = 0, uses_anonymous_args = 0
+  70              		@ link register save eliminated.
+  80:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   int32_t ret_val;
+  71              		.loc 1 80 3 view .LVU11
+  81:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #ifdef NULL_PTR_CHECK_RMP_EXT_MNG
+  82:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   if (MC_NULL == pHandle)
+  83:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   {
+  84:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     ret_val = 0;
+  85:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   }
+  86:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   else
+  87:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   {
+  88:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #endif
+  89:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     int32_t current_ref;
+  72              		.loc 1 89 5 view .LVU12
+  90:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+  91:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     current_ref = pHandle->Ext;
+  73              		.loc 1 91 5 view .LVU13
+  74              		.loc 1 91 17 is_stmt 0 view .LVU14
+  75 0000 D0E90231 		ldrd	r3, r1, [r0, #8]
+  76              	.LVL2:
+  92:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+  93:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     /* Update the variable and terminates the ramp if needed */
+  94:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     if (pHandle->RampRemainingStep > 1U)
+  77              		.loc 1 94 5 is_stmt 1 view .LVU15
+ARM GAS  /tmp/cc3QRFMw.s 			page 4
+
+
+  78              		.loc 1 94 8 is_stmt 0 view .LVU16
+  79 0004 0129     		cmp	r1, #1
+  80 0006 0CD9     		bls	.L4
+  95:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     {
+  96:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       /* Increment/decrement the reference value */
+  97:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       current_ref += pHandle->IncDecAmount;
+  81              		.loc 1 97 7 is_stmt 1 view .LVU17
+  82              	.LVL3:
+  79:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   int32_t ret_val;
+  83              		.loc 1 79 1 is_stmt 0 view .LVU18
+  84 0008 10B4     		push	{r4}
+  85              	.LCFI0:
+  86              		.cfi_def_cfa_offset 4
+  87              		.cfi_offset 4, -4
+  88              		.loc 1 97 19 view .LVU19
+  89 000a D0E90442 		ldrd	r4, r2, [r0, #16]
+  98:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+  99:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       /* Decrement the number of remaining steps */
+ 100:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       pHandle->RampRemainingStep --;
+  90              		.loc 1 100 34 view .LVU20
+  91 000e 0139     		subs	r1, r1, #1
+  97:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+  92              		.loc 1 97 19 view .LVU21
+  93 0010 2344     		add	r3, r3, r4
+  94              	.LVL4:
+  95              		.loc 1 100 7 is_stmt 1 view .LVU22
+  96              		.loc 1 100 34 is_stmt 0 view .LVU23
+  97 0012 C160     		str	r1, [r0, #12]
+ 101:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     }
+ 102:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     else if (1U == pHandle->RampRemainingStep)
+ 103:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     {
+ 104:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       /* Set the backup value of TargetFinal */
+ 105:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       current_ref = pHandle->TargetFinal * ((int32_t)pHandle->ScalingFactor);
+ 106:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       pHandle->RampRemainingStep = 0U;
+ 107:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     }
+ 108:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     else
+ 109:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     {
+ 110:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       /* Do nothing */
+ 111:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     }
+ 112:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+ 113:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     pHandle->Ext = current_ref;
+  98              		.loc 1 113 18 view .LVU24
+  99 0014 8360     		str	r3, [r0, #8]
+ 100              	.LVL5:
+ 114:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     ret_val = pHandle->Ext / ((int32_t)pHandle->ScalingFactor);
+ 101              		.loc 1 114 13 view .LVU25
+ 102 0016 93FBF2F2 		sdiv	r2, r3, r2
+ 111:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+ 103              		.loc 1 111 5 is_stmt 1 view .LVU26
+ 113:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     ret_val = pHandle->Ext / ((int32_t)pHandle->ScalingFactor);
+ 104              		.loc 1 113 5 view .LVU27
+ 105              		.loc 1 114 5 view .LVU28
+ 106              	.LVL6:
+ 115:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #ifdef NULL_PTR_CHECK_RMP_EXT_MNG
+ 116:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   }
+ 117:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #endif
+ 118:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   return (ret_val);
+ARM GAS  /tmp/cc3QRFMw.s 			page 5
+
+
+ 107              		.loc 1 118 3 view .LVU29
+ 119:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** }
+ 108              		.loc 1 119 1 is_stmt 0 view .LVU30
+ 109 001a 5DF8044B 		ldr	r4, [sp], #4
+ 110              	.LCFI1:
+ 111              		.cfi_restore 4
+ 112              		.cfi_def_cfa_offset 0
+ 113 001e 1046     		mov	r0, r2
+ 114              	.LVL7:
+ 115              		.loc 1 119 1 view .LVU31
+ 116 0020 7047     		bx	lr
+ 117              	.LVL8:
+ 118              	.L4:
+ 102:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     {
+ 119              		.loc 1 102 10 is_stmt 1 view .LVU32
+ 102:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     {
+ 120              		.loc 1 102 13 is_stmt 0 view .LVU33
+ 121 0022 05D0     		beq	.L6
+ 114:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #ifdef NULL_PTR_CHECK_RMP_EXT_MNG
+ 122              		.loc 1 114 13 view .LVU34
+ 123 0024 4269     		ldr	r2, [r0, #20]
+ 113:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     ret_val = pHandle->Ext / ((int32_t)pHandle->ScalingFactor);
+ 124              		.loc 1 113 18 view .LVU35
+ 125 0026 8360     		str	r3, [r0, #8]
+ 114:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #ifdef NULL_PTR_CHECK_RMP_EXT_MNG
+ 126              		.loc 1 114 13 view .LVU36
+ 127 0028 93FBF2F2 		sdiv	r2, r3, r2
+ 111:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+ 128              		.loc 1 111 5 is_stmt 1 view .LVU37
+ 113:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     ret_val = pHandle->Ext / ((int32_t)pHandle->ScalingFactor);
+ 129              		.loc 1 113 5 view .LVU38
+ 114:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #ifdef NULL_PTR_CHECK_RMP_EXT_MNG
+ 130              		.loc 1 114 5 view .LVU39
+ 131              	.LVL9:
+ 118:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** }
+ 132              		.loc 1 118 3 view .LVU40
+ 133              		.loc 1 119 1 is_stmt 0 view .LVU41
+ 134 002c 1046     		mov	r0, r2
+ 135              	.LVL10:
+ 136              		.loc 1 119 1 view .LVU42
+ 137 002e 7047     		bx	lr
+ 138              	.LVL11:
+ 139              	.L6:
+ 105:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       pHandle->RampRemainingStep = 0U;
+ 140              		.loc 1 105 7 is_stmt 1 view .LVU43
+ 105:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       pHandle->RampRemainingStep = 0U;
+ 141              		.loc 1 105 28 is_stmt 0 view .LVU44
+ 142 0030 4268     		ldr	r2, [r0, #4]
+ 105:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       pHandle->RampRemainingStep = 0U;
+ 143              		.loc 1 105 19 view .LVU45
+ 144 0032 4369     		ldr	r3, [r0, #20]
+ 145              	.LVL12:
+ 106:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     }
+ 146              		.loc 1 106 34 view .LVU46
+ 147 0034 0021     		movs	r1, #0
+ 105:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       pHandle->RampRemainingStep = 0U;
+ 148              		.loc 1 105 19 view .LVU47
+ARM GAS  /tmp/cc3QRFMw.s 			page 6
+
+
+ 149 0036 02FB03F3 		mul	r3, r2, r3
+ 150              	.LVL13:
+ 106:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     }
+ 151              		.loc 1 106 7 is_stmt 1 view .LVU48
+ 106:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     }
+ 152              		.loc 1 106 34 is_stmt 0 view .LVU49
+ 153 003a C160     		str	r1, [r0, #12]
+ 111:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+ 154              		.loc 1 111 5 is_stmt 1 view .LVU50
+ 113:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     ret_val = pHandle->Ext / ((int32_t)pHandle->ScalingFactor);
+ 155              		.loc 1 113 5 view .LVU51
+ 113:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     ret_val = pHandle->Ext / ((int32_t)pHandle->ScalingFactor);
+ 156              		.loc 1 113 18 is_stmt 0 view .LVU52
+ 157 003c 8360     		str	r3, [r0, #8]
+ 114:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #ifdef NULL_PTR_CHECK_RMP_EXT_MNG
+ 158              		.loc 1 114 5 is_stmt 1 view .LVU53
+ 159              	.LVL14:
+ 118:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** }
+ 160              		.loc 1 118 3 view .LVU54
+ 161              		.loc 1 119 1 is_stmt 0 view .LVU55
+ 162 003e 1046     		mov	r0, r2
+ 163              	.LVL15:
+ 164              		.loc 1 119 1 view .LVU56
+ 165 0040 7047     		bx	lr
+ 166              		.cfi_endproc
+ 167              	.LFE1436:
+ 169 0042 00BF     		.section	.text.REMNG_GetValue,"ax",%progbits
+ 170              		.align	1
+ 171              		.p2align 2,,3
+ 172              		.weak	REMNG_GetValue
+ 173              		.syntax unified
+ 174              		.thumb
+ 175              		.thumb_func
+ 176              		.fpu fpv4-sp-d16
+ 178              	REMNG_GetValue:
+ 179              	.LVL16:
+ 180              	.LFB1438:
+ 120:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+ 121:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** /**
+ 122:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   * @brief  Setup the ramp to be executed
+ 123:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   * @param  pHandle related Handle of struct RampMngr_Handle_t
+ 124:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   * @param  hTargetFinal (signed 32bit) final value of state variable at the end
+ 125:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   *         of the ramp.
+ 126:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   * @param  hDurationms (unsigned 32bit) the duration of the ramp expressed in
+ 127:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   *         milliseconds. It is possible to set 0 to perform an instantaneous
+ 128:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   *         change in the value.
+ 129:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   * @retval bool It returns true is command is valid, false otherwise
+ 130:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   */
+ 131:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** __weak bool REMNG_ExecRamp(RampExtMngr_Handle_t *pHandle, int32_t TargetFinal, uint32_t Durationms)
+ 132:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** {
+ 133:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   bool retVal = true;
+ 134:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #ifdef NULL_PTR_CHECK_RMP_EXT_MNG
+ 135:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   if (MC_NULL == pHandle)
+ 136:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   {
+ 137:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     retVal = false;
+ 138:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   }
+ 139:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   else
+ARM GAS  /tmp/cc3QRFMw.s 			page 7
+
+
+ 140:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   {
+ 141:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #endif
+ 142:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     uint32_t aux;
+ 143:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     int32_t aux1;
+ 144:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     int32_t current_ref;
+ 145:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+ 146:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+ 147:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     /* Get current state */
+ 148:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     current_ref = pHandle->Ext / ((int32_t)pHandle->ScalingFactor);
+ 149:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+ 150:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     if (0U == Durationms)
+ 151:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     {
+ 152:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       pHandle->ScalingFactor = getScalingFactor(TargetFinal);
+ 153:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       pHandle->Ext = TargetFinal * ((int32_t)pHandle->ScalingFactor);
+ 154:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       pHandle->RampRemainingStep = 0U;
+ 155:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       pHandle->IncDecAmount = 0;
+ 156:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     }
+ 157:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     else
+ 158:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     {
+ 159:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       uint32_t wScalingFactor = getScalingFactor(TargetFinal - current_ref);
+ 160:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       uint32_t wScalingFactor2 = getScalingFactor(current_ref);
+ 161:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       uint32_t wScalingFactor3 = getScalingFactor(TargetFinal);
+ 162:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       uint32_t wScalingFactorMin;
+ 163:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+ 164:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       if (wScalingFactor <  wScalingFactor2)
+ 165:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       {
+ 166:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****         if (wScalingFactor < wScalingFactor3)
+ 167:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****         {
+ 168:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****           wScalingFactorMin = wScalingFactor;
+ 169:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****         }
+ 170:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****         else
+ 171:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****         {
+ 172:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****           wScalingFactorMin = wScalingFactor3;
+ 173:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****         }
+ 174:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       }
+ 175:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       else
+ 176:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       {
+ 177:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****         if (wScalingFactor2 < wScalingFactor3)
+ 178:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****         {
+ 179:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****           wScalingFactorMin = wScalingFactor2;
+ 180:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****         }
+ 181:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****         else
+ 182:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****         {
+ 183:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****           wScalingFactorMin = wScalingFactor3;
+ 184:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****         }
+ 185:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       }
+ 186:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+ 187:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       pHandle->ScalingFactor = wScalingFactorMin;
+ 188:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       pHandle->Ext = current_ref * ((int32_t)pHandle->ScalingFactor);
+ 189:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+ 190:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       /* Store the TargetFinal to be applied in the last step */
+ 191:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       pHandle->TargetFinal = TargetFinal;
+ 192:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+ 193:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       /* Compute the (wRampRemainingStep) number of steps remaining to complete the ramp */
+ 194:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       aux = Durationms * ((uint32_t)pHandle->FrequencyHz); /* Check for overflow and use prescaler 
+ 195:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       aux /= 1000U;
+ 196:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       pHandle->RampRemainingStep = aux;
+ARM GAS  /tmp/cc3QRFMw.s 			page 8
+
+
+ 197:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       pHandle->RampRemainingStep++;
+ 198:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+ 199:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       /* Compute the increment/decrement amount (wIncDecAmount) to be applied to
+ 200:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       the reference value at each CalcTorqueReference */
+ 201:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       aux1 = (TargetFinal - current_ref) * ((int32_t)pHandle->ScalingFactor);
+ 202:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       aux1 /= ((int32_t)pHandle->RampRemainingStep);
+ 203:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       pHandle->IncDecAmount = aux1;
+ 204:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     }
+ 205:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #ifdef NULL_PTR_CHECK_RMP_EXT_MNG
+ 206:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   }
+ 207:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #endif
+ 208:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   return (retVal);
+ 209:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** }
+ 210:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+ 211:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** /**
+ 212:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   * @brief  Returns the current value of the state variable.
+ 213:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   * @param  pHandle related Handle of struct RampMngr_Handle_t
+ 214:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   * @retval int32_t value of the state variable
+ 215:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   */
+ 216:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** __weak int32_t REMNG_GetValue(const RampExtMngr_Handle_t *pHandle)
+ 217:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** {
+ 181              		.loc 1 217 1 is_stmt 1 view -0
+ 182              		.cfi_startproc
+ 183              		@ args = 0, pretend = 0, frame = 0
+ 184              		@ frame_needed = 0, uses_anonymous_args = 0
+ 185              		@ link register save eliminated.
+ 218:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #ifdef NULL_PTR_CHECK_RMP_EXT_MNG
+ 219:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   return ((MC_NULL == pHandle) ? 0 : (pHandle->Ext / ((int32_t)pHandle->ScalingFactor)));
+ 220:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #else
+ 221:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   return (pHandle->Ext / ((int32_t)pHandle->ScalingFactor));
+ 186              		.loc 1 221 3 view .LVU58
+ 187              		.loc 1 221 24 is_stmt 0 view .LVU59
+ 188 0000 8268     		ldr	r2, [r0, #8]
+ 189 0002 4069     		ldr	r0, [r0, #20]
+ 190              	.LVL17:
+ 222:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #endif
+ 223:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** }
+ 191              		.loc 1 223 1 view .LVU60
+ 192 0004 92FBF0F0 		sdiv	r0, r2, r0
+ 193 0008 7047     		bx	lr
+ 194              		.cfi_endproc
+ 195              	.LFE1438:
+ 197 000a 00BF     		.section	.text.REMNG_RampCompleted,"ax",%progbits
+ 198              		.align	1
+ 199              		.p2align 2,,3
+ 200              		.weak	REMNG_RampCompleted
+ 201              		.syntax unified
+ 202              		.thumb
+ 203              		.thumb_func
+ 204              		.fpu fpv4-sp-d16
+ 206              	REMNG_RampCompleted:
+ 207              	.LVL18:
+ 208              	.LFB1439:
+ 224:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+ 225:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #if defined (CCMRAM)
+ 226:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #if defined (__ICCARM__)
+ 227:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #pragma location = ".ccmram"
+ARM GAS  /tmp/cc3QRFMw.s 			page 9
+
+
+ 228:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #elif defined (__CC_ARM) || defined(__GNUC__)
+ 229:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** __attribute__((section(".ccmram")))
+ 230:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #endif
+ 231:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #endif
+ 232:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** /**
+ 233:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   * @brief  Check if the settled ramp has been completed.
+ 234:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   * @param  pHandle related Handle of struct RampMngr_Handle_t.
+ 235:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   * @retval bool It returns true if the ramp is completed, false otherwise.
+ 236:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   */
+ 237:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** __weak bool REMNG_RampCompleted(const RampExtMngr_Handle_t *pHandle)
+ 238:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** {
+ 209              		.loc 1 238 1 is_stmt 1 view -0
+ 210              		.cfi_startproc
+ 211              		@ args = 0, pretend = 0, frame = 0
+ 212              		@ frame_needed = 0, uses_anonymous_args = 0
+ 213              		@ link register save eliminated.
+ 239:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   bool retVal = false;
+ 214              		.loc 1 239 3 view .LVU62
+ 240:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #ifdef NULL_PTR_CHECK_RMP_EXT_MNG
+ 241:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   if (MC_NULL == pHandle)
+ 242:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   {
+ 243:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     /* Nothing to do */
+ 244:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   }
+ 245:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   else
+ 246:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   {
+ 247:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #endif
+ 248:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     if (0U == pHandle->RampRemainingStep)
+ 215              		.loc 1 248 5 view .LVU63
+ 249:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     {
+ 250:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       retVal = true;
+ 251:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     }
+ 252:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     else
+ 253:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     {
+ 254:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       /* nothing to do */
+ 255:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     }
+ 216              		.loc 1 255 5 view .LVU64
+ 256:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #ifdef NULL_PTR_CHECK_RMP_EXT_MNG
+ 257:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   }
+ 258:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #endif
+ 259:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   return (retVal);
+ 217              		.loc 1 259 3 view .LVU65
+ 248:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     {
+ 218              		.loc 1 248 8 is_stmt 0 view .LVU66
+ 219 0000 C068     		ldr	r0, [r0, #12]
+ 220              	.LVL19:
+ 260:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+ 261:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** }
+ 221              		.loc 1 261 1 view .LVU67
+ 222 0002 B0FA80F0 		clz	r0, r0
+ 223              	.LVL20:
+ 224              		.loc 1 261 1 view .LVU68
+ 225 0006 4009     		lsrs	r0, r0, #5
+ 226 0008 7047     		bx	lr
+ 227              		.cfi_endproc
+ 228              	.LFE1439:
+ 230 000a 00BF     		.section	.text.REMNG_StopRamp,"ax",%progbits
+ 231              		.align	1
+ARM GAS  /tmp/cc3QRFMw.s 			page 10
+
+
+ 232              		.p2align 2,,3
+ 233              		.weak	REMNG_StopRamp
+ 234              		.syntax unified
+ 235              		.thumb
+ 236              		.thumb_func
+ 237              		.fpu fpv4-sp-d16
+ 239              	REMNG_StopRamp:
+ 240              	.LVL21:
+ 241              	.LFB1440:
+ 262:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+ 263:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** /**
+ 264:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   * @brief  Stop the execution of the ramp keeping the last reached value.
+ 265:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   * @param  pHandle related Handle of struct RampMngr_Handle_t.
+ 266:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   * @retval none
+ 267:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   */
+ 268:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** __weak void REMNG_StopRamp(RampExtMngr_Handle_t *pHandle)
+ 269:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** {
+ 242              		.loc 1 269 1 is_stmt 1 view -0
+ 243              		.cfi_startproc
+ 244              		@ args = 0, pretend = 0, frame = 0
+ 245              		@ frame_needed = 0, uses_anonymous_args = 0
+ 246              		@ link register save eliminated.
+ 270:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #ifdef NULL_PTR_CHECK_RMP_EXT_MNG
+ 271:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   if (MC_NULL == pHandle)
+ 272:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   {
+ 273:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     /* Nothing to do */
+ 274:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   }
+ 275:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   else
+ 276:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   {
+ 277:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #endif
+ 278:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     pHandle->RampRemainingStep = 0U;
+ 247              		.loc 1 278 5 view .LVU70
+ 248              		.loc 1 278 32 is_stmt 0 view .LVU71
+ 249 0000 0023     		movs	r3, #0
+ 279:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     pHandle->IncDecAmount = 0;
+ 250              		.loc 1 279 27 view .LVU72
+ 251 0002 C0E90333 		strd	r3, r3, [r0, #12]
+ 280:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #ifdef NULL_PTR_CHECK_RMP_EXT_MNG
+ 281:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   }
+ 282:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #endif
+ 283:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** }
+ 252              		.loc 1 283 1 view .LVU73
+ 253 0006 7047     		bx	lr
+ 254              		.cfi_endproc
+ 255              	.LFE1440:
+ 257              		.section	.text.getScalingFactor,"ax",%progbits
+ 258              		.align	1
+ 259              		.p2align 2,,3
+ 260              		.weak	getScalingFactor
+ 261              		.syntax unified
+ 262              		.thumb
+ 263              		.thumb_func
+ 264              		.fpu fpv4-sp-d16
+ 266              	getScalingFactor:
+ 267              	.LVL22:
+ 268              	.LFB1441:
+ 284:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+ARM GAS  /tmp/cc3QRFMw.s 			page 11
+
+
+ 285:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** /**
+ 286:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   * @brief  Calculating the scaling factor to maximixe the resolution. It
+ 287:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   *         perform the 2^int(31-log2(Target)) with an iterative approach.
+ 288:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   *         It allows to keep Target * Scaling factor inside int32_t type.
+ 289:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   * @param  Target Input data.
+ 290:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   * @retval uint32_t It returns the optimized scaling factor.
+ 291:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   */
+ 292:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** __weak uint32_t getScalingFactor(int32_t Target)
+ 293:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** {
+ 269              		.loc 1 293 1 is_stmt 1 view -0
+ 270              		.cfi_startproc
+ 271              		@ args = 0, pretend = 0, frame = 0
+ 272              		@ frame_needed = 0, uses_anonymous_args = 0
+ 273              		@ link register save eliminated.
+ 294:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   uint32_t TargetAbs;
+ 274              		.loc 1 294 3 view .LVU75
+ 295:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   int32_t aux;
+ 275              		.loc 1 295 3 view .LVU76
+ 296:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   uint8_t i;
+ 276              		.loc 1 296 3 view .LVU77
+ 297:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+ 298:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   if (Target < 0)
+ 277              		.loc 1 298 3 view .LVU78
+ 299:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   {
+ 300:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     aux = -Target;
+ 278              		.loc 1 300 9 is_stmt 0 view .LVU79
+ 279 0000 0028     		cmp	r0, #0
+ 280 0002 B8BF     		it	lt
+ 281 0004 4042     		rsblt	r0, r0, #0
+ 282              	.LVL23:
+ 301:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     TargetAbs = (uint32_t)aux;
+ 302:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   }
+ 303:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   else
+ 304:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   {
+ 305:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     TargetAbs = (uint32_t)Target;
+ 306:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   }
+ 307:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   for (i = 1U; i < 32U; i++)
+ 283              		.loc 1 307 3 is_stmt 1 view .LVU80
+ 284              		.loc 1 307 16 view .LVU81
+ 293:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   uint32_t TargetAbs;
+ 285              		.loc 1 293 1 is_stmt 0 view .LVU82
+ 286 0006 0123     		movs	r3, #1
+ 287              	.LBB2:
+ 308:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   {
+ 309:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     uint32_t limit = (((uint32_t)1) << (31U - i));
+ 288              		.loc 1 309 14 view .LVU83
+ 289 0008 4FF00041 		mov	r1, #-2147483648
+ 290 000c 02E0     		b	.L18
+ 291              	.LVL24:
+ 292              	.L22:
+ 293              		.loc 1 309 14 view .LVU84
+ 294              	.LBE2:
+ 307:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   {
+ 295              		.loc 1 307 3 discriminator 2 view .LVU85
+ 296 000e 0133     		adds	r3, r3, #1
+ 297              	.LVL25:
+ 307:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   {
+ARM GAS  /tmp/cc3QRFMw.s 			page 12
+
+
+ 298              		.loc 1 307 3 discriminator 2 view .LVU86
+ 299 0010 202B     		cmp	r3, #32
+ 300 0012 07D0     		beq	.L21
+ 301              	.LVL26:
+ 302              	.L18:
+ 303              	.LBB3:
+ 304              		.loc 1 309 5 is_stmt 1 view .LVU87
+ 310:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     if (TargetAbs >= limit)
+ 305              		.loc 1 310 5 view .LVU88
+ 311:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     {
+ 312:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       break;
+ 313:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     }
+ 314:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     else
+ 315:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     {
+ 316:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       /* Nothing to do */
+ 317:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     }
+ 306              		.loc 1 317 5 view .LVU89
+ 307              	.LBE3:
+ 307:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   {
+ 308              		.loc 1 307 25 view .LVU90
+ 307:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   {
+ 309              		.loc 1 307 16 view .LVU91
+ 310              	.LBB4:
+ 309:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     if (TargetAbs >= limit)
+ 311              		.loc 1 309 14 is_stmt 0 view .LVU92
+ 312 0014 21FA03F2 		lsr	r2, r1, r3
+ 310:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     {
+ 313              		.loc 1 310 8 view .LVU93
+ 314 0018 9042     		cmp	r0, r2
+ 315 001a F8D3     		bcc	.L22
+ 316              	.LBE4:
+ 318:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   }
+ 319:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   return (((uint32_t)1) << (i - 1U));
+ 317              		.loc 1 319 31 view .LVU94
+ 318 001c 013B     		subs	r3, r3, #1
+ 319              	.LVL27:
+ 320              		.loc 1 319 25 view .LVU95
+ 321 001e 0120     		movs	r0, #1
+ 322              	.LVL28:
+ 323              		.loc 1 319 25 view .LVU96
+ 324 0020 9840     		lsls	r0, r0, r3
+ 325              		.loc 1 319 3 is_stmt 1 view .LVU97
+ 320:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** }
+ 326              		.loc 1 320 1 is_stmt 0 view .LVU98
+ 327 0022 7047     		bx	lr
+ 328              	.LVL29:
+ 329              	.L21:
+ 330              		.loc 1 320 1 view .LVU99
+ 331 0024 4FF00040 		mov	r0, #-2147483648
+ 332              	.LVL30:
+ 333              		.loc 1 320 1 view .LVU100
+ 334 0028 7047     		bx	lr
+ 335              		.cfi_endproc
+ 336              	.LFE1441:
+ 338 002a 00BF     		.section	.text.REMNG_ExecRamp,"ax",%progbits
+ 339              		.align	1
+ 340              		.p2align 2,,3
+ARM GAS  /tmp/cc3QRFMw.s 			page 13
+
+
+ 341              		.weak	REMNG_ExecRamp
+ 342              		.syntax unified
+ 343              		.thumb
+ 344              		.thumb_func
+ 345              		.fpu fpv4-sp-d16
+ 347              	REMNG_ExecRamp:
+ 348              	.LVL31:
+ 349              	.LFB1437:
+ 132:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   bool retVal = true;
+ 350              		.loc 1 132 1 is_stmt 1 view -0
+ 351              		.cfi_startproc
+ 352              		@ args = 0, pretend = 0, frame = 0
+ 353              		@ frame_needed = 0, uses_anonymous_args = 0
+ 133:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** #ifdef NULL_PTR_CHECK_RMP_EXT_MNG
+ 354              		.loc 1 133 3 view .LVU102
+ 142:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     int32_t aux1;
+ 355              		.loc 1 142 5 view .LVU103
+ 143:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     int32_t current_ref;
+ 356              		.loc 1 143 5 view .LVU104
+ 144:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+ 357              		.loc 1 144 5 view .LVU105
+ 148:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+ 358              		.loc 1 148 5 view .LVU106
+ 132:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   bool retVal = true;
+ 359              		.loc 1 132 1 is_stmt 0 view .LVU107
+ 360 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
+ 361              	.LCFI2:
+ 362              		.cfi_def_cfa_offset 32
+ 363              		.cfi_offset 4, -32
+ 364              		.cfi_offset 5, -28
+ 365              		.cfi_offset 6, -24
+ 366              		.cfi_offset 7, -20
+ 367              		.cfi_offset 8, -16
+ 368              		.cfi_offset 9, -12
+ 369              		.cfi_offset 10, -8
+ 370              		.cfi_offset 14, -4
+ 132:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   bool retVal = true;
+ 371              		.loc 1 132 1 view .LVU108
+ 372 0004 0546     		mov	r5, r0
+ 373              	.LVL32:
+ 150:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     {
+ 374              		.loc 1 150 5 is_stmt 1 view .LVU109
+ 132:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****   bool retVal = true;
+ 375              		.loc 1 132 1 is_stmt 0 view .LVU110
+ 376 0006 0E46     		mov	r6, r1
+ 150:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     {
+ 377              		.loc 1 150 8 view .LVU111
+ 378 0008 1446     		mov	r4, r2
+ 379 000a 5AB9     		cbnz	r2, .L24
+ 152:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       pHandle->Ext = TargetFinal * ((int32_t)pHandle->ScalingFactor);
+ 380              		.loc 1 152 7 is_stmt 1 view .LVU112
+ 152:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       pHandle->Ext = TargetFinal * ((int32_t)pHandle->ScalingFactor);
+ 381              		.loc 1 152 32 is_stmt 0 view .LVU113
+ 382 000c 0846     		mov	r0, r1
+ 383              	.LVL33:
+ 152:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       pHandle->Ext = TargetFinal * ((int32_t)pHandle->ScalingFactor);
+ 384              		.loc 1 152 32 view .LVU114
+ARM GAS  /tmp/cc3QRFMw.s 			page 14
+
+
+ 385 000e FFF7FEFF 		bl	getScalingFactor
+ 386              	.LVL34:
+ 153:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       pHandle->RampRemainingStep = 0U;
+ 387              		.loc 1 153 34 view .LVU115
+ 388 0012 00FB06F6 		mul	r6, r0, r6
+ 389              	.LVL35:
+ 152:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       pHandle->Ext = TargetFinal * ((int32_t)pHandle->ScalingFactor);
+ 390              		.loc 1 152 30 view .LVU116
+ 391 0016 6861     		str	r0, [r5, #20]
+ 153:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       pHandle->RampRemainingStep = 0U;
+ 392              		.loc 1 153 7 is_stmt 1 view .LVU117
+ 154:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       pHandle->IncDecAmount = 0;
+ 393              		.loc 1 154 34 is_stmt 0 view .LVU118
+ 394 0018 C5E90264 		strd	r6, r4, [r5, #8]
+ 155:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     }
+ 395              		.loc 1 155 7 is_stmt 1 view .LVU119
+ 155:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     }
+ 396              		.loc 1 155 29 is_stmt 0 view .LVU120
+ 397 001c 2C61     		str	r4, [r5, #16]
+ 208:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** }
+ 398              		.loc 1 208 3 is_stmt 1 view .LVU121
+ 209:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+ 399              		.loc 1 209 1 is_stmt 0 view .LVU122
+ 400 001e 0120     		movs	r0, #1
+ 401 0020 BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 402              	.LVL36:
+ 403              	.L24:
+ 148:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+ 404              		.loc 1 148 17 view .LVU123
+ 405 0024 4369     		ldr	r3, [r0, #20]
+ 406 0026 8768     		ldr	r7, [r0, #8]
+ 407 0028 97FBF3F7 		sdiv	r7, r7, r3
+ 408              	.LBB5:
+ 159:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       uint32_t wScalingFactor2 = getScalingFactor(current_ref);
+ 409              		.loc 1 159 7 is_stmt 1 view .LVU124
+ 159:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       uint32_t wScalingFactor2 = getScalingFactor(current_ref);
+ 410              		.loc 1 159 33 is_stmt 0 view .LVU125
+ 411 002c A1EB0708 		sub	r8, r1, r7
+ 412 0030 4046     		mov	r0, r8
+ 413              	.LVL37:
+ 159:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       uint32_t wScalingFactor2 = getScalingFactor(current_ref);
+ 414              		.loc 1 159 33 view .LVU126
+ 415 0032 FFF7FEFF 		bl	getScalingFactor
+ 416              	.LVL38:
+ 159:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       uint32_t wScalingFactor2 = getScalingFactor(current_ref);
+ 417              		.loc 1 159 33 view .LVU127
+ 418 0036 8246     		mov	r10, r0
+ 419              	.LVL39:
+ 160:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       uint32_t wScalingFactor3 = getScalingFactor(TargetFinal);
+ 420              		.loc 1 160 7 is_stmt 1 view .LVU128
+ 160:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       uint32_t wScalingFactor3 = getScalingFactor(TargetFinal);
+ 421              		.loc 1 160 34 is_stmt 0 view .LVU129
+ 422 0038 3846     		mov	r0, r7
+ 423              	.LVL40:
+ 160:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       uint32_t wScalingFactor3 = getScalingFactor(TargetFinal);
+ 424              		.loc 1 160 34 view .LVU130
+ 425 003a FFF7FEFF 		bl	getScalingFactor
+ARM GAS  /tmp/cc3QRFMw.s 			page 15
+
+
+ 426              	.LVL41:
+ 427 003e 8146     		mov	r9, r0
+ 428              	.LVL42:
+ 161:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       uint32_t wScalingFactorMin;
+ 429              		.loc 1 161 7 is_stmt 1 view .LVU131
+ 161:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       uint32_t wScalingFactorMin;
+ 430              		.loc 1 161 34 is_stmt 0 view .LVU132
+ 431 0040 3046     		mov	r0, r6
+ 432              	.LVL43:
+ 161:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       uint32_t wScalingFactorMin;
+ 433              		.loc 1 161 34 view .LVU133
+ 434 0042 FFF7FEFF 		bl	getScalingFactor
+ 435              	.LVL44:
+ 194:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       aux /= 1000U;
+ 436              		.loc 1 194 11 view .LVU134
+ 437 0046 2A68     		ldr	r2, [r5]
+ 191:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+ 438              		.loc 1 191 28 view .LVU135
+ 439 0048 6E60     		str	r6, [r5, #4]
+ 164:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       {
+ 440              		.loc 1 164 10 view .LVU136
+ 441 004a CA45     		cmp	r10, r9
+ 194:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       aux /= 1000U;
+ 442              		.loc 1 194 11 view .LVU137
+ 443 004c 02FB04F4 		mul	r4, r2, r4
+ 444              	.LVL45:
+ 195:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       pHandle->RampRemainingStep = aux;
+ 445              		.loc 1 195 11 view .LVU138
+ 446 0050 0C4A     		ldr	r2, .L29
+ 161:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       uint32_t wScalingFactorMin;
+ 447              		.loc 1 161 34 view .LVU139
+ 448 0052 0346     		mov	r3, r0
+ 449              	.LVL46:
+ 162:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+ 450              		.loc 1 162 7 is_stmt 1 view .LVU140
+ 164:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       {
+ 451              		.loc 1 164 7 view .LVU141
+ 166:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****         {
+ 452              		.loc 1 166 9 view .LVU142
+ 453 0054 2CBF     		ite	cs
+ 454 0056 4846     		movcs	r0, r9
+ 455              	.LVL47:
+ 166:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****         {
+ 456              		.loc 1 166 9 is_stmt 0 view .LVU143
+ 457 0058 5046     		movcc	r0, r10
+ 177:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****         {
+ 458              		.loc 1 177 9 is_stmt 1 view .LVU144
+ 459 005a 9842     		cmp	r0, r3
+ 195:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       pHandle->RampRemainingStep = aux;
+ 460              		.loc 1 195 11 is_stmt 0 view .LVU145
+ 461 005c A2FB0424 		umull	r2, r4, r2, r4
+ 462 0060 28BF     		it	cs
+ 463 0062 1846     		movcs	r0, r3
+ 464              	.LVL48:
+ 187:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       pHandle->Ext = current_ref * ((int32_t)pHandle->ScalingFactor);
+ 465              		.loc 1 187 7 is_stmt 1 view .LVU146
+ 195:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       pHandle->RampRemainingStep = aux;
+ARM GAS  /tmp/cc3QRFMw.s 			page 16
+
+
+ 466              		.loc 1 195 11 is_stmt 0 view .LVU147
+ 467 0064 A409     		lsrs	r4, r4, #6
+ 188:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+ 468              		.loc 1 188 34 view .LVU148
+ 469 0066 00FB07F7 		mul	r7, r0, r7
+ 197:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+ 470              		.loc 1 197 33 view .LVU149
+ 471 006a 0134     		adds	r4, r4, #1
+ 201:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       aux1 /= ((int32_t)pHandle->RampRemainingStep);
+ 472              		.loc 1 201 12 view .LVU150
+ 473 006c 00FB08F3 		mul	r3, r0, r8
+ 474              	.LVL49:
+ 187:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       pHandle->Ext = current_ref * ((int32_t)pHandle->ScalingFactor);
+ 475              		.loc 1 187 30 view .LVU151
+ 476 0070 6861     		str	r0, [r5, #20]
+ 188:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+ 477              		.loc 1 188 7 is_stmt 1 view .LVU152
+ 191:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+ 478              		.loc 1 191 7 view .LVU153
+ 194:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       aux /= 1000U;
+ 479              		.loc 1 194 7 view .LVU154
+ 195:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       pHandle->RampRemainingStep = aux;
+ 480              		.loc 1 195 7 view .LVU155
+ 196:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       pHandle->RampRemainingStep++;
+ 481              		.loc 1 196 7 view .LVU156
+ 197:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+ 482              		.loc 1 197 7 view .LVU157
+ 197:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+ 483              		.loc 1 197 33 is_stmt 0 view .LVU158
+ 484 0072 EC60     		str	r4, [r5, #12]
+ 201:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       aux1 /= ((int32_t)pHandle->RampRemainingStep);
+ 485              		.loc 1 201 7 is_stmt 1 view .LVU159
+ 486              	.LVL50:
+ 202:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       pHandle->IncDecAmount = aux1;
+ 487              		.loc 1 202 7 view .LVU160
+ 203:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     }
+ 488              		.loc 1 203 7 view .LVU161
+ 188:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+ 489              		.loc 1 188 20 is_stmt 0 view .LVU162
+ 490 0074 AF60     		str	r7, [r5, #8]
+ 202:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       pHandle->IncDecAmount = aux1;
+ 491              		.loc 1 202 12 view .LVU163
+ 492 0076 93FBF4F4 		sdiv	r4, r3, r4
+ 493              	.LVL51:
+ 202:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****       pHandle->IncDecAmount = aux1;
+ 494              		.loc 1 202 12 view .LVU164
+ 495              	.LBE5:
+ 209:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+ 496              		.loc 1 209 1 view .LVU165
+ 497 007a 0120     		movs	r0, #1
+ 498              	.LVL52:
+ 499              	.LBB6:
+ 203:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c ****     }
+ 500              		.loc 1 203 29 view .LVU166
+ 501 007c 2C61     		str	r4, [r5, #16]
+ 502              	.LBE6:
+ 208:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** }
+ARM GAS  /tmp/cc3QRFMw.s 			page 17
+
+
+ 503              		.loc 1 208 3 is_stmt 1 view .LVU167
+ 209:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+ 504              		.loc 1 209 1 is_stmt 0 view .LVU168
+ 505 007e BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 506              	.LVL53:
+ 507              	.L30:
+ 209:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/ramp_ext_mngr.c **** 
+ 508              		.loc 1 209 1 view .LVU169
+ 509 0082 00BF     		.align	2
+ 510              	.L29:
+ 511 0084 D34D6210 		.word	274877907
+ 512              		.cfi_endproc
+ 513              	.LFE1437:
+ 515              		.text
+ 516              	.Letext0:
+ 517              		.file 2 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
+ 518              		.file 3 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
+ 519              		.file 4 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h"
+ 520              		.file 5 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_usart.h"
+ 521              		.file 6 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h"
+ 522              		.file 7 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/ramp_ext_mngr.h"
+ARM GAS  /tmp/cc3QRFMw.s 			page 18
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 ramp_ext_mngr.c
+     /tmp/cc3QRFMw.s:18     .text.REMNG_Init:0000000000000000 $t
+     /tmp/cc3QRFMw.s:27     .text.REMNG_Init:0000000000000000 REMNG_Init
+     /tmp/cc3QRFMw.s:55     .text.REMNG_Calc:0000000000000000 $t
+     /tmp/cc3QRFMw.s:63     .text.REMNG_Calc:0000000000000000 REMNG_Calc
+     /tmp/cc3QRFMw.s:170    .text.REMNG_GetValue:0000000000000000 $t
+     /tmp/cc3QRFMw.s:178    .text.REMNG_GetValue:0000000000000000 REMNG_GetValue
+     /tmp/cc3QRFMw.s:198    .text.REMNG_RampCompleted:0000000000000000 $t
+     /tmp/cc3QRFMw.s:206    .text.REMNG_RampCompleted:0000000000000000 REMNG_RampCompleted
+     /tmp/cc3QRFMw.s:231    .text.REMNG_StopRamp:0000000000000000 $t
+     /tmp/cc3QRFMw.s:239    .text.REMNG_StopRamp:0000000000000000 REMNG_StopRamp
+     /tmp/cc3QRFMw.s:258    .text.getScalingFactor:0000000000000000 $t
+     /tmp/cc3QRFMw.s:266    .text.getScalingFactor:0000000000000000 getScalingFactor
+     /tmp/cc3QRFMw.s:339    .text.REMNG_ExecRamp:0000000000000000 $t
+     /tmp/cc3QRFMw.s:347    .text.REMNG_ExecRamp:0000000000000000 REMNG_ExecRamp
+     /tmp/cc3QRFMw.s:511    .text.REMNG_ExecRamp:0000000000000084 $d
+
+NO UNDEFINED SYMBOLS

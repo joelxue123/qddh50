@@ -1,0 +1,223 @@
+ARM GAS  /tmp/cctEIR04.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 2
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"motorcontrol.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.MX_MotorControl_Init,"ax",%progbits
+  18              		.align	1
+  19              		.p2align 2,,3
+  20              		.weak	MX_MotorControl_Init
+  21              		.arch armv7e-m
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  25              		.fpu fpv4-sp-d16
+  27              	MX_MotorControl_Init:
+  28              	.LFB1867:
+  29              		.file 1 "Src/motorcontrol.c"
+   1:Src/motorcontrol.c **** /**
+   2:Src/motorcontrol.c ****   ******************************************************************************
+   3:Src/motorcontrol.c ****   * @file    motorcontrol.c
+   4:Src/motorcontrol.c ****   * @author  Motor Control SDK Team, ST Microelectronics
+   5:Src/motorcontrol.c ****   * @brief   Motor Control Subsystem initialization functions.
+   6:Src/motorcontrol.c ****   ******************************************************************************
+   7:Src/motorcontrol.c ****   * @attention
+   8:Src/motorcontrol.c ****   *
+   9:Src/motorcontrol.c ****   * <h2><center>&copy; Copyright (c) 2024 STMicroelectronics.
+  10:Src/motorcontrol.c ****   * All rights reserved.</center></h2>
+  11:Src/motorcontrol.c ****   *
+  12:Src/motorcontrol.c ****   * This software component is licensed by ST under Ultimate Liberty license
+  13:Src/motorcontrol.c ****   * SLA0044, the "License"; You may not use this file except in compliance with
+  14:Src/motorcontrol.c ****   * the License. You may obtain a copy of the License at:
+  15:Src/motorcontrol.c ****   *                             www.st.com/SLA0044
+  16:Src/motorcontrol.c ****   *
+  17:Src/motorcontrol.c ****   ******************************************************************************
+  18:Src/motorcontrol.c ****   * @ingroup MCInterface
+  19:Src/motorcontrol.c ****   */
+  20:Src/motorcontrol.c **** //cstat -MISRAC2012-Rule-21.1
+  21:Src/motorcontrol.c **** #include "main.h"
+  22:Src/motorcontrol.c **** //cstat +MISRAC2012-Rule-21.1
+  23:Src/motorcontrol.c **** #include "mc_interface.h"
+  24:Src/motorcontrol.c **** #include "mc_tasks.h"
+  25:Src/motorcontrol.c **** 
+  26:Src/motorcontrol.c **** #include "motorcontrol.h"
+  27:Src/motorcontrol.c **** 
+  28:Src/motorcontrol.c **** /** @addtogroup MCSDK
+  29:Src/motorcontrol.c ****   * @{
+ARM GAS  /tmp/cctEIR04.s 			page 2
+
+
+  30:Src/motorcontrol.c ****   */
+  31:Src/motorcontrol.c **** 
+  32:Src/motorcontrol.c **** /** @addtogroup MCInterface
+  33:Src/motorcontrol.c ****   * @{
+  34:Src/motorcontrol.c ****   */
+  35:Src/motorcontrol.c **** 
+  36:Src/motorcontrol.c **** MCI_Handle_t* pMCI[NBR_OF_MOTORS];
+  37:Src/motorcontrol.c **** 
+  38:Src/motorcontrol.c **** /**
+  39:Src/motorcontrol.c ****  * @brief Initializes and configures the Motor Control Subsystem
+  40:Src/motorcontrol.c ****  *
+  41:Src/motorcontrol.c ****  *  This function initializes and configures all the structures and components needed
+  42:Src/motorcontrol.c ****  * for the Motor Control subsystem required by the Application. It expects that
+  43:Src/motorcontrol.c ****  * all the peripherals needed for Motor Control purposes are already configured but
+  44:Src/motorcontrol.c ****  * that their interrupts are not enabled yet.
+  45:Src/motorcontrol.c ****  *
+  46:Src/motorcontrol.c ****  * CubeMX calls this function after all peripherals initializations and
+  47:Src/motorcontrol.c ****  * before the NVIC is configured
+  48:Src/motorcontrol.c ****  */
+  49:Src/motorcontrol.c **** __weak void MX_MotorControl_Init(void)
+  50:Src/motorcontrol.c **** {
+  30              		.loc 1 50 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  51:Src/motorcontrol.c **** 
+  52:Src/motorcontrol.c ****   /* Initialize the Motor Control Subsystem */
+  53:Src/motorcontrol.c ****   MCboot(pMCI);
+  34              		.loc 1 53 3 view .LVU1
+  50:Src/motorcontrol.c **** 
+  35              		.loc 1 50 1 is_stmt 0 view .LVU2
+  36 0000 08B5     		push	{r3, lr}
+  37              	.LCFI0:
+  38              		.cfi_def_cfa_offset 8
+  39              		.cfi_offset 3, -8
+  40              		.cfi_offset 14, -4
+  41              		.loc 1 53 3 view .LVU3
+  42 0002 0348     		ldr	r0, .L4
+  43 0004 FFF7FEFF 		bl	MCboot
+  44              	.LVL0:
+  54:Src/motorcontrol.c ****   mc_lock_pins();
+  45              		.loc 1 54 3 is_stmt 1 view .LVU4
+  55:Src/motorcontrol.c **** }
+  46              		.loc 1 55 1 is_stmt 0 view .LVU5
+  47 0008 BDE80840 		pop	{r3, lr}
+  48              	.LCFI1:
+  49              		.cfi_restore 14
+  50              		.cfi_restore 3
+  51              		.cfi_def_cfa_offset 0
+  54:Src/motorcontrol.c ****   mc_lock_pins();
+  52              		.loc 1 54 3 view .LVU6
+  53 000c FFF7FEBF 		b	mc_lock_pins
+  54              	.LVL1:
+  55              	.L5:
+  56              		.align	2
+  57              	.L4:
+  58 0010 00000000 		.word	.LANCHOR0
+ARM GAS  /tmp/cctEIR04.s 			page 3
+
+
+  59              		.cfi_endproc
+  60              	.LFE1867:
+  62              		.section	.text.vPortSetupTimerInterrupt,"ax",%progbits
+  63              		.align	1
+  64              		.p2align 2,,3
+  65              		.global	vPortSetupTimerInterrupt
+  66              		.syntax unified
+  67              		.thumb
+  68              		.thumb_func
+  69              		.fpu fpv4-sp-d16
+  71              	vPortSetupTimerInterrupt:
+  72              	.LFB1868:
+  56:Src/motorcontrol.c **** 
+  57:Src/motorcontrol.c **** void vPortSetupTimerInterrupt( void )
+  58:Src/motorcontrol.c **** {
+  73              		.loc 1 58 1 is_stmt 1 view -0
+  74              		.cfi_startproc
+  75              		@ args = 0, pretend = 0, frame = 0
+  76              		@ frame_needed = 0, uses_anonymous_args = 0
+  59:Src/motorcontrol.c ****   /* Reconfigure the SysTick interrupt to fire every 500 us. */
+  60:Src/motorcontrol.c ****   (void)HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/SYS_TICK_FREQUENCY);
+  77              		.loc 1 60 3 view .LVU8
+  58:Src/motorcontrol.c ****   /* Reconfigure the SysTick interrupt to fire every 500 us. */
+  78              		.loc 1 58 1 is_stmt 0 view .LVU9
+  79 0000 08B5     		push	{r3, lr}
+  80              	.LCFI2:
+  81              		.cfi_def_cfa_offset 8
+  82              		.cfi_offset 3, -8
+  83              		.cfi_offset 14, -4
+  84              		.loc 1 60 28 view .LVU10
+  85 0002 FFF7FEFF 		bl	HAL_RCC_GetHCLKFreq
+  86              	.LVL2:
+  87              		.loc 1 60 9 view .LVU11
+  88 0006 044B     		ldr	r3, .L8
+  89 0008 A3FB0030 		umull	r3, r0, r3, r0
+  90 000c C009     		lsrs	r0, r0, #7
+  61:Src/motorcontrol.c **** }
+  91              		.loc 1 61 1 view .LVU12
+  92 000e BDE80840 		pop	{r3, lr}
+  93              	.LCFI3:
+  94              		.cfi_restore 14
+  95              		.cfi_restore 3
+  96              		.cfi_def_cfa_offset 0
+  60:Src/motorcontrol.c **** }
+  97              		.loc 1 60 9 view .LVU13
+  98 0012 FFF7FEBF 		b	HAL_SYSTICK_Config
+  99              	.LVL3:
+ 100              	.L9:
+ 101 0016 00BF     		.align	2
+ 102              	.L8:
+ 103 0018 D34D6210 		.word	274877907
+ 104              		.cfi_endproc
+ 105              	.LFE1868:
+ 107              		.global	pMCI
+ 108              		.section	.bss.pMCI,"aw",%nobits
+ 109              		.align	2
+ 110              		.set	.LANCHOR0,. + 0
+ARM GAS  /tmp/cctEIR04.s 			page 4
+
+
+ 113              	pMCI:
+ 114 0000 00000000 		.space	4
+ 115              		.text
+ 116              	.Letext0:
+ 117              		.file 2 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
+ 118              		.file 3 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
+ 119              		.file 4 "Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g431xx.h"
+ 120              		.file 5 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h"
+ 121              		.file 6 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_usart.h"
+ 122              		.file 7 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h"
+ 123              		.file 8 "Inc/mc_type.h"
+ 124              		.file 9 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/pid_regulator.h"
+ 125              		.file 10 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h"
+ 126              		.file 11 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h"
+ 127              		.file 12 "Inc/pwm_curr_fdbk.h"
+ 128              		.file 13 "Inc/mc_perf.h"
+ 129              		.file 14 "Inc/mc_interface.h"
+ 130              		.file 15 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_rcc.h"
+ 131              		.file 16 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_cortex.h"
+ 132              		.file 17 "Inc/mc_tasks.h"
+ 133              		.file 18 "Inc/mc_config.h"
+ARM GAS  /tmp/cctEIR04.s 			page 5
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 motorcontrol.c
+     /tmp/cctEIR04.s:18     .text.MX_MotorControl_Init:0000000000000000 $t
+     /tmp/cctEIR04.s:27     .text.MX_MotorControl_Init:0000000000000000 MX_MotorControl_Init
+     /tmp/cctEIR04.s:58     .text.MX_MotorControl_Init:0000000000000010 $d
+     /tmp/cctEIR04.s:63     .text.vPortSetupTimerInterrupt:0000000000000000 $t
+     /tmp/cctEIR04.s:71     .text.vPortSetupTimerInterrupt:0000000000000000 vPortSetupTimerInterrupt
+     /tmp/cctEIR04.s:103    .text.vPortSetupTimerInterrupt:0000000000000018 $d
+     /tmp/cctEIR04.s:113    .bss.pMCI:0000000000000000 pMCI
+     /tmp/cctEIR04.s:109    .bss.pMCI:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+MCboot
+mc_lock_pins
+HAL_RCC_GetHCLKFreq
+HAL_SYSTICK_Config
