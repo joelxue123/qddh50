@@ -33,10 +33,50 @@ extern "C" {
 #define VESC_RX_PIN                UART_RX_Pin
 #define VESC_GPIO_PORT             GPIOA
 
+/* Motor Status Structure */
+typedef struct {
+    int32_t position_set;    /**< Commanded position in encoder counts */
+    int32_t position_act;    /**< Actual position in encoder counts */
+    int32_t speed_set;       /**< Commanded speed in RPM */
+    int32_t speed_act;       /**< Actual speed in RPM */
+    int32_t current_set;     /**< Commanded current in mA */
+    int32_t current_act;     /**< Actual current in mA */
+    uint16_t temp;           /**< Motor temperature in 0.1°C */
+    uint8_t voltage;         /**< Bus voltage in V */
+} MotorStatus_t;
+
+/* Parameter System */
+typedef enum {
+    PARAM_TYPE_INT8 = 0,
+    PARAM_TYPE_UINT8,
+    PARAM_TYPE_INT16,
+    PARAM_TYPE_UINT16,
+    PARAM_TYPE_INT32,
+    PARAM_TYPE_UINT32,
+    PARAM_TYPE_FLOAT
+} ParamType_t;
+
+typedef enum {
+    PARAM_ACCESS_READ = 0x01,
+    PARAM_ACCESS_WRITE = 0x02,
+    PARAM_ACCESS_RW = 0x03
+} ParamAccess_t;
+
+typedef struct {
+    uint16_t id;           // Parameter ID
+    const char* name;      // Parameter name
+    const char* unit;      // Unit (e.g. rpm, A, V)
+    ParamType_t type;      // Data type
+    uint8_t access;        // Access rights
+    void* value_ptr;       // Pointer to parameter value
+    float min;            // Minimum value
+    float max;            // Maximum value
+} ParamDescriptor_t;
+
 /* Protocol Constants */
 #define PACKET_HEADER1            0xAA     // Header byte 1
 #define PACKET_HEADER2            0x55     // Header byte 2
-#define RX_BUFFER_SIZE           1024      // Maximum receive buffer size
+#define RX_BUFFER_SIZE           64      // Maximum receive buffer size
 #define MAX_PAYLOAD_LENGTH       (RX_BUFFER_SIZE - 7)  // Maximum payload length
 #define POLLING_INTERVAL         100       // Polling interval in ms
 #define RECEIVE_TIMEOUT         100        // Receive timeout in ms
@@ -53,7 +93,14 @@ typedef enum {
     COMM_SET_HANDBRAKE = 10,
     COMM_SET_DETECT = 11,
     COMM_REBOOT = 29,
-    COMM_ALIVE = 30
+    COMM_ALIVE = 30,
+    
+    // Parameter system commands
+    COMM_GET_PARAM_LIST = 40,
+    COMM_GET_PARAM_INFO = 41,
+    COMM_GET_PARAM = 42,
+    COMM_SET_PARAM = 43,
+    COMM_SAVE_PARAMS = 44
 } VescCommands;
 
 /* Packet Status */
@@ -62,9 +109,6 @@ typedef enum {
     PACKET_INCOMPLETE,
     PACKET_SUCCESS
 } PacketStatus;
-
-/* Global variables */
-extern volatile bool tx_in_progress;
 
 /* Packet Structure */
 typedef struct {
@@ -94,6 +138,15 @@ void VESC_SendPacket(uint8_t cmd, uint8_t* data, uint16_t len);
 void VESC_UART_IRQHandler(void);
 uint16_t VESC_CRC16(uint8_t* data, uint16_t len);
 void VESC_ExecuteCommand(uint8_t cmd, uint8_t* data, uint16_t len);
+
+/* Parameter System Functions */
+void SendParameterList(void);
+void SendParameterInfo(uint16_t param_id);
+void SendParameterValue(uint16_t param_id);
+bool HandleParameterSet(uint16_t param_id, uint8_t* data, uint16_t len);
+bool SaveParameters(void);
+
+extern volatile bool tx_in_progress;
 
 #ifdef __cplusplus
 }

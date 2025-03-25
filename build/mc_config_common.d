@@ -17,11 +17,14 @@ build/mc_config_common.o: Src/mc_config_common.c Inc/main.h \
  Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_dma_ex.h \
  Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_cortex.h \
  Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_exti.h \
+ Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_fdcan.h \
  Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_flash.h \
  Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_flash_ex.h \
  Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_flash_ramfunc.h \
  Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_pwr.h \
  Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_pwr_ex.h \
+ Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_spi.h \
+ Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_spi_ex.h \
  Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim.h \
  Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h \
  Inc/motorcontrol.h Inc/mc_config.h \
@@ -110,11 +113,14 @@ Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_dma.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_dma_ex.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_cortex.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_exti.h:
+Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_fdcan.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_flash.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_flash_ex.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_flash_ramfunc.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_pwr.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_pwr_ex.h:
+Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_spi.h:
+Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_spi_ex.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h:
 Inc/motorcontrol.h:

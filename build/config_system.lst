@@ -1,0 +1,2174 @@
+ARM GAS  /tmp/ccBoMiZg.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 2
+  13              		.file	"config_system.cpp"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text._ZL13Calculate_CRCPKvm,"ax",%progbits
+  18              		.align	1
+  19              		.arch armv7e-m
+  20              		.syntax unified
+  21              		.thumb
+  22              		.thumb_func
+  23              		.fpu fpv4-sp-d16
+  25              	_ZL13Calculate_CRCPKvm:
+  26              	.LVL0:
+  27              	.LFB134:
+  28              		.file 1 "Src/config_system.cpp"
+   1:Src/config_system.cpp **** 
+   2:Src/config_system.cpp **** 
+   3:Src/config_system.cpp **** #include <string.h>
+   4:Src/config_system.cpp **** 
+   5:Src/config_system.cpp **** #include "stm32g4xx_hal.h"
+   6:Src/config_system.cpp **** #include "config_system.hpp"
+   7:Src/config_system.cpp **** 
+   8:Src/config_system.cpp **** static void Config_LoadAreaDefaults(ConfigArea_t area);
+   9:Src/config_system.cpp **** 
+  10:Src/config_system.cpp **** // Update the flash error codes to match HAL definitions
+  11:Src/config_system.cpp **** typedef enum {
+  12:Src/config_system.cpp ****     FLASH_OK = 0,
+  13:Src/config_system.cpp ****     FLASH_ERROR_ALIGN ,  // Alignment error
+  14:Src/config_system.cpp ****     FLASH_ERROR_OPT      // Option error
+  15:Src/config_system.cpp **** } FlashStatus_t;
+  16:Src/config_system.cpp **** 
+  17:Src/config_system.cpp **** // Update the Flash_Write function
+  18:Src/config_system.cpp **** FlashStatus_t Flash_Write(uint32_t address, const void* data, uint32_t size) 
+  19:Src/config_system.cpp **** {
+  20:Src/config_system.cpp ****     // Check alignment (STM32G4 requires 8-byte alignment)
+  21:Src/config_system.cpp ****     if ((address % 8) != 0) {
+  22:Src/config_system.cpp ****         return FLASH_ERROR_ALIGN;
+  23:Src/config_system.cpp ****     }
+  24:Src/config_system.cpp ****     
+  25:Src/config_system.cpp ****     HAL_FLASH_Unlock();
+  26:Src/config_system.cpp **** 
+  27:Src/config_system.cpp ****     const uint64_t* src = (const uint64_t*)data;
+  28:Src/config_system.cpp ****     uint32_t remaining = size;
+  29:Src/config_system.cpp ****     uint32_t dest = address;
+  30:Src/config_system.cpp **** 
+ARM GAS  /tmp/ccBoMiZg.s 			page 2
+
+
+  31:Src/config_system.cpp ****     // Write full double words (8 bytes)
+  32:Src/config_system.cpp ****     while (remaining >= 8) {
+  33:Src/config_system.cpp ****         if (HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, dest, *src) != HAL_OK) {
+  34:Src/config_system.cpp ****             HAL_FLASH_Lock();
+  35:Src/config_system.cpp ****             return FLASH_ERROR_OPT;
+  36:Src/config_system.cpp ****         }
+  37:Src/config_system.cpp ****         src++;
+  38:Src/config_system.cpp ****         dest += 8;
+  39:Src/config_system.cpp ****         remaining -= 8;
+  40:Src/config_system.cpp ****     }
+  41:Src/config_system.cpp ****     // Handle remaining bytes if any
+  42:Src/config_system.cpp ****     if (remaining > 0) {
+  43:Src/config_system.cpp ****         uint64_t last_word = 0;
+  44:Src/config_system.cpp ****         memcpy(&last_word, src, remaining);
+  45:Src/config_system.cpp ****         if (HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, dest, last_word) != HAL_OK) {
+  46:Src/config_system.cpp ****             HAL_FLASH_Lock();
+  47:Src/config_system.cpp ****             return FLASH_ERROR_OPT;
+  48:Src/config_system.cpp ****         }
+  49:Src/config_system.cpp ****     }
+  50:Src/config_system.cpp **** 
+  51:Src/config_system.cpp ****     HAL_FLASH_Lock();
+  52:Src/config_system.cpp ****     return FLASH_OK;
+  53:Src/config_system.cpp **** }
+  54:Src/config_system.cpp **** 
+  55:Src/config_system.cpp **** // Update Flash_Erase function
+  56:Src/config_system.cpp **** FlashStatus_t Flash_Erase(uint32_t address, uint32_t size)
+  57:Src/config_system.cpp **** {
+  58:Src/config_system.cpp ****     uint32_t page = (address - FLASH_BASE) / FLASH_PAGE_SIZE;
+  59:Src/config_system.cpp ****     uint32_t num_pages = (size + FLASH_PAGE_SIZE - 1) / FLASH_PAGE_SIZE;
+  60:Src/config_system.cpp ****     
+  61:Src/config_system.cpp ****     HAL_FLASH_Unlock();
+  62:Src/config_system.cpp **** 
+  63:Src/config_system.cpp ****     FLASH_EraseInitTypeDef erase_init = {
+  64:Src/config_system.cpp ****         .TypeErase = FLASH_TYPEERASE_PAGES,
+  65:Src/config_system.cpp ****         .Banks = FLASH_BANK_1,
+  66:Src/config_system.cpp ****         .Page = page,
+  67:Src/config_system.cpp ****         .NbPages = num_pages
+  68:Src/config_system.cpp ****     };
+  69:Src/config_system.cpp **** 
+  70:Src/config_system.cpp ****     uint32_t page_error;
+  71:Src/config_system.cpp ****     HAL_StatusTypeDef status = HAL_FLASHEx_Erase(&erase_init, &page_error);
+  72:Src/config_system.cpp ****     
+  73:Src/config_system.cpp ****     HAL_FLASH_Lock();
+  74:Src/config_system.cpp ****     
+  75:Src/config_system.cpp ****     return (status == HAL_OK) ? FLASH_OK : FLASH_ERROR_OPT;
+  76:Src/config_system.cpp **** }
+  77:Src/config_system.cpp **** 
+  78:Src/config_system.cpp **** 
+  79:Src/config_system.cpp **** 
+  80:Src/config_system.cpp **** /* 全局配置存储 */
+  81:Src/config_system.cpp **** static ConfigStorage_t g_config;
+  82:Src/config_system.cpp **** static bool g_config_initialized = false;
+  83:Src/config_system.cpp **** 
+  84:Src/config_system.cpp **** /* CRC计算函数 */
+  85:Src/config_system.cpp **** static uint32_t Calculate_CRC(const void* data, uint32_t size)
+  86:Src/config_system.cpp **** {
+  29              		.loc 1 86 1 view -0
+ARM GAS  /tmp/ccBoMiZg.s 			page 3
+
+
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+  87:Src/config_system.cpp ****     uint32_t crc = 0;
+  34              		.loc 1 87 5 view .LVU1
+  88:Src/config_system.cpp ****     const uint8_t* bytes = (const uint8_t*)data;
+  35              		.loc 1 88 5 view .LVU2
+  89:Src/config_system.cpp ****     
+  90:Src/config_system.cpp ****     for(uint32_t i = 0; i < size; i++) {
+  36              		.loc 1 90 5 view .LVU3
+  37              	.LBB2:
+  38              		.loc 1 90 27 view .LVU4
+  39 0000 0B46     		mov	r3, r1
+  40 0002 B9B1     		cbz	r1, .L7
+  41 0004 411E     		subs	r1, r0, #1
+  42              	.LVL1:
+  43              		.loc 1 90 27 is_stmt 0 view .LVU5
+  44 0006 013B     		subs	r3, r3, #1
+  45              	.LVL2:
+  46              		.loc 1 90 27 view .LVU6
+  47 0008 00EB030C 		add	ip, r0, r3
+  48              	.LBE2:
+  87:Src/config_system.cpp ****     const uint8_t* bytes = (const uint8_t*)data;
+  49              		.loc 1 87 14 view .LVU7
+  50 000c 0020     		movs	r0, #0
+  51              	.LVL3:
+  52              	.LBB8:
+  53              	.LBB3:
+  54              	.LBB4:
+  91:Src/config_system.cpp ****         crc = crc ^ bytes[i];
+  92:Src/config_system.cpp ****         for(int j = 0; j < 8; j++) {
+  93:Src/config_system.cpp ****             if(crc & 1) crc = (crc >> 1) ^ 0xA001;
+  55              		.loc 1 93 29 view .LVU8
+  56 000e 4AF20102 		movw	r2, #40961
+  57 0012 01E0     		b	.L6
+  58              	.LVL4:
+  59              	.L11:
+  60              		.loc 1 93 29 view .LVU9
+  61              	.LBE4:
+  62              	.LBE3:
+  90:Src/config_system.cpp ****         crc = crc ^ bytes[i];
+  63              		.loc 1 90 5 is_stmt 1 discriminator 2 view .LVU10
+  90:Src/config_system.cpp ****         crc = crc ^ bytes[i];
+  64              		.loc 1 90 27 discriminator 2 view .LVU11
+  65 0014 6145     		cmp	r1, ip
+  66 0016 0CD0     		beq	.L10
+  67              	.LVL5:
+  68              	.L6:
+  69              	.LBB7:
+  91:Src/config_system.cpp ****         crc = crc ^ bytes[i];
+  70              		.loc 1 91 9 view .LVU12
+  91:Src/config_system.cpp ****         crc = crc ^ bytes[i];
+  71              		.loc 1 91 28 is_stmt 0 view .LVU13
+  72 0018 11F8013F 		ldrb	r3, [r1, #1]!	@ zero_extendqisi2
+  73              	.LVL6:
+  91:Src/config_system.cpp ****         crc = crc ^ bytes[i];
+ARM GAS  /tmp/ccBoMiZg.s 			page 4
+
+
+  74              		.loc 1 91 13 view .LVU14
+  75 001c 5840     		eors	r0, r0, r3
+  76              	.LVL7:
+  92:Src/config_system.cpp ****             if(crc & 1) crc = (crc >> 1) ^ 0xA001;
+  77              		.loc 1 92 9 is_stmt 1 view .LVU15
+  78              	.LBB5:
+  92:Src/config_system.cpp ****             if(crc & 1) crc = (crc >> 1) ^ 0xA001;
+  79              		.loc 1 92 26 view .LVU16
+  80              	.LBE5:
+  91:Src/config_system.cpp ****         crc = crc ^ bytes[i];
+  81              		.loc 1 91 13 is_stmt 0 view .LVU17
+  82 001e 0823     		movs	r3, #8
+  83              	.LVL8:
+  84              	.L5:
+  85              	.LBB6:
+  86              		.loc 1 93 13 is_stmt 1 view .LVU18
+  87 0020 10F0010F 		tst	r0, #1
+  88              		.loc 1 93 25 view .LVU19
+  89              		.loc 1 93 29 is_stmt 0 view .LVU20
+  90 0024 14BF     		ite	ne
+  91 0026 82EA5000 		eorne	r0, r2, r0, lsr #1
+  92              	.LVL9:
+  94:Src/config_system.cpp ****             else crc = crc >> 1;
+  93              		.loc 1 94 18 is_stmt 1 view .LVU21
+  94              		.loc 1 94 22 is_stmt 0 view .LVU22
+  95 002a 4008     		lsreq	r0, r0, #1
+  96              	.LVL10:
+  92:Src/config_system.cpp ****             if(crc & 1) crc = (crc >> 1) ^ 0xA001;
+  97              		.loc 1 92 9 is_stmt 1 view .LVU23
+  92:Src/config_system.cpp ****             if(crc & 1) crc = (crc >> 1) ^ 0xA001;
+  98              		.loc 1 92 26 view .LVU24
+  99 002c 013B     		subs	r3, r3, #1
+ 100              	.LVL11:
+  92:Src/config_system.cpp ****             if(crc & 1) crc = (crc >> 1) ^ 0xA001;
+ 101              		.loc 1 92 26 is_stmt 0 view .LVU25
+ 102 002e F7D1     		bne	.L5
+ 103 0030 F0E7     		b	.L11
+ 104              	.LVL12:
+ 105              	.L10:
+  92:Src/config_system.cpp ****             if(crc & 1) crc = (crc >> 1) ^ 0xA001;
+ 106              		.loc 1 92 26 view .LVU26
+ 107 0032 7047     		bx	lr
+ 108              	.LVL13:
+ 109              	.L7:
+  92:Src/config_system.cpp ****             if(crc & 1) crc = (crc >> 1) ^ 0xA001;
+ 110              		.loc 1 92 26 view .LVU27
+ 111              	.LBE6:
+ 112              	.LBE7:
+ 113              	.LBE8:
+  87:Src/config_system.cpp ****     const uint8_t* bytes = (const uint8_t*)data;
+ 114              		.loc 1 87 14 view .LVU28
+ 115 0034 0846     		mov	r0, r1
+ 116              	.LVL14:
+  95:Src/config_system.cpp ****         }
+  96:Src/config_system.cpp ****     }
+  97:Src/config_system.cpp ****     return crc;
+ 117              		.loc 1 97 5 is_stmt 1 view .LVU29
+ARM GAS  /tmp/ccBoMiZg.s 			page 5
+
+
+  98:Src/config_system.cpp **** }
+ 118              		.loc 1 98 1 is_stmt 0 view .LVU30
+ 119 0036 7047     		bx	lr
+ 120              		.cfi_endproc
+ 121              	.LFE134:
+ 123              		.section	.text._Z11Flash_WritemPKvm,"ax",%progbits
+ 124              		.align	1
+ 125              		.global	_Z11Flash_WritemPKvm
+ 126              		.syntax unified
+ 127              		.thumb
+ 128              		.thumb_func
+ 129              		.fpu fpv4-sp-d16
+ 131              	_Z11Flash_WritemPKvm:
+ 132              	.LVL15:
+ 133              	.LFB132:
+  19:Src/config_system.cpp ****     // Check alignment (STM32G4 requires 8-byte alignment)
+ 134              		.loc 1 19 1 is_stmt 1 view -0
+ 135              		.cfi_startproc
+ 136              		@ args = 0, pretend = 0, frame = 8
+ 137              		@ frame_needed = 0, uses_anonymous_args = 0
+  21:Src/config_system.cpp ****         return FLASH_ERROR_ALIGN;
+ 138              		.loc 1 21 5 view .LVU32
+ 139 0000 10F0070F 		tst	r0, #7
+ 140 0004 01D0     		beq	.L25
+  22:Src/config_system.cpp ****     }
+ 141              		.loc 1 22 16 is_stmt 0 view .LVU33
+ 142 0006 0120     		movs	r0, #1
+ 143              	.LVL16:
+  53:Src/config_system.cpp **** 
+ 144              		.loc 1 53 1 view .LVU34
+ 145 0008 7047     		bx	lr
+ 146              	.LVL17:
+ 147              	.L25:
+  19:Src/config_system.cpp ****     // Check alignment (STM32G4 requires 8-byte alignment)
+ 148              		.loc 1 19 1 view .LVU35
+ 149 000a 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 150              	.LCFI0:
+ 151              		.cfi_def_cfa_offset 24
+ 152              		.cfi_offset 4, -24
+ 153              		.cfi_offset 5, -20
+ 154              		.cfi_offset 6, -16
+ 155              		.cfi_offset 7, -12
+ 156              		.cfi_offset 8, -8
+ 157              		.cfi_offset 14, -4
+ 158 000e 82B0     		sub	sp, sp, #8
+ 159              	.LCFI1:
+ 160              		.cfi_def_cfa_offset 32
+ 161 0010 0446     		mov	r4, r0
+ 162 0012 0F46     		mov	r7, r1
+ 163 0014 1546     		mov	r5, r2
+  25:Src/config_system.cpp **** 
+ 164              		.loc 1 25 5 is_stmt 1 view .LVU36
+  25:Src/config_system.cpp **** 
+ 165              		.loc 1 25 21 is_stmt 0 view .LVU37
+ 166 0016 FFF7FEFF 		bl	HAL_FLASH_Unlock
+ 167              	.LVL18:
+  27:Src/config_system.cpp ****     uint32_t remaining = size;
+ARM GAS  /tmp/ccBoMiZg.s 			page 6
+
+
+ 168              		.loc 1 27 5 is_stmt 1 view .LVU38
+  28:Src/config_system.cpp ****     uint32_t dest = address;
+ 169              		.loc 1 28 5 view .LVU39
+  29:Src/config_system.cpp **** 
+ 170              		.loc 1 29 5 view .LVU40
+  32:Src/config_system.cpp ****         if (HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, dest, *src) != HAL_OK) {
+ 171              		.loc 1 32 5 view .LVU41
+  32:Src/config_system.cpp ****         if (HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, dest, *src) != HAL_OK) {
+ 172              		.loc 1 32 22 view .LVU42
+ 173 001a 072D     		cmp	r5, #7
+ 174 001c 0ED9     		bls	.L14
+  32:Src/config_system.cpp ****         if (HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, dest, *src) != HAL_OK) {
+ 175              		.loc 1 32 22 is_stmt 0 view .LVU43
+ 176 001e 3E46     		mov	r6, r7
+  33:Src/config_system.cpp ****             HAL_FLASH_Lock();
+ 177              		.loc 1 33 30 view .LVU44
+ 178 0020 4FF00008 		mov	r8, #0
+ 179              	.LVL19:
+ 180              	.L16:
+  33:Src/config_system.cpp ****             HAL_FLASH_Lock();
+ 181              		.loc 1 33 9 is_stmt 1 view .LVU45
+  33:Src/config_system.cpp ****             HAL_FLASH_Lock();
+ 182              		.loc 1 33 30 is_stmt 0 view .LVU46
+ 183 0024 F6E80223 		ldrd	r2, [r6], #8
+ 184              	.LVL20:
+  33:Src/config_system.cpp ****             HAL_FLASH_Lock();
+ 185              		.loc 1 33 30 view .LVU47
+ 186 0028 2146     		mov	r1, r4
+ 187 002a 4046     		mov	r0, r8
+ 188 002c FFF7FEFF 		bl	HAL_FLASH_Program
+ 189              	.LVL21:
+  33:Src/config_system.cpp ****             HAL_FLASH_Lock();
+ 190              		.loc 1 33 9 view .LVU48
+ 191 0030 C8B9     		cbnz	r0, .L26
+  37:Src/config_system.cpp ****         dest += 8;
+ 192              		.loc 1 37 9 is_stmt 1 view .LVU49
+  37:Src/config_system.cpp ****         dest += 8;
+ 193              		.loc 1 37 12 is_stmt 0 view .LVU50
+ 194 0032 3746     		mov	r7, r6
+ 195              	.LVL22:
+  38:Src/config_system.cpp ****         remaining -= 8;
+ 196              		.loc 1 38 9 is_stmt 1 view .LVU51
+  38:Src/config_system.cpp ****         remaining -= 8;
+ 197              		.loc 1 38 14 is_stmt 0 view .LVU52
+ 198 0034 0834     		adds	r4, r4, #8
+ 199              	.LVL23:
+  39:Src/config_system.cpp ****     }
+ 200              		.loc 1 39 9 is_stmt 1 view .LVU53
+  39:Src/config_system.cpp ****     }
+ 201              		.loc 1 39 19 is_stmt 0 view .LVU54
+ 202 0036 083D     		subs	r5, r5, #8
+ 203              	.LVL24:
+  32:Src/config_system.cpp ****         if (HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, dest, *src) != HAL_OK) {
+ 204              		.loc 1 32 5 is_stmt 1 view .LVU55
+  32:Src/config_system.cpp ****         if (HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, dest, *src) != HAL_OK) {
+ 205              		.loc 1 32 22 view .LVU56
+ 206 0038 072D     		cmp	r5, #7
+ARM GAS  /tmp/ccBoMiZg.s 			page 7
+
+
+ 207 003a F3D8     		bhi	.L16
+ 208              	.LVL25:
+ 209              	.L14:
+  42:Src/config_system.cpp ****         uint64_t last_word = 0;
+ 210              		.loc 1 42 5 view .LVU57
+ 211              	.LBB9:
+ 212 003c 7DB1     		cbz	r5, .L17
+ 213              	.LBB10:
+  43:Src/config_system.cpp ****         memcpy(&last_word, src, remaining);
+ 214              		.loc 1 43 9 view .LVU58
+  43:Src/config_system.cpp ****         memcpy(&last_word, src, remaining);
+ 215              		.loc 1 43 18 is_stmt 0 view .LVU59
+ 216 003e 0022     		movs	r2, #0
+ 217 0040 0023     		movs	r3, #0
+ 218 0042 CDE90023 		strd	r2, [sp]
+  44:Src/config_system.cpp ****         if (HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, dest, last_word) != HAL_OK) {
+ 219              		.loc 1 44 9 is_stmt 1 view .LVU60
+  44:Src/config_system.cpp ****         if (HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, dest, last_word) != HAL_OK) {
+ 220              		.loc 1 44 15 is_stmt 0 view .LVU61
+ 221 0046 2A46     		mov	r2, r5
+ 222 0048 3946     		mov	r1, r7
+ 223 004a 6846     		mov	r0, sp
+ 224 004c FFF7FEFF 		bl	memcpy
+ 225              	.LVL26:
+  45:Src/config_system.cpp ****             HAL_FLASH_Lock();
+ 226              		.loc 1 45 9 is_stmt 1 view .LVU62
+  45:Src/config_system.cpp ****             HAL_FLASH_Lock();
+ 227              		.loc 1 45 30 is_stmt 0 view .LVU63
+ 228 0050 DDE90023 		ldrd	r2, [sp]
+ 229 0054 2146     		mov	r1, r4
+ 230 0056 0020     		movs	r0, #0
+ 231 0058 FFF7FEFF 		bl	HAL_FLASH_Program
+ 232              	.LVL27:
+  45:Src/config_system.cpp ****             HAL_FLASH_Lock();
+ 233              		.loc 1 45 9 view .LVU64
+ 234 005c 48B9     		cbnz	r0, .L27
+ 235              	.L17:
+  45:Src/config_system.cpp ****             HAL_FLASH_Lock();
+ 236              		.loc 1 45 9 view .LVU65
+ 237              	.LBE10:
+ 238              	.LBE9:
+  51:Src/config_system.cpp ****     return FLASH_OK;
+ 239              		.loc 1 51 5 is_stmt 1 view .LVU66
+  51:Src/config_system.cpp ****     return FLASH_OK;
+ 240              		.loc 1 51 19 is_stmt 0 view .LVU67
+ 241 005e FFF7FEFF 		bl	HAL_FLASH_Lock
+ 242              	.LVL28:
+  52:Src/config_system.cpp **** }
+ 243              		.loc 1 52 5 is_stmt 1 view .LVU68
+  52:Src/config_system.cpp **** }
+ 244              		.loc 1 52 12 is_stmt 0 view .LVU69
+ 245 0062 0020     		movs	r0, #0
+ 246 0064 02E0     		b	.L13
+ 247              	.L26:
+  34:Src/config_system.cpp ****             return FLASH_ERROR_OPT;
+ 248              		.loc 1 34 13 is_stmt 1 view .LVU70
+  34:Src/config_system.cpp ****             return FLASH_ERROR_OPT;
+ARM GAS  /tmp/ccBoMiZg.s 			page 8
+
+
+ 249              		.loc 1 34 27 is_stmt 0 view .LVU71
+ 250 0066 FFF7FEFF 		bl	HAL_FLASH_Lock
+ 251              	.LVL29:
+  35:Src/config_system.cpp ****         }
+ 252              		.loc 1 35 13 is_stmt 1 view .LVU72
+  35:Src/config_system.cpp ****         }
+ 253              		.loc 1 35 20 is_stmt 0 view .LVU73
+ 254 006a 0220     		movs	r0, #2
+ 255              	.L13:
+  53:Src/config_system.cpp **** 
+ 256              		.loc 1 53 1 view .LVU74
+ 257 006c 02B0     		add	sp, sp, #8
+ 258              	.LCFI2:
+ 259              		.cfi_remember_state
+ 260              		.cfi_def_cfa_offset 24
+ 261              		@ sp needed
+ 262 006e BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 263              	.LVL30:
+ 264              	.L27:
+ 265              	.LCFI3:
+ 266              		.cfi_restore_state
+ 267              	.LBB12:
+ 268              	.LBB11:
+  46:Src/config_system.cpp ****             return FLASH_ERROR_OPT;
+ 269              		.loc 1 46 13 is_stmt 1 view .LVU75
+  46:Src/config_system.cpp ****             return FLASH_ERROR_OPT;
+ 270              		.loc 1 46 27 is_stmt 0 view .LVU76
+ 271 0072 FFF7FEFF 		bl	HAL_FLASH_Lock
+ 272              	.LVL31:
+  47:Src/config_system.cpp ****         }
+ 273              		.loc 1 47 13 is_stmt 1 view .LVU77
+  47:Src/config_system.cpp ****         }
+ 274              		.loc 1 47 20 is_stmt 0 view .LVU78
+ 275 0076 0220     		movs	r0, #2
+ 276 0078 F8E7     		b	.L13
+ 277              	.LBE11:
+ 278              	.LBE12:
+ 279              		.cfi_endproc
+ 280              	.LFE132:
+ 282              		.section	.text._Z11Flash_Erasemm,"ax",%progbits
+ 283              		.align	1
+ 284              		.global	_Z11Flash_Erasemm
+ 285              		.syntax unified
+ 286              		.thumb
+ 287              		.thumb_func
+ 288              		.fpu fpv4-sp-d16
+ 290              	_Z11Flash_Erasemm:
+ 291              	.LVL32:
+ 292              	.LFB133:
+  57:Src/config_system.cpp ****     uint32_t page = (address - FLASH_BASE) / FLASH_PAGE_SIZE;
+ 293              		.loc 1 57 1 is_stmt 1 view -0
+ 294              		.cfi_startproc
+ 295              		@ args = 0, pretend = 0, frame = 24
+ 296              		@ frame_needed = 0, uses_anonymous_args = 0
+  57:Src/config_system.cpp ****     uint32_t page = (address - FLASH_BASE) / FLASH_PAGE_SIZE;
+ 297              		.loc 1 57 1 is_stmt 0 view .LVU80
+ 298 0000 30B5     		push	{r4, r5, lr}
+ARM GAS  /tmp/ccBoMiZg.s 			page 9
+
+
+ 299              	.LCFI4:
+ 300              		.cfi_def_cfa_offset 12
+ 301              		.cfi_offset 4, -12
+ 302              		.cfi_offset 5, -8
+ 303              		.cfi_offset 14, -4
+ 304 0002 87B0     		sub	sp, sp, #28
+ 305              	.LCFI5:
+ 306              		.cfi_def_cfa_offset 40
+ 307 0004 0546     		mov	r5, r0
+ 308 0006 0C46     		mov	r4, r1
+  58:Src/config_system.cpp ****     uint32_t num_pages = (size + FLASH_PAGE_SIZE - 1) / FLASH_PAGE_SIZE;
+ 309              		.loc 1 58 5 is_stmt 1 view .LVU81
+ 310              	.LVL33:
+  59:Src/config_system.cpp ****     
+ 311              		.loc 1 59 5 view .LVU82
+  61:Src/config_system.cpp **** 
+ 312              		.loc 1 61 5 view .LVU83
+  61:Src/config_system.cpp **** 
+ 313              		.loc 1 61 21 is_stmt 0 view .LVU84
+ 314 0008 FFF7FEFF 		bl	HAL_FLASH_Unlock
+ 315              	.LVL34:
+  63:Src/config_system.cpp ****         .TypeErase = FLASH_TYPEERASE_PAGES,
+ 316              		.loc 1 63 5 is_stmt 1 view .LVU85
+  63:Src/config_system.cpp ****         .TypeErase = FLASH_TYPEERASE_PAGES,
+ 317              		.loc 1 63 28 is_stmt 0 view .LVU86
+ 318 000c 0023     		movs	r3, #0
+ 319 000e 0293     		str	r3, [sp, #8]
+ 320 0010 0123     		movs	r3, #1
+ 321 0012 0393     		str	r3, [sp, #12]
+  58:Src/config_system.cpp ****     uint32_t num_pages = (size + FLASH_PAGE_SIZE - 1) / FLASH_PAGE_SIZE;
+ 322              		.loc 1 58 30 view .LVU87
+ 323 0014 05F17845 		add	r5, r5, #-134217728
+ 324              	.LVL35:
+  58:Src/config_system.cpp ****     uint32_t num_pages = (size + FLASH_PAGE_SIZE - 1) / FLASH_PAGE_SIZE;
+ 325              		.loc 1 58 14 view .LVU88
+ 326 0018 ED0A     		lsrs	r5, r5, #11
+ 327              	.LVL36:
+  68:Src/config_system.cpp **** 
+ 328              		.loc 1 68 5 view .LVU89
+ 329 001a 0495     		str	r5, [sp, #16]
+  59:Src/config_system.cpp ****     
+ 330              		.loc 1 59 50 view .LVU90
+ 331 001c 04F2FF74 		addw	r4, r4, #2047
+ 332              	.LVL37:
+  59:Src/config_system.cpp ****     
+ 333              		.loc 1 59 14 view .LVU91
+ 334 0020 E40A     		lsrs	r4, r4, #11
+ 335              	.LVL38:
+  68:Src/config_system.cpp **** 
+ 336              		.loc 1 68 5 view .LVU92
+ 337 0022 0594     		str	r4, [sp, #20]
+  70:Src/config_system.cpp ****     HAL_StatusTypeDef status = HAL_FLASHEx_Erase(&erase_init, &page_error);
+ 338              		.loc 1 70 5 is_stmt 1 view .LVU93
+  71:Src/config_system.cpp ****     
+ 339              		.loc 1 71 5 view .LVU94
+  71:Src/config_system.cpp ****     
+ 340              		.loc 1 71 49 is_stmt 0 view .LVU95
+ARM GAS  /tmp/ccBoMiZg.s 			page 10
+
+
+ 341 0024 01A9     		add	r1, sp, #4
+ 342 0026 02A8     		add	r0, sp, #8
+ 343 0028 FFF7FEFF 		bl	HAL_FLASHEx_Erase
+ 344              	.LVL39:
+ 345 002c 0446     		mov	r4, r0
+ 346              	.LVL40:
+  73:Src/config_system.cpp ****     
+ 347              		.loc 1 73 5 is_stmt 1 view .LVU96
+  73:Src/config_system.cpp ****     
+ 348              		.loc 1 73 19 is_stmt 0 view .LVU97
+ 349 002e FFF7FEFF 		bl	HAL_FLASH_Lock
+ 350              	.LVL41:
+  75:Src/config_system.cpp **** }
+ 351              		.loc 1 75 5 is_stmt 1 view .LVU98
+  75:Src/config_system.cpp **** }
+ 352              		.loc 1 75 31 is_stmt 0 view .LVU99
+ 353 0032 002C     		cmp	r4, #0
+  76:Src/config_system.cpp **** 
+ 354              		.loc 1 76 1 view .LVU100
+ 355 0034 0CBF     		ite	eq
+ 356 0036 2046     		moveq	r0, r4
+ 357 0038 0220     		movne	r0, #2
+ 358 003a 07B0     		add	sp, sp, #28
+ 359              	.LCFI6:
+ 360              		.cfi_def_cfa_offset 12
+ 361              		@ sp needed
+ 362 003c 30BD     		pop	{r4, r5, pc}
+  76:Src/config_system.cpp **** 
+ 363              		.loc 1 76 1 view .LVU101
+ 364              		.cfi_endproc
+ 365              	.LFE133:
+ 367              		.section	.text.Config_GetAreaPtr,"ax",%progbits
+ 368              		.align	1
+ 369              		.global	Config_GetAreaPtr
+ 370              		.syntax unified
+ 371              		.thumb
+ 372              		.thumb_func
+ 373              		.fpu fpv4-sp-d16
+ 375              	Config_GetAreaPtr:
+ 376              	.LVL42:
+ 377              	.LFB135:
+  99:Src/config_system.cpp **** 
+ 100:Src/config_system.cpp **** /* 获取配置区域指针和大小 */
+ 101:Src/config_system.cpp **** const void* Config_GetAreaPtr(ConfigArea_t area)
+ 102:Src/config_system.cpp **** {
+ 378              		.loc 1 102 1 is_stmt 1 view -0
+ 379              		.cfi_startproc
+ 380              		@ args = 0, pretend = 0, frame = 0
+ 381              		@ frame_needed = 0, uses_anonymous_args = 0
+ 382              		@ link register save eliminated.
+ 103:Src/config_system.cpp ****     switch(area) {
+ 383              		.loc 1 103 5 view .LVU103
+ 384 0000 0528     		cmp	r0, #5
+ 385 0002 0ED8     		bhi	.L32
+ 386 0004 DFE800F0 		tbb	[pc, r0]
+ 387              	.L34:
+ 388 0008 0F       		.byte	(.L40-.L34)/2
+ARM GAS  /tmp/ccBoMiZg.s 			page 11
+
+
+ 389 0009 03       		.byte	(.L38-.L34)/2
+ 390 000a 05       		.byte	(.L37-.L34)/2
+ 391 000b 07       		.byte	(.L36-.L34)/2
+ 392 000c 09       		.byte	(.L35-.L34)/2
+ 393 000d 0B       		.byte	(.L33-.L34)/2
+ 394              		.p2align 1
+ 395              	.L38:
+ 104:Src/config_system.cpp ****         case CONFIG_AREA_SYSTEM:
+ 105:Src/config_system.cpp ****             return &g_config.system_config;
+ 106:Src/config_system.cpp ****         case CONFIG_AREA_MOTOR:
+ 107:Src/config_system.cpp ****             return &g_config.motor_config;
+ 108:Src/config_system.cpp ****         case CONFIG_AREA_CAN:
+ 109:Src/config_system.cpp ****             return &g_config.can_config;
+ 110:Src/config_system.cpp ****         case CONFIG_AREA_ENCODER:
+ 111:Src/config_system.cpp ****             return &g_config.encoder_config;
+ 112:Src/config_system.cpp ****         case CONFIG_AREA_CONTROLLER:
+ 113:Src/config_system.cpp ****             return &g_config.controller_config;
+ 114:Src/config_system.cpp ****         case CONFIG_AREA_LIMITS:
+ 115:Src/config_system.cpp ****             return &g_config.limits_config;
+ 396              		.loc 1 115 30 is_stmt 0 view .LVU104
+ 397 000e 0748     		ldr	r0, .L41
+ 398              	.LVL43:
+ 399              		.loc 1 115 30 view .LVU105
+ 400 0010 7047     		bx	lr
+ 401              	.LVL44:
+ 402              	.L37:
+ 108:Src/config_system.cpp ****             return &g_config.can_config;
+ 403              		.loc 1 108 9 is_stmt 1 view .LVU106
+ 109:Src/config_system.cpp ****         case CONFIG_AREA_ENCODER:
+ 404              		.loc 1 109 13 view .LVU107
+ 109:Src/config_system.cpp ****         case CONFIG_AREA_ENCODER:
+ 405              		.loc 1 109 30 is_stmt 0 view .LVU108
+ 406 0012 0748     		ldr	r0, .L41+4
+ 407              	.LVL45:
+ 109:Src/config_system.cpp ****         case CONFIG_AREA_ENCODER:
+ 408              		.loc 1 109 30 view .LVU109
+ 409 0014 7047     		bx	lr
+ 410              	.LVL46:
+ 411              	.L36:
+ 110:Src/config_system.cpp ****             return &g_config.encoder_config;
+ 412              		.loc 1 110 9 is_stmt 1 view .LVU110
+ 111:Src/config_system.cpp ****         case CONFIG_AREA_CONTROLLER:
+ 413              		.loc 1 111 13 view .LVU111
+ 111:Src/config_system.cpp ****         case CONFIG_AREA_CONTROLLER:
+ 414              		.loc 1 111 30 is_stmt 0 view .LVU112
+ 415 0016 0748     		ldr	r0, .L41+8
+ 416              	.LVL47:
+ 111:Src/config_system.cpp ****         case CONFIG_AREA_CONTROLLER:
+ 417              		.loc 1 111 30 view .LVU113
+ 418 0018 7047     		bx	lr
+ 419              	.LVL48:
+ 420              	.L35:
+ 112:Src/config_system.cpp ****             return &g_config.controller_config;
+ 421              		.loc 1 112 9 is_stmt 1 view .LVU114
+ 113:Src/config_system.cpp ****         case CONFIG_AREA_LIMITS:
+ 422              		.loc 1 113 13 view .LVU115
+ 113:Src/config_system.cpp ****         case CONFIG_AREA_LIMITS:
+ARM GAS  /tmp/ccBoMiZg.s 			page 12
+
+
+ 423              		.loc 1 113 30 is_stmt 0 view .LVU116
+ 424 001a 0748     		ldr	r0, .L41+12
+ 425              	.LVL49:
+ 113:Src/config_system.cpp ****         case CONFIG_AREA_LIMITS:
+ 426              		.loc 1 113 30 view .LVU117
+ 427 001c 7047     		bx	lr
+ 428              	.LVL50:
+ 429              	.L33:
+ 114:Src/config_system.cpp ****             return &g_config.limits_config;
+ 430              		.loc 1 114 9 is_stmt 1 view .LVU118
+ 431              		.loc 1 115 13 view .LVU119
+ 432              		.loc 1 115 30 is_stmt 0 view .LVU120
+ 433 001e 0748     		ldr	r0, .L41+16
+ 434              	.LVL51:
+ 435              		.loc 1 115 30 view .LVU121
+ 436 0020 7047     		bx	lr
+ 437              	.LVL52:
+ 438              	.L32:
+ 116:Src/config_system.cpp ****         default:
+ 439              		.loc 1 116 9 is_stmt 1 view .LVU122
+ 117:Src/config_system.cpp ****             return NULL;
+ 440              		.loc 1 117 13 view .LVU123
+ 441              		.loc 1 117 20 is_stmt 0 view .LVU124
+ 442 0022 0020     		movs	r0, #0
+ 443              	.LVL53:
+ 444              		.loc 1 117 20 view .LVU125
+ 445 0024 7047     		bx	lr
+ 446              	.LVL54:
+ 447              	.L40:
+ 105:Src/config_system.cpp ****         case CONFIG_AREA_MOTOR:
+ 448              		.loc 1 105 30 view .LVU126
+ 449 0026 0648     		ldr	r0, .L41+20
+ 450              	.LVL55:
+ 118:Src/config_system.cpp ****     }
+ 119:Src/config_system.cpp **** }
+ 451              		.loc 1 119 1 view .LVU127
+ 452 0028 7047     		bx	lr
+ 453              	.L42:
+ 454 002a 00BF     		.align	2
+ 455              	.L41:
+ 456 002c 18000000 		.word	.LANCHOR0+24
+ 457 0030 28000000 		.word	.LANCHOR0+40
+ 458 0034 30000000 		.word	.LANCHOR0+48
+ 459 0038 38000000 		.word	.LANCHOR0+56
+ 460 003c 50000000 		.word	.LANCHOR0+80
+ 461 0040 0C000000 		.word	.LANCHOR0+12
+ 462              		.cfi_endproc
+ 463              	.LFE135:
+ 465              		.section	.text.Config_GetAreaSize,"ax",%progbits
+ 466              		.align	1
+ 467              		.global	Config_GetAreaSize
+ 468              		.syntax unified
+ 469              		.thumb
+ 470              		.thumb_func
+ 471              		.fpu fpv4-sp-d16
+ 473              	Config_GetAreaSize:
+ 474              	.LVL56:
+ARM GAS  /tmp/ccBoMiZg.s 			page 13
+
+
+ 475              	.LFB136:
+ 120:Src/config_system.cpp **** 
+ 121:Src/config_system.cpp **** uint32_t Config_GetAreaSize(ConfigArea_t area)
+ 122:Src/config_system.cpp **** {
+ 476              		.loc 1 122 1 is_stmt 1 view -0
+ 477              		.cfi_startproc
+ 478              		@ args = 0, pretend = 0, frame = 0
+ 479              		@ frame_needed = 0, uses_anonymous_args = 0
+ 480              		@ link register save eliminated.
+ 123:Src/config_system.cpp ****     switch(area) {
+ 481              		.loc 1 123 5 view .LVU129
+ 482 0000 0528     		cmp	r0, #5
+ 483 0002 0CD8     		bhi	.L44
+ 484 0004 DFE800F0 		tbb	[pc, r0]
+ 485              	.L46:
+ 486 0008 0D       		.byte	(.L51-.L46)/2
+ 487 0009 03       		.byte	(.L45-.L46)/2
+ 488 000a 05       		.byte	(.L49-.L46)/2
+ 489 000b 07       		.byte	(.L48-.L46)/2
+ 490 000c 09       		.byte	(.L47-.L46)/2
+ 491 000d 03       		.byte	(.L45-.L46)/2
+ 492              		.p2align 1
+ 493              	.L45:
+ 124:Src/config_system.cpp ****         case CONFIG_AREA_SYSTEM:
+ 125:Src/config_system.cpp ****             return sizeof(g_config.system_config);
+ 126:Src/config_system.cpp ****         case CONFIG_AREA_MOTOR:
+ 127:Src/config_system.cpp ****             return sizeof(g_config.motor_config);
+ 128:Src/config_system.cpp ****         case CONFIG_AREA_CAN:
+ 129:Src/config_system.cpp ****             return sizeof(g_config.can_config);
+ 130:Src/config_system.cpp ****         case CONFIG_AREA_ENCODER:
+ 131:Src/config_system.cpp ****             return sizeof(g_config.encoder_config);
+ 132:Src/config_system.cpp ****         case CONFIG_AREA_CONTROLLER:
+ 133:Src/config_system.cpp ****             return sizeof(g_config.controller_config);
+ 494              		.loc 1 133 53 is_stmt 0 view .LVU130
+ 495 000e 1020     		movs	r0, #16
+ 496              	.LVL57:
+ 497              		.loc 1 133 53 view .LVU131
+ 498 0010 7047     		bx	lr
+ 499              	.LVL58:
+ 500              	.L49:
+ 128:Src/config_system.cpp ****             return sizeof(g_config.can_config);
+ 501              		.loc 1 128 9 is_stmt 1 view .LVU132
+ 129:Src/config_system.cpp ****         case CONFIG_AREA_ENCODER:
+ 502              		.loc 1 129 13 view .LVU133
+ 129:Src/config_system.cpp ****         case CONFIG_AREA_ENCODER:
+ 503              		.loc 1 129 46 is_stmt 0 view .LVU134
+ 504 0012 0820     		movs	r0, #8
+ 505              	.LVL59:
+ 129:Src/config_system.cpp ****         case CONFIG_AREA_ENCODER:
+ 506              		.loc 1 129 46 view .LVU135
+ 507 0014 7047     		bx	lr
+ 508              	.LVL60:
+ 509              	.L48:
+ 130:Src/config_system.cpp ****             return sizeof(g_config.encoder_config);
+ 510              		.loc 1 130 9 is_stmt 1 view .LVU136
+ 131:Src/config_system.cpp ****         case CONFIG_AREA_CONTROLLER:
+ 511              		.loc 1 131 13 view .LVU137
+ARM GAS  /tmp/ccBoMiZg.s 			page 14
+
+
+ 131:Src/config_system.cpp ****         case CONFIG_AREA_CONTROLLER:
+ 512              		.loc 1 131 50 is_stmt 0 view .LVU138
+ 513 0016 0820     		movs	r0, #8
+ 514              	.LVL61:
+ 131:Src/config_system.cpp ****         case CONFIG_AREA_CONTROLLER:
+ 515              		.loc 1 131 50 view .LVU139
+ 516 0018 7047     		bx	lr
+ 517              	.LVL62:
+ 518              	.L47:
+ 132:Src/config_system.cpp ****             return sizeof(g_config.controller_config);
+ 519              		.loc 1 132 9 is_stmt 1 view .LVU140
+ 520              		.loc 1 133 13 view .LVU141
+ 521              		.loc 1 133 53 is_stmt 0 view .LVU142
+ 522 001a 1820     		movs	r0, #24
+ 523              	.LVL63:
+ 524              		.loc 1 133 53 view .LVU143
+ 525 001c 7047     		bx	lr
+ 526              	.LVL64:
+ 527              	.L44:
+ 134:Src/config_system.cpp ****         case CONFIG_AREA_LIMITS:
+ 135:Src/config_system.cpp ****             return sizeof(g_config.limits_config);
+ 136:Src/config_system.cpp ****         default:
+ 528              		.loc 1 136 9 is_stmt 1 view .LVU144
+ 137:Src/config_system.cpp ****             return 0;
+ 529              		.loc 1 137 13 view .LVU145
+ 530              		.loc 1 137 20 is_stmt 0 view .LVU146
+ 531 001e 0020     		movs	r0, #0
+ 532              	.LVL65:
+ 533              		.loc 1 137 20 view .LVU147
+ 534 0020 7047     		bx	lr
+ 535              	.LVL66:
+ 536              	.L51:
+ 125:Src/config_system.cpp ****         case CONFIG_AREA_MOTOR:
+ 537              		.loc 1 125 49 view .LVU148
+ 538 0022 0C20     		movs	r0, #12
+ 539              	.LVL67:
+ 138:Src/config_system.cpp ****     }
+ 139:Src/config_system.cpp **** }
+ 540              		.loc 1 139 1 view .LVU149
+ 541 0024 7047     		bx	lr
+ 542              		.cfi_endproc
+ 543              	.LFE136:
+ 545              		.section	.text.Config_SaveArea,"ax",%progbits
+ 546              		.align	1
+ 547              		.global	Config_SaveArea
+ 548              		.syntax unified
+ 549              		.thumb
+ 550              		.thumb_func
+ 551              		.fpu fpv4-sp-d16
+ 553              	Config_SaveArea:
+ 554              	.LVL68:
+ 555              	.LFB137:
+ 140:Src/config_system.cpp **** 
+ 141:Src/config_system.cpp **** /* 保存指定配置区域 */
+ 142:Src/config_system.cpp **** bool Config_SaveArea(ConfigArea_t area)
+ 143:Src/config_system.cpp **** {
+ 556              		.loc 1 143 1 is_stmt 1 view -0
+ARM GAS  /tmp/ccBoMiZg.s 			page 15
+
+
+ 557              		.cfi_startproc
+ 558              		@ args = 0, pretend = 0, frame = 0
+ 559              		@ frame_needed = 0, uses_anonymous_args = 0
+ 144:Src/config_system.cpp ****     if(static_cast<int>(area) >= static_cast<int>(CONFIG_AREA_MAX)) return false;
+ 560              		.loc 1 144 5 view .LVU151
+ 561 0000 0528     		cmp	r0, #5
+ 562 0002 22D8     		bhi	.L56
+ 143:Src/config_system.cpp ****     if(static_cast<int>(area) >= static_cast<int>(CONFIG_AREA_MAX)) return false;
+ 563              		.loc 1 143 1 is_stmt 0 view .LVU152
+ 564 0004 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 565              	.LCFI7:
+ 566              		.cfi_def_cfa_offset 24
+ 567              		.cfi_offset 4, -24
+ 568              		.cfi_offset 5, -20
+ 569              		.cfi_offset 6, -16
+ 570              		.cfi_offset 7, -12
+ 571              		.cfi_offset 8, -8
+ 572              		.cfi_offset 14, -4
+ 573 0008 0646     		mov	r6, r0
+ 145:Src/config_system.cpp ****     
+ 146:Src/config_system.cpp ****     const void* data = Config_GetAreaPtr(area);
+ 574              		.loc 1 146 5 is_stmt 1 view .LVU153
+ 575              		.loc 1 146 41 is_stmt 0 view .LVU154
+ 576 000a FFF7FEFF 		bl	Config_GetAreaPtr
+ 577              	.LVL69:
+ 578              		.loc 1 146 41 view .LVU155
+ 579 000e 0746     		mov	r7, r0
+ 580              	.LVL70:
+ 147:Src/config_system.cpp ****     uint32_t size = Config_GetAreaSize(area);
+ 581              		.loc 1 147 5 is_stmt 1 view .LVU156
+ 582              		.loc 1 147 39 is_stmt 0 view .LVU157
+ 583 0010 3046     		mov	r0, r6
+ 584              	.LVL71:
+ 585              		.loc 1 147 39 view .LVU158
+ 586 0012 FFF7FEFF 		bl	Config_GetAreaSize
+ 587              	.LVL72:
+ 588 0016 8046     		mov	r8, r0
+ 589              	.LVL73:
+ 148:Src/config_system.cpp ****     uint32_t offset = 0;
+ 590              		.loc 1 148 5 is_stmt 1 view .LVU159
+ 149:Src/config_system.cpp ****     
+ 150:Src/config_system.cpp ****     // 计算区域在Flash中的偏移
+ 151:Src/config_system.cpp ****     for(int i = 0; i < static_cast<int>(area); i++) {
+ 591              		.loc 1 151 5 view .LVU160
+ 592              	.LBB13:
+ 593              		.loc 1 151 22 view .LVU161
+ 594 0018 AEB1     		cbz	r6, .L57
+ 595              		.loc 1 151 13 is_stmt 0 view .LVU162
+ 596 001a 0024     		movs	r4, #0
+ 597              	.LBE13:
+ 148:Src/config_system.cpp ****     uint32_t offset = 0;
+ 598              		.loc 1 148 14 view .LVU163
+ 599 001c 2546     		mov	r5, r4
+ 600              	.LVL74:
+ 601              	.L55:
+ 602              	.LBB14:
+ 152:Src/config_system.cpp ****         offset += Config_GetAreaSize(static_cast<ConfigArea_t>(i));
+ARM GAS  /tmp/ccBoMiZg.s 			page 16
+
+
+ 603              		.loc 1 152 9 is_stmt 1 discriminator 2 view .LVU164
+ 604              		.loc 1 152 37 is_stmt 0 discriminator 2 view .LVU165
+ 605 001e E0B2     		uxtb	r0, r4
+ 606 0020 FFF7FEFF 		bl	Config_GetAreaSize
+ 607              	.LVL75:
+ 608              		.loc 1 152 16 discriminator 2 view .LVU166
+ 609 0024 0544     		add	r5, r5, r0
+ 610              	.LVL76:
+ 151:Src/config_system.cpp ****         offset += Config_GetAreaSize(static_cast<ConfigArea_t>(i));
+ 611              		.loc 1 151 5 is_stmt 1 discriminator 2 view .LVU167
+ 612 0026 0134     		adds	r4, r4, #1
+ 613              	.LVL77:
+ 151:Src/config_system.cpp ****         offset += Config_GetAreaSize(static_cast<ConfigArea_t>(i));
+ 614              		.loc 1 151 22 discriminator 2 view .LVU168
+ 615 0028 B442     		cmp	r4, r6
+ 616 002a F8D1     		bne	.L55
+ 617              	.LVL78:
+ 618              	.L54:
+ 151:Src/config_system.cpp ****         offset += Config_GetAreaSize(static_cast<ConfigArea_t>(i));
+ 619              		.loc 1 151 22 is_stmt 0 discriminator 2 view .LVU169
+ 620              	.LBE14:
+ 153:Src/config_system.cpp ****     }
+ 154:Src/config_system.cpp ****     
+ 155:Src/config_system.cpp ****     // 写入Flash
+ 156:Src/config_system.cpp ****     if(Flash_Write(CONFIG_FLASH_ADDR + offset, data, size) != FLASH_OK) {
+ 621              		.loc 1 156 5 is_stmt 1 view .LVU170
+ 622              		.loc 1 156 19 is_stmt 0 view .LVU171
+ 623 002c 4246     		mov	r2, r8
+ 624 002e 3946     		mov	r1, r7
+ 625 0030 05F10060 		add	r0, r5, #134217728
+ 626 0034 00F5F030 		add	r0, r0, #122880
+ 627 0038 FFF7FEFF 		bl	_Z11Flash_WritemPKvm
+ 628              	.LVL79:
+ 629              		.loc 1 156 5 view .LVU172
+ 630 003c B0FA80F0 		clz	r0, r0
+ 631 0040 4009     		lsrs	r0, r0, #5
+ 157:Src/config_system.cpp ****         return false;
+ 158:Src/config_system.cpp ****     }
+ 159:Src/config_system.cpp ****     
+ 160:Src/config_system.cpp ****     return true;
+ 161:Src/config_system.cpp **** }
+ 632              		.loc 1 161 1 view .LVU173
+ 633 0042 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 634              	.LVL80:
+ 635              	.L57:
+ 148:Src/config_system.cpp ****     
+ 636              		.loc 1 148 14 view .LVU174
+ 637 0046 0025     		movs	r5, #0
+ 638 0048 F0E7     		b	.L54
+ 639              	.LVL81:
+ 640              	.L56:
+ 641              	.LCFI8:
+ 642              		.cfi_def_cfa_offset 0
+ 643              		.cfi_restore 4
+ 644              		.cfi_restore 5
+ 645              		.cfi_restore 6
+ 646              		.cfi_restore 7
+ARM GAS  /tmp/ccBoMiZg.s 			page 17
+
+
+ 647              		.cfi_restore 8
+ 648              		.cfi_restore 14
+ 144:Src/config_system.cpp ****     
+ 649              		.loc 1 144 76 view .LVU175
+ 650 004a 0020     		movs	r0, #0
+ 651              	.LVL82:
+ 652              		.loc 1 161 1 view .LVU176
+ 653 004c 7047     		bx	lr
+ 654              		.cfi_endproc
+ 655              	.LFE137:
+ 657              		.section	.text.Config_LoadArea,"ax",%progbits
+ 658              		.align	1
+ 659              		.global	Config_LoadArea
+ 660              		.syntax unified
+ 661              		.thumb
+ 662              		.thumb_func
+ 663              		.fpu fpv4-sp-d16
+ 665              	Config_LoadArea:
+ 666              	.LVL83:
+ 667              	.LFB138:
+ 162:Src/config_system.cpp **** 
+ 163:Src/config_system.cpp **** /* 加载指定配置区域 */
+ 164:Src/config_system.cpp **** bool Config_LoadArea(ConfigArea_t area)
+ 165:Src/config_system.cpp **** {
+ 668              		.loc 1 165 1 is_stmt 1 view -0
+ 669              		.cfi_startproc
+ 670              		@ args = 0, pretend = 0, frame = 0
+ 671              		@ frame_needed = 0, uses_anonymous_args = 0
+ 166:Src/config_system.cpp ****     if(static_cast<int>(area) >= static_cast<int>(CONFIG_AREA_MAX)) return false;
+ 672              		.loc 1 166 5 view .LVU178
+ 673 0000 0528     		cmp	r0, #5
+ 674 0002 20D8     		bhi	.L67
+ 165:Src/config_system.cpp ****     if(static_cast<int>(area) >= static_cast<int>(CONFIG_AREA_MAX)) return false;
+ 675              		.loc 1 165 1 is_stmt 0 view .LVU179
+ 676 0004 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 677              	.LCFI9:
+ 678              		.cfi_def_cfa_offset 24
+ 679              		.cfi_offset 4, -24
+ 680              		.cfi_offset 5, -20
+ 681              		.cfi_offset 6, -16
+ 682              		.cfi_offset 7, -12
+ 683              		.cfi_offset 8, -8
+ 684              		.cfi_offset 14, -4
+ 685 0008 0646     		mov	r6, r0
+ 167:Src/config_system.cpp ****     
+ 168:Src/config_system.cpp ****     void* data = (void*)Config_GetAreaPtr(area);
+ 686              		.loc 1 168 5 is_stmt 1 view .LVU180
+ 687              		.loc 1 168 42 is_stmt 0 view .LVU181
+ 688 000a FFF7FEFF 		bl	Config_GetAreaPtr
+ 689              	.LVL84:
+ 690              		.loc 1 168 42 view .LVU182
+ 691 000e 0746     		mov	r7, r0
+ 692              	.LVL85:
+ 169:Src/config_system.cpp ****     uint32_t size = Config_GetAreaSize(area);
+ 693              		.loc 1 169 5 is_stmt 1 view .LVU183
+ 694              		.loc 1 169 39 is_stmt 0 view .LVU184
+ 695 0010 3046     		mov	r0, r6
+ARM GAS  /tmp/ccBoMiZg.s 			page 18
+
+
+ 696              	.LVL86:
+ 697              		.loc 1 169 39 view .LVU185
+ 698 0012 FFF7FEFF 		bl	Config_GetAreaSize
+ 699              	.LVL87:
+ 700 0016 8046     		mov	r8, r0
+ 701              	.LVL88:
+ 170:Src/config_system.cpp ****     uint32_t offset = 0;
+ 702              		.loc 1 170 5 is_stmt 1 view .LVU186
+ 171:Src/config_system.cpp ****     
+ 172:Src/config_system.cpp ****     // 计算区域在Flash中的偏移
+ 173:Src/config_system.cpp ****     for(int i = 0; i < static_cast<int>(area); i++) {
+ 703              		.loc 1 173 5 view .LVU187
+ 704              	.LBB15:
+ 705              		.loc 1 173 22 view .LVU188
+ 706 0018 9EB1     		cbz	r6, .L68
+ 707              		.loc 1 173 13 is_stmt 0 view .LVU189
+ 708 001a 0024     		movs	r4, #0
+ 709              	.LBE15:
+ 170:Src/config_system.cpp ****     uint32_t offset = 0;
+ 710              		.loc 1 170 14 view .LVU190
+ 711 001c 2546     		mov	r5, r4
+ 712              	.LVL89:
+ 713              	.L66:
+ 714              	.LBB16:
+ 174:Src/config_system.cpp ****         offset += Config_GetAreaSize(static_cast<ConfigArea_t>(i));
+ 715              		.loc 1 174 9 is_stmt 1 discriminator 2 view .LVU191
+ 716              		.loc 1 174 37 is_stmt 0 discriminator 2 view .LVU192
+ 717 001e E0B2     		uxtb	r0, r4
+ 718 0020 FFF7FEFF 		bl	Config_GetAreaSize
+ 719              	.LVL90:
+ 720              		.loc 1 174 16 discriminator 2 view .LVU193
+ 721 0024 0544     		add	r5, r5, r0
+ 722              	.LVL91:
+ 173:Src/config_system.cpp ****         offset += Config_GetAreaSize(static_cast<ConfigArea_t>(i));
+ 723              		.loc 1 173 5 is_stmt 1 discriminator 2 view .LVU194
+ 724 0026 0134     		adds	r4, r4, #1
+ 725              	.LVL92:
+ 173:Src/config_system.cpp ****         offset += Config_GetAreaSize(static_cast<ConfigArea_t>(i));
+ 726              		.loc 1 173 22 discriminator 2 view .LVU195
+ 727 0028 B442     		cmp	r4, r6
+ 728 002a F8D1     		bne	.L66
+ 729              	.LVL93:
+ 730              	.L65:
+ 173:Src/config_system.cpp ****         offset += Config_GetAreaSize(static_cast<ConfigArea_t>(i));
+ 731              		.loc 1 173 22 is_stmt 0 discriminator 2 view .LVU196
+ 732              	.LBE16:
+ 175:Src/config_system.cpp ****     }
+ 176:Src/config_system.cpp ****     
+ 177:Src/config_system.cpp ****     // 从Flash读取
+ 178:Src/config_system.cpp ****     memcpy(data, (void*)(CONFIG_FLASH_ADDR + offset), size);
+ 733              		.loc 1 178 5 is_stmt 1 view .LVU197
+ 734              		.loc 1 178 11 is_stmt 0 view .LVU198
+ 735 002c 4246     		mov	r2, r8
+ 736 002e 05F10061 		add	r1, r5, #134217728
+ 737 0032 01F5F031 		add	r1, r1, #122880
+ 738 0036 3846     		mov	r0, r7
+ 739 0038 FFF7FEFF 		bl	memcpy
+ARM GAS  /tmp/ccBoMiZg.s 			page 19
+
+
+ 740              	.LVL94:
+ 179:Src/config_system.cpp ****     
+ 180:Src/config_system.cpp ****     return true;
+ 741              		.loc 1 180 5 is_stmt 1 view .LVU199
+ 742              		.loc 1 180 12 is_stmt 0 view .LVU200
+ 743 003c 0120     		movs	r0, #1
+ 181:Src/config_system.cpp **** }
+ 744              		.loc 1 181 1 view .LVU201
+ 745 003e BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 746              	.LVL95:
+ 747              	.L68:
+ 170:Src/config_system.cpp ****     
+ 748              		.loc 1 170 14 view .LVU202
+ 749 0042 0025     		movs	r5, #0
+ 750 0044 F2E7     		b	.L65
+ 751              	.LVL96:
+ 752              	.L67:
+ 753              	.LCFI10:
+ 754              		.cfi_def_cfa_offset 0
+ 755              		.cfi_restore 4
+ 756              		.cfi_restore 5
+ 757              		.cfi_restore 6
+ 758              		.cfi_restore 7
+ 759              		.cfi_restore 8
+ 760              		.cfi_restore 14
+ 166:Src/config_system.cpp ****     
+ 761              		.loc 1 166 76 view .LVU203
+ 762 0046 0020     		movs	r0, #0
+ 763              	.LVL97:
+ 764              		.loc 1 181 1 view .LVU204
+ 765 0048 7047     		bx	lr
+ 766              		.cfi_endproc
+ 767              	.LFE138:
+ 769              		.section	.text.Config_SaveAll,"ax",%progbits
+ 770              		.align	1
+ 771              		.global	Config_SaveAll
+ 772              		.syntax unified
+ 773              		.thumb
+ 774              		.thumb_func
+ 775              		.fpu fpv4-sp-d16
+ 777              	Config_SaveAll:
+ 778              	.LFB140:
+ 182:Src/config_system.cpp **** 
+ 183:Src/config_system.cpp **** /* 初始化配置系统 */
+ 184:Src/config_system.cpp **** bool Config_Init(void)
+ 185:Src/config_system.cpp **** {
+ 186:Src/config_system.cpp ****     if(g_config_initialized) return true;
+ 187:Src/config_system.cpp ****     
+ 188:Src/config_system.cpp ****     // 尝试从Flash加载配置
+ 189:Src/config_system.cpp ****     ConfigStorage_t* flash_config = (ConfigStorage_t*)CONFIG_FLASH_ADDR;
+ 190:Src/config_system.cpp ****     
+ 191:Src/config_system.cpp ****     if(flash_config->header.magic == CONFIG_MAGIC &&
+ 192:Src/config_system.cpp ****        flash_config->header.version == CONFIG_VERSION) {
+ 193:Src/config_system.cpp ****         // 验证CRC
+ 194:Src/config_system.cpp ****         uint32_t crc = Calculate_CRC(&flash_config->system_config,
+ 195:Src/config_system.cpp ****                                    sizeof(ConfigStorage_t) - sizeof(flash_config->header));
+ 196:Src/config_system.cpp ****         
+ARM GAS  /tmp/ccBoMiZg.s 			page 20
+
+
+ 197:Src/config_system.cpp ****         if(crc == flash_config->header.crc) {
+ 198:Src/config_system.cpp ****             // 配置有效,加载
+ 199:Src/config_system.cpp ****             memcpy(&g_config, flash_config, sizeof(ConfigStorage_t));
+ 200:Src/config_system.cpp ****             g_config_initialized = true;
+ 201:Src/config_system.cpp ****             return true;
+ 202:Src/config_system.cpp ****         }
+ 203:Src/config_system.cpp ****     }
+ 204:Src/config_system.cpp ****     
+ 205:Src/config_system.cpp ****     // 配置无效,加载默认值
+ 206:Src/config_system.cpp ****     return Config_LoadDefault();
+ 207:Src/config_system.cpp **** }
+ 208:Src/config_system.cpp **** 
+ 209:Src/config_system.cpp **** /* 保存所有配置 */
+ 210:Src/config_system.cpp **** bool Config_SaveAll(void)
+ 211:Src/config_system.cpp **** {
+ 779              		.loc 1 211 1 is_stmt 1 view -0
+ 780              		.cfi_startproc
+ 781              		@ args = 0, pretend = 0, frame = 0
+ 782              		@ frame_needed = 0, uses_anonymous_args = 0
+ 783 0000 10B5     		push	{r4, lr}
+ 784              	.LCFI11:
+ 785              		.cfi_def_cfa_offset 8
+ 786              		.cfi_offset 4, -8
+ 787              		.cfi_offset 14, -4
+ 212:Src/config_system.cpp ****     // 更新头部信息
+ 213:Src/config_system.cpp ****     g_config.header.magic = CONFIG_MAGIC;
+ 788              		.loc 1 213 5 view .LVU206
+ 789              		.loc 1 213 27 is_stmt 0 view .LVU207
+ 790 0002 0E4C     		ldr	r4, .L79
+ 791 0004 0E4B     		ldr	r3, .L79+4
+ 792 0006 2360     		str	r3, [r4]
+ 214:Src/config_system.cpp ****     g_config.header.version = CONFIG_VERSION;
+ 793              		.loc 1 214 5 is_stmt 1 view .LVU208
+ 794              		.loc 1 214 29 is_stmt 0 view .LVU209
+ 795 0008 0123     		movs	r3, #1
+ 796 000a 6360     		str	r3, [r4, #4]
+ 215:Src/config_system.cpp ****     g_config.header.crc = Calculate_CRC(&g_config.system_config,
+ 797              		.loc 1 215 5 is_stmt 1 view .LVU210
+ 798              		.loc 1 215 40 is_stmt 0 view .LVU211
+ 799 000c 5421     		movs	r1, #84
+ 800 000e 04F10C00 		add	r0, r4, #12
+ 801 0012 FFF7FEFF 		bl	_ZL13Calculate_CRCPKvm
+ 802              	.LVL98:
+ 803              		.loc 1 215 25 view .LVU212
+ 804 0016 A060     		str	r0, [r4, #8]
+ 216:Src/config_system.cpp ****                                       sizeof(ConfigStorage_t) - sizeof(g_config.header));
+ 217:Src/config_system.cpp ****     
+ 218:Src/config_system.cpp ****     // 擦除配置扇区
+ 219:Src/config_system.cpp ****     if(Flash_Erase(CONFIG_FLASH_ADDR, CONFIG_FLASH_SIZE) != FLASH_OK) {
+ 805              		.loc 1 219 5 is_stmt 1 view .LVU213
+ 806              		.loc 1 219 19 is_stmt 0 view .LVU214
+ 807 0018 4FF48051 		mov	r1, #4096
+ 808 001c 0948     		ldr	r0, .L79+8
+ 809 001e FFF7FEFF 		bl	_Z11Flash_Erasemm
+ 810              	.LVL99:
+ 811              		.loc 1 219 5 view .LVU215
+ 812 0022 08B1     		cbz	r0, .L78
+ARM GAS  /tmp/ccBoMiZg.s 			page 21
+
+
+ 220:Src/config_system.cpp ****         return false;
+ 813              		.loc 1 220 16 view .LVU216
+ 814 0024 0020     		movs	r0, #0
+ 815              	.L75:
+ 221:Src/config_system.cpp ****     }
+ 222:Src/config_system.cpp ****     
+ 223:Src/config_system.cpp ****     // 写入整个配置
+ 224:Src/config_system.cpp ****     if(Flash_Write(CONFIG_FLASH_ADDR, &g_config, sizeof(ConfigStorage_t)) != FLASH_OK) {
+ 225:Src/config_system.cpp ****         return false;
+ 226:Src/config_system.cpp ****     }
+ 227:Src/config_system.cpp ****     
+ 228:Src/config_system.cpp ****     return true;
+ 229:Src/config_system.cpp **** }
+ 816              		.loc 1 229 1 view .LVU217
+ 817 0026 10BD     		pop	{r4, pc}
+ 818              	.L78:
+ 224:Src/config_system.cpp ****         return false;
+ 819              		.loc 1 224 5 is_stmt 1 view .LVU218
+ 224:Src/config_system.cpp ****         return false;
+ 820              		.loc 1 224 19 is_stmt 0 view .LVU219
+ 821 0028 6022     		movs	r2, #96
+ 822 002a 2146     		mov	r1, r4
+ 823 002c 0548     		ldr	r0, .L79+8
+ 824 002e FFF7FEFF 		bl	_Z11Flash_WritemPKvm
+ 825              	.LVL100:
+ 224:Src/config_system.cpp ****         return false;
+ 826              		.loc 1 224 5 view .LVU220
+ 827 0032 B0FA80F0 		clz	r0, r0
+ 828 0036 4009     		lsrs	r0, r0, #5
+ 829 0038 F5E7     		b	.L75
+ 830              	.L80:
+ 831 003a 00BF     		.align	2
+ 832              	.L79:
+ 833 003c 00000000 		.word	.LANCHOR0
+ 834 0040 3412CDAB 		.word	-1412623820
+ 835 0044 00E00108 		.word	134340608
+ 836              		.cfi_endproc
+ 837              	.LFE140:
+ 839              		.section	.text.Config_LoadDefault,"ax",%progbits
+ 840              		.align	1
+ 841              		.global	Config_LoadDefault
+ 842              		.syntax unified
+ 843              		.thumb
+ 844              		.thumb_func
+ 845              		.fpu fpv4-sp-d16
+ 847              	Config_LoadDefault:
+ 848              	.LFB141:
+ 230:Src/config_system.cpp **** 
+ 231:Src/config_system.cpp **** /* 加载默认配置 */
+ 232:Src/config_system.cpp **** bool Config_LoadDefault(void)
+ 233:Src/config_system.cpp **** {
+ 849              		.loc 1 233 1 is_stmt 1 view -0
+ 850              		.cfi_startproc
+ 851              		@ args = 0, pretend = 0, frame = 0
+ 852              		@ frame_needed = 0, uses_anonymous_args = 0
+ 853 0000 10B5     		push	{r4, lr}
+ 854              	.LCFI12:
+ARM GAS  /tmp/ccBoMiZg.s 			page 22
+
+
+ 855              		.cfi_def_cfa_offset 8
+ 856              		.cfi_offset 4, -8
+ 857              		.cfi_offset 14, -4
+ 234:Src/config_system.cpp ****     memset(&g_config, 0, sizeof(ConfigStorage_t));
+ 858              		.loc 1 234 5 view .LVU222
+ 859              		.loc 1 234 11 is_stmt 0 view .LVU223
+ 860 0002 0B4C     		ldr	r4, .L83
+ 861 0004 6022     		movs	r2, #96
+ 862 0006 0021     		movs	r1, #0
+ 863 0008 2046     		mov	r0, r4
+ 864 000a FFF7FEFF 		bl	memset
+ 865              	.LVL101:
+ 235:Src/config_system.cpp ****     
+ 236:Src/config_system.cpp ****     // 设置默认值
+ 237:Src/config_system.cpp ****     g_config.system_config.can_id = 1;
+ 866              		.loc 1 237 5 is_stmt 1 view .LVU224
+ 867              		.loc 1 237 35 is_stmt 0 view .LVU225
+ 868 000e 0120     		movs	r0, #1
+ 869 0010 E060     		str	r0, [r4, #12]
+ 238:Src/config_system.cpp ****     g_config.system_config.heartbeat_rate_ms = 1000;
+ 870              		.loc 1 238 5 is_stmt 1 view .LVU226
+ 871              		.loc 1 238 46 is_stmt 0 view .LVU227
+ 872 0012 4FF47A73 		mov	r3, #1000
+ 873 0016 2361     		str	r3, [r4, #16]
+ 239:Src/config_system.cpp ****     g_config.system_config.debug_level = 1;
+ 874              		.loc 1 239 5 is_stmt 1 view .LVU228
+ 875              		.loc 1 239 40 is_stmt 0 view .LVU229
+ 876 0018 2075     		strb	r0, [r4, #20]
+ 240:Src/config_system.cpp ****     
+ 241:Src/config_system.cpp ****     g_config.motor_config.current_limit = 60.0f;
+ 877              		.loc 1 241 5 is_stmt 1 view .LVU230
+ 878              		.loc 1 241 41 is_stmt 0 view .LVU231
+ 879 001a 064B     		ldr	r3, .L83+4
+ 880 001c A361     		str	r3, [r4, #24]	@ float
+ 242:Src/config_system.cpp ****     g_config.motor_config.voltage_limit = 24.0f;
+ 881              		.loc 1 242 5 is_stmt 1 view .LVU232
+ 882              		.loc 1 242 41 is_stmt 0 view .LVU233
+ 883 001e 064B     		ldr	r3, .L83+8
+ 884 0020 E361     		str	r3, [r4, #28]	@ float
+ 243:Src/config_system.cpp ****     g_config.motor_config.temp_limit = 85.0f;
+ 885              		.loc 1 243 5 is_stmt 1 view .LVU234
+ 886              		.loc 1 243 38 is_stmt 0 view .LVU235
+ 887 0022 064B     		ldr	r3, .L83+12
+ 888 0024 2362     		str	r3, [r4, #32]	@ float
+ 244:Src/config_system.cpp ****     g_config.motor_config.pole_pairs = 7;
+ 889              		.loc 1 244 5 is_stmt 1 view .LVU236
+ 890              		.loc 1 244 38 is_stmt 0 view .LVU237
+ 891 0026 0723     		movs	r3, #7
+ 892 0028 A384     		strh	r3, [r4, #36]	@ movhi
+ 245:Src/config_system.cpp ****     
+ 246:Src/config_system.cpp ****     // ... 设置其他默认值 ...
+ 247:Src/config_system.cpp ****     
+ 248:Src/config_system.cpp ****     g_config_initialized = true;
+ 893              		.loc 1 248 5 is_stmt 1 view .LVU238
+ 894              		.loc 1 248 26 is_stmt 0 view .LVU239
+ 895 002a 054B     		ldr	r3, .L83+16
+ 896 002c 1870     		strb	r0, [r3]
+ARM GAS  /tmp/ccBoMiZg.s 			page 23
+
+
+ 249:Src/config_system.cpp ****     return true;
+ 897              		.loc 1 249 5 is_stmt 1 view .LVU240
+ 250:Src/config_system.cpp **** }
+ 898              		.loc 1 250 1 is_stmt 0 view .LVU241
+ 899 002e 10BD     		pop	{r4, pc}
+ 900              	.L84:
+ 901              		.align	2
+ 902              	.L83:
+ 903 0030 00000000 		.word	.LANCHOR0
+ 904 0034 00007042 		.word	1114636288
+ 905 0038 0000C041 		.word	1103101952
+ 906 003c 0000AA42 		.word	1118437376
+ 907 0040 00000000 		.word	.LANCHOR1
+ 908              		.cfi_endproc
+ 909              	.LFE141:
+ 911              		.section	.text.Config_Init,"ax",%progbits
+ 912              		.align	1
+ 913              		.global	Config_Init
+ 914              		.syntax unified
+ 915              		.thumb
+ 916              		.thumb_func
+ 917              		.fpu fpv4-sp-d16
+ 919              	Config_Init:
+ 920              	.LFB139:
+ 185:Src/config_system.cpp ****     if(g_config_initialized) return true;
+ 921              		.loc 1 185 1 is_stmt 1 view -0
+ 922              		.cfi_startproc
+ 923              		@ args = 0, pretend = 0, frame = 0
+ 924              		@ frame_needed = 0, uses_anonymous_args = 0
+ 925 0000 08B5     		push	{r3, lr}
+ 926              	.LCFI13:
+ 927              		.cfi_def_cfa_offset 8
+ 928              		.cfi_offset 3, -8
+ 929              		.cfi_offset 14, -4
+ 186:Src/config_system.cpp ****     
+ 930              		.loc 1 186 5 view .LVU243
+ 931 0002 124B     		ldr	r3, .L90
+ 932 0004 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 933 0006 78B9     		cbnz	r0, .L86
+ 189:Src/config_system.cpp ****     
+ 934              		.loc 1 189 5 view .LVU244
+ 935              	.LVL102:
+ 191:Src/config_system.cpp ****        flash_config->header.version == CONFIG_VERSION) {
+ 936              		.loc 1 191 5 view .LVU245
+ 937              	.LBB17:
+ 938 0008 114B     		ldr	r3, .L90+4
+ 939 000a 1A68     		ldr	r2, [r3]
+ 940 000c 03F12443 		add	r3, r3, #-1543503872
+ 941 0010 A3F55313 		sub	r3, r3, #3457024
+ 942 0014 A3F6CC53 		subw	r3, r3, #3532
+ 943 0018 9A42     		cmp	r2, r3
+ 944 001a 03D1     		bne	.L87
+ 192:Src/config_system.cpp ****         // 验证CRC
+ 945              		.loc 1 192 29 is_stmt 0 discriminator 1 view .LVU246
+ 946 001c 0C4B     		ldr	r3, .L90+4
+ 191:Src/config_system.cpp ****        flash_config->header.version == CONFIG_VERSION) {
+ 947              		.loc 1 191 51 discriminator 1 view .LVU247
+ARM GAS  /tmp/ccBoMiZg.s 			page 24
+
+
+ 948 001e 5B68     		ldr	r3, [r3, #4]
+ 949 0020 012B     		cmp	r3, #1
+ 950 0022 02D0     		beq	.L89
+ 951              	.L87:
+ 952              	.LBE17:
+ 206:Src/config_system.cpp **** }
+ 953              		.loc 1 206 5 is_stmt 1 view .LVU248
+ 206:Src/config_system.cpp **** }
+ 954              		.loc 1 206 30 is_stmt 0 view .LVU249
+ 955 0024 FFF7FEFF 		bl	Config_LoadDefault
+ 956              	.LVL103:
+ 957              	.L86:
+ 207:Src/config_system.cpp **** 
+ 958              		.loc 1 207 1 view .LVU250
+ 959 0028 08BD     		pop	{r3, pc}
+ 960              	.LVL104:
+ 961              	.L89:
+ 962              	.LBB19:
+ 963              	.LBB18:
+ 194:Src/config_system.cpp ****                                    sizeof(ConfigStorage_t) - sizeof(flash_config->header));
+ 964              		.loc 1 194 9 is_stmt 1 view .LVU251
+ 194:Src/config_system.cpp ****                                    sizeof(ConfigStorage_t) - sizeof(flash_config->header));
+ 965              		.loc 1 194 37 is_stmt 0 view .LVU252
+ 966 002a 5421     		movs	r1, #84
+ 967 002c 0948     		ldr	r0, .L90+8
+ 968 002e FFF7FEFF 		bl	_ZL13Calculate_CRCPKvm
+ 969              	.LVL105:
+ 197:Src/config_system.cpp ****             // 配置有效,加载
+ 970              		.loc 1 197 9 is_stmt 1 view .LVU253
+ 197:Src/config_system.cpp ****             // 配置有效,加载
+ 971              		.loc 1 197 40 is_stmt 0 view .LVU254
+ 972 0032 074B     		ldr	r3, .L90+4
+ 197:Src/config_system.cpp ****             // 配置有效,加载
+ 973              		.loc 1 197 9 view .LVU255
+ 974 0034 9B68     		ldr	r3, [r3, #8]
+ 975 0036 8342     		cmp	r3, r0
+ 976 0038 F4D1     		bne	.L87
+ 199:Src/config_system.cpp ****             g_config_initialized = true;
+ 977              		.loc 1 199 13 is_stmt 1 view .LVU256
+ 199:Src/config_system.cpp ****             g_config_initialized = true;
+ 978              		.loc 1 199 19 is_stmt 0 view .LVU257
+ 979 003a 6022     		movs	r2, #96
+ 980 003c 0449     		ldr	r1, .L90+4
+ 981 003e 0648     		ldr	r0, .L90+12
+ 982              	.LVL106:
+ 199:Src/config_system.cpp ****             g_config_initialized = true;
+ 983              		.loc 1 199 19 view .LVU258
+ 984 0040 FFF7FEFF 		bl	memcpy
+ 985              	.LVL107:
+ 200:Src/config_system.cpp ****             return true;
+ 986              		.loc 1 200 13 is_stmt 1 view .LVU259
+ 200:Src/config_system.cpp ****             return true;
+ 987              		.loc 1 200 34 is_stmt 0 view .LVU260
+ 988 0044 0120     		movs	r0, #1
+ 989 0046 014B     		ldr	r3, .L90
+ 990 0048 1870     		strb	r0, [r3]
+ 201:Src/config_system.cpp ****         }
+ARM GAS  /tmp/ccBoMiZg.s 			page 25
+
+
+ 991              		.loc 1 201 13 is_stmt 1 view .LVU261
+ 201:Src/config_system.cpp ****         }
+ 992              		.loc 1 201 20 is_stmt 0 view .LVU262
+ 993 004a EDE7     		b	.L86
+ 994              	.L91:
+ 995              		.align	2
+ 996              	.L90:
+ 997 004c 00000000 		.word	.LANCHOR1
+ 998 0050 00E00108 		.word	134340608
+ 999 0054 0CE00108 		.word	134340620
+ 1000 0058 00000000 		.word	.LANCHOR0
+ 1001              	.LBE18:
+ 1002              	.LBE19:
+ 1003              		.cfi_endproc
+ 1004              	.LFE139:
+ 1006              		.section	.text.Config_LoadAllAreas,"ax",%progbits
+ 1007              		.align	1
+ 1008              		.global	Config_LoadAllAreas
+ 1009              		.syntax unified
+ 1010              		.thumb
+ 1011              		.thumb_func
+ 1012              		.fpu fpv4-sp-d16
+ 1014              	Config_LoadAllAreas:
+ 1015              	.LFB142:
+ 251:Src/config_system.cpp **** 
+ 252:Src/config_system.cpp **** /* 加载所有配置区域 */
+ 253:Src/config_system.cpp **** bool Config_LoadAllAreas(void)
+ 254:Src/config_system.cpp **** {
+ 1016              		.loc 1 254 1 is_stmt 1 view -0
+ 1017              		.cfi_startproc
+ 1018              		@ args = 0, pretend = 0, frame = 0
+ 1019              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1020 0000 2DE9F84F 		push	{r3, r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 1021              	.LCFI14:
+ 1022              		.cfi_def_cfa_offset 40
+ 1023              		.cfi_offset 3, -40
+ 1024              		.cfi_offset 4, -36
+ 1025              		.cfi_offset 5, -32
+ 1026              		.cfi_offset 6, -28
+ 1027              		.cfi_offset 7, -24
+ 1028              		.cfi_offset 8, -20
+ 1029              		.cfi_offset 9, -16
+ 1030              		.cfi_offset 10, -12
+ 1031              		.cfi_offset 11, -8
+ 1032              		.cfi_offset 14, -4
+ 1033 0004 2DED068B 		vpush.64	{d8, d9, d10}
+ 1034              	.LCFI15:
+ 1035              		.cfi_def_cfa_offset 64
+ 1036              		.cfi_offset 80, -64
+ 1037              		.cfi_offset 81, -60
+ 1038              		.cfi_offset 82, -56
+ 1039              		.cfi_offset 83, -52
+ 1040              		.cfi_offset 84, -48
+ 1041              		.cfi_offset 85, -44
+ 255:Src/config_system.cpp ****     bool all_success = true;
+ 1042              		.loc 1 255 5 view .LVU264
+ 1043              	.LVL108:
+ARM GAS  /tmp/ccBoMiZg.s 			page 26
+
+
+ 256:Src/config_system.cpp ****     
+ 257:Src/config_system.cpp ****     // 检查是否已初始化
+ 258:Src/config_system.cpp ****     if (!g_config_initialized) {
+ 1044              		.loc 1 258 5 view .LVU265
+ 1045              		.loc 1 258 9 is_stmt 0 view .LVU266
+ 1046 0008 534B     		ldr	r3, .L117
+ 1047              		.loc 1 258 5 view .LVU267
+ 1048 000a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1049 000c 7BB1     		cbz	r3, .L114
+ 1050              	.L93:
+ 1051              	.LVL109:
+ 1052              	.LBB25:
+ 259:Src/config_system.cpp ****         if (!Config_Init()) {
+ 260:Src/config_system.cpp ****             return false;
+ 261:Src/config_system.cpp ****         }
+ 262:Src/config_system.cpp ****     }
+ 263:Src/config_system.cpp ****     
+ 264:Src/config_system.cpp ****     // 遍历所有配置区域
+ 265:Src/config_system.cpp ****     for (int i = static_cast<int>(CONFIG_AREA_SYSTEM); i < static_cast<int>(CONFIG_AREA_MAX); i++) 
+ 1053              		.loc 1 265 58 is_stmt 1 discriminator 1 view .LVU268
+ 1054              	.LBE25:
+ 254:Src/config_system.cpp ****     bool all_success = true;
+ 1055              		.loc 1 254 1 is_stmt 0 discriminator 1 view .LVU269
+ 1056 000e 0025     		movs	r5, #0
+ 1057 0010 4FF0010A 		mov	r10, #1
+ 1058              	.LBB45:
+ 1059              	.LBB26:
+ 1060              	.LBB27:
+ 1061              	.LBB28:
+ 266:Src/config_system.cpp ****         ConfigArea_t area = static_cast<ConfigArea_t>(i);
+ 267:Src/config_system.cpp ****         // 获取区域信息
+ 268:Src/config_system.cpp ****         void* data = (void*)Config_GetAreaPtr(area);
+ 269:Src/config_system.cpp ****         uint32_t size = Config_GetAreaSize(area);
+ 270:Src/config_system.cpp ****         uint32_t offset = 0;
+ 271:Src/config_system.cpp ****         
+ 272:Src/config_system.cpp ****         if (!data || size == 0) {
+ 273:Src/config_system.cpp ****             all_success = false;
+ 274:Src/config_system.cpp ****             continue;
+ 275:Src/config_system.cpp ****         }
+ 276:Src/config_system.cpp ****         
+ 277:Src/config_system.cpp ****         // 计算Flash中的偏移量
+ 278:Src/config_system.cpp ****         for (int j = 0; j < i; j++) {
+ 279:Src/config_system.cpp ****             offset += Config_GetAreaSize(static_cast<ConfigArea_t>(j));
+ 280:Src/config_system.cpp ****         }
+ 281:Src/config_system.cpp ****         
+ 282:Src/config_system.cpp ****         // 从Flash读取数据
+ 283:Src/config_system.cpp ****         const uint8_t* src = (const uint8_t*)(CONFIG_FLASH_ADDR + offset);
+ 284:Src/config_system.cpp ****         
+ 285:Src/config_system.cpp ****         // 验证区域CRC
+ 286:Src/config_system.cpp ****         uint32_t stored_crc = *(uint32_t*)(src + size - sizeof(uint32_t));
+ 287:Src/config_system.cpp ****         uint32_t calc_crc = Calculate_CRC(src, size - sizeof(uint32_t));
+ 288:Src/config_system.cpp ****         
+ 289:Src/config_system.cpp ****         if (calc_crc != stored_crc) {
+ 290:Src/config_system.cpp ****             // CRC校验失败，加载默认值
+ 291:Src/config_system.cpp ****             Config_LoadAreaDefaults(area);
+ 292:Src/config_system.cpp ****             all_success = false;
+ 293:Src/config_system.cpp ****             continue;
+ARM GAS  /tmp/ccBoMiZg.s 			page 27
+
+
+ 294:Src/config_system.cpp ****         }
+ 295:Src/config_system.cpp ****         
+ 296:Src/config_system.cpp ****         // 复制数据到RAM
+ 297:Src/config_system.cpp ****         memcpy(data, src, size - sizeof(uint32_t));
+ 298:Src/config_system.cpp ****     }
+ 299:Src/config_system.cpp ****     
+ 300:Src/config_system.cpp ****     return all_success;
+ 301:Src/config_system.cpp **** }
+ 302:Src/config_system.cpp **** 
+ 303:Src/config_system.cpp **** /* 加载区域默认值 */
+ 304:Src/config_system.cpp **** static void Config_LoadAreaDefaults(ConfigArea_t area)
+ 305:Src/config_system.cpp **** {
+ 306:Src/config_system.cpp ****     switch(area) {
+ 307:Src/config_system.cpp ****         case CONFIG_AREA_SYSTEM:
+ 308:Src/config_system.cpp ****             g_config.system_config.can_id = 1;
+ 309:Src/config_system.cpp ****             g_config.system_config.heartbeat_rate_ms = 1000;
+ 310:Src/config_system.cpp ****             g_config.system_config.debug_level = 1;
+ 311:Src/config_system.cpp ****             break;
+ 312:Src/config_system.cpp ****             
+ 313:Src/config_system.cpp ****         case CONFIG_AREA_MOTOR:
+ 314:Src/config_system.cpp ****             g_config.motor_config.current_limit = 60.0f;
+ 315:Src/config_system.cpp ****             g_config.motor_config.voltage_limit = 24.0f;
+ 316:Src/config_system.cpp ****             g_config.motor_config.temp_limit = 85.0f;
+ 317:Src/config_system.cpp ****             g_config.motor_config.pole_pairs = 7;
+ 318:Src/config_system.cpp ****             break;
+ 319:Src/config_system.cpp ****             
+ 320:Src/config_system.cpp ****         case CONFIG_AREA_CAN:
+ 321:Src/config_system.cpp ****             g_config.can_config.baudrate = 1000000;
+ 322:Src/config_system.cpp ****             g_config.can_config.enabled = true;
+ 323:Src/config_system.cpp ****             break;
+ 324:Src/config_system.cpp ****             
+ 325:Src/config_system.cpp ****         case CONFIG_AREA_ENCODER:
+ 326:Src/config_system.cpp ****             g_config.encoder_config.cpr = 4096;
+ 327:Src/config_system.cpp ****             g_config.encoder_config.mode = 0;
+ 328:Src/config_system.cpp ****             g_config.encoder_config.use_index = false;
+ 329:Src/config_system.cpp ****             g_config.encoder_config.index_offset = 0.0f;
+ 330:Src/config_system.cpp ****             break;
+ 331:Src/config_system.cpp ****             
+ 332:Src/config_system.cpp ****         case CONFIG_AREA_CONTROLLER:
+ 333:Src/config_system.cpp ****             g_config.controller_config.speed_pid_p = 0.1f;
+ 334:Src/config_system.cpp ****             g_config.controller_config.speed_pid_i = 0.01f;
+ 335:Src/config_system.cpp ****             g_config.controller_config.speed_pid_d = 0.0f;
+ 336:Src/config_system.cpp ****             g_config.controller_config.pos_pid_p = 1.0f;
+ 337:Src/config_system.cpp ****             g_config.controller_config.pos_pid_i = 0.0f;
+ 338:Src/config_system.cpp ****             g_config.controller_config.pos_pid_d = 0.0f;
+ 339:Src/config_system.cpp ****             break;
+ 340:Src/config_system.cpp ****             
+ 341:Src/config_system.cpp ****         case CONFIG_AREA_LIMITS:
+ 342:Src/config_system.cpp ****             g_config.limits_config.max_rpm = 3000;
+ 343:Src/config_system.cpp ****             g_config.limits_config.max_current = 60.0f;
+ 1062              		.loc 1 343 48 discriminator 1 view .LVU270
+ 1063 0014 DFED518A 		vldr.32	s17, .L117+4
+ 344:Src/config_system.cpp ****             g_config.limits_config.max_duty = 0.95f;
+ 1064              		.loc 1 344 45 discriminator 1 view .LVU271
+ 1065 0018 9FED51AA 		vldr.32	s20, .L117+8
+ 345:Src/config_system.cpp ****             g_config.limits_config.max_temp = 85.0f;
+ 1066              		.loc 1 345 45 discriminator 1 view .LVU272
+ARM GAS  /tmp/ccBoMiZg.s 			page 28
+
+
+ 1067 001c 9FED518A 		vldr.32	s16, .L117+12
+ 333:Src/config_system.cpp ****             g_config.controller_config.speed_pid_i = 0.01f;
+ 1068              		.loc 1 333 52 discriminator 1 view .LVU273
+ 1069 0020 DFED519A 		vldr.32	s19, .L117+16
+ 334:Src/config_system.cpp ****             g_config.controller_config.speed_pid_d = 0.0f;
+ 1070              		.loc 1 334 52 discriminator 1 view .LVU274
+ 1071 0024 9FED519A 		vldr.32	s18, .L117+20
+ 335:Src/config_system.cpp ****             g_config.controller_config.pos_pid_p = 1.0f;
+ 1072              		.loc 1 335 52 discriminator 1 view .LVU275
+ 1073 0028 4FF0000B 		mov	fp, #0
+ 1074 002c 28E0     		b	.L106
+ 1075              	.LVL110:
+ 1076              	.L114:
+ 335:Src/config_system.cpp ****             g_config.controller_config.pos_pid_p = 1.0f;
+ 1077              		.loc 1 335 52 discriminator 1 view .LVU276
+ 1078              	.LBE28:
+ 1079              	.LBE27:
+ 1080              	.LBE26:
+ 1081              	.LBE45:
+ 259:Src/config_system.cpp ****             return false;
+ 1082              		.loc 1 259 9 is_stmt 1 view .LVU277
+ 259:Src/config_system.cpp ****             return false;
+ 1083              		.loc 1 259 25 is_stmt 0 view .LVU278
+ 1084 002e FFF7FEFF 		bl	Config_Init
+ 1085              	.LVL111:
+ 259:Src/config_system.cpp ****             return false;
+ 1086              		.loc 1 259 9 view .LVU279
+ 1087 0032 8246     		mov	r10, r0
+ 1088 0034 0028     		cmp	r0, #0
+ 1089 0036 EAD1     		bne	.L93
+ 1090              	.LVL112:
+ 1091              	.L94:
+ 301:Src/config_system.cpp **** 
+ 1092              		.loc 1 301 1 view .LVU280
+ 1093 0038 5046     		mov	r0, r10
+ 1094 003a BDEC068B 		vldm	sp!, {d8-d10}
+ 1095              	.LCFI16:
+ 1096              		.cfi_remember_state
+ 1097              		.cfi_restore 84
+ 1098              		.cfi_restore 85
+ 1099              		.cfi_restore 82
+ 1100              		.cfi_restore 83
+ 1101              		.cfi_restore 80
+ 1102              		.cfi_restore 81
+ 1103              		.cfi_def_cfa_offset 40
+ 1104 003e BDE8F88F 		pop	{r3, r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 1105              	.LVL113:
+ 1106              	.L116:
+ 1107              	.LCFI17:
+ 1108              		.cfi_restore_state
+ 1109              	.LBB46:
+ 1110              	.LBB43:
+ 1111              	.LBB35:
+ 278:Src/config_system.cpp ****             offset += Config_GetAreaSize(static_cast<ConfigArea_t>(j));
+ 1112              		.loc 1 278 27 is_stmt 1 view .LVU281
+ 1113 0042 002D     		cmp	r5, #0
+ 1114 0044 2EDD     		ble	.L109
+ARM GAS  /tmp/ccBoMiZg.s 			page 29
+
+
+ 278:Src/config_system.cpp ****             offset += Config_GetAreaSize(static_cast<ConfigArea_t>(j));
+ 1115              		.loc 1 278 18 is_stmt 0 view .LVU282
+ 1116 0046 0024     		movs	r4, #0
+ 1117              	.LBE35:
+ 270:Src/config_system.cpp ****         
+ 1118              		.loc 1 270 18 view .LVU283
+ 1119 0048 2646     		mov	r6, r4
+ 1120              	.LVL114:
+ 1121              	.L97:
+ 1122              	.LBB36:
+ 279:Src/config_system.cpp ****         }
+ 1123              		.loc 1 279 13 is_stmt 1 discriminator 2 view .LVU284
+ 279:Src/config_system.cpp ****         }
+ 1124              		.loc 1 279 41 is_stmt 0 discriminator 2 view .LVU285
+ 1125 004a E0B2     		uxtb	r0, r4
+ 1126 004c FFF7FEFF 		bl	Config_GetAreaSize
+ 1127              	.LVL115:
+ 279:Src/config_system.cpp ****         }
+ 1128              		.loc 1 279 20 discriminator 2 view .LVU286
+ 1129 0050 0644     		add	r6, r6, r0
+ 1130              	.LVL116:
+ 278:Src/config_system.cpp ****             offset += Config_GetAreaSize(static_cast<ConfigArea_t>(j));
+ 1131              		.loc 1 278 9 is_stmt 1 discriminator 2 view .LVU287
+ 1132 0052 0134     		adds	r4, r4, #1
+ 1133              	.LVL117:
+ 278:Src/config_system.cpp ****             offset += Config_GetAreaSize(static_cast<ConfigArea_t>(j));
+ 1134              		.loc 1 278 27 discriminator 2 view .LVU288
+ 1135 0054 AC42     		cmp	r4, r5
+ 1136 0056 F8D1     		bne	.L97
+ 1137              	.LVL118:
+ 1138              	.L96:
+ 278:Src/config_system.cpp ****             offset += Config_GetAreaSize(static_cast<ConfigArea_t>(j));
+ 1139              		.loc 1 278 27 is_stmt 0 discriminator 2 view .LVU289
+ 1140              	.LBE36:
+ 283:Src/config_system.cpp ****         
+ 1141              		.loc 1 283 9 is_stmt 1 view .LVU290
+ 283:Src/config_system.cpp ****         
+ 1142              		.loc 1 283 65 is_stmt 0 view .LVU291
+ 1143 0058 06F10066 		add	r6, r6, #134217728
+ 1144 005c 06F5F036 		add	r6, r6, #122880
+ 1145              	.LVL119:
+ 286:Src/config_system.cpp ****         uint32_t calc_crc = Calculate_CRC(src, size - sizeof(uint32_t));
+ 1146              		.loc 1 286 9 is_stmt 1 view .LVU292
+ 286:Src/config_system.cpp ****         uint32_t calc_crc = Calculate_CRC(src, size - sizeof(uint32_t));
+ 1147              		.loc 1 286 55 is_stmt 0 view .LVU293
+ 1148 0060 043F     		subs	r7, r7, #4
+ 1149              	.LVL120:
+ 287:Src/config_system.cpp ****         
+ 1150              		.loc 1 287 9 is_stmt 1 view .LVU294
+ 287:Src/config_system.cpp ****         
+ 1151              		.loc 1 287 42 is_stmt 0 view .LVU295
+ 1152 0062 3946     		mov	r1, r7
+ 1153 0064 3046     		mov	r0, r6
+ 1154 0066 FFF7FEFF 		bl	_ZL13Calculate_CRCPKvm
+ 1155              	.LVL121:
+ 289:Src/config_system.cpp ****             // CRC校验失败，加载默认值
+ 1156              		.loc 1 289 9 is_stmt 1 view .LVU296
+ARM GAS  /tmp/ccBoMiZg.s 			page 30
+
+
+ 1157 006a F359     		ldr	r3, [r6, r7]
+ 1158              	.LVL122:
+ 289:Src/config_system.cpp ****             // CRC校验失败，加载默认值
+ 1159              		.loc 1 289 9 is_stmt 0 view .LVU297
+ 1160 006c 8342     		cmp	r3, r0
+ 1161 006e 1BD1     		bne	.L115
+ 297:Src/config_system.cpp ****     }
+ 1162              		.loc 1 297 9 is_stmt 1 view .LVU298
+ 297:Src/config_system.cpp ****     }
+ 1163              		.loc 1 297 15 is_stmt 0 view .LVU299
+ 1164 0070 3A46     		mov	r2, r7
+ 1165 0072 3146     		mov	r1, r6
+ 1166 0074 4046     		mov	r0, r8
+ 1167              	.LVL123:
+ 297:Src/config_system.cpp ****     }
+ 1168              		.loc 1 297 15 view .LVU300
+ 1169 0076 FFF7FEFF 		bl	memcpy
+ 1170              	.LVL124:
+ 1171              	.L95:
+ 297:Src/config_system.cpp ****     }
+ 1172              		.loc 1 297 15 view .LVU301
+ 1173              	.LBE43:
+ 265:Src/config_system.cpp ****         ConfigArea_t area = static_cast<ConfigArea_t>(i);
+ 1174              		.loc 1 265 5 is_stmt 1 discriminator 2 view .LVU302
+ 1175 007a 0135     		adds	r5, r5, #1
+ 1176              	.LVL125:
+ 265:Src/config_system.cpp ****         ConfigArea_t area = static_cast<ConfigArea_t>(i);
+ 1177              		.loc 1 265 58 discriminator 2 view .LVU303
+ 1178 007c 062D     		cmp	r5, #6
+ 1179 007e DBD0     		beq	.L94
+ 1180              	.LVL126:
+ 1181              	.L106:
+ 1182              	.LBB44:
+ 266:Src/config_system.cpp ****         // 获取区域信息
+ 1183              		.loc 1 266 9 view .LVU304
+ 1184 0080 5FFA85F9 		uxtb	r9, r5
+ 1185              	.LVL127:
+ 268:Src/config_system.cpp ****         uint32_t size = Config_GetAreaSize(area);
+ 1186              		.loc 1 268 9 view .LVU305
+ 268:Src/config_system.cpp ****         uint32_t size = Config_GetAreaSize(area);
+ 1187              		.loc 1 268 46 is_stmt 0 view .LVU306
+ 1188 0084 4846     		mov	r0, r9
+ 1189 0086 FFF7FEFF 		bl	Config_GetAreaPtr
+ 1190              	.LVL128:
+ 1191 008a 8046     		mov	r8, r0
+ 1192              	.LVL129:
+ 269:Src/config_system.cpp ****         uint32_t offset = 0;
+ 1193              		.loc 1 269 9 is_stmt 1 view .LVU307
+ 269:Src/config_system.cpp ****         uint32_t offset = 0;
+ 1194              		.loc 1 269 43 is_stmt 0 view .LVU308
+ 1195 008c 4846     		mov	r0, r9
+ 1196              	.LVL130:
+ 269:Src/config_system.cpp ****         uint32_t offset = 0;
+ 1197              		.loc 1 269 43 view .LVU309
+ 1198 008e FFF7FEFF 		bl	Config_GetAreaSize
+ 1199              	.LVL131:
+ 1200 0092 0746     		mov	r7, r0
+ARM GAS  /tmp/ccBoMiZg.s 			page 31
+
+
+ 1201              	.LVL132:
+ 270:Src/config_system.cpp ****         
+ 1202              		.loc 1 270 9 is_stmt 1 view .LVU310
+ 272:Src/config_system.cpp ****             all_success = false;
+ 1203              		.loc 1 272 9 view .LVU311
+ 1204 0094 B8F1000F 		cmp	r8, #0
+ 1205 0098 58D0     		beq	.L107
+ 272:Src/config_system.cpp ****             all_success = false;
+ 1206              		.loc 1 272 19 is_stmt 0 discriminator 2 view .LVU312
+ 1207 009a 0028     		cmp	r0, #0
+ 1208 009c D1D1     		bne	.L116
+ 273:Src/config_system.cpp ****             continue;
+ 1209              		.loc 1 273 25 view .LVU313
+ 1210 009e 4FF0000A 		mov	r10, #0
+ 1211 00a2 EAE7     		b	.L95
+ 1212              	.LVL133:
+ 1213              	.L109:
+ 270:Src/config_system.cpp ****         
+ 1214              		.loc 1 270 18 view .LVU314
+ 1215 00a4 0026     		movs	r6, #0
+ 1216 00a6 D7E7     		b	.L96
+ 1217              	.LVL134:
+ 1218              	.L115:
+ 291:Src/config_system.cpp ****             all_success = false;
+ 1219              		.loc 1 291 13 is_stmt 1 view .LVU315
+ 1220              	.LBB37:
+ 1221              	.LBI27:
+ 304:Src/config_system.cpp **** {
+ 1222              		.loc 1 304 13 view .LVU316
+ 1223              	.LBB29:
+ 306:Src/config_system.cpp ****         case CONFIG_AREA_SYSTEM:
+ 1224              		.loc 1 306 5 view .LVU317
+ 1225 00a8 B9F1050F 		cmp	r9, #5
+ 1226 00ac 51D8     		bhi	.L110
+ 1227 00ae DFE809F0 		tbb	[pc, r9]
+ 1228              	.LVL135:
+ 1229              	.L100:
+ 1230 00b2 03       		.byte	(.L105-.L100)/2
+ 1231 00b3 0D       		.byte	(.L104-.L100)/2
+ 1232 00b4 19       		.byte	(.L103-.L100)/2
+ 1233 00b5 22       		.byte	(.L102-.L100)/2
+ 1234 00b6 2F       		.byte	(.L101-.L100)/2
+ 1235 00b7 40       		.byte	(.L99-.L100)/2
+ 1236              		.p2align 1
+ 1237              	.L105:
+ 307:Src/config_system.cpp ****             g_config.system_config.can_id = 1;
+ 1238              		.loc 1 307 9 view .LVU318
+ 308:Src/config_system.cpp ****             g_config.system_config.heartbeat_rate_ms = 1000;
+ 1239              		.loc 1 308 13 view .LVU319
+ 308:Src/config_system.cpp ****             g_config.system_config.heartbeat_rate_ms = 1000;
+ 1240              		.loc 1 308 43 is_stmt 0 view .LVU320
+ 1241 00b8 2D4B     		ldr	r3, .L117+24
+ 1242 00ba 0122     		movs	r2, #1
+ 1243 00bc DA60     		str	r2, [r3, #12]
+ 309:Src/config_system.cpp ****             g_config.system_config.debug_level = 1;
+ 1244              		.loc 1 309 13 is_stmt 1 view .LVU321
+ 309:Src/config_system.cpp ****             g_config.system_config.debug_level = 1;
+ARM GAS  /tmp/ccBoMiZg.s 			page 32
+
+
+ 1245              		.loc 1 309 54 is_stmt 0 view .LVU322
+ 1246 00be 4FF47A71 		mov	r1, #1000
+ 1247 00c2 1961     		str	r1, [r3, #16]
+ 310:Src/config_system.cpp ****             break;
+ 1248              		.loc 1 310 13 is_stmt 1 view .LVU323
+ 310:Src/config_system.cpp ****             break;
+ 1249              		.loc 1 310 48 is_stmt 0 view .LVU324
+ 1250 00c4 1A75     		strb	r2, [r3, #20]
+ 311:Src/config_system.cpp ****             
+ 1251              		.loc 1 311 13 is_stmt 1 view .LVU325
+ 1252              	.LBE29:
+ 1253              	.LBE37:
+ 292:Src/config_system.cpp ****             continue;
+ 1254              		.loc 1 292 25 is_stmt 0 view .LVU326
+ 1255 00c6 4FF0000A 		mov	r10, #0
+ 1256              	.LBB38:
+ 1257              	.LBB30:
+ 311:Src/config_system.cpp ****             
+ 1258              		.loc 1 311 13 view .LVU327
+ 1259 00ca D6E7     		b	.L95
+ 1260              	.L104:
+ 313:Src/config_system.cpp ****             g_config.motor_config.current_limit = 60.0f;
+ 1261              		.loc 1 313 9 is_stmt 1 view .LVU328
+ 314:Src/config_system.cpp ****             g_config.motor_config.voltage_limit = 24.0f;
+ 1262              		.loc 1 314 13 view .LVU329
+ 314:Src/config_system.cpp ****             g_config.motor_config.voltage_limit = 24.0f;
+ 1263              		.loc 1 314 49 is_stmt 0 view .LVU330
+ 1264 00cc 284B     		ldr	r3, .L117+24
+ 1265 00ce C3ED068A 		vstr.32	s17, [r3, #24]
+ 315:Src/config_system.cpp ****             g_config.motor_config.temp_limit = 85.0f;
+ 1266              		.loc 1 315 13 is_stmt 1 view .LVU331
+ 315:Src/config_system.cpp ****             g_config.motor_config.temp_limit = 85.0f;
+ 1267              		.loc 1 315 49 is_stmt 0 view .LVU332
+ 1268 00d2 284A     		ldr	r2, .L117+28
+ 1269 00d4 DA61     		str	r2, [r3, #28]	@ float
+ 316:Src/config_system.cpp ****             g_config.motor_config.pole_pairs = 7;
+ 1270              		.loc 1 316 13 is_stmt 1 view .LVU333
+ 316:Src/config_system.cpp ****             g_config.motor_config.pole_pairs = 7;
+ 1271              		.loc 1 316 46 is_stmt 0 view .LVU334
+ 1272 00d6 83ED088A 		vstr.32	s16, [r3, #32]
+ 317:Src/config_system.cpp ****             break;
+ 1273              		.loc 1 317 13 is_stmt 1 view .LVU335
+ 317:Src/config_system.cpp ****             break;
+ 1274              		.loc 1 317 46 is_stmt 0 view .LVU336
+ 1275 00da 0722     		movs	r2, #7
+ 1276 00dc 9A84     		strh	r2, [r3, #36]	@ movhi
+ 318:Src/config_system.cpp ****             
+ 1277              		.loc 1 318 13 is_stmt 1 view .LVU337
+ 1278              	.LBE30:
+ 1279              	.LBE38:
+ 292:Src/config_system.cpp ****             continue;
+ 1280              		.loc 1 292 25 is_stmt 0 view .LVU338
+ 1281 00de 4FF0000A 		mov	r10, #0
+ 1282              	.LBB39:
+ 1283              	.LBB31:
+ 318:Src/config_system.cpp ****             
+ 1284              		.loc 1 318 13 view .LVU339
+ARM GAS  /tmp/ccBoMiZg.s 			page 33
+
+
+ 1285 00e2 CAE7     		b	.L95
+ 1286              	.L103:
+ 320:Src/config_system.cpp ****             g_config.can_config.baudrate = 1000000;
+ 1287              		.loc 1 320 9 is_stmt 1 view .LVU340
+ 321:Src/config_system.cpp ****             g_config.can_config.enabled = true;
+ 1288              		.loc 1 321 13 view .LVU341
+ 321:Src/config_system.cpp ****             g_config.can_config.enabled = true;
+ 1289              		.loc 1 321 42 is_stmt 0 view .LVU342
+ 1290 00e4 224B     		ldr	r3, .L117+24
+ 1291 00e6 244A     		ldr	r2, .L117+32
+ 1292 00e8 9A62     		str	r2, [r3, #40]
+ 322:Src/config_system.cpp ****             break;
+ 1293              		.loc 1 322 13 is_stmt 1 view .LVU343
+ 322:Src/config_system.cpp ****             break;
+ 1294              		.loc 1 322 41 is_stmt 0 view .LVU344
+ 1295 00ea 0122     		movs	r2, #1
+ 1296 00ec 83F82C20 		strb	r2, [r3, #44]
+ 323:Src/config_system.cpp ****             
+ 1297              		.loc 1 323 13 is_stmt 1 view .LVU345
+ 1298              	.LBE31:
+ 1299              	.LBE39:
+ 292:Src/config_system.cpp ****             continue;
+ 1300              		.loc 1 292 25 is_stmt 0 view .LVU346
+ 1301 00f0 4FF0000A 		mov	r10, #0
+ 1302              	.LBB40:
+ 1303              	.LBB32:
+ 323:Src/config_system.cpp ****             
+ 1304              		.loc 1 323 13 view .LVU347
+ 1305 00f4 C1E7     		b	.L95
+ 1306              	.L102:
+ 325:Src/config_system.cpp ****             g_config.encoder_config.cpr = 4096;
+ 1307              		.loc 1 325 9 is_stmt 1 view .LVU348
+ 326:Src/config_system.cpp ****             g_config.encoder_config.mode = 0;
+ 1308              		.loc 1 326 13 view .LVU349
+ 326:Src/config_system.cpp ****             g_config.encoder_config.mode = 0;
+ 1309              		.loc 1 326 41 is_stmt 0 view .LVU350
+ 1310 00f6 1E4B     		ldr	r3, .L117+24
+ 1311 00f8 4FF48052 		mov	r2, #4096
+ 1312 00fc 1A86     		strh	r2, [r3, #48]	@ movhi
+ 327:Src/config_system.cpp ****             g_config.encoder_config.use_index = false;
+ 1313              		.loc 1 327 13 is_stmt 1 view .LVU351
+ 327:Src/config_system.cpp ****             g_config.encoder_config.use_index = false;
+ 1314              		.loc 1 327 42 is_stmt 0 view .LVU352
+ 1315 00fe 4FF0000A 		mov	r10, #0
+ 1316 0102 83F832A0 		strb	r10, [r3, #50]
+ 328:Src/config_system.cpp ****             g_config.encoder_config.index_offset = 0.0f;
+ 1317              		.loc 1 328 13 is_stmt 1 view .LVU353
+ 328:Src/config_system.cpp ****             g_config.encoder_config.index_offset = 0.0f;
+ 1318              		.loc 1 328 47 is_stmt 0 view .LVU354
+ 1319 0106 83F833A0 		strb	r10, [r3, #51]
+ 329:Src/config_system.cpp ****             break;
+ 1320              		.loc 1 329 13 is_stmt 1 view .LVU355
+ 329:Src/config_system.cpp ****             break;
+ 1321              		.loc 1 329 50 is_stmt 0 view .LVU356
+ 1322 010a C3F834B0 		str	fp, [r3, #52]	@ float
+ 330:Src/config_system.cpp ****             
+ 1323              		.loc 1 330 13 is_stmt 1 view .LVU357
+ARM GAS  /tmp/ccBoMiZg.s 			page 34
+
+
+ 1324 010e B4E7     		b	.L95
+ 1325              	.L101:
+ 332:Src/config_system.cpp ****             g_config.controller_config.speed_pid_p = 0.1f;
+ 1326              		.loc 1 332 9 view .LVU358
+ 333:Src/config_system.cpp ****             g_config.controller_config.speed_pid_i = 0.01f;
+ 1327              		.loc 1 333 13 view .LVU359
+ 333:Src/config_system.cpp ****             g_config.controller_config.speed_pid_i = 0.01f;
+ 1328              		.loc 1 333 52 is_stmt 0 view .LVU360
+ 1329 0110 174B     		ldr	r3, .L117+24
+ 1330 0112 C3ED0E9A 		vstr.32	s19, [r3, #56]
+ 334:Src/config_system.cpp ****             g_config.controller_config.speed_pid_d = 0.0f;
+ 1331              		.loc 1 334 13 is_stmt 1 view .LVU361
+ 334:Src/config_system.cpp ****             g_config.controller_config.speed_pid_d = 0.0f;
+ 1332              		.loc 1 334 52 is_stmt 0 view .LVU362
+ 1333 0116 83ED0F9A 		vstr.32	s18, [r3, #60]
+ 335:Src/config_system.cpp ****             g_config.controller_config.pos_pid_p = 1.0f;
+ 1334              		.loc 1 335 13 is_stmt 1 view .LVU363
+ 335:Src/config_system.cpp ****             g_config.controller_config.pos_pid_p = 1.0f;
+ 1335              		.loc 1 335 52 is_stmt 0 view .LVU364
+ 1336 011a C3F840B0 		str	fp, [r3, #64]	@ float
+ 336:Src/config_system.cpp ****             g_config.controller_config.pos_pid_i = 0.0f;
+ 1337              		.loc 1 336 13 is_stmt 1 view .LVU365
+ 336:Src/config_system.cpp ****             g_config.controller_config.pos_pid_i = 0.0f;
+ 1338              		.loc 1 336 50 is_stmt 0 view .LVU366
+ 1339 011e 4FF07E52 		mov	r2, #1065353216
+ 1340 0122 5A64     		str	r2, [r3, #68]	@ float
+ 337:Src/config_system.cpp ****             g_config.controller_config.pos_pid_d = 0.0f;
+ 1341              		.loc 1 337 13 is_stmt 1 view .LVU367
+ 337:Src/config_system.cpp ****             g_config.controller_config.pos_pid_d = 0.0f;
+ 1342              		.loc 1 337 50 is_stmt 0 view .LVU368
+ 1343 0124 C3F848B0 		str	fp, [r3, #72]	@ float
+ 338:Src/config_system.cpp ****             break;
+ 1344              		.loc 1 338 13 is_stmt 1 view .LVU369
+ 338:Src/config_system.cpp ****             break;
+ 1345              		.loc 1 338 50 is_stmt 0 view .LVU370
+ 1346 0128 C3F84CB0 		str	fp, [r3, #76]	@ float
+ 339:Src/config_system.cpp ****             
+ 1347              		.loc 1 339 13 is_stmt 1 view .LVU371
+ 1348              	.LBE32:
+ 1349              	.LBE40:
+ 292:Src/config_system.cpp ****             continue;
+ 1350              		.loc 1 292 25 is_stmt 0 view .LVU372
+ 1351 012c 4FF0000A 		mov	r10, #0
+ 1352              	.LBB41:
+ 1353              	.LBB33:
+ 339:Src/config_system.cpp ****             
+ 1354              		.loc 1 339 13 view .LVU373
+ 1355 0130 A3E7     		b	.L95
+ 1356              	.L99:
+ 341:Src/config_system.cpp ****             g_config.limits_config.max_rpm = 3000;
+ 1357              		.loc 1 341 9 is_stmt 1 view .LVU374
+ 342:Src/config_system.cpp ****             g_config.limits_config.max_current = 60.0f;
+ 1358              		.loc 1 342 13 view .LVU375
+ 342:Src/config_system.cpp ****             g_config.limits_config.max_current = 60.0f;
+ 1359              		.loc 1 342 44 is_stmt 0 view .LVU376
+ 1360 0132 0F4B     		ldr	r3, .L117+24
+ 1361 0134 40F6B832 		movw	r2, #3000
+ARM GAS  /tmp/ccBoMiZg.s 			page 35
+
+
+ 1362 0138 1A65     		str	r2, [r3, #80]
+ 343:Src/config_system.cpp ****             g_config.limits_config.max_duty = 0.95f;
+ 1363              		.loc 1 343 13 is_stmt 1 view .LVU377
+ 343:Src/config_system.cpp ****             g_config.limits_config.max_duty = 0.95f;
+ 1364              		.loc 1 343 48 is_stmt 0 view .LVU378
+ 1365 013a C3ED158A 		vstr.32	s17, [r3, #84]
+ 344:Src/config_system.cpp ****             g_config.limits_config.max_temp = 85.0f;
+ 1366              		.loc 1 344 13 is_stmt 1 view .LVU379
+ 344:Src/config_system.cpp ****             g_config.limits_config.max_temp = 85.0f;
+ 1367              		.loc 1 344 45 is_stmt 0 view .LVU380
+ 1368 013e 83ED16AA 		vstr.32	s20, [r3, #88]
+ 1369              		.loc 1 345 13 is_stmt 1 view .LVU381
+ 1370              		.loc 1 345 45 is_stmt 0 view .LVU382
+ 1371 0142 83ED178A 		vstr.32	s16, [r3, #92]
+ 346:Src/config_system.cpp ****             break;
+ 1372              		.loc 1 346 13 is_stmt 1 view .LVU383
+ 1373              	.LBE33:
+ 1374              	.LBE41:
+ 292:Src/config_system.cpp ****             continue;
+ 1375              		.loc 1 292 25 is_stmt 0 view .LVU384
+ 1376 0146 4FF0000A 		mov	r10, #0
+ 1377              	.LBB42:
+ 1378              	.LBB34:
+ 1379              		.loc 1 346 13 view .LVU385
+ 1380 014a 96E7     		b	.L95
+ 1381              	.LVL136:
+ 1382              	.L107:
+ 1383              		.loc 1 346 13 view .LVU386
+ 1384              	.LBE34:
+ 1385              	.LBE42:
+ 273:Src/config_system.cpp ****             continue;
+ 1386              		.loc 1 273 25 view .LVU387
+ 1387 014c 4FF0000A 		mov	r10, #0
+ 1388 0150 93E7     		b	.L95
+ 1389              	.LVL137:
+ 1390              	.L110:
+ 289:Src/config_system.cpp ****             // CRC校验失败，加载默认值
+ 1391              		.loc 1 289 9 view .LVU388
+ 1392 0152 4FF0000A 		mov	r10, #0
+ 1393 0156 90E7     		b	.L95
+ 1394              	.L118:
+ 1395              		.align	2
+ 1396              	.L117:
+ 1397 0158 00000000 		.word	.LANCHOR1
+ 1398 015c 00007042 		.word	1114636288
+ 1399 0160 3333733F 		.word	1064514355
+ 1400 0164 0000AA42 		.word	1118437376
+ 1401 0168 CDCCCC3D 		.word	1036831949
+ 1402 016c 0AD7233C 		.word	1008981770
+ 1403 0170 00000000 		.word	.LANCHOR0
+ 1404 0174 0000C041 		.word	1103101952
+ 1405 0178 40420F00 		.word	1000000
+ 1406              	.LBE44:
+ 1407              	.LBE46:
+ 1408              		.cfi_endproc
+ 1409              	.LFE142:
+ 1411              		.section	.bss._ZL20g_config_initialized,"aw",%nobits
+ARM GAS  /tmp/ccBoMiZg.s 			page 36
+
+
+ 1412              		.set	.LANCHOR1,. + 0
+ 1415              	_ZL20g_config_initialized:
+ 1416 0000 00       		.space	1
+ 1417              		.section	.bss._ZL8g_config,"aw",%nobits
+ 1418              		.align	2
+ 1419              		.set	.LANCHOR0,. + 0
+ 1422              	_ZL8g_config:
+ 1423 0000 00000000 		.space	96
+ 1423      00000000 
+ 1423      00000000 
+ 1423      00000000 
+ 1423      00000000 
+ 1424              		.text
+ 1425              	.Letext0:
+ 1426              		.file 2 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
+ 1427              		.file 3 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
+ 1428              		.file 4 "Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g4xx.h"
+ 1429              		.file 5 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_def.h"
+ 1430              		.file 6 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_flash.h"
+ 1431              		.file 7 "Inc/config_system.hpp"
+ 1432              		.file 8 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_flash_ex.h"
+ARM GAS  /tmp/ccBoMiZg.s 			page 37
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 config_system.cpp
+     /tmp/ccBoMiZg.s:18     .text._ZL13Calculate_CRCPKvm:0000000000000000 $t
+     /tmp/ccBoMiZg.s:25     .text._ZL13Calculate_CRCPKvm:0000000000000000 _ZL13Calculate_CRCPKvm
+     /tmp/ccBoMiZg.s:124    .text._Z11Flash_WritemPKvm:0000000000000000 $t
+     /tmp/ccBoMiZg.s:131    .text._Z11Flash_WritemPKvm:0000000000000000 _Z11Flash_WritemPKvm
+     /tmp/ccBoMiZg.s:283    .text._Z11Flash_Erasemm:0000000000000000 $t
+     /tmp/ccBoMiZg.s:290    .text._Z11Flash_Erasemm:0000000000000000 _Z11Flash_Erasemm
+     /tmp/ccBoMiZg.s:368    .text.Config_GetAreaPtr:0000000000000000 $t
+     /tmp/ccBoMiZg.s:375    .text.Config_GetAreaPtr:0000000000000000 Config_GetAreaPtr
+     /tmp/ccBoMiZg.s:388    .text.Config_GetAreaPtr:0000000000000008 $d
+     /tmp/ccBoMiZg.s:394    .text.Config_GetAreaPtr:000000000000000e $t
+     /tmp/ccBoMiZg.s:456    .text.Config_GetAreaPtr:000000000000002c $d
+     /tmp/ccBoMiZg.s:466    .text.Config_GetAreaSize:0000000000000000 $t
+     /tmp/ccBoMiZg.s:473    .text.Config_GetAreaSize:0000000000000000 Config_GetAreaSize
+     /tmp/ccBoMiZg.s:486    .text.Config_GetAreaSize:0000000000000008 $d
+     /tmp/ccBoMiZg.s:492    .text.Config_GetAreaSize:000000000000000e $t
+     /tmp/ccBoMiZg.s:546    .text.Config_SaveArea:0000000000000000 $t
+     /tmp/ccBoMiZg.s:553    .text.Config_SaveArea:0000000000000000 Config_SaveArea
+     /tmp/ccBoMiZg.s:658    .text.Config_LoadArea:0000000000000000 $t
+     /tmp/ccBoMiZg.s:665    .text.Config_LoadArea:0000000000000000 Config_LoadArea
+     /tmp/ccBoMiZg.s:770    .text.Config_SaveAll:0000000000000000 $t
+     /tmp/ccBoMiZg.s:777    .text.Config_SaveAll:0000000000000000 Config_SaveAll
+     /tmp/ccBoMiZg.s:833    .text.Config_SaveAll:000000000000003c $d
+     /tmp/ccBoMiZg.s:840    .text.Config_LoadDefault:0000000000000000 $t
+     /tmp/ccBoMiZg.s:847    .text.Config_LoadDefault:0000000000000000 Config_LoadDefault
+     /tmp/ccBoMiZg.s:903    .text.Config_LoadDefault:0000000000000030 $d
+     /tmp/ccBoMiZg.s:912    .text.Config_Init:0000000000000000 $t
+     /tmp/ccBoMiZg.s:919    .text.Config_Init:0000000000000000 Config_Init
+     /tmp/ccBoMiZg.s:997    .text.Config_Init:000000000000004c $d
+     /tmp/ccBoMiZg.s:1007   .text.Config_LoadAllAreas:0000000000000000 $t
+     /tmp/ccBoMiZg.s:1014   .text.Config_LoadAllAreas:0000000000000000 Config_LoadAllAreas
+     /tmp/ccBoMiZg.s:1230   .text.Config_LoadAllAreas:00000000000000b2 $d
+     /tmp/ccBoMiZg.s:1236   .text.Config_LoadAllAreas:00000000000000b8 $t
+     /tmp/ccBoMiZg.s:1397   .text.Config_LoadAllAreas:0000000000000158 $d
+     /tmp/ccBoMiZg.s:1415   .bss._ZL20g_config_initialized:0000000000000000 _ZL20g_config_initialized
+     /tmp/ccBoMiZg.s:1416   .bss._ZL20g_config_initialized:0000000000000000 $d
+     /tmp/ccBoMiZg.s:1418   .bss._ZL8g_config:0000000000000000 $d
+     /tmp/ccBoMiZg.s:1422   .bss._ZL8g_config:0000000000000000 _ZL8g_config
+
+UNDEFINED SYMBOLS
+HAL_FLASH_Unlock
+HAL_FLASH_Program
+memcpy
+HAL_FLASH_Lock
+HAL_FLASHEx_Erase
+memset

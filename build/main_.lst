@@ -1,0 +1,1531 @@
+ARM GAS  /tmp/ccZgoZwU.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 2
+  13              		.file	"main_.cpp"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text._Z18save_configurationv,"ax",%progbits
+  18              		.align	1
+  19              		.global	_Z18save_configurationv
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	_Z18save_configurationv:
+  27              	.LFB5671:
+  28              		.file 1 "Src/main_.cpp"
+   1:Src/main_.cpp **** 
+   2:Src/main_.cpp **** #define __MAIN_CPP__
+   3:Src/main_.cpp **** 
+   4:Src/main_.cpp **** #include "freertos_vars.h"
+   5:Src/main_.cpp **** #include <interface_can.hpp>
+   6:Src/main_.cpp **** 
+   7:Src/main_.cpp **** #include "main_.hpp"
+   8:Src/main_.cpp **** #include "low_level.h"
+   9:Src/main_.cpp **** 
+  10:Src/main_.cpp **** BoardConfig_t board_config;
+  11:Src/main_.cpp **** SystemStats_t system_stats;
+  12:Src/main_.cpp **** 
+  13:Src/main_.cpp **** 
+  14:Src/main_.cpp **** float current_meas_period = CURRENT_MEAS_PERIOD;
+  15:Src/main_.cpp **** ODriveCAN::Config_t can_config;
+  16:Src/main_.cpp **** Encoder::Config_t encoder_configs;
+  17:Src/main_.cpp **** Controller::Config_t controller_configs;
+  18:Src/main_.cpp **** Motor::Config_t motor_configs;
+  19:Src/main_.cpp **** OnboardThermistorCurrentLimiter::Config_t fet_thermistor_configs;
+  20:Src/main_.cpp **** OffboardThermistorCurrentLimiter::Config_t motor_thermistor_configs;
+  21:Src/main_.cpp **** Axis::Config_t axis_configs;
+  22:Src/main_.cpp **** 
+  23:Src/main_.cpp **** Axis* axes;
+  24:Src/main_.cpp **** ODriveCAN *odCAN = nullptr;
+  25:Src/main_.cpp **** 
+  26:Src/main_.cpp **** 
+  27:Src/main_.cpp **** 
+  28:Src/main_.cpp **** 
+  29:Src/main_.cpp **** void save_configuration(void) {
+  29              		.loc 1 29 31 view -0
+ARM GAS  /tmp/ccZgoZwU.s 			page 2
+
+
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+  30:Src/main_.cpp ****     // if (ConfigFormat::safe_store_config(
+  31:Src/main_.cpp ****     //         &board_config,
+  32:Src/main_.cpp ****     //         &can_config,
+  33:Src/main_.cpp ****     //         &encoder_configs,
+  34:Src/main_.cpp ****     //         &controller_configs,
+  35:Src/main_.cpp ****     //         &motor_configs,
+  36:Src/main_.cpp ****     //         &fet_thermistor_configs,
+  37:Src/main_.cpp ****     //         &motor_thermistor_configs,
+  38:Src/main_.cpp ****     //         &axis_configs)) {
+  39:Src/main_.cpp ****     //     printf("saving configuration failed\r\n"); osDelay(5);
+  40:Src/main_.cpp ****     // } else {
+  41:Src/main_.cpp ****     //     user_config_loaded_ = true;
+  42:Src/main_.cpp ****     // }
+  43:Src/main_.cpp **** }
+  34              		.loc 1 43 1 is_stmt 0 view .LVU1
+  35 0000 7047     		bx	lr
+  36              		.cfi_endproc
+  37              	.LFE5671:
+  39              		.section	.text.load_configuration,"ax",%progbits
+  40              		.align	1
+  41              		.global	load_configuration
+  42              		.syntax unified
+  43              		.thumb
+  44              		.thumb_func
+  45              		.fpu fpv4-sp-d16
+  47              	load_configuration:
+  48              	.LFB5672:
+  44:Src/main_.cpp **** 
+  45:Src/main_.cpp **** extern "C" int load_configuration(void) {
+  49              		.loc 1 45 41 is_stmt 1 view -0
+  50              		.cfi_startproc
+  51              		@ Volatile: function does not return.
+  52              		@ args = 0, pretend = 0, frame = 0
+  53              		@ frame_needed = 0, uses_anonymous_args = 0
+  54              		@ link register save eliminated.
+  55              		.cfi_endproc
+  56              	.LFE5672:
+  58              		.section	.text._Z19erase_configurationv,"ax",%progbits
+  59              		.align	1
+  60              		.global	_Z19erase_configurationv
+  61              		.syntax unified
+  62              		.thumb
+  63              		.thumb_func
+  64              		.fpu fpv4-sp-d16
+  66              	_Z19erase_configurationv:
+  67              	.LFB5673:
+  46:Src/main_.cpp **** //     // Try to load configs
+  47:Src/main_.cpp **** //     if (NVM_init() ||
+  48:Src/main_.cpp **** //         ConfigFormat::safe_load_config(
+  49:Src/main_.cpp **** //                 &board_config,
+  50:Src/main_.cpp **** //                 &can_config,
+  51:Src/main_.cpp **** //                 &encoder_configs,
+  52:Src/main_.cpp **** //                 &controller_configs,
+ARM GAS  /tmp/ccZgoZwU.s 			page 3
+
+
+  53:Src/main_.cpp **** //                 &motor_configs,
+  54:Src/main_.cpp **** //                 &fet_thermistor_configs,
+  55:Src/main_.cpp **** //                 &motor_thermistor_configs,
+  56:Src/main_.cpp **** //                 &axis_configs)) {
+  57:Src/main_.cpp **** //         //If loading failed, restore defaults
+  58:Src/main_.cpp **** //         board_config = BoardConfig_t();
+  59:Src/main_.cpp **** //         can_config = ODriveCAN::Config_t();
+  60:Src/main_.cpp **** //         for (size_t i = 0; i < AXIS_COUNT; ++i) {
+  61:Src/main_.cpp **** //             encoder_configs[i] = Encoder::Config_t();
+  62:Src/main_.cpp **** //             controller_configs[i] = Controller::Config_t();
+  63:Src/main_.cpp **** //             motor_configs[i] = Motor::Config_t();
+  64:Src/main_.cpp **** //             fet_thermistor_configs[i] = OnboardThermistorCurrentLimiter::Config_t();
+  65:Src/main_.cpp **** //             motor_thermistor_configs[i] = OffboardThermistorCurrentLimiter::Config_t();
+  66:Src/main_.cpp **** //             axis_configs[i] = Axis::Config_t();
+  67:Src/main_.cpp **** //             // Default step/dir pins are different, so we need to explicitly load them
+  68:Src/main_.cpp **** //          //   Axis::load_default_can_id(i, axis_configs[i]);
+  69:Src/main_.cpp **** 
+  70:Src/main_.cpp **** //             controller_configs[i].load_encoder_axis = i;
+  71:Src/main_.cpp **** //         }
+  72:Src/main_.cpp **** //     } else {
+  73:Src/main_.cpp **** //         odrv.user_config_loaded_ = true;
+  74:Src/main_.cpp **** //     }
+  75:Src/main_.cpp **** //  //   encoder_configs[0].mode = Encoder::MODE_UART_ABS_KING;
+  76:Src/main_.cpp **** //     return odrv.user_config_loaded_;
+  77:Src/main_.cpp **** }
+  78:Src/main_.cpp **** 
+  79:Src/main_.cpp **** void erase_configuration(void) {
+  68              		.loc 1 79 32 view -0
+  69              		.cfi_startproc
+  70              		@ args = 0, pretend = 0, frame = 0
+  71              		@ frame_needed = 0, uses_anonymous_args = 0
+  72              		@ link register save eliminated.
+  80:Src/main_.cpp ****     // NVM_erase();
+  81:Src/main_.cpp **** 
+  82:Src/main_.cpp ****     // // FIXME: this reboot is a workaround because we don't want the next save_configuration
+  83:Src/main_.cpp ****     // // to write back the old configuration from RAM to NVM. The proper action would
+  84:Src/main_.cpp ****     // // be to reset the values in RAM to default. However right now that's not
+  85:Src/main_.cpp ****     // // practical because several startup actions depend on the config. The
+  86:Src/main_.cpp ****     // // other problem is that the stack overflows if we reset to default here.
+  87:Src/main_.cpp ****     // NVIC_SystemReset();
+  88:Src/main_.cpp **** }
+  73              		.loc 1 88 1 is_stmt 0 view .LVU4
+  74 0000 7047     		bx	lr
+  75              		.cfi_endproc
+  76              	.LFE5673:
+  78              		.section	.text.construct_objects,"ax",%progbits
+  79              		.align	1
+  80              		.global	construct_objects
+  81              		.syntax unified
+  82              		.thumb
+  83              		.thumb_func
+  84              		.fpu fpv4-sp-d16
+  86              	construct_objects:
+  87              	.LFB5674:
+  89:Src/main_.cpp **** 
+  90:Src/main_.cpp **** extern "C" int construct_objects(){
+  88              		.loc 1 90 35 is_stmt 1 view -0
+ARM GAS  /tmp/ccZgoZwU.s 			page 4
+
+
+  89              		.cfi_startproc
+  90              		@ Volatile: function does not return.
+  91              		@ args = 0, pretend = 0, frame = 0
+  92              		@ frame_needed = 0, uses_anonymous_args = 0
+  93              		@ link register save eliminated.
+  94              		.cfi_endproc
+  95              	.LFE5674:
+  97              		.section	.text.vApplicationStackOverflowHook,"ax",%progbits
+  98              		.align	1
+  99              		.global	vApplicationStackOverflowHook
+ 100              		.syntax unified
+ 101              		.thumb
+ 102              		.thumb_func
+ 103              		.fpu fpv4-sp-d16
+ 105              	vApplicationStackOverflowHook:
+ 106              	.LVL0:
+ 107              	.LFB5675:
+  91:Src/main_.cpp **** // #if HW_VERSION_MAJOR == 3 && HW_VERSION_MINOR >= 3
+  92:Src/main_.cpp **** //     if (odrv.config_.enable_i2c_instead_of_can) {
+  93:Src/main_.cpp **** //         // Set up the direction GPIO as input
+  94:Src/main_.cpp **** //         GPIO_InitTypeDef GPIO_InitStruct;
+  95:Src/main_.cpp **** //         GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  96:Src/main_.cpp **** //         GPIO_InitStruct.Pull = GPIO_PULLUP;
+  97:Src/main_.cpp **** 
+  98:Src/main_.cpp **** //         GPIO_InitStruct.Pin = I2C_A0_PIN;
+  99:Src/main_.cpp **** //         HAL_GPIO_Init(I2C_A0_PORT, &GPIO_InitStruct);
+ 100:Src/main_.cpp **** //         GPIO_InitStruct.Pin = I2C_A1_PIN;
+ 101:Src/main_.cpp **** //         HAL_GPIO_Init(I2C_A1_PORT, &GPIO_InitStruct);
+ 102:Src/main_.cpp **** //         GPIO_InitStruct.Pin = I2C_A2_PIN;
+ 103:Src/main_.cpp **** //         HAL_GPIO_Init(I2C_A2_PORT, &GPIO_InitStruct);
+ 104:Src/main_.cpp **** 
+ 105:Src/main_.cpp **** //         osDelay(1);
+ 106:Src/main_.cpp **** //         i2c_stats_.addr = (0xD << 3);
+ 107:Src/main_.cpp **** //         i2c_stats_.addr |= HAL_GPIO_ReadPin(I2C_A0_PORT, I2C_A0_PIN) != GPIO_PIN_RESET ? 0x1 : 0
+ 108:Src/main_.cpp **** //         i2c_stats_.addr |= HAL_GPIO_ReadPin(I2C_A1_PORT, I2C_A1_PIN) != GPIO_PIN_RESET ? 0x2 : 0
+ 109:Src/main_.cpp **** //         i2c_stats_.addr |= HAL_GPIO_ReadPin(I2C_A2_PORT, I2C_A2_PIN) != GPIO_PIN_RESET ? 0x4 : 0
+ 110:Src/main_.cpp **** //         MX_I2C1_Init(i2c_stats_.addr);
+ 111:Src/main_.cpp **** //     } else
+ 112:Src/main_.cpp **** // #endif
+ 113:Src/main_.cpp **** //         MX_CAN1_Init();
+ 114:Src/main_.cpp **** 
+ 115:Src/main_.cpp **** //     HAL_UART_DeInit(&huart4);
+ 116:Src/main_.cpp **** //     huart4.Init.BaudRate = odrv.config_.uart_baudrate;
+ 117:Src/main_.cpp **** //     HAL_UART_Init(&huart4);
+ 118:Src/main_.cpp **** 
+ 119:Src/main_.cpp **** //     // Init general user ADC on some GPIOs.
+ 120:Src/main_.cpp **** //     GPIO_InitTypeDef GPIO_InitStruct;
+ 121:Src/main_.cpp **** //     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+ 122:Src/main_.cpp **** //     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 123:Src/main_.cpp **** //     GPIO_InitStruct.Pin = GPIO_1_Pin;
+ 124:Src/main_.cpp **** //     HAL_GPIO_Init(GPIO_1_GPIO_Port, &GPIO_InitStruct);
+ 125:Src/main_.cpp **** //     GPIO_InitStruct.Pin = GPIO_2_Pin;
+ 126:Src/main_.cpp **** //     HAL_GPIO_Init(GPIO_2_GPIO_Port, &GPIO_InitStruct);
+ 127:Src/main_.cpp **** //     GPIO_InitStruct.Pin = GPIO_3_Pin;
+ 128:Src/main_.cpp **** //     HAL_GPIO_Init(GPIO_3_GPIO_Port, &GPIO_InitStruct);
+ 129:Src/main_.cpp **** //     GPIO_InitStruct.Pin = GPIO_4_Pin;
+ 130:Src/main_.cpp **** //     HAL_GPIO_Init(GPIO_4_GPIO_Port, &GPIO_InitStruct);
+ARM GAS  /tmp/ccZgoZwU.s 			page 5
+
+
+ 131:Src/main_.cpp **** // #if HW_VERSION_MAJOR == 3 && HW_VERSION_MINOR >= 5
+ 132:Src/main_.cpp **** //     GPIO_InitStruct.Pin = GPIO_5_Pin;
+ 133:Src/main_.cpp **** //     HAL_GPIO_Init(GPIO_5_GPIO_Port, &GPIO_InitStruct);
+ 134:Src/main_.cpp **** // #endif
+ 135:Src/main_.cpp **** 
+ 136:Src/main_.cpp **** //     // Construct all objects.
+ 137:Src/main_.cpp **** //     odCAN = new ODriveCAN(can_config, &hcan1);
+ 138:Src/main_.cpp **** //     for (size_t i = 0; i < AXIS_COUNT; ++i) {
+ 139:Src/main_.cpp **** //         Encoder *encoder = new Encoder(hw_configs[i].encoder_config,
+ 140:Src/main_.cpp **** //                                        encoder_configs[i], motor_configs[i]);
+ 141:Src/main_.cpp **** //         Controller *controller = new Controller(controller_configs[i]);
+ 142:Src/main_.cpp **** 
+ 143:Src/main_.cpp **** //         OnboardThermistorCurrentLimiter *fet_thermistor = new OnboardThermistorCurrentLimiter(hw
+ 144:Src/main_.cpp **** //                                                                                               fe
+ 145:Src/main_.cpp **** //         OffboardThermistorCurrentLimiter *motor_thermistor = new OffboardThermistorCurrentLimite
+ 146:Src/main_.cpp **** 
+ 147:Src/main_.cpp **** //         Motor *motor = new Motor(hw_configs[i].motor_config,
+ 148:Src/main_.cpp **** //                                  hw_configs[i].gate_driver_config,
+ 149:Src/main_.cpp **** //                                  motor_configs[i]);
+ 150:Src/main_.cpp **** //         axes[i] = new Axis(i, hw_configs[i].axis_config, axis_configs[i],
+ 151:Src/main_.cpp **** //                 *encoder, *controller, *fet_thermistor,
+ 152:Src/main_.cpp **** //                 *motor_thermistor, *motor);
+ 153:Src/main_.cpp **** 
+ 154:Src/main_.cpp **** //         controller_configs[i].parent = controller;
+ 155:Src/main_.cpp **** //         encoder_configs[i].parent = encoder;
+ 156:Src/main_.cpp **** //         motor_thermistor_configs[i].parent = motor_thermistor;
+ 157:Src/main_.cpp **** //         motor_configs[i].parent = motor;
+ 158:Src/main_.cpp **** //         axis_configs[i].parent = axes[i];
+ 159:Src/main_.cpp **** //     }
+ 160:Src/main_.cpp **** //     return 0;
+ 161:Src/main_.cpp **** }
+ 162:Src/main_.cpp **** 
+ 163:Src/main_.cpp **** extern "C" {
+ 164:Src/main_.cpp **** int odrive_main(void);
+ 165:Src/main_.cpp **** void vApplicationStackOverflowHook(xTaskHandle *pxTask, signed portCHAR *pcTaskName) {
+ 108              		.loc 1 165 86 view -0
+ 109              		.cfi_startproc
+ 110              		@ Volatile: function does not return.
+ 111              		@ args = 0, pretend = 0, frame = 0
+ 112              		@ frame_needed = 0, uses_anonymous_args = 0
+ 113              		.loc 1 165 86 is_stmt 0 view .LVU7
+ 114 0000 08B5     		push	{r3, lr}
+ 115              	.LCFI0:
+ 116              		.cfi_def_cfa_offset 8
+ 117              		.cfi_offset 3, -8
+ 118              		.cfi_offset 14, -4
+ 166:Src/main_.cpp **** 
+ 167:Src/main_.cpp ****         safety_critical_disarm_motor_pwm(axes->motor_);
+ 119              		.loc 1 167 9 is_stmt 1 view .LVU8
+ 120              		.loc 1 167 41 is_stmt 0 view .LVU9
+ 121 0002 044B     		ldr	r3, .L8
+ 122 0004 1B68     		ldr	r3, [r3]
+ 123 0006 D86E     		ldr	r0, [r3, #108]
+ 124              	.LVL1:
+ 125              		.loc 1 167 41 view .LVU10
+ 126 0008 FFF7FEFF 		bl	safety_critical_disarm_motor_pwm
+ 127              	.LVL2:
+ARM GAS  /tmp/ccZgoZwU.s 			page 6
+
+
+ 168:Src/main_.cpp **** 
+ 169:Src/main_.cpp ****         safety_critical_disarm_brake_resistor();
+ 128              		.loc 1 169 9 is_stmt 1 view .LVU11
+ 129              		.loc 1 169 46 is_stmt 0 view .LVU12
+ 130 000c FFF7FEFF 		bl	safety_critical_disarm_brake_resistor
+ 131              	.LVL3:
+ 132              	.L6:
+ 170:Src/main_.cpp ****     for (;;); // TODO: safe action
+ 133              		.loc 1 170 5 is_stmt 1 discriminator 1 view .LVU13
+ 134              		.loc 1 170 5 discriminator 1 view .LVU14
+ 135 0010 FEE7     		b	.L6
+ 136              	.L9:
+ 137 0012 00BF     		.align	2
+ 138              	.L8:
+ 139 0014 00000000 		.word	.LANCHOR0
+ 140              		.cfi_endproc
+ 141              	.LFE5675:
+ 143              		.section	.text.vApplicationIdleHook,"ax",%progbits
+ 144              		.align	1
+ 145              		.global	vApplicationIdleHook
+ 146              		.syntax unified
+ 147              		.thumb
+ 148              		.thumb_func
+ 149              		.fpu fpv4-sp-d16
+ 151              	vApplicationIdleHook:
+ 152              	.LFB5676:
+ 171:Src/main_.cpp **** }
+ 172:Src/main_.cpp **** void vApplicationIdleHook(void) {
+ 153              		.loc 1 172 33 view -0
+ 154              		.cfi_startproc
+ 155              		@ args = 0, pretend = 0, frame = 0
+ 156              		@ frame_needed = 0, uses_anonymous_args = 0
+ 157 0000 38B5     		push	{r3, r4, r5, lr}
+ 158              	.LCFI1:
+ 159              		.cfi_def_cfa_offset 16
+ 160              		.cfi_offset 3, -16
+ 161              		.cfi_offset 4, -12
+ 162              		.cfi_offset 5, -8
+ 163              		.cfi_offset 14, -4
+ 173:Src/main_.cpp ****     if (system_stats.fully_booted) {
+ 164              		.loc 1 173 5 view .LVU16
+ 165              	.LBB28:
+ 166              		.loc 1 173 22 is_stmt 0 view .LVU17
+ 167 0002 0A4B     		ldr	r3, .L13
+ 168              		.loc 1 173 5 view .LVU18
+ 169 0004 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 170 0006 7BB1     		cbz	r3, .L10
+ 171              	.LBB29:
+ 174:Src/main_.cpp ****         // system_stats.uptime = xTaskGetTickCount();
+ 175:Src/main_.cpp ****         // system_stats.min_heap_space = xPortGetMinimumEverFreeHeapSize();
+ 176:Src/main_.cpp ****         // system_stats.min_stack_space_comms = uxTaskGetStackHighWaterMark(comm_thread) * sizeof(S
+ 177:Src/main_.cpp ****         // system_stats.min_stack_space_axis0 = uxTaskGetStackHighWaterMark(axes[0]->thread_id_) * 
+ 178:Src/main_.cpp ****         // system_stats.min_stack_space_uart = uxTaskGetStackHighWaterMark(uart_thread) * sizeof(St
+ 179:Src/main_.cpp ****         // system_stats.min_stack_space_startup = uxTaskGetStackHighWaterMark(defaultTaskHandle) * 
+ 180:Src/main_.cpp ****         // system_stats.min_stack_space_can = uxTaskGetStackHighWaterMark(odCAN->thread_id_) * size
+ 181:Src/main_.cpp **** 
+ 182:Src/main_.cpp ****         // // Actual usage, in bytes, so we don't have to math
+ARM GAS  /tmp/ccZgoZwU.s 			page 7
+
+
+ 183:Src/main_.cpp ****         // system_stats.stack_usage_axis0 = axes[0]->stack_size_ - system_stats_.min_stack_space_ax
+ 184:Src/main_.cpp ****         // system_stats.stack_usage_comms = stack_size_comm_thread - system_stats_.min_stack_space_
+ 185:Src/main_.cpp ****         // system_stats.stack_usage_uart = stack_size_uart_thread - system_stats_.min_stack_space_u
+ 186:Src/main_.cpp ****         // system_stats.stack_usage_startup = stack_size_default_task - system_stats_.min_stack_spa
+ 187:Src/main_.cpp ****         // system_stats.stack_usage_can = odCAN->stack_size_ - system_stats_.min_stack_space_can;
+ 188:Src/main_.cpp ****         for (ThermistorCurrentLimiter* thermistor : axes->thermistors_) {
+ 172              		.loc 1 188 9 is_stmt 1 view .LVU19
+ 173              	.LBB30:
+ 174              		.loc 1 188 59 is_stmt 0 view .LVU20
+ 175 0008 094C     		ldr	r4, .L13+4
+ 176 000a 2568     		ldr	r5, [r4]
+ 177              	.LVL4:
+ 178              		.loc 1 188 59 is_stmt 1 view .LVU21
+ 189:Src/main_.cpp ****             thermistor->update();
+ 179              		.loc 1 189 13 view .LVU22
+ 180              		.loc 1 189 31 is_stmt 0 view .LVU23
+ 181 000c D5F84801 		ldr	r0, [r5, #328]
+ 182 0010 FFF7FEFF 		bl	_ZN24ThermistorCurrentLimiter6updateEv
+ 183              	.LVL5:
+ 188:Src/main_.cpp ****             thermistor->update();
+ 184              		.loc 1 188 9 is_stmt 1 view .LVU24
+ 188:Src/main_.cpp ****             thermistor->update();
+ 185              		.loc 1 188 59 view .LVU25
+ 186              		.loc 1 189 13 view .LVU26
+ 187              		.loc 1 189 31 is_stmt 0 view .LVU27
+ 188 0014 D5F84C01 		ldr	r0, [r5, #332]
+ 189 0018 FFF7FEFF 		bl	_ZN24ThermistorCurrentLimiter6updateEv
+ 190              	.LVL6:
+ 188:Src/main_.cpp ****             thermistor->update();
+ 191              		.loc 1 188 9 is_stmt 1 view .LVU28
+ 188:Src/main_.cpp ****             thermistor->update();
+ 192              		.loc 1 188 59 view .LVU29
+ 193              	.LBE30:
+ 190:Src/main_.cpp ****         }
+ 191:Src/main_.cpp ****        
+ 192:Src/main_.cpp ****        axes->checks_ok_ = axes->do_checks();
+ 194              		.loc 1 192 8 view .LVU30
+ 195              		.loc 1 192 42 is_stmt 0 view .LVU31
+ 196 001c 2468     		ldr	r4, [r4]
+ 197 001e 2046     		mov	r0, r4
+ 198 0020 FFF7FEFF 		bl	_ZN4Axis9do_checksEv
+ 199              	.LVL7:
+ 200              		.loc 1 192 25 view .LVU32
+ 201 0024 84F8DC01 		strb	r0, [r4, #476]
+ 202              	.LVL8:
+ 203              	.L10:
+ 204              		.loc 1 192 25 view .LVU33
+ 205              	.LBE29:
+ 206              	.LBE28:
+ 193:Src/main_.cpp ****        
+ 194:Src/main_.cpp **** 
+ 195:Src/main_.cpp ****     }
+ 196:Src/main_.cpp **** }
+ 207              		.loc 1 196 1 view .LVU34
+ 208 0028 38BD     		pop	{r3, r4, r5, pc}
+ 209              	.L14:
+ 210 002a 00BF     		.align	2
+ARM GAS  /tmp/ccZgoZwU.s 			page 8
+
+
+ 211              	.L13:
+ 212 002c 00000000 		.word	.LANCHOR1
+ 213 0030 00000000 		.word	.LANCHOR0
+ 214              		.cfi_endproc
+ 215              	.LFE5676:
+ 217              		.section	.text.odrive_main,"ax",%progbits
+ 218              		.align	1
+ 219              		.global	odrive_main
+ 220              		.syntax unified
+ 221              		.thumb
+ 222              		.thumb_func
+ 223              		.fpu fpv4-sp-d16
+ 225              	odrive_main:
+ 226              	.LFB5677:
+ 197:Src/main_.cpp **** }
+ 198:Src/main_.cpp **** 
+ 199:Src/main_.cpp **** int odrive_main(void) {
+ 227              		.loc 1 199 23 is_stmt 1 view -0
+ 228              		.cfi_startproc
+ 229              		@ args = 0, pretend = 0, frame = 0
+ 230              		@ frame_needed = 0, uses_anonymous_args = 0
+ 231 0000 10B5     		push	{r4, lr}
+ 232              	.LCFI2:
+ 233              		.cfi_def_cfa_offset 8
+ 234              		.cfi_offset 4, -8
+ 235              		.cfi_offset 14, -4
+ 200:Src/main_.cpp ****     // Start ADC for temperature measurements and user measurements
+ 201:Src/main_.cpp ****     start_general_purpose_adc();
+ 236              		.loc 1 201 5 view .LVU36
+ 237              		.loc 1 201 30 is_stmt 0 view .LVU37
+ 238 0002 FFF7FEFF 		bl	start_general_purpose_adc
+ 239              	.LVL9:
+ 202:Src/main_.cpp **** 
+ 203:Src/main_.cpp ****     // TODO: make dynamically reconfigurable
+ 204:Src/main_.cpp **** #if HW_VERSION_MAJOR == 3 && HW_VERSION_MINOR >= 3
+ 205:Src/main_.cpp ****     if (odrv.config_.enable_uart) {
+ 206:Src/main_.cpp ****         SetGPIO12toUART();
+ 207:Src/main_.cpp ****     }
+ 208:Src/main_.cpp **** #endif
+ 209:Src/main_.cpp ****     //osDelay(100);
+ 210:Src/main_.cpp ****     // Init communications (this requires the axis objects to be constructed)
+ 211:Src/main_.cpp ****     // Start pwm-in compare modules
+ 212:Src/main_.cpp ****     // must happen after communication is initialized
+ 213:Src/main_.cpp ****     pwm_in_init();
+ 240              		.loc 1 213 5 is_stmt 1 view .LVU38
+ 241              		.loc 1 213 16 is_stmt 0 view .LVU39
+ 242 0006 FFF7FEFF 		bl	pwm_in_init
+ 243              	.LVL10:
+ 214:Src/main_.cpp **** 
+ 215:Src/main_.cpp ****     // Set up the CS pins for absolute encoders
+ 216:Src/main_.cpp **** 
+ 217:Src/main_.cpp ****     if(axes->encoder_.config_.mode & Encoder::MODE_FLAG_ABS){
+ 244              		.loc 1 217 5 is_stmt 1 view .LVU40
+ 245              		.loc 1 217 14 is_stmt 0 view .LVU41
+ 246 000a 1D4B     		ldr	r3, .L21
+ 247 000c 1B68     		ldr	r3, [r3]
+ 248 000e 9868     		ldr	r0, [r3, #8]
+ARM GAS  /tmp/ccZgoZwU.s 			page 9
+
+
+ 249              		.loc 1 217 31 view .LVU42
+ 250 0010 4368     		ldr	r3, [r0, #4]
+ 251              		.loc 1 217 5 view .LVU43
+ 252 0012 1B88     		ldrh	r3, [r3]
+ 253 0014 13F4807F 		tst	r3, #256
+ 254 0018 2ED1     		bne	.L20
+ 255              	.L16:
+ 218:Src/main_.cpp ****         axes->encoder_.abs_spi_cs_pin_init();
+ 219:Src/main_.cpp ****     }
+ 220:Src/main_.cpp **** 
+ 221:Src/main_.cpp **** 
+ 222:Src/main_.cpp ****     // Setup motors (DRV8301 SPI transactions here)
+ 223:Src/main_.cpp ****    // for(auto& axis : axes){
+ 224:Src/main_.cpp ****     axes->motor_.setup();
+ 256              		.loc 1 224 5 is_stmt 1 view .LVU44
+ 257              		.loc 1 224 23 is_stmt 0 view .LVU45
+ 258 001a 194B     		ldr	r3, .L21
+ 259              		.loc 1 224 11 view .LVU46
+ 260 001c 1B68     		ldr	r3, [r3]
+ 261 001e DC6E     		ldr	r4, [r3, #108]
+ 262              	.LVL11:
+ 263              	.LBB34:
+ 264              	.LBI34:
+ 265              		.file 2 "Inc/motor.hpp"
+   1:Inc/motor.hpp **** #ifndef __MOTOR_HPP
+   2:Inc/motor.hpp **** #define __MOTOR_HPP
+   3:Inc/motor.hpp **** 
+   4:Inc/motor.hpp **** 
+   5:Inc/motor.hpp **** #include <cstdint>  // Add this for uint32_t
+   6:Inc/motor.hpp **** #include "component.hpp"
+   7:Inc/motor.hpp **** 
+   8:Inc/motor.hpp **** #include "interfaces.hpp"
+   9:Inc/motor.hpp **** #include "phase_control_law.hpp"
+  10:Inc/motor.hpp **** #include "main.h"
+  11:Inc/motor.hpp **** #include "current_limiter.hpp"
+  12:Inc/motor.hpp **** #include "foc.hpp"
+  13:Inc/motor.hpp **** 
+  14:Inc/motor.hpp **** 
+  15:Inc/motor.hpp **** class FieldOrientedController;
+  16:Inc/motor.hpp **** class Axis;
+  17:Inc/motor.hpp **** 
+  18:Inc/motor.hpp **** class Motor : public ODriveIntf::MotorIntf{
+  19:Inc/motor.hpp **** public:
+  20:Inc/motor.hpp ****     struct Iph_BC_t {
+  21:Inc/motor.hpp ****         float phA;
+  22:Inc/motor.hpp ****         float phB;
+  23:Inc/motor.hpp ****         float phC;
+  24:Inc/motor.hpp ****     };
+  25:Inc/motor.hpp **** 
+  26:Inc/motor.hpp ****     enum MotorType {
+  27:Inc/motor.hpp ****         MOTOR_TYPE_HIGH_CURRENT          = 0,
+  28:Inc/motor.hpp ****         MOTOR_TYPE_GIMBAL                = 2,
+  29:Inc/motor.hpp ****         MOTOR_TYPE_ACIM                  = 3,
+  30:Inc/motor.hpp ****     };
+  31:Inc/motor.hpp **** 
+  32:Inc/motor.hpp ****     struct CurrentControl_t{
+  33:Inc/motor.hpp ****         float p_gain; // [V/A]
+ARM GAS  /tmp/ccZgoZwU.s 			page 10
+
+
+  34:Inc/motor.hpp ****         float i_gain; // [V/As]
+  35:Inc/motor.hpp ****         float v_current_control_integral_d; // [V]
+  36:Inc/motor.hpp ****         float v_current_control_integral_q; // [V]
+  37:Inc/motor.hpp ****         float Ibus; // DC bus current [A]
+  38:Inc/motor.hpp ****         // Voltage applied at end of cycle:
+  39:Inc/motor.hpp ****         float final_v_alpha; // [V]
+  40:Inc/motor.hpp ****         float final_v_beta; // [V]
+  41:Inc/motor.hpp **** 
+  42:Inc/motor.hpp ****         float final_v_d; // [V]
+  43:Inc/motor.hpp ****         float final_v_q; // [V]
+  44:Inc/motor.hpp **** 
+  45:Inc/motor.hpp ****         float Id_setpoint; // [A]
+  46:Inc/motor.hpp ****         float Iq_setpoint; // [A]
+  47:Inc/motor.hpp ****         float Iq_measured; // [A]
+  48:Inc/motor.hpp ****         float Id_measured; // [A]
+  49:Inc/motor.hpp ****         float I_measured_report_filter_k;
+  50:Inc/motor.hpp ****         float max_allowed_current; // [A]
+  51:Inc/motor.hpp ****         float overcurrent_trip_level; // [A]
+  52:Inc/motor.hpp ****         float acim_rotor_flux; // [A]
+  53:Inc/motor.hpp ****         float async_phase_vel; // [rad/s electrical]
+  54:Inc/motor.hpp ****         float async_phase_offset; // [rad electrical]
+  55:Inc/motor.hpp ****     };
+  56:Inc/motor.hpp ****     static constexpr int32_t NUM_LINEARITY_SEG = 60;
+  57:Inc/motor.hpp ****     static constexpr float CALIBRATION_INCREMENT = 1;
+  58:Inc/motor.hpp ****     // NOTE: for gimbal motors, all units of Nm are instead V.
+  59:Inc/motor.hpp ****     // example: vel_gain is [V/(turn/s)] instead of [Nm/(turn/s)]
+  60:Inc/motor.hpp ****     // example: current_lim and calibration_current will instead determine the maximum voltage appl
+  61:Inc/motor.hpp ****     struct Config_t {
+  62:Inc/motor.hpp ****         bool pre_calibrated = false; // can be set to true to indicate that all values here are val
+  63:Inc/motor.hpp ****         int32_t pole_pairs = 21;
+  64:Inc/motor.hpp ****         int32_t gear_ratio = 16;
+  65:Inc/motor.hpp ****         float motor_torque_base = 60.0f; // [Nm]
+  66:Inc/motor.hpp ****         float calibration_current = 10.0f;    // [A]
+  67:Inc/motor.hpp ****         float resistance_calib_max_voltage = 2.0f; // [V] - You may need to increase this if this v
+  68:Inc/motor.hpp ****         float phase_inductance = 0.000055f;        // to be set by measure_phase_inductance
+  69:Inc/motor.hpp ****         float phase_resistance = 0.07f;        // to be set by measure_phase_resistance
+  70:Inc/motor.hpp ****         float torque_constant = 0.087f;         // [Nm/A] for PM motors, [Nm/A^2] for induction mot
+  71:Inc/motor.hpp ****         int32_t direction = 1;                // 1 or -1 (0 = unspecified)
+  72:Inc/motor.hpp ****         MotorType motor_type = MOTOR_TYPE_HIGH_CURRENT;
+  73:Inc/motor.hpp ****         // Read out max_allowed_current to see max supported value for current_lim.
+  74:Inc/motor.hpp ****         // float current_lim = 70.0f; //[A]
+  75:Inc/motor.hpp ****         float current_lim = 10.0f;          //[A]
+  76:Inc/motor.hpp ****         float current_lim_margin = 8.0f;    // Maximum violation of current_lim
+  77:Inc/motor.hpp ****         float torque_lim = std::numeric_limits<float>::infinity();           //[Nm]. 
+  78:Inc/motor.hpp ****         // Value used to compute shunt amplifier gains
+  79:Inc/motor.hpp ****         float requested_current_range = 60.0f; // [A]
+  80:Inc/motor.hpp ****         float current_control_bandwidth = 3000.0f;  // [rad/s]
+  81:Inc/motor.hpp ****         float inverter_temp_limit_lower = 100;
+  82:Inc/motor.hpp ****         float inverter_temp_limit_upper = 120;
+  83:Inc/motor.hpp ****         float acim_slip_velocity = 14.706f; // [rad/s electrical] = 1/rotor_tau
+  84:Inc/motor.hpp ****         float acim_gain_min_flux = 10; // [A]
+  85:Inc/motor.hpp ****         float acim_autoflux_min_Id = 10; // [A]
+  86:Inc/motor.hpp ****         bool acim_autoflux_enable = false;
+  87:Inc/motor.hpp ****         float acim_autoflux_attack_gain = 10.0f;
+  88:Inc/motor.hpp ****         float acim_autoflux_decay_gain = 1.0f;
+  89:Inc/motor.hpp **** 
+  90:Inc/motor.hpp ****         float Torque_LINEARITY_[NUM_LINEARITY_SEG];
+ARM GAS  /tmp/ccZgoZwU.s 			page 11
+
+
+  91:Inc/motor.hpp ****         float CURRENT_LINEARITY_[NUM_LINEARITY_SEG];
+  92:Inc/motor.hpp **** 
+  93:Inc/motor.hpp ****         float CURRENT2TORQUE_COEFF[2*NUM_LINEARITY_SEG];
+  94:Inc/motor.hpp **** 
+  95:Inc/motor.hpp ****         bool R_wL_FF_enable = false; // Enable feedforwards for R*I and w*L*I terms
+  96:Inc/motor.hpp ****         bool bEMF_FF_enable = false; // Enable feedforward for bEMF
+  97:Inc/motor.hpp **** 
+  98:Inc/motor.hpp ****         float I_bus_hard_min = -INFINITY;
+  99:Inc/motor.hpp ****         float I_bus_hard_max = INFINITY;
+ 100:Inc/motor.hpp ****         // custom property setters
+ 101:Inc/motor.hpp ****         Motor* parent = nullptr;
+ 102:Inc/motor.hpp ****         void set_pre_calibrated(bool value) {
+ 103:Inc/motor.hpp ****             pre_calibrated = value;
+ 104:Inc/motor.hpp ****             parent->is_calibrated_ = parent->is_calibrated_ || parent->config_.pre_calibrated;
+ 105:Inc/motor.hpp ****         }
+ 106:Inc/motor.hpp ****         void set_phase_inductance(float value) { phase_inductance = value; parent->update_current_c
+ 107:Inc/motor.hpp ****         void set_phase_resistance(float value) { phase_resistance = value; parent->update_current_c
+ 108:Inc/motor.hpp ****         void set_current_control_bandwidth(float value) { current_control_bandwidth = value; parent
+ 109:Inc/motor.hpp ****     };
+ 110:Inc/motor.hpp **** 
+ 111:Inc/motor.hpp ****     Motor(const MotorHardwareConfig_t& hw_config,
+ 112:Inc/motor.hpp ****          Config_t& config);
+ 113:Inc/motor.hpp **** 
+ 114:Inc/motor.hpp **** 
+ 115:Inc/motor.hpp ****     bool arm(PhaseControlLaw<3>* control_law);
+ 116:Inc/motor.hpp ****     bool disarm();
+ 117:Inc/motor.hpp **** 
+ 118:Inc/motor.hpp ****     void current_meas_cb(uint32_t timestamp);
+ 119:Inc/motor.hpp ****     void pwm_update_cb(uint32_t output_timestamp);
+ 120:Inc/motor.hpp **** 
+ 121:Inc/motor.hpp ****     void setup() {
+ 266              		.loc 2 121 10 is_stmt 1 view .LVU47
+ 267              	.LBB35:
+ 122:Inc/motor.hpp ****         int32_t index = 0;
+ 268              		.loc 2 122 9 view .LVU48
+ 123:Inc/motor.hpp ****         DRV8301_setup();
+ 269              		.loc 2 123 9 view .LVU49
+ 270              		.loc 2 123 22 is_stmt 0 view .LVU50
+ 271 0020 2046     		mov	r0, r4
+ 272 0022 FFF7FEFF 		bl	_ZN5Motor13DRV8301_setupEv
+ 273              	.LVL12:
+ 124:Inc/motor.hpp ****         for( index = 0;index < NUM_LINEARITY_SEG;index++)
+ 274              		.loc 2 124 9 is_stmt 1 view .LVU51
+ 275              		.loc 2 124 30 view .LVU52
+ 125:Inc/motor.hpp ****         {
+ 126:Inc/motor.hpp ****             L_Slop_Array_P_[index] = config_.Torque_LINEARITY_[index];
+ 276              		.loc 2 126 38 is_stmt 0 view .LVU53
+ 277 0026 6068     		ldr	r0, [r4, #4]
+ 278 0028 00F16003 		add	r3, r0, #96
+ 279 002c 04F1D002 		add	r2, r4, #208
+ 280 0030 00F5A870 		add	r0, r0, #336
+ 281              	.LVL13:
+ 282              	.L17:
+ 283              		.loc 2 126 13 is_stmt 1 view .LVU54
+ 284              		.loc 2 126 69 is_stmt 0 view .LVU55
+ 285 0034 53F8041B 		ldr	r1, [r3], #4	@ float
+ 286              		.loc 2 126 36 view .LVU56
+ARM GAS  /tmp/ccZgoZwU.s 			page 12
+
+
+ 287 0038 42F8041B 		str	r1, [r2], #4	@ float
+ 127:Inc/motor.hpp ****             L_Slop_Array_N_[index] = config_.CURRENT_LINEARITY_[index];
+ 288              		.loc 2 127 13 is_stmt 1 view .LVU57
+ 289              		.loc 2 127 70 is_stmt 0 view .LVU58
+ 290 003c D3F8EC10 		ldr	r1, [r3, #236]	@ float
+ 291              		.loc 2 127 36 view .LVU59
+ 292 0040 C2F8EC10 		str	r1, [r2, #236]	@ float
+ 124:Inc/motor.hpp ****         for( index = 0;index < NUM_LINEARITY_SEG;index++)
+ 293              		.loc 2 124 9 is_stmt 1 view .LVU60
+ 124:Inc/motor.hpp ****         for( index = 0;index < NUM_LINEARITY_SEG;index++)
+ 294              		.loc 2 124 30 view .LVU61
+ 295 0044 8342     		cmp	r3, r0
+ 296 0046 F5D1     		bne	.L17
+ 297              	.LVL14:
+ 124:Inc/motor.hpp ****         for( index = 0;index < NUM_LINEARITY_SEG;index++)
+ 298              		.loc 2 124 30 is_stmt 0 view .LVU62
+ 299              	.LBE35:
+ 300              	.LBE34:
+ 225:Src/main_.cpp ****    // }
+ 226:Src/main_.cpp **** 
+ 227:Src/main_.cpp ****     // Setup encoders (Starts encoder SPI transactions)
+ 228:Src/main_.cpp **** 
+ 229:Src/main_.cpp ****     axes->encoder_.setup();
+ 301              		.loc 1 229 5 is_stmt 1 view .LVU63
+ 302              		.loc 1 229 25 is_stmt 0 view .LVU64
+ 303 0048 0D4C     		ldr	r4, .L21
+ 304              		.loc 1 229 11 view .LVU65
+ 305 004a 2368     		ldr	r3, [r4]
+ 306              		.loc 1 229 25 view .LVU66
+ 307 004c 9868     		ldr	r0, [r3, #8]
+ 308 004e FFF7FEFF 		bl	_ZN7Encoder5setupEv
+ 309              	.LVL15:
+ 230:Src/main_.cpp **** 
+ 231:Src/main_.cpp **** 
+ 232:Src/main_.cpp ****     // Setup anything remaining in each axis
+ 233:Src/main_.cpp ****     axes->setup();
+ 310              		.loc 1 233 5 is_stmt 1 view .LVU67
+ 311              		.loc 1 233 16 is_stmt 0 view .LVU68
+ 312 0052 2068     		ldr	r0, [r4]
+ 313 0054 FFF7FEFF 		bl	_ZN4Axis5setupEv
+ 314              	.LVL16:
+ 234:Src/main_.cpp **** 
+ 235:Src/main_.cpp ****     // Start PWM and enable adc interrupts/callbacks
+ 236:Src/main_.cpp ****     start_adc_pwm();
+ 315              		.loc 1 236 5 is_stmt 1 view .LVU69
+ 316              		.loc 1 236 18 is_stmt 0 view .LVU70
+ 317 0058 FFF7FEFF 		bl	start_adc_pwm
+ 318              	.LVL17:
+ 237:Src/main_.cpp ****     // This delay serves two purposes:
+ 238:Src/main_.cpp ****     //  - Let the current sense calibration converge (the current
+ 239:Src/main_.cpp ****     //    sense interrupts are firing in background by now)
+ 240:Src/main_.cpp ****     //  - Allow a user to interrupt the code, e.g. by flashing a new code,
+ 241:Src/main_.cpp ****     //    before it does anything crazy
+ 242:Src/main_.cpp ****     // TODO make timing a function of calibration filter tau
+ 243:Src/main_.cpp ****     osDelay(1500);
+ 319              		.loc 1 243 5 is_stmt 1 view .LVU71
+ 320              		.loc 1 243 12 is_stmt 0 view .LVU72
+ARM GAS  /tmp/ccZgoZwU.s 			page 13
+
+
+ 321 005c 40F2DC50 		movw	r0, #1500
+ 322 0060 FFF7FEFF 		bl	osDelay
+ 323              	.LVL18:
+ 244:Src/main_.cpp **** 
+ 245:Src/main_.cpp ****     // Start state machine threads. Each thread will go through various calibration
+ 246:Src/main_.cpp ****     // procedures and then run the actual controller loops.
+ 247:Src/main_.cpp ****     // TODO: generalize for AXIS_COUNT != 2
+ 248:Src/main_.cpp ****     for (size_t i = 0; i < 1; ++i) {
+ 324              		.loc 1 248 5 is_stmt 1 view .LVU73
+ 325              	.LBB36:
+ 326              		.loc 1 248 26 view .LVU74
+ 249:Src/main_.cpp ****         axes->start_thread();
+ 327              		.loc 1 249 9 view .LVU75
+ 328              		.loc 1 249 27 is_stmt 0 view .LVU76
+ 329 0064 2068     		ldr	r0, [r4]
+ 330 0066 FFF7FEFF 		bl	_ZN4Axis12start_threadEv
+ 331              	.LVL19:
+ 248:Src/main_.cpp ****         axes->start_thread();
+ 332              		.loc 1 248 5 is_stmt 1 view .LVU77
+ 248:Src/main_.cpp ****         axes->start_thread();
+ 333              		.loc 1 248 26 view .LVU78
+ 248:Src/main_.cpp ****         axes->start_thread();
+ 334              		.loc 1 248 26 is_stmt 0 view .LVU79
+ 335              	.LBE36:
+ 250:Src/main_.cpp ****     }
+ 251:Src/main_.cpp **** 
+ 252:Src/main_.cpp ****     start_analog_thread();
+ 336              		.loc 1 252 5 is_stmt 1 view .LVU80
+ 337              		.loc 1 252 24 is_stmt 0 view .LVU81
+ 338 006a FFF7FEFF 		bl	start_analog_thread
+ 339              	.LVL20:
+ 253:Src/main_.cpp **** 
+ 254:Src/main_.cpp ****     system_stats.fully_booted = true;
+ 340              		.loc 1 254 5 is_stmt 1 view .LVU82
+ 341              		.loc 1 254 31 is_stmt 0 view .LVU83
+ 342 006e 054B     		ldr	r3, .L21+4
+ 343 0070 0122     		movs	r2, #1
+ 344 0072 1A70     		strb	r2, [r3]
+ 255:Src/main_.cpp ****     return 0;
+ 345              		.loc 1 255 5 is_stmt 1 view .LVU84
+ 256:Src/main_.cpp **** }
+ 346              		.loc 1 256 1 is_stmt 0 view .LVU85
+ 347 0074 0020     		movs	r0, #0
+ 348 0076 10BD     		pop	{r4, pc}
+ 349              	.LVL21:
+ 350              	.L20:
+ 218:Src/main_.cpp ****     }
+ 351              		.loc 1 218 9 is_stmt 1 view .LVU86
+ 218:Src/main_.cpp ****     }
+ 352              		.loc 1 218 43 is_stmt 0 view .LVU87
+ 353 0078 FFF7FEFF 		bl	_ZN7Encoder19abs_spi_cs_pin_initEv
+ 354              	.LVL22:
+ 355 007c CDE7     		b	.L16
+ 356              	.L22:
+ 357 007e 00BF     		.align	2
+ 358              	.L21:
+ 359 0080 00000000 		.word	.LANCHOR0
+ARM GAS  /tmp/ccZgoZwU.s 			page 14
+
+
+ 360 0084 00000000 		.word	.LANCHOR1
+ 361              		.cfi_endproc
+ 362              	.LFE5677:
+ 364              		.section	.text._GLOBAL__sub_I_board_config,"ax",%progbits
+ 365              		.align	1
+ 366              		.syntax unified
+ 367              		.thumb
+ 368              		.thumb_func
+ 369              		.fpu fpv4-sp-d16
+ 371              	_GLOBAL__sub_I_board_config:
+ 372              	.LFB6310:
+ 373              		.loc 1 256 1 is_stmt 1 view -0
+ 374              		.cfi_startproc
+ 375              		@ args = 0, pretend = 0, frame = 0
+ 376              		@ frame_needed = 0, uses_anonymous_args = 0
+ 377 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
+ 378              	.LCFI3:
+ 379              		.cfi_def_cfa_offset 32
+ 380              		.cfi_offset 4, -32
+ 381              		.cfi_offset 5, -28
+ 382              		.cfi_offset 6, -24
+ 383              		.cfi_offset 7, -20
+ 384              		.cfi_offset 8, -16
+ 385              		.cfi_offset 9, -12
+ 386              		.cfi_offset 10, -8
+ 387              		.cfi_offset 14, -4
+ 388              	.LVL23:
+ 389              	.LBB54:
+ 390              	.LBI54:
+ 391              		.loc 1 256 1 view .LVU89
+ 392              	.LBB55:
+ 393              	.LBB56:
+ 394              	.LBI56:
+ 395              		.file 3 "Inc/controller.hpp"
+   1:Inc/controller.hpp **** #ifndef __CONTROLLER_HPP
+   2:Inc/controller.hpp **** #define __CONTROLLER_HPP
+   3:Inc/controller.hpp **** 
+   4:Inc/controller.hpp **** 
+   5:Inc/controller.hpp **** #include "component.hpp"
+   6:Inc/controller.hpp **** 
+   7:Inc/controller.hpp **** #include "interfaces.hpp"
+   8:Inc/controller.hpp **** 
+   9:Inc/controller.hpp **** class Axis;
+  10:Inc/controller.hpp **** 
+  11:Inc/controller.hpp **** class Controller : public ODriveIntf::ControllerIntf{
+  12:Inc/controller.hpp **** public:
+  13:Inc/controller.hpp ****     typedef struct {
+  14:Inc/controller.hpp ****         uint32_t index = 0;
+  15:Inc/controller.hpp ****         float cogging_map[128];
+  16:Inc/controller.hpp ****         bool pre_calibrated = false;
+  17:Inc/controller.hpp ****         bool calib_anticogging = false;
+  18:Inc/controller.hpp ****         float calib_pos_threshold = 1.0f;
+  19:Inc/controller.hpp ****         float calib_vel_threshold = 1.0f;
+  20:Inc/controller.hpp ****         float cogging_ratio = 1.0f;
+  21:Inc/controller.hpp ****         bool anticogging_enabled = true;
+  22:Inc/controller.hpp ****     } Anticogging_t;
+  23:Inc/controller.hpp **** 
+ARM GAS  /tmp/ccZgoZwU.s 			page 15
+
+
+  24:Inc/controller.hpp ****     struct Config_t {
+ 396              		.loc 3 24 12 view .LVU90
+ 397              	.LBB57:
+ 398 0004 634B     		ldr	r3, .L25
+ 399 0006 0420     		movs	r0, #4
+ 400 0008 1870     		strb	r0, [r3]
+ 401 000a 0126     		movs	r6, #1
+ 402 000c 5E70     		strb	r6, [r3, #1]
+ 403 000e DFF8D8A1 		ldr	r10, .L25+84
+ 404 0012 C3F804A0 		str	r10, [r3, #4]	@ float
+ 405 0016 604A     		ldr	r2, .L25+4
+ 406 0018 9A60     		str	r2, [r3, #8]	@ float
+ 407 001a 604D     		ldr	r5, .L25+8
+ 408 001c DD60     		str	r5, [r3, #12]	@ float
+ 409 001e 0024     		movs	r4, #0
+ 410 0020 1C61     		str	r4, [r3, #16]	@ float
+ 411 0022 5F4A     		ldr	r2, .L25+12
+ 412 0024 5A61     		str	r2, [r3, #20]	@ float
+ 413 0026 4FF08041 		mov	r1, #1073741824
+ 414 002a 9961     		str	r1, [r3, #24]	@ float
+ 415 002c 5D4A     		ldr	r2, .L25+16
+ 416 002e DA61     		str	r2, [r3, #28]	@ float
+ 417 0030 4FF07E52 		mov	r2, #1065353216
+ 418 0034 1A62     		str	r2, [r3, #32]	@ float
+ 419 0036 5D62     		str	r5, [r3, #36]	@ float
+ 420 0038 0025     		movs	r5, #0
+ 421 003a 83F82850 		strb	r5, [r3, #40]
+ 422 003e DA62     		str	r2, [r3, #44]	@ float
+ 423 0040 4FF48067 		mov	r7, #1024
+ 424 0044 1F63     		str	r7, [r3, #48]
+ 425 0046 5C63     		str	r4, [r3, #52]	@ float
+ 426 0048 9963     		str	r1, [r3, #56]	@ float
+ 427 004a 4FF07A54 		mov	r4, #1048576000
+ 428 004e DC63     		str	r4, [r3, #60]	@ float
+ 429              	.LVL24:
+ 430              	.LBB58:
+ 431              	.LBI58:
+  22:Inc/controller.hpp **** 
+ 432              		.loc 3 22 7 view .LVU91
+ 433              	.LBB59:
+ 434 0050 1D64     		str	r5, [r3, #64]
+ 435 0052 83F84452 		strb	r5, [r3, #580]
+ 436 0056 83F84552 		strb	r5, [r3, #581]
+ 437 005a C3F84822 		str	r2, [r3, #584]	@ float
+ 438 005e C3F84C22 		str	r2, [r3, #588]	@ float
+ 439 0062 C3F85022 		str	r2, [r3, #592]	@ float
+ 440 0066 83F85462 		strb	r6, [r3, #596]
+ 441              	.LVL25:
+  22:Inc/controller.hpp **** 
+ 442              		.loc 3 22 7 is_stmt 0 view .LVU92
+ 443              	.LBE59:
+ 444              	.LBE58:
+ 445              		.loc 3 24 12 view .LVU93
+ 446 006a 4F4F     		ldr	r7, .L25+20
+ 447 006c C3F85872 		str	r7, [r3, #600]	@ float
+ 448 0070 83F85C52 		strb	r5, [r3, #604]
+ 449 0074 83F85D62 		strb	r6, [r3, #605]
+ARM GAS  /tmp/ccZgoZwU.s 			page 16
+
+
+ 450 0078 83F85E62 		strb	r6, [r3, #606]
+ 451 007c 83F85F62 		strb	r6, [r3, #607]
+ 452 0080 FF24     		movs	r4, #255
+ 453 0082 83F86042 		strb	r4, [r3, #608]
+ 454 0086 C3F86422 		str	r2, [r3, #612]	@ float
+ 455 008a 83F86842 		strb	r4, [r3, #616]
+ 456              	.LVL26:
+ 457              		.loc 3 24 12 view .LVU94
+ 458              	.LBE57:
+ 459              	.LBE56:
+ 460              	.LBB60:
+ 461              	.LBI60:
+  61:Inc/motor.hpp ****         bool pre_calibrated = false; // can be set to true to indicate that all values here are val
+ 462              		.loc 2 61 12 is_stmt 1 view .LVU95
+ 463              	.LBB61:
+ 464 008e 474B     		ldr	r3, .L25+24
+ 465 0090 1D70     		strb	r5, [r3]
+ 466 0092 1524     		movs	r4, #21
+ 467 0094 5C60     		str	r4, [r3, #4]
+ 468 0096 1024     		movs	r4, #16
+ 469 0098 9C60     		str	r4, [r3, #8]
+ 470 009a DFF85081 		ldr	r8, .L25+88
+ 471 009e C3F80C80 		str	r8, [r3, #12]	@ float
+ 472 00a2 1F61     		str	r7, [r3, #16]	@ float
+ 473 00a4 5961     		str	r1, [r3, #20]	@ float
+ 474 00a6 4249     		ldr	r1, .L25+28
+ 475 00a8 9961     		str	r1, [r3, #24]	@ float
+ 476 00aa 4249     		ldr	r1, .L25+32
+ 477 00ac D961     		str	r1, [r3, #28]	@ float
+ 478 00ae 4249     		ldr	r1, .L25+36
+ 479 00b0 1962     		str	r1, [r3, #32]	@ float
+ 480 00b2 5E62     		str	r6, [r3, #36]
+ 481 00b4 83F82850 		strb	r5, [r3, #40]
+ 482 00b8 DF62     		str	r7, [r3, #44]	@ float
+ 483 00ba 4FF08241 		mov	r1, #1090519040
+ 484 00be 1963     		str	r1, [r3, #48]	@ float
+ 485 00c0 4FF0FF41 		mov	r1, #2139095040
+ 486 00c4 5963     		str	r1, [r3, #52]	@ float
+ 487 00c6 C3F83880 		str	r8, [r3, #56]	@ float
+ 488 00ca 3C4C     		ldr	r4, .L25+40
+ 489 00cc DC63     		str	r4, [r3, #60]	@ float
+ 490 00ce DFF82091 		ldr	r9, .L25+92
+ 491 00d2 C3F84090 		str	r9, [r3, #64]	@ float
+ 492 00d6 3A4C     		ldr	r4, .L25+44
+ 493 00d8 5C64     		str	r4, [r3, #68]	@ float
+ 494 00da 3A4C     		ldr	r4, .L25+48
+ 495 00dc 9C64     		str	r4, [r3, #72]	@ float
+ 496 00de DF64     		str	r7, [r3, #76]	@ float
+ 497 00e0 1F65     		str	r7, [r3, #80]	@ float
+ 498 00e2 83F85450 		strb	r5, [r3, #84]
+ 499 00e6 9F65     		str	r7, [r3, #88]	@ float
+ 500 00e8 DA65     		str	r2, [r3, #92]	@ float
+ 501 00ea 83F82054 		strb	r5, [r3, #1056]
+ 502 00ee 83F82154 		strb	r5, [r3, #1057]
+ 503 00f2 03F22444 		addw	r4, r3, #1060
+ 504 00f6 DFF8FCC0 		ldr	ip, .L25+96
+ 505 00fa C4F800C0 		str	ip, [r4]	@ float
+ARM GAS  /tmp/ccZgoZwU.s 			page 17
+
+
+ 506 00fe 03F58564 		add	r4, r3, #1064
+ 507 0102 2160     		str	r1, [r4]	@ float
+ 508 0104 C3F82C54 		str	r5, [r3, #1068]
+ 509              	.LVL27:
+  61:Inc/motor.hpp ****         bool pre_calibrated = false; // can be set to true to indicate that all values here are val
+ 510              		.loc 2 61 12 is_stmt 0 view .LVU96
+ 511              	.LBE61:
+ 512              	.LBE60:
+ 513              	.LBB62:
+ 514              	.LBI62:
+ 515              		.file 4 "Inc/thermistor.hpp"
+   1:Inc/thermistor.hpp **** #ifndef __THERMISTOR_HPP
+   2:Inc/thermistor.hpp **** #define __THERMISTOR_HPP
+   3:Inc/thermistor.hpp **** 
+   4:Inc/thermistor.hpp **** #include "main.h"
+   5:Inc/thermistor.hpp **** #include "interfaces.hpp"
+   6:Inc/thermistor.hpp **** #include "current_limiter.hpp"
+   7:Inc/thermistor.hpp **** 
+   8:Inc/thermistor.hpp **** #define THERMISTOR_CURRENT_LIMITER_MAX_TEMP 150.0f
+   9:Inc/thermistor.hpp **** #define THERMISTOR_CURRENT_LIMITER_MIN_TEMP -40.0f
+  10:Inc/thermistor.hpp **** 
+  11:Inc/thermistor.hpp **** #define THERMISTOR_CURRENT_LIMITER_MAX_CURRENT 3.0f
+  12:Inc/thermistor.hpp **** 
+  13:Inc/thermistor.hpp **** class Axis;
+  14:Inc/thermistor.hpp **** 
+  15:Inc/thermistor.hpp **** 
+  16:Inc/thermistor.hpp **** class ThermistorCurrentLimiter : public CurrentLimiter, public ODriveIntf::ThermistorCurrentLimiter
+  17:Inc/thermistor.hpp **** public:
+  18:Inc/thermistor.hpp ****     virtual ~ThermistorCurrentLimiter() = default;
+  19:Inc/thermistor.hpp **** 
+  20:Inc/thermistor.hpp ****     ThermistorCurrentLimiter(uint16_t adc_channel,
+  21:Inc/thermistor.hpp ****                              const float* const coefficients,
+  22:Inc/thermistor.hpp ****                              const float* const aux_coefficients,
+  23:Inc/thermistor.hpp ****                              size_t num_coeffs,
+  24:Inc/thermistor.hpp ****                              const float& temp_limit_lower,
+  25:Inc/thermistor.hpp ****                              const float& temp_limit_upper,
+  26:Inc/thermistor.hpp ****                              const bool& enabled);
+  27:Inc/thermistor.hpp **** 
+  28:Inc/thermistor.hpp ****     void update();
+  29:Inc/thermistor.hpp ****     bool do_checks();
+  30:Inc/thermistor.hpp ****     float get_current_limit(float base_current_lim) const override;
+  31:Inc/thermistor.hpp **** 
+  32:Inc/thermistor.hpp ****     uint16_t adc_channel_;
+  33:Inc/thermistor.hpp ****     const float* const coefficients_;
+  34:Inc/thermistor.hpp ****     const float* const aux_coefficients_;
+  35:Inc/thermistor.hpp ****     const size_t num_coeffs_;
+  36:Inc/thermistor.hpp ****     float temperature_;
+  37:Inc/thermistor.hpp ****     int32_t temperature_int_;
+  38:Inc/thermistor.hpp ****     float aux_temperature_;
+  39:Inc/thermistor.hpp ****     int32_t aux_temperature_int_;
+  40:Inc/thermistor.hpp ****     const float& temp_limit_lower_;
+  41:Inc/thermistor.hpp ****     const float& temp_limit_upper_;
+  42:Inc/thermistor.hpp ****     const bool& enabled_;
+  43:Inc/thermistor.hpp ****     Error error_;
+  44:Inc/thermistor.hpp ****     Axis* axis_ = nullptr; // set by Axis constructor
+  45:Inc/thermistor.hpp **** };
+  46:Inc/thermistor.hpp **** 
+ARM GAS  /tmp/ccZgoZwU.s 			page 18
+
+
+  47:Inc/thermistor.hpp **** class OnboardThermistorCurrentLimiter : public ThermistorCurrentLimiter, public ODriveIntf::Onboard
+  48:Inc/thermistor.hpp **** public:
+  49:Inc/thermistor.hpp ****     struct Config_t {
+  50:Inc/thermistor.hpp ****         float temp_limit_lower = 100;
+  51:Inc/thermistor.hpp ****         float temp_limit_upper = 120;
+  52:Inc/thermistor.hpp ****         bool enabled = true;
+  53:Inc/thermistor.hpp ****     };
+  54:Inc/thermistor.hpp **** 
+  55:Inc/thermistor.hpp ****     virtual ~OnboardThermistorCurrentLimiter() = default;
+  56:Inc/thermistor.hpp ****     OnboardThermistorCurrentLimiter(const ThermistorHardwareConfig_t& hw_config, Config_t& config);
+  57:Inc/thermistor.hpp **** 
+  58:Inc/thermistor.hpp ****     Config_t& config_;
+  59:Inc/thermistor.hpp **** };
+  60:Inc/thermistor.hpp **** 
+  61:Inc/thermistor.hpp **** class OffboardThermistorCurrentLimiter : public ThermistorCurrentLimiter, public ODriveIntf::Offboa
+  62:Inc/thermistor.hpp **** public:
+  63:Inc/thermistor.hpp ****     static const size_t num_coeffs_ = 4;
+  64:Inc/thermistor.hpp **** 
+  65:Inc/thermistor.hpp ****     struct Config_t {
+ 516              		.loc 4 65 12 is_stmt 1 view .LVU97
+ 517              	.LBB63:
+ 518 0108 2F4B     		ldr	r3, .L25+52
+ 519 010a 1884     		strh	r0, [r3, #32]	@ movhi
+ 520 010c C3F82480 		str	r8, [r3, #36]	@ float
+ 521 0110 2E49     		ldr	r1, .L25+56
+ 522 0112 9962     		str	r1, [r3, #40]	@ float
+ 523 0114 83F82C60 		strb	r6, [r3, #44]
+ 524              	.LVL28:
+ 525              		.loc 4 65 12 is_stmt 0 view .LVU98
+ 526              	.LBE63:
+ 527              	.LBE62:
+ 528              	.LBB64:
+ 529              	.LBI64:
+ 530              		.file 5 "Inc/axis.hpp"
+   1:Inc/axis.hpp  **** #ifndef __AXIS_HPP
+   2:Inc/axis.hpp  **** #define __AXIS_HPP
+   3:Inc/axis.hpp  **** 
+   4:Inc/axis.hpp  **** 
+   5:Inc/axis.hpp  **** #include "task_timer.hpp"
+   6:Inc/axis.hpp  **** #include <array>
+   7:Inc/axis.hpp  **** #include "interfaces.hpp"
+   8:Inc/axis.hpp  **** #include "open_loop_controller.hpp"
+   9:Inc/axis.hpp  **** #include <functional>
+  10:Inc/axis.hpp  **** #include "low_level.h"  // Add this for safety_critical_disarm_motor_pwm declaration
+  11:Inc/axis.hpp  **** #include  "current_limiter.hpp"
+  12:Inc/axis.hpp  **** #include "utils.hpp"
+  13:Inc/axis.hpp  **** 
+  14:Inc/axis.hpp  **** class Motor;
+  15:Inc/axis.hpp  **** class Controller;
+  16:Inc/axis.hpp  **** class Encoder;
+  17:Inc/axis.hpp  **** class OpenLoopController;
+  18:Inc/axis.hpp  **** class  OnboardThermistorCurrentLimiter;
+  19:Inc/axis.hpp  **** class  OffboardThermistorCurrentLimiter;
+  20:Inc/axis.hpp  **** class ThermistorCurrentLimiter;
+  21:Inc/axis.hpp  **** 
+  22:Inc/axis.hpp  **** class Axis : public ODriveIntf::AxisIntf{
+  23:Inc/axis.hpp  **** public:
+ARM GAS  /tmp/ccZgoZwU.s 			page 19
+
+
+  24:Inc/axis.hpp  ****     struct LockinConfig_t {
+  25:Inc/axis.hpp  ****         float current = 10.0f;           // [A]
+  26:Inc/axis.hpp  ****         float ramp_time = 0.4f;          // [s]
+  27:Inc/axis.hpp  ****         float ramp_distance = 1 * M_PI;  // [rad]
+  28:Inc/axis.hpp  ****         float accel = 20.0f;     // [rad/s^2]
+  29:Inc/axis.hpp  ****         float vel = 40.0f; // [rad/s]
+  30:Inc/axis.hpp  ****         float finish_distance = 100.0f;  // [rad]
+  31:Inc/axis.hpp  ****         bool finish_on_vel = false;
+  32:Inc/axis.hpp  ****         bool finish_on_distance = false;
+  33:Inc/axis.hpp  ****         bool finish_on_enc_idx = false;
+  34:Inc/axis.hpp  ****     };
+  35:Inc/axis.hpp  ****     struct TaskTimes {
+  36:Inc/axis.hpp  ****         TaskTimer thermistor_update;
+  37:Inc/axis.hpp  ****         TaskTimer encoder_update;
+  38:Inc/axis.hpp  ****         TaskTimer sensorless_estimator_update;
+  39:Inc/axis.hpp  ****         TaskTimer endstop_update;
+  40:Inc/axis.hpp  ****         TaskTimer can_heartbeat;
+  41:Inc/axis.hpp  ****         TaskTimer controller_update;
+  42:Inc/axis.hpp  ****         TaskTimer open_loop_controller_update;
+  43:Inc/axis.hpp  ****         TaskTimer acim_estimator_update;
+  44:Inc/axis.hpp  ****         TaskTimer motor_update;
+  45:Inc/axis.hpp  ****         TaskTimer current_controller_update;
+  46:Inc/axis.hpp  ****         TaskTimer dc_calib;
+  47:Inc/axis.hpp  ****         TaskTimer current_sense;
+  48:Inc/axis.hpp  ****         TaskTimer pwm_update;
+  49:Inc/axis.hpp  ****     };
+  50:Inc/axis.hpp  **** 
+  51:Inc/axis.hpp  **** 
+  52:Inc/axis.hpp  **** 
+  53:Inc/axis.hpp  **** 
+  54:Inc/axis.hpp  **** 
+  55:Inc/axis.hpp  ****    enum ENCOS_ERRO
+  56:Inc/axis.hpp  ****    {
+  57:Inc/axis.hpp  ****       ENCOS_ERROR_NONE = 0,
+  58:Inc/axis.hpp  ****       ENCOS_ERROR_OVER_TEMP = 1,
+  59:Inc/axis.hpp  ****       ENCOS_ERROR_CURRENT_LIMIT_VIOLATION =2,
+  60:Inc/axis.hpp  ****       ENCOS_ERROR_DC_BUS_UNDER_VOLTAGE =3,
+  61:Inc/axis.hpp  ****       ENCOS_ERROR_ABS_SPI_COM_FAIL=4,
+  62:Inc/axis.hpp  ****       ENCOS_ERROR_DC_BUS_OVER_VOLTAGE =6,
+  63:Inc/axis.hpp  ****       ENCOS_ERROR_DRV_FAULT=7,
+  64:Inc/axis.hpp  ****    };
+  65:Inc/axis.hpp  **** 
+  66:Inc/axis.hpp  **** 
+  67:Inc/axis.hpp  **** 
+  68:Inc/axis.hpp  ****     static constexpr uint32_t PARAM_LEN = 128;
+  69:Inc/axis.hpp  ****     enum EXT_CONFIG_REG
+  70:Inc/axis.hpp  ****     {
+  71:Inc/axis.hpp  ****         EXT_CONFIG_REG_ENABLE_NOTCH_FILTER = 0,
+  72:Inc/axis.hpp  ****         EXT_CONFIG_REG_ENABLE_DC_BUS_OVER_VOLTAGE_FILTER = 1,
+  73:Inc/axis.hpp  ****         EXT_CONFIG_REG_ENABLE_DC_BUS_UNDER_VOLTAGE_FILTER = 2,
+  74:Inc/axis.hpp  ****         EXT_CONFIG_REG_ENABLE_OVER_TEMP_FILTER = 3,
+  75:Inc/axis.hpp  ****         EXT_CONFIG_REG_ENABLE_CURRENT_LIMIT_VIOLATION_FILTER = 4
+  76:Inc/axis.hpp  ****     };
+  77:Inc/axis.hpp  **** 
+  78:Inc/axis.hpp  **** 
+  79:Inc/axis.hpp  **** 
+  80:Inc/axis.hpp  ****     static LockinConfig_t default_calibration();
+ARM GAS  /tmp/ccZgoZwU.s 			page 20
+
+
+  81:Inc/axis.hpp  ****     static LockinConfig_t default_sensorless();
+  82:Inc/axis.hpp  ****     static LockinConfig_t default_lockin();
+  83:Inc/axis.hpp  **** 
+  84:Inc/axis.hpp  ****     struct Config_t {
+ 531              		.loc 5 84 12 is_stmt 1 view .LVU99
+ 532              	.LBB65:
+ 533 0118 2D4C     		ldr	r4, .L25+60
+ 534 011a 2570     		strb	r5, [r4]
+ 535 011c 6570     		strb	r5, [r4, #1]
+ 536 011e A570     		strb	r5, [r4, #2]
+ 537 0120 E570     		strb	r5, [r4, #3]
+ 538 0122 2571     		strb	r5, [r4, #4]
+ 539 0124 6571     		strb	r5, [r4, #5]
+ 540 0126 A571     		strb	r5, [r4, #6]
+ 541 0128 E571     		strb	r5, [r4, #7]
+ 542 012a 4FF06A53 		mov	r3, #981467136
+ 543 012e A360     		str	r3, [r4, #8]	@ float
+ 544 0130 2573     		strb	r5, [r4, #12]
+ 545 0132 2261     		str	r2, [r4, #16]	@ float
+ 546 0134 2675     		strb	r6, [r4, #20]
+ 547 0136 E582     		strh	r5, [r4, #22]	@ movhi
+ 548 0138 2583     		strh	r5, [r4, #24]	@ movhi
+ 549 013a 04F11C00 		add	r0, r4, #28
+ 550 013e FFF7FEFF 		bl	_ZN4Axis19default_calibrationEv
+ 551              	.LVL29:
+ 552 0142 04F13800 		add	r0, r4, #56
+ 553 0146 FFF7FEFF 		bl	_ZN4Axis18default_sensorlessEv
+ 554              	.LVL30:
+ 555              	.LBB66:
+ 556              	.LBI66:
+  24:Inc/axis.hpp  ****         float current = 10.0f;           // [A]
+ 557              		.loc 5 24 12 view .LVU100
+ 558              	.LBB67:
+ 559 014a 6765     		str	r7, [r4, #84]	@ float
+ 560 014c 214B     		ldr	r3, .L25+64
+ 561 014e A365     		str	r3, [r4, #88]	@ float
+ 562 0150 214B     		ldr	r3, .L25+68
+ 563 0152 E365     		str	r3, [r4, #92]	@ float
+ 564 0154 C4F860A0 		str	r10, [r4, #96]	@ float
+ 565 0158 204B     		ldr	r3, .L25+72
+ 566 015a 6366     		str	r3, [r4, #100]	@ float
+ 567 015c C4F86890 		str	r9, [r4, #104]	@ float
+ 568 0160 84F86C50 		strb	r5, [r4, #108]
+ 569 0164 84F86D50 		strb	r5, [r4, #109]
+ 570 0168 84F86E50 		strb	r5, [r4, #110]
+ 571              	.LVL31:
+  24:Inc/axis.hpp  ****         float current = 10.0f;           // [A]
+ 572              		.loc 5 24 12 is_stmt 0 view .LVU101
+ 573              	.LBE67:
+ 574              	.LBE66:
+ 575              		.loc 5 84 12 view .LVU102
+ 576 016c 2667     		str	r6, [r4, #112]
+ 577 016e 84F87450 		strb	r5, [r4, #116]
+ 578 0172 6423     		movs	r3, #100
+ 579 0174 A367     		str	r3, [r4, #120]
+ 580 0176 1A4B     		ldr	r3, .L25+76
+ 581 0178 C4F88032 		str	r3, [r4, #640]	@ float
+ARM GAS  /tmp/ccZgoZwU.s 			page 21
+
+
+ 582 017c 194B     		ldr	r3, .L25+80
+ 583 017e C4F88432 		str	r3, [r4, #644]	@ float
+ 584 0182 C4F88882 		str	r8, [r4, #648]	@ float
+ 585 0186 84F88C52 		strb	r5, [r4, #652]
+ 586 018a C4F89052 		str	r5, [r4, #656]
+ 587              	.LVL32:
+ 588              		.loc 5 84 12 view .LVU103
+ 589              	.LBE65:
+ 590              	.LBE64:
+ 591              	.LBE55:
+ 592              	.LBE54:
+ 593              		.loc 1 256 1 view .LVU104
+ 594 018e BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
+ 595              	.L26:
+ 596 0192 00BF     		.align	2
+ 597              	.L25:
+ 598 0194 00000000 		.word	.LANCHOR2
+ 599 0198 ABAA2A3E 		.word	1042983595
+ 600 019c 0AD7233C 		.word	1008981770
+ 601 01a0 ABAAAA3E 		.word	1051372203
+ 602 01a4 9A99993F 		.word	1067030938
+ 603 01a8 00002041 		.word	1092616192
+ 604 01ac 00000000 		.word	.LANCHOR3
+ 605 01b0 CDAF6638 		.word	946253773
+ 606 01b4 295C8F3D 		.word	1032805417
+ 607 01b8 0E2DB23D 		.word	1035087118
+ 608 01bc 00803B45 		.word	1161527296
+ 609 01c0 0000F042 		.word	1123024896
+ 610 01c4 C74B6B41 		.word	1097550791
+ 611 01c8 00000000 		.word	.LANCHOR4
+ 612 01cc 0000A042 		.word	1117782016
+ 613 01d0 00000000 		.word	.LANCHOR5
+ 614 01d4 CDCCCC3E 		.word	1053609165
+ 615 01d8 DB0F4940 		.word	1078530011
+ 616 01dc 00002042 		.word	1109393408
+ 617 01e0 00004841 		.word	1095237632
+ 618 01e4 00009041 		.word	1099956224
+ 619 01e8 0000A041 		.word	1101004800
+ 620 01ec 00007042 		.word	1114636288
+ 621 01f0 0000C842 		.word	1120403456
+ 622 01f4 000080FF 		.word	-8388608
+ 623              		.cfi_endproc
+ 624              	.LFE6310:
+ 626              		.section	.init_array,"aw",%init_array
+ 627              		.align	2
+ 628 0000 00000000 		.word	_GLOBAL__sub_I_board_config(target1)
+ 629              		.global	odCAN
+ 630              		.global	axes
+ 631              		.global	axis_configs
+ 632              		.global	motor_thermistor_configs
+ 633              		.global	fet_thermistor_configs
+ 634              		.global	motor_configs
+ 635              		.global	controller_configs
+ 636              		.global	encoder_configs
+ 637              		.global	can_config
+ 638              		.global	current_meas_period
+ 639              		.global	system_stats
+ARM GAS  /tmp/ccZgoZwU.s 			page 22
+
+
+ 640              		.global	board_config
+ 641              		.section	.bss.axes,"aw",%nobits
+ 642              		.align	2
+ 643              		.set	.LANCHOR0,. + 0
+ 646              	axes:
+ 647 0000 00000000 		.space	4
+ 648              		.section	.bss.axis_configs,"aw",%nobits
+ 649              		.align	2
+ 650              		.set	.LANCHOR5,. + 0
+ 653              	axis_configs:
+ 654 0000 00000000 		.space	660
+ 654      00000000 
+ 654      00000000 
+ 654      00000000 
+ 654      00000000 
+ 655              		.section	.bss.controller_configs,"aw",%nobits
+ 656              		.align	2
+ 657              		.set	.LANCHOR2,. + 0
+ 660              	controller_configs:
+ 661 0000 00000000 		.space	624
+ 661      00000000 
+ 661      00000000 
+ 661      00000000 
+ 661      00000000 
+ 662              		.section	.bss.motor_configs,"aw",%nobits
+ 663              		.align	2
+ 664              		.set	.LANCHOR3,. + 0
+ 667              	motor_configs:
+ 668 0000 00000000 		.space	1072
+ 668      00000000 
+ 668      00000000 
+ 668      00000000 
+ 668      00000000 
+ 669              		.section	.bss.motor_thermistor_configs,"aw",%nobits
+ 670              		.align	2
+ 671              		.set	.LANCHOR4,. + 0
+ 674              	motor_thermistor_configs:
+ 675 0000 00000000 		.space	52
+ 675      00000000 
+ 675      00000000 
+ 675      00000000 
+ 675      00000000 
+ 676              		.section	.bss.odCAN,"aw",%nobits
+ 677              		.align	2
+ 680              	odCAN:
+ 681 0000 00000000 		.space	4
+ 682              		.section	.bss.system_stats,"aw",%nobits
+ 683              		.align	2
+ 684              		.set	.LANCHOR1,. + 0
+ 687              	system_stats:
+ 688 0000 00000000 		.space	76
+ 688      00000000 
+ 688      00000000 
+ 688      00000000 
+ 688      00000000 
+ 689              		.section	.data.board_config,"aw"
+ 690              		.align	2
+ARM GAS  /tmp/ccZgoZwU.s 			page 23
+
+
+ 693              	board_config:
+ 694 0000 00       		.byte	0
+ 695 0001 01       		.byte	1
+ 696 0002 00       		.byte	0
+ 697 0003 01       		.byte	1
+ 698 0004 00000000 		.word	0
+ 699 0008 D7A3F03E 		.word	1055957975
+ 700 000c 00000041 		.word	1090519040
+ 701 0010 67668642 		.word	1116104295
+ 702 0014 00       		.byte	0
+ 703 0015 000000   		.space	3
+ 704 0018 15AE6F42 		.word	1114615317
+ 705 001c 15AE6F42 		.word	1114615317
+ 706 0020 0000807F 		.word	2139095040
+ 707 0024 BD3786B5 		.word	-1249495107
+ 708 0028 00C20100 		.word	115200
+ 709              		.section	.data.can_config,"aw"
+ 710              		.align	2
+ 713              	can_config:
+ 714 0000 40420F00 		.word	1000000
+ 715 0004 01       		.byte	1
+ 716 0005 000000   		.space	3
+ 717              		.section	.data.current_meas_period,"aw"
+ 718              		.align	2
+ 721              	current_meas_period:
+ 722 0000 17B75138 		.word	944879383
+ 723              		.section	.data.encoder_configs,"aw"
+ 724              		.align	2
+ 727              	encoder_configs:
+ 728 0000 0301     		.short	259
+ 729 0002 00       		.byte	0
+ 730 0003 00       		.byte	0
+ 731 0004 01       		.byte	1
+ 732 0005 01       		.byte	1
+ 733 0006 0000     		.space	2
+ 734 0008 00000100 		.word	65536
+ 735 000c 00000000 		.word	0
+ 736 0010 00000000 		.word	0
+ 737 0014 01       		.byte	1
+ 738 0015 000000   		.space	3
+ 739 0018 6F12033B 		.word	990057071
+ 740 001c DB0F4942 		.word	1112084443
+ 741 0020 DB0F4941 		.word	1095307227
+ 742 0024 00007A45 		.word	1165623296
+ 743 0028 00       		.byte	0
+ 744 0029 00       		.byte	0
+ 745 002a 00       		.byte	0
+ 746 002b 00       		.space	1
+ 747 002c 0100     		.short	1
+ 748 002e 0300     		.short	3
+ 749 0030 0400     		.short	4
+ 750 0032 0200     		.short	2
+ 751 0034 00000400 		.word	262144
+ 752 0038 00000000 		.word	0
+ 753 003c 01000000 		.word	1
+ 754 0040 00000000 		.word	0
+ 755              		.section	.data.fet_thermistor_configs,"aw"
+ARM GAS  /tmp/ccZgoZwU.s 			page 24
+
+
+ 756              		.align	2
+ 759              	fet_thermistor_configs:
+ 760 0000 0000C842 		.word	1120403456
+ 761 0004 0000F042 		.word	1123024896
+ 762 0008 01       		.byte	1
+ 763 0009 000000   		.space	3
+ 764              		.text
+ 765              	.Letext0:
+ 766              		.file 6 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef
+ 767              		.file 7 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
+ 768              		.file 8 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
+ 769              		.file 9 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h"
+ 770              		.file 10 "Middlewares/Third_Party/FreeRTOS/Source/include/task.h"
+ 771              		.file 11 "Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h"
+ 772              		.file 12 "Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g431xx.h"
+ 773              		.file 13 "Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g4xx.h"
+ 774              		.file 14 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_def.h"
+ 775              		.file 15 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_dma.h"
+ 776              		.file 16 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_fdcan.h"
+ 777              		.file 17 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_spi.h"
+ 778              		.file 18 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim.h"
+ 779              		.file 19 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/type_trai
+ 780              		.file 20 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/arm-none-
+ 781              		.file 21 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/debug/deb
+ 782              		.file 22 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/cstdlib"
+ 783              		.file 23 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/algo
+ 784              		.file 24 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/exce
+ 785              		.file 25 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/std_
+ 786              		.file 26 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_
+ 787              		.file 27 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/variant"
+ 788              		.file 28 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/enab
+ 789              		.file 29 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/optional"
+ 790              		.file 30 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/functiona
+ 791              		.file 31 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/cstring"
+ 792              		.file 32 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/cwchar"
+ 793              		.file 33 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/clocale"
+ 794              		.file 34 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/cstdint"
+ 795              		.file 35 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/string_vi
+ 796              		.file 36 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/basi
+ 797              		.file 37 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/cstdio"
+ 798              		.file 38 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/cmath"
+ 799              		.file 39 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/std_
+ 800              		.file 40 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_
+ 801              		.file 41 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/array"
+ 802              		.file 42 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_
+ 803              		.file 43 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/refw
+ 804              		.file 44 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/pars
+ 805              		.file 45 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/pred
+ 806              		.file 46 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_types.h"
+ 807              		.file 47 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h"
+ 808              		.file 48 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/lock.h"
+ 809              		.file 49 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h"
+ 810              		.file 50 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/pstl/exec
+ 811              		.file 51 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/string.h"
+ 812              		.file 52 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stdar
+ 813              		.file 53 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/wchar.h"
+ 814              		.file 54 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/locale.h"
+ARM GAS  /tmp/ccZgoZwU.s 			page 25
+
+
+ 815              		.file 55 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdio.h"
+ 816              		.file 56 "Inc/can_helpers.hpp"
+ 817              		.file 57 "Inc/interfaces.hpp"
+ 818              		.file 58 "Inc/interface_can.hpp"
+ 819              		.file 59 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h"
+ 820              		.file 60 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_usart.h"
+ 821              		.file 61 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h"
+ 822              		.file 62 "Inc/mc_type.h"
+ 823              		.file 63 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/math.h"
+ 824              		.file 64 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/math.h"
+ 825              		.file 65 "Inc/main.h"
+ 826              		.file 66 "Inc/task_timer.hpp"
+ 827              		.file 67 "Inc/component.hpp"
+ 828              		.file 68 "Inc/utils.hpp"
+ 829              		.file 69 "Inc/encoder.hpp"
+ 830              		.file 70 "<built-in>"
+ 831              		.file 71 "Inc/main_.hpp"
+ 832              		.file 72 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/stdlib.h"
+ 833              		.file 73 "Inc/low_level.h"
+ARM GAS  /tmp/ccZgoZwU.s 			page 26
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 main_.cpp
+     /tmp/ccZgoZwU.s:18     .text._Z18save_configurationv:0000000000000000 $t
+     /tmp/ccZgoZwU.s:26     .text._Z18save_configurationv:0000000000000000 _Z18save_configurationv
+     /tmp/ccZgoZwU.s:47     .text.load_configuration:0000000000000000 load_configuration
+     /tmp/ccZgoZwU.s:59     .text._Z19erase_configurationv:0000000000000000 $t
+     /tmp/ccZgoZwU.s:66     .text._Z19erase_configurationv:0000000000000000 _Z19erase_configurationv
+     /tmp/ccZgoZwU.s:86     .text.construct_objects:0000000000000000 construct_objects
+     /tmp/ccZgoZwU.s:98     .text.vApplicationStackOverflowHook:0000000000000000 $t
+     /tmp/ccZgoZwU.s:105    .text.vApplicationStackOverflowHook:0000000000000000 vApplicationStackOverflowHook
+     /tmp/ccZgoZwU.s:139    .text.vApplicationStackOverflowHook:0000000000000014 $d
+     /tmp/ccZgoZwU.s:144    .text.vApplicationIdleHook:0000000000000000 $t
+     /tmp/ccZgoZwU.s:151    .text.vApplicationIdleHook:0000000000000000 vApplicationIdleHook
+     /tmp/ccZgoZwU.s:212    .text.vApplicationIdleHook:000000000000002c $d
+     /tmp/ccZgoZwU.s:218    .text.odrive_main:0000000000000000 $t
+     /tmp/ccZgoZwU.s:225    .text.odrive_main:0000000000000000 odrive_main
+     /tmp/ccZgoZwU.s:359    .text.odrive_main:0000000000000080 $d
+     /tmp/ccZgoZwU.s:365    .text._GLOBAL__sub_I_board_config:0000000000000000 $t
+     /tmp/ccZgoZwU.s:371    .text._GLOBAL__sub_I_board_config:0000000000000000 _GLOBAL__sub_I_board_config
+     /tmp/ccZgoZwU.s:598    .text._GLOBAL__sub_I_board_config:0000000000000194 $d
+     /tmp/ccZgoZwU.s:627    .init_array:0000000000000000 $d
+     /tmp/ccZgoZwU.s:680    .bss.odCAN:0000000000000000 odCAN
+     /tmp/ccZgoZwU.s:646    .bss.axes:0000000000000000 axes
+     /tmp/ccZgoZwU.s:653    .bss.axis_configs:0000000000000000 axis_configs
+     /tmp/ccZgoZwU.s:674    .bss.motor_thermistor_configs:0000000000000000 motor_thermistor_configs
+     /tmp/ccZgoZwU.s:759    .data.fet_thermistor_configs:0000000000000000 fet_thermistor_configs
+     /tmp/ccZgoZwU.s:667    .bss.motor_configs:0000000000000000 motor_configs
+     /tmp/ccZgoZwU.s:660    .bss.controller_configs:0000000000000000 controller_configs
+     /tmp/ccZgoZwU.s:727    .data.encoder_configs:0000000000000000 encoder_configs
+     /tmp/ccZgoZwU.s:713    .data.can_config:0000000000000000 can_config
+     /tmp/ccZgoZwU.s:721    .data.current_meas_period:0000000000000000 current_meas_period
+     /tmp/ccZgoZwU.s:687    .bss.system_stats:0000000000000000 system_stats
+     /tmp/ccZgoZwU.s:693    .data.board_config:0000000000000000 board_config
+     /tmp/ccZgoZwU.s:642    .bss.axes:0000000000000000 $d
+     /tmp/ccZgoZwU.s:649    .bss.axis_configs:0000000000000000 $d
+     /tmp/ccZgoZwU.s:656    .bss.controller_configs:0000000000000000 $d
+     /tmp/ccZgoZwU.s:663    .bss.motor_configs:0000000000000000 $d
+     /tmp/ccZgoZwU.s:670    .bss.motor_thermistor_configs:0000000000000000 $d
+     /tmp/ccZgoZwU.s:677    .bss.odCAN:0000000000000000 $d
+     /tmp/ccZgoZwU.s:683    .bss.system_stats:0000000000000000 $d
+     /tmp/ccZgoZwU.s:690    .data.board_config:0000000000000000 $d
+     /tmp/ccZgoZwU.s:710    .data.can_config:0000000000000000 $d
+     /tmp/ccZgoZwU.s:718    .data.current_meas_period:0000000000000000 $d
+     /tmp/ccZgoZwU.s:724    .data.encoder_configs:0000000000000000 $d
+     /tmp/ccZgoZwU.s:756    .data.fet_thermistor_configs:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+safety_critical_disarm_motor_pwm
+safety_critical_disarm_brake_resistor
+_ZN24ThermistorCurrentLimiter6updateEv
+_ZN4Axis9do_checksEv
+start_general_purpose_adc
+pwm_in_init
+_ZN5Motor13DRV8301_setupEv
+_ZN7Encoder5setupEv
+_ZN4Axis5setupEv
+start_adc_pwm
+ARM GAS  /tmp/ccZgoZwU.s 			page 27
+
+
+osDelay
+_ZN4Axis12start_threadEv
+start_analog_thread
+_ZN7Encoder19abs_spi_cs_pin_initEv
+_ZN4Axis19default_calibrationEv
+_ZN4Axis18default_sensorlessEv

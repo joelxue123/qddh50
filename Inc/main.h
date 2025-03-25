@@ -49,6 +49,7 @@ extern "C" {
 #include "stm32g4xx_ll_tim.h"
 #include "stm32g4xx_ll_usart.h"
 #include "stm32g4xx_ll_gpio.h"
+#include "stm32g4xx_hal_spi.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -74,6 +75,27 @@ extern "C" {
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
+
+/* Private define ------------------------------------------------------------*/
+#define TIM_1_8_CLOCK_HZ 170000000
+#define TIM_1_8_PERIOD_CLOCKS 4250 //2024-5-6  原来3500
+#define TIM_1_8_DEADTIME_CLOCKS 40
+#define TIM_APB1_CLOCK_HZ 85000000
+#define TIM_APB1_PERIOD_CLOCKS 4096
+#define TIM_APB1_DEADTIME_CLOCKS 40
+#define TIM_1_8_RCR 0  //原来2
+
+#define TIM_TIME_BASE TIM16
+
+#define CURRENT_MEAS_PERIOD ( (float)2*TIM_1_8_PERIOD_CLOCKS*(TIM_1_8_RCR+1) / (float)TIM_1_8_CLOCK_HZ )
+#define CURRENT_MEAS_HZ ( (float)(TIM_1_8_CLOCK_HZ) / (float)(2*TIM_1_8_PERIOD_CLOCKS*(TIM_1_8_RCR+1)) )
+
+
+#define CURRENT_SENSE_MIN_VOLT  0.3f
+#define CURRENT_SENSE_MAX_VOLT  3.0f
+#define MAX_CONTROL_LOOP_UPDATE_TO_CURRENT_UPDATE_DELTA (TIM_1_8_PERIOD_CLOCKS / 2 + 1 * 128)
+
+#define VBUS_S_DIVIDER_RATIO 19.0f
 
 /* USER CODE END EFP */
 
@@ -130,12 +152,73 @@ void Error_Handler(void);
 #define TCK_Pin LL_GPIO_PIN_14
 #define TCK_GPIO_Port GPIOA
 
+
+#define EN_GATE_Pin GPIO_PIN_12
+#define EN_GATE_GPIO_Port GPIOB
+#define M0_AL_Pin GPIO_PIN_13
+#define M0_AL_GPIO_Port GPIOB
+#define M0_BL_Pin GPIO_PIN_14
+#define M0_BL_GPIO_Port GPIOB
+#define M0_CL_Pin GPIO_PIN_15
+#define M0_CL_GPIO_Port GPIOB
+
+#define M0_AH_Pin GPIO_PIN_8
+#define M0_AH_GPIO_Port GPIOA
+#define M0_BH_Pin GPIO_PIN_9
+#define M0_BH_GPIO_Port GPIOA
+#define M0_CH_Pin GPIO_PIN_10
+#define M0_CH_GPIO_Port GPIOA
+
+#define MU128_1_Pin GPIO_PIN_4
+#define MU128_1_GPIO_Port GPIOA
+#define MU128_2_Pin GPIO_PIN_15
+#define MU128_2_GPIO_Port GPIOA
+
+
+
 /* USER CODE BEGIN Private defines */
+
+extern float current_meas_period;
+
+
+typedef struct {
+  TIM_HandleTypeDef* timer;
+  GPIO_TypeDef* index_port;
+  uint16_t index_pin;
+  GPIO_TypeDef* hallA_port;
+  uint16_t hallA_pin;
+  GPIO_TypeDef* hallB_port;
+  uint16_t hallB_pin;
+  GPIO_TypeDef* hallC_port;
+  uint16_t hallC_pin;
+  SPI_HandleTypeDef* motor_spi;
+  SPI_HandleTypeDef* GearboxOutputEncoder_spi;
+//  UART_HandleTypeDef *uart;
+
+} EncoderHardwareConfig_t;
+typedef struct {
+  TIM_HandleTypeDef* timer;
+  uint16_t control_deadline;
+  float shunt_conductance;
+} MotorHardwareConfig_t;
+typedef struct {
+  const float* const coeffs;
+  const float* const aux_coefficients;
+  size_t num_coeffs;
+  size_t adc_ch;
+  size_t aux_temp;
+} ThermistorHardwareConfig_t;
+
+
+
 
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
 }
 #endif
+
+
+
 
 #endif /* __MAIN_H */

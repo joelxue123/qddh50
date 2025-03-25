@@ -1,4 +1,4 @@
-ARM GAS  /tmp/cckmtT6a.s 			page 1
+ARM GAS  /tmp/cc3CDfB0.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -10,25 +10,24 @@ ARM GAS  /tmp/cckmtT6a.s 			page 1
    7              		.eabi_attribute 24, 1
    8              		.eabi_attribute 25, 1
    9              		.eabi_attribute 26, 1
-  10              		.eabi_attribute 30, 2
+  10              		.eabi_attribute 30, 1
   11              		.eabi_attribute 34, 1
-  12              		.eabi_attribute 18, 4
+  12              		.eabi_attribute 18, 2
   13              		.file	"stm32g4xx_it.c"
   14              		.text
   15              	.Ltext0:
   16              		.cfi_sections	.debug_frame
   17              		.section	.text.TIM6_DAC_IRQHandler,"ax",%progbits
   18              		.align	1
-  19              		.p2align 2,,3
-  20              		.global	TIM6_DAC_IRQHandler
-  21              		.arch armv7e-m
-  22              		.syntax unified
-  23              		.thumb
-  24              		.thumb_func
-  25              		.fpu fpv4-sp-d16
-  27              	TIM6_DAC_IRQHandler:
-  28              	.LFB1867:
-  29              		.file 1 "Src/stm32g4xx_it.c"
+  19              		.global	TIM6_DAC_IRQHandler
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	TIM6_DAC_IRQHandler:
+  27              	.LFB1867:
+  28              		.file 1 "Src/stm32g4xx_it.c"
    1:Src/stm32g4xx_it.c **** /* USER CODE BEGIN Header */
    2:Src/stm32g4xx_it.c **** /**
    3:Src/stm32g4xx_it.c ****   ******************************************************************************
@@ -58,10 +57,10 @@ ARM GAS  /tmp/cckmtT6a.s 			page 1
   27:Src/stm32g4xx_it.c **** /* Private typedef -----------------------------------------------------------*/
   28:Src/stm32g4xx_it.c **** /* USER CODE BEGIN TD */
   29:Src/stm32g4xx_it.c **** 
-ARM GAS  /tmp/cckmtT6a.s 			page 2
-
-
   30:Src/stm32g4xx_it.c **** /* USER CODE END TD */
+ARM GAS  /tmp/cc3CDfB0.s 			page 2
+
+
   31:Src/stm32g4xx_it.c **** 
   32:Src/stm32g4xx_it.c **** /* Private define ------------------------------------------------------------*/
   33:Src/stm32g4xx_it.c **** /* USER CODE BEGIN PD */
@@ -111,47 +110,57 @@ ARM GAS  /tmp/cckmtT6a.s 			page 1
   77:Src/stm32g4xx_it.c ****   */
   78:Src/stm32g4xx_it.c **** void TIM6_DAC_IRQHandler(void)
   79:Src/stm32g4xx_it.c **** {
-  30              		.loc 1 79 1 view -0
-  31              		.cfi_startproc
-  32              		@ args = 0, pretend = 0, frame = 0
-  33              		@ frame_needed = 0, uses_anonymous_args = 0
-  34              		@ link register save eliminated.
+  29              		.loc 1 79 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33 0000 08B5     		push	{r3, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 8
+  36              		.cfi_offset 3, -8
+ARM GAS  /tmp/cc3CDfB0.s 			page 3
+
+
+  37              		.cfi_offset 14, -4
   80:Src/stm32g4xx_it.c ****   /* USER CODE BEGIN TIM6_DAC_IRQn 0 */
   81:Src/stm32g4xx_it.c **** 
-ARM GAS  /tmp/cckmtT6a.s 			page 3
-
-
   82:Src/stm32g4xx_it.c ****   /* USER CODE END TIM6_DAC_IRQn 0 */
   83:Src/stm32g4xx_it.c ****   HAL_TIM_IRQHandler(&htim6);
-  35              		.loc 1 83 3 view .LVU1
-  36 0000 0148     		ldr	r0, .L3
-  37 0002 FFF7FEBF 		b	HAL_TIM_IRQHandler
-  38              	.LVL0:
-  39              	.L4:
-  40 0006 00BF     		.align	2
-  41              	.L3:
-  42 0008 00000000 		.word	htim6
-  43              		.cfi_endproc
-  44              	.LFE1867:
-  46              		.text
-  47              	.Letext0:
-  48              		.file 2 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
-  49              		.file 3 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
-  50              		.file 4 "Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g431xx.h"
-  51              		.file 5 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_def.h"
-  52              		.file 6 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_dma.h"
-  53              		.file 7 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim.h"
-  54              		.file 8 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h"
-  55              		.file 9 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_usart.h"
-  56              		.file 10 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h"
-ARM GAS  /tmp/cckmtT6a.s 			page 4
+  38              		.loc 1 83 3 view .LVU1
+  39 0002 0248     		ldr	r0, .L3
+  40 0004 FFF7FEFF 		bl	HAL_TIM_IRQHandler
+  41              	.LVL0:
+  84:Src/stm32g4xx_it.c ****   /* USER CODE BEGIN TIM6_DAC_IRQn 1 */
+  85:Src/stm32g4xx_it.c **** 
+  86:Src/stm32g4xx_it.c ****   /* USER CODE END TIM6_DAC_IRQn 1 */
+  87:Src/stm32g4xx_it.c **** }
+  42              		.loc 1 87 1 is_stmt 0 view .LVU2
+  43 0008 08BD     		pop	{r3, pc}
+  44              	.L4:
+  45 000a 00BF     		.align	2
+  46              	.L3:
+  47 000c 00000000 		.word	htim6
+  48              		.cfi_endproc
+  49              	.LFE1867:
+  51              		.text
+  52              	.Letext0:
+  53              		.file 2 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
+  54              		.file 3 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
+  55              		.file 4 "Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g431xx.h"
+  56              		.file 5 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_def.h"
+  57              		.file 6 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_dma.h"
+  58              		.file 7 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim.h"
+  59              		.file 8 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h"
+  60              		.file 9 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_usart.h"
+  61              		.file 10 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h"
+ARM GAS  /tmp/cc3CDfB0.s 			page 4
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 stm32g4xx_it.c
-     /tmp/cckmtT6a.s:18     .text.TIM6_DAC_IRQHandler:0000000000000000 $t
-     /tmp/cckmtT6a.s:27     .text.TIM6_DAC_IRQHandler:0000000000000000 TIM6_DAC_IRQHandler
-     /tmp/cckmtT6a.s:42     .text.TIM6_DAC_IRQHandler:0000000000000008 $d
+     /tmp/cc3CDfB0.s:18     .text.TIM6_DAC_IRQHandler:0000000000000000 $t
+     /tmp/cc3CDfB0.s:26     .text.TIM6_DAC_IRQHandler:0000000000000000 TIM6_DAC_IRQHandler
+     /tmp/cc3CDfB0.s:47     .text.TIM6_DAC_IRQHandler:000000000000000c $d
 
 UNDEFINED SYMBOLS
 HAL_TIM_IRQHandler

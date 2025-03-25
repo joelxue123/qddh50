@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccKJN1Nl.s 			page 1
+ARM GAS  /tmp/cccnQOYj.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -10,26 +10,25 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
    7              		.eabi_attribute 24, 1
    8              		.eabi_attribute 25, 1
    9              		.eabi_attribute 26, 1
-  10              		.eabi_attribute 30, 2
+  10              		.eabi_attribute 30, 1
   11              		.eabi_attribute 34, 1
-  12              		.eabi_attribute 18, 4
+  12              		.eabi_attribute 18, 2
   13              		.file	"mc_tasks_foc.c"
   14              		.text
   15              	.Ltext0:
   16              		.cfi_sections	.debug_frame
   17              		.section	.text.FOC_Clear,"ax",%progbits
   18              		.align	1
-  19              		.p2align 2,,3
-  20              		.weak	FOC_Clear
-  21              		.arch armv7e-m
-  22              		.syntax unified
-  23              		.thumb
-  24              		.thumb_func
-  25              		.fpu fpv4-sp-d16
-  27              	FOC_Clear:
-  28              	.LVL0:
-  29              	.LFB1870:
-  30              		.file 1 "Src/mc_tasks_foc.c"
+  19              		.weak	FOC_Clear
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	FOC_Clear:
+  27              	.LVL0:
+  28              	.LFB1870:
+  29              		.file 1 "Src/mc_tasks_foc.c"
    1:Src/mc_tasks_foc.c **** 
    2:Src/mc_tasks_foc.c **** /**
    3:Src/mc_tasks_foc.c ****   ******************************************************************************
@@ -58,10 +57,10 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
   26:Src/mc_tasks_foc.c **** #include "mc_type.h"
   27:Src/mc_tasks_foc.c **** #include "mc_math.h"
   28:Src/mc_tasks_foc.c **** #include "motorcontrol.h"
-ARM GAS  /tmp/ccKJN1Nl.s 			page 2
-
-
   29:Src/mc_tasks_foc.c **** #include "regular_conversion_manager.h"
+ARM GAS  /tmp/cccnQOYj.s 			page 2
+
+
   30:Src/mc_tasks_foc.c **** #include "mc_interface.h"
   31:Src/mc_tasks_foc.c **** #include "digital_output.h"
   32:Src/mc_tasks_foc.c **** #include "pwm_common.h"
@@ -118,10 +117,10 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
   83:Src/mc_tasks_foc.c **** 
   84:Src/mc_tasks_foc.c ****   /* USER CODE BEGIN MCboot 0 */
   85:Src/mc_tasks_foc.c **** 
-ARM GAS  /tmp/ccKJN1Nl.s 			page 3
-
-
   86:Src/mc_tasks_foc.c ****   /* USER CODE END MCboot 0 */
+ARM GAS  /tmp/cccnQOYj.s 			page 3
+
+
   87:Src/mc_tasks_foc.c **** 
   88:Src/mc_tasks_foc.c ****     /**********************************************************/
   89:Src/mc_tasks_foc.c ****     /*    PWM and current sensing component initialization    */
@@ -178,10 +177,10 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
  140:Src/mc_tasks_foc.c ****     pREMNG[M1] = &RampExtMngrHFParamsM1;
  141:Src/mc_tasks_foc.c ****     REMNG_Init(pREMNG[M1]);
  142:Src/mc_tasks_foc.c **** 
-ARM GAS  /tmp/ccKJN1Nl.s 			page 4
-
-
  143:Src/mc_tasks_foc.c ****     SCC.pPWMC = pwmcHandle[M1];
+ARM GAS  /tmp/cccnQOYj.s 			page 4
+
+
  144:Src/mc_tasks_foc.c ****     SCC.pVBS = &BusVoltageSensor_M1;
  145:Src/mc_tasks_foc.c ****     SCC.pFOCVars = &FOCVars[M1];
  146:Src/mc_tasks_foc.c ****     SCC.pMCI = &Mci[M1];
@@ -238,10 +237,10 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
  197:Src/mc_tasks_foc.c ****   * execution at a medium frequency rate (such as the speed controller for instance)
  198:Src/mc_tasks_foc.c ****   * are executed here.
  199:Src/mc_tasks_foc.c ****   */
-ARM GAS  /tmp/ccKJN1Nl.s 			page 5
-
-
  200:Src/mc_tasks_foc.c **** __weak void TSK_MediumFrequencyTaskM1(void)
+ARM GAS  /tmp/cccnQOYj.s 			page 5
+
+
  201:Src/mc_tasks_foc.c **** {
  202:Src/mc_tasks_foc.c ****   /* USER CODE BEGIN MediumFrequencyTask M1 0 */
  203:Src/mc_tasks_foc.c **** 
@@ -298,10 +297,10 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
  254:Src/mc_tasks_foc.c ****             {
  255:Src/mc_tasks_foc.c ****               if (MCI_MEASURE_OFFSETS == Mci[M1].DirectCommand)
  256:Src/mc_tasks_foc.c ****               {
-ARM GAS  /tmp/ccKJN1Nl.s 			page 6
-
-
  257:Src/mc_tasks_foc.c ****                 FOC_Clear(M1);
+ARM GAS  /tmp/cccnQOYj.s 			page 6
+
+
  258:Src/mc_tasks_foc.c ****                 Mci[M1].DirectCommand = MCI_NO_COMMAND;
  259:Src/mc_tasks_foc.c ****                 Mci[M1].State = IDLE;
  260:Src/mc_tasks_foc.c ****               }
@@ -358,10 +357,10 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
  311:Src/mc_tasks_foc.c ****         {
  312:Src/mc_tasks_foc.c ****           if (MCI_STOP == Mci[M1].DirectCommand)
  313:Src/mc_tasks_foc.c ****           {
-ARM GAS  /tmp/ccKJN1Nl.s 			page 7
-
-
  314:Src/mc_tasks_foc.c ****             TSK_MF_StopProcessing(M1);
+ARM GAS  /tmp/cccnQOYj.s 			page 7
+
+
  315:Src/mc_tasks_foc.c ****           }
  316:Src/mc_tasks_foc.c ****           else
  317:Src/mc_tasks_foc.c ****           {
@@ -418,10 +417,10 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
  368:Src/mc_tasks_foc.c ****           {
  369:Src/mc_tasks_foc.c ****             bool LoopClosed;
  370:Src/mc_tasks_foc.c ****             int16_t hForcedMecSpeedUnit;
-ARM GAS  /tmp/ccKJN1Nl.s 			page 8
-
-
  371:Src/mc_tasks_foc.c **** 
+ARM GAS  /tmp/cccnQOYj.s 			page 8
+
+
  372:Src/mc_tasks_foc.c ****               /* Compute the virtual speed and positions of the rotor.
  373:Src/mc_tasks_foc.c ****                  The function returns true if the virtual speed is in the reliability range */
  374:Src/mc_tasks_foc.c ****               LoopClosed = VSS_CalcAvrgMecSpeedUnit(&VirtualSpeedSensorM1, &hForcedMecSpeedUnit);
@@ -478,10 +477,10 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
  425:Src/mc_tasks_foc.c ****               else
  426:Src/mc_tasks_foc.c ****               {
  427:Src/mc_tasks_foc.c ****                 /* Nothing to do */
-ARM GAS  /tmp/ccKJN1Nl.s 			page 9
-
-
  428:Src/mc_tasks_foc.c ****               }
+ARM GAS  /tmp/cccnQOYj.s 			page 9
+
+
  429:Src/mc_tasks_foc.c ****             OTT_MF(&OTT);
  430:Src/mc_tasks_foc.c ****           }
  431:Src/mc_tasks_foc.c ****           break;
@@ -538,10 +537,10 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
  482:Src/mc_tasks_foc.c ****             if (0 == SCC_DetectBemf(&SCC))
  483:Src/mc_tasks_foc.c ****             {
  484:Src/mc_tasks_foc.c ****               /* In a sensorless configuration. Initiate the Revup procedure */
-ARM GAS  /tmp/ccKJN1Nl.s 			page 10
-
-
  485:Src/mc_tasks_foc.c ****               FOCVars[M1].bDriveInput = EXTERNAL;
+ARM GAS  /tmp/cccnQOYj.s 			page 10
+
+
  486:Src/mc_tasks_foc.c ****               STC_SetSpeedSensor(pSTC[M1], &VirtualSpeedSensorM1._Super);
  487:Src/mc_tasks_foc.c ****                STO_PLL_Clear(&STO_PLL_M1);
  488:Src/mc_tasks_foc.c ****               FOC_Clear(M1);
@@ -589,668 +588,570 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
  530:Src/mc_tasks_foc.c ****   */
  531:Src/mc_tasks_foc.c **** __weak void FOC_Clear(uint8_t bMotor)
  532:Src/mc_tasks_foc.c **** {
-  31              		.loc 1 532 1 view -0
-  32              		.cfi_startproc
-  33              		@ args = 0, pretend = 0, frame = 0
-  34              		@ frame_needed = 0, uses_anonymous_args = 0
+  30              		.loc 1 532 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		.loc 1 532 1 is_stmt 0 view .LVU1
+  35 0000 38B5     		push	{r3, r4, r5, lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 16
+  38              		.cfi_offset 3, -16
+  39              		.cfi_offset 4, -12
+ARM GAS  /tmp/cccnQOYj.s 			page 11
+
+
+  40              		.cfi_offset 5, -8
+  41              		.cfi_offset 14, -4
+  42 0002 0546     		mov	r5, r0
  533:Src/mc_tasks_foc.c ****   /* USER CODE BEGIN FOC_Clear 0 */
  534:Src/mc_tasks_foc.c **** 
  535:Src/mc_tasks_foc.c ****   /* USER CODE END FOC_Clear 0 */
  536:Src/mc_tasks_foc.c **** 
  537:Src/mc_tasks_foc.c ****   ab_t NULL_ab = {((int16_t)0), ((int16_t)0)};
-ARM GAS  /tmp/ccKJN1Nl.s 			page 11
-
-
-  35              		.loc 1 537 3 view .LVU1
+  43              		.loc 1 537 3 is_stmt 1 view .LVU2
+  44              	.LVL1:
  538:Src/mc_tasks_foc.c ****   qd_t NULL_qd = {((int16_t)0), ((int16_t)0)};
-  36              		.loc 1 538 3 view .LVU2
+  45              		.loc 1 538 3 view .LVU3
  539:Src/mc_tasks_foc.c ****   alphabeta_t NULL_alphabeta = {((int16_t)0), ((int16_t)0)};
-  37              		.loc 1 539 3 view .LVU3
+  46              		.loc 1 539 3 view .LVU4
  540:Src/mc_tasks_foc.c **** 
  541:Src/mc_tasks_foc.c ****   FOCVars[bMotor].Iab = NULL_ab;
-  38              		.loc 1 541 3 view .LVU4
+  47              		.loc 1 541 3 view .LVU5
+  48              		.loc 1 541 23 is_stmt 0 view .LVU6
+  49 0004 1A49     		ldr	r1, .L4
+  50 0006 2622     		movs	r2, #38
+  51 0008 00FB02F2 		mul	r2, r0, r2
+  52 000c 8B18     		adds	r3, r1, r2
+  53 000e 0024     		movs	r4, #0
+  54 0010 8C52     		strh	r4, [r1, r2]	@ movhi
+  55 0012 5C80     		strh	r4, [r3, #2]	@ movhi
  542:Src/mc_tasks_foc.c ****   FOCVars[bMotor].Ialphabeta = NULL_alphabeta;
-  39              		.loc 1 542 3 view .LVU5
- 532:Src/mc_tasks_foc.c ****   /* USER CODE BEGIN FOC_Clear 0 */
-  40              		.loc 1 532 1 is_stmt 0 view .LVU6
-  41 0000 38B5     		push	{r3, r4, r5, lr}
-  42              	.LCFI0:
-  43              		.cfi_def_cfa_offset 16
-  44              		.cfi_offset 3, -16
-  45              		.cfi_offset 4, -12
-  46              		.cfi_offset 5, -8
-  47              		.cfi_offset 14, -4
-  48 0002 2623     		movs	r3, #38
-  49 0004 1B49     		ldr	r1, .L8
-  50 0006 00FB03F3 		mul	r3, r0, r3
- 541:Src/mc_tasks_foc.c ****   FOCVars[bMotor].Ialphabeta = NULL_alphabeta;
-  51              		.loc 1 541 23 view .LVU7
-  52 000a 0025     		movs	r5, #0
-  53 000c 5D50     		str	r5, [r3, r1]	@ unaligned
- 532:Src/mc_tasks_foc.c ****   /* USER CODE BEGIN FOC_Clear 0 */
-  54              		.loc 1 532 1 view .LVU8
-  55 000e 0446     		mov	r4, r0
-  56 0010 03F10802 		add	r2, r3, #8
-  57 0014 5818     		adds	r0, r3, r1
-  58              	.LVL1:
- 532:Src/mc_tasks_foc.c ****   /* USER CODE BEGIN FOC_Clear 0 */
-  59              		.loc 1 532 1 view .LVU9
-  60 0016 1033     		adds	r3, r3, #16
-  61 0018 0A44     		add	r2, r2, r1
-  62 001a 0B44     		add	r3, r3, r1
+  56              		.loc 1 542 3 is_stmt 1 view .LVU7
+  57              		.loc 1 542 30 is_stmt 0 view .LVU8
+  58 0014 9C80     		strh	r4, [r3, #4]	@ movhi
+  59 0016 DC80     		strh	r4, [r3, #6]	@ movhi
  543:Src/mc_tasks_foc.c ****   FOCVars[bMotor].Iqd = NULL_qd;
+  60              		.loc 1 543 3 is_stmt 1 view .LVU9
+  61              		.loc 1 543 23 is_stmt 0 view .LVU10
+  62 0018 9C81     		strh	r4, [r3, #12]	@ movhi
+  63 001a DC81     		strh	r4, [r3, #14]	@ movhi
  544:Src/mc_tasks_foc.c ****     FOCVars[bMotor].Iqdref = NULL_qd;
+  64              		.loc 1 544 5 is_stmt 1 view .LVU11
+  65              		.loc 1 544 28 is_stmt 0 view .LVU12
+  66 001c 1C82     		strh	r4, [r3, #16]	@ movhi
+  67 001e 5C82     		strh	r4, [r3, #18]	@ movhi
  545:Src/mc_tasks_foc.c ****   FOCVars[bMotor].hTeref = (int16_t)0;
+  68              		.loc 1 545 3 is_stmt 1 view .LVU13
+  69              		.loc 1 545 26 is_stmt 0 view .LVU14
+  70 0020 DC83     		strh	r4, [r3, #30]	@ movhi
  546:Src/mc_tasks_foc.c ****   FOCVars[bMotor].Vqd = NULL_qd;
+  71              		.loc 1 546 3 is_stmt 1 view .LVU15
+  72              		.loc 1 546 23 is_stmt 0 view .LVU16
+  73 0022 DC82     		strh	r4, [r3, #22]	@ movhi
+  74 0024 1C83     		strh	r4, [r3, #24]	@ movhi
  547:Src/mc_tasks_foc.c ****   FOCVars[bMotor].Valphabeta = NULL_alphabeta;
+  75              		.loc 1 547 3 is_stmt 1 view .LVU17
+  76              		.loc 1 547 30 is_stmt 0 view .LVU18
+  77 0026 5C83     		strh	r4, [r3, #26]	@ movhi
+  78 0028 9C83     		strh	r4, [r3, #28]	@ movhi
  548:Src/mc_tasks_foc.c ****   FOCVars[bMotor].hElAngle = (int16_t)0;
+  79              		.loc 1 548 3 is_stmt 1 view .LVU19
+  80              		.loc 1 548 28 is_stmt 0 view .LVU20
+ARM GAS  /tmp/cccnQOYj.s 			page 12
+
+
+  81 002a 1C84     		strh	r4, [r3, #32]	@ movhi
  549:Src/mc_tasks_foc.c **** 
  550:Src/mc_tasks_foc.c ****   PID_SetIntegralTerm(pPIDIq[bMotor], ((int32_t)0));
-  63              		.loc 1 550 3 view .LVU10
-  64 001c 1649     		ldr	r1, .L8+4
- 541:Src/mc_tasks_foc.c ****   FOCVars[bMotor].Ialphabeta = NULL_alphabeta;
-  65              		.loc 1 541 23 view .LVU11
-  66 001e 4560     		str	r5, [r0, #4]	@ unaligned
- 543:Src/mc_tasks_foc.c ****   FOCVars[bMotor].Iqd = NULL_qd;
-  67              		.loc 1 543 3 is_stmt 1 view .LVU12
- 544:Src/mc_tasks_foc.c ****   FOCVars[bMotor].hTeref = (int16_t)0;
-  68              		.loc 1 544 5 view .LVU13
- 543:Src/mc_tasks_foc.c ****   FOCVars[bMotor].Iqd = NULL_qd;
-  69              		.loc 1 543 23 is_stmt 0 view .LVU14
-  70 0020 5560     		str	r5, [r2, #4]	@ unaligned
-ARM GAS  /tmp/ccKJN1Nl.s 			page 12
-
-
-  71 0022 9560     		str	r5, [r2, #8]	@ unaligned
- 545:Src/mc_tasks_foc.c ****   FOCVars[bMotor].Vqd = NULL_qd;
-  72              		.loc 1 545 3 is_stmt 1 view .LVU15
- 546:Src/mc_tasks_foc.c ****   FOCVars[bMotor].Valphabeta = NULL_alphabeta;
-  73              		.loc 1 546 3 view .LVU16
- 547:Src/mc_tasks_foc.c ****   FOCVars[bMotor].hElAngle = (int16_t)0;
-  74              		.loc 1 547 3 view .LVU17
- 548:Src/mc_tasks_foc.c **** 
-  75              		.loc 1 548 3 view .LVU18
-  76              		.loc 1 550 3 is_stmt 0 view .LVU19
-  77 0024 51F82400 		ldr	r0, [r1, r4, lsl #2]
- 546:Src/mc_tasks_foc.c ****   FOCVars[bMotor].Valphabeta = NULL_alphabeta;
-  78              		.loc 1 546 23 view .LVU20
-  79 0028 C3F80650 		str	r5, [r3, #6]	@ unaligned
-  80 002c C3F80A50 		str	r5, [r3, #10]	@ unaligned
-  81 0030 C3F80E50 		str	r5, [r3, #14]	@ unaligned
   82              		.loc 1 550 3 is_stmt 1 view .LVU21
-  83 0034 2946     		mov	r1, r5
-  84 0036 FFF7FEFF 		bl	PID_SetIntegralTerm
-  85              	.LVL2:
+  83 002c 2146     		mov	r1, r4
+  84 002e 114B     		ldr	r3, .L4+4
+  85 0030 53F82000 		ldr	r0, [r3, r0, lsl #2]
+  86              	.LVL2:
+  87              		.loc 1 550 3 is_stmt 0 view .LVU22
+  88 0034 FFF7FEFF 		bl	PID_SetIntegralTerm
+  89              	.LVL3:
  551:Src/mc_tasks_foc.c ****   PID_SetIntegralTerm(pPIDId[bMotor], ((int32_t)0));
-  86              		.loc 1 551 3 view .LVU22
-  87 003a 104B     		ldr	r3, .L8+8
-  88 003c 2946     		mov	r1, r5
-  89 003e 53F82400 		ldr	r0, [r3, r4, lsl #2]
-  90 0042 FFF7FEFF 		bl	PID_SetIntegralTerm
-  91              	.LVL3:
+  90              		.loc 1 551 3 is_stmt 1 view .LVU23
+  91 0038 2146     		mov	r1, r4
+  92 003a 0F4B     		ldr	r3, .L4+8
+  93 003c 53F82500 		ldr	r0, [r3, r5, lsl #2]
+  94 0040 FFF7FEFF 		bl	PID_SetIntegralTerm
+  95              	.LVL4:
  552:Src/mc_tasks_foc.c **** 
  553:Src/mc_tasks_foc.c ****   STC_Clear(pSTC[bMotor]);
-  92              		.loc 1 553 3 view .LVU23
-  93 0046 0E4B     		ldr	r3, .L8+12
-  94 0048 53F82400 		ldr	r0, [r3, r4, lsl #2]
-  95 004c FFF7FEFF 		bl	STC_Clear
-  96              	.LVL4:
+  96              		.loc 1 553 3 view .LVU24
+  97 0044 0D4B     		ldr	r3, .L4+12
+  98 0046 53F82500 		ldr	r0, [r3, r5, lsl #2]
+  99 004a FFF7FEFF 		bl	STC_Clear
+ 100              	.LVL5:
  554:Src/mc_tasks_foc.c **** 
  555:Src/mc_tasks_foc.c ****   PWMC_SwitchOffPWM(pwmcHandle[bMotor]);
-  97              		.loc 1 555 3 view .LVU24
-  98 0050 0C4B     		ldr	r3, .L8+16
-  99 0052 53F82400 		ldr	r0, [r3, r4, lsl #2]
- 100 0056 FFF7FEFF 		bl	PWMC_SwitchOffPWM
- 101              	.LVL5:
+ 101              		.loc 1 555 3 view .LVU25
+ 102 004e 0C4B     		ldr	r3, .L4+16
+ 103 0050 53F82500 		ldr	r0, [r3, r5, lsl #2]
+ 104 0054 FFF7FEFF 		bl	PWMC_SwitchOffPWM
+ 105              	.LVL6:
  556:Src/mc_tasks_foc.c **** 
  557:Src/mc_tasks_foc.c ****   if (NULL == pFF[bMotor])
- 102              		.loc 1 557 3 view .LVU25
- 103              		.loc 1 557 18 is_stmt 0 view .LVU26
- 104 005a 0B4B     		ldr	r3, .L8+20
- 105 005c 53F82400 		ldr	r0, [r3, r4, lsl #2]
- 106              		.loc 1 557 6 view .LVU27
- 107 0060 08B1     		cbz	r0, .L2
+ 106              		.loc 1 557 3 view .LVU26
+ 107              		.loc 1 557 18 is_stmt 0 view .LVU27
+ 108 0058 0A4B     		ldr	r3, .L4+20
+ 109 005a 53F82500 		ldr	r0, [r3, r5, lsl #2]
+ 110              		.loc 1 557 6 view .LVU28
+ 111 005e 08B1     		cbz	r0, .L2
  558:Src/mc_tasks_foc.c ****   {
  559:Src/mc_tasks_foc.c ****     /* Nothing to do */
  560:Src/mc_tasks_foc.c ****   }
  561:Src/mc_tasks_foc.c ****   else
  562:Src/mc_tasks_foc.c ****   {
  563:Src/mc_tasks_foc.c ****     FF_Clear(pFF[bMotor]);
- 108              		.loc 1 563 5 is_stmt 1 view .LVU28
- 109 0062 FFF7FEFF 		bl	FF_Clear
-ARM GAS  /tmp/ccKJN1Nl.s 			page 13
-
-
- 110              	.LVL6:
- 111              	.L2:
+ 112              		.loc 1 563 5 is_stmt 1 view .LVU29
+ 113 0060 FFF7FEFF 		bl	FF_Clear
+ 114              	.LVL7:
+ 115              	.L2:
  564:Src/mc_tasks_foc.c ****   }
  565:Src/mc_tasks_foc.c **** 
  566:Src/mc_tasks_foc.c ****   MC_Perf_Clear(&PerfTraces,bMotor);
- 112              		.loc 1 566 3 view .LVU29
- 113 0066 2146     		mov	r1, r4
- 114 0068 0848     		ldr	r0, .L8+24
+ 116              		.loc 1 566 3 view .LVU30
+ 117 0064 2946     		mov	r1, r5
+ 118 0066 0848     		ldr	r0, .L4+24
+ 119 0068 FFF7FEFF 		bl	MC_Perf_Clear
+ARM GAS  /tmp/cccnQOYj.s 			page 13
+
+
+ 120              	.LVL8:
  567:Src/mc_tasks_foc.c ****   /* USER CODE BEGIN FOC_Clear 1 */
  568:Src/mc_tasks_foc.c **** 
  569:Src/mc_tasks_foc.c ****   /* USER CODE END FOC_Clear 1 */
  570:Src/mc_tasks_foc.c **** }
- 115              		.loc 1 570 1 is_stmt 0 view .LVU30
- 116 006a BDE83840 		pop	{r3, r4, r5, lr}
- 117              	.LCFI1:
- 118              		.cfi_restore 14
- 119              		.cfi_restore 5
- 120              		.cfi_restore 4
- 121              		.cfi_restore 3
- 122              		.cfi_def_cfa_offset 0
- 566:Src/mc_tasks_foc.c ****   /* USER CODE BEGIN FOC_Clear 1 */
- 123              		.loc 1 566 3 view .LVU31
- 124 006e FFF7FEBF 		b	MC_Perf_Clear
- 125              	.LVL7:
- 126              	.L9:
- 127 0072 00BF     		.align	2
- 128              	.L8:
- 129 0074 00000000 		.word	FOCVars
- 130 0078 00000000 		.word	pPIDIq
- 131 007c 00000000 		.word	pPIDId
- 132 0080 00000000 		.word	pSTC
- 133 0084 00000000 		.word	pwmcHandle
- 134 0088 00000000 		.word	pFF
- 135 008c 00000000 		.word	PerfTraces
- 136              		.cfi_endproc
- 137              	.LFE1870:
- 139              		.section	.text.FOC_Init,"ax",%progbits
- 140              		.align	1
- 141              		.p2align 2,,3
- 142              		.weak	FOC_Init
- 143              		.syntax unified
- 144              		.thumb
- 145              		.thumb_func
- 146              		.fpu fpv4-sp-d16
- 148              	FOC_Init:
- 149              	.LFB1867:
+ 121              		.loc 1 570 1 is_stmt 0 view .LVU31
+ 122 006c 38BD     		pop	{r3, r4, r5, pc}
+ 123              	.L5:
+ 124 006e 00BF     		.align	2
+ 125              	.L4:
+ 126 0070 00000000 		.word	FOCVars
+ 127 0074 00000000 		.word	pPIDIq
+ 128 0078 00000000 		.word	pPIDId
+ 129 007c 00000000 		.word	pSTC
+ 130 0080 00000000 		.word	pwmcHandle
+ 131 0084 00000000 		.word	pFF
+ 132 0088 00000000 		.word	PerfTraces
+ 133              		.cfi_endproc
+ 134              	.LFE1870:
+ 136              		.section	.text.FOC_Init,"ax",%progbits
+ 137              		.align	1
+ 138              		.weak	FOC_Init
+ 139              		.syntax unified
+ 140              		.thumb
+ 141              		.thumb_func
+ 142              		.fpu fpv4-sp-d16
+ 144              	FOC_Init:
+ 145              	.LFB1867:
   82:Src/mc_tasks_foc.c **** 
- 150              		.loc 1 82 1 is_stmt 1 view -0
- 151              		.cfi_startproc
- 152              		@ args = 0, pretend = 0, frame = 8
- 153              		@ frame_needed = 0, uses_anonymous_args = 0
+ 146              		.loc 1 82 1 is_stmt 1 view -0
+ 147              		.cfi_startproc
+ 148              		@ args = 0, pretend = 0, frame = 8
+ 149              		@ frame_needed = 0, uses_anonymous_args = 0
+ 150 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 151              	.LCFI1:
+ 152              		.cfi_def_cfa_offset 36
+ 153              		.cfi_offset 4, -36
+ 154              		.cfi_offset 5, -32
+ 155              		.cfi_offset 6, -28
+ 156              		.cfi_offset 7, -24
+ 157              		.cfi_offset 8, -20
+ 158              		.cfi_offset 9, -16
+ 159              		.cfi_offset 10, -12
+ 160              		.cfi_offset 11, -8
+ 161              		.cfi_offset 14, -4
+ 162 0004 85B0     		sub	sp, sp, #20
+ 163              	.LCFI2:
+ 164              		.cfi_def_cfa_offset 56
   91:Src/mc_tasks_foc.c ****     R3_2_Init(&PWM_Handle_M1);
- 154              		.loc 1 91 5 view .LVU33
-  82:Src/mc_tasks_foc.c **** 
- 155              		.loc 1 82 1 is_stmt 0 view .LVU34
- 156 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
- 157              	.LCFI2:
-ARM GAS  /tmp/ccKJN1Nl.s 			page 14
-
-
- 158              		.cfi_def_cfa_offset 36
- 159              		.cfi_offset 4, -36
- 160              		.cfi_offset 5, -32
- 161              		.cfi_offset 6, -28
- 162              		.cfi_offset 7, -24
- 163              		.cfi_offset 8, -20
- 164              		.cfi_offset 9, -16
- 165              		.cfi_offset 10, -12
- 166              		.cfi_offset 11, -8
- 167              		.cfi_offset 14, -4
+ 165              		.loc 1 91 5 view .LVU33
   91:Src/mc_tasks_foc.c ****     R3_2_Init(&PWM_Handle_M1);
- 168              		.loc 1 91 20 view .LVU35
- 169 0004 DFF85881 		ldr	r8, .L12+64
- 170 0008 4548     		ldr	r0, .L12
- 106:Src/mc_tasks_foc.c **** 
- 171              		.loc 1 106 5 view .LVU36
- 172 000a 464F     		ldr	r7, .L12+4
- 111:Src/mc_tasks_foc.c **** 
- 173              		.loc 1 111 5 view .LVU37
- 174 000c 464E     		ldr	r6, .L12+8
-  91:Src/mc_tasks_foc.c ****     R3_2_Init(&PWM_Handle_M1);
- 175              		.loc 1 91 20 view .LVU38
- 176 000e C8F80000 		str	r0, [r8]
+ 166              		.loc 1 91 20 is_stmt 0 view .LVU34
+ 167 0006 DFF85C91 		ldr	r9, .L8+64
+ 168 000a 4648     		ldr	r0, .L8
+ 169 000c C9F80000 		str	r0, [r9]
   92:Src/mc_tasks_foc.c **** 
- 177              		.loc 1 92 5 is_stmt 1 view .LVU39
-  82:Src/mc_tasks_foc.c **** 
- 178              		.loc 1 82 1 is_stmt 0 view .LVU40
- 179 0012 85B0     		sub	sp, sp, #20
- 180              	.LCFI3:
- 181              		.cfi_def_cfa_offset 56
-  92:Src/mc_tasks_foc.c **** 
- 182              		.loc 1 92 5 view .LVU41
- 183 0014 FFF7FEFF 		bl	R3_2_Init
- 184              	.LVL8:
+ 170              		.loc 1 92 5 is_stmt 1 view .LVU35
+ARM GAS  /tmp/cccnQOYj.s 			page 14
+
+
+ 171 0010 FFF7FEFF 		bl	R3_2_Init
+ 172              	.LVL9:
  101:Src/mc_tasks_foc.c **** 
- 185              		.loc 1 101 5 is_stmt 1 view .LVU42
- 116:Src/mc_tasks_foc.c **** 
- 186              		.loc 1 116 5 is_stmt 0 view .LVU43
- 187 0018 444D     		ldr	r5, .L12+12
- 121:Src/mc_tasks_foc.c **** 
- 188              		.loc 1 121 5 view .LVU44
- 189 001a DFF848A1 		ldr	r10, .L12+68
- 190 001e DFF84891 		ldr	r9, .L12+72
- 138:Src/mc_tasks_foc.c **** 
- 191              		.loc 1 138 5 view .LVU45
- 192 0022 DFF848B1 		ldr	fp, .L12+76
- 133:Src/mc_tasks_foc.c **** 
- 193              		.loc 1 133 24 view .LVU46
- 194 0026 424C     		ldr	r4, .L12+16
- 101:Src/mc_tasks_foc.c **** 
- 195              		.loc 1 101 5 view .LVU47
- 196 0028 FFF7FEFF 		bl	startTimers
- 197              	.LVL9:
+ 173              		.loc 1 101 5 view .LVU36
+ 174 0014 FFF7FEFF 		bl	startTimers
+ 175              	.LVL10:
  106:Src/mc_tasks_foc.c **** 
- 198              		.loc 1 106 5 is_stmt 1 view .LVU48
- 199 002c 3846     		mov	r0, r7
- 200 002e FFF7FEFF 		bl	PID_HandleInit
-ARM GAS  /tmp/ccKJN1Nl.s 			page 15
-
-
- 201              	.LVL10:
+ 176              		.loc 1 106 5 view .LVU37
+ 177 0018 434F     		ldr	r7, .L8+4
+ 178 001a 3846     		mov	r0, r7
+ 179 001c FFF7FEFF 		bl	PID_HandleInit
+ 180              	.LVL11:
  111:Src/mc_tasks_foc.c **** 
- 202              		.loc 1 111 5 view .LVU49
- 203 0032 3046     		mov	r0, r6
- 204 0034 FFF7FEFF 		bl	STO_PLL_Init
- 205              	.LVL11:
+ 181              		.loc 1 111 5 view .LVU38
+ 182 0020 424E     		ldr	r6, .L8+8
+ 183 0022 3046     		mov	r0, r6
+ 184 0024 FFF7FEFF 		bl	STO_PLL_Init
+ 185              	.LVL12:
  116:Src/mc_tasks_foc.c **** 
- 206              		.loc 1 116 5 view .LVU50
- 207 0038 2868     		ldr	r0, [r5]
- 208 003a 3246     		mov	r2, r6
- 209 003c 3946     		mov	r1, r7
- 210 003e FFF7FEFF 		bl	STC_Init
- 211              	.LVL12:
+ 186              		.loc 1 116 5 view .LVU39
+ 187 0028 414D     		ldr	r5, .L8+12
+ 188 002a 3246     		mov	r2, r6
+ 189 002c 3946     		mov	r1, r7
+ 190 002e 2868     		ldr	r0, [r5]
+ 191 0030 FFF7FEFF 		bl	STC_Init
+ 192              	.LVL13:
  121:Src/mc_tasks_foc.c **** 
- 212              		.loc 1 121 5 view .LVU51
- 213 0042 D8F80030 		ldr	r3, [r8]
- 214 0046 2968     		ldr	r1, [r5]
- 215 0048 0093     		str	r3, [sp]
- 216 004a 5246     		mov	r2, r10
- 217 004c 394B     		ldr	r3, .L12+20
- 218 004e 4846     		mov	r0, r9
- 219 0050 FFF7FEFF 		bl	RUC_Init
- 220              	.LVL13:
+ 193              		.loc 1 121 5 view .LVU40
+ 194 0034 D9F80030 		ldr	r3, [r9]
+ 195 0038 0093     		str	r3, [sp]
+ 196 003a 3E4B     		ldr	r3, .L8+16
+ 197 003c 3E4A     		ldr	r2, .L8+20
+ 198 003e 2968     		ldr	r1, [r5]
+ 199 0040 3E48     		ldr	r0, .L8+24
+ 200 0042 FFF7FEFF 		bl	RUC_Init
+ 201              	.LVL14:
  126:Src/mc_tasks_foc.c ****     PID_HandleInit(&PIDIdHandle_M1);
- 221              		.loc 1 126 5 view .LVU52
- 222 0054 3848     		ldr	r0, .L12+24
- 223 0056 FFF7FEFF 		bl	PID_HandleInit
- 224              	.LVL14:
+ 202              		.loc 1 126 5 view .LVU41
+ 203 0046 3E48     		ldr	r0, .L8+28
+ 204 0048 FFF7FEFF 		bl	PID_HandleInit
+ 205              	.LVL15:
  127:Src/mc_tasks_foc.c **** 
- 225              		.loc 1 127 5 view .LVU53
- 226 005a 3848     		ldr	r0, .L12+28
- 227 005c FFF7FEFF 		bl	PID_HandleInit
- 228              	.LVL15:
+ 206              		.loc 1 127 5 view .LVU42
+ 207 004c 3D48     		ldr	r0, .L8+32
+ 208 004e FFF7FEFF 		bl	PID_HandleInit
+ 209              	.LVL16:
  132:Src/mc_tasks_foc.c ****     pMPM[M1]->pFOCVars = &FOCVars[M1];
- 229              		.loc 1 132 5 view .LVU54
- 138:Src/mc_tasks_foc.c **** 
- 230              		.loc 1 138 5 is_stmt 0 view .LVU55
- 231 0060 374A     		ldr	r2, .L12+32
+ 210              		.loc 1 132 5 view .LVU43
  132:Src/mc_tasks_foc.c ****     pMPM[M1]->pFOCVars = &FOCVars[M1];
- 232              		.loc 1 132 9 view .LVU56
- 233 0062 384B     		ldr	r3, .L12+36
- 138:Src/mc_tasks_foc.c **** 
- 234              		.loc 1 138 5 view .LVU57
- 235 0064 1068     		ldr	r0, [r2]
+ 211              		.loc 1 132 9 is_stmt 0 view .LVU44
+ 212 0052 3D4B     		ldr	r3, .L8+36
+ 213 0054 1B68     		ldr	r3, [r3]
  132:Src/mc_tasks_foc.c ****     pMPM[M1]->pFOCVars = &FOCVars[M1];
- 236              		.loc 1 132 9 view .LVU58
- 237 0066 1B68     		ldr	r3, [r3]
- 138:Src/mc_tasks_foc.c **** 
- 238              		.loc 1 138 5 view .LVU59
- 239 0068 374A     		ldr	r2, .L12+40
- 132:Src/mc_tasks_foc.c ****     pMPM[M1]->pFOCVars = &FOCVars[M1];
- 240              		.loc 1 132 20 view .LVU60
- 241 006a 3849     		ldr	r1, .L12+44
- 242 006c D960     		str	r1, [r3, #12]
+ 214              		.loc 1 132 20 view .LVU45
+ 215 0056 DFF81081 		ldr	r8, .L8+68
+ 216 005a C3F80C80 		str	r8, [r3, #12]
  133:Src/mc_tasks_foc.c **** 
- 243              		.loc 1 133 5 is_stmt 1 view .LVU61
- 138:Src/mc_tasks_foc.c **** 
-ARM GAS  /tmp/ccKJN1Nl.s 			page 16
+ARM GAS  /tmp/cccnQOYj.s 			page 15
 
 
- 244              		.loc 1 138 5 is_stmt 0 view .LVU62
- 245 006e 1268     		ldr	r2, [r2]
+ 217              		.loc 1 133 5 is_stmt 1 view .LVU46
  133:Src/mc_tasks_foc.c **** 
- 246              		.loc 1 133 24 view .LVU63
- 247 0070 9C60     		str	r4, [r3, #8]
+ 218              		.loc 1 133 24 is_stmt 0 view .LVU47
+ 219 005e 3B4C     		ldr	r4, .L8+40
+ 220 0060 9C60     		str	r4, [r3, #8]
  138:Src/mc_tasks_foc.c **** 
- 248              		.loc 1 138 5 is_stmt 1 view .LVU64
- 249 0072 DBF80030 		ldr	r3, [fp]
- 250 0076 FFF7FEFF 		bl	FF_Init
- 251              	.LVL16:
+ 221              		.loc 1 138 5 is_stmt 1 view .LVU48
+ 222 0062 DFF808B1 		ldr	fp, .L8+72
+ 223 0066 DFF808A1 		ldr	r10, .L8+76
+ 224 006a DBF80030 		ldr	r3, [fp]
+ 225 006e DAF80020 		ldr	r2, [r10]
+ 226 0072 4146     		mov	r1, r8
+ 227 0074 3648     		ldr	r0, .L8+44
+ 228 0076 0068     		ldr	r0, [r0]
+ 229 0078 FFF7FEFF 		bl	FF_Init
+ 230              	.LVL17:
  140:Src/mc_tasks_foc.c ****     REMNG_Init(pREMNG[M1]);
- 252              		.loc 1 140 5 view .LVU65
+ 231              		.loc 1 140 5 view .LVU49
  140:Src/mc_tasks_foc.c ****     REMNG_Init(pREMNG[M1]);
- 253              		.loc 1 140 16 is_stmt 0 view .LVU66
- 254 007a 354B     		ldr	r3, .L12+48
- 255 007c 3548     		ldr	r0, .L12+52
- 256 007e 1860     		str	r0, [r3]
+ 232              		.loc 1 140 16 is_stmt 0 view .LVU50
+ 233 007c 3548     		ldr	r0, .L8+48
+ 234 007e 364B     		ldr	r3, .L8+52
+ 235 0080 1860     		str	r0, [r3]
  141:Src/mc_tasks_foc.c **** 
- 257              		.loc 1 141 5 is_stmt 1 view .LVU67
- 258 0080 FFF7FEFF 		bl	REMNG_Init
- 259              	.LVL17:
+ 236              		.loc 1 141 5 is_stmt 1 view .LVU51
+ 237 0082 FFF7FEFF 		bl	REMNG_Init
+ 238              	.LVL18:
  143:Src/mc_tasks_foc.c ****     SCC.pVBS = &BusVoltageSensor_M1;
- 260              		.loc 1 143 5 view .LVU68
- 150:Src/mc_tasks_foc.c ****     SCC.pRevupCtrl = &RevUpControlM1;
- 261              		.loc 1 150 16 is_stmt 0 view .LVU69
- 262 0084 304B     		ldr	r3, .L12+40
+ 239              		.loc 1 143 5 view .LVU52
  143:Src/mc_tasks_foc.c ****     SCC.pVBS = &BusVoltageSensor_M1;
- 263              		.loc 1 143 15 view .LVU70
- 264 0086 3448     		ldr	r0, .L12+56
- 149:Src/mc_tasks_foc.c ****     SCC.pPIDId = pPIDId[M1];
- 265              		.loc 1 149 16 view .LVU71
- 266 0088 DBF80020 		ldr	r2, [fp]
- 150:Src/mc_tasks_foc.c ****     SCC.pRevupCtrl = &RevUpControlM1;
- 267              		.loc 1 150 16 view .LVU72
- 268 008c 1B68     		ldr	r3, [r3]
- 151:Src/mc_tasks_foc.c ****     SCC.pSTO = &STO_PLL_M1;
- 269              		.loc 1 151 20 view .LVU73
- 270 008e C0F82090 		str	r9, [r0, #32]
- 154:Src/mc_tasks_foc.c ****     SCC.pHT = MC_NULL;
- 271              		.loc 1 154 14 view .LVU74
- 272 0092 DFF8DC90 		ldr	r9, .L12+80
- 143:Src/mc_tasks_foc.c ****     SCC.pVBS = &BusVoltageSensor_M1;
- 273              		.loc 1 143 15 view .LVU75
- 274 0096 D8F800C0 		ldr	ip, [r8]
+ 240              		.loc 1 143 15 is_stmt 0 view .LVU53
+ 241 0086 3548     		ldr	r0, .L8+56
+ 242 0088 D9F80030 		ldr	r3, [r9]
+ 243 008c 0360     		str	r3, [r0]
  144:Src/mc_tasks_foc.c ****     SCC.pFOCVars = &FOCVars[M1];
- 275              		.loc 1 144 14 view .LVU76
- 276 009a 2C49     		ldr	r1, .L12+44
- 146:Src/mc_tasks_foc.c ****     SCC.pVSS = &VirtualSpeedSensorM1;
- 277              		.loc 1 146 14 view .LVU77
- 278 009c DFF8D480 		ldr	r8, .L12+84
- 153:Src/mc_tasks_foc.c ****     SCC.pOTT = &OTT;
- 279              		.loc 1 153 14 view .LVU78
- 280 00a0 DFF8D4B0 		ldr	fp, .L12+88
- 147:Src/mc_tasks_foc.c ****     SCC.pCLM = &CircleLimitationM1;
- 281              		.loc 1 147 14 view .LVU79
- 282 00a4 C0F810A0 		str	r10, [r0, #16]
- 150:Src/mc_tasks_foc.c ****     SCC.pRevupCtrl = &RevUpControlM1;
-ARM GAS  /tmp/ccKJN1Nl.s 			page 17
-
-
- 283              		.loc 1 150 16 view .LVU80
- 284 00a8 C0E90623 		strd	r2, r3, [r0, #24]
- 155:Src/mc_tasks_foc.c ****     SCC_Init(&SCC);
- 285              		.loc 1 155 13 view .LVU81
- 286 00ac 4FF0000A 		mov	r10, #0
- 148:Src/mc_tasks_foc.c ****     SCC.pPIDIq = pPIDIq[M1];
- 287              		.loc 1 148 14 view .LVU82
- 288 00b0 2A4B     		ldr	r3, .L12+60
- 143:Src/mc_tasks_foc.c ****     SCC.pVBS = &BusVoltageSensor_M1;
- 289              		.loc 1 143 15 view .LVU83
- 290 00b2 C0F800C0 		str	ip, [r0]
+ 244              		.loc 1 144 5 is_stmt 1 view .LVU54
  144:Src/mc_tasks_foc.c ****     SCC.pFOCVars = &FOCVars[M1];
- 291              		.loc 1 144 5 is_stmt 1 view .LVU84
- 144:Src/mc_tasks_foc.c ****     SCC.pFOCVars = &FOCVars[M1];
- 292              		.loc 1 144 14 is_stmt 0 view .LVU85
- 293 00b6 4160     		str	r1, [r0, #4]
+ 245              		.loc 1 144 14 is_stmt 0 view .LVU55
+ 246 008e C0F80480 		str	r8, [r0, #4]
  145:Src/mc_tasks_foc.c ****     SCC.pMCI = &Mci[M1];
- 294              		.loc 1 145 5 is_stmt 1 view .LVU86
- 148:Src/mc_tasks_foc.c ****     SCC.pPIDIq = pPIDIq[M1];
- 295              		.loc 1 148 14 is_stmt 0 view .LVU87
- 296 00b8 4361     		str	r3, [r0, #20]
+ 247              		.loc 1 145 5 is_stmt 1 view .LVU56
  145:Src/mc_tasks_foc.c ****     SCC.pMCI = &Mci[M1];
- 297              		.loc 1 145 18 view .LVU88
- 298 00ba 8460     		str	r4, [r0, #8]
+ 248              		.loc 1 145 18 is_stmt 0 view .LVU57
+ 249 0092 8460     		str	r4, [r0, #8]
  146:Src/mc_tasks_foc.c ****     SCC.pVSS = &VirtualSpeedSensorM1;
- 299              		.loc 1 146 5 is_stmt 1 view .LVU89
- 152:Src/mc_tasks_foc.c ****     SCC.pSTC = &SpeednTorqCtrlM1;
- 300              		.loc 1 152 14 is_stmt 0 view .LVU90
- 301 00bc 4662     		str	r6, [r0, #36]
- 154:Src/mc_tasks_foc.c ****     SCC.pHT = MC_NULL;
- 302              		.loc 1 154 14 view .LVU91
- 303 00be C0F82C90 		str	r9, [r0, #44]
- 155:Src/mc_tasks_foc.c ****     SCC_Init(&SCC);
- 304              		.loc 1 155 13 view .LVU92
- 305 00c2 C0F830A0 		str	r10, [r0, #48]
+ 250              		.loc 1 146 5 is_stmt 1 view .LVU58
  146:Src/mc_tasks_foc.c ****     SCC.pVSS = &VirtualSpeedSensorM1;
- 306              		.loc 1 146 14 view .LVU93
- 307 00c6 C0F80C80 		str	r8, [r0, #12]
+ 251              		.loc 1 146 14 is_stmt 0 view .LVU59
+ 252 0094 DFF8DC80 		ldr	r8, .L8+80
+ 253 0098 C0F80C80 		str	r8, [r0, #12]
  147:Src/mc_tasks_foc.c ****     SCC.pCLM = &CircleLimitationM1;
- 308              		.loc 1 147 5 is_stmt 1 view .LVU94
+ 254              		.loc 1 147 5 is_stmt 1 view .LVU60
+ 147:Src/mc_tasks_foc.c ****     SCC.pCLM = &CircleLimitationM1;
+ 255              		.loc 1 147 14 is_stmt 0 view .LVU61
+ 256 009c 264B     		ldr	r3, .L8+20
+ 257 009e 0361     		str	r3, [r0, #16]
  148:Src/mc_tasks_foc.c ****     SCC.pPIDIq = pPIDIq[M1];
- 309              		.loc 1 148 5 view .LVU95
+ARM GAS  /tmp/cccnQOYj.s 			page 16
+
+
+ 258              		.loc 1 148 5 is_stmt 1 view .LVU62
+ 148:Src/mc_tasks_foc.c ****     SCC.pPIDIq = pPIDIq[M1];
+ 259              		.loc 1 148 14 is_stmt 0 view .LVU63
+ 260 00a0 2F4B     		ldr	r3, .L8+60
+ 261 00a2 4361     		str	r3, [r0, #20]
  149:Src/mc_tasks_foc.c ****     SCC.pPIDId = pPIDId[M1];
- 310              		.loc 1 149 5 view .LVU96
+ 262              		.loc 1 149 5 is_stmt 1 view .LVU64
+ 149:Src/mc_tasks_foc.c ****     SCC.pPIDId = pPIDId[M1];
+ 263              		.loc 1 149 16 is_stmt 0 view .LVU65
+ 264 00a4 DBF80030 		ldr	r3, [fp]
+ 265 00a8 8361     		str	r3, [r0, #24]
  150:Src/mc_tasks_foc.c ****     SCC.pRevupCtrl = &RevUpControlM1;
- 311              		.loc 1 150 5 view .LVU97
+ 266              		.loc 1 150 5 is_stmt 1 view .LVU66
+ 150:Src/mc_tasks_foc.c ****     SCC.pRevupCtrl = &RevUpControlM1;
+ 267              		.loc 1 150 16 is_stmt 0 view .LVU67
+ 268 00aa DAF80030 		ldr	r3, [r10]
+ 269 00ae C361     		str	r3, [r0, #28]
  151:Src/mc_tasks_foc.c ****     SCC.pSTO = &STO_PLL_M1;
- 312              		.loc 1 151 5 view .LVU98
+ 270              		.loc 1 151 5 is_stmt 1 view .LVU68
+ 151:Src/mc_tasks_foc.c ****     SCC.pSTO = &STO_PLL_M1;
+ 271              		.loc 1 151 20 is_stmt 0 view .LVU69
+ 272 00b0 224B     		ldr	r3, .L8+24
+ 273 00b2 0362     		str	r3, [r0, #32]
  152:Src/mc_tasks_foc.c ****     SCC.pSTC = &SpeednTorqCtrlM1;
- 313              		.loc 1 152 5 view .LVU99
+ 274              		.loc 1 152 5 is_stmt 1 view .LVU70
+ 152:Src/mc_tasks_foc.c ****     SCC.pSTC = &SpeednTorqCtrlM1;
+ 275              		.loc 1 152 14 is_stmt 0 view .LVU71
+ 276 00b4 4662     		str	r6, [r0, #36]
  153:Src/mc_tasks_foc.c ****     SCC.pOTT = &OTT;
- 314              		.loc 1 153 5 view .LVU100
+ 277              		.loc 1 153 5 is_stmt 1 view .LVU72
+ 153:Src/mc_tasks_foc.c ****     SCC.pOTT = &OTT;
+ 278              		.loc 1 153 14 is_stmt 0 view .LVU73
+ 279 00b6 DFF8C0B0 		ldr	fp, .L8+84
+ 280 00ba C0F828B0 		str	fp, [r0, #40]
  154:Src/mc_tasks_foc.c ****     SCC.pHT = MC_NULL;
- 315              		.loc 1 154 5 view .LVU101
+ 281              		.loc 1 154 5 is_stmt 1 view .LVU74
+ 154:Src/mc_tasks_foc.c ****     SCC.pHT = MC_NULL;
+ 282              		.loc 1 154 14 is_stmt 0 view .LVU75
+ 283 00be DFF8BC90 		ldr	r9, .L8+88
+ 284 00c2 C0F82C90 		str	r9, [r0, #44]
  155:Src/mc_tasks_foc.c ****     SCC_Init(&SCC);
- 316              		.loc 1 155 5 view .LVU102
+ 285              		.loc 1 155 5 is_stmt 1 view .LVU76
+ 155:Src/mc_tasks_foc.c ****     SCC_Init(&SCC);
+ 286              		.loc 1 155 13 is_stmt 0 view .LVU77
+ 287 00c6 4FF0000A 		mov	r10, #0
+ 288 00ca C0F830A0 		str	r10, [r0, #48]
  156:Src/mc_tasks_foc.c **** 
-ARM GAS  /tmp/ccKJN1Nl.s 			page 18
+ 289              		.loc 1 156 5 is_stmt 1 view .LVU78
+ 290 00ce FFF7FEFF 		bl	SCC_Init
+ 291              	.LVL19:
+ 158:Src/mc_tasks_foc.c ****     OTT.pFOCVars = &FOCVars[M1];
+ 292              		.loc 1 158 5 view .LVU79
+ 158:Src/mc_tasks_foc.c ****     OTT.pFOCVars = &FOCVars[M1];
+ 293              		.loc 1 158 22 is_stmt 0 view .LVU80
+ 294 00d2 C9F80060 		str	r6, [r9]
+ 159:Src/mc_tasks_foc.c ****     OTT.pPIDSpeed = &PIDSpeedHandle_M1;
+ 295              		.loc 1 159 5 is_stmt 1 view .LVU81
+ARM GAS  /tmp/cccnQOYj.s 			page 17
 
 
- 317              		.loc 1 156 5 view .LVU103
- 153:Src/mc_tasks_foc.c ****     SCC.pOTT = &OTT;
- 318              		.loc 1 153 14 is_stmt 0 view .LVU104
- 319 00ca C0F828B0 		str	fp, [r0, #40]
- 156:Src/mc_tasks_foc.c **** 
- 320              		.loc 1 156 5 view .LVU105
- 321 00ce FFF7FEFF 		bl	SCC_Init
- 322              	.LVL18:
- 158:Src/mc_tasks_foc.c ****     OTT.pFOCVars = &FOCVars[M1];
- 323              		.loc 1 158 5 is_stmt 1 view .LVU106
- 162:Src/mc_tasks_foc.c **** 
- 324              		.loc 1 162 5 is_stmt 0 view .LVU107
- 325 00d2 4846     		mov	r0, r9
- 161:Src/mc_tasks_foc.c ****     OTT_Init(&OTT);
- 326              		.loc 1 161 14 view .LVU108
- 327 00d4 C9E9027B 		strd	r7, fp, [r9, #8]
- 158:Src/mc_tasks_foc.c ****     OTT.pFOCVars = &FOCVars[M1];
- 328              		.loc 1 158 22 view .LVU109
- 329 00d8 C9F80060 		str	r6, [r9]
  159:Src/mc_tasks_foc.c ****     OTT.pPIDSpeed = &PIDSpeedHandle_M1;
- 330              		.loc 1 159 5 is_stmt 1 view .LVU110
- 159:Src/mc_tasks_foc.c ****     OTT.pPIDSpeed = &PIDSpeedHandle_M1;
- 331              		.loc 1 159 18 is_stmt 0 view .LVU111
- 332 00dc C9F80440 		str	r4, [r9, #4]
+ 296              		.loc 1 159 18 is_stmt 0 view .LVU82
+ 297 00d6 C9F80440 		str	r4, [r9, #4]
  160:Src/mc_tasks_foc.c ****     OTT.pSTC = &SpeednTorqCtrlM1;
- 333              		.loc 1 160 5 is_stmt 1 view .LVU112
+ 298              		.loc 1 160 5 is_stmt 1 view .LVU83
+ 160:Src/mc_tasks_foc.c ****     OTT.pSTC = &SpeednTorqCtrlM1;
+ 299              		.loc 1 160 19 is_stmt 0 view .LVU84
+ 300 00da C9F80870 		str	r7, [r9, #8]
  161:Src/mc_tasks_foc.c ****     OTT_Init(&OTT);
- 334              		.loc 1 161 5 view .LVU113
+ 301              		.loc 1 161 5 is_stmt 1 view .LVU85
+ 161:Src/mc_tasks_foc.c ****     OTT_Init(&OTT);
+ 302              		.loc 1 161 14 is_stmt 0 view .LVU86
+ 303 00de C9F80CB0 		str	fp, [r9, #12]
  162:Src/mc_tasks_foc.c **** 
- 335              		.loc 1 162 5 view .LVU114
- 336 00e0 FFF7FEFF 		bl	OTT_Init
- 337              	.LVL19:
+ 304              		.loc 1 162 5 is_stmt 1 view .LVU87
+ 305 00e2 4846     		mov	r0, r9
+ 306 00e4 FFF7FEFF 		bl	OTT_Init
+ 307              	.LVL20:
  164:Src/mc_tasks_foc.c ****     FOCVars[M1].bDriveInput = EXTERNAL;
- 338              		.loc 1 164 5 view .LVU115
- 339 00e4 5046     		mov	r0, r10
- 340 00e6 FFF7FEFF 		bl	FOC_Clear
- 341              	.LVL20:
+ 308              		.loc 1 164 5 view .LVU88
+ 309 00e8 5046     		mov	r0, r10
+ 310 00ea FFF7FEFF 		bl	FOC_Clear
+ 311              	.LVL21:
  165:Src/mc_tasks_foc.c ****     FOCVars[M1].Iqdref = STC_GetDefaultIqdref(pSTC[M1]);
- 342              		.loc 1 165 5 view .LVU116
+ 312              		.loc 1 165 5 view .LVU89
  165:Src/mc_tasks_foc.c ****     FOCVars[M1].Iqdref = STC_GetDefaultIqdref(pSTC[M1]);
- 343              		.loc 1 165 29 is_stmt 0 view .LVU117
- 344 00ea 0123     		movs	r3, #1
+ 313              		.loc 1 165 29 is_stmt 0 view .LVU90
+ 314 00ee 0123     		movs	r3, #1
+ 315 00f0 84F82430 		strb	r3, [r4, #36]
  166:Src/mc_tasks_foc.c ****     FOCVars[M1].UserIdref = STC_GetDefaultIqdref(pSTC[M1]).d;
- 345              		.loc 1 166 26 view .LVU118
- 346 00ec 2868     		ldr	r0, [r5]
- 165:Src/mc_tasks_foc.c ****     FOCVars[M1].Iqdref = STC_GetDefaultIqdref(pSTC[M1]);
- 347              		.loc 1 165 29 view .LVU119
- 348 00ee 84F82430 		strb	r3, [r4, #36]
+ 316              		.loc 1 166 5 is_stmt 1 view .LVU91
  166:Src/mc_tasks_foc.c ****     FOCVars[M1].UserIdref = STC_GetDefaultIqdref(pSTC[M1]).d;
- 349              		.loc 1 166 5 is_stmt 1 view .LVU120
- 166:Src/mc_tasks_foc.c ****     FOCVars[M1].UserIdref = STC_GetDefaultIqdref(pSTC[M1]).d;
- 350              		.loc 1 166 26 is_stmt 0 view .LVU121
- 351 00f2 FFF7FEFF 		bl	STC_GetDefaultIqdref
- 352              	.LVL21:
- 353 00f6 2082     		strh	r0, [r4, #16]	@ movhi
- 354 00f8 C0F30F40 		ubfx	r0, r0, #16, #16
- 355 00fc 6082     		strh	r0, [r4, #18]	@ movhi
-ARM GAS  /tmp/ccKJN1Nl.s 			page 19
+ 317              		.loc 1 166 26 is_stmt 0 view .LVU92
+ 318 00f4 2868     		ldr	r0, [r5]
+ 319 00f6 FFF7FEFF 		bl	STC_GetDefaultIqdref
+ 320              	.LVL22:
+ 321 00fa 2082     		strh	r0, [r4, #16]	@ movhi
+ 322 00fc C0F30F40 		ubfx	r0, r0, #16, #16
+ 323 0100 6082     		strh	r0, [r4, #18]	@ movhi
+ 167:Src/mc_tasks_foc.c **** 
+ 324              		.loc 1 167 5 is_stmt 1 view .LVU93
+ 167:Src/mc_tasks_foc.c **** 
+ 325              		.loc 1 167 29 is_stmt 0 view .LVU94
+ 326 0102 2868     		ldr	r0, [r5]
+ 327 0104 FFF7FEFF 		bl	STC_GetDefaultIqdref
+ 328              	.LVL23:
+ 329 0108 C0F30F40 		ubfx	r0, r0, #16, #16
+ 167:Src/mc_tasks_foc.c **** 
+ 330              		.loc 1 167 27 view .LVU95
+ 331 010c A082     		strh	r0, [r4, #20]	@ movhi
+ 169:Src/mc_tasks_foc.c **** 
+ 332              		.loc 1 169 5 is_stmt 1 view .LVU96
+ 169:Src/mc_tasks_foc.c **** 
+ 333              		.loc 1 169 34 is_stmt 0 view .LVU97
+ 334 010e 2868     		ldr	r0, [r5]
+ 335 0110 FFF7FEFF 		bl	STC_GetDefaultIqdref
+ 336              	.LVL24:
+ARM GAS  /tmp/cccnQOYj.s 			page 18
 
 
- 167:Src/mc_tasks_foc.c **** 
- 356              		.loc 1 167 5 is_stmt 1 view .LVU122
- 167:Src/mc_tasks_foc.c **** 
- 357              		.loc 1 167 29 is_stmt 0 view .LVU123
- 358 00fe 2868     		ldr	r0, [r5]
- 359 0100 FFF7FEFF 		bl	STC_GetDefaultIqdref
- 360              	.LVL22:
- 361 0104 C0F30F43 		ubfx	r3, r0, #16, #16
  169:Src/mc_tasks_foc.c **** 
- 362              		.loc 1 169 34 view .LVU124
- 363 0108 2868     		ldr	r0, [r5]
- 167:Src/mc_tasks_foc.c **** 
- 364              		.loc 1 167 27 view .LVU125
- 365 010a A382     		strh	r3, [r4, #20]	@ movhi
- 169:Src/mc_tasks_foc.c **** 
- 366              		.loc 1 169 5 is_stmt 1 view .LVU126
- 169:Src/mc_tasks_foc.c **** 
- 367              		.loc 1 169 34 is_stmt 0 view .LVU127
- 368 010c FFF7FEFF 		bl	STC_GetDefaultIqdref
- 369              	.LVL23:
- 169:Src/mc_tasks_foc.c **** 
- 370              		.loc 1 169 5 view .LVU128
- 371 0110 5246     		mov	r2, r10
- 372 0112 01B2     		sxth	r1, r0
- 373 0114 4046     		mov	r0, r8
+ 337              		.loc 1 169 5 view .LVU98
+ 338 0114 5246     		mov	r2, r10
+ 339 0116 01B2     		sxth	r1, r0
+ 340 0118 4046     		mov	r0, r8
+ 341 011a FFF7FEFF 		bl	MCI_ExecTorqueRamp
+ 342              	.LVL25:
  174:Src/mc_tasks_foc.c **** 
- 374              		.loc 1 174 1 view .LVU129
- 375 0116 05B0     		add	sp, sp, #20
- 376              	.LCFI4:
- 377              		.cfi_def_cfa_offset 36
- 378              		@ sp needed
- 379 0118 BDE8F04F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
- 380              	.LCFI5:
- 381              		.cfi_restore 14
- 382              		.cfi_restore 11
- 383              		.cfi_restore 10
- 384              		.cfi_restore 9
- 385              		.cfi_restore 8
- 386              		.cfi_restore 7
- 387              		.cfi_restore 6
- 388              		.cfi_restore 5
- 389              		.cfi_restore 4
- 390              		.cfi_def_cfa_offset 0
- 169:Src/mc_tasks_foc.c **** 
- 391              		.loc 1 169 5 view .LVU130
- 392 011c FFF7FEBF 		b	MCI_ExecTorqueRamp
- 393              	.LVL24:
- 394              	.L13:
- 395              		.align	2
- 396              	.L12:
- 397 0120 00000000 		.word	PWM_Handle_M1
- 398 0124 00000000 		.word	PIDSpeedHandle_M1
- 399 0128 00000000 		.word	STO_PLL_M1
- 400 012c 00000000 		.word	pSTC
- 401 0130 00000000 		.word	FOCVars
- 402 0134 00000000 		.word	STO_M1
- 403 0138 00000000 		.word	PIDIqHandle_M1
-ARM GAS  /tmp/ccKJN1Nl.s 			page 20
+ 343              		.loc 1 174 1 view .LVU99
+ 344 011e 05B0     		add	sp, sp, #20
+ 345              	.LCFI3:
+ 346              		.cfi_def_cfa_offset 36
+ 347              		@ sp needed
+ 348 0120 BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 349              	.L9:
+ 350              		.align	2
+ 351              	.L8:
+ 352 0124 00000000 		.word	PWM_Handle_M1
+ 353 0128 00000000 		.word	PIDSpeedHandle_M1
+ 354 012c 00000000 		.word	STO_PLL_M1
+ 355 0130 00000000 		.word	pSTC
+ 356 0134 00000000 		.word	STO_M1
+ 357 0138 00000000 		.word	VirtualSpeedSensorM1
+ 358 013c 00000000 		.word	RevUpControlM1
+ 359 0140 00000000 		.word	PIDIqHandle_M1
+ 360 0144 00000000 		.word	PIDIdHandle_M1
+ 361 0148 00000000 		.word	pMPM
+ 362 014c 00000000 		.word	FOCVars
+ 363 0150 00000000 		.word	pFF
+ 364 0154 00000000 		.word	RampExtMngrHFParamsM1
+ 365 0158 00000000 		.word	pREMNG
+ 366 015c 00000000 		.word	SCC
+ 367 0160 00000000 		.word	CircleLimitationM1
+ 368 0164 00000000 		.word	pwmcHandle
+ 369 0168 00000000 		.word	BusVoltageSensor_M1
+ 370 016c 00000000 		.word	pPIDIq
+ 371 0170 00000000 		.word	pPIDId
+ 372 0174 00000000 		.word	Mci
+ 373 0178 00000000 		.word	SpeednTorqCtrlM1
+ 374 017c 00000000 		.word	OTT
+ 375              		.cfi_endproc
+ 376              	.LFE1867:
+ 378              		.section	.text.TSK_MF_StopProcessing,"ax",%progbits
+ 379              		.align	1
+ 380              		.global	TSK_MF_StopProcessing
+ 381              		.syntax unified
+ 382              		.thumb
+ 383              		.thumb_func
+ 384              		.fpu fpv4-sp-d16
+ 386              	TSK_MF_StopProcessing:
+ 387              	.LVL26:
+ 388              	.LFB1868:
+ 181:Src/mc_tasks_foc.c ****     R3_2_SwitchOffPWM(pwmcHandle[motor]);
+ 389              		.loc 1 181 1 is_stmt 1 view -0
+ 390              		.cfi_startproc
+ 391              		@ args = 0, pretend = 0, frame = 0
+ 392              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /tmp/cccnQOYj.s 			page 19
 
 
- 404 013c 00000000 		.word	PIDIdHandle_M1
- 405 0140 00000000 		.word	pFF
- 406 0144 00000000 		.word	pMPM
- 407 0148 00000000 		.word	pPIDId
- 408 014c 00000000 		.word	BusVoltageSensor_M1
- 409 0150 00000000 		.word	pREMNG
- 410 0154 00000000 		.word	RampExtMngrHFParamsM1
- 411 0158 00000000 		.word	SCC
- 412 015c 00000000 		.word	CircleLimitationM1
- 413 0160 00000000 		.word	pwmcHandle
- 414 0164 00000000 		.word	VirtualSpeedSensorM1
- 415 0168 00000000 		.word	RevUpControlM1
- 416 016c 00000000 		.word	pPIDIq
- 417 0170 00000000 		.word	OTT
- 418 0174 00000000 		.word	Mci
- 419 0178 00000000 		.word	SpeednTorqCtrlM1
- 420              		.cfi_endproc
- 421              	.LFE1867:
- 423              		.section	.text.TSK_MF_StopProcessing,"ax",%progbits
- 424              		.align	1
- 425              		.p2align 2,,3
- 426              		.global	TSK_MF_StopProcessing
- 427              		.syntax unified
- 428              		.thumb
- 429              		.thumb_func
- 430              		.fpu fpv4-sp-d16
- 432              	TSK_MF_StopProcessing:
- 433              	.LVL25:
- 434              	.LFB1868:
  181:Src/mc_tasks_foc.c ****     R3_2_SwitchOffPWM(pwmcHandle[motor]);
- 435              		.loc 1 181 1 is_stmt 1 view -0
- 436              		.cfi_startproc
- 437              		@ args = 0, pretend = 0, frame = 0
- 438              		@ frame_needed = 0, uses_anonymous_args = 0
+ 393              		.loc 1 181 1 is_stmt 0 view .LVU101
+ 394 0000 10B5     		push	{r4, lr}
+ 395              	.LCFI4:
+ 396              		.cfi_def_cfa_offset 8
+ 397              		.cfi_offset 4, -8
+ 398              		.cfi_offset 14, -4
+ 399 0002 0446     		mov	r4, r0
  182:Src/mc_tasks_foc.c **** 
- 439              		.loc 1 182 5 view .LVU132
- 440 0000 0D4B     		ldr	r3, .L16
- 181:Src/mc_tasks_foc.c ****     R3_2_SwitchOffPWM(pwmcHandle[motor]);
- 441              		.loc 1 181 1 is_stmt 0 view .LVU133
- 442 0002 10B5     		push	{r4, lr}
- 443              	.LCFI6:
- 444              		.cfi_def_cfa_offset 8
- 445              		.cfi_offset 4, -8
- 446              		.cfi_offset 14, -4
- 181:Src/mc_tasks_foc.c ****     R3_2_SwitchOffPWM(pwmcHandle[motor]);
- 447              		.loc 1 181 1 view .LVU134
- 448 0004 0446     		mov	r4, r0
+ 400              		.loc 1 182 5 is_stmt 1 view .LVU102
+ 401 0004 0C4B     		ldr	r3, .L12
+ 402 0006 53F82000 		ldr	r0, [r3, r0, lsl #2]
+ 403              	.LVL27:
  182:Src/mc_tasks_foc.c **** 
- 449              		.loc 1 182 5 view .LVU135
- 450 0006 53F82000 		ldr	r0, [r3, r0, lsl #2]
- 451              	.LVL26:
- 182:Src/mc_tasks_foc.c **** 
- 452              		.loc 1 182 5 view .LVU136
- 453 000a FFF7FEFF 		bl	R3_2_SwitchOffPWM
- 454              	.LVL27:
+ 404              		.loc 1 182 5 is_stmt 0 view .LVU103
+ 405 000a FFF7FEFF 		bl	R3_2_SwitchOffPWM
+ 406              	.LVL28:
  184:Src/mc_tasks_foc.c ****   OTT_Stop(&OTT);
- 455              		.loc 1 184 3 is_stmt 1 view .LVU137
-ARM GAS  /tmp/ccKJN1Nl.s 			page 21
-
-
- 456 000e 0B48     		ldr	r0, .L16+4
- 457 0010 FFF7FEFF 		bl	SCC_Stop
- 458              	.LVL28:
+ 407              		.loc 1 184 3 is_stmt 1 view .LVU104
+ 408 000e 0B48     		ldr	r0, .L12+4
+ 409 0010 FFF7FEFF 		bl	SCC_Stop
+ 410              	.LVL29:
  185:Src/mc_tasks_foc.c ****   FOC_Clear(motor);
- 459              		.loc 1 185 3 view .LVU138
- 460 0014 0A48     		ldr	r0, .L16+8
- 461 0016 FFF7FEFF 		bl	OTT_Stop
- 462              	.LVL29:
+ 411              		.loc 1 185 3 view .LVU105
+ 412 0014 0A48     		ldr	r0, .L12+8
+ 413 0016 FFF7FEFF 		bl	OTT_Stop
+ 414              	.LVL30:
  186:Src/mc_tasks_foc.c **** 
- 463              		.loc 1 186 3 view .LVU139
- 464 001a 2046     		mov	r0, r4
- 465 001c FFF7FEFF 		bl	FOC_Clear
- 466              	.LVL30:
+ 415              		.loc 1 186 3 view .LVU106
+ 416 001a 2046     		mov	r0, r4
+ 417 001c FFF7FEFF 		bl	FOC_Clear
+ 418              	.LVL31:
  188:Src/mc_tasks_foc.c ****   Mci[motor].State = STOP;
- 467              		.loc 1 188 3 view .LVU140
- 468 0020 4FF44870 		mov	r0, #800
- 469 0024 FFF7FEFF 		bl	TSK_SetStopPermanencyTimeM1
- 470              	.LVL31:
+ 419              		.loc 1 188 3 view .LVU107
+ 420 0020 4FF44870 		mov	r0, #800
+ 421 0024 FFF7FEFF 		bl	TSK_SetStopPermanencyTimeM1
+ 422              	.LVL32:
  189:Src/mc_tasks_foc.c **** }
- 471              		.loc 1 189 3 view .LVU141
+ 423              		.loc 1 189 3 view .LVU108
  189:Src/mc_tasks_foc.c **** }
- 472              		.loc 1 189 20 is_stmt 0 view .LVU142
- 473 0028 0648     		ldr	r0, .L16+12
- 474 002a 2C23     		movs	r3, #44
- 475 002c 03FB0404 		mla	r4, r3, r4, r0
- 476 0030 0823     		movs	r3, #8
- 477 0032 E377     		strb	r3, [r4, #31]
+ 424              		.loc 1 189 20 is_stmt 0 view .LVU109
+ 425 0028 0648     		ldr	r0, .L12+12
+ 426 002a 2C23     		movs	r3, #44
+ 427 002c 03FB0404 		mla	r4, r3, r4, r0
+ 428 0030 0823     		movs	r3, #8
+ 429 0032 E377     		strb	r3, [r4, #31]
  190:Src/mc_tasks_foc.c **** 
- 478              		.loc 1 190 1 view .LVU143
- 479 0034 10BD     		pop	{r4, pc}
- 480              	.L17:
- 481 0036 00BF     		.align	2
- 482              	.L16:
- 483 0038 00000000 		.word	pwmcHandle
- 484 003c 00000000 		.word	SCC
- 485 0040 00000000 		.word	OTT
- 486 0044 00000000 		.word	Mci
- 487              		.cfi_endproc
- 488              	.LFE1868:
- 490              		.section	.text.FOC_InitAdditionalMethods,"ax",%progbits
- 491              		.align	1
- 492              		.p2align 2,,3
- 493              		.weak	FOC_InitAdditionalMethods
- 494              		.syntax unified
- 495              		.thumb
- 496              		.thumb_func
- 497              		.fpu fpv4-sp-d16
- 499              	FOC_InitAdditionalMethods:
- 500              	.LVL32:
- 501              	.LFB1871:
+ 430              		.loc 1 190 1 view .LVU110
+ 431 0034 10BD     		pop	{r4, pc}
+ 432              	.L13:
+ 433 0036 00BF     		.align	2
+ 434              	.L12:
+ 435 0038 00000000 		.word	pwmcHandle
+ 436 003c 00000000 		.word	SCC
+ 437 0040 00000000 		.word	OTT
+ 438 0044 00000000 		.word	Mci
+ 439              		.cfi_endproc
+ARM GAS  /tmp/cccnQOYj.s 			page 20
+
+
+ 440              	.LFE1868:
+ 442              		.section	.text.FOC_InitAdditionalMethods,"ax",%progbits
+ 443              		.align	1
+ 444              		.weak	FOC_InitAdditionalMethods
+ 445              		.syntax unified
+ 446              		.thumb
+ 447              		.thumb_func
+ 448              		.fpu fpv4-sp-d16
+ 450              	FOC_InitAdditionalMethods:
+ 451              	.LVL33:
+ 452              	.LFB1871:
  571:Src/mc_tasks_foc.c **** 
  572:Src/mc_tasks_foc.c **** /**
  573:Src/mc_tasks_foc.c ****   * @brief  Use this method to initialize additional methods (if any) in
@@ -1258,80 +1159,81 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
  575:Src/mc_tasks_foc.c ****   * @param  bMotor related motor it can be M1 or M2.
  576:Src/mc_tasks_foc.c ****   */
  577:Src/mc_tasks_foc.c **** __weak void FOC_InitAdditionalMethods(uint8_t bMotor) //cstat !RED-func-no-effect
-ARM GAS  /tmp/ccKJN1Nl.s 			page 22
-
-
  578:Src/mc_tasks_foc.c **** {
- 502              		.loc 1 578 1 is_stmt 1 view -0
- 503              		.cfi_startproc
- 504              		@ args = 0, pretend = 0, frame = 0
- 505              		@ frame_needed = 0, uses_anonymous_args = 0
- 506              		@ link register save eliminated.
+ 453              		.loc 1 578 1 is_stmt 1 view -0
+ 454              		.cfi_startproc
+ 455              		@ args = 0, pretend = 0, frame = 0
+ 456              		@ frame_needed = 0, uses_anonymous_args = 0
  579:Src/mc_tasks_foc.c ****     if (M_NONE == bMotor)
- 507              		.loc 1 579 5 view .LVU145
- 508              		.loc 1 579 8 is_stmt 0 view .LVU146
- 509 0000 FF28     		cmp	r0, #255
- 510 0002 05D0     		beq	.L18
- 511              	.LVL33:
- 512              	.LBB19:
- 513              	.LBI19:
- 577:Src/mc_tasks_foc.c **** {
- 514              		.loc 1 577 13 is_stmt 1 view .LVU147
- 515              	.LBB20:
+ 457              		.loc 1 579 5 view .LVU112
+ 458              		.loc 1 579 8 is_stmt 0 view .LVU113
+ 459 0000 FF28     		cmp	r0, #255
+ 460 0002 07D0     		beq	.L17
+ 578:Src/mc_tasks_foc.c ****     if (M_NONE == bMotor)
+ 461              		.loc 1 578 1 view .LVU114
+ 462 0004 08B5     		push	{r3, lr}
+ 463              	.LCFI5:
+ 464              		.cfi_def_cfa_offset 8
+ 465              		.cfi_offset 3, -8
+ 466              		.cfi_offset 14, -4
  580:Src/mc_tasks_foc.c ****     {
  581:Src/mc_tasks_foc.c ****       /* Nothing to do */
  582:Src/mc_tasks_foc.c ****     }
  583:Src/mc_tasks_foc.c ****     else
  584:Src/mc_tasks_foc.c ****     {
  585:Src/mc_tasks_foc.c ****       if (NULL == pFF[bMotor])
- 516              		.loc 1 585 7 view .LVU148
- 517              		.loc 1 585 22 is_stmt 0 view .LVU149
- 518 0004 034B     		ldr	r3, .L26
- 519 0006 53F82000 		ldr	r0, [r3, r0, lsl #2]
- 520              	.LVL34:
- 521              		.loc 1 585 10 view .LVU150
- 522 000a 08B1     		cbz	r0, .L18
+ 467              		.loc 1 585 7 is_stmt 1 view .LVU115
+ 468              		.loc 1 585 22 is_stmt 0 view .LVU116
+ 469 0006 044B     		ldr	r3, .L20
+ 470 0008 53F82000 		ldr	r0, [r3, r0, lsl #2]
+ 471              	.LVL34:
+ 472              		.loc 1 585 10 view .LVU117
+ 473 000c 08B1     		cbz	r0, .L14
  586:Src/mc_tasks_foc.c ****       {
  587:Src/mc_tasks_foc.c ****         /* Nothing to do */
  588:Src/mc_tasks_foc.c ****       }
  589:Src/mc_tasks_foc.c ****       else
  590:Src/mc_tasks_foc.c ****       {
  591:Src/mc_tasks_foc.c ****         FF_InitFOCAdditionalMethods(pFF[bMotor]);
- 523              		.loc 1 591 9 is_stmt 1 view .LVU151
- 524 000c FFF7FEBF 		b	FF_InitFOCAdditionalMethods
- 525              	.LVL35:
- 526              	.L18:
- 527              		.loc 1 591 9 is_stmt 0 view .LVU152
- 528              	.LBE20:
- 529              	.LBE19:
+ 474              		.loc 1 591 9 is_stmt 1 view .LVU118
+ 475 000e FFF7FEFF 		bl	FF_InitFOCAdditionalMethods
+ 476              	.LVL35:
+ARM GAS  /tmp/cccnQOYj.s 			page 21
+
+
+ 477              	.L14:
  592:Src/mc_tasks_foc.c ****       }
  593:Src/mc_tasks_foc.c ****   /* USER CODE BEGIN FOC_InitAdditionalMethods 0 */
  594:Src/mc_tasks_foc.c **** 
  595:Src/mc_tasks_foc.c ****   /* USER CODE END FOC_InitAdditionalMethods 0 */
  596:Src/mc_tasks_foc.c ****     }
  597:Src/mc_tasks_foc.c **** }
- 530              		.loc 1 597 1 view .LVU153
- 531 0010 7047     		bx	lr
- 532              	.L27:
- 533 0012 00BF     		.align	2
- 534              	.L26:
- 535 0014 00000000 		.word	pFF
- 536              		.cfi_endproc
- 537              	.LFE1871:
-ARM GAS  /tmp/ccKJN1Nl.s 			page 23
-
-
- 539              		.section	.text.FOC_CalcCurrRef,"ax",%progbits
- 540              		.align	1
- 541              		.p2align 2,,3
- 542              		.weak	FOC_CalcCurrRef
- 543              		.syntax unified
- 544              		.thumb
- 545              		.thumb_func
- 546              		.fpu fpv4-sp-d16
- 548              	FOC_CalcCurrRef:
- 549              	.LVL36:
- 550              	.LFB1872:
+ 478              		.loc 1 597 1 is_stmt 0 view .LVU119
+ 479 0012 08BD     		pop	{r3, pc}
+ 480              	.LVL36:
+ 481              	.L17:
+ 482              	.LCFI6:
+ 483              		.cfi_def_cfa_offset 0
+ 484              		.cfi_restore 3
+ 485              		.cfi_restore 14
+ 486              		.loc 1 597 1 view .LVU120
+ 487 0014 7047     		bx	lr
+ 488              	.L21:
+ 489 0016 00BF     		.align	2
+ 490              	.L20:
+ 491 0018 00000000 		.word	pFF
+ 492              		.cfi_endproc
+ 493              	.LFE1871:
+ 495              		.section	.text.FOC_CalcCurrRef,"ax",%progbits
+ 496              		.align	1
+ 497              		.weak	FOC_CalcCurrRef
+ 498              		.syntax unified
+ 499              		.thumb
+ 500              		.thumb_func
+ 501              		.fpu fpv4-sp-d16
+ 503              	FOC_CalcCurrRef:
+ 504              	.LVL37:
+ 505              	.LFB1872:
  598:Src/mc_tasks_foc.c **** 
  599:Src/mc_tasks_foc.c **** /**
  600:Src/mc_tasks_foc.c ****   * @brief  It computes the new values of Iqdref (current references on qd
@@ -1344,21 +1246,35 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
  607:Src/mc_tasks_foc.c ****   */
  608:Src/mc_tasks_foc.c **** __weak void FOC_CalcCurrRef(uint8_t bMotor)
  609:Src/mc_tasks_foc.c **** {
- 551              		.loc 1 609 1 is_stmt 1 view -0
- 552              		.cfi_startproc
- 553              		@ args = 0, pretend = 0, frame = 8
- 554              		@ frame_needed = 0, uses_anonymous_args = 0
+ 506              		.loc 1 609 1 is_stmt 1 view -0
+ 507              		.cfi_startproc
+ 508              		@ args = 0, pretend = 0, frame = 8
+ 509              		@ frame_needed = 0, uses_anonymous_args = 0
+ 510              		.loc 1 609 1 is_stmt 0 view .LVU122
+ 511 0000 30B5     		push	{r4, r5, lr}
+ 512              	.LCFI7:
+ 513              		.cfi_def_cfa_offset 12
+ 514              		.cfi_offset 4, -12
+ 515              		.cfi_offset 5, -8
+ 516              		.cfi_offset 14, -4
+ 517 0002 83B0     		sub	sp, sp, #12
+ARM GAS  /tmp/cccnQOYj.s 			page 22
+
+
+ 518              	.LCFI8:
+ 519              		.cfi_def_cfa_offset 24
+ 520 0004 0446     		mov	r4, r0
  610:Src/mc_tasks_foc.c ****   qd_t IqdTmp;
- 555              		.loc 1 610 3 view .LVU155
+ 521              		.loc 1 610 3 is_stmt 1 view .LVU123
  611:Src/mc_tasks_foc.c **** 
  612:Src/mc_tasks_foc.c ****   /* Enter critical section */
  613:Src/mc_tasks_foc.c ****   /* Disable interrupts to avoid any interruption during Iqd reference latching */
  614:Src/mc_tasks_foc.c ****   /* to avoid MF task writing them while HF task reading them */
  615:Src/mc_tasks_foc.c ****   __disable_irq();
- 556              		.loc 1 615 3 view .LVU156
- 557              	.LBB21:
- 558              	.LBI21:
- 559              		.file 2 "Drivers/CMSIS/Include/cmsis_gcc.h"
+ 522              		.loc 1 615 3 view .LVU124
+ 523              	.LBB17:
+ 524              	.LBI17:
+ 525              		.file 2 "Drivers/CMSIS/Include/cmsis_gcc.h"
    1:Drivers/CMSIS/Include/cmsis_gcc.h **** /**************************************************************************//**
    2:Drivers/CMSIS/Include/cmsis_gcc.h ****  * @file     cmsis_gcc.h
    3:Drivers/CMSIS/Include/cmsis_gcc.h ****  * @brief    CMSIS compiler GCC header file
@@ -1378,9 +1294,6 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
   17:Drivers/CMSIS/Include/cmsis_gcc.h ****  *
   18:Drivers/CMSIS/Include/cmsis_gcc.h ****  * Unless required by applicable law or agreed to in writing, software
   19:Drivers/CMSIS/Include/cmsis_gcc.h ****  * distributed under the License is distributed on an AS IS BASIS, WITHOUT
-ARM GAS  /tmp/ccKJN1Nl.s 			page 24
-
-
   20:Drivers/CMSIS/Include/cmsis_gcc.h ****  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   21:Drivers/CMSIS/Include/cmsis_gcc.h ****  * See the License for the specific language governing permissions and
   22:Drivers/CMSIS/Include/cmsis_gcc.h ****  * limitations under the License.
@@ -1405,6 +1318,9 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
   41:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __ASM                                  __asm
   42:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
   43:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __INLINE
+ARM GAS  /tmp/cccnQOYj.s 			page 23
+
+
   44:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __INLINE                               inline
   45:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
   46:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __STATIC_INLINE
@@ -1438,9 +1354,6 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
   74:Drivers/CMSIS/Include/cmsis_gcc.h ****   struct __attribute__((packed)) T_UINT32 { uint32_t v; };
   75:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic pop
   76:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __UNALIGNED_UINT32(x)                  (((struct T_UINT32 *)(x))->v)
-ARM GAS  /tmp/ccKJN1Nl.s 			page 25
-
-
   77:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
   78:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT16_WRITE
   79:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic push
@@ -1465,6 +1378,9 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
   98:Drivers/CMSIS/Include/cmsis_gcc.h ****   __PACKED_STRUCT T_UINT32_WRITE { uint32_t v; };
   99:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic pop
  100:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __UNALIGNED_UINT32_WRITE(addr, val)    (void)((((struct T_UINT32_WRITE *)(void *)(addr))-
+ARM GAS  /tmp/cccnQOYj.s 			page 24
+
+
  101:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
  102:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32_READ
  103:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic push
@@ -1498,9 +1414,6 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
  131:Drivers/CMSIS/Include/cmsis_gcc.h **** __STATIC_FORCEINLINE __NO_RETURN void __cmsis_start(void)
  132:Drivers/CMSIS/Include/cmsis_gcc.h **** {
  133:Drivers/CMSIS/Include/cmsis_gcc.h ****   extern void _start(void) __NO_RETURN;
-ARM GAS  /tmp/ccKJN1Nl.s 			page 26
-
-
  134:Drivers/CMSIS/Include/cmsis_gcc.h ****   
  135:Drivers/CMSIS/Include/cmsis_gcc.h ****   typedef struct {
  136:Drivers/CMSIS/Include/cmsis_gcc.h ****     uint32_t const* src;
@@ -1525,6 +1438,9 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
  155:Drivers/CMSIS/Include/cmsis_gcc.h ****   }
  156:Drivers/CMSIS/Include/cmsis_gcc.h ****  
  157:Drivers/CMSIS/Include/cmsis_gcc.h ****   for (__zero_table_t const* pTable = &__zero_table_start__; pTable < &__zero_table_end__; ++pTable
+ARM GAS  /tmp/cccnQOYj.s 			page 25
+
+
  158:Drivers/CMSIS/Include/cmsis_gcc.h ****     for(uint32_t i=0u; i<pTable->wlen; ++i) {
  159:Drivers/CMSIS/Include/cmsis_gcc.h ****       pTable->dest[i] = 0u;
  160:Drivers/CMSIS/Include/cmsis_gcc.h ****     }
@@ -1558,9 +1474,6 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
  188:Drivers/CMSIS/Include/cmsis_gcc.h ****   @{
  189:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
  190:Drivers/CMSIS/Include/cmsis_gcc.h **** 
-ARM GAS  /tmp/ccKJN1Nl.s 			page 27
-
-
  191:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
  192:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Enable IRQ Interrupts
  193:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Enables IRQ interrupts by clearing the I-bit in the CPSR.
@@ -1578,92 +1491,64 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
  205:Drivers/CMSIS/Include/cmsis_gcc.h ****            Can only be executed in Privileged modes.
  206:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
  207:Drivers/CMSIS/Include/cmsis_gcc.h **** __STATIC_FORCEINLINE void __disable_irq(void)
- 560              		.loc 2 207 27 view .LVU157
- 561              	.LBB22:
+ 526              		.loc 2 207 27 view .LVU125
+ 527              	.LBB18:
  208:Drivers/CMSIS/Include/cmsis_gcc.h **** {
  209:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("cpsid i" : : : "memory");
- 562              		.loc 2 209 3 view .LVU158
- 563              	.LBE22:
- 564              	.LBE21:
- 609:Src/mc_tasks_foc.c ****   qd_t IqdTmp;
- 565              		.loc 1 609 1 is_stmt 0 view .LVU159
- 566 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
- 567              	.LCFI7:
- 568              		.cfi_def_cfa_offset 24
- 569              		.cfi_offset 4, -24
- 570              		.cfi_offset 5, -20
- 571              		.cfi_offset 6, -16
- 572              		.cfi_offset 7, -12
- 573              		.cfi_offset 8, -8
- 574              		.cfi_offset 14, -4
- 575 0004 0546     		mov	r5, r0
- 576 0006 82B0     		sub	sp, sp, #8
- 577              	.LCFI8:
- 578              		.cfi_def_cfa_offset 32
- 579              	.LBB24:
- 580              	.LBB23:
- 581              		.loc 2 209 3 view .LVU160
- 582              		.syntax unified
- 583              	@ 209 "Drivers/CMSIS/Include/cmsis_gcc.h" 1
- 584 0008 72B6     		cpsid i
- 585              	@ 0 "" 2
- 586              		.thumb
- 587              		.syntax unified
- 588              	.LBE23:
- 589              	.LBE24:
+ 528              		.loc 2 209 3 view .LVU126
+ 529              		.syntax unified
+ 530              	@ 209 "Drivers/CMSIS/Include/cmsis_gcc.h" 1
+ARM GAS  /tmp/cccnQOYj.s 			page 26
+
+
+ 531 0006 72B6     		cpsid i
+ 532              	@ 0 "" 2
+ 533              		.thumb
+ 534              		.syntax unified
+ 535              	.LBE18:
+ 536              	.LBE17:
  616:Src/mc_tasks_foc.c ****   IqdTmp = FOCVars[bMotor].Iqdref;
- 590              		.loc 1 616 3 is_stmt 1 view .LVU161
- 591              		.loc 1 616 10 is_stmt 0 view .LVU162
- 592 000a 164E     		ldr	r6, .L35
- 593 000c 2624     		movs	r4, #38
- 594 000e 04FB0064 		mla	r4, r4, r0, r6
- 595 0012 2069     		ldr	r0, [r4, #16]	@ unaligned
-ARM GAS  /tmp/ccKJN1Nl.s 			page 28
-
-
- 596              	.LVL37:
- 597              		.loc 1 616 10 view .LVU163
- 598 0014 B4F91070 		ldrsh	r7, [r4, #16]
- 599              	.LVL38:
+ 537              		.loc 1 616 3 view .LVU127
+ 538              		.loc 1 616 10 is_stmt 0 view .LVU128
+ 539 0008 184B     		ldr	r3, .L26
+ 540 000a 2622     		movs	r2, #38
+ 541 000c 02FB0033 		mla	r3, r2, r0, r3
+ 542 0010 1869     		ldr	r0, [r3, #16]	@ unaligned
+ 543              	.LVL38:
+ 544              		.loc 1 616 10 view .LVU129
+ 545 0012 0190     		str	r0, [sp, #4]
+ 546 0014 B3F91050 		ldrsh	r5, [r3, #16]
+ 547              	.LVL39:
  617:Src/mc_tasks_foc.c **** 
  618:Src/mc_tasks_foc.c ****   /* Exit critical section */
  619:Src/mc_tasks_foc.c ****   __enable_irq();
- 600              		.loc 1 619 3 is_stmt 1 view .LVU164
- 601              	.LBB25:
- 602              	.LBI25:
+ 548              		.loc 1 619 3 is_stmt 1 view .LVU130
+ 549              	.LBB19:
+ 550              	.LBI19:
  196:Drivers/CMSIS/Include/cmsis_gcc.h **** {
- 603              		.loc 2 196 27 view .LVU165
- 604              	.LBB26:
+ 551              		.loc 2 196 27 view .LVU131
+ 552              	.LBB20:
  198:Drivers/CMSIS/Include/cmsis_gcc.h **** }
- 605              		.loc 2 198 3 view .LVU166
- 606              	.LBE26:
- 607              	.LBE25:
- 616:Src/mc_tasks_foc.c **** 
- 608              		.loc 1 616 10 is_stmt 0 view .LVU167
- 609 0018 0190     		str	r0, [sp, #4]
- 610              	.LBB28:
- 611              	.LBB27:
- 198:Drivers/CMSIS/Include/cmsis_gcc.h **** }
- 612              		.loc 2 198 3 view .LVU168
- 613              		.syntax unified
- 614              	@ 198 "Drivers/CMSIS/Include/cmsis_gcc.h" 1
- 615 001a 62B6     		cpsie i
- 616              	@ 0 "" 2
- 617              		.thumb
- 618              		.syntax unified
- 619              	.LBE27:
- 620              	.LBE28:
+ 553              		.loc 2 198 3 view .LVU132
+ 554              		.syntax unified
+ 555              	@ 198 "Drivers/CMSIS/Include/cmsis_gcc.h" 1
+ 556 0018 62B6     		cpsie i
+ 557              	@ 0 "" 2
+ 558              		.thumb
+ 559              		.syntax unified
+ 560              	.LBE20:
+ 561              	.LBE19:
  620:Src/mc_tasks_foc.c **** 
  621:Src/mc_tasks_foc.c ****   /* USER CODE BEGIN FOC_CalcCurrRef 0 */
  622:Src/mc_tasks_foc.c **** 
  623:Src/mc_tasks_foc.c ****   /* USER CODE END FOC_CalcCurrRef 0 */
  624:Src/mc_tasks_foc.c ****   if (INTERNAL == FOCVars[bMotor].bDriveInput)
- 621              		.loc 1 624 3 is_stmt 1 view .LVU169
- 622              		.loc 1 624 6 is_stmt 0 view .LVU170
- 623 001c 94F82430 		ldrb	r3, [r4, #36]	@ zero_extendqisi2
- 624 0020 5BB1     		cbz	r3, .L34
- 625              	.LVL39:
- 626              	.L29:
+ 562              		.loc 1 624 3 view .LVU133
+ 563              		.loc 1 624 6 is_stmt 0 view .LVU134
+ 564 001a 93F82430 		ldrb	r3, [r3, #36]	@ zero_extendqisi2
+ 565 001e 5BB1     		cbz	r3, .L25
+ 566              	.LVL40:
+ 567              	.L23:
  625:Src/mc_tasks_foc.c ****   {
  626:Src/mc_tasks_foc.c ****     FOCVars[bMotor].hTeref = STC_CalcTorqueReference(pSTC[bMotor]);
  627:Src/mc_tasks_foc.c ****     IqdTmp.q = FOCVars[bMotor].hTeref;
@@ -1673,776 +1558,615 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
  631:Src/mc_tasks_foc.c ****       /* Nothing to do */
  632:Src/mc_tasks_foc.c ****     }
  633:Src/mc_tasks_foc.c ****     else
+ARM GAS  /tmp/cccnQOYj.s 			page 27
+
+
  634:Src/mc_tasks_foc.c ****     {
  635:Src/mc_tasks_foc.c ****       FF_VqdffComputation(pFF[bMotor], IqdTmp, pSTC[bMotor]);
  636:Src/mc_tasks_foc.c ****     }
  637:Src/mc_tasks_foc.c ****   }
  638:Src/mc_tasks_foc.c ****   else
-ARM GAS  /tmp/ccKJN1Nl.s 			page 29
-
-
  639:Src/mc_tasks_foc.c ****   {
  640:Src/mc_tasks_foc.c ****     /* Nothing to do */
  641:Src/mc_tasks_foc.c ****   }
- 627              		.loc 1 641 3 is_stmt 1 view .LVU171
+ 568              		.loc 1 641 3 is_stmt 1 view .LVU135
  642:Src/mc_tasks_foc.c **** 
  643:Src/mc_tasks_foc.c ****   /* Enter critical section */
  644:Src/mc_tasks_foc.c ****   /* Disable interrupts to avoid any interruption during Iqd reference restoring */
  645:Src/mc_tasks_foc.c ****   __disable_irq();
- 628              		.loc 1 645 3 view .LVU172
- 629              	.LBB29:
- 630              	.LBI29:
+ 569              		.loc 1 645 3 view .LVU136
+ 570              	.LBB21:
+ 571              	.LBI21:
  207:Drivers/CMSIS/Include/cmsis_gcc.h **** {
- 631              		.loc 2 207 27 view .LVU173
- 632              	.LBB30:
- 633              		.loc 2 209 3 view .LVU174
- 634              		.syntax unified
- 635              	@ 209 "Drivers/CMSIS/Include/cmsis_gcc.h" 1
- 636 0022 72B6     		cpsid i
- 637              	@ 0 "" 2
- 638              		.thumb
- 639              		.syntax unified
- 640              	.LBE30:
- 641              	.LBE29:
+ 572              		.loc 2 207 27 view .LVU137
+ 573              	.LBB22:
+ 574              		.loc 2 209 3 view .LVU138
+ 575              		.syntax unified
+ 576              	@ 209 "Drivers/CMSIS/Include/cmsis_gcc.h" 1
+ 577 0020 72B6     		cpsid i
+ 578              	@ 0 "" 2
+ 579              		.thumb
+ 580              		.syntax unified
+ 581              	.LBE22:
+ 582              	.LBE21:
  646:Src/mc_tasks_foc.c ****   FOCVars[bMotor].Iqdref = IqdTmp;
- 642              		.loc 1 646 3 view .LVU175
- 643              		.loc 1 646 26 is_stmt 0 view .LVU176
- 644 0024 2620     		movs	r0, #38
- 645 0026 00FB0565 		mla	r5, r0, r5, r6
- 646 002a ADF80470 		strh	r7, [sp, #4]	@ movhi
- 647 002e 0198     		ldr	r0, [sp, #4]
- 648 0030 2861     		str	r0, [r5, #16]	@ unaligned
+ 583              		.loc 1 646 3 view .LVU139
+ 584              		.loc 1 646 26 is_stmt 0 view .LVU140
+ 585 0022 ADF80450 		strh	r5, [sp, #4]	@ movhi
+ 586 0026 1148     		ldr	r0, .L26
+ 587 0028 2623     		movs	r3, #38
+ 588 002a 03FB0404 		mla	r4, r3, r4, r0
+ 589 002e 0198     		ldr	r0, [sp, #4]
+ 590 0030 2061     		str	r0, [r4, #16]	@ unaligned
  647:Src/mc_tasks_foc.c **** 
  648:Src/mc_tasks_foc.c ****   /* Exit critical section */
  649:Src/mc_tasks_foc.c ****   __enable_irq();
- 649              		.loc 1 649 3 is_stmt 1 view .LVU177
- 650              	.LBB31:
- 651              	.LBI31:
+ 591              		.loc 1 649 3 is_stmt 1 view .LVU141
+ 592              	.LBB23:
+ 593              	.LBI23:
  196:Drivers/CMSIS/Include/cmsis_gcc.h **** {
- 652              		.loc 2 196 27 view .LVU178
- 653              	.LBB32:
+ 594              		.loc 2 196 27 view .LVU142
+ 595              	.LBB24:
  198:Drivers/CMSIS/Include/cmsis_gcc.h **** }
- 654              		.loc 2 198 3 view .LVU179
- 655              		.syntax unified
- 656              	@ 198 "Drivers/CMSIS/Include/cmsis_gcc.h" 1
- 657 0032 62B6     		cpsie i
- 658              	@ 0 "" 2
- 659              	.LVL40:
+ 596              		.loc 2 198 3 view .LVU143
+ 597              		.syntax unified
+ 598              	@ 198 "Drivers/CMSIS/Include/cmsis_gcc.h" 1
+ 599 0032 62B6     		cpsie i
+ 600              	@ 0 "" 2
+ 601              	.LVL41:
  198:Drivers/CMSIS/Include/cmsis_gcc.h **** }
- 660              		.loc 2 198 3 is_stmt 0 view .LVU180
- 661              		.thumb
- 662              		.syntax unified
- 663              	.LBE32:
- 664              	.LBE31:
+ 602              		.loc 2 198 3 is_stmt 0 view .LVU144
+ 603              		.thumb
+ 604              		.syntax unified
+ARM GAS  /tmp/cccnQOYj.s 			page 28
+
+
+ 605              	.LBE24:
+ 606              	.LBE23:
  650:Src/mc_tasks_foc.c ****   /* USER CODE BEGIN FOC_CalcCurrRef 1 */
  651:Src/mc_tasks_foc.c **** 
  652:Src/mc_tasks_foc.c ****   /* USER CODE END FOC_CalcCurrRef 1 */
  653:Src/mc_tasks_foc.c **** }
-ARM GAS  /tmp/ccKJN1Nl.s 			page 30
-
-
- 665              		.loc 1 653 1 view .LVU181
- 666 0034 02B0     		add	sp, sp, #8
- 667              	.LCFI9:
- 668              		.cfi_remember_state
- 669              		.cfi_def_cfa_offset 24
- 670              		@ sp needed
- 671 0036 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
- 672              	.LVL41:
- 673              	.L34:
- 674              	.LCFI10:
- 675              		.cfi_restore_state
+ 607              		.loc 1 653 1 view .LVU145
+ 608 0034 03B0     		add	sp, sp, #12
+ 609              	.LCFI9:
+ 610              		.cfi_remember_state
+ 611              		.cfi_def_cfa_offset 12
+ 612              		@ sp needed
+ 613 0036 30BD     		pop	{r4, r5, pc}
+ 614              	.LVL42:
+ 615              	.L25:
+ 616              	.LCFI10:
+ 617              		.cfi_restore_state
  626:Src/mc_tasks_foc.c ****     IqdTmp.q = FOCVars[bMotor].hTeref;
- 676              		.loc 1 626 5 is_stmt 1 view .LVU182
+ 618              		.loc 1 626 5 is_stmt 1 view .LVU146
  626:Src/mc_tasks_foc.c ****     IqdTmp.q = FOCVars[bMotor].hTeref;
- 677              		.loc 1 626 30 is_stmt 0 view .LVU183
- 678 003a DFF83080 		ldr	r8, .L35+8
- 679 003e 58F82500 		ldr	r0, [r8, r5, lsl #2]
- 680 0042 FFF7FEFF 		bl	STC_CalcTorqueReference
- 681              	.LVL42:
- 629:Src/mc_tasks_foc.c ****     {
- 682              		.loc 1 629 20 view .LVU184
- 683 0046 084B     		ldr	r3, .L35+4
+ 619              		.loc 1 626 30 is_stmt 0 view .LVU147
+ 620 0038 0D4B     		ldr	r3, .L26+4
+ 621 003a 53F82400 		ldr	r0, [r3, r4, lsl #2]
+ 622 003e FFF7FEFF 		bl	STC_CalcTorqueReference
+ 623              	.LVL43:
+ 624 0042 0546     		mov	r5, r0
+ 625              	.LVL44:
  626:Src/mc_tasks_foc.c ****     IqdTmp.q = FOCVars[bMotor].hTeref;
- 684              		.loc 1 626 28 view .LVU185
- 685 0048 E083     		strh	r0, [r4, #30]	@ movhi
+ 626              		.loc 1 626 28 view .LVU148
+ 627 0044 094B     		ldr	r3, .L26
+ 628 0046 2622     		movs	r2, #38
+ 629 0048 02FB0433 		mla	r3, r2, r4, r3
+ 630 004c D883     		strh	r0, [r3, #30]	@ movhi
  627:Src/mc_tasks_foc.c **** 
- 686              		.loc 1 627 5 is_stmt 1 view .LVU186
- 626:Src/mc_tasks_foc.c ****     IqdTmp.q = FOCVars[bMotor].hTeref;
- 687              		.loc 1 626 30 is_stmt 0 view .LVU187
- 688 004a 0746     		mov	r7, r0
- 689              	.LVL43:
+ 631              		.loc 1 627 5 is_stmt 1 view .LVU149
+ 632              	.LVL45:
  629:Src/mc_tasks_foc.c ****     {
- 690              		.loc 1 629 5 is_stmt 1 view .LVU188
+ 633              		.loc 1 629 5 view .LVU150
  629:Src/mc_tasks_foc.c ****     {
- 691              		.loc 1 629 20 is_stmt 0 view .LVU189
- 692 004c 53F82500 		ldr	r0, [r3, r5, lsl #2]
+ 634              		.loc 1 629 20 is_stmt 0 view .LVU151
+ 635 004e 094B     		ldr	r3, .L26+8
+ 636 0050 53F82400 		ldr	r0, [r3, r4, lsl #2]
  629:Src/mc_tasks_foc.c ****     {
- 693              		.loc 1 629 8 view .LVU190
- 694 0050 0028     		cmp	r0, #0
- 695 0052 E6D0     		beq	.L29
+ 637              		.loc 1 629 8 view .LVU152
+ 638 0054 0028     		cmp	r0, #0
+ 639 0056 E3D0     		beq	.L23
  635:Src/mc_tasks_foc.c ****     }
- 696              		.loc 1 635 7 is_stmt 1 view .LVU191
+ 640              		.loc 1 635 7 is_stmt 1 view .LVU153
  635:Src/mc_tasks_foc.c ****     }
- 697              		.loc 1 635 7 is_stmt 0 view .LVU192
- 698 0054 ADF80470 		strh	r7, [sp, #4]	@ movhi
- 699 0058 58F82520 		ldr	r2, [r8, r5, lsl #2]
- 700 005c 0199     		ldr	r1, [sp, #4]
- 701 005e FFF7FEFF 		bl	FF_VqdffComputation
- 702              	.LVL44:
- 703 0062 DEE7     		b	.L29
- 704              	.L36:
- 705              		.align	2
- 706              	.L35:
- 707 0064 00000000 		.word	FOCVars
- 708 0068 00000000 		.word	pFF
- 709 006c 00000000 		.word	pSTC
- 710              		.cfi_endproc
-ARM GAS  /tmp/ccKJN1Nl.s 			page 31
+ 641              		.loc 1 635 7 is_stmt 0 view .LVU154
+ 642 0058 ADF80450 		strh	r5, [sp, #4]	@ movhi
+ 643 005c 044B     		ldr	r3, .L26+4
+ 644 005e 53F82420 		ldr	r2, [r3, r4, lsl #2]
+ 645 0062 0199     		ldr	r1, [sp, #4]
+ 646 0064 FFF7FEFF 		bl	FF_VqdffComputation
+ 647              	.LVL46:
+ 648 0068 DAE7     		b	.L23
+ARM GAS  /tmp/cccnQOYj.s 			page 29
 
 
- 711              	.LFE1872:
- 713              		.section	.text.TSK_MediumFrequencyTaskM1,"ax",%progbits
- 714              		.align	1
- 715              		.p2align 2,,3
- 716              		.weak	TSK_MediumFrequencyTaskM1
- 717              		.syntax unified
- 718              		.thumb
- 719              		.thumb_func
- 720              		.fpu fpv4-sp-d16
- 722              	TSK_MediumFrequencyTaskM1:
- 723              	.LFB1869:
+ 649              	.L27:
+ 650 006a 00BF     		.align	2
+ 651              	.L26:
+ 652 006c 00000000 		.word	FOCVars
+ 653 0070 00000000 		.word	pSTC
+ 654 0074 00000000 		.word	pFF
+ 655              		.cfi_endproc
+ 656              	.LFE1872:
+ 658              		.section	.text.TSK_MediumFrequencyTaskM1,"ax",%progbits
+ 659              		.align	1
+ 660              		.weak	TSK_MediumFrequencyTaskM1
+ 661              		.syntax unified
+ 662              		.thumb
+ 663              		.thumb_func
+ 664              		.fpu fpv4-sp-d16
+ 666              	TSK_MediumFrequencyTaskM1:
+ 667              	.LFB1869:
  201:Src/mc_tasks_foc.c ****   /* USER CODE BEGIN MediumFrequencyTask M1 0 */
- 724              		.loc 1 201 1 is_stmt 1 view -0
- 725              		.cfi_startproc
- 726              		@ args = 0, pretend = 0, frame = 8
- 727              		@ frame_needed = 0, uses_anonymous_args = 0
+ 668              		.loc 1 201 1 is_stmt 1 view -0
+ 669              		.cfi_startproc
+ 670              		@ args = 0, pretend = 0, frame = 16
+ 671              		@ frame_needed = 0, uses_anonymous_args = 0
+ 672 0000 70B5     		push	{r4, r5, r6, lr}
+ 673              	.LCFI11:
+ 674              		.cfi_def_cfa_offset 16
+ 675              		.cfi_offset 4, -16
+ 676              		.cfi_offset 5, -12
+ 677              		.cfi_offset 6, -8
+ 678              		.cfi_offset 14, -4
+ 679 0002 84B0     		sub	sp, sp, #16
+ 680              	.LCFI12:
+ 681              		.cfi_def_cfa_offset 32
  206:Src/mc_tasks_foc.c ****   bool IsSpeedReliable = STO_PLL_CalcAvrgMecSpeedUnit(&STO_PLL_M1, &wAux);
- 728              		.loc 1 206 3 view .LVU194
- 201:Src/mc_tasks_foc.c ****   /* USER CODE BEGIN MediumFrequencyTask M1 0 */
- 729              		.loc 1 201 1 is_stmt 0 view .LVU195
- 730 0000 F0B5     		push	{r4, r5, r6, r7, lr}
- 731              	.LCFI11:
- 732              		.cfi_def_cfa_offset 20
- 733              		.cfi_offset 4, -20
- 734              		.cfi_offset 5, -16
- 735              		.cfi_offset 6, -12
- 736              		.cfi_offset 7, -8
- 737              		.cfi_offset 14, -4
- 738 0002 83B0     		sub	sp, sp, #12
- 739              	.LCFI12:
- 740              		.cfi_def_cfa_offset 32
+ 682              		.loc 1 206 3 view .LVU156
  206:Src/mc_tasks_foc.c ****   bool IsSpeedReliable = STO_PLL_CalcAvrgMecSpeedUnit(&STO_PLL_M1, &wAux);
- 741              		.loc 1 206 11 view .LVU196
- 742 0004 0023     		movs	r3, #0
+ 683              		.loc 1 206 11 is_stmt 0 view .LVU157
+ 684 0004 0023     		movs	r3, #0
+ 685 0006 ADF80E30 		strh	r3, [sp, #14]	@ movhi
  207:Src/mc_tasks_foc.c ****   PQD_CalcElMotorPower(pMPM[M1]);
- 743              		.loc 1 207 26 view .LVU197
- 744 0006 6946     		mov	r1, sp
- 745 0008 BC48     		ldr	r0, .L101
- 206:Src/mc_tasks_foc.c ****   bool IsSpeedReliable = STO_PLL_CalcAvrgMecSpeedUnit(&STO_PLL_M1, &wAux);
- 746              		.loc 1 206 11 view .LVU198
- 747 000a ADF80030 		strh	r3, [sp]	@ movhi
+ 686              		.loc 1 207 3 is_stmt 1 view .LVU158
  207:Src/mc_tasks_foc.c ****   PQD_CalcElMotorPower(pMPM[M1]);
- 748              		.loc 1 207 3 is_stmt 1 view .LVU199
- 207:Src/mc_tasks_foc.c ****   PQD_CalcElMotorPower(pMPM[M1]);
- 749              		.loc 1 207 26 is_stmt 0 view .LVU200
- 750 000e FFF7FEFF 		bl	STO_PLL_CalcAvrgMecSpeedUnit
- 751              	.LVL45:
+ 687              		.loc 1 207 26 is_stmt 0 view .LVU159
+ 688 000a 0DF10E01 		add	r1, sp, #14
+ 689 000e B348     		ldr	r0, .L68
+ 690 0010 FFF7FEFF 		bl	STO_PLL_CalcAvrgMecSpeedUnit
+ 691              	.LVL47:
+ 692 0014 0446     		mov	r4, r0
+ 693              	.LVL48:
  208:Src/mc_tasks_foc.c **** 
- 752              		.loc 1 208 3 view .LVU201
- 753 0012 BB4B     		ldr	r3, .L101+4
+ 694              		.loc 1 208 3 is_stmt 1 view .LVU160
+ 695 0016 B24B     		ldr	r3, .L68+4
+ 696 0018 1868     		ldr	r0, [r3]
+ 697 001a FFF7FEFF 		bl	PQD_CalcElMotorPower
+ 698              	.LVL49:
  210:Src/mc_tasks_foc.c ****   {
- 754              		.loc 1 210 7 view .LVU202
- 755 0014 BB4C     		ldr	r4, .L101+8
- 207:Src/mc_tasks_foc.c ****   PQD_CalcElMotorPower(pMPM[M1]);
- 756              		.loc 1 207 26 view .LVU203
- 757 0016 0546     		mov	r5, r0
- 208:Src/mc_tasks_foc.c **** 
-ARM GAS  /tmp/ccKJN1Nl.s 			page 32
+ 699              		.loc 1 210 3 view .LVU161
+ 210:Src/mc_tasks_foc.c ****   {
+ARM GAS  /tmp/cccnQOYj.s 			page 30
 
 
- 758              		.loc 1 208 3 view .LVU204
- 759 0018 1868     		ldr	r0, [r3]
- 760              	.LVL46:
- 208:Src/mc_tasks_foc.c **** 
- 761              		.loc 1 208 3 is_stmt 1 view .LVU205
- 762 001a FFF7FEFF 		bl	PQD_CalcElMotorPower
- 763              	.LVL47:
+ 700              		.loc 1 210 7 is_stmt 0 view .LVU162
+ 701 001e B148     		ldr	r0, .L68+8
+ 702 0020 FFF7FEFF 		bl	MCI_GetCurrentFaults
+ 703              	.LVL50:
  210:Src/mc_tasks_foc.c ****   {
- 764              		.loc 1 210 3 view .LVU206
- 210:Src/mc_tasks_foc.c ****   {
- 765              		.loc 1 210 7 is_stmt 0 view .LVU207
- 766 001e 2046     		mov	r0, r4
- 767 0020 FFF7FEFF 		bl	MCI_GetCurrentFaults
- 768              	.LVL48:
- 210:Src/mc_tasks_foc.c ****   {
- 769              		.loc 1 210 6 view .LVU208
- 770 0024 30B1     		cbz	r0, .L96
+ 704              		.loc 1 210 6 view .LVU163
+ 705 0024 38B1     		cbz	r0, .L58
  516:Src/mc_tasks_foc.c ****   }
- 771              		.loc 1 516 5 is_stmt 1 view .LVU209
+ 706              		.loc 1 516 5 is_stmt 1 view .LVU164
  516:Src/mc_tasks_foc.c ****   }
- 772              		.loc 1 516 19 is_stmt 0 view .LVU210
- 773 0026 0A23     		movs	r3, #10
- 774 0028 E377     		strb	r3, [r4, #31]
- 775              	.LVL49:
- 776              	.L40:
+ 707              		.loc 1 516 19 is_stmt 0 view .LVU165
+ 708 0026 AF4B     		ldr	r3, .L68+8
+ 709 0028 0A22     		movs	r2, #10
+ 710 002a DA77     		strb	r2, [r3, #31]
+ 711              	.LVL51:
+ 712              	.L31:
  518:Src/mc_tasks_foc.c ****   /* USER CODE BEGIN MediumFrequencyTask M1 6 */
- 777              		.loc 1 518 3 is_stmt 1 view .LVU211
- 778 002a B748     		ldr	r0, .L101+12
- 779 002c FFF7FEFF 		bl	SCC_MF
- 780              	.LVL50:
+ 713              		.loc 1 518 3 is_stmt 1 view .LVU166
+ 714 002c AE48     		ldr	r0, .L68+12
+ 715 002e FFF7FEFF 		bl	SCC_MF
+ 716              	.LVL52:
  522:Src/mc_tasks_foc.c **** 
- 781              		.loc 1 522 1 is_stmt 0 view .LVU212
- 782 0030 03B0     		add	sp, sp, #12
- 783              	.LCFI13:
- 784              		.cfi_remember_state
- 785              		.cfi_def_cfa_offset 20
- 786              		@ sp needed
- 787 0032 F0BD     		pop	{r4, r5, r6, r7, pc}
- 788              	.LVL51:
- 789              	.L96:
- 790              	.LCFI14:
- 791              		.cfi_restore_state
+ 717              		.loc 1 522 1 is_stmt 0 view .LVU167
+ 718 0032 04B0     		add	sp, sp, #16
+ 719              	.LCFI13:
+ 720              		.cfi_remember_state
+ 721              		.cfi_def_cfa_offset 16
+ 722              		@ sp needed
+ 723 0034 70BD     		pop	{r4, r5, r6, pc}
+ 724              	.LVL53:
+ 725              	.L58:
+ 726              	.LCFI14:
+ 727              		.cfi_restore_state
  212:Src/mc_tasks_foc.c ****     {
- 792              		.loc 1 212 5 is_stmt 1 view .LVU213
+ 728              		.loc 1 212 5 is_stmt 1 view .LVU168
  212:Src/mc_tasks_foc.c ****     {
- 793              		.loc 1 212 9 is_stmt 0 view .LVU214
- 794 0034 2046     		mov	r0, r4
- 795 0036 FFF7FEFF 		bl	MCI_GetOccurredFaults
- 796              	.LVL52:
+ 729              		.loc 1 212 9 is_stmt 0 view .LVU169
+ 730 0036 AB48     		ldr	r0, .L68+8
+ 731 0038 FFF7FEFF 		bl	MCI_GetOccurredFaults
+ 732              	.LVL54:
  212:Src/mc_tasks_foc.c ****     {
- 797              		.loc 1 212 8 view .LVU215
- 798 003a 78BB     		cbnz	r0, .L39
+ 733              		.loc 1 212 8 view .LVU170
+ 734 003c 0028     		cmp	r0, #0
+ 735 003e 40F0AE81 		bne	.L30
  214:Src/mc_tasks_foc.c ****       {
- 799              		.loc 1 214 7 is_stmt 1 view .LVU216
- 800 003c E37F     		ldrb	r3, [r4, #31]	@ zero_extendqisi2
- 801 003e 142B     		cmp	r3, #20
- 802 0040 F3D8     		bhi	.L40
-ARM GAS  /tmp/ccKJN1Nl.s 			page 33
+ 736              		.loc 1 214 7 is_stmt 1 view .LVU171
+ 214:Src/mc_tasks_foc.c ****       {
+ 737              		.loc 1 214 22 is_stmt 0 view .LVU172
+ 738 0042 A84B     		ldr	r3, .L68+8
+ 739 0044 DB7F     		ldrb	r3, [r3, #31]	@ zero_extendqisi2
+ 740 0046 142B     		cmp	r3, #20
+ 741 0048 F0D8     		bhi	.L31
+ 742 004a 01A2     		adr	r2, .L33
+ 743 004c 52F823F0 		ldr	pc, [r2, r3, lsl #2]
+ 744              		.p2align 2
+ 745              	.L33:
+ 746 0050 A5000000 		.word	.L42+1
+ARM GAS  /tmp/cccnQOYj.s 			page 31
 
 
- 803 0042 01A2     		adr	r2, .L42
- 804 0044 52F823F0 		ldr	pc, [r2, r3, lsl #2]
- 805              		.p2align 2
- 806              	.L42:
- 807 0048 97020000 		.word	.L51+1
- 808 004c 2B000000 		.word	.L40+1
- 809 0050 2B000000 		.word	.L40+1
- 810 0054 2B000000 		.word	.L40+1
- 811 0058 FD010000 		.word	.L50+1
- 812 005c 2B000000 		.word	.L40+1
- 813 0060 79020000 		.word	.L49+1
- 814 0064 2B000000 		.word	.L40+1
- 815 0068 55010000 		.word	.L48+1
- 816 006c 2B000000 		.word	.L40+1
- 817 0070 9D000000 		.word	.L39+1
- 818 0074 CB010000 		.word	.L46+1
- 819 0078 2B000000 		.word	.L40+1
- 820 007c 2B000000 		.word	.L40+1
- 821 0080 2B000000 		.word	.L40+1
- 822 0084 2B000000 		.word	.L40+1
- 823 0088 75010000 		.word	.L45+1
- 824 008c D9010000 		.word	.L44+1
- 825 0090 2B000000 		.word	.L40+1
- 826 0094 F1000000 		.word	.L43+1
- 827 0098 AB000000 		.word	.L41+1
- 828              		.p2align 1
- 829              	.L39:
- 511:Src/mc_tasks_foc.c ****     }
- 830              		.loc 1 511 7 view .LVU217
- 511:Src/mc_tasks_foc.c ****     }
- 831              		.loc 1 511 21 is_stmt 0 view .LVU218
- 832 009c 0B23     		movs	r3, #11
- 518:Src/mc_tasks_foc.c ****   /* USER CODE BEGIN MediumFrequencyTask M1 6 */
- 833              		.loc 1 518 3 view .LVU219
- 834 009e 9A48     		ldr	r0, .L101+12
- 511:Src/mc_tasks_foc.c ****     }
- 835              		.loc 1 511 21 view .LVU220
- 836 00a0 E377     		strb	r3, [r4, #31]
- 518:Src/mc_tasks_foc.c ****   /* USER CODE BEGIN MediumFrequencyTask M1 6 */
- 837              		.loc 1 518 3 is_stmt 1 view .LVU221
- 838 00a2 FFF7FEFF 		bl	SCC_MF
- 839              	.LVL53:
- 522:Src/mc_tasks_foc.c **** 
- 840              		.loc 1 522 1 is_stmt 0 view .LVU222
- 841 00a6 03B0     		add	sp, sp, #12
- 842              	.LCFI15:
- 843              		.cfi_remember_state
- 844              		.cfi_def_cfa_offset 20
- 845              		@ sp needed
- 846 00a8 F0BD     		pop	{r4, r5, r6, r7, pc}
- 847              	.LVL54:
- 848              	.L41:
- 849              	.LCFI16:
- 850              		.cfi_restore_state
- 476:Src/mc_tasks_foc.c ****           {
- 851              		.loc 1 476 11 is_stmt 1 view .LVU223
- 476:Src/mc_tasks_foc.c ****           {
-ARM GAS  /tmp/ccKJN1Nl.s 			page 34
+ 747 0054 2D000000 		.word	.L31+1
+ 748 0058 2D000000 		.word	.L31+1
+ 749 005c 2D000000 		.word	.L31+1
+ 750 0060 9D010000 		.word	.L41+1
+ 751 0064 2D000000 		.word	.L31+1
+ 752 0068 AB020000 		.word	.L40+1
+ 753 006c 2D000000 		.word	.L31+1
+ 754 0070 0D030000 		.word	.L39+1
+ 755 0074 2D000000 		.word	.L31+1
+ 756 0078 47030000 		.word	.L38+1
+ 757 007c 33030000 		.word	.L37+1
+ 758 0080 2D000000 		.word	.L31+1
+ 759 0084 2D000000 		.word	.L31+1
+ 760 0088 2D000000 		.word	.L31+1
+ 761 008c 2D000000 		.word	.L31+1
+ 762 0090 3D010000 		.word	.L36+1
+ 763 0094 FF000000 		.word	.L35+1
+ 764 0098 2D000000 		.word	.L31+1
+ 765 009c 37020000 		.word	.L34+1
+ 766 00a0 4F030000 		.word	.L32+1
+ 767              		.p2align 1
+ 768              	.L42:
+ 219:Src/mc_tasks_foc.c ****           {
+ 769              		.loc 1 219 11 is_stmt 1 view .LVU173
+ 219:Src/mc_tasks_foc.c ****           {
+ 770              		.loc 1 219 36 is_stmt 0 view .LVU174
+ 771 00a4 8F4B     		ldr	r3, .L68+8
+ 219:Src/mc_tasks_foc.c ****           {
+ 772              		.loc 1 219 14 view .LVU175
+ 773 00a6 9B7F     		ldrb	r3, [r3, #30]	@ zero_extendqisi2
+ 774 00a8 03F0FD03 		and	r3, r3, #253
+ 775 00ac 012B     		cmp	r3, #1
+ 776 00ae BDD1     		bne	.L31
+ 221:Src/mc_tasks_foc.c ****             if (pwmcHandle[M1]->offsetCalibStatus == false)
+ 777              		.loc 1 221 15 is_stmt 1 view .LVU176
+ 778 00b0 8C48     		ldr	r0, .L68+8
+ 779 00b2 FFF7FEFF 		bl	MCI_GetImposedMotorDirection
+ 780              	.LVL55:
+ 781 00b6 0146     		mov	r1, r0
+ 782 00b8 8C48     		ldr	r0, .L68+16
+ 783 00ba FFF7FEFF 		bl	RUC_Clear
+ 784              	.LVL56:
+ 222:Src/mc_tasks_foc.c ****             {
+ 785              		.loc 1 222 13 view .LVU177
+ 222:Src/mc_tasks_foc.c ****             {
+ 786              		.loc 1 222 27 is_stmt 0 view .LVU178
+ 787 00be 8C4B     		ldr	r3, .L68+20
+ 788 00c0 1868     		ldr	r0, [r3]
+ 222:Src/mc_tasks_foc.c ****             {
+ 789              		.loc 1 222 16 view .LVU179
+ 790 00c2 90F87F30 		ldrb	r3, [r0, #127]	@ zero_extendqisi2
+ 791 00c6 4BB9     		cbnz	r3, .L43
+ 224:Src/mc_tasks_foc.c ****               Mci[M1].State = OFFSET_CALIB;
+ 792              		.loc 1 224 15 is_stmt 1 view .LVU180
+ 224:Src/mc_tasks_foc.c ****               Mci[M1].State = OFFSET_CALIB;
+ 793              		.loc 1 224 21 is_stmt 0 view .LVU181
+ 794 00c8 0021     		movs	r1, #0
+ARM GAS  /tmp/cccnQOYj.s 			page 32
 
 
- 852              		.loc 1 476 14 is_stmt 0 view .LVU224
- 853 00aa A37F     		ldrb	r3, [r4, #30]	@ zero_extendqisi2
- 854 00ac 052B     		cmp	r3, #5
- 855 00ae 00F00D81 		beq	.L58
- 482:Src/mc_tasks_foc.c ****             {
- 856              		.loc 1 482 13 is_stmt 1 view .LVU225
- 482:Src/mc_tasks_foc.c ****             {
- 857              		.loc 1 482 22 is_stmt 0 view .LVU226
- 858 00b2 9548     		ldr	r0, .L101+12
- 859 00b4 FFF7FEFF 		bl	SCC_DetectBemf
- 860              	.LVL55:
- 482:Src/mc_tasks_foc.c ****             {
- 861              		.loc 1 482 16 view .LVU227
- 862 00b8 0546     		mov	r5, r0
- 863              	.LVL56:
- 482:Src/mc_tasks_foc.c ****             {
- 864              		.loc 1 482 16 view .LVU228
- 865 00ba 0028     		cmp	r0, #0
- 866 00bc B5D1     		bne	.L40
- 485:Src/mc_tasks_foc.c ****               STC_SetSpeedSensor(pSTC[M1], &VirtualSpeedSensorM1._Super);
- 867              		.loc 1 485 15 is_stmt 1 view .LVU229
- 486:Src/mc_tasks_foc.c ****                STO_PLL_Clear(&STO_PLL_M1);
- 868              		.loc 1 486 15 is_stmt 0 view .LVU230
- 869 00be 934A     		ldr	r2, .L101+16
- 485:Src/mc_tasks_foc.c ****               STC_SetSpeedSensor(pSTC[M1], &VirtualSpeedSensorM1._Super);
- 870              		.loc 1 485 39 view .LVU231
- 871 00c0 934B     		ldr	r3, .L101+20
- 486:Src/mc_tasks_foc.c ****                STO_PLL_Clear(&STO_PLL_M1);
- 872              		.loc 1 486 15 view .LVU232
- 873 00c2 1068     		ldr	r0, [r2]
- 874 00c4 9349     		ldr	r1, .L101+24
- 485:Src/mc_tasks_foc.c ****               STC_SetSpeedSensor(pSTC[M1], &VirtualSpeedSensorM1._Super);
- 875              		.loc 1 485 39 view .LVU233
- 876 00c6 0122     		movs	r2, #1
- 877 00c8 83F82420 		strb	r2, [r3, #36]
- 486:Src/mc_tasks_foc.c ****                STO_PLL_Clear(&STO_PLL_M1);
- 878              		.loc 1 486 15 is_stmt 1 view .LVU234
- 879 00cc FFF7FEFF 		bl	STC_SetSpeedSensor
- 880              	.LVL57:
- 487:Src/mc_tasks_foc.c ****               FOC_Clear(M1);
- 881              		.loc 1 487 16 view .LVU235
- 882 00d0 8A48     		ldr	r0, .L101
- 883 00d2 FFF7FEFF 		bl	STO_PLL_Clear
- 884              	.LVL58:
- 488:Src/mc_tasks_foc.c ****               SCC_Start(&SCC);
- 885              		.loc 1 488 15 view .LVU236
- 886 00d6 2846     		mov	r0, r5
- 887 00d8 FFF7FEFF 		bl	FOC_Clear
- 888              	.LVL59:
- 489:Src/mc_tasks_foc.c ****               /* The generic function needs to be called here as the undelying
- 889              		.loc 1 489 15 view .LVU237
- 890 00dc 8A48     		ldr	r0, .L101+12
- 891 00de FFF7FEFF 		bl	SCC_Start
- 892              	.LVL60:
- 494:Src/mc_tasks_foc.c ****               Mci[M1].State = START;
- 893              		.loc 1 494 15 view .LVU238
- 894 00e2 8D4B     		ldr	r3, .L101+28
-ARM GAS  /tmp/ccKJN1Nl.s 			page 35
+ 795 00ca FFF7FEFF 		bl	PWMC_CurrentReadingCalibr
+ 796              	.LVL57:
+ 225:Src/mc_tasks_foc.c ****             }
+ 797              		.loc 1 225 15 is_stmt 1 view .LVU182
+ 225:Src/mc_tasks_foc.c ****             }
+ 798              		.loc 1 225 29 is_stmt 0 view .LVU183
+ 799 00ce 854B     		ldr	r3, .L68+8
+ 800 00d0 1122     		movs	r2, #17
+ 801 00d2 DA77     		strb	r2, [r3, #31]
+ 802              	.L44:
+ 236:Src/mc_tasks_foc.c ****           }
+ 803              		.loc 1 236 13 is_stmt 1 view .LVU184
+ 804 00d4 8748     		ldr	r0, .L68+24
+ 805 00d6 FFF7FEFF 		bl	OTT_Clear
+ 806              	.LVL58:
+ 807 00da A7E7     		b	.L31
+ 808              	.L43:
+ 230:Src/mc_tasks_foc.c ****               (void)PWMC_CurrentReadingCalibr(pwmcHandle[M1], CRC_EXEC);
+ 809              		.loc 1 230 15 view .LVU185
+ 230:Src/mc_tasks_foc.c ****               (void)PWMC_CurrentReadingCalibr(pwmcHandle[M1], CRC_EXEC);
+ 810              		.loc 1 230 56 is_stmt 0 view .LVU186
+ 811 00dc 0121     		movs	r1, #1
+ 812 00de A0F86010 		strh	r1, [r0, #96]	@ movhi
+ 231:Src/mc_tasks_foc.c ****               R3_2_TurnOnLowSides(pwmcHandle[M1],M1_CHARGE_BOOT_CAP_DUTY_CYCLES);
+ 813              		.loc 1 231 15 is_stmt 1 view .LVU187
+ 231:Src/mc_tasks_foc.c ****               R3_2_TurnOnLowSides(pwmcHandle[M1],M1_CHARGE_BOOT_CAP_DUTY_CYCLES);
+ 814              		.loc 1 231 21 is_stmt 0 view .LVU188
+ 815 00e2 FFF7FEFF 		bl	PWMC_CurrentReadingCalibr
+ 816              	.LVL59:
+ 232:Src/mc_tasks_foc.c ****               TSK_SetChargeBootCapDelayM1(M1_CHARGE_BOOT_CAP_TICKS);
+ 817              		.loc 1 232 15 is_stmt 1 view .LVU189
+ 818 00e6 0021     		movs	r1, #0
+ 819 00e8 814B     		ldr	r3, .L68+20
+ 820 00ea 1868     		ldr	r0, [r3]
+ 821 00ec FFF7FEFF 		bl	R3_2_TurnOnLowSides
+ 822              	.LVL60:
+ 233:Src/mc_tasks_foc.c ****               Mci[M1].State = CHARGE_BOOT_CAP;
+ 823              		.loc 1 233 15 view .LVU190
+ 824 00f0 1420     		movs	r0, #20
+ 825 00f2 FFF7FEFF 		bl	TSK_SetChargeBootCapDelayM1
+ 826              	.LVL61:
+ 234:Src/mc_tasks_foc.c ****             }
+ 827              		.loc 1 234 15 view .LVU191
+ 234:Src/mc_tasks_foc.c ****             }
+ 828              		.loc 1 234 29 is_stmt 0 view .LVU192
+ 829 00f6 7B4B     		ldr	r3, .L68+8
+ 830 00f8 1022     		movs	r2, #16
+ 831 00fa DA77     		strb	r2, [r3, #31]
+ 832 00fc EAE7     		b	.L44
+ 833              	.L35:
+ 247:Src/mc_tasks_foc.c ****           {
+ 834              		.loc 1 247 11 is_stmt 1 view .LVU193
+ 247:Src/mc_tasks_foc.c ****           {
+ 835              		.loc 1 247 34 is_stmt 0 view .LVU194
+ 836 00fe 794B     		ldr	r3, .L68+8
+ 247:Src/mc_tasks_foc.c ****           {
+ 837              		.loc 1 247 14 view .LVU195
+ARM GAS  /tmp/cccnQOYj.s 			page 33
 
 
- 895 00e4 1868     		ldr	r0, [r3]
- 896 00e6 FFF7FEFF 		bl	PWMC_SwitchOnPWM
- 897              	.LVL61:
- 495:Src/mc_tasks_foc.c ****             }
- 898              		.loc 1 495 15 view .LVU239
- 495:Src/mc_tasks_foc.c ****             }
- 899              		.loc 1 495 29 is_stmt 0 view .LVU240
- 900 00ea 0423     		movs	r3, #4
- 901 00ec E377     		strb	r3, [r4, #31]
- 902 00ee 9CE7     		b	.L40
- 903              	.LVL62:
- 904              	.L43:
- 363:Src/mc_tasks_foc.c ****           {
- 905              		.loc 1 363 11 is_stmt 1 view .LVU241
- 363:Src/mc_tasks_foc.c ****           {
- 906              		.loc 1 363 14 is_stmt 0 view .LVU242
- 907 00f0 A37F     		ldrb	r3, [r4, #30]	@ zero_extendqisi2
- 908 00f2 052B     		cmp	r3, #5
- 909 00f4 00F0EA80 		beq	.L58
- 910              	.LBB50:
- 369:Src/mc_tasks_foc.c ****             int16_t hForcedMecSpeedUnit;
- 911              		.loc 1 369 13 is_stmt 1 view .LVU243
- 370:Src/mc_tasks_foc.c **** 
- 912              		.loc 1 370 13 view .LVU244
- 374:Src/mc_tasks_foc.c ****               /* Check if the transition ramp has completed. */
- 913              		.loc 1 374 15 view .LVU245
- 374:Src/mc_tasks_foc.c ****               /* Check if the transition ramp has completed. */
- 914              		.loc 1 374 28 is_stmt 0 view .LVU246
- 915 00f8 8648     		ldr	r0, .L101+24
- 916 00fa 01A9     		add	r1, sp, #4
- 917 00fc FFF7FEFF 		bl	VSS_CalcAvrgMecSpeedUnit
- 918              	.LVL63:
- 919 0100 0546     		mov	r5, r0
- 920              	.LVL64:
- 377:Src/mc_tasks_foc.c ****               LoopClosed = LoopClosed || tempBool;
- 921              		.loc 1 377 26 view .LVU247
- 922 0102 8448     		ldr	r0, .L101+24
- 923              	.LVL65:
- 376:Src/mc_tasks_foc.c ****               tempBool = VSS_TransitionEnded(&VirtualSpeedSensorM1);
- 924              		.loc 1 376 15 is_stmt 1 view .LVU248
- 377:Src/mc_tasks_foc.c ****               LoopClosed = LoopClosed || tempBool;
- 925              		.loc 1 377 15 view .LVU249
- 377:Src/mc_tasks_foc.c ****               LoopClosed = LoopClosed || tempBool;
- 926              		.loc 1 377 26 is_stmt 0 view .LVU250
- 927 0104 FFF7FEFF 		bl	VSS_TransitionEnded
- 928              	.LVL66:
- 378:Src/mc_tasks_foc.c **** 
- 929              		.loc 1 378 15 is_stmt 1 view .LVU251
- 378:Src/mc_tasks_foc.c **** 
- 930              		.loc 1 378 39 is_stmt 0 view .LVU252
- 931 0108 002D     		cmp	r5, #0
- 932 010a 00F0F380 		beq	.L97
- 933              	.L61:
- 934              	.LVL67:
- 382:Src/mc_tasks_foc.c ****               {
- 935              		.loc 1 382 15 is_stmt 1 view .LVU253
- 387:Src/mc_tasks_foc.c ****                                     (((int32_t)FOCVars[M1].Iqdref.q * (int16_t)PID_GetKIDivisor(&PI
-ARM GAS  /tmp/ccKJN1Nl.s 			page 36
+ 838 0100 9B7F     		ldrb	r3, [r3, #30]	@ zero_extendqisi2
+ 839 0102 052B     		cmp	r3, #5
+ 840 0104 0ED0     		beq	.L59
+ 253:Src/mc_tasks_foc.c ****             {
+ 841              		.loc 1 253 13 is_stmt 1 view .LVU196
+ 253:Src/mc_tasks_foc.c ****             {
+ 842              		.loc 1 253 17 is_stmt 0 view .LVU197
+ 843 0106 0121     		movs	r1, #1
+ 844 0108 794B     		ldr	r3, .L68+20
+ 845 010a 1868     		ldr	r0, [r3]
+ 846 010c FFF7FEFF 		bl	PWMC_CurrentReadingCalibr
+ 847              	.LVL62:
+ 253:Src/mc_tasks_foc.c ****             {
+ 848              		.loc 1 253 16 view .LVU198
+ 849 0110 0028     		cmp	r0, #0
+ 850 0112 8BD0     		beq	.L31
+ 255:Src/mc_tasks_foc.c ****               {
+ 851              		.loc 1 255 15 is_stmt 1 view .LVU199
+ 255:Src/mc_tasks_foc.c ****               {
+ 852              		.loc 1 255 49 is_stmt 0 view .LVU200
+ 853 0114 734B     		ldr	r3, .L68+8
+ 255:Src/mc_tasks_foc.c ****               {
+ 854              		.loc 1 255 18 view .LVU201
+ 855 0116 9B7F     		ldrb	r3, [r3, #30]	@ zero_extendqisi2
+ 856 0118 032B     		cmp	r3, #3
+ 857 011a 07D0     		beq	.L60
+ 263:Src/mc_tasks_foc.c ****               }
+ 858              		.loc 1 263 17 is_stmt 1 view .LVU202
+ 263:Src/mc_tasks_foc.c ****               }
+ 859              		.loc 1 263 31 is_stmt 0 view .LVU203
+ 860 011c 714B     		ldr	r3, .L68+8
+ 861 011e 1422     		movs	r2, #20
+ 862 0120 DA77     		strb	r2, [r3, #31]
+ 863 0122 83E7     		b	.L31
+ 864              	.L59:
+ 249:Src/mc_tasks_foc.c ****           }
+ 865              		.loc 1 249 13 is_stmt 1 view .LVU204
+ 866 0124 0020     		movs	r0, #0
+ 867 0126 FFF7FEFF 		bl	TSK_MF_StopProcessing
+ 868              	.LVL63:
+ 869 012a 7FE7     		b	.L31
+ 870              	.L60:
+ 257:Src/mc_tasks_foc.c ****                 Mci[M1].DirectCommand = MCI_NO_COMMAND;
+ 871              		.loc 1 257 17 view .LVU205
+ 872 012c 0020     		movs	r0, #0
+ 873 012e FFF7FEFF 		bl	FOC_Clear
+ 874              	.LVL64:
+ 258:Src/mc_tasks_foc.c ****                 Mci[M1].State = IDLE;
+ 875              		.loc 1 258 17 view .LVU206
+ 258:Src/mc_tasks_foc.c ****                 Mci[M1].State = IDLE;
+ 876              		.loc 1 258 39 is_stmt 0 view .LVU207
+ 877 0132 6C4B     		ldr	r3, .L68+8
+ 878 0134 0022     		movs	r2, #0
+ 879 0136 9A77     		strb	r2, [r3, #30]
+ 259:Src/mc_tasks_foc.c ****               }
+ 880              		.loc 1 259 17 is_stmt 1 view .LVU208
+ 259:Src/mc_tasks_foc.c ****               }
+ARM GAS  /tmp/cccnQOYj.s 			page 34
 
 
- 936              		.loc 1 387 17 view .LVU254
- 388:Src/mc_tasks_foc.c ****                                     / PID_SPEED_INTEGRAL_INIT_DIV));
- 937              		.loc 1 388 66 is_stmt 0 view .LVU255
- 938 010e 804B     		ldr	r3, .L101+20
- 388:Src/mc_tasks_foc.c ****                                     / PID_SPEED_INTEGRAL_INIT_DIV));
- 939              		.loc 1 388 80 view .LVU256
- 940 0110 8248     		ldr	r0, .L101+32
- 941              	.LVL68:
- 388:Src/mc_tasks_foc.c ****                                     / PID_SPEED_INTEGRAL_INIT_DIV));
- 942              		.loc 1 388 66 view .LVU257
- 943 0112 B3F91050 		ldrsh	r5, [r3, #16]
- 388:Src/mc_tasks_foc.c ****                                     / PID_SPEED_INTEGRAL_INIT_DIV));
- 944              		.loc 1 388 80 view .LVU258
- 945 0116 FFF7FEFF 		bl	PID_GetKIDivisor
- 946              	.LVL69:
- 387:Src/mc_tasks_foc.c ****                                     (((int32_t)FOCVars[M1].Iqdref.q * (int16_t)PID_GetKIDivisor(&PI
- 947              		.loc 1 387 17 view .LVU259
- 948 011a 00B2     		sxth	r0, r0
- 949 011c 00FB05F1 		mul	r1, r0, r5
- 950 0120 7E48     		ldr	r0, .L101+32
- 395:Src/mc_tasks_foc.c ****                 FOC_InitAdditionalMethods(M1);
- 951              		.loc 1 395 17 view .LVU260
- 952 0122 7A4D     		ldr	r5, .L101+16
- 387:Src/mc_tasks_foc.c ****                                     (((int32_t)FOCVars[M1].Iqdref.q * (int16_t)PID_GetKIDivisor(&PI
- 953              		.loc 1 387 17 view .LVU261
- 954 0124 FFF7FEFF 		bl	PID_SetIntegralTerm
- 955              	.LVL70:
- 391:Src/mc_tasks_foc.c ****                 /* USER CODE BEGIN MediumFrequencyTask M1 1 */
- 956              		.loc 1 391 17 is_stmt 1 view .LVU262
- 957 0128 7D48     		ldr	r0, .L101+36
- 958 012a FFF7FEFF 		bl	OTT_SR
- 959              	.LVL71:
- 395:Src/mc_tasks_foc.c ****                 FOC_InitAdditionalMethods(M1);
- 960              		.loc 1 395 17 view .LVU263
- 961 012e 7349     		ldr	r1, .L101
- 962 0130 2868     		ldr	r0, [r5]
- 963 0132 FFF7FEFF 		bl	STC_SetSpeedSensor
- 964              	.LVL72:
- 396:Src/mc_tasks_foc.c ****                 FOC_CalcCurrRef(M1);
- 965              		.loc 1 396 17 view .LVU264
- 966 0136 0020     		movs	r0, #0
- 967 0138 FFF7FEFF 		bl	FOC_InitAdditionalMethods
- 968              	.LVL73:
- 397:Src/mc_tasks_foc.c ****                 STC_ForceSpeedReferenceToCurrentSpeed(pSTC[M1]); /* Init the reference speed to cur
- 969              		.loc 1 397 17 view .LVU265
- 970 013c 0020     		movs	r0, #0
- 971 013e FFF7FEFF 		bl	FOC_CalcCurrRef
- 972              	.LVL74:
- 398:Src/mc_tasks_foc.c ****                 MCI_ExecBufferedCommands(&Mci[M1]); /* Exec the speed ramp after changing of the sp
- 973              		.loc 1 398 17 view .LVU266
- 974 0142 2868     		ldr	r0, [r5]
- 975 0144 FFF7FEFF 		bl	STC_ForceSpeedReferenceToCurrentSpeed
- 976              	.LVL75:
- 399:Src/mc_tasks_foc.c ****                 Mci[M1].State = RUN;
- 977              		.loc 1 399 17 view .LVU267
- 978 0148 6E48     		ldr	r0, .L101+8
- 979 014a FFF7FEFF 		bl	MCI_ExecBufferedCommands
-ARM GAS  /tmp/ccKJN1Nl.s 			page 37
-
-
- 980              	.LVL76:
- 400:Src/mc_tasks_foc.c ****               }
- 981              		.loc 1 400 17 view .LVU268
- 400:Src/mc_tasks_foc.c ****               }
- 982              		.loc 1 400 31 is_stmt 0 view .LVU269
- 983 014e 0623     		movs	r3, #6
- 984 0150 E377     		strb	r3, [r4, #31]
- 985 0152 6AE7     		b	.L40
- 986              	.LVL77:
- 987              	.L48:
- 400:Src/mc_tasks_foc.c ****               }
- 988              		.loc 1 400 31 view .LVU270
- 989              	.LBE50:
- 436:Src/mc_tasks_foc.c ****           {
- 990              		.loc 1 436 11 is_stmt 1 view .LVU271
- 436:Src/mc_tasks_foc.c ****           {
- 991              		.loc 1 436 15 is_stmt 0 view .LVU272
- 992 0154 FFF7FEFF 		bl	TSK_StopPermanencyTimeHasElapsedM1
- 993              	.LVL78:
- 436:Src/mc_tasks_foc.c ****           {
- 994              		.loc 1 436 14 view .LVU273
- 995 0158 0028     		cmp	r0, #0
- 996 015a 3FF466AF 		beq	.L40
- 439:Src/mc_tasks_foc.c ****             VSS_Clear(&VirtualSpeedSensorM1); /* Reset measured speed in IDLE */
- 997              		.loc 1 439 13 is_stmt 1 view .LVU274
- 998 015e 6B4B     		ldr	r3, .L101+16
- 999 0160 6C49     		ldr	r1, .L101+24
- 1000 0162 1868     		ldr	r0, [r3]
- 1001 0164 FFF7FEFF 		bl	STC_SetSpeedSensor
- 1002              	.LVL79:
- 440:Src/mc_tasks_foc.c ****             /* USER CODE BEGIN MediumFrequencyTask M1 5 */
- 1003              		.loc 1 440 13 view .LVU275
- 1004 0168 6A48     		ldr	r0, .L101+24
- 1005 016a FFF7FEFF 		bl	VSS_Clear
- 1006              	.LVL80:
- 444:Src/mc_tasks_foc.c ****             Mci[M1].State = IDLE;
- 1007              		.loc 1 444 13 view .LVU276
- 445:Src/mc_tasks_foc.c ****           }
- 1008              		.loc 1 445 13 view .LVU277
- 444:Src/mc_tasks_foc.c ****             Mci[M1].State = IDLE;
- 1009              		.loc 1 444 35 is_stmt 0 view .LVU278
- 1010 016e 0023     		movs	r3, #0
- 1011 0170 E383     		strh	r3, [r4, #30]	@ movhi
- 1012 0172 5AE7     		b	.L40
- 1013              	.L45:
+ 881              		.loc 1 259 31 is_stmt 0 view .LVU209
+ 882 0138 DA77     		strb	r2, [r3, #31]
+ 883 013a 77E7     		b	.L31
+ 884              	.L36:
  276:Src/mc_tasks_foc.c ****           {
- 1014              		.loc 1 276 11 is_stmt 1 view .LVU279
+ 885              		.loc 1 276 11 is_stmt 1 view .LVU210
  276:Src/mc_tasks_foc.c ****           {
- 1015              		.loc 1 276 14 is_stmt 0 view .LVU280
- 1016 0174 A37F     		ldrb	r3, [r4, #30]	@ zero_extendqisi2
- 1017 0176 052B     		cmp	r3, #5
- 1018 0178 00F0A880 		beq	.L58
+ 886              		.loc 1 276 34 is_stmt 0 view .LVU211
+ 887 013c 694B     		ldr	r3, .L68+8
+ 276:Src/mc_tasks_foc.c ****           {
+ 888              		.loc 1 276 14 view .LVU212
+ 889 013e 9B7F     		ldrb	r3, [r3, #30]	@ zero_extendqisi2
+ 890 0140 052B     		cmp	r3, #5
+ 891 0142 27D0     		beq	.L61
  282:Src/mc_tasks_foc.c ****             {
- 1019              		.loc 1 282 13 is_stmt 1 view .LVU281
+ 892              		.loc 1 282 13 is_stmt 1 view .LVU213
  282:Src/mc_tasks_foc.c ****             {
- 1020              		.loc 1 282 17 is_stmt 0 view .LVU282
- 1021 017c FFF7FEFF 		bl	TSK_ChargeBootCapDelayHasElapsedM1
-ARM GAS  /tmp/ccKJN1Nl.s 			page 38
-
-
- 1022              	.LVL81:
+ 893              		.loc 1 282 17 is_stmt 0 view .LVU214
+ 894 0144 FFF7FEFF 		bl	TSK_ChargeBootCapDelayHasElapsedM1
+ 895              	.LVL65:
  282:Src/mc_tasks_foc.c ****             {
- 1023              		.loc 1 282 16 view .LVU283
- 1024 0180 0028     		cmp	r0, #0
- 1025 0182 3FF452AF 		beq	.L40
+ 896              		.loc 1 282 16 view .LVU215
+ 897 0148 0028     		cmp	r0, #0
+ 898 014a 3FF46FAF 		beq	.L31
  284:Src/mc_tasks_foc.c ****               FOCVars[M1].bDriveInput = EXTERNAL;
- 1026              		.loc 1 284 15 is_stmt 1 view .LVU284
- 1027 0186 644D     		ldr	r5, .L101+28
- 1028              	.LVL82:
+ 899              		.loc 1 284 15 is_stmt 1 view .LVU216
+ 900 014e 684C     		ldr	r4, .L68+20
+ 901              	.LVL66:
  284:Src/mc_tasks_foc.c ****               FOCVars[M1].bDriveInput = EXTERNAL;
- 1029              		.loc 1 284 15 is_stmt 0 view .LVU285
- 1030 0188 2868     		ldr	r0, [r5]
- 1031 018a FFF7FEFF 		bl	R3_2_SwitchOffPWM
- 1032              	.LVL83:
+ 902              		.loc 1 284 15 is_stmt 0 view .LVU217
+ 903 0150 2068     		ldr	r0, [r4]
+ 904 0152 FFF7FEFF 		bl	R3_2_SwitchOffPWM
+ 905              	.LVL67:
  285:Src/mc_tasks_foc.c ****               STC_SetSpeedSensor( pSTC[M1], &VirtualSpeedSensorM1._Super );
- 1033              		.loc 1 285 15 is_stmt 1 view .LVU286
- 286:Src/mc_tasks_foc.c **** 
- 1034              		.loc 1 286 15 is_stmt 0 view .LVU287
- 1035 018e 5F4A     		ldr	r2, .L101+16
+ 906              		.loc 1 285 15 is_stmt 1 view .LVU218
  285:Src/mc_tasks_foc.c ****               STC_SetSpeedSensor( pSTC[M1], &VirtualSpeedSensorM1._Super );
- 1036              		.loc 1 285 39 view .LVU288
- 1037 0190 5F4B     		ldr	r3, .L101+20
+ 907              		.loc 1 285 39 is_stmt 0 view .LVU219
+ 908 0156 684B     		ldr	r3, .L68+28
+ 909 0158 0122     		movs	r2, #1
+ 910 015a 83F82420 		strb	r2, [r3, #36]
  286:Src/mc_tasks_foc.c **** 
- 1038              		.loc 1 286 15 view .LVU289
- 1039 0192 1068     		ldr	r0, [r2]
- 1040 0194 5F49     		ldr	r1, .L101+24
- 285:Src/mc_tasks_foc.c ****               STC_SetSpeedSensor( pSTC[M1], &VirtualSpeedSensorM1._Super );
- 1041              		.loc 1 285 39 view .LVU290
- 1042 0196 0122     		movs	r2, #1
- 1043 0198 83F82420 		strb	r2, [r3, #36]
- 286:Src/mc_tasks_foc.c **** 
- 1044              		.loc 1 286 15 is_stmt 1 view .LVU291
- 1045 019c FFF7FEFF 		bl	STC_SetSpeedSensor
- 1046              	.LVL84:
+ 911              		.loc 1 286 15 is_stmt 1 view .LVU220
+ 912 015e 6749     		ldr	r1, .L68+32
+ 913 0160 674B     		ldr	r3, .L68+36
+ 914 0162 1868     		ldr	r0, [r3]
+ 915 0164 FFF7FEFF 		bl	STC_SetSpeedSensor
+ 916              	.LVL68:
  288:Src/mc_tasks_foc.c ****               PWMC_Clear(pwmcHandle[M1]);
- 1047              		.loc 1 288 15 view .LVU292
- 1048 01a0 5648     		ldr	r0, .L101
- 1049 01a2 FFF7FEFF 		bl	STO_PLL_Clear
- 1050              	.LVL85:
+ 917              		.loc 1 288 15 view .LVU221
+ 918 0168 5C48     		ldr	r0, .L68
+ 919 016a FFF7FEFF 		bl	STO_PLL_Clear
+ 920              	.LVL69:
  289:Src/mc_tasks_foc.c **** 
- 1051              		.loc 1 289 15 view .LVU293
- 1052 01a6 2868     		ldr	r0, [r5]
- 1053 01a8 FFF7FEFF 		bl	PWMC_Clear
- 1054              	.LVL86:
+ 921              		.loc 1 289 15 view .LVU222
+ 922 016e 2068     		ldr	r0, [r4]
+ 923 0170 FFF7FEFF 		bl	PWMC_Clear
+ 924              	.LVL70:
+ARM GAS  /tmp/cccnQOYj.s 			page 35
+
+
  291:Src/mc_tasks_foc.c **** 
- 1055              		.loc 1 291 15 view .LVU294
- 1056 01ac 0020     		movs	r0, #0
- 1057 01ae FFF7FEFF 		bl	FOC_Clear
- 1058              	.LVL87:
+ 925              		.loc 1 291 15 view .LVU223
+ 926 0174 0020     		movs	r0, #0
+ 927 0176 FFF7FEFF 		bl	FOC_Clear
+ 928              	.LVL71:
  293:Src/mc_tasks_foc.c ****               /* The generic function needs to be called here as the undelying
- 1059              		.loc 1 293 9 view .LVU295
- 1060 01b2 5548     		ldr	r0, .L101+12
- 1061 01b4 FFF7FEFF 		bl	SCC_Start
- 1062              	.LVL88:
+ 929              		.loc 1 293 9 view .LVU224
+ 930 017a 5B48     		ldr	r0, .L68+12
+ 931 017c FFF7FEFF 		bl	SCC_Start
+ 932              	.LVL72:
  298:Src/mc_tasks_foc.c ****               Mci[M1].State = START;
- 1063              		.loc 1 298 15 view .LVU296
- 1064 01b8 2868     		ldr	r0, [r5]
-ARM GAS  /tmp/ccKJN1Nl.s 			page 39
-
-
- 1065 01ba FFF7FEFF 		bl	PWMC_SwitchOnPWM
- 1066              	.LVL89:
+ 933              		.loc 1 298 15 view .LVU225
+ 934 0180 2068     		ldr	r0, [r4]
+ 935 0182 FFF7FEFF 		bl	PWMC_SwitchOnPWM
+ 936              	.LVL73:
  299:Src/mc_tasks_foc.c ****               PWMC_SwitchOnPWM(pwmcHandle[M1]);
- 1067              		.loc 1 299 15 view .LVU297
+ 937              		.loc 1 299 15 view .LVU226
  299:Src/mc_tasks_foc.c ****               PWMC_SwitchOnPWM(pwmcHandle[M1]);
- 1068              		.loc 1 299 29 is_stmt 0 view .LVU298
- 1069 01be 0423     		movs	r3, #4
+ 938              		.loc 1 299 29 is_stmt 0 view .LVU227
+ 939 0186 574B     		ldr	r3, .L68+8
+ 940 0188 0422     		movs	r2, #4
+ 941 018a DA77     		strb	r2, [r3, #31]
  300:Src/mc_tasks_foc.c ****             }
- 1070              		.loc 1 300 15 view .LVU299
- 1071 01c0 2868     		ldr	r0, [r5]
- 299:Src/mc_tasks_foc.c ****               PWMC_SwitchOnPWM(pwmcHandle[M1]);
- 1072              		.loc 1 299 29 view .LVU300
- 1073 01c2 E377     		strb	r3, [r4, #31]
- 300:Src/mc_tasks_foc.c ****             }
- 1074              		.loc 1 300 15 is_stmt 1 view .LVU301
- 1075 01c4 FFF7FEFF 		bl	PWMC_SwitchOnPWM
- 1076              	.LVL90:
- 1077 01c8 2FE7     		b	.L40
- 1078              	.LVL91:
- 1079              	.L46:
- 456:Src/mc_tasks_foc.c ****           {
- 1080              		.loc 1 456 11 view .LVU302
- 456:Src/mc_tasks_foc.c ****           {
- 1081              		.loc 1 456 14 is_stmt 0 view .LVU303
- 1082 01ca A37F     		ldrb	r3, [r4, #30]	@ zero_extendqisi2
- 1083 01cc 022B     		cmp	r3, #2
- 1084 01ce 7FF42CAF 		bne	.L40
- 458:Src/mc_tasks_foc.c ****             Mci[M1].State = IDLE;
- 1085              		.loc 1 458 13 is_stmt 1 view .LVU304
- 459:Src/mc_tasks_foc.c ****           }
- 1086              		.loc 1 459 13 view .LVU305
- 458:Src/mc_tasks_foc.c ****             Mci[M1].State = IDLE;
- 1087              		.loc 1 458 35 is_stmt 0 view .LVU306
- 1088 01d2 0023     		movs	r3, #0
- 1089 01d4 E383     		strh	r3, [r4, #30]	@ movhi
- 1090 01d6 28E7     		b	.L40
- 1091              	.L44:
- 247:Src/mc_tasks_foc.c ****           {
- 1092              		.loc 1 247 11 is_stmt 1 view .LVU307
- 247:Src/mc_tasks_foc.c ****           {
- 1093              		.loc 1 247 14 is_stmt 0 view .LVU308
- 1094 01d8 A37F     		ldrb	r3, [r4, #30]	@ zero_extendqisi2
- 1095 01da 052B     		cmp	r3, #5
- 1096 01dc 76D0     		beq	.L58
- 253:Src/mc_tasks_foc.c ****             {
- 1097              		.loc 1 253 13 is_stmt 1 view .LVU309
- 253:Src/mc_tasks_foc.c ****             {
- 1098              		.loc 1 253 17 is_stmt 0 view .LVU310
- 1099 01de 4E4B     		ldr	r3, .L101+28
- 1100 01e0 0121     		movs	r1, #1
- 1101 01e2 1868     		ldr	r0, [r3]
- 1102 01e4 FFF7FEFF 		bl	PWMC_CurrentReadingCalibr
- 1103              	.LVL92:
- 253:Src/mc_tasks_foc.c ****             {
- 1104              		.loc 1 253 16 view .LVU311
- 1105 01e8 0028     		cmp	r0, #0
- 1106 01ea 3FF41EAF 		beq	.L40
-ARM GAS  /tmp/ccKJN1Nl.s 			page 40
-
-
- 255:Src/mc_tasks_foc.c ****               {
- 1107              		.loc 1 255 15 is_stmt 1 view .LVU312
- 255:Src/mc_tasks_foc.c ****               {
- 1108              		.loc 1 255 18 is_stmt 0 view .LVU313
- 1109 01ee A37F     		ldrb	r3, [r4, #30]	@ zero_extendqisi2
- 1110 01f0 032B     		cmp	r3, #3
- 1111 01f2 00F0BA80 		beq	.L98
- 263:Src/mc_tasks_foc.c ****               }
- 1112              		.loc 1 263 17 is_stmt 1 view .LVU314
- 263:Src/mc_tasks_foc.c ****               }
- 1113              		.loc 1 263 31 is_stmt 0 view .LVU315
- 1114 01f6 1423     		movs	r3, #20
- 1115 01f8 E377     		strb	r3, [r4, #31]
- 1116 01fa 16E7     		b	.L40
- 1117              	.L50:
+ 942              		.loc 1 300 15 is_stmt 1 view .LVU228
+ 943 018c 2068     		ldr	r0, [r4]
+ 944 018e FFF7FEFF 		bl	PWMC_SwitchOnPWM
+ 945              	.LVL74:
+ 946 0192 4BE7     		b	.L31
+ 947              	.LVL75:
+ 948              	.L61:
+ 278:Src/mc_tasks_foc.c ****           }
+ 949              		.loc 1 278 13 view .LVU229
+ 950 0194 0020     		movs	r0, #0
+ 951 0196 FFF7FEFF 		bl	TSK_MF_StopProcessing
+ 952              	.LVL76:
+ 953 019a 47E7     		b	.L31
+ 954              	.L41:
  312:Src/mc_tasks_foc.c ****           {
- 1118              		.loc 1 312 11 is_stmt 1 view .LVU316
+ 955              		.loc 1 312 11 view .LVU230
  312:Src/mc_tasks_foc.c ****           {
- 1119              		.loc 1 312 14 is_stmt 0 view .LVU317
- 1120 01fc A37F     		ldrb	r3, [r4, #30]	@ zero_extendqisi2
- 1121 01fe 052B     		cmp	r3, #5
- 1122 0200 64D0     		beq	.L58
- 1123              	.LBB51:
+ 956              		.loc 1 312 34 is_stmt 0 view .LVU231
+ 957 019c 514B     		ldr	r3, .L68+8
+ 312:Src/mc_tasks_foc.c ****           {
+ 958              		.loc 1 312 14 view .LVU232
+ 959 019e 9B7F     		ldrb	r3, [r3, #30]	@ zero_extendqisi2
+ 960 01a0 052B     		cmp	r3, #5
+ 961 01a2 3AD0     		beq	.L62
+ 962              	.LBB25:
  319:Src/mc_tasks_foc.c ****             qd_t IqdRef;
- 1124              		.loc 1 319 13 is_stmt 1 view .LVU318
+ 963              		.loc 1 319 13 is_stmt 1 view .LVU233
  320:Src/mc_tasks_foc.c ****             bool ObserverConverged;
- 1125              		.loc 1 320 13 view .LVU319
+ 964              		.loc 1 320 13 view .LVU234
  321:Src/mc_tasks_foc.c **** 
- 1126              		.loc 1 321 13 view .LVU320
+ 965              		.loc 1 321 13 view .LVU235
  324:Src/mc_tasks_foc.c ****             {
- 1127              		.loc 1 324 13 view .LVU321
+ 966              		.loc 1 324 13 view .LVU236
  324:Src/mc_tasks_foc.c ****             {
- 1128              		.loc 1 324 18 is_stmt 0 view .LVU322
- 1129 0202 4848     		ldr	r0, .L101+40
- 1130 0204 FFF7FEFF 		bl	RUC_Exec
- 1131              	.LVL93:
- 324:Src/mc_tasks_foc.c ****             {
- 1132              		.loc 1 324 15 view .LVU323
- 1133 0208 0028     		cmp	r0, #0
- 1134 020a 40F09E80 		bne	.L99
- 1135              	.L59:
- 340:Src/mc_tasks_foc.c **** 
- 1136              		.loc 1 340 13 is_stmt 1 view .LVU324
- 342:Src/mc_tasks_foc.c ****               STO_SetDirection(&STO_PLL_M1, (int8_t)MCI_GetImposedMotorDirection(&Mci[M1]));
- 1137              		.loc 1 342 35 is_stmt 0 view .LVU325
- 1138 020e 3B4E     		ldr	r6, .L101
- 340:Src/mc_tasks_foc.c **** 
- 1139              		.loc 1 340 19 view .LVU326
- 1140 0210 4048     		ldr	r0, .L101+24
- 1141 0212 0DF10201 		add	r1, sp, #2
- 1142 0216 FFF7FEFF 		bl	VSS_CalcAvrgMecSpeedUnit
- 1143              	.LVL94:
- 342:Src/mc_tasks_foc.c ****               STO_SetDirection(&STO_PLL_M1, (int8_t)MCI_GetImposedMotorDirection(&Mci[M1]));
- 1144              		.loc 1 342 15 is_stmt 1 view .LVU327
- 342:Src/mc_tasks_foc.c ****               STO_SetDirection(&STO_PLL_M1, (int8_t)MCI_GetImposedMotorDirection(&Mci[M1]));
- 1145              		.loc 1 342 35 is_stmt 0 view .LVU328
- 1146 021a 0DF10201 		add	r1, sp, #2
-ARM GAS  /tmp/ccKJN1Nl.s 			page 41
+ARM GAS  /tmp/cccnQOYj.s 			page 36
 
 
- 1147 021e 3046     		mov	r0, r6
- 1148 0220 FFF7FEFF 		bl	STO_PLL_IsObserverConverged
- 1149              	.LVL95:
- 1150 0224 0546     		mov	r5, r0
- 1151              	.LVL96:
+ 967              		.loc 1 324 18 is_stmt 0 view .LVU237
+ 968 01a4 5148     		ldr	r0, .L68+16
+ 969 01a6 FFF7FEFF 		bl	RUC_Exec
+ 970              	.LVL77:
+ 324:Src/mc_tasks_foc.c ****             {
+ 971              		.loc 1 324 15 view .LVU238
+ 972 01aa 0028     		cmp	r0, #0
+ 973 01ac 39D1     		bne	.L63
+ 974              	.L49:
+ 340:Src/mc_tasks_foc.c **** 
+ 975              		.loc 1 340 13 is_stmt 1 view .LVU239
+ 340:Src/mc_tasks_foc.c **** 
+ 976              		.loc 1 340 19 is_stmt 0 view .LVU240
+ 977 01ae 534D     		ldr	r5, .L68+32
+ 978 01b0 0DF10601 		add	r1, sp, #6
+ 979 01b4 2846     		mov	r0, r5
+ 980 01b6 FFF7FEFF 		bl	VSS_CalcAvrgMecSpeedUnit
+ 981              	.LVL78:
+ 342:Src/mc_tasks_foc.c ****               STO_SetDirection(&STO_PLL_M1, (int8_t)MCI_GetImposedMotorDirection(&Mci[M1]));
+ 982              		.loc 1 342 15 is_stmt 1 view .LVU241
+ 342:Src/mc_tasks_foc.c ****               STO_SetDirection(&STO_PLL_M1, (int8_t)MCI_GetImposedMotorDirection(&Mci[M1]));
+ 983              		.loc 1 342 35 is_stmt 0 view .LVU242
+ 984 01ba 484E     		ldr	r6, .L68
+ 985 01bc 0DF10601 		add	r1, sp, #6
+ 986 01c0 3046     		mov	r0, r6
+ 987 01c2 FFF7FEFF 		bl	STO_PLL_IsObserverConverged
+ 988              	.LVL79:
+ 989 01c6 0446     		mov	r4, r0
+ 990              	.LVL80:
  343:Src/mc_tasks_foc.c **** 
- 1152              		.loc 1 343 53 view .LVU329
- 1153 0226 3748     		ldr	r0, .L101+8
- 1154              	.LVL97:
+ 991              		.loc 1 343 15 is_stmt 1 view .LVU243
  343:Src/mc_tasks_foc.c **** 
- 1155              		.loc 1 343 15 is_stmt 1 view .LVU330
+ 992              		.loc 1 343 53 is_stmt 0 view .LVU244
+ 993 01c8 4648     		ldr	r0, .L68+8
+ 994 01ca FFF7FEFF 		bl	MCI_GetImposedMotorDirection
+ 995              	.LVL81:
  343:Src/mc_tasks_foc.c **** 
- 1156              		.loc 1 343 53 is_stmt 0 view .LVU331
- 1157 0228 FFF7FEFF 		bl	MCI_GetImposedMotorDirection
- 1158              	.LVL98:
- 343:Src/mc_tasks_foc.c **** 
- 1159              		.loc 1 343 15 view .LVU332
- 1160 022c 41B2     		sxtb	r1, r0
- 1161 022e 3046     		mov	r0, r6
- 1162 0230 FFF7FEFF 		bl	STO_SetDirection
- 1163              	.LVL99:
+ 996              		.loc 1 343 15 view .LVU245
+ 997 01ce 41B2     		sxtb	r1, r0
+ 998 01d0 3046     		mov	r0, r6
+ 999 01d2 FFF7FEFF 		bl	STO_SetDirection
+ 1000              	.LVL82:
  345:Src/mc_tasks_foc.c ****             if (ObserverConverged)
- 1164              		.loc 1 345 15 is_stmt 1 view .LVU333
+ 1001              		.loc 1 345 15 is_stmt 1 view .LVU246
  345:Src/mc_tasks_foc.c ****             if (ObserverConverged)
- 1165              		.loc 1 345 21 is_stmt 0 view .LVU334
- 1166 0234 3748     		ldr	r0, .L101+24
- 1167 0236 2946     		mov	r1, r5
- 1168 0238 FFF7FEFF 		bl	VSS_SetStartTransition
- 1169              	.LVL100:
+ 1002              		.loc 1 345 21 is_stmt 0 view .LVU247
+ 1003 01d6 2146     		mov	r1, r4
+ 1004 01d8 2846     		mov	r0, r5
+ 1005 01da FFF7FEFF 		bl	VSS_SetStartTransition
+ 1006              	.LVL83:
  346:Src/mc_tasks_foc.c ****             {
- 1170              		.loc 1 346 13 is_stmt 1 view .LVU335
+ 1007              		.loc 1 346 13 is_stmt 1 view .LVU248
  346:Src/mc_tasks_foc.c ****             {
- 1171              		.loc 1 346 16 is_stmt 0 view .LVU336
- 1172 023c 002D     		cmp	r5, #0
- 1173 023e 3FF4F4AE 		beq	.L40
- 1174              	.LBB52:
+ 1008              		.loc 1 346 16 is_stmt 0 view .LVU249
+ 1009 01de 002C     		cmp	r4, #0
+ 1010 01e0 3FF424AF 		beq	.L31
+ 1011              	.LBB26:
+ARM GAS  /tmp/cccnQOYj.s 			page 37
+
+
  348:Src/mc_tasks_foc.c **** 
- 1175              		.loc 1 348 15 is_stmt 1 view .LVU337
- 1176              	.LVL101:
- 1177              	.LBB53:
- 1178              	.LBI53:
- 1179              		.file 3 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h"
+ 1012              		.loc 1 348 15 is_stmt 1 view .LVU250
+ 1013              	.LVL84:
+ 1014              	.LBB27:
+ 1015              	.LBI27:
+ 1016              		.file 3 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h"
    1:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h **** /**
    2:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h ****   ******************************************************************************
    3:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h ****   * @file    speed_pos_fdbk.h
@@ -2458,9 +2182,6 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
   13:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h ****   *
   14:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h ****   * This software component is licensed by ST under Ultimate Liberty license
   15:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h ****   * SLA0044, the "License"; You may not use this file except in compliance with
-ARM GAS  /tmp/ccKJN1Nl.s 			page 42
-
-
   16:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h ****   * the License. You may obtain a copy of the License at:
   17:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h ****   *                             www.st.com/SLA0044
   18:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h ****   *
@@ -2497,6 +2218,9 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
   49:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h ****   */
   50:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h **** typedef struct
   51:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h **** {
+ARM GAS  /tmp/cccnQOYj.s 			page 38
+
+
   52:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h **** 
   53:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h ****   uint8_t bSpeedErrorNumber;          /*!< Number of time the average mechanical speed is not valid
   54:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h ****   uint8_t bElToMecRatio;              /*!< Coefficient used to transform electrical to mechanical q
@@ -2518,9 +2242,6 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
   70:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h ****   int16_t hMecAccelUnitP;             /*!< Average mechanical acceleration expressed in the unit de
   71:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h ****                                            only reported with encoder implementation */
   72:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h ****   uint16_t hMaxReliableMecSpeedUnit;  /*!< Maximum value of measured mechanical speed that is consi
-ARM GAS  /tmp/ccKJN1Nl.s 			page 43
-
-
   73:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h ****                                            Expressed in the unit defined by [SPEED_UNIT](measuremen
   74:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h ****   uint16_t hMinReliableMecSpeedUnit;  /*!< Minimum value of measured mechanical speed that is consi
   75:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h ****                                            Expressed in the unit defined by [SPEED_UNIT](measuremen
@@ -2557,6 +2278,9 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
  106:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h **** 
  107:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h **** int16_t SPD_GetS16Speed(const SpeednPosFdbk_Handle_t *pHandle);
  108:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h **** 
+ARM GAS  /tmp/cccnQOYj.s 			page 39
+
+
  109:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h **** uint8_t SPD_GetElToMecRatio(const SpeednPosFdbk_Handle_t *pHandle);
  110:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h **** 
  111:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h **** void SPD_SetElToMecRatio(SpeednPosFdbk_Handle_t *pHandle, uint8_t bPP);
@@ -2567,357 +2291,496 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
  116:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h ****   * @retval int16_t rotor electrical angle.
  117:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h ****   */
  118:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h **** static inline int16_t SPD_GetElAngle(const SpeednPosFdbk_Handle_t *pHandle)
- 1180              		.loc 3 118 23 view .LVU338
- 1181              	.LBB54:
+ 1017              		.loc 3 118 23 view .LVU251
+ 1018              	.LBB28:
  119:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h **** {
  120:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h **** #ifdef NULL_PTR_CHECK_SPD_POS_FBK
  121:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h ****   return ((MC_NULL == pHandle) ? 0 : pHandle->hElAngle);
  122:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h **** #else
  123:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h ****   return (pHandle->hElAngle);
- 1182              		.loc 3 123 3 view .LVU339
- 1183              		.loc 3 123 3 is_stmt 0 view .LVU340
- 1184              	.LBE54:
- 1185              	.LBE53:
-ARM GAS  /tmp/ccKJN1Nl.s 			page 44
-
-
+ 1019              		.loc 3 123 3 view .LVU252
+ 1020              		.loc 3 123 3 is_stmt 0 view .LVU253
+ 1021              	.LBE28:
+ 1022              	.LBE27:
  348:Src/mc_tasks_foc.c **** 
- 1186              		.loc 1 348 36 view .LVU341
- 1187 0242 334F     		ldr	r7, .L101+20
- 1188 0244 B6F90410 		ldrsh	r1, [r6, #4]
- 1189 0248 7868     		ldr	r0, [r7, #4]	@ unaligned
+ 1023              		.loc 1 348 36 view .LVU254
+ 1024 01e4 444D     		ldr	r5, .L68+28
+ 1025 01e6 B6F90410 		ldrsh	r1, [r6, #4]
+ 1026 01ea 6868     		ldr	r0, [r5, #4]	@ unaligned
+ 1027 01ec FFF7FEFF 		bl	MCM_Park
+ 1028              	.LVL85:
+ 1029 01f0 0290     		str	r0, [sp, #8]
  351:Src/mc_tasks_foc.c ****               (void)REMNG_ExecRamp(pREMNG[M1], FOCVars[M1].Iqdref.q, 0);
- 1190              		.loc 1 351 15 view .LVU342
- 1191 024a 374D     		ldr	r5, .L101+44
- 1192              	.LVL102:
- 348:Src/mc_tasks_foc.c **** 
- 1193              		.loc 1 348 36 view .LVU343
- 1194 024c FFF7FEFF 		bl	MCM_Park
- 1195              	.LVL103:
- 1196 0250 0346     		mov	r3, r0
+ 1030              		.loc 1 351 15 is_stmt 1 view .LVU255
+ 1031 01f2 444C     		ldr	r4, .L68+40
+ 1032              	.LVL86:
  351:Src/mc_tasks_foc.c ****               (void)REMNG_ExecRamp(pREMNG[M1], FOCVars[M1].Iqdref.q, 0);
- 1197              		.loc 1 351 15 view .LVU344
- 1198 0252 2868     		ldr	r0, [r5]
- 348:Src/mc_tasks_foc.c **** 
- 1199              		.loc 1 348 36 view .LVU345
- 1200 0254 0193     		str	r3, [sp, #4]
- 351:Src/mc_tasks_foc.c ****               (void)REMNG_ExecRamp(pREMNG[M1], FOCVars[M1].Iqdref.q, 0);
- 1201              		.loc 1 351 15 is_stmt 1 view .LVU346
- 1202 0256 FFF7FEFF 		bl	REMNG_Init
- 1203              	.LVL104:
+ 1033              		.loc 1 351 15 is_stmt 0 view .LVU256
+ 1034 01f4 2068     		ldr	r0, [r4]
+ 1035 01f6 FFF7FEFF 		bl	REMNG_Init
+ 1036              	.LVL87:
  352:Src/mc_tasks_foc.c ****               (void)REMNG_ExecRamp(pREMNG[M1], StatorCurrent.q, TRANSITION_DURATION);
- 1204              		.loc 1 352 15 view .LVU347
+ 1037              		.loc 1 352 15 is_stmt 1 view .LVU257
  352:Src/mc_tasks_foc.c ****               (void)REMNG_ExecRamp(pREMNG[M1], StatorCurrent.q, TRANSITION_DURATION);
- 1205              		.loc 1 352 21 is_stmt 0 view .LVU348
- 1206 025a B7F91010 		ldrsh	r1, [r7, #16]
- 1207 025e 2868     		ldr	r0, [r5]
- 1208 0260 0022     		movs	r2, #0
- 1209 0262 FFF7FEFF 		bl	REMNG_ExecRamp
- 1210              	.LVL105:
+ 1038              		.loc 1 352 21 is_stmt 0 view .LVU258
+ 1039 01fa 0022     		movs	r2, #0
+ 1040 01fc B5F91010 		ldrsh	r1, [r5, #16]
+ 1041 0200 2068     		ldr	r0, [r4]
+ 1042 0202 FFF7FEFF 		bl	REMNG_ExecRamp
+ 1043              	.LVL88:
  353:Src/mc_tasks_foc.c **** 
- 1211              		.loc 1 353 15 is_stmt 1 view .LVU349
+ 1044              		.loc 1 353 15 is_stmt 1 view .LVU259
  353:Src/mc_tasks_foc.c **** 
- 1212              		.loc 1 353 21 is_stmt 0 view .LVU350
- 1213 0266 BDF90410 		ldrsh	r1, [sp, #4]
- 1214 026a 2868     		ldr	r0, [r5]
- 1215 026c 1922     		movs	r2, #25
- 1216 026e FFF7FEFF 		bl	REMNG_ExecRamp
- 1217              	.LVL106:
+ 1045              		.loc 1 353 21 is_stmt 0 view .LVU260
+ 1046 0206 1922     		movs	r2, #25
+ 1047 0208 BDF90810 		ldrsh	r1, [sp, #8]
+ 1048 020c 2068     		ldr	r0, [r4]
+ 1049 020e FFF7FEFF 		bl	REMNG_ExecRamp
+ 1050              	.LVL89:
  355:Src/mc_tasks_foc.c ****             }
- 1218              		.loc 1 355 15 is_stmt 1 view .LVU351
- 355:Src/mc_tasks_foc.c ****             }
- 1219              		.loc 1 355 29 is_stmt 0 view .LVU352
- 1220 0272 1323     		movs	r3, #19
- 1221 0274 E377     		strb	r3, [r4, #31]
- 1222 0276 D8E6     		b	.L40
- 1223              	.LVL107:
- 1224              	.L49:
- 355:Src/mc_tasks_foc.c ****             }
- 1225              		.loc 1 355 29 view .LVU353
- 1226              	.LBE52:
- 1227              	.LBE51:
- 408:Src/mc_tasks_foc.c ****           {
- 1228              		.loc 1 408 11 is_stmt 1 view .LVU354
-ARM GAS  /tmp/ccKJN1Nl.s 			page 45
+ARM GAS  /tmp/cccnQOYj.s 			page 40
 
 
+ 1051              		.loc 1 355 15 is_stmt 1 view .LVU261
+ 355:Src/mc_tasks_foc.c ****             }
+ 1052              		.loc 1 355 29 is_stmt 0 view .LVU262
+ 1053 0212 344B     		ldr	r3, .L68+8
+ 1054 0214 1322     		movs	r2, #19
+ 1055 0216 DA77     		strb	r2, [r3, #31]
+ 1056 0218 08E7     		b	.L31
+ 1057              	.LVL90:
+ 1058              	.L62:
+ 355:Src/mc_tasks_foc.c ****             }
+ 1059              		.loc 1 355 29 view .LVU263
+ 1060              	.LBE26:
+ 1061              	.LBE25:
+ 314:Src/mc_tasks_foc.c ****           }
+ 1062              		.loc 1 314 13 is_stmt 1 view .LVU264
+ 1063 021a 0020     		movs	r0, #0
+ 1064 021c FFF7FEFF 		bl	TSK_MF_StopProcessing
+ 1065              	.LVL91:
+ 1066 0220 04E7     		b	.L31
+ 1067              	.L63:
+ 1068              	.LBB29:
+ 334:Src/mc_tasks_foc.c ****               IqdRef.d = FOCVars[M1].UserIdref;
+ 1069              		.loc 1 334 15 view .LVU265
+ 334:Src/mc_tasks_foc.c ****               IqdRef.d = FOCVars[M1].UserIdref;
+ 1070              		.loc 1 334 26 is_stmt 0 view .LVU266
+ 1071 0222 374B     		ldr	r3, .L68+36
+ 1072 0224 1868     		ldr	r0, [r3]
+ 1073 0226 FFF7FEFF 		bl	STC_CalcTorqueReference
+ 1074              	.LVL92:
+ 335:Src/mc_tasks_foc.c ****               /* Iqd reference current used by the High Frequency Loop to generate the PWM output *
+ 1075              		.loc 1 335 15 is_stmt 1 view .LVU267
+ 335:Src/mc_tasks_foc.c ****               /* Iqd reference current used by the High Frequency Loop to generate the PWM output *
+ 1076              		.loc 1 335 37 is_stmt 0 view .LVU268
+ 1077 022a 334B     		ldr	r3, .L68+28
+ 1078 022c B3F91420 		ldrsh	r2, [r3, #20]
+ 1079              	.LVL93:
+ 337:Src/mc_tasks_foc.c ****            }
+ 1080              		.loc 1 337 15 is_stmt 1 view .LVU269
+ 337:Src/mc_tasks_foc.c ****            }
+ 1081              		.loc 1 337 34 is_stmt 0 view .LVU270
+ 1082 0230 1882     		strh	r0, [r3, #16]	@ movhi
+ 1083 0232 5A82     		strh	r2, [r3, #18]	@ movhi
+ 1084 0234 BBE7     		b	.L49
+ 1085              	.LVL94:
+ 1086              	.L34:
+ 337:Src/mc_tasks_foc.c ****            }
+ 1087              		.loc 1 337 34 view .LVU271
+ 1088              	.LBE29:
+ 363:Src/mc_tasks_foc.c ****           {
+ 1089              		.loc 1 363 11 is_stmt 1 view .LVU272
+ 363:Src/mc_tasks_foc.c ****           {
+ 1090              		.loc 1 363 34 is_stmt 0 view .LVU273
+ 1091 0236 2B4B     		ldr	r3, .L68+8
+ 363:Src/mc_tasks_foc.c ****           {
+ 1092              		.loc 1 363 14 view .LVU274
+ 1093 0238 9B7F     		ldrb	r3, [r3, #30]	@ zero_extendqisi2
+ 1094 023a 052B     		cmp	r3, #5
+ARM GAS  /tmp/cccnQOYj.s 			page 41
+
+
+ 1095 023c 31D0     		beq	.L64
+ 1096              	.LBB30:
+ 369:Src/mc_tasks_foc.c ****             int16_t hForcedMecSpeedUnit;
+ 1097              		.loc 1 369 13 is_stmt 1 view .LVU275
+ 370:Src/mc_tasks_foc.c **** 
+ 1098              		.loc 1 370 13 view .LVU276
+ 374:Src/mc_tasks_foc.c ****               /* Check if the transition ramp has completed. */
+ 1099              		.loc 1 374 15 view .LVU277
+ 374:Src/mc_tasks_foc.c ****               /* Check if the transition ramp has completed. */
+ 1100              		.loc 1 374 28 is_stmt 0 view .LVU278
+ 1101 023e 2F4D     		ldr	r5, .L68+32
+ 1102 0240 02A9     		add	r1, sp, #8
+ 1103 0242 2846     		mov	r0, r5
+ 1104 0244 FFF7FEFF 		bl	VSS_CalcAvrgMecSpeedUnit
+ 1105              	.LVL95:
+ 1106 0248 0446     		mov	r4, r0
+ 1107              	.LVL96:
+ 376:Src/mc_tasks_foc.c ****               tempBool = VSS_TransitionEnded(&VirtualSpeedSensorM1);
+ 1108              		.loc 1 376 15 is_stmt 1 view .LVU279
+ 377:Src/mc_tasks_foc.c ****               LoopClosed = LoopClosed || tempBool;
+ 1109              		.loc 1 377 15 view .LVU280
+ 377:Src/mc_tasks_foc.c ****               LoopClosed = LoopClosed || tempBool;
+ 1110              		.loc 1 377 26 is_stmt 0 view .LVU281
+ 1111 024a 2846     		mov	r0, r5
+ 1112 024c FFF7FEFF 		bl	VSS_TransitionEnded
+ 1113              	.LVL97:
+ 378:Src/mc_tasks_foc.c **** 
+ 1114              		.loc 1 378 15 is_stmt 1 view .LVU282
+ 378:Src/mc_tasks_foc.c **** 
+ 1115              		.loc 1 378 39 is_stmt 0 view .LVU283
+ 1116 0250 14B9     		cbnz	r4, .L52
+ 1117              	.LVL98:
+ 382:Src/mc_tasks_foc.c ****               {
+ 1118              		.loc 1 382 15 is_stmt 1 discriminator 6 view .LVU284
+ 382:Src/mc_tasks_foc.c ****               {
+ 1119              		.loc 1 382 18 is_stmt 0 discriminator 6 view .LVU285
+ 1120 0252 0028     		cmp	r0, #0
+ 1121 0254 3FF4EAAE 		beq	.L31
+ 1122              	.LVL99:
+ 1123              	.L52:
+ 387:Src/mc_tasks_foc.c ****                                     (((int32_t)FOCVars[M1].Iqdref.q * (int16_t)PID_GetKIDivisor(&PI
+ 1124              		.loc 1 387 17 is_stmt 1 view .LVU286
+ 388:Src/mc_tasks_foc.c ****                                     / PID_SPEED_INTEGRAL_INIT_DIV));
+ 1125              		.loc 1 388 66 is_stmt 0 view .LVU287
+ 1126 0258 274B     		ldr	r3, .L68+28
+ 388:Src/mc_tasks_foc.c ****                                     / PID_SPEED_INTEGRAL_INIT_DIV));
+ 1127              		.loc 1 388 39 view .LVU288
+ 1128 025a B3F91050 		ldrsh	r5, [r3, #16]
+ 388:Src/mc_tasks_foc.c ****                                     / PID_SPEED_INTEGRAL_INIT_DIV));
+ 1129              		.loc 1 388 80 view .LVU289
+ 1130 025e 2A4C     		ldr	r4, .L68+44
+ 1131 0260 2046     		mov	r0, r4
+ 1132              	.LVL100:
+ 388:Src/mc_tasks_foc.c ****                                     / PID_SPEED_INTEGRAL_INIT_DIV));
+ 1133              		.loc 1 388 80 view .LVU290
+ 1134 0262 FFF7FEFF 		bl	PID_GetKIDivisor
+ 1135              	.LVL101:
+ARM GAS  /tmp/cccnQOYj.s 			page 42
+
+
+ 388:Src/mc_tasks_foc.c ****                                     / PID_SPEED_INTEGRAL_INIT_DIV));
+ 1136              		.loc 1 388 71 view .LVU291
+ 1137 0266 01B2     		sxth	r1, r0
+ 387:Src/mc_tasks_foc.c ****                                     (((int32_t)FOCVars[M1].Iqdref.q * (int16_t)PID_GetKIDivisor(&PI
+ 1138              		.loc 1 387 17 view .LVU292
+ 1139 0268 05FB01F1 		mul	r1, r5, r1
+ 1140 026c 2046     		mov	r0, r4
+ 1141 026e FFF7FEFF 		bl	PID_SetIntegralTerm
+ 1142              	.LVL102:
+ 391:Src/mc_tasks_foc.c ****                 /* USER CODE BEGIN MediumFrequencyTask M1 1 */
+ 1143              		.loc 1 391 17 is_stmt 1 view .LVU293
+ 1144 0272 2048     		ldr	r0, .L68+24
+ 1145 0274 FFF7FEFF 		bl	OTT_SR
+ 1146              	.LVL103:
+ 395:Src/mc_tasks_foc.c ****                 FOC_InitAdditionalMethods(M1);
+ 1147              		.loc 1 395 17 view .LVU294
+ 1148 0278 214C     		ldr	r4, .L68+36
+ 1149 027a 1849     		ldr	r1, .L68
+ 1150 027c 2068     		ldr	r0, [r4]
+ 1151 027e FFF7FEFF 		bl	STC_SetSpeedSensor
+ 1152              	.LVL104:
+ 396:Src/mc_tasks_foc.c ****                 FOC_CalcCurrRef(M1);
+ 1153              		.loc 1 396 17 view .LVU295
+ 1154 0282 0020     		movs	r0, #0
+ 1155 0284 FFF7FEFF 		bl	FOC_InitAdditionalMethods
+ 1156              	.LVL105:
+ 397:Src/mc_tasks_foc.c ****                 STC_ForceSpeedReferenceToCurrentSpeed(pSTC[M1]); /* Init the reference speed to cur
+ 1157              		.loc 1 397 17 view .LVU296
+ 1158 0288 0020     		movs	r0, #0
+ 1159 028a FFF7FEFF 		bl	FOC_CalcCurrRef
+ 1160              	.LVL106:
+ 398:Src/mc_tasks_foc.c ****                 MCI_ExecBufferedCommands(&Mci[M1]); /* Exec the speed ramp after changing of the sp
+ 1161              		.loc 1 398 17 view .LVU297
+ 1162 028e 2068     		ldr	r0, [r4]
+ 1163 0290 FFF7FEFF 		bl	STC_ForceSpeedReferenceToCurrentSpeed
+ 1164              	.LVL107:
+ 399:Src/mc_tasks_foc.c ****                 Mci[M1].State = RUN;
+ 1165              		.loc 1 399 17 view .LVU298
+ 1166 0294 134C     		ldr	r4, .L68+8
+ 1167 0296 2046     		mov	r0, r4
+ 1168 0298 FFF7FEFF 		bl	MCI_ExecBufferedCommands
+ 1169              	.LVL108:
+ 400:Src/mc_tasks_foc.c ****               }
+ 1170              		.loc 1 400 17 view .LVU299
+ 400:Src/mc_tasks_foc.c ****               }
+ 1171              		.loc 1 400 31 is_stmt 0 view .LVU300
+ 1172 029c 0623     		movs	r3, #6
+ 1173 029e E377     		strb	r3, [r4, #31]
+ 1174 02a0 C4E6     		b	.L31
+ 1175              	.LVL109:
+ 1176              	.L64:
+ 400:Src/mc_tasks_foc.c ****               }
+ 1177              		.loc 1 400 31 view .LVU301
+ 1178              	.LBE30:
+ 365:Src/mc_tasks_foc.c ****           }
+ 1179              		.loc 1 365 13 is_stmt 1 view .LVU302
+ 1180 02a2 0020     		movs	r0, #0
+ARM GAS  /tmp/cccnQOYj.s 			page 43
+
+
+ 1181 02a4 FFF7FEFF 		bl	TSK_MF_StopProcessing
+ 1182              	.LVL110:
+ 1183 02a8 C0E6     		b	.L31
+ 1184              	.L40:
  408:Src/mc_tasks_foc.c ****           {
- 1229              		.loc 1 408 14 is_stmt 0 view .LVU355
- 1230 0278 A37F     		ldrb	r3, [r4, #30]	@ zero_extendqisi2
- 1231 027a 052B     		cmp	r3, #5
- 1232 027c 26D0     		beq	.L58
+ 1185              		.loc 1 408 11 view .LVU303
+ 408:Src/mc_tasks_foc.c ****           {
+ 1186              		.loc 1 408 34 is_stmt 0 view .LVU304
+ 1187 02aa 0E4B     		ldr	r3, .L68+8
+ 408:Src/mc_tasks_foc.c ****           {
+ 1188              		.loc 1 408 14 view .LVU305
+ 1189 02ac 9B7F     		ldrb	r3, [r3, #30]	@ zero_extendqisi2
+ 1190 02ae 052B     		cmp	r3, #5
+ 1191 02b0 0AD0     		beq	.L65
  418:Src/mc_tasks_foc.c **** 
- 1233              		.loc 1 418 13 is_stmt 1 view .LVU356
- 1234 027e 2148     		ldr	r0, .L101+8
- 1235 0280 FFF7FEFF 		bl	MCI_ExecBufferedCommands
- 1236              	.LVL108:
+ 1192              		.loc 1 418 13 is_stmt 1 view .LVU306
+ 1193 02b2 0C48     		ldr	r0, .L68+8
+ 1194 02b4 FFF7FEFF 		bl	MCI_ExecBufferedCommands
+ 1195              	.LVL111:
  420:Src/mc_tasks_foc.c ****               if(!IsSpeedReliable)
- 1237              		.loc 1 420 15 view .LVU357
- 1238 0284 0020     		movs	r0, #0
- 1239 0286 FFF7FEFF 		bl	FOC_CalcCurrRef
- 1240              	.LVL109:
+ 1196              		.loc 1 420 15 view .LVU307
+ 1197 02b8 0020     		movs	r0, #0
+ 1198 02ba FFF7FEFF 		bl	FOC_CalcCurrRef
+ 1199              	.LVL112:
  421:Src/mc_tasks_foc.c ****               {
- 1241              		.loc 1 421 15 view .LVU358
+ 1200              		.loc 1 421 15 view .LVU308
  421:Src/mc_tasks_foc.c ****               {
- 1242              		.loc 1 421 17 is_stmt 0 view .LVU359
- 1243 028a 002D     		cmp	r5, #0
- 1244 028c 67D0     		beq	.L100
- 1245              	.L62:
+ 1201              		.loc 1 421 17 is_stmt 0 view .LVU309
+ 1202 02be 3CB1     		cbz	r4, .L66
+ 1203              	.L55:
  428:Src/mc_tasks_foc.c ****             OTT_MF(&OTT);
- 1246              		.loc 1 428 15 is_stmt 1 view .LVU360
+ 1204              		.loc 1 428 15 is_stmt 1 view .LVU310
  429:Src/mc_tasks_foc.c ****           }
- 1247              		.loc 1 429 13 view .LVU361
- 1248 028e 2448     		ldr	r0, .L101+36
- 1249 0290 FFF7FEFF 		bl	OTT_MF
- 1250              	.LVL110:
- 1251 0294 C9E6     		b	.L40
- 1252              	.L51:
- 219:Src/mc_tasks_foc.c ****           {
- 1253              		.loc 1 219 11 view .LVU362
- 219:Src/mc_tasks_foc.c ****           {
- 1254              		.loc 1 219 14 is_stmt 0 view .LVU363
- 1255 0296 A57F     		ldrb	r5, [r4, #30]	@ zero_extendqisi2
- 1256              	.LVL111:
- 219:Src/mc_tasks_foc.c ****           {
- 1257              		.loc 1 219 14 view .LVU364
- 1258 0298 05F0FD05 		and	r5, r5, #253
- 1259 029c 012D     		cmp	r5, #1
- 1260 029e 7FF4C4AE 		bne	.L40
- 221:Src/mc_tasks_foc.c ****             if (pwmcHandle[M1]->offsetCalibStatus == false)
- 1261              		.loc 1 221 15 is_stmt 1 view .LVU365
- 1262 02a2 1848     		ldr	r0, .L101+8
- 222:Src/mc_tasks_foc.c ****             {
- 1263              		.loc 1 222 27 is_stmt 0 view .LVU366
- 1264 02a4 1C4E     		ldr	r6, .L101+28
- 221:Src/mc_tasks_foc.c ****             if (pwmcHandle[M1]->offsetCalibStatus == false)
- 1265              		.loc 1 221 15 view .LVU367
- 1266 02a6 FFF7FEFF 		bl	MCI_GetImposedMotorDirection
- 1267              	.LVL112:
- 1268 02aa 0146     		mov	r1, r0
- 1269 02ac 1D48     		ldr	r0, .L101+40
- 1270 02ae FFF7FEFF 		bl	RUC_Clear
- 1271              	.LVL113:
- 222:Src/mc_tasks_foc.c ****             {
-ARM GAS  /tmp/ccKJN1Nl.s 			page 46
-
-
- 1272              		.loc 1 222 13 is_stmt 1 view .LVU368
- 222:Src/mc_tasks_foc.c ****             {
- 1273              		.loc 1 222 27 is_stmt 0 view .LVU369
- 1274 02b2 3068     		ldr	r0, [r6]
- 222:Src/mc_tasks_foc.c ****             {
- 1275              		.loc 1 222 16 view .LVU370
- 1276 02b4 90F87F10 		ldrb	r1, [r0, #127]	@ zero_extendqisi2
- 1277 02b8 0029     		cmp	r1, #0
- 1278 02ba 37D1     		bne	.L53
- 224:Src/mc_tasks_foc.c ****               Mci[M1].State = OFFSET_CALIB;
- 1279              		.loc 1 224 15 is_stmt 1 view .LVU371
- 224:Src/mc_tasks_foc.c ****               Mci[M1].State = OFFSET_CALIB;
- 1280              		.loc 1 224 21 is_stmt 0 view .LVU372
- 1281 02bc FFF7FEFF 		bl	PWMC_CurrentReadingCalibr
- 1282              	.LVL114:
- 225:Src/mc_tasks_foc.c ****             }
- 1283              		.loc 1 225 15 is_stmt 1 view .LVU373
- 225:Src/mc_tasks_foc.c ****             }
- 1284              		.loc 1 225 29 is_stmt 0 view .LVU374
- 1285 02c0 1123     		movs	r3, #17
- 1286 02c2 E377     		strb	r3, [r4, #31]
- 1287              	.L54:
- 236:Src/mc_tasks_foc.c ****           }
- 1288              		.loc 1 236 13 is_stmt 1 view .LVU375
- 1289 02c4 1648     		ldr	r0, .L101+36
- 1290 02c6 FFF7FEFF 		bl	OTT_Clear
- 1291              	.LVL115:
- 1292 02ca AEE6     		b	.L40
- 1293              	.LVL116:
- 1294              	.L58:
- 249:Src/mc_tasks_foc.c ****           }
- 1295              		.loc 1 249 13 view .LVU376
- 1296              	.LBB55:
- 1297              	.LBI55:
- 180:Src/mc_tasks_foc.c **** {
- 1298              		.loc 1 180 6 view .LVU377
- 1299              	.LBB56:
- 182:Src/mc_tasks_foc.c **** 
- 1300              		.loc 1 182 5 view .LVU378
- 1301 02cc 124B     		ldr	r3, .L101+28
- 1302 02ce 1868     		ldr	r0, [r3]
- 1303 02d0 FFF7FEFF 		bl	R3_2_SwitchOffPWM
- 1304              	.LVL117:
- 184:Src/mc_tasks_foc.c ****   OTT_Stop(&OTT);
- 1305              		.loc 1 184 3 view .LVU379
- 1306 02d4 0C48     		ldr	r0, .L101+12
- 1307 02d6 FFF7FEFF 		bl	SCC_Stop
- 1308              	.LVL118:
- 185:Src/mc_tasks_foc.c ****   FOC_Clear(motor);
- 1309              		.loc 1 185 3 view .LVU380
- 1310 02da 1148     		ldr	r0, .L101+36
- 1311 02dc FFF7FEFF 		bl	OTT_Stop
- 1312              	.LVL119:
- 186:Src/mc_tasks_foc.c **** 
- 1313              		.loc 1 186 3 view .LVU381
- 1314 02e0 0020     		movs	r0, #0
- 1315 02e2 FFF7FEFF 		bl	FOC_Clear
-ARM GAS  /tmp/ccKJN1Nl.s 			page 47
-
-
- 1316              	.LVL120:
- 188:Src/mc_tasks_foc.c ****   Mci[motor].State = STOP;
- 1317              		.loc 1 188 3 view .LVU382
- 1318 02e6 4FF44870 		mov	r0, #800
- 1319 02ea FFF7FEFF 		bl	TSK_SetStopPermanencyTimeM1
- 1320              	.LVL121:
- 189:Src/mc_tasks_foc.c **** }
- 1321              		.loc 1 189 3 view .LVU383
- 189:Src/mc_tasks_foc.c **** }
- 1322              		.loc 1 189 20 is_stmt 0 view .LVU384
- 1323 02ee 0823     		movs	r3, #8
- 1324 02f0 E377     		strb	r3, [r4, #31]
- 190:Src/mc_tasks_foc.c **** 
- 1325              		.loc 1 190 1 view .LVU385
- 1326 02f2 9AE6     		b	.L40
- 1327              	.LVL122:
- 1328              	.L97:
- 190:Src/mc_tasks_foc.c **** 
- 1329              		.loc 1 190 1 view .LVU386
- 1330              	.LBE56:
- 1331              	.LBE55:
- 1332              	.LBB57:
- 378:Src/mc_tasks_foc.c **** 
- 1333              		.loc 1 378 39 discriminator 2 view .LVU387
- 1334 02f4 0028     		cmp	r0, #0
- 1335 02f6 7FF40AAF 		bne	.L61
- 1336 02fa 96E6     		b	.L40
- 1337              	.L102:
- 1338              		.align	2
- 1339              	.L101:
- 1340 02fc 00000000 		.word	STO_PLL_M1
- 1341 0300 00000000 		.word	pMPM
- 1342 0304 00000000 		.word	Mci
- 1343 0308 00000000 		.word	SCC
- 1344 030c 00000000 		.word	pSTC
- 1345 0310 00000000 		.word	FOCVars
- 1346 0314 00000000 		.word	VirtualSpeedSensorM1
- 1347 0318 00000000 		.word	pwmcHandle
- 1348 031c 00000000 		.word	PIDSpeedHandle_M1
- 1349 0320 00000000 		.word	OTT
- 1350 0324 00000000 		.word	RevUpControlM1
- 1351 0328 00000000 		.word	pREMNG
- 1352              	.LVL123:
- 1353              	.L53:
- 378:Src/mc_tasks_foc.c **** 
- 1354              		.loc 1 378 39 discriminator 2 view .LVU388
- 1355              	.LBE57:
- 230:Src/mc_tasks_foc.c ****               (void)PWMC_CurrentReadingCalibr(pwmcHandle[M1], CRC_EXEC);
- 1356              		.loc 1 230 15 is_stmt 1 view .LVU389
- 231:Src/mc_tasks_foc.c ****               R3_2_TurnOnLowSides(pwmcHandle[M1],M1_CHARGE_BOOT_CAP_DUTY_CYCLES);
- 1357              		.loc 1 231 21 is_stmt 0 view .LVU390
- 1358 032c 2946     		mov	r1, r5
- 230:Src/mc_tasks_foc.c ****               (void)PWMC_CurrentReadingCalibr(pwmcHandle[M1], CRC_EXEC);
- 1359              		.loc 1 230 56 view .LVU391
- 1360 032e A0F86050 		strh	r5, [r0, #96]	@ movhi
- 231:Src/mc_tasks_foc.c ****               R3_2_TurnOnLowSides(pwmcHandle[M1],M1_CHARGE_BOOT_CAP_DUTY_CYCLES);
- 1361              		.loc 1 231 15 is_stmt 1 view .LVU392
-ARM GAS  /tmp/ccKJN1Nl.s 			page 48
-
-
- 231:Src/mc_tasks_foc.c ****               R3_2_TurnOnLowSides(pwmcHandle[M1],M1_CHARGE_BOOT_CAP_DUTY_CYCLES);
- 1362              		.loc 1 231 21 is_stmt 0 view .LVU393
- 1363 0332 FFF7FEFF 		bl	PWMC_CurrentReadingCalibr
- 1364              	.LVL124:
- 232:Src/mc_tasks_foc.c ****               TSK_SetChargeBootCapDelayM1(M1_CHARGE_BOOT_CAP_TICKS);
- 1365              		.loc 1 232 15 is_stmt 1 view .LVU394
- 1366 0336 3068     		ldr	r0, [r6]
- 1367 0338 0021     		movs	r1, #0
- 1368 033a FFF7FEFF 		bl	R3_2_TurnOnLowSides
- 1369              	.LVL125:
- 233:Src/mc_tasks_foc.c ****               Mci[M1].State = CHARGE_BOOT_CAP;
- 1370              		.loc 1 233 15 view .LVU395
- 1371 033e 1420     		movs	r0, #20
- 1372 0340 FFF7FEFF 		bl	TSK_SetChargeBootCapDelayM1
- 1373              	.LVL126:
- 234:Src/mc_tasks_foc.c ****             }
- 1374              		.loc 1 234 15 view .LVU396
- 234:Src/mc_tasks_foc.c ****             }
- 1375              		.loc 1 234 29 is_stmt 0 view .LVU397
- 1376 0344 1023     		movs	r3, #16
- 1377 0346 E377     		strb	r3, [r4, #31]
- 1378 0348 BCE7     		b	.L54
- 1379              	.LVL127:
- 1380              	.L99:
- 1381              	.LBB58:
- 334:Src/mc_tasks_foc.c ****               IqdRef.d = FOCVars[M1].UserIdref;
- 1382              		.loc 1 334 15 is_stmt 1 view .LVU398
- 334:Src/mc_tasks_foc.c ****               IqdRef.d = FOCVars[M1].UserIdref;
- 1383              		.loc 1 334 26 is_stmt 0 view .LVU399
- 1384 034a 0B4B     		ldr	r3, .L103
- 1385 034c 1868     		ldr	r0, [r3]
- 1386 034e FFF7FEFF 		bl	STC_CalcTorqueReference
- 1387              	.LVL128:
- 335:Src/mc_tasks_foc.c ****               /* Iqd reference current used by the High Frequency Loop to generate the PWM output *
- 1388              		.loc 1 335 15 is_stmt 1 view .LVU400
- 335:Src/mc_tasks_foc.c ****               /* Iqd reference current used by the High Frequency Loop to generate the PWM output *
- 1389              		.loc 1 335 37 is_stmt 0 view .LVU401
- 1390 0352 0A4B     		ldr	r3, .L103+4
- 1391 0354 B3F91420 		ldrsh	r2, [r3, #20]
- 1392              	.LVL129:
- 337:Src/mc_tasks_foc.c ****            }
- 1393              		.loc 1 337 15 is_stmt 1 view .LVU402
- 337:Src/mc_tasks_foc.c ****            }
- 1394              		.loc 1 337 34 is_stmt 0 view .LVU403
- 1395 0358 1882     		strh	r0, [r3, #16]	@ movhi
- 1396 035a 5A82     		strh	r2, [r3, #18]	@ movhi
- 1397 035c 57E7     		b	.L59
- 1398              	.LVL130:
- 1399              	.L100:
- 337:Src/mc_tasks_foc.c ****            }
- 1400              		.loc 1 337 34 view .LVU404
- 1401              	.LBE58:
+ 1205              		.loc 1 429 13 view .LVU311
+ 1206 02c0 0C48     		ldr	r0, .L68+24
+ 1207 02c2 FFF7FEFF 		bl	OTT_MF
+ 1208              	.LVL113:
+ 1209 02c6 B1E6     		b	.L31
+ 1210              	.L65:
+ 410:Src/mc_tasks_foc.c ****           }
+ 1211              		.loc 1 410 13 view .LVU312
+ 1212 02c8 0020     		movs	r0, #0
+ 1213 02ca FFF7FEFF 		bl	TSK_MF_StopProcessing
+ 1214              	.LVL114:
+ 1215 02ce ADE6     		b	.L31
+ 1216              	.L66:
  423:Src/mc_tasks_foc.c ****               }
- 1402              		.loc 1 423 17 is_stmt 1 view .LVU405
- 1403 035e 0848     		ldr	r0, .L103+8
- 1404 0360 2A46     		mov	r2, r5
- 1405 0362 2021     		movs	r1, #32
-ARM GAS  /tmp/ccKJN1Nl.s 			page 49
+ 1217              		.loc 1 423 17 view .LVU313
+ 1218 02d0 0022     		movs	r2, #0
+ 1219 02d2 2021     		movs	r1, #32
+ 1220 02d4 0348     		ldr	r0, .L68+8
+ 1221 02d6 FFF7FEFF 		bl	MCI_FaultProcessing
+ 1222              	.LVL115:
+ 1223 02da F1E7     		b	.L55
+ 1224              	.L69:
+ 1225              		.align	2
+ 1226              	.L68:
+ARM GAS  /tmp/cccnQOYj.s 			page 44
 
 
- 1406 0364 FFF7FEFF 		bl	MCI_FaultProcessing
- 1407              	.LVL131:
- 1408 0368 91E7     		b	.L62
- 1409              	.L98:
- 257:Src/mc_tasks_foc.c ****                 Mci[M1].DirectCommand = MCI_NO_COMMAND;
- 1410              		.loc 1 257 17 view .LVU406
- 1411 036a 0020     		movs	r0, #0
- 1412 036c FFF7FEFF 		bl	FOC_Clear
- 1413              	.LVL132:
- 258:Src/mc_tasks_foc.c ****                 Mci[M1].State = IDLE;
- 1414              		.loc 1 258 17 view .LVU407
- 259:Src/mc_tasks_foc.c ****               }
- 1415              		.loc 1 259 17 view .LVU408
- 258:Src/mc_tasks_foc.c ****                 Mci[M1].State = IDLE;
- 1416              		.loc 1 258 39 is_stmt 0 view .LVU409
- 1417 0370 0023     		movs	r3, #0
- 1418 0372 E383     		strh	r3, [r4, #30]	@ movhi
- 1419 0374 59E6     		b	.L40
- 1420              	.L104:
- 1421 0376 00BF     		.align	2
- 1422              	.L103:
- 1423 0378 00000000 		.word	pSTC
- 1424 037c 00000000 		.word	FOCVars
- 1425 0380 00000000 		.word	Mci
- 1426              		.cfi_endproc
- 1427              	.LFE1869:
- 1429              		.section	.text.FOC_HighFrequencyTask,"ax",%progbits
- 1430              		.align	1
- 1431              		.p2align 2,,3
- 1432              		.weak	FOC_HighFrequencyTask
- 1433              		.syntax unified
- 1434              		.thumb
- 1435              		.thumb_func
- 1436              		.fpu fpv4-sp-d16
- 1438              	FOC_HighFrequencyTask:
- 1439              	.LVL133:
- 1440              	.LFB1873:
+ 1227 02dc 00000000 		.word	STO_PLL_M1
+ 1228 02e0 00000000 		.word	pMPM
+ 1229 02e4 00000000 		.word	Mci
+ 1230 02e8 00000000 		.word	SCC
+ 1231 02ec 00000000 		.word	RevUpControlM1
+ 1232 02f0 00000000 		.word	pwmcHandle
+ 1233 02f4 00000000 		.word	OTT
+ 1234 02f8 00000000 		.word	FOCVars
+ 1235 02fc 00000000 		.word	VirtualSpeedSensorM1
+ 1236 0300 00000000 		.word	pSTC
+ 1237 0304 00000000 		.word	pREMNG
+ 1238 0308 00000000 		.word	PIDSpeedHandle_M1
+ 1239              	.L39:
+ 436:Src/mc_tasks_foc.c ****           {
+ 1240              		.loc 1 436 11 view .LVU314
+ 436:Src/mc_tasks_foc.c ****           {
+ 1241              		.loc 1 436 15 is_stmt 0 view .LVU315
+ 1242 030c FFF7FEFF 		bl	TSK_StopPermanencyTimeHasElapsedM1
+ 1243              	.LVL116:
+ 436:Src/mc_tasks_foc.c ****           {
+ 1244              		.loc 1 436 14 view .LVU316
+ 1245 0310 0028     		cmp	r0, #0
+ 1246 0312 3FF48BAE 		beq	.L31
+ 439:Src/mc_tasks_foc.c ****             VSS_Clear(&VirtualSpeedSensorM1); /* Reset measured speed in IDLE */
+ 1247              		.loc 1 439 13 is_stmt 1 view .LVU317
+ 1248 0316 244C     		ldr	r4, .L70
+ 1249              	.LVL117:
+ 439:Src/mc_tasks_foc.c ****             VSS_Clear(&VirtualSpeedSensorM1); /* Reset measured speed in IDLE */
+ 1250              		.loc 1 439 13 is_stmt 0 view .LVU318
+ 1251 0318 2146     		mov	r1, r4
+ 1252 031a 244B     		ldr	r3, .L70+4
+ 1253 031c 1868     		ldr	r0, [r3]
+ 1254 031e FFF7FEFF 		bl	STC_SetSpeedSensor
+ 1255              	.LVL118:
+ 440:Src/mc_tasks_foc.c ****             /* USER CODE BEGIN MediumFrequencyTask M1 5 */
+ 1256              		.loc 1 440 13 is_stmt 1 view .LVU319
+ 1257 0322 2046     		mov	r0, r4
+ 1258 0324 FFF7FEFF 		bl	VSS_Clear
+ 1259              	.LVL119:
+ 444:Src/mc_tasks_foc.c ****             Mci[M1].State = IDLE;
+ 1260              		.loc 1 444 13 view .LVU320
+ 444:Src/mc_tasks_foc.c ****             Mci[M1].State = IDLE;
+ 1261              		.loc 1 444 35 is_stmt 0 view .LVU321
+ 1262 0328 214B     		ldr	r3, .L70+8
+ 1263 032a 0022     		movs	r2, #0
+ 1264 032c 9A77     		strb	r2, [r3, #30]
+ 445:Src/mc_tasks_foc.c ****           }
+ 1265              		.loc 1 445 13 is_stmt 1 view .LVU322
+ 445:Src/mc_tasks_foc.c ****           }
+ 1266              		.loc 1 445 27 is_stmt 0 view .LVU323
+ 1267 032e DA77     		strb	r2, [r3, #31]
+ 1268 0330 7CE6     		b	.L31
+ 1269              	.LVL120:
+ 1270              	.L37:
+ 456:Src/mc_tasks_foc.c ****           {
+ 1271              		.loc 1 456 11 is_stmt 1 view .LVU324
+ 456:Src/mc_tasks_foc.c ****           {
+ARM GAS  /tmp/cccnQOYj.s 			page 45
+
+
+ 1272              		.loc 1 456 40 is_stmt 0 view .LVU325
+ 1273 0332 1F4B     		ldr	r3, .L70+8
+ 456:Src/mc_tasks_foc.c ****           {
+ 1274              		.loc 1 456 14 view .LVU326
+ 1275 0334 9B7F     		ldrb	r3, [r3, #30]	@ zero_extendqisi2
+ 1276 0336 022B     		cmp	r3, #2
+ 1277 0338 7FF478AE 		bne	.L31
+ 458:Src/mc_tasks_foc.c ****             Mci[M1].State = IDLE;
+ 1278              		.loc 1 458 13 is_stmt 1 view .LVU327
+ 458:Src/mc_tasks_foc.c ****             Mci[M1].State = IDLE;
+ 1279              		.loc 1 458 35 is_stmt 0 view .LVU328
+ 1280 033c 1C4B     		ldr	r3, .L70+8
+ 1281 033e 0022     		movs	r2, #0
+ 1282 0340 9A77     		strb	r2, [r3, #30]
+ 459:Src/mc_tasks_foc.c ****           }
+ 1283              		.loc 1 459 13 is_stmt 1 view .LVU329
+ 459:Src/mc_tasks_foc.c ****           }
+ 1284              		.loc 1 459 27 is_stmt 0 view .LVU330
+ 1285 0342 DA77     		strb	r2, [r3, #31]
+ 1286 0344 72E6     		b	.L31
+ 1287              	.L38:
+ 470:Src/mc_tasks_foc.c ****           break;
+ 1288              		.loc 1 470 11 is_stmt 1 view .LVU331
+ 470:Src/mc_tasks_foc.c ****           break;
+ 1289              		.loc 1 470 25 is_stmt 0 view .LVU332
+ 1290 0346 1A4B     		ldr	r3, .L70+8
+ 1291 0348 0B22     		movs	r2, #11
+ 1292 034a DA77     		strb	r2, [r3, #31]
+ 471:Src/mc_tasks_foc.c ****         }
+ 1293              		.loc 1 471 11 is_stmt 1 view .LVU333
+ 1294 034c 6EE6     		b	.L31
+ 1295              	.L32:
+ 476:Src/mc_tasks_foc.c ****           {
+ 1296              		.loc 1 476 11 view .LVU334
+ 476:Src/mc_tasks_foc.c ****           {
+ 1297              		.loc 1 476 34 is_stmt 0 view .LVU335
+ 1298 034e 184B     		ldr	r3, .L70+8
+ 476:Src/mc_tasks_foc.c ****           {
+ 1299              		.loc 1 476 14 view .LVU336
+ 1300 0350 9B7F     		ldrb	r3, [r3, #30]	@ zero_extendqisi2
+ 1301 0352 052B     		cmp	r3, #5
+ 1302 0354 1FD0     		beq	.L67
+ 482:Src/mc_tasks_foc.c ****             {
+ 1303              		.loc 1 482 13 is_stmt 1 view .LVU337
+ 482:Src/mc_tasks_foc.c ****             {
+ 1304              		.loc 1 482 22 is_stmt 0 view .LVU338
+ 1305 0356 1748     		ldr	r0, .L70+12
+ 1306 0358 FFF7FEFF 		bl	SCC_DetectBemf
+ 1307              	.LVL121:
+ 482:Src/mc_tasks_foc.c ****             {
+ 1308              		.loc 1 482 16 view .LVU339
+ 1309 035c 0028     		cmp	r0, #0
+ 1310 035e 7FF465AE 		bne	.L31
+ 485:Src/mc_tasks_foc.c ****               STC_SetSpeedSensor(pSTC[M1], &VirtualSpeedSensorM1._Super);
+ 1311              		.loc 1 485 15 is_stmt 1 view .LVU340
+ 485:Src/mc_tasks_foc.c ****               STC_SetSpeedSensor(pSTC[M1], &VirtualSpeedSensorM1._Super);
+ 1312              		.loc 1 485 39 is_stmt 0 view .LVU341
+ARM GAS  /tmp/cccnQOYj.s 			page 46
+
+
+ 1313 0362 154B     		ldr	r3, .L70+16
+ 1314 0364 0122     		movs	r2, #1
+ 1315 0366 83F82420 		strb	r2, [r3, #36]
+ 486:Src/mc_tasks_foc.c ****                STO_PLL_Clear(&STO_PLL_M1);
+ 1316              		.loc 1 486 15 is_stmt 1 view .LVU342
+ 1317 036a 0F49     		ldr	r1, .L70
+ 1318 036c 0F4B     		ldr	r3, .L70+4
+ 1319 036e 1868     		ldr	r0, [r3]
+ 1320 0370 FFF7FEFF 		bl	STC_SetSpeedSensor
+ 1321              	.LVL122:
+ 487:Src/mc_tasks_foc.c ****               FOC_Clear(M1);
+ 1322              		.loc 1 487 16 view .LVU343
+ 1323 0374 1148     		ldr	r0, .L70+20
+ 1324 0376 FFF7FEFF 		bl	STO_PLL_Clear
+ 1325              	.LVL123:
+ 488:Src/mc_tasks_foc.c ****               SCC_Start(&SCC);
+ 1326              		.loc 1 488 15 view .LVU344
+ 1327 037a 0020     		movs	r0, #0
+ 1328 037c FFF7FEFF 		bl	FOC_Clear
+ 1329              	.LVL124:
+ 489:Src/mc_tasks_foc.c ****               /* The generic function needs to be called here as the undelying
+ 1330              		.loc 1 489 15 view .LVU345
+ 1331 0380 0C48     		ldr	r0, .L70+12
+ 1332 0382 FFF7FEFF 		bl	SCC_Start
+ 1333              	.LVL125:
+ 494:Src/mc_tasks_foc.c ****               Mci[M1].State = START;
+ 1334              		.loc 1 494 15 view .LVU346
+ 1335 0386 0E4B     		ldr	r3, .L70+24
+ 1336 0388 1868     		ldr	r0, [r3]
+ 1337 038a FFF7FEFF 		bl	PWMC_SwitchOnPWM
+ 1338              	.LVL126:
+ 495:Src/mc_tasks_foc.c ****             }
+ 1339              		.loc 1 495 15 view .LVU347
+ 495:Src/mc_tasks_foc.c ****             }
+ 1340              		.loc 1 495 29 is_stmt 0 view .LVU348
+ 1341 038e 084B     		ldr	r3, .L70+8
+ 1342 0390 0422     		movs	r2, #4
+ 1343 0392 DA77     		strb	r2, [r3, #31]
+ 1344 0394 4AE6     		b	.L31
+ 1345              	.L67:
+ 478:Src/mc_tasks_foc.c ****           }
+ 1346              		.loc 1 478 13 is_stmt 1 view .LVU349
+ 1347 0396 0020     		movs	r0, #0
+ 1348 0398 FFF7FEFF 		bl	TSK_MF_StopProcessing
+ 1349              	.LVL127:
+ 1350 039c 46E6     		b	.L31
+ 1351              	.L30:
+ 511:Src/mc_tasks_foc.c ****     }
+ 1352              		.loc 1 511 7 view .LVU350
+ 511:Src/mc_tasks_foc.c ****     }
+ 1353              		.loc 1 511 21 is_stmt 0 view .LVU351
+ 1354 039e 044B     		ldr	r3, .L70+8
+ 1355 03a0 0B22     		movs	r2, #11
+ 1356 03a2 DA77     		strb	r2, [r3, #31]
+ 1357 03a4 42E6     		b	.L31
+ 1358              	.L71:
+ 1359 03a6 00BF     		.align	2
+ARM GAS  /tmp/cccnQOYj.s 			page 47
+
+
+ 1360              	.L70:
+ 1361 03a8 00000000 		.word	VirtualSpeedSensorM1
+ 1362 03ac 00000000 		.word	pSTC
+ 1363 03b0 00000000 		.word	Mci
+ 1364 03b4 00000000 		.word	SCC
+ 1365 03b8 00000000 		.word	FOCVars
+ 1366 03bc 00000000 		.word	STO_PLL_M1
+ 1367 03c0 00000000 		.word	pwmcHandle
+ 1368              		.cfi_endproc
+ 1369              	.LFE1869:
+ 1371              		.section	.text.FOC_HighFrequencyTask,"ax",%progbits
+ 1372              		.align	1
+ 1373              		.weak	FOC_HighFrequencyTask
+ 1374              		.syntax unified
+ 1375              		.thumb
+ 1376              		.thumb_func
+ 1377              		.fpu fpv4-sp-d16
+ 1379              	FOC_HighFrequencyTask:
+ 1380              	.LVL128:
+ 1381              	.LFB1873:
  654:Src/mc_tasks_foc.c **** 
  655:Src/mc_tasks_foc.c **** #if defined (CCMRAM)
  656:Src/mc_tasks_foc.c **** #if defined (__ICCARM__)
@@ -2933,42 +2796,34 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
  666:Src/mc_tasks_foc.c ****   */
  667:Src/mc_tasks_foc.c **** __weak uint8_t FOC_HighFrequencyTask(uint8_t bMotorNbr)
  668:Src/mc_tasks_foc.c **** {
- 1441              		.loc 1 668 1 is_stmt 1 view -0
- 1442              		.cfi_startproc
- 1443              		@ args = 0, pretend = 0, frame = 8
- 1444              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1382              		.loc 1 668 1 is_stmt 1 view -0
+ 1383              		.cfi_startproc
+ 1384              		@ args = 0, pretend = 0, frame = 8
+ 1385              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1386              		.loc 1 668 1 is_stmt 0 view .LVU353
+ 1387 0000 00B5     		push	{lr}
+ 1388              	.LCFI15:
+ 1389              		.cfi_def_cfa_offset 4
+ 1390              		.cfi_offset 14, -4
+ 1391 0002 83B0     		sub	sp, sp, #12
+ 1392              	.LCFI16:
+ 1393              		.cfi_def_cfa_offset 16
  669:Src/mc_tasks_foc.c ****   ab_t Iab;
-ARM GAS  /tmp/ccKJN1Nl.s 			page 50
-
-
- 1445              		.loc 1 669 3 view .LVU411
+ 1394              		.loc 1 669 3 is_stmt 1 view .LVU354
  670:Src/mc_tasks_foc.c **** 
  671:Src/mc_tasks_foc.c ****   if (SWITCH_OVER == Mci[M1].State)
- 1446              		.loc 1 671 3 view .LVU412
- 668:Src/mc_tasks_foc.c ****   ab_t Iab;
- 1447              		.loc 1 668 1 is_stmt 0 view .LVU413
- 1448 0000 10B5     		push	{r4, lr}
- 1449              	.LCFI17:
- 1450              		.cfi_def_cfa_offset 8
- 1451              		.cfi_offset 4, -8
- 1452              		.cfi_offset 14, -4
- 1453              		.loc 1 671 29 view .LVU414
- 1454 0002 114B     		ldr	r3, .L113
- 1455              		.loc 1 671 6 view .LVU415
- 1456 0004 DB7F     		ldrb	r3, [r3, #31]	@ zero_extendqisi2
- 1457 0006 132B     		cmp	r3, #19
- 668:Src/mc_tasks_foc.c ****   ab_t Iab;
- 1458              		.loc 1 668 1 view .LVU416
- 1459 0008 82B0     		sub	sp, sp, #8
- 1460              	.LCFI18:
- 1461              		.cfi_def_cfa_offset 16
- 1462              		.loc 1 671 6 view .LVU417
- 1463 000a 11D0     		beq	.L106
- 1464              	.LVL134:
- 1465              	.L112:
- 1466              		.loc 1 671 6 view .LVU418
- 1467 000c 0F4C     		ldr	r4, .L113+4
- 1468              	.L107:
+ 1395              		.loc 1 671 3 view .LVU355
+ 1396              		.loc 1 671 29 is_stmt 0 view .LVU356
+ 1397 0004 114B     		ldr	r3, .L76
+ 1398              		.loc 1 671 6 view .LVU357
+ 1399 0006 DB7F     		ldrb	r3, [r3, #31]	@ zero_extendqisi2
+ 1400 0008 132B     		cmp	r3, #19
+ARM GAS  /tmp/cccnQOYj.s 			page 48
+
+
+ 1401 000a 12D0     		beq	.L75
+ 1402              	.LVL129:
+ 1403              	.L73:
  672:Src/mc_tasks_foc.c ****   {
  673:Src/mc_tasks_foc.c ****     if (!REMNG_RampCompleted(pREMNG[M1]))
  674:Src/mc_tasks_foc.c ****     {
@@ -2983,30 +2838,27 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
  683:Src/mc_tasks_foc.c ****   {
  684:Src/mc_tasks_foc.c ****     /* Nothing to do */
  685:Src/mc_tasks_foc.c ****   }
- 1469              		.loc 1 685 3 is_stmt 1 view .LVU419
+ 1404              		.loc 1 685 3 is_stmt 1 view .LVU358
  686:Src/mc_tasks_foc.c ****   RCM_ReadOngoingConv();
- 1470              		.loc 1 686 3 view .LVU420
- 1471 000e FFF7FEFF 		bl	RCM_ReadOngoingConv
- 1472              	.LVL135:
+ 1405              		.loc 1 686 3 view .LVU359
+ 1406 000c FFF7FEFF 		bl	RCM_ReadOngoingConv
+ 1407              	.LVL130:
  687:Src/mc_tasks_foc.c ****   RCM_ExecNextConv();
- 1473              		.loc 1 687 3 view .LVU421
- 1474 0012 FFF7FEFF 		bl	RCM_ExecNextConv
- 1475              	.LVL136:
+ 1408              		.loc 1 687 3 view .LVU360
+ 1409 0010 FFF7FEFF 		bl	RCM_ExecNextConv
+ 1410              	.LVL131:
  688:Src/mc_tasks_foc.c ****   /* The generic function needs to be called here as the undelying
  689:Src/mc_tasks_foc.c ****    * implementation changes in time depending on the Profiler's state
  690:Src/mc_tasks_foc.c ****    * machine. Calling the generic function ensures that the correct
  691:Src/mc_tasks_foc.c ****    * implementation is invoked */
  692:Src/mc_tasks_foc.c ****   PWMC_GetPhaseCurrents(pwmcHandle[M1], &Iab);
- 1476              		.loc 1 692 3 view .LVU422
-ARM GAS  /tmp/ccKJN1Nl.s 			page 51
-
-
- 1477 0016 0E4B     		ldr	r3, .L113+8
- 1478 0018 1868     		ldr	r0, [r3]
- 1479              	.LVL137:
- 1480              	.LBB59:
- 1481              	.LBI59:
- 1482              		.file 4 "Inc/pwm_curr_fdbk.h"
+ 1411              		.loc 1 692 3 view .LVU361
+ 1412 0014 0E4B     		ldr	r3, .L76+4
+ 1413 0016 1868     		ldr	r0, [r3]
+ 1414              	.LVL132:
+ 1415              	.LBB31:
+ 1416              	.LBI31:
+ 1417              		.file 4 "Inc/pwm_curr_fdbk.h"
    1:Inc/pwm_curr_fdbk.h **** /**
    2:Inc/pwm_curr_fdbk.h ****   ******************************************************************************
    3:Inc/pwm_curr_fdbk.h ****   * @file    pwm_curr_fdbk.h
@@ -3026,6 +2878,9 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
   17:Inc/pwm_curr_fdbk.h ****   *
   18:Inc/pwm_curr_fdbk.h ****   ******************************************************************************
   19:Inc/pwm_curr_fdbk.h ****   * @ingroup pwm_curr_fdbk
+ARM GAS  /tmp/cccnQOYj.s 			page 49
+
+
   20:Inc/pwm_curr_fdbk.h ****   */
   21:Inc/pwm_curr_fdbk.h **** 
   22:Inc/pwm_curr_fdbk.h **** /* Define to prevent recursive inclusion -------------------------------------*/
@@ -3058,9 +2913,6 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
   49:Inc/pwm_curr_fdbk.h ****   */
   50:Inc/pwm_curr_fdbk.h **** 
   51:Inc/pwm_curr_fdbk.h **** /** @addtogroup pwm_curr_fdbk
-ARM GAS  /tmp/ccKJN1Nl.s 			page 52
-
-
   52:Inc/pwm_curr_fdbk.h ****   * @{
   53:Inc/pwm_curr_fdbk.h ****   */
   54:Inc/pwm_curr_fdbk.h **** 
@@ -3086,6 +2938,9 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
   74:Inc/pwm_curr_fdbk.h **** typedef void (*PWMC_Generic_Cb_t)(PWMC_Handle_t *pHandle);
   75:Inc/pwm_curr_fdbk.h **** 
   76:Inc/pwm_curr_fdbk.h **** /**
+ARM GAS  /tmp/cccnQOYj.s 			page 50
+
+
   77:Inc/pwm_curr_fdbk.h ****   * @brief Pointer on the function provided by the PMWC component instance to get the phase current
   78:Inc/pwm_curr_fdbk.h ****   *
   79:Inc/pwm_curr_fdbk.h ****   * This type is needed because the actual function to use can change at run-time
@@ -3118,9 +2973,6 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
  106:Inc/pwm_curr_fdbk.h ****   *        point for each sectors.
  107:Inc/pwm_curr_fdbk.h ****   *
  108:Inc/pwm_curr_fdbk.h ****   * This type is needed because the actual function to use can change at run-time. See:
-ARM GAS  /tmp/ccKJN1Nl.s 			page 53
-
-
  109:Inc/pwm_curr_fdbk.h ****   * - PWMC_Handle::pFctSetADCSampPointSect1
  110:Inc/pwm_curr_fdbk.h ****   * - PWMC_Handle::pFctSetADCSampPointSect2
  111:Inc/pwm_curr_fdbk.h ****   * - PWMC_Handle::pFctSetADCSampPointSect3
@@ -3146,6 +2998,9 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
  131:Inc/pwm_curr_fdbk.h ****   *        in RL detection mode.
  132:Inc/pwm_curr_fdbk.h ****   *
  133:Inc/pwm_curr_fdbk.h ****   * This type is needed because the actual function to use can change at run-time
+ARM GAS  /tmp/cccnQOYj.s 			page 51
+
+
  134:Inc/pwm_curr_fdbk.h ****   * (See PWMC_Handle::pFctSetOffsetCalib).
  135:Inc/pwm_curr_fdbk.h ****   *
  136:Inc/pwm_curr_fdbk.h ****   */
@@ -3178,9 +3033,6 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
  163:Inc/pwm_curr_fdbk.h ****   pFctTurnOnLowSides;                        /**< Pointer on the function the component instance us
  164:Inc/pwm_curr_fdbk.h ****   PWMC_SetSampPointSectX_Cb_t
  165:Inc/pwm_curr_fdbk.h ****   pFctSetADCSampPointSectX;                  /**< Pointer on the function the component instance us
-ARM GAS  /tmp/ccKJN1Nl.s 			page 54
-
-
  166:Inc/pwm_curr_fdbk.h ****   PWMC_SetOcpRefVolt_Cb_t
  167:Inc/pwm_curr_fdbk.h ****   pFctOCPSetReferenceVoltage;                /**< Pointer on the fct the component instance uses to
  168:Inc/pwm_curr_fdbk.h ****   PWMC_Generic_Cb_t
@@ -3206,6 +3058,9 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
  188:Inc/pwm_curr_fdbk.h ****   uint16_t pwm_en_v_pin;                               /*!< Channel 2N (low side) GPIO output pin. 
  189:Inc/pwm_curr_fdbk.h ****   uint16_t pwm_en_w_pin;                               /*!< Channel 3N (low side)  GPIO output pin.
  190:Inc/pwm_curr_fdbk.h ****   uint16_t  hT_Sqrt3;                                  /**< Constant used by PWM algorithm (@f$\sqr
+ARM GAS  /tmp/cccnQOYj.s 			page 52
+
+
  191:Inc/pwm_curr_fdbk.h ****   uint16_t  CntPhA;                                    /**< PWM Duty cycle for phase A. */
  192:Inc/pwm_curr_fdbk.h ****   uint16_t  CntPhB;                                    /**< PWM Duty cycle for phase B. */
  193:Inc/pwm_curr_fdbk.h ****   uint16_t  CntPhC;                                    /**< PWM Duty cycle for phase C. */
@@ -3238,9 +3093,6 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
  220:Inc/pwm_curr_fdbk.h ****                                                             false otherwise. */
  221:Inc/pwm_curr_fdbk.h ****   bool      DPWM_Mode;                                 /**< Discontinuous PWM mode activation. */
  222:Inc/pwm_curr_fdbk.h ****   bool      RLDetectionMode;                           /**< True if enabled, false if disabled. */
-ARM GAS  /tmp/ccKJN1Nl.s 			page 55
-
-
  223:Inc/pwm_curr_fdbk.h ****   bool offsetCalibStatus;                              /**< True if offset calibration completed, f
  224:Inc/pwm_curr_fdbk.h ****   bool OverCurrentFlag;         /* This flag is set when an overcurrent occurs.*/
  225:Inc/pwm_curr_fdbk.h ****   bool OverVoltageFlag;         /* This flag is set when an overvoltage occurs.*/
@@ -3266,6 +3118,9 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
  245:Inc/pwm_curr_fdbk.h **** 
  246:Inc/pwm_curr_fdbk.h **** /* Switches PWM generation off, inactivating the outputs. */
  247:Inc/pwm_curr_fdbk.h **** void PWMC_SwitchOffPWM(PWMC_Handle_t *pHandle);
+ARM GAS  /tmp/cccnQOYj.s 			page 53
+
+
  248:Inc/pwm_curr_fdbk.h **** 
  249:Inc/pwm_curr_fdbk.h **** /* Enables PWM generation on the proper Timer peripheral. */
  250:Inc/pwm_curr_fdbk.h **** void PWMC_SwitchOnPWM(PWMC_Handle_t *pHandle);
@@ -3298,9 +3153,6 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
  277:Inc/pwm_curr_fdbk.h **** uint16_t PWMC_IsFaultOccurred(PWMC_Handle_t *pHandle);
  278:Inc/pwm_curr_fdbk.h **** 
  279:Inc/pwm_curr_fdbk.h **** /* Sets the over current threshold through the DAC reference voltage. */
-ARM GAS  /tmp/ccKJN1Nl.s 			page 56
-
-
  280:Inc/pwm_curr_fdbk.h **** void PWMC_OCPSetReferenceVoltage(PWMC_Handle_t *pHandle, uint16_t hDACVref);
  281:Inc/pwm_curr_fdbk.h **** 
  282:Inc/pwm_curr_fdbk.h **** /* Enables Discontinuous PWM mode using the @p pHandle PWMC component. */
@@ -3326,6 +3178,9 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
  302:Inc/pwm_curr_fdbk.h **** 
  303:Inc/pwm_curr_fdbk.h **** /* Sets the Callback that the PWMC component shall invoke to get phases current. */
  304:Inc/pwm_curr_fdbk.h **** void PWMC_RegisterGetPhaseCurrentsCallBack(PWMC_GetPhaseCurr_Cb_t pCallBack, PWMC_Handle_t *pHandle
+ARM GAS  /tmp/cccnQOYj.s 			page 54
+
+
  305:Inc/pwm_curr_fdbk.h **** 
  306:Inc/pwm_curr_fdbk.h **** /* Sets the Callback that the PWMC component shall invoke to switch PWM generation off. */
  307:Inc/pwm_curr_fdbk.h **** void PWMC_RegisterSwitchOffPwmCallBack(PWMC_Generic_Cb_t pCallBack, PWMC_Handle_t *pHandle);
@@ -3358,9 +3213,6 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
  334:Inc/pwm_curr_fdbk.h **** /* Used to clear variables in CPWMC. */
  335:Inc/pwm_curr_fdbk.h **** void PWMC_Clear(PWMC_Handle_t *pHandle);
  336:Inc/pwm_curr_fdbk.h **** 
-ARM GAS  /tmp/ccKJN1Nl.s 			page 57
-
-
  337:Inc/pwm_curr_fdbk.h **** /* Converts input currents components Iqd into estimated currents Ia, Ib and Ic. */
  338:Inc/pwm_curr_fdbk.h **** void PWMC_CalcPhaseCurrentsEst(PWMC_Handle_t *pHandle, qd_t Iqd, int16_t hElAngledpp);
  339:Inc/pwm_curr_fdbk.h **** 
@@ -3384,8 +3236,11 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
  357:Inc/pwm_curr_fdbk.h ****   */
  358:Inc/pwm_curr_fdbk.h **** //cstat !MISRAC2012-Rule-8.13 !RED-func-no-effect
  359:Inc/pwm_curr_fdbk.h **** static inline void PWMC_GetPhaseCurrents(PWMC_Handle_t *pHandle, ab_t *Iab)
- 1483              		.loc 4 359 20 view .LVU423
- 1484              	.LBB60:
+ 1418              		.loc 4 359 20 view .LVU362
+ 1419              	.LBB32:
+ARM GAS  /tmp/cccnQOYj.s 			page 55
+
+
  360:Inc/pwm_curr_fdbk.h **** {
  361:Inc/pwm_curr_fdbk.h **** #ifdef NULL_PTR_CHECK_PWR_CUR_FDB
  362:Inc/pwm_curr_fdbk.h ****   if (MC_NULL == pHandle)
@@ -3396,168 +3251,166 @@ ARM GAS  /tmp/ccKJN1Nl.s 			page 1
  367:Inc/pwm_curr_fdbk.h ****   {
  368:Inc/pwm_curr_fdbk.h **** #endif
  369:Inc/pwm_curr_fdbk.h ****     pHandle->pFctGetPhaseCurrents(pHandle, Iab);
- 1485              		.loc 4 369 5 view .LVU424
- 1486 001a 01A9     		add	r1, sp, #4
- 1487              	.LVL138:
- 1488              		.loc 4 369 5 is_stmt 0 view .LVU425
- 1489 001c 0368     		ldr	r3, [r0]
- 1490 001e 9847     		blx	r3
- 1491              	.LVL139:
- 1492              		.loc 4 369 5 view .LVU426
- 1493              	.LBE60:
- 1494              	.LBE59:
+ 1420              		.loc 4 369 5 view .LVU363
+ 1421 0018 0368     		ldr	r3, [r0]
+ 1422 001a 01A9     		add	r1, sp, #4
+ 1423              	.LVL133:
+ 1424              		.loc 4 369 5 is_stmt 0 view .LVU364
+ 1425 001c 9847     		blx	r3
+ 1426              	.LVL134:
+ 1427              		.loc 4 369 5 view .LVU365
+ 1428              	.LBE32:
+ 1429              	.LBE31:
  693:Src/mc_tasks_foc.c ****   FOCVars[M1].Iab = Iab;
- 1495              		.loc 1 693 3 is_stmt 1 view .LVU427
- 1496              		.loc 1 693 19 is_stmt 0 view .LVU428
- 1497 0020 0198     		ldr	r0, [sp, #4]
- 1498 0022 2060     		str	r0, [r4]	@ unaligned
+ 1430              		.loc 1 693 3 is_stmt 1 view .LVU366
+ 1431              		.loc 1 693 19 is_stmt 0 view .LVU367
+ 1432 001e 0198     		ldr	r0, [sp, #4]
+ 1433 0020 0C4B     		ldr	r3, .L76+8
+ 1434 0022 1860     		str	r0, [r3]	@ unaligned
  694:Src/mc_tasks_foc.c ****   SCC_SetPhaseVoltage(&SCC);
- 1499              		.loc 1 694 3 is_stmt 1 view .LVU429
- 1500 0024 0B48     		ldr	r0, .L113+12
- 1501 0026 FFF7FEFF 		bl	SCC_SetPhaseVoltage
- 1502              	.LVL140:
+ 1435              		.loc 1 694 3 is_stmt 1 view .LVU368
+ 1436 0024 0C48     		ldr	r0, .L76+12
+ 1437 0026 FFF7FEFF 		bl	SCC_SetPhaseVoltage
+ 1438              	.LVL135:
  695:Src/mc_tasks_foc.c **** 
  696:Src/mc_tasks_foc.c ****   return (0); /* Single motor only */
-ARM GAS  /tmp/ccKJN1Nl.s 			page 58
-
-
- 1503              		.loc 1 696 3 view .LVU430
+ 1439              		.loc 1 696 3 view .LVU369
  697:Src/mc_tasks_foc.c **** }
- 1504              		.loc 1 697 1 is_stmt 0 view .LVU431
- 1505 002a 0020     		movs	r0, #0
- 1506 002c 02B0     		add	sp, sp, #8
- 1507              	.LCFI19:
- 1508              		.cfi_remember_state
- 1509              		.cfi_def_cfa_offset 8
- 1510              		@ sp needed
- 1511 002e 10BD     		pop	{r4, pc}
- 1512              	.LVL141:
- 1513              	.L106:
- 1514              	.LCFI20:
- 1515              		.cfi_restore_state
+ 1440              		.loc 1 697 1 is_stmt 0 view .LVU370
+ 1441 002a 0020     		movs	r0, #0
+ 1442 002c 03B0     		add	sp, sp, #12
+ 1443              	.LCFI17:
+ 1444              		.cfi_remember_state
+ 1445              		.cfi_def_cfa_offset 4
+ 1446              		@ sp needed
+ 1447 002e 5DF804FB 		ldr	pc, [sp], #4
+ 1448              	.LVL136:
+ 1449              	.L75:
+ 1450              	.LCFI18:
+ 1451              		.cfi_restore_state
  673:Src/mc_tasks_foc.c ****     {
- 1516              		.loc 1 673 5 is_stmt 1 view .LVU432
+ 1452              		.loc 1 673 5 is_stmt 1 view .LVU371
  673:Src/mc_tasks_foc.c ****     {
- 1517              		.loc 1 673 36 is_stmt 0 view .LVU433
- 1518 0030 094C     		ldr	r4, .L113+16
+ 1453              		.loc 1 673 10 is_stmt 0 view .LVU372
+ 1454 0032 0A4B     		ldr	r3, .L76+16
+ 1455 0034 1868     		ldr	r0, [r3]
+ 1456              	.LVL137:
  673:Src/mc_tasks_foc.c ****     {
- 1519              		.loc 1 673 10 view .LVU434
- 1520 0032 2068     		ldr	r0, [r4]
- 1521              	.LVL142:
- 673:Src/mc_tasks_foc.c ****     {
- 1522              		.loc 1 673 10 view .LVU435
- 1523 0034 FFF7FEFF 		bl	REMNG_RampCompleted
- 1524              	.LVL143:
- 673:Src/mc_tasks_foc.c ****     {
- 1525              		.loc 1 673 8 view .LVU436
- 1526 0038 0028     		cmp	r0, #0
- 1527 003a E7D1     		bne	.L112
- 675:Src/mc_tasks_foc.c ****     }
- 1528              		.loc 1 675 7 is_stmt 1 view .LVU437
- 675:Src/mc_tasks_foc.c ****     }
- 1529              		.loc 1 675 39 is_stmt 0 view .LVU438
- 1530 003c 2068     		ldr	r0, [r4]
- 675:Src/mc_tasks_foc.c ****     }
- 1531              		.loc 1 675 28 view .LVU439
- 1532 003e 034C     		ldr	r4, .L113+4
- 675:Src/mc_tasks_foc.c ****     }
- 1533              		.loc 1 675 39 view .LVU440
- 1534 0040 FFF7FEFF 		bl	REMNG_Calc
- 1535              	.LVL144:
- 675:Src/mc_tasks_foc.c ****     }
- 1536              		.loc 1 675 30 view .LVU441
- 1537 0044 2082     		strh	r0, [r4, #16]	@ movhi
- 1538 0046 E2E7     		b	.L107
- 1539              	.L114:
- 1540              		.align	2
- 1541              	.L113:
- 1542 0048 00000000 		.word	Mci
- 1543 004c 00000000 		.word	FOCVars
- 1544 0050 00000000 		.word	pwmcHandle
- 1545 0054 00000000 		.word	SCC
- 1546 0058 00000000 		.word	pREMNG
- 1547              		.cfi_endproc
- 1548              	.LFE1873:
-ARM GAS  /tmp/ccKJN1Nl.s 			page 59
+ 1457              		.loc 1 673 10 view .LVU373
+ 1458 0036 FFF7FEFF 		bl	REMNG_RampCompleted
+ARM GAS  /tmp/cccnQOYj.s 			page 56
 
 
- 1550              		.section	.bss.hBootCapDelayCounterM1,"aw",%nobits
- 1551              		.align	1
- 1554              	hBootCapDelayCounterM1:
- 1555 0000 0000     		.space	2
- 1556              		.section	.bss.hStopPermanencyCounterM1,"aw",%nobits
- 1557              		.align	1
- 1560              	hStopPermanencyCounterM1:
- 1561 0000 0000     		.space	2
- 1562              		.weak	STO_SetDirection
- 1563              		.text
- 1564              	.Letext0:
- 1565              		.file 5 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
- 1566              		.file 6 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
- 1567              		.file 7 "Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g431xx.h"
- 1568              		.file 8 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h"
- 1569              		.file 9 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_usart.h"
- 1570              		.file 10 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h"
- 1571              		.file 11 "Inc/mc_type.h"
- 1572              		.file 12 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/pid_regulator.h"
- 1573              		.file 13 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h"
- 1574              		.file 14 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/virtual_speed_sensor.h"
- 1575              		.file 15 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/sto_speed_pos_fdbk.h"
- 1576              		.file 16 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/revup_ctrl.h"
- 1577              		.file 17 "Inc/mc_perf.h"
- 1578              		.file 18 "Inc/mc_interface.h"
- 1579              		.file 19 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/bus_voltage_sensor.h"
- 1580              		.file 20 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/r_divider_bus_voltage_sensor.h"
- 1581              		.file 21 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/sto_pll_speed_pos_fdbk.h"
- 1582              		.file 22 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/ramp_ext_mngr.h"
- 1583              		.file 23 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/mp_one_touch_tuning.h"
- 1584              		.file 24 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/circle_limitation.h"
- 1585              		.file 25 "Inc/hall_speed_pos_fdbk.h"
- 1586              		.file 26 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/mp_hall_tuning.h"
- 1587              		.file 27 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/mp_self_com_ctrl.h"
- 1588              		.file 28 "Inc/mc_config_common.h"
- 1589              		.file 29 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/feed_forward_ctrl.h"
- 1590              		.file 30 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/pqd_motor_power_measurement.h"
- 1591              		.file 31 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/G4xx/Inc/r3_2_g4xx_pwm_curr_fdbk.h"
- 1592              		.file 32 "Inc/mc_config.h"
- 1593              		.file 33 "Inc/regular_conversion_manager.h"
- 1594              		.file 34 "Inc/mc_math.h"
- 1595              		.file 35 "Inc/mc_tasks.h"
- 1596              		.file 36 "Inc/pwm_common.h"
-ARM GAS  /tmp/ccKJN1Nl.s 			page 60
+ 1459              	.LVL138:
+ 673:Src/mc_tasks_foc.c ****     {
+ 1460              		.loc 1 673 8 view .LVU374
+ 1461 003a 0028     		cmp	r0, #0
+ 1462 003c E6D1     		bne	.L73
+ 675:Src/mc_tasks_foc.c ****     }
+ 1463              		.loc 1 675 7 is_stmt 1 view .LVU375
+ 675:Src/mc_tasks_foc.c ****     }
+ 1464              		.loc 1 675 39 is_stmt 0 view .LVU376
+ 1465 003e 074B     		ldr	r3, .L76+16
+ 1466 0040 1868     		ldr	r0, [r3]
+ 1467 0042 FFF7FEFF 		bl	REMNG_Calc
+ 1468              	.LVL139:
+ 675:Src/mc_tasks_foc.c ****     }
+ 1469              		.loc 1 675 28 view .LVU377
+ 1470 0046 034B     		ldr	r3, .L76+8
+ 675:Src/mc_tasks_foc.c ****     }
+ 1471              		.loc 1 675 30 view .LVU378
+ 1472 0048 1882     		strh	r0, [r3, #16]	@ movhi
+ 1473 004a DFE7     		b	.L73
+ 1474              	.L77:
+ 1475              		.align	2
+ 1476              	.L76:
+ 1477 004c 00000000 		.word	Mci
+ 1478 0050 00000000 		.word	pwmcHandle
+ 1479 0054 00000000 		.word	FOCVars
+ 1480 0058 00000000 		.word	SCC
+ 1481 005c 00000000 		.word	pREMNG
+ 1482              		.cfi_endproc
+ 1483              	.LFE1873:
+ 1485              		.section	.bss.hBootCapDelayCounterM1,"aw",%nobits
+ 1486              		.align	1
+ 1489              	hBootCapDelayCounterM1:
+ 1490 0000 0000     		.space	2
+ 1491              		.section	.bss.hStopPermanencyCounterM1,"aw",%nobits
+ 1492              		.align	1
+ 1495              	hStopPermanencyCounterM1:
+ 1496 0000 0000     		.space	2
+ 1497              		.weak	STO_SetDirection
+ 1498              		.text
+ 1499              	.Letext0:
+ 1500              		.file 5 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
+ 1501              		.file 6 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
+ 1502              		.file 7 "Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g431xx.h"
+ 1503              		.file 8 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h"
+ 1504              		.file 9 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_usart.h"
+ 1505              		.file 10 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h"
+ 1506              		.file 11 "Inc/mc_type.h"
+ 1507              		.file 12 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/pid_regulator.h"
+ 1508              		.file 13 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h"
+ 1509              		.file 14 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/virtual_speed_sensor.h"
+ 1510              		.file 15 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/sto_speed_pos_fdbk.h"
+ 1511              		.file 16 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/revup_ctrl.h"
+ 1512              		.file 17 "Inc/mc_perf.h"
+ 1513              		.file 18 "Inc/mc_interface.h"
+ 1514              		.file 19 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/bus_voltage_sensor.h"
+ 1515              		.file 20 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/r_divider_bus_voltage_sensor.h"
+ARM GAS  /tmp/cccnQOYj.s 			page 57
+
+
+ 1516              		.file 21 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/sto_pll_speed_pos_fdbk.h"
+ 1517              		.file 22 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/ramp_ext_mngr.h"
+ 1518              		.file 23 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/mp_one_touch_tuning.h"
+ 1519              		.file 24 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/circle_limitation.h"
+ 1520              		.file 25 "Inc/hall_speed_pos_fdbk.h"
+ 1521              		.file 26 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/mp_hall_tuning.h"
+ 1522              		.file 27 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/mp_self_com_ctrl.h"
+ 1523              		.file 28 "Inc/mc_config_common.h"
+ 1524              		.file 29 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/feed_forward_ctrl.h"
+ 1525              		.file 30 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/pqd_motor_power_measurement.h"
+ 1526              		.file 31 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/G4xx/Inc/r3_2_g4xx_pwm_curr_fdbk.h"
+ 1527              		.file 32 "Inc/mc_config.h"
+ 1528              		.file 33 "Inc/regular_conversion_manager.h"
+ 1529              		.file 34 "Inc/mc_math.h"
+ 1530              		.file 35 "Inc/mc_tasks.h"
+ 1531              		.file 36 "Inc/pwm_common.h"
+ARM GAS  /tmp/cccnQOYj.s 			page 58
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 mc_tasks_foc.c
-     /tmp/ccKJN1Nl.s:18     .text.FOC_Clear:0000000000000000 $t
-     /tmp/ccKJN1Nl.s:27     .text.FOC_Clear:0000000000000000 FOC_Clear
-     /tmp/ccKJN1Nl.s:129    .text.FOC_Clear:0000000000000074 $d
-     /tmp/ccKJN1Nl.s:140    .text.FOC_Init:0000000000000000 $t
-     /tmp/ccKJN1Nl.s:148    .text.FOC_Init:0000000000000000 FOC_Init
-     /tmp/ccKJN1Nl.s:397    .text.FOC_Init:0000000000000120 $d
-     /tmp/ccKJN1Nl.s:424    .text.TSK_MF_StopProcessing:0000000000000000 $t
-     /tmp/ccKJN1Nl.s:432    .text.TSK_MF_StopProcessing:0000000000000000 TSK_MF_StopProcessing
-     /tmp/ccKJN1Nl.s:483    .text.TSK_MF_StopProcessing:0000000000000038 $d
-     /tmp/ccKJN1Nl.s:491    .text.FOC_InitAdditionalMethods:0000000000000000 $t
-     /tmp/ccKJN1Nl.s:499    .text.FOC_InitAdditionalMethods:0000000000000000 FOC_InitAdditionalMethods
-     /tmp/ccKJN1Nl.s:535    .text.FOC_InitAdditionalMethods:0000000000000014 $d
-     /tmp/ccKJN1Nl.s:540    .text.FOC_CalcCurrRef:0000000000000000 $t
-     /tmp/ccKJN1Nl.s:548    .text.FOC_CalcCurrRef:0000000000000000 FOC_CalcCurrRef
-     /tmp/ccKJN1Nl.s:707    .text.FOC_CalcCurrRef:0000000000000064 $d
-     /tmp/ccKJN1Nl.s:714    .text.TSK_MediumFrequencyTaskM1:0000000000000000 $t
-     /tmp/ccKJN1Nl.s:722    .text.TSK_MediumFrequencyTaskM1:0000000000000000 TSK_MediumFrequencyTaskM1
-     /tmp/ccKJN1Nl.s:807    .text.TSK_MediumFrequencyTaskM1:0000000000000048 $d
-     /tmp/ccKJN1Nl.s:828    .text.TSK_MediumFrequencyTaskM1:000000000000009c $t
-     /tmp/ccKJN1Nl.s:1340   .text.TSK_MediumFrequencyTaskM1:00000000000002fc $d
-     /tmp/ccKJN1Nl.s:1358   .text.TSK_MediumFrequencyTaskM1:000000000000032c $t
-     /tmp/ccKJN1Nl.s:1423   .text.TSK_MediumFrequencyTaskM1:0000000000000378 $d
-     /tmp/ccKJN1Nl.s:1430   .text.FOC_HighFrequencyTask:0000000000000000 $t
-     /tmp/ccKJN1Nl.s:1438   .text.FOC_HighFrequencyTask:0000000000000000 FOC_HighFrequencyTask
-     /tmp/ccKJN1Nl.s:1542   .text.FOC_HighFrequencyTask:0000000000000048 $d
-     /tmp/ccKJN1Nl.s:1551   .bss.hBootCapDelayCounterM1:0000000000000000 $d
-     /tmp/ccKJN1Nl.s:1554   .bss.hBootCapDelayCounterM1:0000000000000000 hBootCapDelayCounterM1
-     /tmp/ccKJN1Nl.s:1557   .bss.hStopPermanencyCounterM1:0000000000000000 $d
-     /tmp/ccKJN1Nl.s:1560   .bss.hStopPermanencyCounterM1:0000000000000000 hStopPermanencyCounterM1
+     /tmp/cccnQOYj.s:18     .text.FOC_Clear:0000000000000000 $t
+     /tmp/cccnQOYj.s:26     .text.FOC_Clear:0000000000000000 FOC_Clear
+     /tmp/cccnQOYj.s:126    .text.FOC_Clear:0000000000000070 $d
+     /tmp/cccnQOYj.s:137    .text.FOC_Init:0000000000000000 $t
+     /tmp/cccnQOYj.s:144    .text.FOC_Init:0000000000000000 FOC_Init
+     /tmp/cccnQOYj.s:352    .text.FOC_Init:0000000000000124 $d
+     /tmp/cccnQOYj.s:379    .text.TSK_MF_StopProcessing:0000000000000000 $t
+     /tmp/cccnQOYj.s:386    .text.TSK_MF_StopProcessing:0000000000000000 TSK_MF_StopProcessing
+     /tmp/cccnQOYj.s:435    .text.TSK_MF_StopProcessing:0000000000000038 $d
+     /tmp/cccnQOYj.s:443    .text.FOC_InitAdditionalMethods:0000000000000000 $t
+     /tmp/cccnQOYj.s:450    .text.FOC_InitAdditionalMethods:0000000000000000 FOC_InitAdditionalMethods
+     /tmp/cccnQOYj.s:491    .text.FOC_InitAdditionalMethods:0000000000000018 $d
+     /tmp/cccnQOYj.s:496    .text.FOC_CalcCurrRef:0000000000000000 $t
+     /tmp/cccnQOYj.s:503    .text.FOC_CalcCurrRef:0000000000000000 FOC_CalcCurrRef
+     /tmp/cccnQOYj.s:652    .text.FOC_CalcCurrRef:000000000000006c $d
+     /tmp/cccnQOYj.s:659    .text.TSK_MediumFrequencyTaskM1:0000000000000000 $t
+     /tmp/cccnQOYj.s:666    .text.TSK_MediumFrequencyTaskM1:0000000000000000 TSK_MediumFrequencyTaskM1
+     /tmp/cccnQOYj.s:746    .text.TSK_MediumFrequencyTaskM1:0000000000000050 $d
+     /tmp/cccnQOYj.s:767    .text.TSK_MediumFrequencyTaskM1:00000000000000a4 $t
+     /tmp/cccnQOYj.s:1227   .text.TSK_MediumFrequencyTaskM1:00000000000002dc $d
+     /tmp/cccnQOYj.s:1242   .text.TSK_MediumFrequencyTaskM1:000000000000030c $t
+     /tmp/cccnQOYj.s:1361   .text.TSK_MediumFrequencyTaskM1:00000000000003a8 $d
+     /tmp/cccnQOYj.s:1372   .text.FOC_HighFrequencyTask:0000000000000000 $t
+     /tmp/cccnQOYj.s:1379   .text.FOC_HighFrequencyTask:0000000000000000 FOC_HighFrequencyTask
+     /tmp/cccnQOYj.s:1477   .text.FOC_HighFrequencyTask:000000000000004c $d
+     /tmp/cccnQOYj.s:1486   .bss.hBootCapDelayCounterM1:0000000000000000 $d
+     /tmp/cccnQOYj.s:1489   .bss.hBootCapDelayCounterM1:0000000000000000 hBootCapDelayCounterM1
+     /tmp/cccnQOYj.s:1492   .bss.hStopPermanencyCounterM1:0000000000000000 $d
+     /tmp/cccnQOYj.s:1495   .bss.hStopPermanencyCounterM1:0000000000000000 hStopPermanencyCounterM1
 
 UNDEFINED SYMBOLS
 PID_SetIntegralTerm
@@ -3584,26 +3437,26 @@ SCC_Init
 OTT_Init
 STC_GetDefaultIqdref
 MCI_ExecTorqueRamp
-ARM GAS  /tmp/ccKJN1Nl.s 			page 61
+ARM GAS  /tmp/cccnQOYj.s 			page 59
 
 
 PWM_Handle_M1
 PIDSpeedHandle_M1
 STO_PLL_M1
 STO_M1
+VirtualSpeedSensorM1
+RevUpControlM1
 PIDIqHandle_M1
 PIDIdHandle_M1
 pMPM
-BusVoltageSensor_M1
-pREMNG
 RampExtMngrHFParamsM1
+pREMNG
 SCC
 CircleLimitationM1
-VirtualSpeedSensorM1
-RevUpControlM1
-OTT
+BusVoltageSensor_M1
 Mci
 SpeednTorqCtrlM1
+OTT
 R3_2_SwitchOffPWM
 SCC_Stop
 OTT_Stop
@@ -3616,38 +3469,38 @@ PQD_CalcElMotorPower
 MCI_GetCurrentFaults
 SCC_MF
 MCI_GetOccurredFaults
-SCC_DetectBemf
+MCI_GetImposedMotorDirection
+RUC_Clear
+PWMC_CurrentReadingCalibr
+OTT_Clear
+R3_2_TurnOnLowSides
+TSK_SetChargeBootCapDelayM1
+TSK_ChargeBootCapDelayHasElapsedM1
 STC_SetSpeedSensor
 STO_PLL_Clear
+PWMC_Clear
 SCC_Start
 PWMC_SwitchOnPWM
+RUC_Exec
 VSS_CalcAvrgMecSpeedUnit
+STO_PLL_IsObserverConverged
+STO_SetDirection
+VSS_SetStartTransition
+MCM_Park
+REMNG_ExecRamp
 VSS_TransitionEnded
 PID_GetKIDivisor
 OTT_SR
 STC_ForceSpeedReferenceToCurrentSpeed
 MCI_ExecBufferedCommands
+OTT_MF
+MCI_FaultProcessing
 TSK_StopPermanencyTimeHasElapsedM1
 VSS_Clear
-TSK_ChargeBootCapDelayHasElapsedM1
-PWMC_Clear
-PWMC_CurrentReadingCalibr
-RUC_Exec
-STO_PLL_IsObserverConverged
-MCI_GetImposedMotorDirection
-STO_SetDirection
-VSS_SetStartTransition
-MCM_Park
-REMNG_ExecRamp
-OTT_MF
-RUC_Clear
-OTT_Clear
-R3_2_TurnOnLowSides
-TSK_SetChargeBootCapDelayM1
-ARM GAS  /tmp/ccKJN1Nl.s 			page 62
+ARM GAS  /tmp/cccnQOYj.s 			page 60
 
 
-MCI_FaultProcessing
+SCC_DetectBemf
 RCM_ReadOngoingConv
 RCM_ExecNextConv
 SCC_SetPhaseVoltage

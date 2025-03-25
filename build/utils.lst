@@ -1,0 +1,1956 @@
+ARM GAS  /tmp/ccGg4evu.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 2
+  13              		.file	"utils.cpp"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.calcCRC,"ax",%progbits
+  18              		.align	1
+  19              		.global	calcCRC
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	calcCRC:
+  27              	.LVL0:
+  28              	.LFB2874:
+  29              		.file 1 "Src/utils.cpp"
+   1:Src/utils.cpp **** 
+   2:Src/utils.cpp **** #include <cmsis_os.h>
+   3:Src/utils.cpp **** #include <float.h>
+   4:Src/utils.cpp **** #include <math.h>
+   5:Src/utils.cpp **** #include "stm32g4xx_hal.h"
+   6:Src/utils.cpp **** 
+   7:Src/utils.cpp **** #include <utils.hpp>
+   8:Src/utils.cpp **** #include "main.h"
+   9:Src/utils.cpp **** // poly = x
+  10:Src/utils.cpp **** const uint8_t crcTable[256] = {
+  11:Src/utils.cpp ****     0x00, 0x97, 0xB9, 0x2E, 0xE5, 0x72, 0x5C, 0xCB, 0x5D, 0xCA, 0xE4, 0x73, 0xB8, 0x2F, 0x01, 0x96,
+  12:Src/utils.cpp ****     0x5F, 0xC8, 0xE6, 0x71, 0xE7, 0x70, 0x5E, 0xC9, 0x02, 0x95, 0xBB, 0x2C, 0xE3, 0x74, 0x5A, 0xCD,
+  13:Src/utils.cpp ****     0x29, 0x07, 0x90, 0x5B, 0xCC, 0xE2, 0x75, 0x59, 0xCE, 0xE0, 0x77, 0xBC, 0x2B, 0x05, 0x92, 0x04,
+  14:Src/utils.cpp ****     0x58, 0xCF, 0x51, 0xC6, 0xE8, 0x7F, 0xB4, 0x23, 0x0D, 0x9A, 0x0C, 0x9B, 0xB5, 0x22, 0xE9, 0x7E,
+  15:Src/utils.cpp ****     0xC5, 0x0E, 0x99, 0xB7, 0x20, 0xB6, 0x21, 0x0F, 0x98, 0x53, 0xC4, 0xEA, 0x7D, 0xB2, 0x25, 0x0B,
+  16:Src/utils.cpp ****     0xEF, 0x78, 0x56, 0xC1, 0x0A, 0x9D, 0xB3, 0x24, 0x08, 0x9F, 0xB1, 0x26, 0xED, 0x7A, 0x54, 0xC3,
+  17:Src/utils.cpp ****     0x27, 0x09, 0x9E, 0xA2, 0x35, 0x1B, 0x8C, 0x47, 0xD0, 0xFE, 0x69, 0xFF, 0x68, 0x46, 0xD1, 0x1A,
+  18:Src/utils.cpp ****     0xA1, 0x36, 0xFD, 0x6A, 0x44, 0xD3, 0x45, 0xD2, 0xFC, 0x6B, 0xA0, 0x37, 0x19, 0x8E, 0x41, 0xD6,
+  19:Src/utils.cpp ****     0x8A, 0x1C, 0x8B, 0xA5, 0x32, 0xF9, 0x6E, 0x40, 0xD7, 0xFB, 0x6C, 0x42, 0xD5, 0x1E, 0x89, 0xA7,
+  20:Src/utils.cpp ****     0x43, 0xD4, 0xFA, 0x6D, 0xF3, 0x64, 0x4A, 0xDD, 0x16, 0x81, 0xAF, 0x38, 0xAE, 0x39, 0x17, 0x80,
+  21:Src/utils.cpp ****     0xDE, 0xF0, 0x67, 0xAC, 0x3B, 0x15, 0x82, 0x14, 0x83, 0xAD, 0x3A, 0xF1, 0x66, 0x48, 0xDF, 0x10,
+  22:Src/utils.cpp ****     0x4C, 0xDB, 0x4D, 0xDA, 0xF4, 0x63, 0xA8, 0x3F, 0x11, 0x86, 0xAA, 0x3D, 0x13, 0x84, 0x4F, 0xD8,
+  23:Src/utils.cpp ****     0xD9, 0x12, 0x85, 0xAB, 0x3C};
+  24:Src/utils.cpp **** 
+  25:Src/utils.cpp **** uint8_t calcCRC(uint8_t* buffer, uint8_t length) {
+  30              		.loc 1 25 50 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /tmp/ccGg4evu.s 			page 2
+
+
+  34              		@ link register save eliminated.
+  26:Src/utils.cpp ****     uint8_t temp = *buffer++;
+  35              		.loc 1 26 5 view .LVU1
+  36              		.loc 1 26 27 is_stmt 0 view .LVU2
+  37 0000 0246     		mov	r2, r0
+  38              	.LVL1:
+  39              		.loc 1 26 27 view .LVU3
+  40 0002 12F8013B 		ldrb	r3, [r2], #1	@ zero_extendqisi2
+  41              	.LVL2:
+  27:Src/utils.cpp ****     while (--length) {
+  42              		.loc 1 27 5 is_stmt 1 view .LVU4
+  43              		.loc 1 27 12 view .LVU5
+  44              		.loc 1 27 12 is_stmt 0 view .LVU6
+  45 0006 0129     		cmp	r1, #1
+  46 0008 10D0     		beq	.L6
+  25:Src/utils.cpp ****     uint8_t temp = *buffer++;
+  47              		.loc 1 25 50 view .LVU7
+  48 000a 10B4     		push	{r4}
+  49              	.LCFI0:
+  50              		.cfi_def_cfa_offset 4
+  51              		.cfi_offset 4, -4
+  52 000c 0239     		subs	r1, r1, #2
+  53              	.LVL3:
+  25:Src/utils.cpp ****     uint8_t temp = *buffer++;
+  54              		.loc 1 25 50 view .LVU8
+  55 000e C9B2     		uxtb	r1, r1
+  56              	.LVL4:
+  25:Src/utils.cpp ****     uint8_t temp = *buffer++;
+  57              		.loc 1 25 50 view .LVU9
+  58 0010 0231     		adds	r1, r1, #2
+  59 0012 0844     		add	r0, r0, r1
+  28:Src/utils.cpp ****         temp = *buffer++ ^ crcTable[temp];
+  60              		.loc 1 28 41 view .LVU10
+  61 0014 074C     		ldr	r4, .L9
+  62              	.L3:
+  63              		.loc 1 28 9 is_stmt 1 view .LVU11
+  64              	.LVL5:
+  65              		.loc 1 28 41 is_stmt 0 view .LVU12
+  66 0016 E35C     		ldrb	r3, [r4, r3]	@ zero_extendqisi2
+  67              	.LVL6:
+  68              		.loc 1 28 14 view .LVU13
+  69 0018 12F8011B 		ldrb	r1, [r2], #1	@ zero_extendqisi2
+  70              	.LVL7:
+  71              		.loc 1 28 14 view .LVU14
+  72 001c 4B40     		eors	r3, r3, r1
+  73              	.LVL8:
+  27:Src/utils.cpp ****     while (--length) {
+  74              		.loc 1 27 5 is_stmt 1 view .LVU15
+  27:Src/utils.cpp ****     while (--length) {
+  75              		.loc 1 27 12 view .LVU16
+  27:Src/utils.cpp ****     while (--length) {
+  76              		.loc 1 27 12 is_stmt 0 view .LVU17
+  77 001e 8242     		cmp	r2, r0
+  78 0020 F9D1     		bne	.L3
+  29:Src/utils.cpp ****     }
+  30:Src/utils.cpp **** 
+  31:Src/utils.cpp ****     return crcTable[temp];
+ARM GAS  /tmp/ccGg4evu.s 			page 3
+
+
+  79              		.loc 1 31 5 is_stmt 1 view .LVU18
+  32:Src/utils.cpp **** }
+  80              		.loc 1 32 1 is_stmt 0 view .LVU19
+  81 0022 044A     		ldr	r2, .L9
+  82              	.LVL9:
+  83              		.loc 1 32 1 view .LVU20
+  84 0024 D05C     		ldrb	r0, [r2, r3]	@ zero_extendqisi2
+  85 0026 5DF8044B 		ldr	r4, [sp], #4
+  86              	.LCFI1:
+  87              		.cfi_restore 4
+  88              		.cfi_def_cfa_offset 0
+  89 002a 7047     		bx	lr
+  90              	.LVL10:
+  91              	.L6:
+  31:Src/utils.cpp **** }
+  92              		.loc 1 31 5 is_stmt 1 view .LVU21
+  93              		.loc 1 32 1 is_stmt 0 view .LVU22
+  94 002c 014A     		ldr	r2, .L9
+  95              	.LVL11:
+  96              		.loc 1 32 1 view .LVU23
+  97 002e D05C     		ldrb	r0, [r2, r3]	@ zero_extendqisi2
+  98              	.LVL12:
+  99              		.loc 1 32 1 view .LVU24
+ 100 0030 7047     		bx	lr
+ 101              	.L10:
+ 102 0032 00BF     		.align	2
+ 103              	.L9:
+ 104 0034 00000000 		.word	.LANCHOR0
+ 105              		.cfi_endproc
+ 106              	.LFE2874:
+ 108              		.section	.text.SVM,"ax",%progbits
+ 109              		.align	1
+ 110              		.global	SVM
+ 111              		.syntax unified
+ 112              		.thumb
+ 113              		.thumb_func
+ 114              		.fpu fpv4-sp-d16
+ 116              	SVM:
+ 117              	.LVL13:
+ 118              	.LFB2875:
+  33:Src/utils.cpp **** 
+  34:Src/utils.cpp **** int SVM(float alpha, float beta, float* tA, float* tB, float* tC) {
+ 119              		.loc 1 34 67 is_stmt 1 view -0
+ 120              		.cfi_startproc
+ 121              		@ args = 0, pretend = 0, frame = 0
+ 122              		@ frame_needed = 0, uses_anonymous_args = 0
+ 123              		@ link register save eliminated.
+  35:Src/utils.cpp ****     int Sextant;
+ 124              		.loc 1 35 5 view .LVU26
+  36:Src/utils.cpp **** 
+  37:Src/utils.cpp ****     if (beta >= 0.0f) {
+ 125              		.loc 1 37 5 view .LVU27
+ 126 0000 F5EEC00A 		vcmpe.f32	s1, #0
+ 127 0004 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 128 0008 4FDB     		blt	.L45
+  38:Src/utils.cpp ****         if (alpha >= 0.0f) {
+ 129              		.loc 1 38 9 view .LVU28
+ARM GAS  /tmp/ccGg4evu.s 			page 4
+
+
+ 130 000a B5EEC00A 		vcmpe.f32	s0, #0
+ 131 000e F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 132 0012 24DB     		blt	.L46
+  39:Src/utils.cpp ****             // quadrant I
+  40:Src/utils.cpp ****             if (one_by_sqrt3 * beta > alpha)
+ 133              		.loc 1 40 13 view .LVU29
+ 134              		.loc 1 40 30 is_stmt 0 view .LVU30
+ 135 0014 DFED887A 		vldr.32	s15, .L54
+ 136 0018 60EEA77A 		vmul.f32	s15, s1, s15
+ 137              		.loc 1 40 13 view .LVU31
+ 138 001c F4EEC07A 		vcmpe.f32	s15, s0
+ 139 0020 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 140 0024 00F39380 		bgt	.L16
+  41:Src/utils.cpp ****                 Sextant = 2;  // sextant v2-v3
+  42:Src/utils.cpp ****             else
+  43:Src/utils.cpp ****                 Sextant = 1;  // sextant v1-v2
+ 141              		.loc 1 43 17 is_stmt 1 view .LVU32
+ 142              	.LVL14:
+  44:Src/utils.cpp **** 
+  45:Src/utils.cpp ****         } else {
+  46:Src/utils.cpp ****             // quadrant II
+  47:Src/utils.cpp ****             if (-one_by_sqrt3 * beta > alpha)
+  48:Src/utils.cpp ****                 Sextant = 3;  // sextant v3-v4
+  49:Src/utils.cpp ****             else
+  50:Src/utils.cpp ****                 Sextant = 2;  // sextant v2-v3
+  51:Src/utils.cpp ****         }
+  52:Src/utils.cpp ****     } else {
+  53:Src/utils.cpp ****         if (alpha >= 0.0f) {
+  54:Src/utils.cpp ****             // quadrant IV
+  55:Src/utils.cpp ****             if (-one_by_sqrt3 * beta > alpha)
+  56:Src/utils.cpp ****                 Sextant = 5;  // sextant v5-v6
+  57:Src/utils.cpp ****             else
+  58:Src/utils.cpp ****                 Sextant = 6;  // sextant v6-v1
+  59:Src/utils.cpp ****         } else {
+  60:Src/utils.cpp ****             // quadrant III
+  61:Src/utils.cpp ****             if (one_by_sqrt3 * beta > alpha)
+  62:Src/utils.cpp ****                 Sextant = 4;  // sextant v4-v5
+  63:Src/utils.cpp ****             else
+  64:Src/utils.cpp ****                 Sextant = 5;  // sextant v5-v6
+  65:Src/utils.cpp ****         }
+  66:Src/utils.cpp ****     }
+  67:Src/utils.cpp **** 
+  68:Src/utils.cpp ****     switch (Sextant) {
+ 143              		.loc 1 68 5 view .LVU33
+ 144              	.LBB2:
+  69:Src/utils.cpp ****         // sextant v1-v2
+  70:Src/utils.cpp ****         case 1: {
+ 145              		.loc 1 70 9 view .LVU34
+ 146              		.loc 1 70 17 view .LVU35
+ 147              	.LBB3:
+  71:Src/utils.cpp ****             // Vector on-times
+  72:Src/utils.cpp ****             float t1 = alpha - one_by_sqrt3 * beta;
+ 148              		.loc 1 72 13 view .LVU36
+ 149              		.loc 1 72 19 is_stmt 0 view .LVU37
+ 150 0028 30EE670A 		vsub.f32	s0, s0, s15
+ 151              	.LVL15:
+  73:Src/utils.cpp ****             float t2 = two_by_sqrt3 * beta;
+ARM GAS  /tmp/ccGg4evu.s 			page 5
+
+
+ 152              		.loc 1 73 13 is_stmt 1 view .LVU38
+ 153              		.loc 1 73 19 is_stmt 0 view .LVU39
+ 154 002c DFED837A 		vldr.32	s15, .L54+4
+ 155 0030 60EEA70A 		vmul.f32	s1, s1, s15
+ 156              	.LVL16:
+  74:Src/utils.cpp **** 
+  75:Src/utils.cpp ****             // PWM timings
+  76:Src/utils.cpp ****             *tC = (1.0f - t1 - t2) * 0.5f;
+ 157              		.loc 1 76 13 is_stmt 1 view .LVU40
+ 158              		.loc 1 76 25 is_stmt 0 view .LVU41
+ 159 0034 F7EE007A 		vmov.f32	s15, #1.0e+0
+ 160 0038 77EEC07A 		vsub.f32	s15, s15, s0
+ 161              		.loc 1 76 30 view .LVU42
+ 162 003c 77EEE07A 		vsub.f32	s15, s15, s1
+ 163              		.loc 1 76 36 view .LVU43
+ 164 0040 B6EE007A 		vmov.f32	s14, #5.0e-1
+ 165 0044 67EE877A 		vmul.f32	s15, s15, s14
+ 166              		.loc 1 76 17 view .LVU44
+ 167 0048 C2ED007A 		vstr.32	s15, [r2]
+  77:Src/utils.cpp ****             *tB = *tC + t2;
+ 168              		.loc 1 77 13 is_stmt 1 view .LVU45
+ 169              		.loc 1 77 23 is_stmt 0 view .LVU46
+ 170 004c 77EEA00A 		vadd.f32	s1, s15, s1
+ 171              	.LVL17:
+ 172              		.loc 1 77 17 view .LVU47
+ 173 0050 C1ED000A 		vstr.32	s1, [r1]
+  78:Src/utils.cpp ****             *tA = *tB + t1;
+ 174              		.loc 1 78 13 is_stmt 1 view .LVU48
+ 175              		.loc 1 78 23 is_stmt 0 view .LVU49
+ 176 0054 70EE800A 		vadd.f32	s1, s1, s0
+ 177              		.loc 1 78 17 view .LVU50
+ 178 0058 C0ED000A 		vstr.32	s1, [r0]
+ 179              	.LBE3:
+  79:Src/utils.cpp ****         } break;
+ 180              		.loc 1 79 11 is_stmt 1 view .LVU51
+ 181 005c 93E0     		b	.L17
+ 182              	.LVL18:
+ 183              	.L46:
+ 184              		.loc 1 79 11 is_stmt 0 view .LVU52
+ 185              	.LBE2:
+  47:Src/utils.cpp ****                 Sextant = 3;  // sextant v3-v4
+ 186              		.loc 1 47 13 is_stmt 1 view .LVU53
+  47:Src/utils.cpp ****                 Sextant = 3;  // sextant v3-v4
+ 187              		.loc 1 47 31 is_stmt 0 view .LVU54
+ 188 005e DFED787A 		vldr.32	s15, .L54+8
+ 189 0062 60EEA77A 		vmul.f32	s15, s1, s15
+  47:Src/utils.cpp ****                 Sextant = 3;  // sextant v3-v4
+ 190              		.loc 1 47 13 view .LVU55
+ 191 0066 F4EEC07A 		vcmpe.f32	s15, s0
+ 192 006a F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 193 006e 6EDD     		ble	.L16
+ 194              	.LVL19:
+  68:Src/utils.cpp ****         // sextant v1-v2
+ 195              		.loc 1 68 5 is_stmt 1 view .LVU56
+ 196              	.LBB9:
+  80:Src/utils.cpp **** 
+  81:Src/utils.cpp ****         // sextant v2-v3
+ARM GAS  /tmp/ccGg4evu.s 			page 6
+
+
+  82:Src/utils.cpp ****         case 2: {
+  83:Src/utils.cpp ****             // Vector on-times
+  84:Src/utils.cpp ****             float t2 = alpha + one_by_sqrt3 * beta;
+  85:Src/utils.cpp ****             float t3 = -alpha + one_by_sqrt3 * beta;
+  86:Src/utils.cpp **** 
+  87:Src/utils.cpp ****             // PWM timings
+  88:Src/utils.cpp ****             *tC = (1.0f - t2 - t3) * 0.5f;
+  89:Src/utils.cpp ****             *tA = *tC + t2;
+  90:Src/utils.cpp ****             *tB = *tA + t3;
+  91:Src/utils.cpp ****         } break;
+  92:Src/utils.cpp **** 
+  93:Src/utils.cpp ****         // sextant v3-v4
+  94:Src/utils.cpp ****         case 3: {
+ 197              		.loc 1 94 9 view .LVU57
+ 198              		.loc 1 94 17 view .LVU58
+ 199              	.LBB4:
+  95:Src/utils.cpp ****             // Vector on-times
+  96:Src/utils.cpp ****             float t3 = two_by_sqrt3 * beta;
+ 200              		.loc 1 96 13 view .LVU59
+ 201              		.loc 1 96 19 is_stmt 0 view .LVU60
+ 202 0070 DFED727A 		vldr.32	s15, .L54+4
+ 203 0074 60EEA77A 		vmul.f32	s15, s1, s15
+ 204              	.LVL20:
+  97:Src/utils.cpp ****             float t4 = -alpha - one_by_sqrt3 * beta;
+ 205              		.loc 1 97 13 is_stmt 1 view .LVU61
+ 206              		.loc 1 97 19 is_stmt 0 view .LVU62
+ 207 0078 9FED6F7A 		vldr.32	s14, .L54
+ 208 007c 10EEC70A 		vnmla.f32	s0, s1, s14
+ 209              	.LVL21:
+  98:Src/utils.cpp **** 
+  99:Src/utils.cpp ****             // PWM timings
+ 100:Src/utils.cpp ****             *tA = (1.0f - t3 - t4) * 0.5f;
+ 210              		.loc 1 100 13 is_stmt 1 view .LVU63
+ 211              		.loc 1 100 25 is_stmt 0 view .LVU64
+ 212 0080 F7EE000A 		vmov.f32	s1, #1.0e+0
+ 213              	.LVL22:
+ 214              		.loc 1 100 25 view .LVU65
+ 215 0084 70EEE70A 		vsub.f32	s1, s1, s15
+ 216              		.loc 1 100 30 view .LVU66
+ 217 0088 70EEC00A 		vsub.f32	s1, s1, s0
+ 218              		.loc 1 100 36 view .LVU67
+ 219 008c B6EE007A 		vmov.f32	s14, #5.0e-1
+ 220 0090 60EE870A 		vmul.f32	s1, s1, s14
+ 221              		.loc 1 100 17 view .LVU68
+ 222 0094 C0ED000A 		vstr.32	s1, [r0]
+ 101:Src/utils.cpp ****             *tC = *tA + t4;
+ 223              		.loc 1 101 13 is_stmt 1 view .LVU69
+ 224              		.loc 1 101 23 is_stmt 0 view .LVU70
+ 225 0098 30EE800A 		vadd.f32	s0, s1, s0
+ 226              	.LVL23:
+ 227              		.loc 1 101 17 view .LVU71
+ 228 009c 82ED000A 		vstr.32	s0, [r2]
+ 102:Src/utils.cpp ****             *tB = *tC + t3;
+ 229              		.loc 1 102 13 is_stmt 1 view .LVU72
+ 230              		.loc 1 102 23 is_stmt 0 view .LVU73
+ 231 00a0 30EE270A 		vadd.f32	s0, s0, s15
+ 232              		.loc 1 102 17 view .LVU74
+ARM GAS  /tmp/ccGg4evu.s 			page 7
+
+
+ 233 00a4 81ED000A 		vstr.32	s0, [r1]
+ 234              	.LBE4:
+ 103:Src/utils.cpp ****         } break;
+ 235              		.loc 1 103 11 is_stmt 1 view .LVU75
+ 236 00a8 6DE0     		b	.L17
+ 237              	.LVL24:
+ 238              	.L45:
+ 239              		.loc 1 103 11 is_stmt 0 view .LVU76
+ 240              	.LBE9:
+  53:Src/utils.cpp ****             // quadrant IV
+ 241              		.loc 1 53 9 is_stmt 1 view .LVU77
+ 242 00aa B5EEC00A 		vcmpe.f32	s0, #0
+ 243 00ae F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 244 00b2 28DB     		blt	.L47
+  55:Src/utils.cpp ****                 Sextant = 5;  // sextant v5-v6
+ 245              		.loc 1 55 13 view .LVU78
+  55:Src/utils.cpp ****                 Sextant = 5;  // sextant v5-v6
+ 246              		.loc 1 55 31 is_stmt 0 view .LVU79
+ 247 00b4 DFED627A 		vldr.32	s15, .L54+8
+ 248 00b8 60EEA77A 		vmul.f32	s15, s1, s15
+  55:Src/utils.cpp ****                 Sextant = 5;  // sextant v5-v6
+ 249              		.loc 1 55 13 view .LVU80
+ 250 00bc F4EEC07A 		vcmpe.f32	s15, s0
+ 251 00c0 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 252 00c4 00F38980 		bgt	.L21
+  58:Src/utils.cpp ****         } else {
+ 253              		.loc 1 58 17 is_stmt 1 view .LVU81
+ 254              	.LVL25:
+  68:Src/utils.cpp ****         // sextant v1-v2
+ 255              		.loc 1 68 5 view .LVU82
+ 256              	.LBB10:
+ 104:Src/utils.cpp **** 
+ 105:Src/utils.cpp ****         // sextant v4-v5
+ 106:Src/utils.cpp ****         case 4: {
+ 107:Src/utils.cpp ****             // Vector on-times
+ 108:Src/utils.cpp ****             float t4 = -alpha + one_by_sqrt3 * beta;
+ 109:Src/utils.cpp ****             float t5 = -two_by_sqrt3 * beta;
+ 110:Src/utils.cpp **** 
+ 111:Src/utils.cpp ****             // PWM timings
+ 112:Src/utils.cpp ****             *tA = (1.0f - t4 - t5) * 0.5f;
+ 113:Src/utils.cpp ****             *tB = *tA + t4;
+ 114:Src/utils.cpp ****             *tC = *tB + t5;
+ 115:Src/utils.cpp ****         } break;
+ 116:Src/utils.cpp **** 
+ 117:Src/utils.cpp ****         // sextant v5-v6
+ 118:Src/utils.cpp ****         case 5: {
+ 119:Src/utils.cpp ****             // Vector on-times
+ 120:Src/utils.cpp ****             float t5 = -alpha - one_by_sqrt3 * beta;
+ 121:Src/utils.cpp ****             float t6 = alpha - one_by_sqrt3 * beta;
+ 122:Src/utils.cpp **** 
+ 123:Src/utils.cpp ****             // PWM timings
+ 124:Src/utils.cpp ****             *tB = (1.0f - t5 - t6) * 0.5f;
+ 125:Src/utils.cpp ****             *tA = *tB + t6;
+ 126:Src/utils.cpp ****             *tC = *tA + t5;
+ 127:Src/utils.cpp ****         } break;
+ 128:Src/utils.cpp **** 
+ 129:Src/utils.cpp ****         // sextant v6-v1
+ARM GAS  /tmp/ccGg4evu.s 			page 8
+
+
+ 130:Src/utils.cpp ****         case 6: {
+ 257              		.loc 1 130 9 view .LVU83
+ 258              		.loc 1 130 17 view .LVU84
+ 259              	.LBB5:
+ 131:Src/utils.cpp ****             // Vector on-times
+ 132:Src/utils.cpp ****             float t6 = -two_by_sqrt3 * beta;
+ 260              		.loc 1 132 13 view .LVU85
+ 261              		.loc 1 132 19 is_stmt 0 view .LVU86
+ 262 00c8 DFED5E7A 		vldr.32	s15, .L54+12
+ 263 00cc 20EEA77A 		vmul.f32	s14, s1, s15
+ 264              	.LVL26:
+ 133:Src/utils.cpp ****             float t1 = alpha + one_by_sqrt3 * beta;
+ 265              		.loc 1 133 13 is_stmt 1 view .LVU87
+ 266              		.loc 1 133 45 is_stmt 0 view .LVU88
+ 267 00d0 DFED597A 		vldr.32	s15, .L54
+ 268 00d4 60EEA77A 		vmul.f32	s15, s1, s15
+ 269              		.loc 1 133 19 view .LVU89
+ 270 00d8 77EE800A 		vadd.f32	s1, s15, s0
+ 271              	.LVL27:
+ 134:Src/utils.cpp **** 
+ 135:Src/utils.cpp ****             // PWM timings
+ 136:Src/utils.cpp ****             *tB = (1.0f - t6 - t1) * 0.5f;
+ 272              		.loc 1 136 13 is_stmt 1 view .LVU90
+ 273              		.loc 1 136 25 is_stmt 0 view .LVU91
+ 274 00dc F7EE007A 		vmov.f32	s15, #1.0e+0
+ 275 00e0 77EEC77A 		vsub.f32	s15, s15, s14
+ 276              		.loc 1 136 30 view .LVU92
+ 277 00e4 77EEE07A 		vsub.f32	s15, s15, s1
+ 278              		.loc 1 136 36 view .LVU93
+ 279 00e8 F6EE006A 		vmov.f32	s13, #5.0e-1
+ 280 00ec 67EEA67A 		vmul.f32	s15, s15, s13
+ 281              		.loc 1 136 17 view .LVU94
+ 282 00f0 C1ED007A 		vstr.32	s15, [r1]
+ 137:Src/utils.cpp ****             *tC = *tB + t6;
+ 283              		.loc 1 137 13 is_stmt 1 view .LVU95
+ 284              		.loc 1 137 23 is_stmt 0 view .LVU96
+ 285 00f4 77EE877A 		vadd.f32	s15, s15, s14
+ 286              		.loc 1 137 17 view .LVU97
+ 287 00f8 C2ED007A 		vstr.32	s15, [r2]
+ 138:Src/utils.cpp ****             *tA = *tC + t1;
+ 288              		.loc 1 138 13 is_stmt 1 view .LVU98
+ 289              		.loc 1 138 23 is_stmt 0 view .LVU99
+ 290 00fc 77EEA00A 		vadd.f32	s1, s15, s1
+ 291              	.LVL28:
+ 292              		.loc 1 138 17 view .LVU100
+ 293 0100 C0ED000A 		vstr.32	s1, [r0]
+ 294              	.LBE5:
+ 139:Src/utils.cpp ****         } break;
+ 295              		.loc 1 139 11 is_stmt 1 view .LVU101
+ 296 0104 3FE0     		b	.L17
+ 297              	.LVL29:
+ 298              	.L47:
+ 299              		.loc 1 139 11 is_stmt 0 view .LVU102
+ 300              	.LBE10:
+  61:Src/utils.cpp ****                 Sextant = 4;  // sextant v4-v5
+ 301              		.loc 1 61 13 is_stmt 1 view .LVU103
+  61:Src/utils.cpp ****                 Sextant = 4;  // sextant v4-v5
+ARM GAS  /tmp/ccGg4evu.s 			page 9
+
+
+ 302              		.loc 1 61 30 is_stmt 0 view .LVU104
+ 303 0106 DFED4C7A 		vldr.32	s15, .L54
+ 304 010a 60EEA77A 		vmul.f32	s15, s1, s15
+  61:Src/utils.cpp ****                 Sextant = 4;  // sextant v4-v5
+ 305              		.loc 1 61 13 view .LVU105
+ 306 010e F4EEC07A 		vcmpe.f32	s15, s0
+ 307 0112 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 308 0116 60DD     		ble	.L21
+ 309              	.LVL30:
+  68:Src/utils.cpp ****         // sextant v1-v2
+ 310              		.loc 1 68 5 is_stmt 1 view .LVU106
+ 311              	.LBB11:
+ 106:Src/utils.cpp ****             // Vector on-times
+ 312              		.loc 1 106 9 view .LVU107
+ 106:Src/utils.cpp ****             // Vector on-times
+ 313              		.loc 1 106 17 view .LVU108
+ 314              	.LBB6:
+ 108:Src/utils.cpp ****             float t5 = -two_by_sqrt3 * beta;
+ 315              		.loc 1 108 13 view .LVU109
+ 108:Src/utils.cpp ****             float t5 = -two_by_sqrt3 * beta;
+ 316              		.loc 1 108 19 is_stmt 0 view .LVU110
+ 317 0118 77EEC07A 		vsub.f32	s15, s15, s0
+ 318              	.LVL31:
+ 109:Src/utils.cpp **** 
+ 319              		.loc 1 109 13 is_stmt 1 view .LVU111
+ 109:Src/utils.cpp **** 
+ 320              		.loc 1 109 19 is_stmt 0 view .LVU112
+ 321 011c 9FED497A 		vldr.32	s14, .L54+12
+ 322 0120 60EE870A 		vmul.f32	s1, s1, s14
+ 323              	.LVL32:
+ 112:Src/utils.cpp ****             *tB = *tA + t4;
+ 324              		.loc 1 112 13 is_stmt 1 view .LVU113
+ 112:Src/utils.cpp ****             *tB = *tA + t4;
+ 325              		.loc 1 112 25 is_stmt 0 view .LVU114
+ 326 0124 B7EE000A 		vmov.f32	s0, #1.0e+0
+ 327              	.LVL33:
+ 112:Src/utils.cpp ****             *tB = *tA + t4;
+ 328              		.loc 1 112 25 view .LVU115
+ 329 0128 30EE670A 		vsub.f32	s0, s0, s15
+ 112:Src/utils.cpp ****             *tB = *tA + t4;
+ 330              		.loc 1 112 30 view .LVU116
+ 331 012c 30EE600A 		vsub.f32	s0, s0, s1
+ 112:Src/utils.cpp ****             *tB = *tA + t4;
+ 332              		.loc 1 112 36 view .LVU117
+ 333 0130 B6EE007A 		vmov.f32	s14, #5.0e-1
+ 334 0134 20EE070A 		vmul.f32	s0, s0, s14
+ 112:Src/utils.cpp ****             *tB = *tA + t4;
+ 335              		.loc 1 112 17 view .LVU118
+ 336 0138 80ED000A 		vstr.32	s0, [r0]
+ 113:Src/utils.cpp ****             *tC = *tB + t5;
+ 337              		.loc 1 113 13 is_stmt 1 view .LVU119
+ 113:Src/utils.cpp ****             *tC = *tB + t5;
+ 338              		.loc 1 113 23 is_stmt 0 view .LVU120
+ 339 013c 30EE270A 		vadd.f32	s0, s0, s15
+ 113:Src/utils.cpp ****             *tC = *tB + t5;
+ 340              		.loc 1 113 17 view .LVU121
+ 341 0140 81ED000A 		vstr.32	s0, [r1]
+ARM GAS  /tmp/ccGg4evu.s 			page 10
+
+
+ 114:Src/utils.cpp ****         } break;
+ 342              		.loc 1 114 13 is_stmt 1 view .LVU122
+ 114:Src/utils.cpp ****         } break;
+ 343              		.loc 1 114 23 is_stmt 0 view .LVU123
+ 344 0144 70EE200A 		vadd.f32	s1, s0, s1
+ 345              	.LVL34:
+ 114:Src/utils.cpp ****         } break;
+ 346              		.loc 1 114 17 view .LVU124
+ 347 0148 C2ED000A 		vstr.32	s1, [r2]
+ 348              	.LBE6:
+ 115:Src/utils.cpp **** 
+ 349              		.loc 1 115 11 is_stmt 1 view .LVU125
+ 350 014c 1BE0     		b	.L17
+ 351              	.LVL35:
+ 352              	.L16:
+  82:Src/utils.cpp ****             // Vector on-times
+ 353              		.loc 1 82 9 view .LVU126
+  82:Src/utils.cpp ****             // Vector on-times
+ 354              		.loc 1 82 17 view .LVU127
+ 355              	.LBB7:
+  84:Src/utils.cpp ****             float t3 = -alpha + one_by_sqrt3 * beta;
+ 356              		.loc 1 84 13 view .LVU128
+  84:Src/utils.cpp ****             float t3 = -alpha + one_by_sqrt3 * beta;
+ 357              		.loc 1 84 45 is_stmt 0 view .LVU129
+ 358 014e DFED3A7A 		vldr.32	s15, .L54
+ 359 0152 60EEA70A 		vmul.f32	s1, s1, s15
+ 360              	.LVL36:
+  84:Src/utils.cpp ****             float t3 = -alpha + one_by_sqrt3 * beta;
+ 361              		.loc 1 84 19 view .LVU130
+ 362 0156 30EE807A 		vadd.f32	s14, s1, s0
+ 363              	.LVL37:
+  85:Src/utils.cpp **** 
+ 364              		.loc 1 85 13 is_stmt 1 view .LVU131
+  85:Src/utils.cpp **** 
+ 365              		.loc 1 85 19 is_stmt 0 view .LVU132
+ 366 015a 70EEC00A 		vsub.f32	s1, s1, s0
+ 367              	.LVL38:
+  88:Src/utils.cpp ****             *tA = *tC + t2;
+ 368              		.loc 1 88 13 is_stmt 1 view .LVU133
+  88:Src/utils.cpp ****             *tA = *tC + t2;
+ 369              		.loc 1 88 25 is_stmt 0 view .LVU134
+ 370 015e F7EE007A 		vmov.f32	s15, #1.0e+0
+ 371 0162 77EEC77A 		vsub.f32	s15, s15, s14
+  88:Src/utils.cpp ****             *tA = *tC + t2;
+ 372              		.loc 1 88 30 view .LVU135
+ 373 0166 77EEE07A 		vsub.f32	s15, s15, s1
+  88:Src/utils.cpp ****             *tA = *tC + t2;
+ 374              		.loc 1 88 36 view .LVU136
+ 375 016a F6EE006A 		vmov.f32	s13, #5.0e-1
+ 376 016e 67EEA67A 		vmul.f32	s15, s15, s13
+  88:Src/utils.cpp ****             *tA = *tC + t2;
+ 377              		.loc 1 88 17 view .LVU137
+ 378 0172 C2ED007A 		vstr.32	s15, [r2]
+  89:Src/utils.cpp ****             *tB = *tA + t3;
+ 379              		.loc 1 89 13 is_stmt 1 view .LVU138
+  89:Src/utils.cpp ****             *tB = *tA + t3;
+ 380              		.loc 1 89 23 is_stmt 0 view .LVU139
+ARM GAS  /tmp/ccGg4evu.s 			page 11
+
+
+ 381 0176 77EE877A 		vadd.f32	s15, s15, s14
+  89:Src/utils.cpp ****             *tB = *tA + t3;
+ 382              		.loc 1 89 17 view .LVU140
+ 383 017a C0ED007A 		vstr.32	s15, [r0]
+  90:Src/utils.cpp ****         } break;
+ 384              		.loc 1 90 13 is_stmt 1 view .LVU141
+  90:Src/utils.cpp ****         } break;
+ 385              		.loc 1 90 23 is_stmt 0 view .LVU142
+ 386 017e 77EEA00A 		vadd.f32	s1, s15, s1
+ 387              	.LVL39:
+  90:Src/utils.cpp ****         } break;
+ 388              		.loc 1 90 17 view .LVU143
+ 389 0182 C1ED000A 		vstr.32	s1, [r1]
+ 390              	.LBE7:
+  91:Src/utils.cpp **** 
+ 391              		.loc 1 91 11 is_stmt 1 view .LVU144
+ 392              	.LVL40:
+ 393              	.L17:
+  91:Src/utils.cpp **** 
+ 394              		.loc 1 91 11 is_stmt 0 view .LVU145
+ 395              	.LBE11:
+ 140:Src/utils.cpp ****     }
+ 141:Src/utils.cpp **** 
+ 142:Src/utils.cpp ****     // if any of the results becomes NaN, result_valid will evaluate to false
+ 143:Src/utils.cpp ****     int result_valid =
+ 396              		.loc 1 143 5 is_stmt 1 view .LVU146
+ 144:Src/utils.cpp ****         *tA >= 0.0f && *tA <= 1.0f && *tB >= 0.0f && *tB <= 1.0f && *tC >= 0.0f && *tC <= 1.0f;
+ 397              		.loc 1 144 9 is_stmt 0 view .LVU147
+ 398 0186 D0ED007A 		vldr.32	s15, [r0]
+ 399              		.loc 1 144 81 view .LVU148
+ 400 018a F5EEC07A 		vcmpe.f32	s15, #0
+ 401 018e F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 402 0192 41DB     		blt	.L49
+ 403              		.loc 1 144 21 discriminator 1 view .LVU149
+ 404 0194 B7EE007A 		vmov.f32	s14, #1.0e+0
+ 405 0198 F4EEC77A 		vcmpe.f32	s15, s14
+ 406 019c F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 407 01a0 3DD8     		bhi	.L50
+ 408              		.loc 1 144 39 discriminator 3 view .LVU150
+ 409 01a2 D1ED007A 		vldr.32	s15, [r1]
+ 410              		.loc 1 144 36 discriminator 3 view .LVU151
+ 411 01a6 F5EEC07A 		vcmpe.f32	s15, #0
+ 412 01aa F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 413 01ae 39DB     		blt	.L51
+ 414              		.loc 1 144 51 discriminator 5 view .LVU152
+ 415 01b0 F4EEC77A 		vcmpe.f32	s15, s14
+ 416 01b4 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 417 01b8 37D8     		bhi	.L52
+ 418              		.loc 1 144 69 discriminator 7 view .LVU153
+ 419 01ba D2ED007A 		vldr.32	s15, [r2]
+ 420              		.loc 1 144 66 discriminator 7 view .LVU154
+ 421 01be F5EEC07A 		vcmpe.f32	s15, #0
+ 422 01c2 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 423 01c6 33DB     		blt	.L53
+ 424              		.loc 1 144 81 discriminator 9 view .LVU155
+ 425 01c8 F4EEC77A 		vcmpe.f32	s15, s14
+ 426 01cc F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ARM GAS  /tmp/ccGg4evu.s 			page 12
+
+
+ 427 01d0 8CBF     		ite	hi
+ 428 01d2 4FF0FF30 		movhi	r0, #-1
+ 429              	.LVL41:
+ 430              		.loc 1 144 81 discriminator 9 view .LVU156
+ 431 01d6 0020     		movls	r0, #0
+ 432 01d8 7047     		bx	lr
+ 433              	.LVL42:
+ 434              	.L21:
+ 435              	.LBB12:
+ 118:Src/utils.cpp ****             // Vector on-times
+ 436              		.loc 1 118 9 is_stmt 1 view .LVU157
+ 118:Src/utils.cpp ****             // Vector on-times
+ 437              		.loc 1 118 17 view .LVU158
+ 438              	.LBB8:
+ 120:Src/utils.cpp ****             float t6 = alpha - one_by_sqrt3 * beta;
+ 439              		.loc 1 120 13 view .LVU159
+ 120:Src/utils.cpp ****             float t6 = alpha - one_by_sqrt3 * beta;
+ 440              		.loc 1 120 46 is_stmt 0 view .LVU160
+ 441 01da DFED177A 		vldr.32	s15, .L54
+ 442 01de 60EEA77A 		vmul.f32	s15, s1, s15
+ 120:Src/utils.cpp ****             float t6 = alpha - one_by_sqrt3 * beta;
+ 443              		.loc 1 120 24 view .LVU161
+ 444 01e2 F1EE400A 		vneg.f32	s1, s0
+ 445              	.LVL43:
+ 120:Src/utils.cpp ****             float t6 = alpha - one_by_sqrt3 * beta;
+ 446              		.loc 1 120 19 view .LVU162
+ 447 01e6 30EEE77A 		vsub.f32	s14, s1, s15
+ 448              	.LVL44:
+ 121:Src/utils.cpp **** 
+ 449              		.loc 1 121 13 is_stmt 1 view .LVU163
+ 121:Src/utils.cpp **** 
+ 450              		.loc 1 121 19 is_stmt 0 view .LVU164
+ 451 01ea 70EE670A 		vsub.f32	s1, s0, s15
+ 452              	.LVL45:
+ 124:Src/utils.cpp ****             *tA = *tB + t6;
+ 453              		.loc 1 124 13 is_stmt 1 view .LVU165
+ 124:Src/utils.cpp ****             *tA = *tB + t6;
+ 454              		.loc 1 124 25 is_stmt 0 view .LVU166
+ 455 01ee F7EE007A 		vmov.f32	s15, #1.0e+0
+ 456 01f2 77EEC77A 		vsub.f32	s15, s15, s14
+ 124:Src/utils.cpp ****             *tA = *tB + t6;
+ 457              		.loc 1 124 30 view .LVU167
+ 458 01f6 77EEE07A 		vsub.f32	s15, s15, s1
+ 124:Src/utils.cpp ****             *tA = *tB + t6;
+ 459              		.loc 1 124 36 view .LVU168
+ 460 01fa B6EE000A 		vmov.f32	s0, #5.0e-1
+ 461              	.LVL46:
+ 124:Src/utils.cpp ****             *tA = *tB + t6;
+ 462              		.loc 1 124 36 view .LVU169
+ 463 01fe 67EE807A 		vmul.f32	s15, s15, s0
+ 124:Src/utils.cpp ****             *tA = *tB + t6;
+ 464              		.loc 1 124 17 view .LVU170
+ 465 0202 C1ED007A 		vstr.32	s15, [r1]
+ 125:Src/utils.cpp ****             *tC = *tA + t5;
+ 466              		.loc 1 125 13 is_stmt 1 view .LVU171
+ 125:Src/utils.cpp ****             *tC = *tA + t5;
+ 467              		.loc 1 125 23 is_stmt 0 view .LVU172
+ARM GAS  /tmp/ccGg4evu.s 			page 13
+
+
+ 468 0206 77EEA00A 		vadd.f32	s1, s15, s1
+ 469              	.LVL47:
+ 125:Src/utils.cpp ****             *tC = *tA + t5;
+ 470              		.loc 1 125 17 view .LVU173
+ 471 020a C0ED000A 		vstr.32	s1, [r0]
+ 126:Src/utils.cpp ****         } break;
+ 472              		.loc 1 126 13 is_stmt 1 view .LVU174
+ 126:Src/utils.cpp ****         } break;
+ 473              		.loc 1 126 23 is_stmt 0 view .LVU175
+ 474 020e 70EE870A 		vadd.f32	s1, s1, s14
+ 126:Src/utils.cpp ****         } break;
+ 475              		.loc 1 126 17 view .LVU176
+ 476 0212 C2ED000A 		vstr.32	s1, [r2]
+ 477              	.LBE8:
+ 127:Src/utils.cpp **** 
+ 478              		.loc 1 127 11 is_stmt 1 view .LVU177
+ 479 0216 B6E7     		b	.L17
+ 480              	.LVL48:
+ 481              	.L49:
+ 127:Src/utils.cpp **** 
+ 482              		.loc 1 127 11 is_stmt 0 view .LVU178
+ 483              	.LBE12:
+ 145:Src/utils.cpp ****     return result_valid ? 0 : -1;
+ 484              		.loc 1 145 25 view .LVU179
+ 485 0218 4FF0FF30 		mov	r0, #-1
+ 486              	.LVL49:
+ 487              		.loc 1 145 25 view .LVU180
+ 488 021c 7047     		bx	lr
+ 489              	.LVL50:
+ 490              	.L50:
+ 491              		.loc 1 145 25 view .LVU181
+ 492 021e 4FF0FF30 		mov	r0, #-1
+ 493              	.LVL51:
+ 494              		.loc 1 145 25 view .LVU182
+ 495 0222 7047     		bx	lr
+ 496              	.LVL52:
+ 497              	.L51:
+ 498              		.loc 1 145 25 view .LVU183
+ 499 0224 4FF0FF30 		mov	r0, #-1
+ 500              	.LVL53:
+ 501              		.loc 1 145 25 view .LVU184
+ 502 0228 7047     		bx	lr
+ 503              	.LVL54:
+ 504              	.L52:
+ 505              		.loc 1 145 25 view .LVU185
+ 506 022a 4FF0FF30 		mov	r0, #-1
+ 507              	.LVL55:
+ 508              		.loc 1 145 25 view .LVU186
+ 509 022e 7047     		bx	lr
+ 510              	.LVL56:
+ 511              	.L53:
+ 512              		.loc 1 145 25 view .LVU187
+ 513 0230 4FF0FF30 		mov	r0, #-1
+ 514              	.LVL57:
+ 146:Src/utils.cpp **** }
+ 515              		.loc 1 146 1 view .LVU188
+ 516 0234 7047     		bx	lr
+ARM GAS  /tmp/ccGg4evu.s 			page 14
+
+
+ 517              	.L55:
+ 518 0236 00BF     		.align	2
+ 519              	.L54:
+ 520 0238 3ACD133F 		.word	1058262330
+ 521 023c 3ACD933F 		.word	1066650938
+ 522 0240 3ACD13BF 		.word	-1089221318
+ 523 0244 3ACD93BF 		.word	-1080832710
+ 524              		.cfi_endproc
+ 525              	.LFE2875:
+ 527              		.section	.text.fast_atan2,"ax",%progbits
+ 528              		.align	1
+ 529              		.global	fast_atan2
+ 530              		.syntax unified
+ 531              		.thumb
+ 532              		.thumb_func
+ 533              		.fpu fpv4-sp-d16
+ 535              	fast_atan2:
+ 536              	.LVL58:
+ 537              	.LFB2876:
+ 147:Src/utils.cpp **** 
+ 148:Src/utils.cpp **** 
+ 149:Src/utils.cpp **** // based on https://math.stackexchange.com/a/1105038/81278
+ 150:Src/utils.cpp **** float fast_atan2(float y, float x) {
+ 538              		.loc 1 150 36 is_stmt 1 view -0
+ 539              		.cfi_startproc
+ 540              		@ args = 0, pretend = 0, frame = 0
+ 541              		@ frame_needed = 0, uses_anonymous_args = 0
+ 542              		@ link register save eliminated.
+ 543              		.loc 1 150 36 is_stmt 0 view .LVU190
+ 544 0000 F0EE406A 		vmov.f32	s13, s0
+ 151:Src/utils.cpp ****     // a := min (|x|, |y|) / max (|x|, |y|)
+ 152:Src/utils.cpp ****     float abs_y = fabsf(y);
+ 545              		.loc 1 152 5 is_stmt 1 view .LVU191
+ 546              		.loc 1 152 11 is_stmt 0 view .LVU192
+ 547 0004 B0EEC07A 		vabs.f32	s14, s0
+ 548              	.LVL59:
+ 153:Src/utils.cpp ****     float abs_x = fabsf(x);
+ 549              		.loc 1 153 5 is_stmt 1 view .LVU193
+ 550              		.loc 1 153 11 is_stmt 0 view .LVU194
+ 551 0008 B0EEE06A 		vabs.f32	s12, s1
+ 552              	.LVL60:
+ 154:Src/utils.cpp ****     // inject FLT_MIN in denominator to avoid division by zero
+ 155:Src/utils.cpp ****     float a = MACRO_MIN(abs_x, abs_y) / (MACRO_MAX(abs_x, abs_y) + FLT_MIN);
+ 553              		.loc 1 155 5 is_stmt 1 view .LVU195
+ 554              		.loc 1 155 15 is_stmt 0 view .LVU196
+ 555 000c B4EEC67A 		vcmpe.f32	s14, s12
+ 556 0010 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 557 0014 54DC     		bgt	.L57
+ 558              		.loc 1 155 42 discriminator 4 view .LVU197
+ 559 0016 54BF     		ite	pl
+ 560 0018 F0EE477A 		vmovpl.f32	s15, s14
+ 561 001c F0EE467A 		vmovmi.f32	s15, s12
+ 562              		.loc 1 155 66 discriminator 4 view .LVU198
+ 563 0020 DFED385A 		vldr.32	s11, .L73
+ 564 0024 77EEA57A 		vadd.f32	s15, s15, s11
+ 565              		.loc 1 155 11 discriminator 4 view .LVU199
+ 566 0028 87EE270A 		vdiv.f32	s0, s14, s15
+ARM GAS  /tmp/ccGg4evu.s 			page 15
+
+
+ 567              	.LVL61:
+ 156:Src/utils.cpp ****     // s := a * a
+ 157:Src/utils.cpp ****     float s = a * a;
+ 568              		.loc 1 157 5 is_stmt 1 discriminator 4 view .LVU200
+ 569              		.loc 1 157 11 is_stmt 0 discriminator 4 view .LVU201
+ 570 002c 60EE005A 		vmul.f32	s11, s0, s0
+ 571              	.LVL62:
+ 158:Src/utils.cpp ****     // r := ((-0.0464964749 * s + 0.15931422) * s - 0.327622764) * s * a + a
+ 159:Src/utils.cpp ****     float r = ((-0.0464964749f * s + 0.15931422f) * s - 0.327622764f) * s * a + a;
+ 572              		.loc 1 159 5 is_stmt 1 discriminator 4 view .LVU202
+ 573              		.loc 1 159 32 is_stmt 0 discriminator 4 view .LVU203
+ 574 0030 DFED357A 		vldr.32	s15, .L73+4
+ 575 0034 65EEA77A 		vmul.f32	s15, s11, s15
+ 576              		.loc 1 159 36 discriminator 4 view .LVU204
+ 577 0038 9FED345A 		vldr.32	s10, .L73+8
+ 578 003c 77EE857A 		vadd.f32	s15, s15, s10
+ 579              		.loc 1 159 51 discriminator 4 view .LVU205
+ 580 0040 67EEA57A 		vmul.f32	s15, s15, s11
+ 581              		.loc 1 159 55 discriminator 4 view .LVU206
+ 582 0044 9FED325A 		vldr.32	s10, .L73+12
+ 583 0048 77EEC57A 		vsub.f32	s15, s15, s10
+ 584              		.loc 1 159 71 discriminator 4 view .LVU207
+ 585 004c 67EEA57A 		vmul.f32	s15, s15, s11
+ 586              		.loc 1 159 75 discriminator 4 view .LVU208
+ 587 0050 67EE807A 		vmul.f32	s15, s15, s0
+ 588              		.loc 1 159 11 discriminator 4 view .LVU209
+ 589 0054 37EE800A 		vadd.f32	s0, s15, s0
+ 590              	.LVL63:
+ 160:Src/utils.cpp ****     // if |y| > |x| then r := 1.57079637 - r
+ 161:Src/utils.cpp ****     if (abs_y > abs_x)
+ 591              		.loc 1 161 5 is_stmt 1 discriminator 4 view .LVU210
+ 592 0058 23DD     		ble	.L60
+ 593 005a 1EE0     		b	.L66
+ 594              	.LVL64:
+ 595              	.L72:
+ 162:Src/utils.cpp ****         r = 1.57079637f - r;
+ 163:Src/utils.cpp ****     // if x < 0 then r := 3.14159274 - r
+ 164:Src/utils.cpp ****     if (x < 0.0f)
+ 165:Src/utils.cpp ****         r = 3.14159274f - r;
+ 166:Src/utils.cpp ****     // if y < 0 then r := -r
+ 167:Src/utils.cpp ****     if (y < 0.0f)
+ 168:Src/utils.cpp ****         r = -r;
+ 596              		.loc 1 168 9 view .LVU211
+ 597              		.loc 1 168 11 is_stmt 0 view .LVU212
+ 598 005c B1EE400A 		vneg.f32	s0, s0
+ 599              	.LVL65:
+ 169:Src/utils.cpp **** 
+ 170:Src/utils.cpp ****     return r;
+ 600              		.loc 1 170 5 is_stmt 1 view .LVU213
+ 601              		.loc 1 170 12 is_stmt 0 view .LVU214
+ 602 0060 7047     		bx	lr
+ 603              	.LVL66:
+ 604              	.L67:
+ 155:Src/utils.cpp ****     // s := a * a
+ 605              		.loc 1 155 66 view .LVU215
+ 606 0062 DFED287A 		vldr.32	s15, .L73
+ 607 0066 76EE277A 		vadd.f32	s15, s12, s15
+ARM GAS  /tmp/ccGg4evu.s 			page 16
+
+
+ 155:Src/utils.cpp ****     // s := a * a
+ 608              		.loc 1 155 11 view .LVU216
+ 609 006a 86EE270A 		vdiv.f32	s0, s12, s15
+ 610              	.LVL67:
+ 157:Src/utils.cpp ****     // r := ((-0.0464964749 * s + 0.15931422) * s - 0.327622764) * s * a + a
+ 611              		.loc 1 157 5 is_stmt 1 view .LVU217
+ 157:Src/utils.cpp ****     // r := ((-0.0464964749 * s + 0.15931422) * s - 0.327622764) * s * a + a
+ 612              		.loc 1 157 11 is_stmt 0 view .LVU218
+ 613 006e 20EE007A 		vmul.f32	s14, s0, s0
+ 614              	.LVL68:
+ 159:Src/utils.cpp ****     // if |y| > |x| then r := 1.57079637 - r
+ 615              		.loc 1 159 5 is_stmt 1 view .LVU219
+ 159:Src/utils.cpp ****     // if |y| > |x| then r := 1.57079637 - r
+ 616              		.loc 1 159 32 is_stmt 0 view .LVU220
+ 617 0072 DFED257A 		vldr.32	s15, .L73+4
+ 618 0076 67EE277A 		vmul.f32	s15, s14, s15
+ 159:Src/utils.cpp ****     // if |y| > |x| then r := 1.57079637 - r
+ 619              		.loc 1 159 36 view .LVU221
+ 620 007a 9FED246A 		vldr.32	s12, .L73+8
+ 621              	.LVL69:
+ 159:Src/utils.cpp ****     // if |y| > |x| then r := 1.57079637 - r
+ 622              		.loc 1 159 36 view .LVU222
+ 623 007e 77EE867A 		vadd.f32	s15, s15, s12
+ 159:Src/utils.cpp ****     // if |y| > |x| then r := 1.57079637 - r
+ 624              		.loc 1 159 51 view .LVU223
+ 625 0082 67EE877A 		vmul.f32	s15, s15, s14
+ 159:Src/utils.cpp ****     // if |y| > |x| then r := 1.57079637 - r
+ 626              		.loc 1 159 55 view .LVU224
+ 627 0086 9FED226A 		vldr.32	s12, .L73+12
+ 628 008a 77EEC67A 		vsub.f32	s15, s15, s12
+ 159:Src/utils.cpp ****     // if |y| > |x| then r := 1.57079637 - r
+ 629              		.loc 1 159 71 view .LVU225
+ 630 008e 67EE877A 		vmul.f32	s15, s15, s14
+ 159:Src/utils.cpp ****     // if |y| > |x| then r := 1.57079637 - r
+ 631              		.loc 1 159 75 view .LVU226
+ 632 0092 67EE807A 		vmul.f32	s15, s15, s0
+ 159:Src/utils.cpp ****     // if |y| > |x| then r := 1.57079637 - r
+ 633              		.loc 1 159 11 view .LVU227
+ 634 0096 37EE800A 		vadd.f32	s0, s15, s0
+ 635              	.LVL70:
+ 161:Src/utils.cpp ****         r = 1.57079637f - r;
+ 636              		.loc 1 161 5 is_stmt 1 view .LVU228
+ 637              	.L66:
+ 162:Src/utils.cpp ****     // if x < 0 then r := 3.14159274 - r
+ 638              		.loc 1 162 9 view .LVU229
+ 162:Src/utils.cpp ****     // if x < 0 then r := 3.14159274 - r
+ 639              		.loc 1 162 11 is_stmt 0 view .LVU230
+ 640 009a DFED1E7A 		vldr.32	s15, .L73+16
+ 641 009e 37EEC00A 		vsub.f32	s0, s15, s0
+ 642              	.LVL71:
+ 643              	.L60:
+ 164:Src/utils.cpp ****         r = 3.14159274f - r;
+ 644              		.loc 1 164 5 is_stmt 1 view .LVU231
+ 645 00a2 F5EEC00A 		vcmpe.f32	s1, #0
+ 646 00a6 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 165:Src/utils.cpp ****     // if y < 0 then r := -r
+ 647              		.loc 1 165 9 view .LVU232
+ARM GAS  /tmp/ccGg4evu.s 			page 17
+
+
+ 165:Src/utils.cpp ****     // if y < 0 then r := -r
+ 648              		.loc 1 165 11 is_stmt 0 view .LVU233
+ 649 00aa 44BF     		itt	mi
+ 650 00ac DFED1A7A 		vldrmi.32	s15, .L73+20
+ 651 00b0 37EEC00A 		vsubmi.f32	s0, s15, s0
+ 652              	.LVL72:
+ 167:Src/utils.cpp ****         r = -r;
+ 653              		.loc 1 167 5 is_stmt 1 view .LVU234
+ 654 00b4 F5EEC06A 		vcmpe.f32	s13, #0
+ 655 00b8 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 656 00bc CED4     		bmi	.L72
+ 171:Src/utils.cpp **** }
+ 657              		.loc 1 171 1 is_stmt 0 view .LVU235
+ 658 00be 7047     		bx	lr
+ 659              	.LVL73:
+ 660              	.L57:
+ 155:Src/utils.cpp ****     // s := a * a
+ 661              		.loc 1 155 42 view .LVU236
+ 662 00c0 B4EEC67A 		vcmpe.f32	s14, s12
+ 663 00c4 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 664 00c8 CBD4     		bmi	.L67
+ 155:Src/utils.cpp ****     // s := a * a
+ 665              		.loc 1 155 66 view .LVU237
+ 666 00ca DFED0E7A 		vldr.32	s15, .L73
+ 667 00ce 37EE277A 		vadd.f32	s14, s14, s15
+ 668              	.LVL74:
+ 155:Src/utils.cpp ****     // s := a * a
+ 669              		.loc 1 155 11 view .LVU238
+ 670 00d2 86EE070A 		vdiv.f32	s0, s12, s14
+ 671              	.LVL75:
+ 157:Src/utils.cpp ****     // r := ((-0.0464964749 * s + 0.15931422) * s - 0.327622764) * s * a + a
+ 672              		.loc 1 157 5 is_stmt 1 view .LVU239
+ 157:Src/utils.cpp ****     // r := ((-0.0464964749 * s + 0.15931422) * s - 0.327622764) * s * a + a
+ 673              		.loc 1 157 11 is_stmt 0 view .LVU240
+ 674 00d6 20EE007A 		vmul.f32	s14, s0, s0
+ 675              	.LVL76:
+ 159:Src/utils.cpp ****     // if |y| > |x| then r := 1.57079637 - r
+ 676              		.loc 1 159 5 is_stmt 1 view .LVU241
+ 159:Src/utils.cpp ****     // if |y| > |x| then r := 1.57079637 - r
+ 677              		.loc 1 159 32 is_stmt 0 view .LVU242
+ 678 00da DFED0B7A 		vldr.32	s15, .L73+4
+ 679 00de 67EE277A 		vmul.f32	s15, s14, s15
+ 159:Src/utils.cpp ****     // if |y| > |x| then r := 1.57079637 - r
+ 680              		.loc 1 159 36 view .LVU243
+ 681 00e2 9FED0A6A 		vldr.32	s12, .L73+8
+ 682              	.LVL77:
+ 159:Src/utils.cpp ****     // if |y| > |x| then r := 1.57079637 - r
+ 683              		.loc 1 159 36 view .LVU244
+ 684 00e6 77EE867A 		vadd.f32	s15, s15, s12
+ 159:Src/utils.cpp ****     // if |y| > |x| then r := 1.57079637 - r
+ 685              		.loc 1 159 51 view .LVU245
+ 686 00ea 67EE877A 		vmul.f32	s15, s15, s14
+ 159:Src/utils.cpp ****     // if |y| > |x| then r := 1.57079637 - r
+ 687              		.loc 1 159 55 view .LVU246
+ 688 00ee 9FED086A 		vldr.32	s12, .L73+12
+ 689 00f2 77EEC67A 		vsub.f32	s15, s15, s12
+ 159:Src/utils.cpp ****     // if |y| > |x| then r := 1.57079637 - r
+ARM GAS  /tmp/ccGg4evu.s 			page 18
+
+
+ 690              		.loc 1 159 71 view .LVU247
+ 691 00f6 67EE877A 		vmul.f32	s15, s15, s14
+ 159:Src/utils.cpp ****     // if |y| > |x| then r := 1.57079637 - r
+ 692              		.loc 1 159 75 view .LVU248
+ 693 00fa 67EE807A 		vmul.f32	s15, s15, s0
+ 159:Src/utils.cpp ****     // if |y| > |x| then r := 1.57079637 - r
+ 694              		.loc 1 159 11 view .LVU249
+ 695 00fe 37EE800A 		vadd.f32	s0, s15, s0
+ 696              	.LVL78:
+ 161:Src/utils.cpp ****         r = 1.57079637f - r;
+ 697              		.loc 1 161 5 is_stmt 1 view .LVU250
+ 698 0102 CAE7     		b	.L66
+ 699              	.L74:
+ 700              		.align	2
+ 701              	.L73:
+ 702 0104 00008000 		.word	8388608
+ 703 0108 16733EBD 		.word	-1119980778
+ 704 010c 4423233E 		.word	1042490180
+ 705 0110 2CBEA73E 		.word	1051180588
+ 706 0114 DB0FC93F 		.word	1070141403
+ 707 0118 DB0F4940 		.word	1078530011
+ 708              		.cfi_endproc
+ 709              	.LFE2876:
+ 711              		.section	.text.horner_fma,"ax",%progbits
+ 712              		.align	1
+ 713              		.global	horner_fma
+ 714              		.syntax unified
+ 715              		.thumb
+ 716              		.thumb_func
+ 717              		.fpu fpv4-sp-d16
+ 719              	horner_fma:
+ 720              	.LVL79:
+ 721              	.LFB2877:
+ 172:Src/utils.cpp **** 
+ 173:Src/utils.cpp **** // Evaluate polynomials using Fused Multiply Add intrisic instruction.
+ 174:Src/utils.cpp **** // coeffs[0] is highest order, as per numpy.polyfit
+ 175:Src/utils.cpp **** // p(x) = coeffs[0] * x^deg + ... + coeffs[deg], for some degree "deg"
+ 176:Src/utils.cpp **** float horner_fma(float x, const float* coeffs, size_t count) {
+ 722              		.loc 1 176 62 view -0
+ 723              		.cfi_startproc
+ 724              		@ args = 0, pretend = 0, frame = 0
+ 725              		@ frame_needed = 0, uses_anonymous_args = 0
+ 726              		@ link register save eliminated.
+ 727              		.loc 1 176 62 is_stmt 0 view .LVU252
+ 728 0000 B0EE407A 		vmov.f32	s14, s0
+ 177:Src/utils.cpp ****     float result = 0.0f;
+ 729              		.loc 1 177 5 is_stmt 1 view .LVU253
+ 730              	.LVL80:
+ 178:Src/utils.cpp ****     for (size_t idx = 0; idx < count; ++idx)
+ 731              		.loc 1 178 5 view .LVU254
+ 732              	.LBB13:
+ 733              		.loc 1 178 30 view .LVU255
+ 734 0004 69B1     		cbz	r1, .L78
+ 735 0006 0346     		mov	r3, r0
+ 736 0008 00EB8100 		add	r0, r0, r1, lsl #2
+ 737              	.LVL81:
+ 738              		.loc 1 178 30 is_stmt 0 view .LVU256
+ARM GAS  /tmp/ccGg4evu.s 			page 19
+
+
+ 739              	.LBE13:
+ 177:Src/utils.cpp ****     float result = 0.0f;
+ 740              		.loc 1 177 11 view .LVU257
+ 741 000c 9FED060A 		vldr.32	s0, .L80
+ 742              	.LVL82:
+ 743              	.L77:
+ 744              	.LBB14:
+ 179:Src/utils.cpp ****         result = fmaf(result, x, coeffs[idx]);
+ 745              		.loc 1 179 9 is_stmt 1 discriminator 2 view .LVU258
+ 746              		.loc 1 179 22 is_stmt 0 discriminator 2 view .LVU259
+ 747 0010 F3EC017A 		vldmia.32	r3!, {s15}
+ 748 0014 E0EE077A 		vfma.f32	s15, s0, s14
+ 749 0018 B0EE670A 		vmov.f32	s0, s15
+ 750              	.LVL83:
+ 178:Src/utils.cpp ****     for (size_t idx = 0; idx < count; ++idx)
+ 751              		.loc 1 178 5 is_stmt 1 discriminator 2 view .LVU260
+ 178:Src/utils.cpp ****     for (size_t idx = 0; idx < count; ++idx)
+ 752              		.loc 1 178 30 discriminator 2 view .LVU261
+ 753 001c 8342     		cmp	r3, r0
+ 754 001e F7D1     		bne	.L77
+ 755 0020 7047     		bx	lr
+ 756              	.LVL84:
+ 757              	.L78:
+ 178:Src/utils.cpp ****     for (size_t idx = 0; idx < count; ++idx)
+ 758              		.loc 1 178 30 is_stmt 0 discriminator 2 view .LVU262
+ 759              	.LBE14:
+ 177:Src/utils.cpp ****     float result = 0.0f;
+ 760              		.loc 1 177 11 view .LVU263
+ 761 0022 9FED010A 		vldr.32	s0, .L80
+ 762              	.LVL85:
+ 180:Src/utils.cpp ****     return result;
+ 763              		.loc 1 180 5 is_stmt 1 view .LVU264
+ 181:Src/utils.cpp **** }
+ 764              		.loc 1 181 1 is_stmt 0 view .LVU265
+ 765 0026 7047     		bx	lr
+ 766              	.L81:
+ 767              		.align	2
+ 768              	.L80:
+ 769 0028 00000000 		.word	0
+ 770              		.cfi_endproc
+ 771              	.LFE2877:
+ 773              		.section	.text.mod,"ax",%progbits
+ 774              		.align	1
+ 775              		.global	mod
+ 776              		.syntax unified
+ 777              		.thumb
+ 778              		.thumb_func
+ 779              		.fpu fpv4-sp-d16
+ 781              	mod:
+ 782              	.LVL86:
+ 783              	.LFB2878:
+ 182:Src/utils.cpp **** 
+ 183:Src/utils.cpp **** // Modulo (as opposed to remainder), per https://stackoverflow.com/a/19288271
+ 184:Src/utils.cpp **** int mod(int dividend, int divisor) {
+ 784              		.loc 1 184 36 is_stmt 1 view -0
+ 785              		.cfi_startproc
+ 786              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /tmp/ccGg4evu.s 			page 20
+
+
+ 787              		@ frame_needed = 0, uses_anonymous_args = 0
+ 788              		@ link register save eliminated.
+ 185:Src/utils.cpp ****     int r = dividend % divisor;
+ 789              		.loc 1 185 5 view .LVU267
+ 790              		.loc 1 185 9 is_stmt 0 view .LVU268
+ 791 0000 90FBF1F3 		sdiv	r3, r0, r1
+ 792 0004 03FB1100 		mls	r0, r3, r1, r0
+ 793              	.LVL87:
+ 186:Src/utils.cpp ****     return (r < 0) ? (r + divisor) : r;
+ 794              		.loc 1 186 5 is_stmt 1 view .LVU269
+ 795              		.loc 1 186 20 is_stmt 0 view .LVU270
+ 796 0008 0028     		cmp	r0, #0
+ 797 000a B8BF     		it	lt
+ 798 000c 4018     		addlt	r0, r0, r1
+ 799              	.LVL88:
+ 187:Src/utils.cpp **** }
+ 800              		.loc 1 187 1 view .LVU271
+ 801 000e 7047     		bx	lr
+ 802              		.cfi_endproc
+ 803              	.LFE2878:
+ 805              		.global	__aeabi_uldivmod
+ 806              		.section	.text.deadline_to_timeout,"ax",%progbits
+ 807              		.align	1
+ 808              		.global	deadline_to_timeout
+ 809              		.syntax unified
+ 810              		.thumb
+ 811              		.thumb_func
+ 812              		.fpu fpv4-sp-d16
+ 814              	deadline_to_timeout:
+ 815              	.LVL89:
+ 816              	.LFB2879:
+ 188:Src/utils.cpp **** 
+ 189:Src/utils.cpp **** // @brief: Returns how much time is left until the deadline is reached.
+ 190:Src/utils.cpp **** // If the deadline has already passed, the return value is 0 (except if
+ 191:Src/utils.cpp **** // the deadline is very far in the past)
+ 192:Src/utils.cpp **** uint32_t deadline_to_timeout(uint32_t deadline_ms) {
+ 817              		.loc 1 192 52 is_stmt 1 view -0
+ 818              		.cfi_startproc
+ 819              		@ args = 0, pretend = 0, frame = 0
+ 820              		@ frame_needed = 0, uses_anonymous_args = 0
+ 821              		.loc 1 192 52 is_stmt 0 view .LVU273
+ 822 0000 10B5     		push	{r4, lr}
+ 823              	.LCFI2:
+ 824              		.cfi_def_cfa_offset 8
+ 825              		.cfi_offset 4, -8
+ 826              		.cfi_offset 14, -4
+ 827 0002 0446     		mov	r4, r0
+ 193:Src/utils.cpp ****     uint32_t now_ms = (uint32_t)((1000ull * (uint64_t)osKernelSysTick()) / osKernelSysTickFrequency
+ 828              		.loc 1 193 5 is_stmt 1 view .LVU274
+ 829              		.loc 1 193 70 is_stmt 0 view .LVU275
+ 830 0004 FFF7FEFF 		bl	osKernelSysTick
+ 831              	.LVL90:
+ 194:Src/utils.cpp ****     uint32_t timeout_ms = deadline_ms - now_ms;
+ 832              		.loc 1 194 5 is_stmt 1 view .LVU276
+ 195:Src/utils.cpp ****     return (timeout_ms & 0x80000000) ? 0 : timeout_ms;
+ 833              		.loc 1 195 5 view .LVU277
+ 193:Src/utils.cpp ****     uint32_t now_ms = (uint32_t)((1000ull * (uint64_t)osKernelSysTick()) / osKernelSysTickFrequency
+ARM GAS  /tmp/ccGg4evu.s 			page 21
+
+
+ 834              		.loc 1 193 43 is_stmt 0 view .LVU278
+ 835 0008 C30E     		lsrs	r3, r0, #27
+ 836 000a 4101     		lsls	r1, r0, #5
+ 837 000c 091A     		subs	r1, r1, r0
+ 838 000e 63F10003 		sbc	r3, r3, #0
+ 839 0012 9B00     		lsls	r3, r3, #2
+ 840 0014 43EA9173 		orr	r3, r3, r1, lsr #30
+ 841 0018 8900     		lsls	r1, r1, #2
+ 842 001a 0918     		adds	r1, r1, r0
+ 843 001c 43F10003 		adc	r3, r3, #0
+ 844 0020 4FEAC30C 		lsl	ip, r3, #3
+ 193:Src/utils.cpp ****     uint32_t now_ms = (uint32_t)((1000ull * (uint64_t)osKernelSysTick()) / osKernelSysTickFrequency
+ 845              		.loc 1 193 74 view .LVU279
+ 846 0024 4FF47A72 		mov	r2, #1000
+ 847 0028 0023     		movs	r3, #0
+ 848 002a C800     		lsls	r0, r1, #3
+ 849              	.LVL91:
+ 193:Src/utils.cpp ****     uint32_t now_ms = (uint32_t)((1000ull * (uint64_t)osKernelSysTick()) / osKernelSysTickFrequency
+ 850              		.loc 1 193 74 view .LVU280
+ 851 002c 4CEA5171 		orr	r1, ip, r1, lsr #29
+ 852 0030 FFF7FEFF 		bl	__aeabi_uldivmod
+ 853              	.LVL92:
+ 194:Src/utils.cpp ****     uint32_t timeout_ms = deadline_ms - now_ms;
+ 854              		.loc 1 194 14 view .LVU281
+ 855 0034 201A     		subs	r0, r4, r0
+ 196:Src/utils.cpp **** }
+ 856              		.loc 1 196 1 view .LVU282
+ 857 0036 20EAE070 		bic	r0, r0, r0, asr #31
+ 858 003a 10BD     		pop	{r4, pc}
+ 859              		.loc 1 196 1 view .LVU283
+ 860              		.cfi_endproc
+ 861              	.LFE2879:
+ 863              		.section	.text.timeout_to_deadline,"ax",%progbits
+ 864              		.align	1
+ 865              		.global	timeout_to_deadline
+ 866              		.syntax unified
+ 867              		.thumb
+ 868              		.thumb_func
+ 869              		.fpu fpv4-sp-d16
+ 871              	timeout_to_deadline:
+ 872              	.LVL93:
+ 873              	.LFB2880:
+ 197:Src/utils.cpp **** 
+ 198:Src/utils.cpp **** // @brief: Converts a timeout to a deadline based on the current time.
+ 199:Src/utils.cpp **** uint32_t timeout_to_deadline(uint32_t timeout_ms) {
+ 874              		.loc 1 199 51 is_stmt 1 view -0
+ 875              		.cfi_startproc
+ 876              		@ args = 0, pretend = 0, frame = 0
+ 877              		@ frame_needed = 0, uses_anonymous_args = 0
+ 878              		.loc 1 199 51 is_stmt 0 view .LVU285
+ 879 0000 10B5     		push	{r4, lr}
+ 880              	.LCFI3:
+ 881              		.cfi_def_cfa_offset 8
+ 882              		.cfi_offset 4, -8
+ 883              		.cfi_offset 14, -4
+ 884 0002 0446     		mov	r4, r0
+ 200:Src/utils.cpp ****     uint32_t now_ms = (uint32_t)((1000ull * (uint64_t)osKernelSysTick()) / osKernelSysTickFrequency
+ARM GAS  /tmp/ccGg4evu.s 			page 22
+
+
+ 885              		.loc 1 200 5 is_stmt 1 view .LVU286
+ 886              		.loc 1 200 70 is_stmt 0 view .LVU287
+ 887 0004 FFF7FEFF 		bl	osKernelSysTick
+ 888              	.LVL94:
+ 201:Src/utils.cpp ****     return now_ms + timeout_ms;
+ 889              		.loc 1 201 5 is_stmt 1 view .LVU288
+ 200:Src/utils.cpp ****     uint32_t now_ms = (uint32_t)((1000ull * (uint64_t)osKernelSysTick()) / osKernelSysTickFrequency
+ 890              		.loc 1 200 43 is_stmt 0 view .LVU289
+ 891 0008 C30E     		lsrs	r3, r0, #27
+ 892 000a 4101     		lsls	r1, r0, #5
+ 893 000c 091A     		subs	r1, r1, r0
+ 894 000e 63F10003 		sbc	r3, r3, #0
+ 895 0012 9B00     		lsls	r3, r3, #2
+ 896 0014 43EA9173 		orr	r3, r3, r1, lsr #30
+ 897 0018 8900     		lsls	r1, r1, #2
+ 898 001a 0918     		adds	r1, r1, r0
+ 899 001c 43F10003 		adc	r3, r3, #0
+ 900 0020 4FEAC30C 		lsl	ip, r3, #3
+ 200:Src/utils.cpp ****     uint32_t now_ms = (uint32_t)((1000ull * (uint64_t)osKernelSysTick()) / osKernelSysTickFrequency
+ 901              		.loc 1 200 74 view .LVU290
+ 902 0024 4FF47A72 		mov	r2, #1000
+ 903 0028 0023     		movs	r3, #0
+ 904 002a C800     		lsls	r0, r1, #3
+ 905              	.LVL95:
+ 200:Src/utils.cpp ****     uint32_t now_ms = (uint32_t)((1000ull * (uint64_t)osKernelSysTick()) / osKernelSysTickFrequency
+ 906              		.loc 1 200 74 view .LVU291
+ 907 002c 4CEA5171 		orr	r1, ip, r1, lsr #29
+ 908 0030 FFF7FEFF 		bl	__aeabi_uldivmod
+ 909              	.LVL96:
+ 202:Src/utils.cpp **** }
+ 910              		.loc 1 202 1 view .LVU292
+ 911 0034 2044     		add	r0, r0, r4
+ 912 0036 10BD     		pop	{r4, pc}
+ 913              		.loc 1 202 1 view .LVU293
+ 914              		.cfi_endproc
+ 915              	.LFE2880:
+ 917              		.section	.text.is_in_the_future,"ax",%progbits
+ 918              		.align	1
+ 919              		.global	is_in_the_future
+ 920              		.syntax unified
+ 921              		.thumb
+ 922              		.thumb_func
+ 923              		.fpu fpv4-sp-d16
+ 925              	is_in_the_future:
+ 926              	.LVL97:
+ 927              	.LFB2881:
+ 203:Src/utils.cpp **** 
+ 204:Src/utils.cpp **** // @brief: Returns a non-zero value if the specified system time (in ms)
+ 205:Src/utils.cpp **** // is in the future or 0 otherwise.
+ 206:Src/utils.cpp **** // If the time lies far in the past this may falsely return a non-zero value.
+ 207:Src/utils.cpp **** int is_in_the_future(uint32_t time_ms) {
+ 928              		.loc 1 207 40 is_stmt 1 view -0
+ 929              		.cfi_startproc
+ 930              		@ args = 0, pretend = 0, frame = 0
+ 931              		@ frame_needed = 0, uses_anonymous_args = 0
+ 932              		.loc 1 207 40 is_stmt 0 view .LVU295
+ 933 0000 08B5     		push	{r3, lr}
+ARM GAS  /tmp/ccGg4evu.s 			page 23
+
+
+ 934              	.LCFI4:
+ 935              		.cfi_def_cfa_offset 8
+ 936              		.cfi_offset 3, -8
+ 937              		.cfi_offset 14, -4
+ 208:Src/utils.cpp ****     return deadline_to_timeout(time_ms);
+ 938              		.loc 1 208 5 is_stmt 1 view .LVU296
+ 939              		.loc 1 208 31 is_stmt 0 view .LVU297
+ 940 0002 FFF7FEFF 		bl	deadline_to_timeout
+ 941              	.LVL98:
+ 209:Src/utils.cpp **** }
+ 942              		.loc 1 209 1 view .LVU298
+ 943 0006 08BD     		pop	{r3, pc}
+ 944              		.cfi_endproc
+ 945              	.LFE2881:
+ 947              		.section	.text.micros,"ax",%progbits
+ 948              		.align	1
+ 949              		.global	micros
+ 950              		.syntax unified
+ 951              		.thumb
+ 952              		.thumb_func
+ 953              		.fpu fpv4-sp-d16
+ 955              	micros:
+ 956              	.LFB2882:
+ 210:Src/utils.cpp **** 
+ 211:Src/utils.cpp **** // @brief: Returns number of microseconds since system startup
+ 212:Src/utils.cpp **** uint32_t micros(void) {
+ 957              		.loc 1 212 23 is_stmt 1 view -0
+ 958              		.cfi_startproc
+ 959              		@ args = 0, pretend = 0, frame = 0
+ 960              		@ frame_needed = 0, uses_anonymous_args = 0
+ 961 0000 70B5     		push	{r4, r5, r6, lr}
+ 962              	.LCFI5:
+ 963              		.cfi_def_cfa_offset 16
+ 964              		.cfi_offset 4, -16
+ 965              		.cfi_offset 5, -12
+ 966              		.cfi_offset 6, -8
+ 967              		.cfi_offset 14, -4
+ 213:Src/utils.cpp ****     register uint32_t ms, cycle_cnt;
+ 214:Src/utils.cpp ****     do {
+ 215:Src/utils.cpp ****         ms = HAL_GetTick();
+ 216:Src/utils.cpp ****         cycle_cnt = TIM_TIME_BASE->CNT;
+ 968              		.loc 1 216 19 is_stmt 0 view .LVU300
+ 969 0002 074E     		ldr	r6, .L94
+ 970              	.L91:
+ 213:Src/utils.cpp ****     register uint32_t ms, cycle_cnt;
+ 971              		.loc 1 213 5 is_stmt 1 view .LVU301
+ 214:Src/utils.cpp ****         ms = HAL_GetTick();
+ 972              		.loc 1 214 5 view .LVU302
+ 215:Src/utils.cpp ****         cycle_cnt = TIM_TIME_BASE->CNT;
+ 973              		.loc 1 215 9 view .LVU303
+ 215:Src/utils.cpp ****         cycle_cnt = TIM_TIME_BASE->CNT;
+ 974              		.loc 1 215 25 is_stmt 0 view .LVU304
+ 975 0004 FFF7FEFF 		bl	HAL_GetTick
+ 976              	.LVL99:
+ 977 0008 0446     		mov	r4, r0
+ 978              	.LVL100:
+ 979              		.loc 1 216 9 is_stmt 1 view .LVU305
+ARM GAS  /tmp/ccGg4evu.s 			page 24
+
+
+ 980              		.loc 1 216 19 is_stmt 0 view .LVU306
+ 981 000a 756A     		ldr	r5, [r6, #36]
+ 982              	.LVL101:
+ 217:Src/utils.cpp ****     } while (ms != HAL_GetTick());
+ 983              		.loc 1 217 17 is_stmt 1 view .LVU307
+ 984              		.loc 1 217 31 is_stmt 0 view .LVU308
+ 985 000c FFF7FEFF 		bl	HAL_GetTick
+ 986              	.LVL102:
+ 987              		.loc 1 217 17 view .LVU309
+ 988 0010 A042     		cmp	r0, r4
+ 989 0012 F7D1     		bne	.L91
+ 218:Src/utils.cpp **** 
+ 219:Src/utils.cpp ****     return (ms * 1000) + cycle_cnt;
+ 990              		.loc 1 219 5 is_stmt 1 view .LVU310
+ 220:Src/utils.cpp **** }
+ 991              		.loc 1 220 1 is_stmt 0 view .LVU311
+ 992 0014 4FF47A70 		mov	r0, #1000
+ 993 0018 00FB0450 		mla	r0, r0, r4, r5
+ 994 001c 70BD     		pop	{r4, r5, r6, pc}
+ 995              	.LVL103:
+ 996              	.L95:
+ 997              		.loc 1 220 1 view .LVU312
+ 998 001e 00BF     		.align	2
+ 999              	.L94:
+ 1000 0020 00440140 		.word	1073824768
+ 1001              		.cfi_endproc
+ 1002              	.LFE2882:
+ 1004              		.section	.text.delay_us,"ax",%progbits
+ 1005              		.align	1
+ 1006              		.global	delay_us
+ 1007              		.syntax unified
+ 1008              		.thumb
+ 1009              		.thumb_func
+ 1010              		.fpu fpv4-sp-d16
+ 1012              	delay_us:
+ 1013              	.LVL104:
+ 1014              	.LFB2883:
+ 221:Src/utils.cpp **** 
+ 222:Src/utils.cpp **** // @brief: Busy wait delay for given amount of microseconds (us)
+ 223:Src/utils.cpp **** void delay_us(uint32_t us) {
+ 1015              		.loc 1 223 28 is_stmt 1 view -0
+ 1016              		.cfi_startproc
+ 1017              		@ args = 0, pretend = 0, frame = 0
+ 1018              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1019              		.loc 1 223 28 is_stmt 0 view .LVU314
+ 1020 0000 38B5     		push	{r3, r4, r5, lr}
+ 1021              	.LCFI6:
+ 1022              		.cfi_def_cfa_offset 16
+ 1023              		.cfi_offset 3, -16
+ 1024              		.cfi_offset 4, -12
+ 1025              		.cfi_offset 5, -8
+ 1026              		.cfi_offset 14, -4
+ 1027 0002 0546     		mov	r5, r0
+ 224:Src/utils.cpp ****     uint32_t start = micros();
+ 1028              		.loc 1 224 5 is_stmt 1 view .LVU315
+ 1029              		.loc 1 224 28 is_stmt 0 view .LVU316
+ 1030 0004 FFF7FEFF 		bl	micros
+ARM GAS  /tmp/ccGg4evu.s 			page 25
+
+
+ 1031              	.LVL105:
+ 1032              		.loc 1 224 28 view .LVU317
+ 1033 0008 0446     		mov	r4, r0
+ 1034              	.LVL106:
+ 1035              		.loc 1 224 28 view .LVU318
+ 1036 000a 00E0     		b	.L98
+ 1037              	.LVL107:
+ 1038              	.L100:
+ 225:Src/utils.cpp ****     while (micros() - start < (uint32_t)us) {
+ 226:Src/utils.cpp ****         __ASM("nop");
+ 1039              		.loc 1 226 9 is_stmt 1 view .LVU319
+ 1040              		.syntax unified
+ 1041              	@ 226 "Src/utils.cpp" 1
+ 1042 000c 00BF     		nop
+ 1043              	@ 0 "" 2
+ 1044              		.thumb
+ 1045              		.syntax unified
+ 1046              	.L98:
+ 225:Src/utils.cpp ****     while (micros() - start < (uint32_t)us) {
+ 1047              		.loc 1 225 5 view .LVU320
+ 225:Src/utils.cpp ****     while (micros() - start < (uint32_t)us) {
+ 1048              		.loc 1 225 29 view .LVU321
+ 225:Src/utils.cpp ****     while (micros() - start < (uint32_t)us) {
+ 1049              		.loc 1 225 18 is_stmt 0 view .LVU322
+ 1050 000e FFF7FEFF 		bl	micros
+ 1051              	.LVL108:
+ 225:Src/utils.cpp ****     while (micros() - start < (uint32_t)us) {
+ 1052              		.loc 1 225 21 view .LVU323
+ 1053 0012 001B     		subs	r0, r0, r4
+ 225:Src/utils.cpp ****     while (micros() - start < (uint32_t)us) {
+ 1054              		.loc 1 225 29 view .LVU324
+ 1055 0014 A842     		cmp	r0, r5
+ 1056 0016 F9D3     		bcc	.L100
+ 227:Src/utils.cpp ****     }
+ 228:Src/utils.cpp **** }
+ 1057              		.loc 1 228 1 view .LVU325
+ 1058 0018 38BD     		pop	{r3, r4, r5, pc}
+ 1059              		.loc 1 228 1 view .LVU326
+ 1060              		.cfi_endproc
+ 1061              	.LFE2883:
+ 1063              		.section	.text.fsgn,"ax",%progbits
+ 1064              		.align	1
+ 1065              		.global	fsgn
+ 1066              		.syntax unified
+ 1067              		.thumb
+ 1068              		.thumb_func
+ 1069              		.fpu fpv4-sp-d16
+ 1071              	fsgn:
+ 1072              	.LVL109:
+ 1073              	.LFB2884:
+ 229:Src/utils.cpp **** 
+ 230:Src/utils.cpp **** int32_t fsgn(float num) {
+ 1074              		.loc 1 230 25 is_stmt 1 view -0
+ 1075              		.cfi_startproc
+ 1076              		@ args = 0, pretend = 0, frame = 0
+ 1077              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1078              		@ link register save eliminated.
+ARM GAS  /tmp/ccGg4evu.s 			page 26
+
+
+ 231:Src/utils.cpp ****     if (num > 0.0f) {
+ 1079              		.loc 1 231 5 view .LVU328
+ 1080 0000 B5EEC00A 		vcmpe.f32	s0, #0
+ 1081 0004 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 1082 0008 04DC     		bgt	.L103
+ 232:Src/utils.cpp ****         return 1;
+ 233:Src/utils.cpp ****     } else if (num < 0.0f) {
+ 1083              		.loc 1 233 12 view .LVU329
+ 1084 000a 4CBF     		ite	mi
+ 1085 000c 4FF0FF30 		movmi	r0, #-1
+ 1086 0010 0020     		movpl	r0, #0
+ 1087 0012 7047     		bx	lr
+ 1088              	.L103:
+ 232:Src/utils.cpp ****         return 1;
+ 1089              		.loc 1 232 16 is_stmt 0 view .LVU330
+ 1090 0014 0120     		movs	r0, #1
+ 234:Src/utils.cpp ****         return -1;
+ 235:Src/utils.cpp ****     } else {
+ 236:Src/utils.cpp ****         return 0;
+ 237:Src/utils.cpp ****     }
+ 238:Src/utils.cpp **** }
+ 1091              		.loc 1 238 1 view .LVU331
+ 1092 0016 7047     		bx	lr
+ 1093              		.cfi_endproc
+ 1094              	.LFE2884:
+ 1096              		.section	.text.saturation,"ax",%progbits
+ 1097              		.align	1
+ 1098              		.global	saturation
+ 1099              		.syntax unified
+ 1100              		.thumb
+ 1101              		.thumb_func
+ 1102              		.fpu fpv4-sp-d16
+ 1104              	saturation:
+ 1105              	.LVL110:
+ 1106              	.LFB2885:
+ 239:Src/utils.cpp **** 
+ 240:Src/utils.cpp **** int32_t saturation(int32_t num, int32_t min, int32_t max) 
+ 241:Src/utils.cpp **** {
+ 1107              		.loc 1 241 1 is_stmt 1 view -0
+ 1108              		.cfi_startproc
+ 1109              		@ args = 0, pretend = 0, frame = 0
+ 1110              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1111              		@ link register save eliminated.
+ 242:Src/utils.cpp ****     if (num > max) {
+ 1112              		.loc 1 242 5 view .LVU333
+ 1113 0000 9042     		cmp	r0, r2
+ 1114 0002 03DC     		bgt	.L106
+ 243:Src/utils.cpp ****         return max;
+ 244:Src/utils.cpp ****     } else if (num < min) {
+ 1115              		.loc 1 244 12 view .LVU334
+ 1116 0004 8842     		cmp	r0, r1
+ 1117 0006 B8BF     		it	lt
+ 1118 0008 0846     		movlt	r0, r1
+ 1119              	.LVL111:
+ 1120              		.loc 1 244 12 is_stmt 0 view .LVU335
+ 1121 000a 7047     		bx	lr
+ 1122              	.LVL112:
+ARM GAS  /tmp/ccGg4evu.s 			page 27
+
+
+ 1123              	.L106:
+ 243:Src/utils.cpp ****         return max;
+ 1124              		.loc 1 243 16 view .LVU336
+ 1125 000c 1046     		mov	r0, r2
+ 1126              	.LVL113:
+ 245:Src/utils.cpp ****         return min;
+ 246:Src/utils.cpp ****     } else {
+ 247:Src/utils.cpp ****         return num;
+ 248:Src/utils.cpp ****     }
+ 249:Src/utils.cpp **** }
+ 1127              		.loc 1 249 1 view .LVU337
+ 1128 000e 7047     		bx	lr
+ 1129              		.cfi_endproc
+ 1130              	.LFE2885:
+ 1132              		.section	.text.initNotchFilter,"ax",%progbits
+ 1133              		.align	1
+ 1134              		.global	initNotchFilter
+ 1135              		.syntax unified
+ 1136              		.thumb
+ 1137              		.thumb_func
+ 1138              		.fpu fpv4-sp-d16
+ 1140              	initNotchFilter:
+ 1141              	.LVL114:
+ 1142              	.LFB2886:
+ 250:Src/utils.cpp **** 
+ 251:Src/utils.cpp **** 
+ 252:Src/utils.cpp **** void initNotchFilter(NotchFilter* filter, float frequency, float sampleRate, float bandwidth) {
+ 1143              		.loc 1 252 95 is_stmt 1 view -0
+ 1144              		.cfi_startproc
+ 1145              		@ args = 0, pretend = 0, frame = 0
+ 1146              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1147              		.loc 1 252 95 is_stmt 0 view .LVU339
+ 1148 0000 10B5     		push	{r4, lr}
+ 1149              	.LCFI7:
+ 1150              		.cfi_def_cfa_offset 8
+ 1151              		.cfi_offset 4, -8
+ 1152              		.cfi_offset 14, -4
+ 1153 0002 2DED048B 		vpush.64	{d8, d9}
+ 1154              	.LCFI8:
+ 1155              		.cfi_def_cfa_offset 24
+ 1156              		.cfi_offset 80, -24
+ 1157              		.cfi_offset 81, -20
+ 1158              		.cfi_offset 82, -16
+ 1159              		.cfi_offset 83, -12
+ 1160 0006 0446     		mov	r4, r0
+ 1161 0008 B0EE418A 		vmov.f32	s16, s2
+ 253:Src/utils.cpp ****     float w0 = 2 * M_PI * frequency / sampleRate;
+ 1162              		.loc 1 253 5 is_stmt 1 view .LVU340
+ 1163              		.loc 1 253 25 is_stmt 0 view .LVU341
+ 1164 000c DFED177A 		vldr.32	s15, .L109
+ 1165 0010 20EE270A 		vmul.f32	s0, s0, s15
+ 1166              	.LVL115:
+ 1167              		.loc 1 253 11 view .LVU342
+ 1168 0014 C0EE208A 		vdiv.f32	s17, s0, s1
+ 1169              	.LVL116:
+ 254:Src/utils.cpp ****     filter->w0 = w0;
+ 1170              		.loc 1 254 5 is_stmt 1 view .LVU343
+ARM GAS  /tmp/ccGg4evu.s 			page 28
+
+
+ 1171              		.loc 1 254 16 is_stmt 0 view .LVU344
+ 1172 0018 C0ED008A 		vstr.32	s17, [r0]
+ 255:Src/utils.cpp ****     filter->r = 1 - bandwidth / 2;
+ 1173              		.loc 1 255 5 is_stmt 1 view .LVU345
+ 1174              		.loc 1 255 31 is_stmt 0 view .LVU346
+ 1175 001c F6EE007A 		vmov.f32	s15, #5.0e-1
+ 1176 0020 61EE277A 		vmul.f32	s15, s2, s15
+ 1177              		.loc 1 255 19 view .LVU347
+ 1178 0024 B7EE009A 		vmov.f32	s18, #1.0e+0
+ 1179 0028 79EE677A 		vsub.f32	s15, s18, s15
+ 1180              		.loc 1 255 15 view .LVU348
+ 1181 002c C0ED017A 		vstr.32	s15, [r0, #4]
+ 256:Src/utils.cpp ****     filter->r = our_arm_sin_f32(w0) / (2*bandwidth);
+ 1182              		.loc 1 256 5 is_stmt 1 view .LVU349
+ 1183              		.loc 1 256 32 is_stmt 0 view .LVU350
+ 1184 0030 B0EE680A 		vmov.f32	s0, s17
+ 1185 0034 FFF7FEFF 		bl	our_arm_sin_f32
+ 1186              	.LVL117:
+ 1187              		.loc 1 256 41 view .LVU351
+ 1188 0038 38EE088A 		vadd.f32	s16, s16, s16
+ 1189              	.LVL118:
+ 1190              		.loc 1 256 37 view .LVU352
+ 1191 003c C0EE087A 		vdiv.f32	s15, s0, s16
+ 1192              		.loc 1 256 15 view .LVU353
+ 1193 0040 C4ED017A 		vstr.32	s15, [r4, #4]
+ 257:Src/utils.cpp ****     float cosw0 = our_arm_cos_f32(w0);
+ 1194              		.loc 1 257 5 is_stmt 1 view .LVU354
+ 1195              		.loc 1 257 34 is_stmt 0 view .LVU355
+ 1196 0044 B0EE680A 		vmov.f32	s0, s17
+ 1197 0048 FFF7FEFF 		bl	our_arm_cos_f32
+ 1198              	.LVL119:
+ 258:Src/utils.cpp **** 
+ 259:Src/utils.cpp ****     (void)cosw0;
+ 1199              		.loc 1 259 5 is_stmt 1 view .LVU356
+ 260:Src/utils.cpp ****     // filter->b1 = -2 * cosw0;
+ 261:Src/utils.cpp ****     // filter->b2 = 1;
+ 262:Src/utils.cpp ****     // filter->a1 = -2 * filter->r * cosw0;
+ 263:Src/utils.cpp ****     // filter->a2 = filter->r * filter->r;
+ 264:Src/utils.cpp ****     // filter->a2 = 1.0f - 2*filter->r ;
+ 265:Src/utils.cpp ****     filter->b1 = -1.9996150f;//-1.99975573206256f;
+ 1200              		.loc 1 265 5 view .LVU357
+ 1201              		.loc 1 265 16 is_stmt 0 view .LVU358
+ 1202 004c 084B     		ldr	r3, .L109+4
+ 1203 004e 2361     		str	r3, [r4, #16]	@ float
+ 266:Src/utils.cpp ****     filter->b2 = 1.0f;
+ 1204              		.loc 1 266 5 is_stmt 1 view .LVU359
+ 1205              		.loc 1 266 16 is_stmt 0 view .LVU360
+ 1206 0050 84ED059A 		vstr.32	s18, [r4, #20]
+ 267:Src/utils.cpp ****     filter->a1 = -1.9686884f;
+ 1207              		.loc 1 267 5 is_stmt 1 view .LVU361
+ 1208              		.loc 1 267 16 is_stmt 0 view .LVU362
+ 1209 0054 074B     		ldr	r3, .L109+8
+ 1210 0056 A360     		str	r3, [r4, #8]	@ float
+ 268:Src/utils.cpp ****     filter->a2 = 0.9690674f;
+ 1211              		.loc 1 268 5 is_stmt 1 view .LVU363
+ 1212              		.loc 1 268 16 is_stmt 0 view .LVU364
+ 1213 0058 074B     		ldr	r3, .L109+12
+ARM GAS  /tmp/ccGg4evu.s 			page 29
+
+
+ 1214 005a E360     		str	r3, [r4, #12]	@ float
+ 269:Src/utils.cpp **** 
+ 270:Src/utils.cpp ****     filter->x1 = filter->x2 = filter->y1 = filter->y2 = 0;
+ 1215              		.loc 1 270 5 is_stmt 1 view .LVU365
+ 1216              		.loc 1 270 55 is_stmt 0 view .LVU366
+ 1217 005c 0023     		movs	r3, #0
+ 1218 005e 6362     		str	r3, [r4, #36]	@ float
+ 1219              		.loc 1 270 42 view .LVU367
+ 1220 0060 2362     		str	r3, [r4, #32]	@ float
+ 1221              		.loc 1 270 29 view .LVU368
+ 1222 0062 E361     		str	r3, [r4, #28]	@ float
+ 1223              		.loc 1 270 16 view .LVU369
+ 1224 0064 A361     		str	r3, [r4, #24]	@ float
+ 271:Src/utils.cpp **** }
+ 1225              		.loc 1 271 1 view .LVU370
+ 1226 0066 BDEC048B 		vldm	sp!, {d8-d9}
+ 1227              	.LCFI9:
+ 1228              		.cfi_restore 82
+ 1229              		.cfi_restore 83
+ 1230              		.cfi_restore 80
+ 1231              		.cfi_restore 81
+ 1232              		.cfi_def_cfa_offset 8
+ 1233 006a 10BD     		pop	{r4, pc}
+ 1234              	.LVL120:
+ 1235              	.L110:
+ 1236              		.loc 1 271 1 view .LVU371
+ 1237              		.align	2
+ 1238              	.L109:
+ 1239 006c DB0FC940 		.word	1086918619
+ 1240 0070 62F3FFBF 		.word	-1073745054
+ 1241 0074 FBFDFBBF 		.word	-1074004485
+ 1242 0078 CD14783F 		.word	1064834253
+ 1243              		.cfi_endproc
+ 1244              	.LFE2886:
+ 1246              		.section	.text.applyNotchFilter,"ax",%progbits
+ 1247              		.align	1
+ 1248              		.global	applyNotchFilter
+ 1249              		.syntax unified
+ 1250              		.thumb
+ 1251              		.thumb_func
+ 1252              		.fpu fpv4-sp-d16
+ 1254              	applyNotchFilter:
+ 1255              	.LVL121:
+ 1256              	.LFB2887:
+ 272:Src/utils.cpp **** 
+ 273:Src/utils.cpp **** float applyNotchFilter(NotchFilter* filter, float input) {
+ 1257              		.loc 1 273 58 is_stmt 1 view -0
+ 1258              		.cfi_startproc
+ 1259              		@ args = 0, pretend = 0, frame = 0
+ 1260              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1261              		@ link register save eliminated.
+ 1262              		.loc 1 273 58 is_stmt 0 view .LVU373
+ 1263 0000 B0EE407A 		vmov.f32	s14, s0
+ 274:Src/utils.cpp ****     float output = input + filter->b1 * filter->x1 + filter->b2 * filter->x2
+ 1264              		.loc 1 274 5 is_stmt 1 view .LVU374
+ 1265              		.loc 1 274 49 is_stmt 0 view .LVU375
+ 1266 0004 90ED066A 		vldr.32	s12, [r0, #24]
+ARM GAS  /tmp/ccGg4evu.s 			page 30
+
+
+ 275:Src/utils.cpp ****                    - filter->a1 * filter->y1 - filter->a2 * filter->y2;
+ 1267              		.loc 1 275 43 view .LVU376
+ 1268 0008 D0ED086A 		vldr.32	s13, [r0, #32]
+ 274:Src/utils.cpp ****     float output = input + filter->b1 * filter->x1 + filter->b2 * filter->x2
+ 1269              		.loc 1 274 39 view .LVU377
+ 1270 000c D0ED047A 		vldr.32	s15, [r0, #16]
+ 1271 0010 66EE277A 		vmul.f32	s15, s12, s15
+ 274:Src/utils.cpp ****     float output = input + filter->b1 * filter->x1 + filter->b2 * filter->x2
+ 1272              		.loc 1 274 26 view .LVU378
+ 1273 0014 77EE807A 		vadd.f32	s15, s15, s0
+ 274:Src/utils.cpp ****     float output = input + filter->b1 * filter->x1 + filter->b2 * filter->x2
+ 1274              		.loc 1 274 65 view .LVU379
+ 1275 0018 90ED050A 		vldr.32	s0, [r0, #20]
+ 1276              	.LVL122:
+ 274:Src/utils.cpp ****     float output = input + filter->b1 * filter->x1 + filter->b2 * filter->x2
+ 1277              		.loc 1 274 65 view .LVU380
+ 1278 001c D0ED075A 		vldr.32	s11, [r0, #28]
+ 1279 0020 20EE250A 		vmul.f32	s0, s0, s11
+ 274:Src/utils.cpp ****     float output = input + filter->b1 * filter->x1 + filter->b2 * filter->x2
+ 1280              		.loc 1 274 52 view .LVU381
+ 1281 0024 77EE807A 		vadd.f32	s15, s15, s0
+ 1282              		.loc 1 275 33 view .LVU382
+ 1283 0028 90ED020A 		vldr.32	s0, [r0, #8]
+ 1284 002c 26EE800A 		vmul.f32	s0, s13, s0
+ 1285              		.loc 1 275 20 view .LVU383
+ 1286 0030 77EEC07A 		vsub.f32	s15, s15, s0
+ 1287              		.loc 1 275 59 view .LVU384
+ 1288 0034 90ED030A 		vldr.32	s0, [r0, #12]
+ 1289 0038 D0ED095A 		vldr.32	s11, [r0, #36]
+ 1290 003c 20EE250A 		vmul.f32	s0, s0, s11
+ 274:Src/utils.cpp ****     float output = input + filter->b1 * filter->x1 + filter->b2 * filter->x2
+ 1291              		.loc 1 274 11 view .LVU385
+ 1292 0040 37EEC00A 		vsub.f32	s0, s15, s0
+ 1293              	.LVL123:
+ 276:Src/utils.cpp ****     
+ 277:Src/utils.cpp ****     filter->x2 = filter->x1;
+ 1294              		.loc 1 277 5 is_stmt 1 view .LVU386
+ 1295              		.loc 1 277 16 is_stmt 0 view .LVU387
+ 1296 0044 80ED076A 		vstr.32	s12, [r0, #28]
+ 278:Src/utils.cpp ****     filter->x1 = input;
+ 1297              		.loc 1 278 5 is_stmt 1 view .LVU388
+ 1298              		.loc 1 278 16 is_stmt 0 view .LVU389
+ 1299 0048 80ED067A 		vstr.32	s14, [r0, #24]
+ 279:Src/utils.cpp ****     filter->y2 = filter->y1;
+ 1300              		.loc 1 279 5 is_stmt 1 view .LVU390
+ 1301              		.loc 1 279 16 is_stmt 0 view .LVU391
+ 1302 004c C0ED096A 		vstr.32	s13, [r0, #36]
+ 280:Src/utils.cpp ****     filter->y1 = output;
+ 1303              		.loc 1 280 5 is_stmt 1 view .LVU392
+ 1304              		.loc 1 280 16 is_stmt 0 view .LVU393
+ 1305 0050 80ED080A 		vstr.32	s0, [r0, #32]
+ 281:Src/utils.cpp ****     
+ 282:Src/utils.cpp ****     return output;
+ 1306              		.loc 1 282 5 is_stmt 1 view .LVU394
+ 283:Src/utils.cpp **** }
+ 1307              		.loc 1 283 1 is_stmt 0 view .LVU395
+ 1308 0054 7047     		bx	lr
+ARM GAS  /tmp/ccGg4evu.s 			page 31
+
+
+ 1309              		.cfi_endproc
+ 1310              	.LFE2887:
+ 1312              		.section	.rodata._ZL8crcTable,"a"
+ 1313              		.align	2
+ 1314              		.set	.LANCHOR0,. + 0
+ 1317              	_ZL8crcTable:
+ 1318 0000 0097B92E 		.ascii	"\000\227\271.\345r\\\313]\312\344s\270/\001\226\272"
+ 1318      E5725CCB 
+ 1318      5DCAE473 
+ 1318      B82F0196 
+ 1318      BA
+ 1319 0011 2D03945F 		.ascii	"-\003\224_\310\346q\347p^\311\002\225\273,\343tZ\315"
+ 1319      C8E671E7 
+ 1319      705EC902 
+ 1319      95BB2CE3 
+ 1319      745ACD
+ 1320 0024 0691BF28 		.ascii	"\006\221\277(\276)\007\220[\314\342uY\316\340w\274+"
+ 1320      BE290790 
+ 1320      5BCCE275 
+ 1320      59CEE077 
+ 1320      BC2B
+ 1321 0036 05920493 		.ascii	"\005\222\004\223\275*\341vX\317Q\306\350\177\264#\015"
+ 1321      BD2AE176 
+ 1321      58CF51C6 
+ 1321      E87FB423 
+ 1321      0D
+ 1322 0047 9A0C9BB5 		.ascii	"\232\014\233\265\"\351~P\307\353|R\305\016\231\267 "
+ 1322      22E97E50 
+ 1322      C7EB7C52 
+ 1322      C50E99B7 
+ 1322      20
+ 1323 0058 B6210F98 		.ascii	"\266!\017\230S\304\352}\262%\013\234W\300\356y\357x"
+ 1323      53C4EA7D 
+ 1323      B2250B9C 
+ 1323      57C0EE79 
+ 1323      EF78
+ 1324 006a 56C10A9D 		.ascii	"V\301\012\235\263$\010\237\261&\355zT\303U\302\354{"
+ 1324      B324089F 
+ 1324      B126ED7A 
+ 1324      54C355C2 
+ 1324      EC7B
+ 1325 007c B027099E 		.ascii	"\260'\011\236\2425\033\214G\320\376i\377hF\321\032\215"
+ 1325      A2351B8C 
+ 1325      47D0FE69 
+ 1325      FF6846D1 
+ 1325      1A8D
+ 1326 008e A334188F 		.ascii	"\2434\030\217\2416\375jD\323E\322\374k\2407\031\216"
+ 1326      A136FD6A 
+ 1326      44D345D2 
+ 1326      FC6BA037 
+ 1326      198E
+ 1327 00a0 41D6F86F 		.ascii	"A\326\370o\2443\035\212\034\213\2452\371n@\327\373l"
+ 1327      A4331D8A 
+ 1327      1C8BA532 
+ 1327      F96E40D7 
+ 1327      FB6C
+ 1328 00b2 42D51E89 		.ascii	"B\325\036\211\2470\2461\037\210C\324\372m\363dJ\335"
+ARM GAS  /tmp/ccGg4evu.s 			page 32
+
+
+ 1328      A730A631 
+ 1328      1F8843D4 
+ 1328      FA6DF364 
+ 1328      4ADD
+ 1329 00c4 1681AF38 		.ascii	"\026\201\2578\2569\027\200K\334\362eI\336\360g\254;"
+ 1329      AE391780 
+ 1329      4BDCF265 
+ 1329      49DEF067 
+ 1329      AC3B
+ 1330 00d6 15821483 		.ascii	"\025\202\024\203\255:\361fH\337\020\207\251>\365bL\333"
+ 1330      AD3AF166 
+ 1330      48DF1087 
+ 1330      A93EF562 
+ 1330      4CDB
+ 1331 00e8 4DDAF463 		.ascii	"M\332\364c\250?\021\206\252=\023\204O\330\366a\367`"
+ 1331      A83F1186 
+ 1331      AA3D1384 
+ 1331      4FD8F661 
+ 1331      F760
+ 1332 00fa 4ED91285 		.ascii	"N\331\022\205\253<"
+ 1332      AB3C
+ 1333              		.text
+ 1334              	.Letext0:
+ 1335              		.file 2 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef
+ 1336              		.file 3 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
+ 1337              		.file 4 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
+ 1338              		.file 5 "Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h"
+ 1339              		.file 6 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/cmath"
+ 1340              		.file 7 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/type_trait
+ 1341              		.file 8 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/debug/debu
+ 1342              		.file 9 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/std_a
+ 1343              		.file 10 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/tr1/speci
+ 1344              		.file 11 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/arm-none-
+ 1345              		.file 12 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/pred
+ 1346              		.file 13 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/math.h"
+ 1347              		.file 14 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/math.h"
+ 1348              		.file 15 "Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g431xx.h"
+ 1349              		.file 16 "Inc/utils.hpp"
+ 1350              		.file 17 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h"
+ 1351              		.file 18 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_usart.h"
+ 1352              		.file 19 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h"
+ 1353              		.file 20 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h"
+ 1354              		.file 21 "Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h"
+ 1355              		.file 22 "<built-in>"
+ 1356              		.file 23 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/cpp_
+ARM GAS  /tmp/ccGg4evu.s 			page 33
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 utils.cpp
+     /tmp/ccGg4evu.s:18     .text.calcCRC:0000000000000000 $t
+     /tmp/ccGg4evu.s:26     .text.calcCRC:0000000000000000 calcCRC
+     /tmp/ccGg4evu.s:104    .text.calcCRC:0000000000000034 $d
+     /tmp/ccGg4evu.s:109    .text.SVM:0000000000000000 $t
+     /tmp/ccGg4evu.s:116    .text.SVM:0000000000000000 SVM
+     /tmp/ccGg4evu.s:520    .text.SVM:0000000000000238 $d
+     /tmp/ccGg4evu.s:528    .text.fast_atan2:0000000000000000 $t
+     /tmp/ccGg4evu.s:535    .text.fast_atan2:0000000000000000 fast_atan2
+     /tmp/ccGg4evu.s:702    .text.fast_atan2:0000000000000104 $d
+     /tmp/ccGg4evu.s:712    .text.horner_fma:0000000000000000 $t
+     /tmp/ccGg4evu.s:719    .text.horner_fma:0000000000000000 horner_fma
+     /tmp/ccGg4evu.s:769    .text.horner_fma:0000000000000028 $d
+     /tmp/ccGg4evu.s:774    .text.mod:0000000000000000 $t
+     /tmp/ccGg4evu.s:781    .text.mod:0000000000000000 mod
+     /tmp/ccGg4evu.s:807    .text.deadline_to_timeout:0000000000000000 $t
+     /tmp/ccGg4evu.s:814    .text.deadline_to_timeout:0000000000000000 deadline_to_timeout
+     /tmp/ccGg4evu.s:864    .text.timeout_to_deadline:0000000000000000 $t
+     /tmp/ccGg4evu.s:871    .text.timeout_to_deadline:0000000000000000 timeout_to_deadline
+     /tmp/ccGg4evu.s:918    .text.is_in_the_future:0000000000000000 $t
+     /tmp/ccGg4evu.s:925    .text.is_in_the_future:0000000000000000 is_in_the_future
+     /tmp/ccGg4evu.s:948    .text.micros:0000000000000000 $t
+     /tmp/ccGg4evu.s:955    .text.micros:0000000000000000 micros
+     /tmp/ccGg4evu.s:1000   .text.micros:0000000000000020 $d
+     /tmp/ccGg4evu.s:1005   .text.delay_us:0000000000000000 $t
+     /tmp/ccGg4evu.s:1012   .text.delay_us:0000000000000000 delay_us
+     /tmp/ccGg4evu.s:1064   .text.fsgn:0000000000000000 $t
+     /tmp/ccGg4evu.s:1071   .text.fsgn:0000000000000000 fsgn
+     /tmp/ccGg4evu.s:1097   .text.saturation:0000000000000000 $t
+     /tmp/ccGg4evu.s:1104   .text.saturation:0000000000000000 saturation
+     /tmp/ccGg4evu.s:1133   .text.initNotchFilter:0000000000000000 $t
+     /tmp/ccGg4evu.s:1140   .text.initNotchFilter:0000000000000000 initNotchFilter
+     /tmp/ccGg4evu.s:1239   .text.initNotchFilter:000000000000006c $d
+     /tmp/ccGg4evu.s:1247   .text.applyNotchFilter:0000000000000000 $t
+     /tmp/ccGg4evu.s:1254   .text.applyNotchFilter:0000000000000000 applyNotchFilter
+     /tmp/ccGg4evu.s:1313   .rodata._ZL8crcTable:0000000000000000 $d
+     /tmp/ccGg4evu.s:1317   .rodata._ZL8crcTable:0000000000000000 _ZL8crcTable
+
+UNDEFINED SYMBOLS
+__aeabi_uldivmod
+osKernelSysTick
+HAL_GetTick
+our_arm_sin_f32
+our_arm_cos_f32

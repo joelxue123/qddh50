@@ -284,7 +284,6 @@ void VESC_UART_IRQHandler(void)
             }
             uart_handle.rx_pos += dma_pos;
             
-            /* Process packet */
             VESC_ProcessPacket();
             
             /* Reset DMA */

@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccz9Ezsv.s 			page 1
+ARM GAS  /tmp/cczkTImq.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -10,9 +10,9 @@ ARM GAS  /tmp/ccz9Ezsv.s 			page 1
    7              		.eabi_attribute 24, 1
    8              		.eabi_attribute 25, 1
    9              		.eabi_attribute 26, 1
-  10              		.eabi_attribute 30, 2
+  10              		.eabi_attribute 30, 1
   11              		.eabi_attribute 34, 1
-  12              		.eabi_attribute 18, 4
+  12              		.eabi_attribute 18, 2
   13              		.file	"div.c"
   14              		.text
   15              	.Ltext0:
@@ -20,92 +20,88 @@ ARM GAS  /tmp/ccz9Ezsv.s 			page 1
   17              		.global	__aeabi_ldivmod
   18              		.section	.text.test_div64,"ax",%progbits
   19              		.align	1
-  20              		.p2align 2,,3
-  21              		.global	test_div64
-  22              		.arch armv7e-m
-  23              		.syntax unified
-  24              		.thumb
-  25              		.thumb_func
-  26              		.fpu fpv4-sp-d16
-  28              	test_div64:
-  29              	.LVL0:
-  30              	.LFB0:
-  31              		.file 1 "Src/div.c"
+  20              		.global	test_div64
+  21              		.arch armv7e-m
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  25              		.fpu fpv4-sp-d16
+  27              	test_div64:
+  28              	.LVL0:
+  29              	.LFB0:
+  30              		.file 1 "Src/div.c"
    1:Src/div.c     **** #include <stdint.h>
    2:Src/div.c     **** 
    3:Src/div.c     **** int64_t test_div64(int64_t a, int64_t b) {
-  32              		.loc 1 3 42 view -0
-  33              		.cfi_startproc
-  34              		@ args = 0, pretend = 0, frame = 0
-  35              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		.loc 1 3 42 view -0
+  32              		.cfi_startproc
+  33              		@ args = 0, pretend = 0, frame = 0
+  34              		@ frame_needed = 0, uses_anonymous_args = 0
+  35              		.loc 1 3 42 is_stmt 0 view .LVU1
+  36 0000 08B5     		push	{r3, lr}
+  37              	.LCFI0:
+  38              		.cfi_def_cfa_offset 8
+  39              		.cfi_offset 3, -8
+  40              		.cfi_offset 14, -4
    4:Src/div.c     ****     return a / b;
-  36              		.loc 1 4 5 view .LVU1
-   3:Src/div.c     **** 
-  37              		.loc 1 3 42 is_stmt 0 view .LVU2
-  38 0000 08B5     		push	{r3, lr}
-  39              	.LCFI0:
-  40              		.cfi_def_cfa_offset 8
-  41              		.cfi_offset 3, -8
-  42              		.cfi_offset 14, -4
-  43              		.loc 1 4 14 view .LVU3
-  44 0002 FFF7FEFF 		bl	__aeabi_ldivmod
-  45              	.LVL1:
+  41              		.loc 1 4 5 is_stmt 1 view .LVU2
+  42              		.loc 1 4 14 is_stmt 0 view .LVU3
+  43 0002 FFF7FEFF 		bl	__aeabi_ldivmod
+  44              	.LVL1:
    5:Src/div.c     **** }
-  46              		.loc 1 5 1 view .LVU4
-  47 0006 08BD     		pop	{r3, pc}
-  48              		.cfi_endproc
-  49              	.LFE0:
-  51              		.global	__aeabi_uldivmod
-  52              		.section	.text.test_udiv64,"ax",%progbits
-  53              		.align	1
-ARM GAS  /tmp/ccz9Ezsv.s 			page 2
+  45              		.loc 1 5 1 view .LVU4
+  46 0006 08BD     		pop	{r3, pc}
+  47              		.cfi_endproc
+  48              	.LFE0:
+  50              		.global	__aeabi_uldivmod
+  51              		.section	.text.test_udiv64,"ax",%progbits
+  52              		.align	1
+  53              		.global	test_udiv64
+  54              		.syntax unified
+ARM GAS  /tmp/cczkTImq.s 			page 2
 
 
-  54              		.p2align 2,,3
-  55              		.global	test_udiv64
-  56              		.syntax unified
-  57              		.thumb
-  58              		.thumb_func
-  59              		.fpu fpv4-sp-d16
-  61              	test_udiv64:
-  62              	.LVL2:
-  63              	.LFB1:
+  55              		.thumb
+  56              		.thumb_func
+  57              		.fpu fpv4-sp-d16
+  59              	test_udiv64:
+  60              	.LVL2:
+  61              	.LFB1:
    6:Src/div.c     **** 
    7:Src/div.c     **** uint64_t test_udiv64(uint64_t a, uint64_t b) {
-  64              		.loc 1 7 46 is_stmt 1 view -0
-  65              		.cfi_startproc
-  66              		@ args = 0, pretend = 0, frame = 0
-  67              		@ frame_needed = 0, uses_anonymous_args = 0
+  62              		.loc 1 7 46 is_stmt 1 view -0
+  63              		.cfi_startproc
+  64              		@ args = 0, pretend = 0, frame = 0
+  65              		@ frame_needed = 0, uses_anonymous_args = 0
+  66              		.loc 1 7 46 is_stmt 0 view .LVU6
+  67 0000 08B5     		push	{r3, lr}
+  68              	.LCFI1:
+  69              		.cfi_def_cfa_offset 8
+  70              		.cfi_offset 3, -8
+  71              		.cfi_offset 14, -4
    8:Src/div.c     ****     return a / b;
-  68              		.loc 1 8 5 view .LVU6
-   7:Src/div.c     ****     return a / b;
-  69              		.loc 1 7 46 is_stmt 0 view .LVU7
-  70 0000 08B5     		push	{r3, lr}
-  71              	.LCFI1:
-  72              		.cfi_def_cfa_offset 8
-  73              		.cfi_offset 3, -8
-  74              		.cfi_offset 14, -4
-  75              		.loc 1 8 14 view .LVU8
-  76 0002 FFF7FEFF 		bl	__aeabi_uldivmod
-  77              	.LVL3:
+  72              		.loc 1 8 5 is_stmt 1 view .LVU7
+  73              		.loc 1 8 14 is_stmt 0 view .LVU8
+  74 0002 FFF7FEFF 		bl	__aeabi_uldivmod
+  75              	.LVL3:
    9:Src/div.c     **** }...
-  78              		.loc 1 9 1 view .LVU9
-  79 0006 08BD     		pop	{r3, pc}
-  80              		.cfi_endproc
-  81              	.LFE1:
-  83              		.text
-  84              	.Letext0:
-  85              		.file 2 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
-  86              		.file 3 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
-ARM GAS  /tmp/ccz9Ezsv.s 			page 3
+  76              		.loc 1 9 1 view .LVU9
+  77 0006 08BD     		pop	{r3, pc}
+  78              		.cfi_endproc
+  79              	.LFE1:
+  81              		.text
+  82              	.Letext0:
+  83              		.file 2 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
+  84              		.file 3 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
+ARM GAS  /tmp/cczkTImq.s 			page 3
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 div.c
-     /tmp/ccz9Ezsv.s:19     .text.test_div64:0000000000000000 $t
-     /tmp/ccz9Ezsv.s:28     .text.test_div64:0000000000000000 test_div64
-     /tmp/ccz9Ezsv.s:53     .text.test_udiv64:0000000000000000 $t
-     /tmp/ccz9Ezsv.s:61     .text.test_udiv64:0000000000000000 test_udiv64
+     /tmp/cczkTImq.s:19     .text.test_div64:0000000000000000 $t
+     /tmp/cczkTImq.s:27     .text.test_div64:0000000000000000 test_div64
+     /tmp/cczkTImq.s:52     .text.test_udiv64:0000000000000000 $t
+     /tmp/cczkTImq.s:59     .text.test_udiv64:0000000000000000 test_udiv64
 
 UNDEFINED SYMBOLS
 __aeabi_ldivmod

@@ -22,7 +22,7 @@ TARGET = EVSPIN32G4_Shinano
 # debug build?
 DEBUG = 1
 # optimization
-OPT = -O3
+OPT = -O1
 
 
 #######################################
@@ -65,6 +65,12 @@ Src/stm32g4xx_hal_msp.c \
 Src/stm32g4xx_hal_timebase_tim.c \
 Src/vesc_commands.c \
 Src/vesc_uart.c \
+Src/tim.c \
+Src/nvm.c \
+Src/spi.c \
+Src/dma.c \
+Src/arm_cos_f32.c \
+Src/arm_sin_f32.c \
 Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_utils.c \
 Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_exti.c \
 Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_gpio.c \
@@ -127,6 +133,44 @@ Src/sysmem.c \
 Src/syscalls.c \
 Src/div.c
 
+
+# Add after C_SOURCES definition
+# C++ sources
+CPP_SOURCES = \
+Src/config_system.cpp \
+Src/motor.cpp \
+Src/foc.cpp \
+Src/utils.cpp \
+Src/low_level.cpp \
+Src/interface_can.cpp \
+Src/main_.cpp \
+Src/can_encos.cpp \
+Src/axis.cpp \
+Src/controller.cpp \
+Src/encoder.cpp \
+Src/thermistor.cpp \
+Src/open_loop_controller.cpp \
+
+
+
+
+
+# Add to binaries section after CC definition
+CXX = $(PREFIX)g++
+
+# Add after CFLAGS definition
+# C++ flags
+CXXFLAGS = $(MCU) $(C_DEFS) $(C_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
+CXXFLAGS += -std=c++17 -Wno-register  # Add C++17 support
+CXXFLAGS += -fno-exceptions -fno-rtti
+CXXFLAGS += -MMD -MP -MF"$(@:%.o=%.d)"
+CXXFLAGS += -D_GLIBCXX_USE_CXX11_ABI=1
+CXXFLAGS += -fno-sized-deallocation
+CXXFLAGS += -fshort-wchar
+CFLAGS += -fshort-wchar
+ifeq ($(DEBUG), 1)
+CXXFLAGS += -g -gdwarf-2
+endif
 # ASM sources
 ASM_SOURCES =  \
 startup_stm32g431xx.s
@@ -221,11 +265,20 @@ CFLAGS += -MMD -MP -MF"$(@:%.o=%.d)"
 # link script
 LDSCRIPT = STM32G431VBTx_FLASH.ld
 LIBDIR += -LMCSDK_v6.3.2-Full/MotorControl/libMP
+LIBDIR += -LDrivers/CMSIS/DSP/Lib/GCC
 # libraries
-LIBS = -lc -lm -lnosys 
+
+LIBS = -lc -lm -lnosys -larm_cortexM4lf_math
 LIBS += -lmp-G4-MDK-ARM_ARMv7-M
 
+
 LDFLAGS = $(MCU) -specs=nano.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref -Wl,--gc-sections
+
+# Add to CXXFLAGS and CFLAGS
+CXXFLAGS += -fshort-wchar
+CFLAGS += -fshort-wchar
+
+
 
 # default action: build all
 all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
@@ -271,6 +324,10 @@ asm1: all | $(asm_build)
         filename=$$(basename $$src .c); \
         $(CC) -S $(CFLAGS) $$src -o $(asm_build)/$$filename.s; \
     done
+	@for src in $(CPP_SOURCES); do \
+		filename=$$(basename $$src .cpp); \
+		$(CXX) -S $(CXXFLAGS) $$src -o $(asm_build)/$$filename.s; \
+	done
 	@echo "Assembly generation complete!"
 
 #######################################
@@ -285,8 +342,16 @@ vpath %.s $(sort $(dir $(ASM_SOURCES)))
 OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(ASMM_SOURCES:.S=.o)))
 vpath %.S $(sort $(dir $(ASMM_SOURCES)))
 
+# Update OBJECTS to include C++ files
+OBJECTS += $(addprefix $(BUILD_DIR)/,$(notdir $(CPP_SOURCES:.cpp=.o)))
+vpath %.cpp $(sort $(dir $(CPP_SOURCES)))
+
 $(BUILD_DIR)/%.o: %.c Makefile | $(BUILD_DIR) 
 	$(CC) -c $(CFLAGS) -Wa,-a,-ad,-alms=$(BUILD_DIR)/$(notdir $(<:.c=.lst)) $< -o $@
+
+# Add C++ build rule after C build rule
+$(BUILD_DIR)/%.o: %.cpp Makefile | $(BUILD_DIR)
+	$(CXX) -c $(CXXFLAGS) -Wa,-a,-ad,-alms=$(BUILD_DIR)/$(notdir $(<:.cpp=.lst)) $< -o $@
 
 $(BUILD_DIR)/%.o: %.s Makefile | $(BUILD_DIR)
 	$(AS) -c $(CFLAGS) $< -o $@
@@ -294,17 +359,17 @@ $(BUILD_DIR)/%.o: %.S Makefile | $(BUILD_DIR)
 	$(AS) -c $(CFLAGS) $< -o $@
 
 $(BUILD_DIR)/$(TARGET).elf: $(OBJECTS) Makefile
-	$(CC) $(OBJECTS) $(LDFLAGS) -o $@
+	$(CXX) $(OBJECTS) $(LDFLAGS) -o $@
 	$(SZ) $@
 
 $(BUILD_DIR)/%.hex: $(BUILD_DIR)/%.elf | $(BUILD_DIR)
 	$(HEX) $< $@
-	
+
 $(BUILD_DIR)/%.bin: $(BUILD_DIR)/%.elf | $(BUILD_DIR)
-	$(BIN) $< $@	
-	
+	$(BIN) $< $@
+
 $(BUILD_DIR):
-	mkdir $@		
+	mkdir $@
 
 #######################################
 # clean up

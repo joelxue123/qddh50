@@ -64,6 +64,10 @@ void TIMx_BRK_M1_IRQHandler(void);
 __attribute__((section (".ccmram")))
 #endif
 #endif
+
+
+void pwm_trig_adc_cb(ADC_TypeDef* hadc, bool injected);
+
 /**
   * @brief  This function handles ADC1/ADC2 interrupt request.
   * @param  None
@@ -79,6 +83,7 @@ void ADC1_2_IRQHandler(void)
 
   /* Highfrequency task */
   (void)TSK_HighFrequencyTask();
+  //pwm_trig_adc_cb(ADC1,0);
 
   /* USER CODE BEGIN HighFreq */
 

@@ -1413,6 +1413,8 @@ __weak void R3_2_TurnOnLowSides(PWMC_Handle_t *pHdl, uint32_t ticks)
     /* Nothing to do */
   }
 
+
+  
   /* Main PWM Output Enable */
   LL_TIM_EnableAllOutputs(TIMx);
 
@@ -1461,6 +1463,8 @@ __weak void R3_2_SwitchOnPWM(PWMC_Handle_t *pHdl)
   TIMx->BDTR |= LL_TIM_OSSI_ENABLE;
   LL_TIM_EnableAllOutputs(TIMx);
 
+
+
   if ((ES_GPIO == pHandle->_Super.LowSideOutputs))
   {
     if ((TIMx->CCER & TIMxCCER_MASK_CH123) != 0U)
@@ -1485,6 +1489,7 @@ __weak void R3_2_SwitchOnPWM(PWMC_Handle_t *pHdl)
   LL_TIM_ClearFlag_UPDATE(TIMx);
   /* Enable Update IRQ */
   LL_TIM_EnableIT_UPDATE(TIMx);
+ 
 }
 
 

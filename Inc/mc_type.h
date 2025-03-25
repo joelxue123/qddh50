@@ -59,7 +59,11 @@ typedef float           float_t;
 /** @} */
 
 /** @brief Not initialized pointer */
-#define MC_NULL    (void *)(0x0)
+#ifdef __cplusplus
+  #define MC_NULL    nullptr
+#else
+  #define MC_NULL    ((void *)(0x0))
+#endif
 
 /** @name Motor identification macros */
 /** @{ */

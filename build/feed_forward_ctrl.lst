@@ -1,4 +1,4 @@
-ARM GAS  /tmp/cc6Zupsd.s 			page 1
+ARM GAS  /tmp/cc6nzUni.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -10,26 +10,25 @@ ARM GAS  /tmp/cc6Zupsd.s 			page 1
    7              		.eabi_attribute 24, 1
    8              		.eabi_attribute 25, 1
    9              		.eabi_attribute 26, 1
-  10              		.eabi_attribute 30, 2
+  10              		.eabi_attribute 30, 1
   11              		.eabi_attribute 34, 1
-  12              		.eabi_attribute 18, 4
+  12              		.eabi_attribute 18, 2
   13              		.file	"feed_forward_ctrl.c"
   14              		.text
   15              	.Ltext0:
   16              		.cfi_sections	.debug_frame
   17              		.section	.text.FF_Init,"ax",%progbits
   18              		.align	1
-  19              		.p2align 2,,3
-  20              		.weak	FF_Init
-  21              		.arch armv7e-m
-  22              		.syntax unified
-  23              		.thumb
-  24              		.thumb_func
-  25              		.fpu fpv4-sp-d16
-  27              	FF_Init:
-  28              	.LVL0:
-  29              	.LFB1447:
-  30              		.file 1 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c"
+  19              		.weak	FF_Init
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	FF_Init:
+  27              	.LVL0:
+  28              	.LFB1447:
+  29              		.file 1 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c"
    1:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** /**
    2:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   ******************************************************************************
    3:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   * @file    feed_forward_ctrl.c
@@ -58,10 +57,10 @@ ARM GAS  /tmp/cc6Zupsd.s 			page 1
   26:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   *    software, must execute solely and exclusively on microcontroller or
   27:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   *    microprocessor devices manufactured by or for STMicroelectronics.
   28:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   * 5. Redistribution and use of this software other than as permitted under
-ARM GAS  /tmp/cc6Zupsd.s 			page 2
-
-
   29:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   *    this license is void and will automatically terminate your rights under
+ARM GAS  /tmp/cc6nzUni.s 			page 2
+
+
   30:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   *    this license.
   31:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   *
   32:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   * THIS SOFTWARE IS PROVIDED BY STMICROELECTRONICS AND CONTRIBUTORS "AS IS"
@@ -118,10 +117,10 @@ ARM GAS  /tmp/cc6Zupsd.s 			page 1
   83:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
   84:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
   85:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
-ARM GAS  /tmp/cc6Zupsd.s 			page 3
-
-
   86:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
+ARM GAS  /tmp/cc6nzUni.s 			page 3
+
+
   87:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** /**
   88:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   * @brief  Initializes all the component variables
   89:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   * @param  pHandle Feed-forward init structure.
@@ -132,11 +131,16 @@ ARM GAS  /tmp/cc6Zupsd.s 			page 1
   94:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** __weak void FF_Init(FF_Handle_t *pHandle, BusVoltageSensor_Handle_t *pBusSensor, PID_Handle_t *pPID
   95:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****                     PID_Handle_t *pPIDIq)
   96:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** {
-  31              		.loc 1 96 1 view -0
-  32              		.cfi_startproc
-  33              		@ args = 0, pretend = 0, frame = 0
-  34              		@ frame_needed = 0, uses_anonymous_args = 0
-  35              		@ link register save eliminated.
+  30              		.loc 1 96 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		@ link register save eliminated.
+  35              		.loc 1 96 1 is_stmt 0 view .LVU1
+  36 0000 10B4     		push	{r4}
+  37              	.LCFI0:
+  38              		.cfi_def_cfa_offset 4
+  39              		.cfi_offset 4, -4
   97:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #ifdef NULL_PTR_CHECK_FEED_FWD_CTRL
   98:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   if (NULL == pHandle)
   99:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   {
@@ -146,64 +150,60 @@ ARM GAS  /tmp/cc6Zupsd.s 			page 1
  103:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   {
  104:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #endif
  105:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     pHandle->wConstant_1D = pHandle->wDefConstant_1D;
-  36              		.loc 1 105 5 view .LVU1
-  96:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #ifdef NULL_PTR_CHECK_FEED_FWD_CTRL
-  37              		.loc 1 96 1 is_stmt 0 view .LVU2
-  38 0000 10B4     		push	{r4}
-  39              	.LCFI0:
-  40              		.cfi_def_cfa_offset 4
-  41              		.cfi_offset 4, -4
-  42              		.loc 1 105 27 view .LVU3
-  43 0002 846A     		ldr	r4, [r0, #40]
-  44 0004 C460     		str	r4, [r0, #12]
+  40              		.loc 1 105 5 is_stmt 1 view .LVU2
+  41              		.loc 1 105 27 is_stmt 0 view .LVU3
+  42 0002 846A     		ldr	r4, [r0, #40]
+  43 0004 C460     		str	r4, [r0, #12]
  106:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     pHandle->wConstant_1Q = pHandle->wDefConstant_1Q;
-  45              		.loc 1 106 5 is_stmt 1 view .LVU4
-  46              		.loc 1 106 27 is_stmt 0 view .LVU5
-  47 0006 C46A     		ldr	r4, [r0, #44]
-  48 0008 0461     		str	r4, [r0, #16]
+  44              		.loc 1 106 5 is_stmt 1 view .LVU4
+  45              		.loc 1 106 27 is_stmt 0 view .LVU5
+  46 0006 C46A     		ldr	r4, [r0, #44]
+  47 0008 0461     		str	r4, [r0, #16]
  107:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     pHandle->wConstant_2  = pHandle->wDefConstant_2;
-  49              		.loc 1 107 5 is_stmt 1 view .LVU6
-  50              		.loc 1 107 27 is_stmt 0 view .LVU7
-  51 000a 046B     		ldr	r4, [r0, #48]
+  48              		.loc 1 107 5 is_stmt 1 view .LVU6
+  49              		.loc 1 107 27 is_stmt 0 view .LVU7
+  50 000a 046B     		ldr	r4, [r0, #48]
+  51 000c 4461     		str	r4, [r0, #20]
  108:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
  109:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     pHandle->pBus_Sensor = pBusSensor;
+  52              		.loc 1 109 5 is_stmt 1 view .LVU8
+  53              		.loc 1 109 26 is_stmt 0 view .LVU9
+  54 000e 8161     		str	r1, [r0, #24]
  110:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
  111:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     pHandle->pPID_d = pPIDId;
+  55              		.loc 1 111 5 is_stmt 1 view .LVU10
+  56              		.loc 1 111 21 is_stmt 0 view .LVU11
+  57 0010 0262     		str	r2, [r0, #32]
  112:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
  113:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     pHandle->pPID_q = pPIDIq;
-  52              		.loc 1 113 21 view .LVU8
-  53 000c C0E90732 		strd	r3, r2, [r0, #28]
- 109:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
-  54              		.loc 1 109 26 view .LVU9
-  55 0010 C0E90541 		strd	r4, r1, [r0, #20]
- 111:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
-  56              		.loc 1 111 5 is_stmt 1 view .LVU10
-ARM GAS  /tmp/cc6Zupsd.s 			page 4
+  58              		.loc 1 113 5 is_stmt 1 view .LVU12
+  59              		.loc 1 113 21 is_stmt 0 view .LVU13
+ARM GAS  /tmp/cc6nzUni.s 			page 4
 
 
+  60 0012 C361     		str	r3, [r0, #28]
  114:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #ifdef NULL_PTR_CHECK_FEED_FWD_CTRL
  115:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   }
  116:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #endif
  117:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** }
-  57              		.loc 1 117 1 is_stmt 0 view .LVU11
-  58 0014 5DF8044B 		ldr	r4, [sp], #4
-  59              	.LCFI1:
-  60              		.cfi_restore 4
-  61              		.cfi_def_cfa_offset 0
-  62 0018 7047     		bx	lr
-  63              		.cfi_endproc
-  64              	.LFE1447:
-  66 001a 00BF     		.section	.text.FF_Clear,"ax",%progbits
-  67              		.align	1
-  68              		.p2align 2,,3
-  69              		.weak	FF_Clear
-  70              		.syntax unified
-  71              		.thumb
-  72              		.thumb_func
-  73              		.fpu fpv4-sp-d16
-  75              	FF_Clear:
-  76              	.LVL1:
-  77              	.LFB1448:
+  61              		.loc 1 117 1 view .LVU14
+  62 0014 5DF8044B 		ldr	r4, [sp], #4
+  63              	.LCFI1:
+  64              		.cfi_restore 4
+  65              		.cfi_def_cfa_offset 0
+  66 0018 7047     		bx	lr
+  67              		.cfi_endproc
+  68              	.LFE1447:
+  70              		.section	.text.FF_Clear,"ax",%progbits
+  71              		.align	1
+  72              		.weak	FF_Clear
+  73              		.syntax unified
+  74              		.thumb
+  75              		.thumb_func
+  76              		.fpu fpv4-sp-d16
+  78              	FF_Clear:
+  79              	.LVL1:
+  80              	.LFB1448:
  118:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
  119:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** /**
  120:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   * @brief  It should be called before each motor start and clears the Feed-forward
@@ -212,11 +212,11 @@ ARM GAS  /tmp/cc6Zupsd.s 			page 1
  123:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   */
  124:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** __weak void FF_Clear(FF_Handle_t *pHandle)
  125:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** {
-  78              		.loc 1 125 1 is_stmt 1 view -0
-  79              		.cfi_startproc
-  80              		@ args = 0, pretend = 0, frame = 0
-  81              		@ frame_needed = 0, uses_anonymous_args = 0
-  82              		@ link register save eliminated.
+  81              		.loc 1 125 1 is_stmt 1 view -0
+  82              		.cfi_startproc
+  83              		@ args = 0, pretend = 0, frame = 0
+  84              		@ frame_needed = 0, uses_anonymous_args = 0
+  85              		@ link register save eliminated.
  126:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #ifdef NULL_PTR_CHECK_FEED_FWD_CTRL
  127:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   if (NULL == pHandle)
  128:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   {
@@ -226,35 +226,35 @@ ARM GAS  /tmp/cc6Zupsd.s 			page 1
  132:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   {
  133:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #endif
  134:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     pHandle->Vqdff.q = (int16_t)0;
-  83              		.loc 1 134 5 view .LVU13
+  86              		.loc 1 134 5 view .LVU16
+  87              		.loc 1 134 22 is_stmt 0 view .LVU17
+  88 0000 0023     		movs	r3, #0
+  89 0002 0380     		strh	r3, [r0]	@ movhi
  135:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     pHandle->Vqdff.d = (int16_t)0;
-  84              		.loc 1 135 5 view .LVU14
- 134:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     pHandle->Vqdff.d = (int16_t)0;
-  85              		.loc 1 134 22 is_stmt 0 view .LVU15
-  86 0000 0023     		movs	r3, #0
-  87 0002 0360     		str	r3, [r0]
+  90              		.loc 1 135 5 is_stmt 1 view .LVU18
+  91              		.loc 1 135 22 is_stmt 0 view .LVU19
+  92 0004 4380     		strh	r3, [r0, #2]	@ movhi
  136:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #ifdef NULL_PTR_CHECK_FEED_FWD_CTRL
  137:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   }
  138:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #endif
  139:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** }
-  88              		.loc 1 139 1 view .LVU16
-ARM GAS  /tmp/cc6Zupsd.s 			page 5
+ARM GAS  /tmp/cc6nzUni.s 			page 5
 
 
-  89 0004 7047     		bx	lr
-  90              		.cfi_endproc
-  91              	.LFE1448:
-  93 0006 00BF     		.section	.text.FF_VqdffComputation,"ax",%progbits
-  94              		.align	1
-  95              		.p2align 2,,3
-  96              		.weak	FF_VqdffComputation
-  97              		.syntax unified
-  98              		.thumb
-  99              		.thumb_func
- 100              		.fpu fpv4-sp-d16
- 102              	FF_VqdffComputation:
- 103              	.LVL2:
- 104              	.LFB1449:
+  93              		.loc 1 139 1 view .LVU20
+  94 0006 7047     		bx	lr
+  95              		.cfi_endproc
+  96              	.LFE1448:
+  98              		.section	.text.FF_VqdffComputation,"ax",%progbits
+  99              		.align	1
+ 100              		.weak	FF_VqdffComputation
+ 101              		.syntax unified
+ 102              		.thumb
+ 103              		.thumb_func
+ 104              		.fpu fpv4-sp-d16
+ 106              	FF_VqdffComputation:
+ 107              	.LVL2:
+ 108              	.LFB1449:
  140:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
  141:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** /**
  142:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   * @brief  It implements Feed-forward controller by computing new Vqdff value.
@@ -267,10 +267,21 @@ ARM GAS  /tmp/cc6Zupsd.s 			page 1
  149:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   */
  150:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** __weak void FF_VqdffComputation(FF_Handle_t *pHandle, qd_t Iqdref, SpeednTorqCtrl_Handle_t *pSTC)
  151:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** {
- 105              		.loc 1 151 1 is_stmt 1 view -0
- 106              		.cfi_startproc
- 107              		@ args = 0, pretend = 0, frame = 8
- 108              		@ frame_needed = 0, uses_anonymous_args = 0
+ 109              		.loc 1 151 1 is_stmt 1 view -0
+ 110              		.cfi_startproc
+ 111              		@ args = 0, pretend = 0, frame = 8
+ 112              		@ frame_needed = 0, uses_anonymous_args = 0
+ 113              		.loc 1 151 1 is_stmt 0 view .LVU22
+ 114 0000 10B5     		push	{r4, lr}
+ 115              	.LCFI2:
+ 116              		.cfi_def_cfa_offset 8
+ 117              		.cfi_offset 4, -8
+ 118              		.cfi_offset 14, -4
+ 119 0002 82B0     		sub	sp, sp, #8
+ 120              	.LCFI3:
+ 121              		.cfi_def_cfa_offset 16
+ 122 0004 0446     		mov	r4, r0
+ 123 0006 0191     		str	r1, [sp, #4]
  152:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #ifdef NULL_PTR_CHECK_FEED_FWD_CTRL
  153:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   if (NULL == pHandle)
  154:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   {
@@ -280,27 +291,28 @@ ARM GAS  /tmp/cc6Zupsd.s 			page 1
  158:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   {
  159:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #endif
  160:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     int32_t wtemp1, wtemp2;
- 109              		.loc 1 160 5 view .LVU18
+ 124              		.loc 1 160 5 is_stmt 1 view .LVU23
  161:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     int16_t hSpeed_dpp;
- 110              		.loc 1 161 5 view .LVU19
+ 125              		.loc 1 161 5 view .LVU24
  162:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     uint16_t hAvBusVoltage_d;
- 111              		.loc 1 162 5 view .LVU20
+ 126              		.loc 1 162 5 view .LVU25
  163:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     SpeednPosFdbk_Handle_t *SpeedSensor;
- 112              		.loc 1 163 5 view .LVU21
+ 127              		.loc 1 163 5 view .LVU26
+ARM GAS  /tmp/cc6nzUni.s 			page 6
+
+
  164:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
  165:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     SpeedSensor = STC_GetSpeedSensor(pSTC);
- 113              		.loc 1 165 5 view .LVU22
- 114              	.LBB6:
- 115              	.LBI6:
- 116              		.file 2 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h"
+ 128              		.loc 1 165 5 view .LVU27
+ 129              	.LVL3:
+ 130              	.LBB6:
+ 131              	.LBI6:
+ 132              		.file 2 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h"
    1:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h **** /**
    2:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h ****   ******************************************************************************
    3:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h ****   * @file    speed_torq_ctrl.h
    4:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h ****   * @author  Motor Control SDK Team, ST Microelectronics
    5:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h ****   * @brief   This file contains all definitions and functions prototypes for the
-ARM GAS  /tmp/cc6Zupsd.s 			page 6
-
-
    6:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h ****   *          Speed & Torque Control component of the Motor Control SDK.
    7:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h ****   ******************************************************************************
    8:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h ****   * @attention
@@ -346,6 +358,9 @@ ARM GAS  /tmp/cc6Zupsd.s 			page 1
   48:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h **** 
   49:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h **** /**
   50:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h ****   * @brief  Speed & Torque Control parameters definition
+ARM GAS  /tmp/cc6nzUni.s 			page 7
+
+
   51:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h ****   */
   52:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h **** typedef struct
   53:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h **** {
@@ -358,9 +373,6 @@ ARM GAS  /tmp/cc6Zupsd.s 			page 1
   60:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h ****   int32_t TorqueRef;                   /*!< Current motor torque reference. This value represents a
   61:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h ****                                             the Iq current expressed in digit multiplied by 65536. 
   62:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h ****   uint32_t RampRemainingStep;          /*!< Number of steps remaining to complete the ramp. */
-ARM GAS  /tmp/cc6Zupsd.s 			page 7
-
-
   63:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h ****   PID_Handle_t *PISpeed;               /*!< The regulator used to perform the speed control loop. *
   64:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h ****   SpeednPosFdbk_Handle_t *SPD;         /*!< The speed sensor used to perform the speed regulation. 
   65:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h ****   int32_t IncDecAmount;                /*!< Increment/decrement amount to be applied to the referen
@@ -406,6 +418,9 @@ ARM GAS  /tmp/cc6Zupsd.s 			page 1
  105:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h **** 
  106:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h **** /* Computes the new value of motor torque reference */
  107:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h **** int16_t STC_CalcTorqueReference(SpeednTorqCtrl_Handle_t *pHandle);
+ARM GAS  /tmp/cc6nzUni.s 			page 8
+
+
  108:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h **** 
  109:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h **** /* Gets the Default mechanical rotor speed reference */
  110:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h **** int16_t STC_GetMecSpeedRefUnitDefault(SpeednTorqCtrl_Handle_t *pHandle);
@@ -418,9 +433,6 @@ ARM GAS  /tmp/cc6Zupsd.s 			page 1
  117:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h **** 
  118:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h **** /* Stops the execution of speed ramp */
  119:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h **** bool STC_StopSpeedRamp(SpeednTorqCtrl_Handle_t *pHandle);
-ARM GAS  /tmp/cc6Zupsd.s 			page 8
-
-
  120:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h **** 
  121:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h **** /* Sets in real time the speed sensor utilized by the FOC */
  122:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h **** void STC_SetSpeedSensor(SpeednTorqCtrl_Handle_t *pHandle, SpeednPosFdbk_Handle_t *SPD_Handle);
@@ -466,6 +478,9 @@ ARM GAS  /tmp/cc6Zupsd.s 			page 1
  162:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h **** #ifdef NULL_PTR_CHECK_SPD_TRQ_CTL
  163:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h ****   if (MC_NULL == pHandle)
  164:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h ****   {
+ARM GAS  /tmp/cc6nzUni.s 			page 9
+
+
  165:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h ****     /* Nothing to do */
  166:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h ****   }
  167:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h ****   else
@@ -478,9 +493,6 @@ ARM GAS  /tmp/cc6Zupsd.s 			page 1
  174:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h **** #endif
  175:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h **** }
  176:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h **** 
-ARM GAS  /tmp/cc6Zupsd.s 			page 9
-
-
  177:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h **** /**
  178:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h ****   * @brief  Checks if the settled speed or torque ramp has been completed by checking zero value of
  179:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h ****   *           @ref SpeednTorqCtrl_Handle_t::RampRemainingStep "RampRemainingStep".
@@ -526,6 +538,9 @@ ARM GAS  /tmp/cc6Zupsd.s 			page 1
  219:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h ****   if (MC_NULL == pHandle)
  220:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h ****   {
  221:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h ****     /* Nothing to do */
+ARM GAS  /tmp/cc6nzUni.s 			page 10
+
+
  222:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h ****   }
  223:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h ****   else
  224:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h ****   {
@@ -538,9 +553,6 @@ ARM GAS  /tmp/cc6Zupsd.s 			page 1
  231:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h **** }
  232:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h **** 
  233:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h **** /**
-ARM GAS  /tmp/cc6Zupsd.s 			page 10
-
-
  234:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h ****   * @brief Returns the speed sensor utilized by the FOC.
  235:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h ****   * @param pHandle: handler of the current instance of the SpeednTorqCtrl component.
  236:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h ****   * @retval SpeednPosFdbk_Handle_t speed sensor utilized by the FOC.
@@ -548,42 +560,30 @@ ARM GAS  /tmp/cc6Zupsd.s 			page 1
  238:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h ****   * - Called as soon as component parameters are required by MC FW.
  239:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h ****   */
  240:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h **** static inline SpeednPosFdbk_Handle_t *STC_GetSpeedSensor(SpeednTorqCtrl_Handle_t *pHandle)
- 117              		.loc 2 240 39 view .LVU23
- 118              	.LBB7:
+ 133              		.loc 2 240 39 view .LVU28
+ 134              	.LBB7:
  241:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h **** {
  242:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h **** #ifdef NULL_PTR_CHECK_SPD_TRQ_CTL
  243:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h ****   return ((MC_NULL ==  pHandle) ? MC_NULL : pHandle->SPD);
  244:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h **** #else
  245:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h ****   return (pHandle->SPD);
- 119              		.loc 2 245 3 view .LVU24
- 120              		.loc 2 245 3 is_stmt 0 view .LVU25
- 121              	.LBE7:
- 122              	.LBE6:
+ 135              		.loc 2 245 3 view .LVU29
+ 136              		.loc 2 245 3 is_stmt 0 view .LVU30
+ 137              	.LBE7:
+ 138              	.LBE6:
  166:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     hSpeed_dpp = SPD_GetElSpeedDpp(SpeedSensor);
- 123              		.loc 1 166 5 is_stmt 1 view .LVU26
- 151:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #ifdef NULL_PTR_CHECK_FEED_FWD_CTRL
- 124              		.loc 1 151 1 is_stmt 0 view .LVU27
- 125 0000 10B5     		push	{r4, lr}
- 126              	.LCFI2:
- 127              		.cfi_def_cfa_offset 8
- 128              		.cfi_offset 4, -8
- 129              		.cfi_offset 14, -4
- 130 0002 0446     		mov	r4, r0
- 131 0004 82B0     		sub	sp, sp, #8
- 132              	.LCFI3:
- 133              		.cfi_def_cfa_offset 16
- 134              		.loc 1 166 18 view .LVU28
- 135 0006 5069     		ldr	r0, [r2, #20]
- 136              	.LVL3:
- 151:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #ifdef NULL_PTR_CHECK_FEED_FWD_CTRL
- 137              		.loc 1 151 1 view .LVU29
- 138 0008 0191     		str	r1, [sp, #4]
- 139              		.loc 1 166 18 view .LVU30
- 140 000a FFF7FEFF 		bl	SPD_GetElSpeedDpp
- 141              	.LVL4:
- 142              	.LBB8:
- 143              	.LBB9:
- 144              		.file 3 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/bus_voltage_sensor.h"
+ 139              		.loc 1 166 5 is_stmt 1 view .LVU31
+ 140              		.loc 1 166 18 is_stmt 0 view .LVU32
+ 141 0008 5069     		ldr	r0, [r2, #20]
+ 142              	.LVL4:
+ 143              		.loc 1 166 18 view .LVU33
+ 144 000a FFF7FEFF 		bl	SPD_GetElSpeedDpp
+ 145              	.LVL5:
+ 167:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     hAvBusVoltage_d = VBS_GetAvBusVoltage_d(pHandle->pBus_Sensor) / 2U;
+ 146              		.loc 1 167 5 is_stmt 1 view .LVU34
+ 147              	.LBB8:
+ 148              	.LBI8:
+ 149              		.file 3 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/bus_voltage_sensor.h"
    1:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/bus_voltage_sensor.h **** /**
    2:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/bus_voltage_sensor.h ****   ******************************************************************************
    3:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/bus_voltage_sensor.h ****   * @file    bus_voltage_sensor.h
@@ -598,7 +598,7 @@ ARM GAS  /tmp/cc6Zupsd.s 			page 1
   12:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/bus_voltage_sensor.h ****   *
   13:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/bus_voltage_sensor.h ****   * This software component is licensed by ST under Ultimate Liberty license
   14:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/bus_voltage_sensor.h ****   * SLA0044, the "License"; You may not use this file except in compliance with
-ARM GAS  /tmp/cc6Zupsd.s 			page 11
+ARM GAS  /tmp/cc6nzUni.s 			page 11
 
 
   15:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/bus_voltage_sensor.h ****   * the License. You may obtain a copy of the License at:
@@ -658,7 +658,7 @@ ARM GAS  /tmp/cc6Zupsd.s 			page 1
   69:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/bus_voltage_sensor.h **** uint16_t VBS_GetBusVoltage_d(const BusVoltageSensor_Handle_t *pHandle);
   70:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/bus_voltage_sensor.h **** uint16_t VBS_GetAvBusVoltage_V(const BusVoltageSensor_Handle_t *pHandle);
   71:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/bus_voltage_sensor.h **** 
-ARM GAS  /tmp/cc6Zupsd.s 			page 12
+ARM GAS  /tmp/cc6nzUni.s 			page 12
 
 
   72:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/bus_voltage_sensor.h **** /**
@@ -667,6 +667,8 @@ ARM GAS  /tmp/cc6Zupsd.s 			page 1
   75:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/bus_voltage_sensor.h ****   * @retval uint16_t Latest averaged Vbus measurement in u16Volt format
   76:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/bus_voltage_sensor.h ****   */
   77:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/bus_voltage_sensor.h **** static inline uint16_t VBS_GetAvBusVoltage_d(const BusVoltageSensor_Handle_t *pHandle)
+ 150              		.loc 3 77 24 view .LVU35
+ 151              	.LBB9:
   78:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/bus_voltage_sensor.h **** {
   79:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/bus_voltage_sensor.h **** #ifdef NULL_PTR_CHECK_BUS_VOLT
   80:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/bus_voltage_sensor.h ****   uint16_t temp_avBusVoltage_d;
@@ -682,189 +684,163 @@ ARM GAS  /tmp/cc6Zupsd.s 			page 1
   90:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/bus_voltage_sensor.h ****   return (temp_avBusVoltage_d);
   91:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/bus_voltage_sensor.h **** #else
   92:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/bus_voltage_sensor.h ****   return (pHandle->AvBusVoltage_d);
- 145              		.loc 3 92 18 view .LVU31
- 146 000e A269     		ldr	r2, [r4, #24]
- 147              	.LVL5:
- 148              		.loc 3 92 18 view .LVU32
- 149              	.LBE9:
- 150              	.LBE8:
- 167:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     hAvBusVoltage_d = VBS_GetAvBusVoltage_d(pHandle->pBus_Sensor) / 2U;
- 151              		.loc 1 167 5 is_stmt 1 view .LVU33
- 152              	.LBB11:
- 153              	.LBI8:
-  77:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/bus_voltage_sensor.h **** {
- 154              		.loc 3 77 24 view .LVU34
- 155              	.LBB10:
- 156              		.loc 3 92 3 view .LVU35
- 157              		.loc 3 92 18 is_stmt 0 view .LVU36
- 158 0010 D288     		ldrh	r2, [r2, #6]
- 159              	.LVL6:
- 160              		.loc 3 92 18 view .LVU37
- 161              	.LBE10:
- 162              	.LBE11:
+ 152              		.loc 3 92 3 view .LVU36
+ 153              		.loc 3 92 18 is_stmt 0 view .LVU37
+ 154 000e A369     		ldr	r3, [r4, #24]
+ 155 0010 DB88     		ldrh	r3, [r3, #6]
+ 156              	.LVL6:
+ 157              		.loc 3 92 18 view .LVU38
+ 158              	.LBE9:
+ 159              	.LBE8:
  168:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
  169:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     if (hAvBusVoltage_d != (uint16_t)0)
- 163              		.loc 1 169 5 is_stmt 1 view .LVU38
- 164              		.loc 1 169 8 is_stmt 0 view .LVU39
- 165 0012 012A     		cmp	r2, #1
- 166 0014 43D9     		bls	.L9
+ 160              		.loc 1 169 5 is_stmt 1 view .LVU39
+ 161              		.loc 1 169 8 is_stmt 0 view .LVU40
+ 162 0012 012B     		cmp	r3, #1
+ 163 0014 40D9     		bls	.L5
  170:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     {
  171:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****       /*q-axes ff voltage calculation */
  172:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****       wtemp1 = (((int32_t)(hSpeed_dpp) * Iqdref.d) / (int32_t)32768);
- 167              		.loc 1 172 7 is_stmt 1 view .LVU40
- 168              	.LVL7:
+ 164              		.loc 1 172 7 is_stmt 1 view .LVU41
+ 165              	.LVL7:
  173:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****       wtemp2 = (wtemp1 * pHandle->wConstant_1D) / (int32_t)(hAvBusVoltage_d);
- 169              		.loc 1 173 7 view .LVU41
+ 166              		.loc 1 173 7 view .LVU42
+ 167              		.loc 1 173 51 is_stmt 0 view .LVU43
+ 168 0016 4FEA530E 		lsr	lr, r3, #1
  172:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****       wtemp2 = (wtemp1 * pHandle->wConstant_1D) / (int32_t)(hAvBusVoltage_d);
- 170              		.loc 1 172 40 is_stmt 0 view .LVU42
- 171 0016 BDF80610 		ldrh	r1, [sp, #6]
-ARM GAS  /tmp/cc6Zupsd.s 			page 13
+ 169              		.loc 1 172 48 view .LVU44
+ 170 001a BDF90620 		ldrsh	r2, [sp, #6]
+ 172:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****       wtemp2 = (wtemp1 * pHandle->wConstant_1D) / (int32_t)(hAvBusVoltage_d);
+ 171              		.loc 1 172 40 view .LVU45
+ 172 001e 00FB02F2 		mul	r2, r0, r2
+ 172:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****       wtemp2 = (wtemp1 * pHandle->wConstant_1D) / (int32_t)(hAvBusVoltage_d);
+ 173              		.loc 1 172 14 view .LVU46
+ 174 0022 002A     		cmp	r2, #0
+ 175 0024 BCBF     		itt	lt
+ 176 0026 02F5FF42 		addlt	r2, r2, #32640
+ARM GAS  /tmp/cc6nzUni.s 			page 13
 
 
+ 177 002a 7F32     		addlt	r2, r2, #127
+ 178 002c D213     		asrs	r2, r2, #15
+ 179              		.loc 1 173 24 view .LVU47
+ 180 002e E368     		ldr	r3, [r4, #12]
+ 181              	.LVL8:
+ 182              		.loc 1 173 24 view .LVU48
+ 183 0030 03FB02F2 		mul	r2, r3, r2
+ 184              		.loc 1 173 14 view .LVU49
+ 185 0034 92FBFEFC 		sdiv	ip, r2, lr
+ 186              	.LVL9:
  174:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****       wtemp2 *= (int32_t)2;
+ 187              		.loc 1 174 7 is_stmt 1 view .LVU50
  175:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
  176:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****       wtemp1 = ((pHandle->wConstant_2 * hSpeed_dpp) / (int32_t)hAvBusVoltage_d) * (int32_t)16;
- 172              		.loc 1 176 39 view .LVU43
- 173 001a 6369     		ldr	r3, [r4, #20]
- 172:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****       wtemp2 = (wtemp1 * pHandle->wConstant_1D) / (int32_t)(hAvBusVoltage_d);
- 174              		.loc 1 172 40 view .LVU44
- 175 001c 11FB00F1 		smulbb	r1, r1, r0
- 172:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****       wtemp2 = (wtemp1 * pHandle->wConstant_1D) / (int32_t)(hAvBusVoltage_d);
- 176              		.loc 1 172 14 view .LVU45
- 177 0020 0029     		cmp	r1, #0
- 178 0022 B8BF     		it	lt
- 179 0024 01F5FF41 		addlt	r1, r1, #32640
- 173:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****       wtemp2 *= (int32_t)2;
- 180              		.loc 1 173 51 view .LVU46
- 181 0028 4FEA520E 		lsr	lr, r2, #1
- 172:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****       wtemp2 = (wtemp1 * pHandle->wConstant_1D) / (int32_t)(hAvBusVoltage_d);
- 182              		.loc 1 172 14 view .LVU47
- 183 002c B8BF     		it	lt
- 184 002e 7F31     		addlt	r1, r1, #127
- 173:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****       wtemp2 *= (int32_t)2;
- 185              		.loc 1 173 24 view .LVU48
- 186 0030 E268     		ldr	r2, [r4, #12]
- 187              	.LVL8:
- 172:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****       wtemp2 = (wtemp1 * pHandle->wConstant_1D) / (int32_t)(hAvBusVoltage_d);
- 188              		.loc 1 172 14 view .LVU49
- 189 0032 C913     		asrs	r1, r1, #15
- 173:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****       wtemp2 *= (int32_t)2;
- 190              		.loc 1 173 24 view .LVU50
- 191 0034 02FB01F1 		mul	r1, r2, r1
- 173:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****       wtemp2 *= (int32_t)2;
- 192              		.loc 1 173 14 view .LVU51
- 193 0038 91FBFEF2 		sdiv	r2, r1, lr
- 194              	.LVL9:
- 174:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****       wtemp2 *= (int32_t)2;
- 195              		.loc 1 174 7 is_stmt 1 view .LVU52
- 196              		.loc 1 176 7 view .LVU53
+ 188              		.loc 1 176 7 view .LVU51
  177:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
  178:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****       wtemp2 = wtemp1 + wtemp2;
- 197              		.loc 1 178 7 view .LVU54
+ 189              		.loc 1 178 7 view .LVU52
  179:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
  180:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****       SATURATION_TO_S16(wtemp2)
- 198              		.loc 1 180 7 view .LVU55
+ 190              		.loc 1 180 7 view .LVU53
  176:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
- 199              		.loc 1 176 39 is_stmt 0 view .LVU56
- 200 003c 03FB00F1 		mul	r1, r3, r0
- 201 0040 1A4B     		ldr	r3, .L11
- 202              	.LVL10:
+ 191              		.loc 1 176 39 is_stmt 0 view .LVU54
+ 192 0038 6169     		ldr	r1, [r4, #20]
+ 193 003a 01FB00F2 		mul	r2, r1, r0
  176:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
- 203              		.loc 1 176 53 view .LVU57
- 204 0042 91FBFEF1 		sdiv	r1, r1, lr
+ 194              		.loc 1 176 53 view .LVU55
+ 195 003e 92FBFEF2 		sdiv	r2, r2, lr
  176:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
- 205              		.loc 1 176 14 view .LVU58
- 206 0046 0901     		lsls	r1, r1, #4
+ 196              		.loc 1 176 14 view .LVU56
+ 197 0042 1201     		lsls	r2, r2, #4
  178:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
- 207              		.loc 1 178 14 view .LVU59
- 208 0048 01EB4201 		add	r1, r1, r2, lsl #1
-ARM GAS  /tmp/cc6Zupsd.s 			page 14
-
-
- 209 004c 9942     		cmp	r1, r3
- 210 004e B8BF     		it	lt
- 211 0050 1946     		movlt	r1, r3
- 212              	.LVL11:
- 213              		.loc 1 180 7 is_stmt 1 view .LVU60
+ 198              		.loc 1 178 14 view .LVU57
+ 199 0044 02EB4C02 		add	r2, r2, ip, lsl #1
+ 200 0048 154B     		ldr	r3, .L10
+ 201 004a 9A42     		cmp	r2, r3
+ 202 004c B8BF     		it	lt
+ 203 004e 1A46     		movlt	r2, r3
+ 204              	.LVL10:
+ 205              		.loc 1 180 7 is_stmt 1 view .LVU58
  181:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
  182:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****       pHandle->Vqdff.q = (int16_t)(wtemp2);
- 214              		.loc 1 182 7 view .LVU61
- 215              		.loc 1 182 26 is_stmt 0 view .LVU62
- 216 0052 47F6FF72 		movw	r2, #32767
- 217 0056 9142     		cmp	r1, r2
- 218 0058 A8BF     		it	ge
- 219 005a 1146     		movge	r1, r2
- 220              	.LVL12:
- 221              		.loc 1 182 26 view .LVU63
- 222 005c 0FFA81FC 		sxth	ip, r1
+ 206              		.loc 1 182 7 view .LVU59
+ 207              		.loc 1 182 26 is_stmt 0 view .LVU60
+ 208 0050 47F6FF73 		movw	r3, #32767
+ 209 0054 9A42     		cmp	r2, r3
+ 210 0056 A8BF     		it	ge
+ 211 0058 1A46     		movge	r2, r3
+ 212              	.LVL11:
+ 213              		.loc 1 182 26 view .LVU61
+ 214 005a 2280     		strh	r2, [r4]	@ movhi
+ 215              	.LVL12:
  183:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
  184:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****       /* d-axes ff voltage calculation */
  185:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****       wtemp1 = (((int32_t)(hSpeed_dpp) * Iqdref.q) / (int32_t)32768);
- 223              		.loc 1 185 7 is_stmt 1 view .LVU64
- 224              	.LVL13:
+ 216              		.loc 1 185 7 is_stmt 1 view .LVU62
  186:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****       wtemp2 = (wtemp1 * pHandle->wConstant_1Q) / (int32_t)(hAvBusVoltage_d);
- 225              		.loc 1 186 7 view .LVU65
+ARM GAS  /tmp/cc6nzUni.s 			page 14
+
+
+ 217              		.loc 1 186 7 view .LVU63
  185:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****       wtemp2 = (wtemp1 * pHandle->wConstant_1Q) / (int32_t)(hAvBusVoltage_d);
- 226              		.loc 1 185 40 is_stmt 0 view .LVU66
- 227 0060 BDF80410 		ldrh	r1, [sp, #4]
- 228 0064 A4F800C0 		strh	ip, [r4]	@ movhi
- 229 0068 11FB00F3 		smulbb	r3, r1, r0
- 230              	.LVL14:
+ 218              		.loc 1 185 48 is_stmt 0 view .LVU64
+ 219 005c BDF90430 		ldrsh	r3, [sp, #4]
  185:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****       wtemp2 = (wtemp1 * pHandle->wConstant_1Q) / (int32_t)(hAvBusVoltage_d);
- 231              		.loc 1 185 14 view .LVU67
- 232 006c 002B     		cmp	r3, #0
- 233              		.loc 1 186 24 view .LVU68
- 234 006e 2169     		ldr	r1, [r4, #16]
+ 220              		.loc 1 185 40 view .LVU65
+ 221 0060 00FB03F3 		mul	r3, r0, r3
  185:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****       wtemp2 = (wtemp1 * pHandle->wConstant_1Q) / (int32_t)(hAvBusVoltage_d);
- 235              		.loc 1 185 14 view .LVU69
- 236 0070 B8BF     		it	lt
- 237 0072 9B18     		addlt	r3, r3, r2
- 238 0074 DA13     		asrs	r2, r3, #15
- 239              		.loc 1 186 24 view .LVU70
- 240 0076 01FB02F2 		mul	r2, r1, r2
- 241 007a 0C49     		ldr	r1, .L11
- 242              	.LVL15:
- 243              		.loc 1 186 14 view .LVU71
- 244 007c 92FBFEF2 		sdiv	r2, r2, lr
- 245              	.LVL16:
+ 222              		.loc 1 185 14 view .LVU66
+ 223 0064 002B     		cmp	r3, #0
+ 224 0066 BCBF     		itt	lt
+ 225 0068 03F5FF43 		addlt	r3, r3, #32640
+ 226 006c 7F33     		addlt	r3, r3, #127
+ 227 006e DB13     		asrs	r3, r3, #15
+ 228              		.loc 1 186 24 view .LVU67
+ 229 0070 2269     		ldr	r2, [r4, #16]
+ 230 0072 02FB03F3 		mul	r3, r2, r3
+ 231              		.loc 1 186 14 view .LVU68
+ 232 0076 93FBFEF3 		sdiv	r3, r3, lr
+ 233              	.LVL13:
  187:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****       wtemp2 *= (int32_t)(-2);
- 246              		.loc 1 187 7 is_stmt 1 view .LVU72
+ 234              		.loc 1 187 7 is_stmt 1 view .LVU69
  188:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
  189:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****       SATURATION_TO_S16(wtemp2)
- 247              		.loc 1 189 7 view .LVU73
+ 235              		.loc 1 189 7 view .LVU70
  187:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****       wtemp2 *= (int32_t)(-2);
- 248              		.loc 1 187 14 is_stmt 0 view .LVU74
- 249 0080 C2EBC272 		rsb	r2, r2, r2, lsl #31
- 250              	.LVL17:
+ 236              		.loc 1 187 14 is_stmt 0 view .LVU71
+ 237 007a C3EBC373 		rsb	r3, r3, r3, lsl #31
+ 238              	.LVL14:
  187:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****       wtemp2 *= (int32_t)(-2);
- 251              		.loc 1 187 14 view .LVU75
-ARM GAS  /tmp/cc6Zupsd.s 			page 15
-
-
- 252 0084 5300     		lsls	r3, r2, #1
- 253              	.LVL18:
+ 239              		.loc 1 187 14 view .LVU72
+ 240 007e 5B00     		lsls	r3, r3, #1
+ 241 0080 074A     		ldr	r2, .L10
+ 242              	.LVL15:
  187:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****       wtemp2 *= (int32_t)(-2);
- 254              		.loc 1 187 14 view .LVU76
- 255 0086 8B42     		cmp	r3, r1
- 256              	.LVL19:
+ 243              		.loc 1 187 14 view .LVU73
+ 244 0082 9342     		cmp	r3, r2
+ 245              	.LVL16:
  187:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****       wtemp2 *= (int32_t)(-2);
- 257              		.loc 1 187 14 view .LVU77
- 258 0088 B8BF     		it	lt
- 259 008a 0B46     		movlt	r3, r1
- 260              	.LVL20:
- 261              		.loc 1 189 7 is_stmt 1 view .LVU78
+ 246              		.loc 1 187 14 view .LVU74
+ 247 0084 B8BF     		it	lt
+ 248 0086 1346     		movlt	r3, r2
+ 249              	.LVL17:
+ 250              		.loc 1 189 7 is_stmt 1 view .LVU75
  190:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
  191:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****       pHandle->Vqdff.d = (int16_t)(wtemp2);
- 262              		.loc 1 191 7 view .LVU79
- 263              		.loc 1 191 26 is_stmt 0 view .LVU80
- 264 008c 47F6FF72 		movw	r2, #32767
- 265 0090 9342     		cmp	r3, r2
- 266 0092 A8BF     		it	ge
- 267 0094 1346     		movge	r3, r2
- 268              	.LVL21:
- 269              		.loc 1 191 26 view .LVU81
- 270 0096 1BB2     		sxth	r3, r3
- 271 0098 6380     		strh	r3, [r4, #2]	@ movhi
+ 251              		.loc 1 191 7 view .LVU76
+ 252              		.loc 1 191 26 is_stmt 0 view .LVU77
+ 253 0088 47F6FF72 		movw	r2, #32767
+ 254 008c 9342     		cmp	r3, r2
+ 255 008e A8BF     		it	ge
+ 256 0090 1346     		movge	r3, r2
+ 257              	.LVL18:
+ 258              		.loc 1 191 26 view .LVU78
+ 259 0092 6380     		strh	r3, [r4, #2]	@ movhi
+ 260              	.LVL19:
+ 261              	.L4:
+ARM GAS  /tmp/cc6nzUni.s 			page 15
+
+
  192:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     }
  193:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     else
  194:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     {
@@ -875,56 +851,56 @@ ARM GAS  /tmp/cc6Zupsd.s 			page 1
  199:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   }
  200:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #endif
  201:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** }
- 272              		.loc 1 201 1 view .LVU82
- 273 009a 02B0     		add	sp, sp, #8
- 274              	.LCFI4:
- 275              		.cfi_remember_state
- 276              		.cfi_def_cfa_offset 8
- 277              		@ sp needed
- 278 009c 10BD     		pop	{r4, pc}
- 279              	.LVL22:
- 280              	.L9:
- 281              	.LCFI5:
- 282              		.cfi_restore_state
- 196:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     }
- 283              		.loc 1 196 24 view .LVU83
- 284 009e 0023     		movs	r3, #0
+ 262              		.loc 1 201 1 view .LVU79
+ 263 0094 02B0     		add	sp, sp, #8
+ 264              	.LCFI4:
+ 265              		.cfi_remember_state
+ 266              		.cfi_def_cfa_offset 8
+ 267              		@ sp needed
+ 268 0096 10BD     		pop	{r4, pc}
+ 269              	.LVL20:
+ 270              	.L5:
+ 271              	.LCFI5:
+ 272              		.cfi_restore_state
  195:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****       pHandle->Vqdff.d = (int16_t)0;
- 285              		.loc 1 195 24 view .LVU84
- 286 00a0 9C46     		mov	ip, r3
- 287 00a2 6380     		strh	r3, [r4, #2]	@ movhi
- 288 00a4 A4F800C0 		strh	ip, [r4]	@ movhi
- 289              		.loc 1 201 1 view .LVU85
- 290 00a8 02B0     		add	sp, sp, #8
- 291              	.LCFI6:
- 292              		.cfi_def_cfa_offset 8
-ARM GAS  /tmp/cc6Zupsd.s 			page 16
-
-
- 293              		@ sp needed
- 294 00aa 10BD     		pop	{r4, pc}
- 295              	.LVL23:
- 296              	.L12:
- 297              		.loc 1 201 1 view .LVU86
- 298              		.align	2
- 299              	.L11:
- 300 00ac 0180FFFF 		.word	-32767
- 301              		.cfi_endproc
- 302              	.LFE1449:
- 304              		.section	.text.FF_VqdConditioning,"ax",%progbits
- 305              		.align	1
- 306              		.p2align 2,,3
- 307              		.weak	FF_VqdConditioning
- 308              		.syntax unified
- 309              		.thumb
- 310              		.thumb_func
- 311              		.fpu fpv4-sp-d16
- 313              	FF_VqdConditioning:
- 314              	.LVL24:
- 315              	.LFB1450:
+ 273              		.loc 1 195 7 is_stmt 1 view .LVU80
+ 195:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****       pHandle->Vqdff.d = (int16_t)0;
+ 274              		.loc 1 195 24 is_stmt 0 view .LVU81
+ 275 0098 0023     		movs	r3, #0
+ 276              	.LVL21:
+ 195:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****       pHandle->Vqdff.d = (int16_t)0;
+ 277              		.loc 1 195 24 view .LVU82
+ 278 009a 2380     		strh	r3, [r4]	@ movhi
+ 279              	.LVL22:
+ 196:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     }
+ 280              		.loc 1 196 7 is_stmt 1 view .LVU83
+ 196:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     }
+ 281              		.loc 1 196 24 is_stmt 0 view .LVU84
+ 282 009c 6380     		strh	r3, [r4, #2]	@ movhi
+ 283              		.loc 1 201 1 view .LVU85
+ 284 009e F9E7     		b	.L4
+ 285              	.L11:
+ 286              		.align	2
+ 287              	.L10:
+ 288 00a0 0180FFFF 		.word	-32767
+ 289              		.cfi_endproc
+ 290              	.LFE1449:
+ 292              		.section	.text.FF_VqdConditioning,"ax",%progbits
+ 293              		.align	1
+ 294              		.weak	FF_VqdConditioning
+ 295              		.syntax unified
+ 296              		.thumb
+ 297              		.thumb_func
+ 298              		.fpu fpv4-sp-d16
+ 300              	FF_VqdConditioning:
+ 301              	.LVL23:
+ 302              	.LFB1450:
  202:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
  203:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** //cstat #MISRAC2012-Rule-2.2_b
  204:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** /* False positive  */
+ARM GAS  /tmp/cc6nzUni.s 			page 16
+
+
  205:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #if defined (CCMRAM)
  206:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #if defined (__ICCARM__)
  207:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #pragma location = ".ccmram"
@@ -941,12 +917,23 @@ ARM GAS  /tmp/cc6Zupsd.s 			page 1
  218:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   */
  219:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** __weak qd_t FF_VqdConditioning(FF_Handle_t *pHandle, qd_t Vqd)
  220:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** {
- 316              		.loc 1 220 1 is_stmt 1 view -0
- 317              		.cfi_startproc
- 318              		@ args = 0, pretend = 0, frame = 16
- 319              		@ frame_needed = 0, uses_anonymous_args = 0
+ 303              		.loc 1 220 1 is_stmt 1 view -0
+ 304              		.cfi_startproc
+ 305              		@ args = 0, pretend = 0, frame = 16
+ 306              		@ frame_needed = 0, uses_anonymous_args = 0
+ 307              		@ link register save eliminated.
+ 308              		.loc 1 220 1 is_stmt 0 view .LVU87
+ 309 0000 10B4     		push	{r4}
+ 310              	.LCFI6:
+ 311              		.cfi_def_cfa_offset 4
+ 312              		.cfi_offset 4, -4
+ 313 0002 85B0     		sub	sp, sp, #20
+ 314              	.LCFI7:
+ 315              		.cfi_def_cfa_offset 24
+ 316 0004 0A46     		mov	r2, r1	@ movhi
+ 317 0006 8C46     		mov	ip, r1
  221:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   qd_t lVqd;
- 320              		.loc 1 221 3 view .LVU88
+ 318              		.loc 1 221 3 is_stmt 1 view .LVU88
  222:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #ifdef NULL_PTR_CHECK_FEED_FWD_CTRL
  223:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   if (NULL == pHandle)
  224:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   {
@@ -957,130 +944,117 @@ ARM GAS  /tmp/cc6Zupsd.s 			page 1
  229:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   {
  230:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #endif
  231:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     int32_t wtemp;
- 321              		.loc 1 231 5 view .LVU89
-ARM GAS  /tmp/cc6Zupsd.s 			page 17
-
-
+ 319              		.loc 1 231 5 view .LVU89
  232:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
  233:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     pHandle->VqdPIout = Vqd;
- 322              		.loc 1 233 5 view .LVU90
- 220:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   qd_t lVqd;
- 323              		.loc 1 220 1 is_stmt 0 view .LVU91
- 324 0000 10B5     		push	{r4, lr}
- 325              	.LCFI7:
- 326              		.cfi_def_cfa_offset 8
- 327              		.cfi_offset 4, -8
- 328              		.cfi_offset 14, -4
+ 320              		.loc 1 233 5 view .LVU90
+ 321              		.loc 1 233 23 is_stmt 0 view .LVU91
+ 322 0008 4160     		str	r1, [r0, #4]
  234:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
  235:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     wtemp = (int32_t)(Vqd.q) + pHandle->Vqdff.q;
+ 323              		.loc 1 235 5 is_stmt 1 view .LVU92
+ 324              	.LVL24:
  236:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
  237:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     SATURATION_TO_S16(wtemp)
+ 325              		.loc 1 237 5 view .LVU93
+ 235:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
+ARM GAS  /tmp/cc6nzUni.s 			page 17
+
+
+ 326              		.loc 1 235 46 is_stmt 0 view .LVU94
+ 327 000a B0F90010 		ldrsh	r1, [r0]
+ 235:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
+ 328              		.loc 1 235 11 view .LVU95
+ 329 000e 01FA82F2 		sxtah	r2, r1, r2
+ 330 0012 0F4C     		ldr	r4, .L14
+ 331 0014 A242     		cmp	r2, r4
+ 332 0016 B8BF     		it	lt
+ 333 0018 2246     		movlt	r2, r4
+ 334              	.LVL25:
+ 335              		.loc 1 237 5 is_stmt 1 view .LVU96
  238:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
  239:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     lVqd.q = (int16_t)wtemp;
+ 336              		.loc 1 239 5 view .LVU97
  240:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
  241:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     wtemp = (int32_t)(Vqd.d) + pHandle->Vqdff.d;
- 329              		.loc 1 241 46 view .LVU92
- 330 0002 B0F90220 		ldrsh	r2, [r0, #2]
- 235:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
- 331              		.loc 1 235 46 view .LVU93
- 332 0006 B0F900E0 		ldrsh	lr, [r0]
- 333 000a 0F4C     		ldr	r4, .L15
- 233:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
- 334              		.loc 1 233 23 view .LVU94
- 335 000c 4160     		str	r1, [r0, #4]
- 235:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
- 336              		.loc 1 235 5 is_stmt 1 view .LVU95
- 337              		.loc 1 241 11 is_stmt 0 view .LVU96
- 338 000e 02EB2143 		add	r3, r2, r1, asr #16
- 235:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
- 339              		.loc 1 235 11 view .LVU97
- 340 0012 0EFA81F1 		sxtah	r1, lr, r1
- 341 0016 A142     		cmp	r1, r4
- 239:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
- 342              		.loc 1 239 14 view .LVU98
- 343 0018 47F6FF72 		movw	r2, #32767
- 344 001c B8BF     		it	lt
- 345 001e 2146     		movlt	r1, r4
- 346 0020 A342     		cmp	r3, r4
- 347 0022 B8BF     		it	lt
- 348 0024 2346     		movlt	r3, r4
- 349 0026 9142     		cmp	r1, r2
- 350 0028 A8BF     		it	ge
- 351 002a 1146     		movge	r1, r2
+ 337              		.loc 1 241 5 view .LVU98
  242:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
  243:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     SATURATION_TO_S16(wtemp)
+ 338              		.loc 1 243 5 view .LVU99
+ 241:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
+ 339              		.loc 1 241 46 is_stmt 0 view .LVU100
+ 340 001a B0F90230 		ldrsh	r3, [r0, #2]
+ 241:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
+ 341              		.loc 1 241 11 view .LVU101
+ 342 001e 03EB2C41 		add	r1, r3, ip, asr #16
+ 343 0022 A142     		cmp	r1, r4
+ 344 0024 B8BF     		it	lt
+ 345 0026 2146     		movlt	r1, r4
+ 346              	.LVL26:
+ 347              		.loc 1 243 5 is_stmt 1 view .LVU102
  244:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
  245:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     lVqd.d = (int16_t)wtemp;
- 352              		.loc 1 245 14 view .LVU99
- 353 002c 9342     		cmp	r3, r2
- 354 002e A8BF     		it	ge
- 355 0030 1346     		movge	r3, r2
+ 348              		.loc 1 245 5 view .LVU103
  246:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #ifdef NULL_PTR_CHECK_FEED_FWD_CTRL
  247:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   }
  248:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #endif
-ARM GAS  /tmp/cc6Zupsd.s 			page 18
-
-
  249:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   return (lVqd);
- 356              		.loc 1 249 10 view .LVU100
- 357 0032 89B2     		uxth	r1, r1
- 358 0034 0020     		movs	r0, #0
- 359              	.LVL25:
- 360              		.loc 1 249 10 view .LVU101
- 361 0036 61F30F00 		bfi	r0, r1, #0, #16
- 362 003a 9BB2     		uxth	r3, r3
- 220:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   qd_t lVqd;
- 363              		.loc 1 220 1 view .LVU102
- 364 003c 84B0     		sub	sp, sp, #16
- 365              	.LCFI8:
- 366              		.cfi_def_cfa_offset 24
- 237:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
- 367              		.loc 1 237 5 is_stmt 1 view .LVU103
- 237:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
- 368              		.loc 1 237 5 view .LVU104
+ 349              		.loc 1 249 3 view .LVU104
  239:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
- 369              		.loc 1 239 5 view .LVU105
- 241:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
- 370              		.loc 1 241 5 view .LVU106
- 371              	.LVL26:
- 243:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
- 372              		.loc 1 243 5 view .LVU107
- 243:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
- 373              		.loc 1 243 5 view .LVU108
+ 350              		.loc 1 239 14 is_stmt 0 view .LVU105
+ 351 0028 47F6FF73 		movw	r3, #32767
+ 352 002c 9A42     		cmp	r2, r3
+ 353 002e A8BF     		it	ge
+ 354 0030 1A46     		movge	r2, r3
+ 355              	.LVL27:
  245:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #ifdef NULL_PTR_CHECK_FEED_FWD_CTRL
- 374              		.loc 1 245 5 view .LVU109
- 375              		.loc 1 249 3 view .LVU110
- 376              		.loc 1 249 10 is_stmt 0 view .LVU111
- 377 003e 63F31F40 		bfi	r0, r3, #16, #16
+ 356              		.loc 1 245 14 view .LVU106
+ 357 0032 9942     		cmp	r1, r3
+ 358 0034 A8BF     		it	ge
+ 359 0036 1946     		movge	r1, r3
+ 360              	.LVL28:
+ 361              		.loc 1 249 10 view .LVU107
+ 362 0038 0020     		movs	r0, #0
+ 363              	.LVL29:
+ 364              		.loc 1 249 10 view .LVU108
+ 365 003a 92B2     		uxth	r2, r2
+ARM GAS  /tmp/cc6nzUni.s 			page 18
+
+
+ 366 003c 62F30F00 		bfi	r0, r2, #0, #16
+ 367 0040 89B2     		uxth	r1, r1
+ 368 0042 61F31F40 		bfi	r0, r1, #16, #16
  250:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** }
- 378              		.loc 1 250 1 view .LVU112
- 379 0042 04B0     		add	sp, sp, #16
- 380              	.LCFI9:
- 381              		.cfi_def_cfa_offset 8
- 382              		@ sp needed
- 383 0044 10BD     		pop	{r4, pc}
- 384              	.L16:
- 385 0046 00BF     		.align	2
- 386              	.L15:
- 387 0048 0180FFFF 		.word	-32767
- 388              		.cfi_endproc
- 389              	.LFE1450:
- 391              		.section	.text.FF_DataProcess,"ax",%progbits
- 392              		.align	1
- 393              		.p2align 2,,3
- 394              		.weak	FF_DataProcess
- 395              		.syntax unified
- 396              		.thumb
- 397              		.thumb_func
- 398              		.fpu fpv4-sp-d16
- 400              	FF_DataProcess:
- 401              	.LVL27:
- 402              	.LFB1451:
+ 369              		.loc 1 250 1 view .LVU109
+ 370 0046 05B0     		add	sp, sp, #20
+ 371              	.LCFI8:
+ 372              		.cfi_def_cfa_offset 4
+ 373              		@ sp needed
+ 374 0048 5DF8044B 		ldr	r4, [sp], #4
+ 375              	.LCFI9:
+ 376              		.cfi_restore 4
+ 377              		.cfi_def_cfa_offset 0
+ 378              	.LVL30:
+ 379              		.loc 1 250 1 view .LVU110
+ 380 004c 7047     		bx	lr
+ 381              	.L15:
+ 382 004e 00BF     		.align	2
+ 383              	.L14:
+ 384 0050 0180FFFF 		.word	-32767
+ 385              		.cfi_endproc
+ 386              	.LFE1450:
+ 388              		.section	.text.FF_DataProcess,"ax",%progbits
+ 389              		.align	1
+ 390              		.weak	FF_DataProcess
+ 391              		.syntax unified
+ 392              		.thumb
+ 393              		.thumb_func
+ 394              		.fpu fpv4-sp-d16
+ 396              	FF_DataProcess:
+ 397              	.LVL31:
+ 398              	.LFB1451:
  251:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
  252:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #if defined (CCMRAM)
-ARM GAS  /tmp/cc6Zupsd.s 			page 19
-
-
  253:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #if defined (__ICCARM__)
  254:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #pragma location = ".ccmram"
  255:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #elif defined (__CC_ARM) || defined(__GNUC__)
@@ -1094,89 +1068,81 @@ ARM GAS  /tmp/cc6Zupsd.s 			page 1
  263:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   */
  264:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** __weak void FF_DataProcess(FF_Handle_t *pHandle)
  265:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** {
- 403              		.loc 1 265 1 is_stmt 1 view -0
- 404              		.cfi_startproc
- 405              		@ args = 0, pretend = 0, frame = 0
- 406              		@ frame_needed = 0, uses_anonymous_args = 0
+ 399              		.loc 1 265 1 is_stmt 1 view -0
+ 400              		.cfi_startproc
+ 401              		@ args = 0, pretend = 0, frame = 0
+ 402              		@ frame_needed = 0, uses_anonymous_args = 0
+ 403              		@ link register save eliminated.
  266:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #ifdef NULL_PTR_CHECK_FEED_FWD_CTRL
  267:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   if (NULL == pHandle)
  268:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   {
  269:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     /* Nothing to do */
  270:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   }
+ARM GAS  /tmp/cc6nzUni.s 			page 19
+
+
  271:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   else
  272:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   {
  273:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #endif
  274:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     int32_t wAux;
- 407              		.loc 1 274 5 view .LVU114
+ 404              		.loc 1 274 5 view .LVU112
  275:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     int32_t lowPassFilterBW = (int32_t) pHandle->hVqdLowPassFilterBW - (int32_t)1;
- 408              		.loc 1 275 5 view .LVU115
- 409              		.loc 1 275 31 is_stmt 0 view .LVU116
- 410 0000 838C     		ldrh	r3, [r0, #36]
+ 405              		.loc 1 275 5 view .LVU113
+ 406              		.loc 1 275 31 is_stmt 0 view .LVU114
+ 407 0000 838C     		ldrh	r3, [r0, #36]
+ 408              		.loc 1 275 13 view .LVU115
+ 409 0002 591E     		subs	r1, r3, #1
+ 410              	.LVL32:
  276:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
  277:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #ifndef FULL_MISRA_C_COMPLIANCY_FWD_FDB
  278:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     /* Computation of average Vqd as output by PI(D) current controllers, used by
  279:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****        Feed-forward controller algorithm */
  280:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     wAux = (int32_t)(pHandle->VqdAvPIout.q) * lowPassFilterBW;
+ 411              		.loc 1 280 5 is_stmt 1 view .LVU116
+ 412              		.loc 1 280 12 is_stmt 0 view .LVU117
+ 413 0004 B0F90830 		ldrsh	r3, [r0, #8]
+ 414              	.LVL33:
  281:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     wAux += pHandle->VqdPIout.q;
- 411              		.loc 1 281 30 view .LVU117
- 412 0002 B0F90420 		ldrsh	r2, [r0, #4]
+ 415              		.loc 1 281 5 is_stmt 1 view .LVU118
  282:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     //cstat !MISRAC2012-Rule-1.3_n !ATH-shift-neg !MISRAC2012-Rule-10.1_R6
  283:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     pHandle->VqdAvPIout.q = (int16_t)(wAux >> pHandle->hVqdLowPassFilterBWLOG);
- 413              		.loc 1 283 54 view .LVU118
- 414 0006 B0F834C0 		ldrh	ip, [r0, #52]
- 265:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #ifdef NULL_PTR_CHECK_FEED_FWD_CTRL
- 415              		.loc 1 265 1 view .LVU119
- 416 000a 10B5     		push	{r4, lr}
- 417              	.LCFI10:
- 418              		.cfi_def_cfa_offset 8
- 419              		.cfi_offset 4, -8
- 420              		.cfi_offset 14, -4
- 275:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
- 421              		.loc 1 275 13 view .LVU120
- 422 000c 591E     		subs	r1, r3, #1
- 423              	.LVL28:
- 280:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     wAux += pHandle->VqdPIout.q;
- 424              		.loc 1 280 5 is_stmt 1 view .LVU121
- 280:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     wAux += pHandle->VqdPIout.q;
-ARM GAS  /tmp/cc6Zupsd.s 			page 20
-
-
- 425              		.loc 1 280 12 is_stmt 0 view .LVU122
- 426 000e B0F90840 		ldrsh	r4, [r0, #8]
- 427              	.LVL29:
- 281:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     //cstat !MISRAC2012-Rule-1.3_n !ATH-shift-neg !MISRAC2012-Rule-10.1_R6
- 428              		.loc 1 281 5 is_stmt 1 view .LVU123
- 429              		.loc 1 283 5 view .LVU124
+ 416              		.loc 1 283 5 view .LVU119
+ 417              		.loc 1 283 54 is_stmt 0 view .LVU120
+ 418 0008 B0F834C0 		ldrh	ip, [r0, #52]
+ 281:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     wAux += pHandle->VqdPIout.q;
+ 419              		.loc 1 281 30 view .LVU121
+ 420 000c B0F90420 		ldrsh	r2, [r0, #4]
+ 281:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     wAux += pHandle->VqdPIout.q;
+ 421              		.loc 1 281 10 view .LVU122
+ 422 0010 01FB0322 		mla	r2, r1, r3, r2
+ 423              		.loc 1 283 44 view .LVU123
+ 424 0014 42FA0CF2 		asr	r2, r2, ip
+ 425              		.loc 1 283 29 view .LVU124
+ 426 0018 0281     		strh	r2, [r0, #8]	@ movhi
  284:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
  285:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     wAux = (int32_t)(pHandle->VqdAvPIout.d) * lowPassFilterBW;
- 430              		.loc 1 285 12 is_stmt 0 view .LVU125
- 431 0012 B0F90AE0 		ldrsh	lr, [r0, #10]
+ 427              		.loc 1 285 5 is_stmt 1 view .LVU125
+ 428              		.loc 1 285 12 is_stmt 0 view .LVU126
+ 429 001a B0F90A20 		ldrsh	r2, [r0, #10]
+ 430              	.LVL34:
  286:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     wAux += pHandle->VqdPIout.d;
- 432              		.loc 1 286 30 view .LVU126
- 433 0016 B0F90630 		ldrsh	r3, [r0, #6]
- 281:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     //cstat !MISRAC2012-Rule-1.3_n !ATH-shift-neg !MISRAC2012-Rule-10.1_R6
- 434              		.loc 1 281 10 view .LVU127
- 435 001a 01FB0422 		mla	r2, r1, r4, r2
- 436              		.loc 1 286 10 view .LVU128
- 437 001e 01FB0E33 		mla	r3, r1, lr, r3
- 283:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
- 438              		.loc 1 283 44 view .LVU129
- 439 0022 42FA0CF2 		asr	r2, r2, ip
+ 431              		.loc 1 286 5 is_stmt 1 view .LVU127
  287:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     //cstat !MISRAC2012-Rule-1.3_n !ATH-shift-neg !MISRAC2012-Rule-10.1_R6
  288:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     pHandle->VqdAvPIout.d = (int16_t)(wAux >> pHandle->hVqdLowPassFilterBWLOG);
- 440              		.loc 1 288 44 view .LVU130
- 441 0026 43FA0CF3 		asr	r3, r3, ip
- 283:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
- 442              		.loc 1 283 29 view .LVU131
- 443 002a 0281     		strh	r2, [r0, #8]	@ movhi
- 285:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     wAux += pHandle->VqdPIout.d;
- 444              		.loc 1 285 5 is_stmt 1 view .LVU132
- 445              	.LVL30:
- 286:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     //cstat !MISRAC2012-Rule-1.3_n !ATH-shift-neg !MISRAC2012-Rule-10.1_R6
- 446              		.loc 1 286 5 view .LVU133
- 447              		.loc 1 288 5 view .LVU134
- 448              		.loc 1 288 29 is_stmt 0 view .LVU135
- 449 002c 4381     		strh	r3, [r0, #10]	@ movhi
+ 432              		.loc 1 288 5 view .LVU128
+ 286:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     wAux += pHandle->VqdPIout.d;
+ 433              		.loc 1 286 30 is_stmt 0 view .LVU129
+ 434 001e B0F90630 		ldrsh	r3, [r0, #6]
+ 286:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     wAux += pHandle->VqdPIout.d;
+ 435              		.loc 1 286 10 view .LVU130
+ 436 0022 01FB0233 		mla	r3, r1, r2, r3
+ 437              		.loc 1 288 44 view .LVU131
+ 438 0026 43FA0CF3 		asr	r3, r3, ip
+ARM GAS  /tmp/cc6nzUni.s 			page 20
+
+
+ 439              		.loc 1 288 29 view .LVU132
+ 440 002a 4381     		strh	r3, [r0, #10]	@ movhi
  289:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
  290:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #else
  291:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     /* Computation of average Vqd as output by PI(D) current controllers, used by
@@ -1195,24 +1161,20 @@ ARM GAS  /tmp/cc6Zupsd.s 			page 1
  304:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   }
  305:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #endif
  306:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** }
- 450              		.loc 1 306 1 view .LVU136
- 451 002e 10BD     		pop	{r4, pc}
- 452              		.cfi_endproc
-ARM GAS  /tmp/cc6Zupsd.s 			page 21
-
-
- 453              	.LFE1451:
- 455              		.section	.text.FF_InitFOCAdditionalMethods,"ax",%progbits
- 456              		.align	1
- 457              		.p2align 2,,3
- 458              		.weak	FF_InitFOCAdditionalMethods
- 459              		.syntax unified
- 460              		.thumb
- 461              		.thumb_func
- 462              		.fpu fpv4-sp-d16
- 464              	FF_InitFOCAdditionalMethods:
- 465              	.LVL31:
- 466              	.LFB1452:
+ 441              		.loc 1 306 1 view .LVU133
+ 442 002c 7047     		bx	lr
+ 443              		.cfi_endproc
+ 444              	.LFE1451:
+ 446              		.section	.text.FF_InitFOCAdditionalMethods,"ax",%progbits
+ 447              		.align	1
+ 448              		.weak	FF_InitFOCAdditionalMethods
+ 449              		.syntax unified
+ 450              		.thumb
+ 451              		.thumb_func
+ 452              		.fpu fpv4-sp-d16
+ 454              	FF_InitFOCAdditionalMethods:
+ 455              	.LVL35:
+ 456              	.LFB1452:
  307:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
  308:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** /**
  309:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   * @brief  Use this method to initialize FF variables in START_TO_RUN state.
@@ -1220,80 +1182,72 @@ ARM GAS  /tmp/cc6Zupsd.s 			page 1
  311:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   */
  312:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** __weak void FF_InitFOCAdditionalMethods(FF_Handle_t *pHandle)
  313:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** {
- 467              		.loc 1 313 1 is_stmt 1 view -0
- 468              		.cfi_startproc
- 469              		@ args = 0, pretend = 0, frame = 0
- 470              		@ frame_needed = 0, uses_anonymous_args = 0
+ 457              		.loc 1 313 1 is_stmt 1 view -0
+ 458              		.cfi_startproc
+ 459              		@ args = 0, pretend = 0, frame = 0
+ 460              		@ frame_needed = 0, uses_anonymous_args = 0
+ 461              		.loc 1 313 1 is_stmt 0 view .LVU135
+ 462 0000 38B5     		push	{r3, r4, r5, lr}
+ 463              	.LCFI10:
+ 464              		.cfi_def_cfa_offset 16
+ 465              		.cfi_offset 3, -16
+ 466              		.cfi_offset 4, -12
+ 467              		.cfi_offset 5, -8
+ 468              		.cfi_offset 14, -4
+ 469 0002 0446     		mov	r4, r0
  314:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #ifdef NULL_PTR_CHECK_FEED_FWD_CTRL
  315:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   if (NULL == pHandle)
  316:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   {
+ARM GAS  /tmp/cc6nzUni.s 			page 21
+
+
  317:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     /* Nothing to do */
  318:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   }
  319:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   else
  320:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   {
  321:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #endif
  322:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     pHandle->VqdAvPIout.q = 0;
- 471              		.loc 1 322 5 view .LVU138
+ 470              		.loc 1 322 5 is_stmt 1 view .LVU136
+ 471              		.loc 1 322 27 is_stmt 0 view .LVU137
+ 472 0004 0025     		movs	r5, #0
+ 473 0006 0581     		strh	r5, [r0, #8]	@ movhi
  323:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     pHandle->VqdAvPIout.d = 0;
- 472              		.loc 1 323 5 view .LVU139
- 313:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #ifdef NULL_PTR_CHECK_FEED_FWD_CTRL
- 473              		.loc 1 313 1 is_stmt 0 view .LVU140
- 474 0000 10B5     		push	{r4, lr}
- 475              	.LCFI11:
- 476              		.cfi_def_cfa_offset 8
- 477              		.cfi_offset 4, -8
- 478              		.cfi_offset 14, -4
- 313:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #ifdef NULL_PTR_CHECK_FEED_FWD_CTRL
- 479              		.loc 1 313 1 view .LVU141
- 480 0002 0446     		mov	r4, r0
- 322:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     pHandle->VqdAvPIout.d = 0;
- 481              		.loc 1 322 27 view .LVU142
- 482 0004 0021     		movs	r1, #0
+ 474              		.loc 1 323 5 is_stmt 1 view .LVU138
+ 475              		.loc 1 323 27 is_stmt 0 view .LVU139
+ 476 0008 4581     		strh	r5, [r0, #10]	@ movhi
  324:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     PID_SetIntegralTerm(pHandle->pPID_q, 0);
- 483              		.loc 1 324 5 view .LVU143
- 484 0006 C069     		ldr	r0, [r0, #28]
- 485              	.LVL32:
- 322:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     pHandle->VqdAvPIout.d = 0;
- 486              		.loc 1 322 27 view .LVU144
- 487 0008 A160     		str	r1, [r4, #8]
- 488              		.loc 1 324 5 is_stmt 1 view .LVU145
- 489 000a FFF7FEFF 		bl	PID_SetIntegralTerm
-ARM GAS  /tmp/cc6Zupsd.s 			page 22
-
-
- 490              	.LVL33:
+ 477              		.loc 1 324 5 is_stmt 1 view .LVU140
+ 478 000a 2946     		mov	r1, r5
+ 479 000c C069     		ldr	r0, [r0, #28]
+ 480              	.LVL36:
+ 481              		.loc 1 324 5 is_stmt 0 view .LVU141
+ 482 000e FFF7FEFF 		bl	PID_SetIntegralTerm
+ 483              	.LVL37:
  325:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     PID_SetIntegralTerm(pHandle->pPID_d, 0);
- 491              		.loc 1 325 5 view .LVU146
- 492 000e 206A     		ldr	r0, [r4, #32]
- 493 0010 0021     		movs	r1, #0
+ 484              		.loc 1 325 5 is_stmt 1 view .LVU142
+ 485 0012 2946     		mov	r1, r5
+ 486 0014 206A     		ldr	r0, [r4, #32]
+ 487 0016 FFF7FEFF 		bl	PID_SetIntegralTerm
+ 488              	.LVL38:
  326:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #ifdef NULL_PTR_CHECK_FEED_FWD_CTRL
  327:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   }
  328:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #endif
  329:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** }
- 494              		.loc 1 329 1 is_stmt 0 view .LVU147
- 495 0012 BDE81040 		pop	{r4, lr}
- 496              	.LCFI12:
- 497              		.cfi_restore 14
- 498              		.cfi_restore 4
- 499              		.cfi_def_cfa_offset 0
- 500              	.LVL34:
- 325:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     PID_SetIntegralTerm(pHandle->pPID_d, 0);
- 501              		.loc 1 325 5 view .LVU148
- 502 0016 FFF7FEBF 		b	PID_SetIntegralTerm
- 503              	.LVL35:
- 504              		.cfi_endproc
- 505              	.LFE1452:
- 507 001a 00BF     		.section	.text.FF_SetFFConstants,"ax",%progbits
- 508              		.align	1
- 509              		.p2align 2,,3
- 510              		.weak	FF_SetFFConstants
- 511              		.syntax unified
- 512              		.thumb
- 513              		.thumb_func
- 514              		.fpu fpv4-sp-d16
- 516              	FF_SetFFConstants:
- 517              	.LVL36:
- 518              	.LFB1453:
+ 489              		.loc 1 329 1 is_stmt 0 view .LVU143
+ 490 001a 38BD     		pop	{r3, r4, r5, pc}
+ 491              		.loc 1 329 1 view .LVU144
+ 492              		.cfi_endproc
+ 493              	.LFE1452:
+ 495              		.section	.text.FF_SetFFConstants,"ax",%progbits
+ 496              		.align	1
+ 497              		.weak	FF_SetFFConstants
+ 498              		.syntax unified
+ 499              		.thumb
+ 500              		.thumb_func
+ 501              		.fpu fpv4-sp-d16
+ 503              	FF_SetFFConstants:
+ 504              	.LVL39:
+ 505              	.LFB1453:
  330:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
  331:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** /**
  332:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   * @brief  Use this method to set new constants values used by
@@ -1304,11 +1258,20 @@ ARM GAS  /tmp/cc6Zupsd.s 			page 1
  337:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   */
  338:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** __weak void FF_SetFFConstants(FF_Handle_t *pHandle, FF_TuningStruct_t sNewConstants)
  339:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** {
- 519              		.loc 1 339 1 is_stmt 1 view -0
- 520              		.cfi_startproc
- 521              		@ args = 0, pretend = 0, frame = 16
- 522              		@ frame_needed = 0, uses_anonymous_args = 0
- 523              		@ link register save eliminated.
+ARM GAS  /tmp/cc6nzUni.s 			page 22
+
+
+ 506              		.loc 1 339 1 is_stmt 1 view -0
+ 507              		.cfi_startproc
+ 508              		@ args = 0, pretend = 0, frame = 16
+ 509              		@ frame_needed = 0, uses_anonymous_args = 0
+ 510              		@ link register save eliminated.
+ 511              		.loc 1 339 1 is_stmt 0 view .LVU146
+ 512 0000 84B0     		sub	sp, sp, #16
+ 513              	.LCFI11:
+ 514              		.cfi_def_cfa_offset 16
+ 515 0002 0DF1100C 		add	ip, sp, #16
+ 516 0006 0CE90E00 		stmdb	ip, {r1, r2, r3}
  340:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #ifdef NULL_PTR_CHECK_FEED_FWD_CTRL
  341:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   if (NULL == pHandle)
  342:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   {
@@ -1318,53 +1281,46 @@ ARM GAS  /tmp/cc6Zupsd.s 			page 1
  346:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   {
  347:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #endif
  348:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     pHandle->wConstant_1D = sNewConstants.wConst_1D;
-ARM GAS  /tmp/cc6Zupsd.s 			page 23
-
-
- 524              		.loc 1 348 5 view .LVU150
+ 517              		.loc 1 348 5 is_stmt 1 view .LVU147
+ 518              		.loc 1 348 27 is_stmt 0 view .LVU148
+ 519 000a C160     		str	r1, [r0, #12]
  349:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     pHandle->wConstant_1Q = sNewConstants.wConst_1Q;
- 525              		.loc 1 349 5 view .LVU151
+ 520              		.loc 1 349 5 is_stmt 1 view .LVU149
+ 521              		.loc 1 349 27 is_stmt 0 view .LVU150
+ 522 000c 0261     		str	r2, [r0, #16]
  350:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     pHandle->wConstant_2  = sNewConstants.wConst_2;
- 526              		.loc 1 350 5 view .LVU152
- 339:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #ifdef NULL_PTR_CHECK_FEED_FWD_CTRL
- 527              		.loc 1 339 1 is_stmt 0 view .LVU153
- 528 0000 84B0     		sub	sp, sp, #16
- 529              	.LCFI13:
- 530              		.cfi_def_cfa_offset 16
- 339:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #ifdef NULL_PTR_CHECK_FEED_FWD_CTRL
- 531              		.loc 1 339 1 view .LVU154
- 532 0002 0DF1100C 		add	ip, sp, #16
- 533 0006 0CE90E00 		stmdb	ip, {r1, r2, r3}
- 348:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     pHandle->wConstant_1Q = sNewConstants.wConst_1Q;
- 534              		.loc 1 348 27 view .LVU155
- 535 000a C0E90312 		strd	r1, r2, [r0, #12]
- 536 000e 4361     		str	r3, [r0, #20]
+ 523              		.loc 1 350 5 is_stmt 1 view .LVU151
+ 524              		.loc 1 350 27 is_stmt 0 view .LVU152
+ 525 000e 039B     		ldr	r3, [sp, #12]
+ 526 0010 4361     		str	r3, [r0, #20]
  351:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #ifdef NULL_PTR_CHECK_FEED_FWD_CTRL
  352:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   }
  353:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #endif
  354:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** }
- 537              		.loc 1 354 1 view .LVU156
- 538 0010 04B0     		add	sp, sp, #16
- 539              	.LCFI14:
- 540              		.cfi_def_cfa_offset 0
- 541              		@ sp needed
- 542 0012 7047     		bx	lr
- 543              		.cfi_endproc
- 544              	.LFE1453:
- 546              		.section	.text.FF_GetFFConstants,"ax",%progbits
- 547              		.align	1
- 548              		.p2align 2,,3
- 549              		.weak	FF_GetFFConstants
- 550              		.syntax unified
- 551              		.thumb
- 552              		.thumb_func
- 553              		.fpu fpv4-sp-d16
- 555              	FF_GetFFConstants:
- 556              	.LVL37:
- 557              	.LFB1454:
+ 527              		.loc 1 354 1 view .LVU153
+ 528 0012 04B0     		add	sp, sp, #16
+ 529              	.LCFI12:
+ 530              		.cfi_def_cfa_offset 0
+ 531              		@ sp needed
+ 532 0014 7047     		bx	lr
+ 533              		.cfi_endproc
+ 534              	.LFE1453:
+ 536              		.section	.text.FF_GetFFConstants,"ax",%progbits
+ 537              		.align	1
+ 538              		.weak	FF_GetFFConstants
+ 539              		.syntax unified
+ 540              		.thumb
+ 541              		.thumb_func
+ 542              		.fpu fpv4-sp-d16
+ 544              	FF_GetFFConstants:
+ 545              	.LVL40:
+ 546              	.LFB1454:
  355:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
  356:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
  357:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** //cstat #MISRAC2012-Rule-2.2_b
+ARM GAS  /tmp/cc6nzUni.s 			page 23
+
+
  358:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** /* False positive  */
  359:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** /**
  360:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   * @brief  Use this method to get current constants values used by
@@ -1376,16 +1332,18 @@ ARM GAS  /tmp/cc6Zupsd.s 			page 1
  366:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** //cstat !MISRAC2012-Rule-8.13
  367:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** __weak FF_TuningStruct_t FF_GetFFConstants(FF_Handle_t *pHandle)
  368:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** {
- 558              		.loc 1 368 1 is_stmt 1 view -0
- 559              		.cfi_startproc
-ARM GAS  /tmp/cc6Zupsd.s 			page 24
-
-
- 560              		@ args = 0, pretend = 0, frame = 0
- 561              		@ frame_needed = 0, uses_anonymous_args = 0
- 562              		@ link register save eliminated.
+ 547              		.loc 1 368 1 is_stmt 1 view -0
+ 548              		.cfi_startproc
+ 549              		@ args = 0, pretend = 0, frame = 0
+ 550              		@ frame_needed = 0, uses_anonymous_args = 0
+ 551              		@ link register save eliminated.
+ 552              		.loc 1 368 1 is_stmt 0 view .LVU155
+ 553 0000 10B4     		push	{r4}
+ 554              	.LCFI13:
+ 555              		.cfi_def_cfa_offset 4
+ 556              		.cfi_offset 4, -4
  369:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   FF_TuningStruct_t LocalConstants;
- 563              		.loc 1 369 3 view .LVU158
+ 557              		.loc 1 369 3 is_stmt 1 view .LVU156
  370:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #ifdef NULL_PTR_CHECK_FEED_FWD_CTRL
  371:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   if (NULL == pHandle)
  372:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   {
@@ -1397,50 +1355,54 @@ ARM GAS  /tmp/cc6Zupsd.s 			page 1
  378:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   {
  379:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #endif
  380:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     LocalConstants.wConst_1D = pHandle->wConstant_1D;
- 564              		.loc 1 380 5 view .LVU159
+ 558              		.loc 1 380 5 view .LVU157
+ 559              	.LVL41:
  381:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     LocalConstants.wConst_1Q = pHandle->wConstant_1Q;
- 565              		.loc 1 381 5 view .LVU160
+ 560              		.loc 1 381 5 view .LVU158
+ 561              		.loc 1 381 39 is_stmt 0 view .LVU159
+ 562 0002 0C69     		ldr	r4, [r1, #16]
+ 563              	.LVL42:
  382:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     LocalConstants.wConst_2 =  pHandle->wConstant_2;
- 566              		.loc 1 382 5 view .LVU161
- 567 0000 0A69     		ldr	r2, [r1, #16]
+ 564              		.loc 1 382 5 is_stmt 1 view .LVU160
+ 565              		.loc 1 382 39 is_stmt 0 view .LVU161
+ 566 0004 4A69     		ldr	r2, [r1, #20]
+ 567              	.LVL43:
  383:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #ifdef NULL_PTR_CHECK_FEED_FWD_CTRL
  384:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   }
  385:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #endif
  386:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   return (LocalConstants);
- 568              		.loc 1 386 10 is_stmt 0 view .LVU162
- 569 0002 4260     		str	r2, [r0, #4]
- 380:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     LocalConstants.wConst_1Q = pHandle->wConstant_1Q;
- 570              		.loc 1 380 39 view .LVU163
- 571 0004 4A69     		ldr	r2, [r1, #20]
- 572              	.LVL38:
- 573              		.loc 1 386 3 is_stmt 1 view .LVU164
- 574              		.loc 1 386 10 is_stmt 0 view .LVU165
- 575 0006 C968     		ldr	r1, [r1, #12]
- 576              	.LVL39:
- 577              		.loc 1 386 10 view .LVU166
- 578 0008 0160     		str	r1, [r0]
- 579 000a 8260     		str	r2, [r0, #8]
- 580              	.LVL40:
+ 568              		.loc 1 386 3 is_stmt 1 view .LVU162
+ 569              		.loc 1 386 10 is_stmt 0 view .LVU163
+ 570 0006 C968     		ldr	r1, [r1, #12]
+ 571              	.LVL44:
+ 572              		.loc 1 386 10 view .LVU164
+ 573 0008 0160     		str	r1, [r0]
+ 574 000a 4460     		str	r4, [r0, #4]
+ARM GAS  /tmp/cc6nzUni.s 			page 24
+
+
+ 575 000c 8260     		str	r2, [r0, #8]
+ 576              	.LVL45:
  387:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** }
- 581              		.loc 1 387 1 view .LVU167
- 582 000c 7047     		bx	lr
+ 577              		.loc 1 387 1 view .LVU165
+ 578 000e 5DF8044B 		ldr	r4, [sp], #4
+ 579              	.LCFI14:
+ 580              		.cfi_restore 4
+ 581              		.cfi_def_cfa_offset 0
+ 582 0012 7047     		bx	lr
  583              		.cfi_endproc
  584              	.LFE1454:
- 586 000e 00BF     		.section	.text.FF_GetVqdff,"ax",%progbits
+ 586              		.section	.text.FF_GetVqdff,"ax",%progbits
  587              		.align	1
- 588              		.p2align 2,,3
- 589              		.weak	FF_GetVqdff
- 590              		.syntax unified
- 591              		.thumb
- 592              		.thumb_func
- 593              		.fpu fpv4-sp-d16
- 595              	FF_GetVqdff:
- 596              	.LVL41:
- 597              	.LFB1455:
+ 588              		.weak	FF_GetVqdff
+ 589              		.syntax unified
+ 590              		.thumb
+ 591              		.thumb_func
+ 592              		.fpu fpv4-sp-d16
+ 594              	FF_GetVqdff:
+ 595              	.LVL46:
+ 596              	.LFB1455:
  388:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
-ARM GAS  /tmp/cc6Zupsd.s 			page 25
-
-
  389:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
  390:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** /**
  391:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   * @brief  Use this method to get present values for the Vqd Feed-forward
@@ -1450,11 +1412,15 @@ ARM GAS  /tmp/cc6Zupsd.s 			page 1
  395:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   */
  396:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** __weak qd_t FF_GetVqdff(const FF_Handle_t *pHandle)
  397:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** {
- 598              		.loc 1 397 1 is_stmt 1 view -0
- 599              		.cfi_startproc
- 600              		@ args = 0, pretend = 0, frame = 8
- 601              		@ frame_needed = 0, uses_anonymous_args = 0
- 602              		@ link register save eliminated.
+ 597              		.loc 1 397 1 is_stmt 1 view -0
+ 598              		.cfi_startproc
+ 599              		@ args = 0, pretend = 0, frame = 8
+ 600              		@ frame_needed = 0, uses_anonymous_args = 0
+ 601              		@ link register save eliminated.
+ 602              		.loc 1 397 1 is_stmt 0 view .LVU167
+ 603 0000 82B0     		sub	sp, sp, #8
+ 604              	.LCFI15:
+ 605              		.cfi_def_cfa_offset 8
  398:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #ifdef NULL_PTR_CHECK_FEED_FWD_CTRL
  399:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   qd_t retqt;
  400:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   if (NULL == pHandle)
@@ -1469,46 +1435,39 @@ ARM GAS  /tmp/cc6Zupsd.s 			page 1
  409:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   return (retqt);
  410:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #else
  411:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   return (pHandle->Vqdff);
- 603              		.loc 1 411 3 view .LVU169
- 604              		.loc 1 411 18 is_stmt 0 view .LVU170
- 605 0000 0368     		ldr	r3, [r0]
- 606 0002 0022     		movs	r2, #0
- 607 0004 99B2     		uxth	r1, r3
- 608 0006 61F30F02 		bfi	r2, r1, #0, #16
- 609 000a 1B0C     		lsrs	r3, r3, #16
- 610 000c 63F31F42 		bfi	r2, r3, #16, #16
- 397:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #ifdef NULL_PTR_CHECK_FEED_FWD_CTRL
- 611              		.loc 1 397 1 view .LVU171
- 612 0010 82B0     		sub	sp, sp, #8
- 613              	.LCFI15:
- 614              		.cfi_def_cfa_offset 8
+ 606              		.loc 1 411 3 is_stmt 1 view .LVU168
+ 607              		.loc 1 411 18 is_stmt 0 view .LVU169
+ 608 0002 0368     		ldr	r3, [r0]
+ARM GAS  /tmp/cc6nzUni.s 			page 25
+
+
+ 609 0004 0020     		movs	r0, #0
+ 610              	.LVL47:
+ 611              		.loc 1 411 18 view .LVU170
+ 612 0006 9AB2     		uxth	r2, r3
+ 613 0008 62F30F00 		bfi	r0, r2, #0, #16
+ 614 000c 1B0C     		lsrs	r3, r3, #16
+ 615 000e 63F31F40 		bfi	r0, r3, #16, #16
  412:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #endif
  413:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** }
- 615              		.loc 1 413 1 view .LVU172
- 616 0012 1046     		mov	r0, r2
- 617              	.LVL42:
- 618              		.loc 1 413 1 view .LVU173
- 619 0014 02B0     		add	sp, sp, #8
- 620              	.LCFI16:
- 621              		.cfi_def_cfa_offset 0
- 622              		@ sp needed
- 623 0016 7047     		bx	lr
- 624              		.cfi_endproc
- 625              	.LFE1455:
- 627              		.section	.text.FF_GetVqdAvPIout,"ax",%progbits
- 628              		.align	1
- 629              		.p2align 2,,3
-ARM GAS  /tmp/cc6Zupsd.s 			page 26
-
-
- 630              		.weak	FF_GetVqdAvPIout
- 631              		.syntax unified
- 632              		.thumb
- 633              		.thumb_func
- 634              		.fpu fpv4-sp-d16
- 636              	FF_GetVqdAvPIout:
- 637              	.LVL43:
- 638              	.LFB1456:
+ 616              		.loc 1 413 1 view .LVU171
+ 617 0012 02B0     		add	sp, sp, #8
+ 618              	.LCFI16:
+ 619              		.cfi_def_cfa_offset 0
+ 620              		@ sp needed
+ 621 0014 7047     		bx	lr
+ 622              		.cfi_endproc
+ 623              	.LFE1455:
+ 625              		.section	.text.FF_GetVqdAvPIout,"ax",%progbits
+ 626              		.align	1
+ 627              		.weak	FF_GetVqdAvPIout
+ 628              		.syntax unified
+ 629              		.thumb
+ 630              		.thumb_func
+ 631              		.fpu fpv4-sp-d16
+ 633              	FF_GetVqdAvPIout:
+ 634              	.LVL48:
+ 635              	.LFB1456:
  414:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** 
  415:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** /**
  416:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   * @brief  Use this method to get the averaged output values of qd axes
@@ -1518,11 +1477,15 @@ ARM GAS  /tmp/cc6Zupsd.s 			page 1
  420:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   */
  421:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** __weak qd_t FF_GetVqdAvPIout(const FF_Handle_t *pHandle)
  422:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** {
- 639              		.loc 1 422 1 is_stmt 1 view -0
- 640              		.cfi_startproc
- 641              		@ args = 0, pretend = 0, frame = 8
- 642              		@ frame_needed = 0, uses_anonymous_args = 0
- 643              		@ link register save eliminated.
+ 636              		.loc 1 422 1 is_stmt 1 view -0
+ 637              		.cfi_startproc
+ 638              		@ args = 0, pretend = 0, frame = 8
+ 639              		@ frame_needed = 0, uses_anonymous_args = 0
+ 640              		@ link register save eliminated.
+ 641              		.loc 1 422 1 is_stmt 0 view .LVU173
+ 642 0000 82B0     		sub	sp, sp, #8
+ 643              	.LCFI17:
+ 644              		.cfi_def_cfa_offset 8
  423:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #ifdef NULL_PTR_CHECK_FEED_FWD_CTRL
  424:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   qd_t retqt;
  425:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   if (NULL == pHandle)
@@ -1535,75 +1498,69 @@ ARM GAS  /tmp/cc6Zupsd.s 			page 1
  432:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****     retqt = pHandle->VqdAvPIout;
  433:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   }
  434:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   return (retqt);
+ARM GAS  /tmp/cc6nzUni.s 			page 26
+
+
  435:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #else
  436:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c ****   return (pHandle->VqdAvPIout);
- 644              		.loc 1 436 3 view .LVU175
- 645              		.loc 1 436 18 is_stmt 0 view .LVU176
- 646 0000 8368     		ldr	r3, [r0, #8]
- 647 0002 0022     		movs	r2, #0
- 648 0004 99B2     		uxth	r1, r3
- 649 0006 61F30F02 		bfi	r2, r1, #0, #16
- 650 000a 1B0C     		lsrs	r3, r3, #16
- 651 000c 63F31F42 		bfi	r2, r3, #16, #16
- 422:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #ifdef NULL_PTR_CHECK_FEED_FWD_CTRL
- 652              		.loc 1 422 1 view .LVU177
- 653 0010 82B0     		sub	sp, sp, #8
- 654              	.LCFI17:
- 655              		.cfi_def_cfa_offset 8
+ 645              		.loc 1 436 3 is_stmt 1 view .LVU174
+ 646              		.loc 1 436 18 is_stmt 0 view .LVU175
+ 647 0002 8368     		ldr	r3, [r0, #8]
+ 648 0004 0020     		movs	r0, #0
+ 649              	.LVL49:
+ 650              		.loc 1 436 18 view .LVU176
+ 651 0006 9AB2     		uxth	r2, r3
+ 652 0008 62F30F00 		bfi	r0, r2, #0, #16
+ 653 000c 1B0C     		lsrs	r3, r3, #16
+ 654 000e 63F31F40 		bfi	r0, r3, #16, #16
  437:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** #endif
  438:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/feed_forward_ctrl.c **** }
- 656              		.loc 1 438 1 view .LVU178
- 657 0012 1046     		mov	r0, r2
- 658              	.LVL44:
- 659              		.loc 1 438 1 view .LVU179
- 660 0014 02B0     		add	sp, sp, #8
- 661              	.LCFI18:
-ARM GAS  /tmp/cc6Zupsd.s 			page 27
-
-
- 662              		.cfi_def_cfa_offset 0
- 663              		@ sp needed
- 664 0016 7047     		bx	lr
- 665              		.cfi_endproc
- 666              	.LFE1456:
- 668              		.text
- 669              	.Letext0:
- 670              		.file 4 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
- 671              		.file 5 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
- 672              		.file 6 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h"
- 673              		.file 7 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_usart.h"
- 674              		.file 8 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h"
- 675              		.file 9 "Inc/mc_type.h"
- 676              		.file 10 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h"
- 677              		.file 11 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/pid_regulator.h"
- 678              		.file 12 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/feed_forward_ctrl.h"
-ARM GAS  /tmp/cc6Zupsd.s 			page 28
+ 655              		.loc 1 438 1 view .LVU177
+ 656 0012 02B0     		add	sp, sp, #8
+ 657              	.LCFI18:
+ 658              		.cfi_def_cfa_offset 0
+ 659              		@ sp needed
+ 660 0014 7047     		bx	lr
+ 661              		.cfi_endproc
+ 662              	.LFE1456:
+ 664              		.text
+ 665              	.Letext0:
+ 666              		.file 4 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
+ 667              		.file 5 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
+ 668              		.file 6 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h"
+ 669              		.file 7 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_usart.h"
+ 670              		.file 8 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h"
+ 671              		.file 9 "Inc/mc_type.h"
+ 672              		.file 10 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h"
+ 673              		.file 11 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/pid_regulator.h"
+ 674              		.file 12 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/feed_forward_ctrl.h"
+ARM GAS  /tmp/cc6nzUni.s 			page 27
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 feed_forward_ctrl.c
-     /tmp/cc6Zupsd.s:18     .text.FF_Init:0000000000000000 $t
-     /tmp/cc6Zupsd.s:27     .text.FF_Init:0000000000000000 FF_Init
-     /tmp/cc6Zupsd.s:67     .text.FF_Clear:0000000000000000 $t
-     /tmp/cc6Zupsd.s:75     .text.FF_Clear:0000000000000000 FF_Clear
-     /tmp/cc6Zupsd.s:94     .text.FF_VqdffComputation:0000000000000000 $t
-     /tmp/cc6Zupsd.s:102    .text.FF_VqdffComputation:0000000000000000 FF_VqdffComputation
-     /tmp/cc6Zupsd.s:300    .text.FF_VqdffComputation:00000000000000ac $d
-     /tmp/cc6Zupsd.s:305    .text.FF_VqdConditioning:0000000000000000 $t
-     /tmp/cc6Zupsd.s:313    .text.FF_VqdConditioning:0000000000000000 FF_VqdConditioning
-     /tmp/cc6Zupsd.s:387    .text.FF_VqdConditioning:0000000000000048 $d
-     /tmp/cc6Zupsd.s:392    .text.FF_DataProcess:0000000000000000 $t
-     /tmp/cc6Zupsd.s:400    .text.FF_DataProcess:0000000000000000 FF_DataProcess
-     /tmp/cc6Zupsd.s:456    .text.FF_InitFOCAdditionalMethods:0000000000000000 $t
-     /tmp/cc6Zupsd.s:464    .text.FF_InitFOCAdditionalMethods:0000000000000000 FF_InitFOCAdditionalMethods
-     /tmp/cc6Zupsd.s:508    .text.FF_SetFFConstants:0000000000000000 $t
-     /tmp/cc6Zupsd.s:516    .text.FF_SetFFConstants:0000000000000000 FF_SetFFConstants
-     /tmp/cc6Zupsd.s:547    .text.FF_GetFFConstants:0000000000000000 $t
-     /tmp/cc6Zupsd.s:555    .text.FF_GetFFConstants:0000000000000000 FF_GetFFConstants
-     /tmp/cc6Zupsd.s:587    .text.FF_GetVqdff:0000000000000000 $t
-     /tmp/cc6Zupsd.s:595    .text.FF_GetVqdff:0000000000000000 FF_GetVqdff
-     /tmp/cc6Zupsd.s:628    .text.FF_GetVqdAvPIout:0000000000000000 $t
-     /tmp/cc6Zupsd.s:636    .text.FF_GetVqdAvPIout:0000000000000000 FF_GetVqdAvPIout
+     /tmp/cc6nzUni.s:18     .text.FF_Init:0000000000000000 $t
+     /tmp/cc6nzUni.s:26     .text.FF_Init:0000000000000000 FF_Init
+     /tmp/cc6nzUni.s:71     .text.FF_Clear:0000000000000000 $t
+     /tmp/cc6nzUni.s:78     .text.FF_Clear:0000000000000000 FF_Clear
+     /tmp/cc6nzUni.s:99     .text.FF_VqdffComputation:0000000000000000 $t
+     /tmp/cc6nzUni.s:106    .text.FF_VqdffComputation:0000000000000000 FF_VqdffComputation
+     /tmp/cc6nzUni.s:288    .text.FF_VqdffComputation:00000000000000a0 $d
+     /tmp/cc6nzUni.s:293    .text.FF_VqdConditioning:0000000000000000 $t
+     /tmp/cc6nzUni.s:300    .text.FF_VqdConditioning:0000000000000000 FF_VqdConditioning
+     /tmp/cc6nzUni.s:384    .text.FF_VqdConditioning:0000000000000050 $d
+     /tmp/cc6nzUni.s:389    .text.FF_DataProcess:0000000000000000 $t
+     /tmp/cc6nzUni.s:396    .text.FF_DataProcess:0000000000000000 FF_DataProcess
+     /tmp/cc6nzUni.s:447    .text.FF_InitFOCAdditionalMethods:0000000000000000 $t
+     /tmp/cc6nzUni.s:454    .text.FF_InitFOCAdditionalMethods:0000000000000000 FF_InitFOCAdditionalMethods
+     /tmp/cc6nzUni.s:496    .text.FF_SetFFConstants:0000000000000000 $t
+     /tmp/cc6nzUni.s:503    .text.FF_SetFFConstants:0000000000000000 FF_SetFFConstants
+     /tmp/cc6nzUni.s:537    .text.FF_GetFFConstants:0000000000000000 $t
+     /tmp/cc6nzUni.s:544    .text.FF_GetFFConstants:0000000000000000 FF_GetFFConstants
+     /tmp/cc6nzUni.s:587    .text.FF_GetVqdff:0000000000000000 $t
+     /tmp/cc6nzUni.s:594    .text.FF_GetVqdff:0000000000000000 FF_GetVqdff
+     /tmp/cc6nzUni.s:626    .text.FF_GetVqdAvPIout:0000000000000000 $t
+     /tmp/cc6nzUni.s:633    .text.FF_GetVqdAvPIout:0000000000000000 FF_GetVqdAvPIout
 
 UNDEFINED SYMBOLS
 SPD_GetElSpeedDpp

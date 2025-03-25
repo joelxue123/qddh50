@@ -1,4 +1,4 @@
-ARM GAS  /tmp/cc2PLTnc.s 			page 1
+ARM GAS  /tmp/ccSp4kH9.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -10,25 +10,24 @@ ARM GAS  /tmp/cc2PLTnc.s 			page 1
    7              		.eabi_attribute 24, 1
    8              		.eabi_attribute 25, 1
    9              		.eabi_attribute 26, 1
-  10              		.eabi_attribute 30, 2
+  10              		.eabi_attribute 30, 1
   11              		.eabi_attribute 34, 1
-  12              		.eabi_attribute 18, 4
+  12              		.eabi_attribute 18, 2
   13              		.file	"stm32g4xx_hal_msp.c"
   14              		.text
   15              	.Ltext0:
   16              		.cfi_sections	.debug_frame
   17              		.section	.text.HAL_MspInit,"ax",%progbits
   18              		.align	1
-  19              		.p2align 2,,3
-  20              		.global	HAL_MspInit
-  21              		.arch armv7e-m
-  22              		.syntax unified
-  23              		.thumb
-  24              		.thumb_func
-  25              		.fpu fpv4-sp-d16
-  27              	HAL_MspInit:
-  28              	.LFB1867:
-  29              		.file 1 "Src/stm32g4xx_hal_msp.c"
+  19              		.global	HAL_MspInit
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	HAL_MspInit:
+  27              	.LFB1867:
+  28              		.file 1 "Src/stm32g4xx_hal_msp.c"
    1:Src/stm32g4xx_hal_msp.c **** /* USER CODE BEGIN Header */
    2:Src/stm32g4xx_hal_msp.c **** /**
    3:Src/stm32g4xx_hal_msp.c ****   ******************************************************************************
@@ -58,10 +57,10 @@ ARM GAS  /tmp/cc2PLTnc.s 			page 1
   27:Src/stm32g4xx_hal_msp.c **** /* Private typedef -----------------------------------------------------------*/
   28:Src/stm32g4xx_hal_msp.c **** /* USER CODE BEGIN TD */
   29:Src/stm32g4xx_hal_msp.c **** 
-ARM GAS  /tmp/cc2PLTnc.s 			page 2
-
-
   30:Src/stm32g4xx_hal_msp.c **** /* USER CODE END TD */
+ARM GAS  /tmp/ccSp4kH9.s 			page 2
+
+
   31:Src/stm32g4xx_hal_msp.c **** 
   32:Src/stm32g4xx_hal_msp.c **** /* Private define ------------------------------------------------------------*/
   33:Src/stm32g4xx_hal_msp.c **** /* USER CODE BEGIN Define */
@@ -96,136 +95,113 @@ ARM GAS  /tmp/cc2PLTnc.s 			page 1
   62:Src/stm32g4xx_hal_msp.c ****   */
   63:Src/stm32g4xx_hal_msp.c **** void HAL_MspInit(void)
   64:Src/stm32g4xx_hal_msp.c **** {
-  30              		.loc 1 64 1 view -0
-  31              		.cfi_startproc
-  32              		@ args = 0, pretend = 0, frame = 8
-  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  29              		.loc 1 64 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 8
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33 0000 00B5     		push	{lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 4
+  36              		.cfi_offset 14, -4
+  37 0002 83B0     		sub	sp, sp, #12
+  38              	.LCFI1:
+  39              		.cfi_def_cfa_offset 16
   65:Src/stm32g4xx_hal_msp.c **** 
   66:Src/stm32g4xx_hal_msp.c ****   /* USER CODE BEGIN MspInit 0 */
   67:Src/stm32g4xx_hal_msp.c **** 
   68:Src/stm32g4xx_hal_msp.c ****   /* USER CODE END MspInit 0 */
   69:Src/stm32g4xx_hal_msp.c **** 
   70:Src/stm32g4xx_hal_msp.c ****   __HAL_RCC_SYSCFG_CLK_ENABLE();
-  34              		.loc 1 70 3 view .LVU1
-  35              	.LBB2:
-  36              		.loc 1 70 3 view .LVU2
-  37              		.loc 1 70 3 view .LVU3
-  38 0000 0F4B     		ldr	r3, .L4
-  39              	.LBE2:
-  64:Src/stm32g4xx_hal_msp.c **** 
-  40              		.loc 1 64 1 is_stmt 0 view .LVU4
-  41 0002 10B5     		push	{r4, lr}
-  42              	.LCFI0:
-  43              		.cfi_def_cfa_offset 8
-  44              		.cfi_offset 4, -8
-ARM GAS  /tmp/cc2PLTnc.s 			page 3
+  40              		.loc 1 70 3 view .LVU1
+  41              	.LBB2:
+  42              		.loc 1 70 3 view .LVU2
+  43              		.loc 1 70 3 view .LVU3
+  44 0004 0E4B     		ldr	r3, .L3
+  45 0006 1A6E     		ldr	r2, [r3, #96]
+ARM GAS  /tmp/ccSp4kH9.s 			page 3
 
 
-  45              		.cfi_offset 14, -4
-  46              	.LBB3:
-  47              		.loc 1 70 3 view .LVU5
-  48 0004 186E     		ldr	r0, [r3, #96]
-  49 0006 40F00100 		orr	r0, r0, #1
-  50 000a 1866     		str	r0, [r3, #96]
-  51              		.loc 1 70 3 is_stmt 1 view .LVU6
-  52 000c 1C6E     		ldr	r4, [r3, #96]
-  53              	.LBE3:
-  64:Src/stm32g4xx_hal_msp.c **** 
-  54              		.loc 1 64 1 is_stmt 0 view .LVU7
-  55 000e 82B0     		sub	sp, sp, #8
-  56              	.LCFI1:
-  57              		.cfi_def_cfa_offset 16
-  58              	.LBB4:
-  59              		.loc 1 70 3 view .LVU8
-  60 0010 04F00104 		and	r4, r4, #1
-  61 0014 0094     		str	r4, [sp]
-  62              		.loc 1 70 3 is_stmt 1 view .LVU9
-  63 0016 009C     		ldr	r4, [sp]
-  64              	.LBE4:
-  65              		.loc 1 70 3 view .LVU10
+  46 0008 42F00102 		orr	r2, r2, #1
+  47 000c 1A66     		str	r2, [r3, #96]
+  48              		.loc 1 70 3 view .LVU4
+  49 000e 1A6E     		ldr	r2, [r3, #96]
+  50 0010 02F00102 		and	r2, r2, #1
+  51 0014 0092     		str	r2, [sp]
+  52              		.loc 1 70 3 view .LVU5
+  53 0016 009A     		ldr	r2, [sp]
+  54              	.LBE2:
+  55              		.loc 1 70 3 view .LVU6
   71:Src/stm32g4xx_hal_msp.c ****   __HAL_RCC_PWR_CLK_ENABLE();
-  66              		.loc 1 71 3 view .LVU11
-  67              	.LBB5:
-  68              		.loc 1 71 3 view .LVU12
-  69              		.loc 1 71 3 view .LVU13
-  70 0018 9C6D     		ldr	r4, [r3, #88]
-  71 001a 44F08054 		orr	r4, r4, #268435456
-  72 001e 9C65     		str	r4, [r3, #88]
-  73              		.loc 1 71 3 view .LVU14
-  74 0020 9B6D     		ldr	r3, [r3, #88]
-  75 0022 03F08053 		and	r3, r3, #268435456
-  76 0026 0193     		str	r3, [sp, #4]
-  77              		.loc 1 71 3 view .LVU15
-  78              	.LBE5:
+  56              		.loc 1 71 3 view .LVU7
+  57              	.LBB3:
+  58              		.loc 1 71 3 view .LVU8
+  59              		.loc 1 71 3 view .LVU9
+  60 0018 9A6D     		ldr	r2, [r3, #88]
+  61 001a 42F08052 		orr	r2, r2, #268435456
+  62 001e 9A65     		str	r2, [r3, #88]
+  63              		.loc 1 71 3 view .LVU10
+  64 0020 9B6D     		ldr	r3, [r3, #88]
+  65 0022 03F08053 		and	r3, r3, #268435456
+  66 0026 0193     		str	r3, [sp, #4]
+  67              		.loc 1 71 3 view .LVU11
+  68 0028 019B     		ldr	r3, [sp, #4]
+  69              	.LBE3:
+  70              		.loc 1 71 3 view .LVU12
   72:Src/stm32g4xx_hal_msp.c **** 
   73:Src/stm32g4xx_hal_msp.c ****   /* System interrupt init*/
   74:Src/stm32g4xx_hal_msp.c ****   /* PendSV_IRQn interrupt configuration */
   75:Src/stm32g4xx_hal_msp.c ****   HAL_NVIC_SetPriority(PendSV_IRQn, 15, 0);
-  79              		.loc 1 75 3 is_stmt 0 view .LVU16
-  80 0028 0022     		movs	r2, #0
-  81 002a 0F21     		movs	r1, #15
-  82 002c 6FF00100 		mvn	r0, #1
-  83              	.LBB6:
-  71:Src/stm32g4xx_hal_msp.c ****   __HAL_RCC_PWR_CLK_ENABLE();
-  84              		.loc 1 71 3 view .LVU17
-  85 0030 019B     		ldr	r3, [sp, #4]
-  86              	.LBE6:
-  71:Src/stm32g4xx_hal_msp.c ****   __HAL_RCC_PWR_CLK_ENABLE();
-  87              		.loc 1 71 3 is_stmt 1 view .LVU18
-  88              		.loc 1 75 3 view .LVU19
-  89 0032 FFF7FEFF 		bl	HAL_NVIC_SetPriority
-  90              	.LVL0:
+  71              		.loc 1 75 3 view .LVU13
+  72 002a 0022     		movs	r2, #0
+  73 002c 0F21     		movs	r1, #15
+  74 002e 6FF00100 		mvn	r0, #1
+  75 0032 FFF7FEFF 		bl	HAL_NVIC_SetPriority
+  76              	.LVL0:
   76:Src/stm32g4xx_hal_msp.c **** 
   77:Src/stm32g4xx_hal_msp.c ****   /** Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral
   78:Src/stm32g4xx_hal_msp.c ****   */
-ARM GAS  /tmp/cc2PLTnc.s 			page 4
-
-
   79:Src/stm32g4xx_hal_msp.c ****   HAL_PWREx_DisableUCPDDeadBattery();
-  91              		.loc 1 79 3 view .LVU20
+  77              		.loc 1 79 3 view .LVU14
+  78 0036 FFF7FEFF 		bl	HAL_PWREx_DisableUCPDDeadBattery
+  79              	.LVL1:
   80:Src/stm32g4xx_hal_msp.c **** 
   81:Src/stm32g4xx_hal_msp.c ****   /* USER CODE BEGIN MspInit 1 */
   82:Src/stm32g4xx_hal_msp.c **** 
   83:Src/stm32g4xx_hal_msp.c ****   /* USER CODE END MspInit 1 */
   84:Src/stm32g4xx_hal_msp.c **** }
-  92              		.loc 1 84 1 is_stmt 0 view .LVU21
-  93 0036 02B0     		add	sp, sp, #8
-  94              	.LCFI2:
-  95              		.cfi_def_cfa_offset 8
-  96              		@ sp needed
-  97 0038 BDE81040 		pop	{r4, lr}
-  98              	.LCFI3:
-  99              		.cfi_restore 14
- 100              		.cfi_restore 4
- 101              		.cfi_def_cfa_offset 0
-  79:Src/stm32g4xx_hal_msp.c **** 
- 102              		.loc 1 79 3 view .LVU22
- 103 003c FFF7FEBF 		b	HAL_PWREx_DisableUCPDDeadBattery
- 104              	.LVL1:
- 105              	.L5:
- 106              		.align	2
- 107              	.L4:
- 108 0040 00100240 		.word	1073876992
- 109              		.cfi_endproc
- 110              	.LFE1867:
- 112              		.text
- 113              	.Letext0:
- 114              		.file 2 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
- 115              		.file 3 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
- 116              		.file 4 "Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g431xx.h"
- 117              		.file 5 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h"
- 118              		.file 6 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_usart.h"
- 119              		.file 7 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h"
- 120              		.file 8 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_cortex.h"
- 121              		.file 9 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_pwr_ex.h"
-ARM GAS  /tmp/cc2PLTnc.s 			page 5
+  80              		.loc 1 84 1 is_stmt 0 view .LVU15
+  81 003a 03B0     		add	sp, sp, #12
+  82              	.LCFI2:
+  83              		.cfi_def_cfa_offset 4
+  84              		@ sp needed
+  85 003c 5DF804FB 		ldr	pc, [sp], #4
+  86              	.L4:
+  87              		.align	2
+  88              	.L3:
+ARM GAS  /tmp/ccSp4kH9.s 			page 4
+
+
+  89 0040 00100240 		.word	1073876992
+  90              		.cfi_endproc
+  91              	.LFE1867:
+  93              		.text
+  94              	.Letext0:
+  95              		.file 2 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
+  96              		.file 3 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
+  97              		.file 4 "Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g431xx.h"
+  98              		.file 5 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h"
+  99              		.file 6 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_usart.h"
+ 100              		.file 7 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h"
+ 101              		.file 8 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_cortex.h"
+ 102              		.file 9 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_pwr_ex.h"
+ARM GAS  /tmp/ccSp4kH9.s 			page 5
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 stm32g4xx_hal_msp.c
-     /tmp/cc2PLTnc.s:18     .text.HAL_MspInit:0000000000000000 $t
-     /tmp/cc2PLTnc.s:27     .text.HAL_MspInit:0000000000000000 HAL_MspInit
-     /tmp/cc2PLTnc.s:108    .text.HAL_MspInit:0000000000000040 $d
+     /tmp/ccSp4kH9.s:18     .text.HAL_MspInit:0000000000000000 $t
+     /tmp/ccSp4kH9.s:26     .text.HAL_MspInit:0000000000000000 HAL_MspInit
+     /tmp/ccSp4kH9.s:89     .text.HAL_MspInit:0000000000000040 $d
 
 UNDEFINED SYMBOLS
 HAL_NVIC_SetPriority

@@ -47,7 +47,7 @@ osThreadId safetyHandle;
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
-
+int odrive_main(void);
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
@@ -121,6 +121,7 @@ int main(void)
   MX_USART1_UART_Init();
   MX_MotorControl_Init();
 
+
   /* Initialize interrupts */
   MX_NVIC_Init();
   /* USER CODE BEGIN 2 */
@@ -152,6 +153,9 @@ int main(void)
   osThreadDef(safety, StartSafetyTask, osPriorityAboveNormal, 0, 128);
   safetyHandle = osThreadCreate(osThread(safety), NULL);
 
+
+  //odrive_main();
+  
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
@@ -1005,6 +1009,9 @@ static void MX_TIM1_Init(void)
   GPIO_InitStruct.Alternate = LL_GPIO_AF_2;
   LL_GPIO_Init(M1_PWM_WH_GPIO_Port, &GPIO_InitStruct);
 
+
+
+  
 }
 
 /**

@@ -1,0 +1,2194 @@
+ARM GAS  /tmp/ccukGSIj.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 2
+  13              		.file	"can_encos.cpp"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text._Z16encos_ack_type_1RP4Axis,"ax",%progbits
+  18              		.align	1
+  19              		.global	_Z16encos_ack_type_1RP4Axis
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	_Z16encos_ack_type_1RP4Axis:
+  27              	.LVL0:
+  28              	.LFB5641:
+  29              		.file 1 "Src/can_encos.cpp"
+   1:Src/can_encos.cpp **** 
+   2:Src/can_encos.cpp **** #include "can_encos.hpp"
+   3:Src/can_encos.cpp **** #include "axis.hpp"  // Changed from forward declaration to full include
+   4:Src/can_encos.cpp **** #include "main_.hpp"
+   5:Src/can_encos.cpp **** 
+   6:Src/can_encos.cpp **** 
+   7:Src/can_encos.cpp **** typedef struct __attribute__((packed)) {
+   8:Src/can_encos.cpp ****     uint8_t kp_h  :5;
+   9:Src/can_encos.cpp ****     uint8_t mode  :3;
+  10:Src/can_encos.cpp ****     uint8_t kd_h  :1;
+  11:Src/can_encos.cpp ****     uint8_t kp_l  :7;
+  12:Src/can_encos.cpp ****     uint8_t kd_l  :8;
+  13:Src/can_encos.cpp ****     uint8_t pos_h :8;
+  14:Src/can_encos.cpp ****     uint8_t pos_l :8;
+  15:Src/can_encos.cpp ****     uint8_t vel_h :8;
+  16:Src/can_encos.cpp ****     uint8_t tor_h :4;
+  17:Src/can_encos.cpp ****     uint8_t vel_l :4;
+  18:Src/can_encos.cpp ****     uint8_t tor_l :8;
+  19:Src/can_encos.cpp **** } encos_cmd_pvt_t;
+  20:Src/can_encos.cpp **** 
+  21:Src/can_encos.cpp **** typedef struct __attribute__((packed)) {
+  22:Src/can_encos.cpp ****     uint8_t ack_type :2;
+  23:Src/can_encos.cpp ****     uint8_t          :3;
+  24:Src/can_encos.cpp ****     uint8_t mode     :3;
+  25:Src/can_encos.cpp **** } encos_curr_brake_cmd_t;
+  26:Src/can_encos.cpp **** 
+  27:Src/can_encos.cpp **** void encos_ack_type_1(Axis* &axis)
+  28:Src/can_encos.cpp **** {
+  30              		.loc 1 28 1 view -0
+ARM GAS  /tmp/ccukGSIj.s 			page 2
+
+
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 32
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		.loc 1 28 1 is_stmt 0 view .LVU1
+  35 0000 30B5     		push	{r4, r5, lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 12
+  38              		.cfi_offset 4, -12
+  39              		.cfi_offset 5, -8
+  40              		.cfi_offset 14, -4
+  41 0002 89B0     		sub	sp, sp, #36
+  42              	.LCFI1:
+  43              		.cfi_def_cfa_offset 48
+  44 0004 0546     		mov	r5, r0
+  29:Src/can_encos.cpp ****     Axis::axis_state_t state;
+  45              		.loc 1 29 5 is_stmt 1 view .LVU2
+  30:Src/can_encos.cpp ****     can_Message_t txmsg;
+  46              		.loc 1 30 5 view .LVU3
+  47              		.loc 1 30 19 is_stmt 0 view .LVU4
+  48 0006 204B     		ldr	r3, .L3
+  49 0008 01AC     		add	r4, sp, #4
+  50 000a 0FCB     		ldm	r3, {r0, r1, r2, r3}
+  51              	.LVL1:
+  52              		.loc 1 30 19 view .LVU5
+  53 000c 84E80F00 		stm	r4, {r0, r1, r2, r3}
+  31:Src/can_encos.cpp **** 
+  32:Src/can_encos.cpp ****     axis->get_axis_state(&state);
+  54              		.loc 1 32 5 is_stmt 1 view .LVU6
+  55              		.loc 1 32 25 is_stmt 0 view .LVU7
+  56 0010 05A9     		add	r1, sp, #20
+  57 0012 2868     		ldr	r0, [r5]
+  58 0014 FFF7FEFF 		bl	_ZN4Axis14get_axis_stateEPNS_12axis_state_tE
+  59              	.LVL2:
+  33:Src/can_encos.cpp **** 
+  34:Src/can_encos.cpp ****     txmsg.id = axis->config_.can_node_id;
+  60              		.loc 1 34 5 is_stmt 1 view .LVU8
+  61              		.loc 1 34 22 is_stmt 0 view .LVU9
+  62 0018 2B68     		ldr	r3, [r5]
+  63 001a 5B68     		ldr	r3, [r3, #4]
+  64              		.loc 1 34 14 view .LVU10
+  65 001c 1A6F     		ldr	r2, [r3, #112]
+  66 001e 0192     		str	r2, [sp, #4]
+  35:Src/can_encos.cpp ****     txmsg.isExt = axis->config_.can_node_id_extended;
+  67              		.loc 1 35 5 is_stmt 1 view .LVU11
+  68              		.loc 1 35 17 is_stmt 0 view .LVU12
+  69 0020 93F87430 		ldrb	r3, [r3, #116]	@ zero_extendqisi2
+  70 0024 8DF80830 		strb	r3, [sp, #8]
+  36:Src/can_encos.cpp ****     txmsg.len = 8;
+  71              		.loc 1 36 5 is_stmt 1 view .LVU13
+  72              		.loc 1 36 15 is_stmt 0 view .LVU14
+  73 0028 0823     		movs	r3, #8
+  74 002a 8DF80A30 		strb	r3, [sp, #10]
+  37:Src/can_encos.cpp ****     txmsg.buf[0] = state.erro & ((1 << 5) - 1);
+  75              		.loc 1 37 5 is_stmt 1 view .LVU15
+  38:Src/can_encos.cpp ****     txmsg.buf[0] |= 1 << 5;
+  76              		.loc 1 38 5 view .LVU16
+  37:Src/can_encos.cpp ****     txmsg.buf[0] = state.erro & ((1 << 5) - 1);
+ARM GAS  /tmp/ccukGSIj.s 			page 3
+
+
+  77              		.loc 1 37 31 is_stmt 0 view .LVU17
+  78 002e 9DF81430 		ldrb	r3, [sp, #20]	@ zero_extendqisi2
+  79 0032 03F01F03 		and	r3, r3, #31
+  80              		.loc 1 38 18 view .LVU18
+  81 0036 43F02003 		orr	r3, r3, #32
+  82 003a 8DF80B30 		strb	r3, [sp, #11]
+  39:Src/can_encos.cpp ****     txmsg.buf[1] = state.pos >> 8;
+  83              		.loc 1 39 5 is_stmt 1 view .LVU19
+  84              		.loc 1 39 26 is_stmt 0 view .LVU20
+  85 003e BDF81630 		ldrh	r3, [sp, #22]
+  86              		.loc 1 39 30 view .LVU21
+  87 0042 1A0A     		lsrs	r2, r3, #8
+  88              		.loc 1 39 18 view .LVU22
+  89 0044 8DF80C20 		strb	r2, [sp, #12]
+  40:Src/can_encos.cpp ****     txmsg.buf[2] = state.pos & 0xFF;
+  90              		.loc 1 40 5 is_stmt 1 view .LVU23
+  91              		.loc 1 40 18 is_stmt 0 view .LVU24
+  92 0048 8DF80D30 		strb	r3, [sp, #13]
+  41:Src/can_encos.cpp ****     txmsg.buf[3] = state.vel >> 4;
+  93              		.loc 1 41 5 is_stmt 1 view .LVU25
+  94              		.loc 1 41 26 is_stmt 0 view .LVU26
+  95 004c BDF81810 		ldrh	r1, [sp, #24]
+  96              		.loc 1 41 30 view .LVU27
+  97 0050 0B09     		lsrs	r3, r1, #4
+  98              		.loc 1 41 18 view .LVU28
+  99 0052 8DF80E30 		strb	r3, [sp, #14]
+  42:Src/can_encos.cpp ****     txmsg.buf[4] = state.vel << 4;
+ 100              		.loc 1 42 5 is_stmt 1 view .LVU29
+  43:Src/can_encos.cpp ****     txmsg.buf[4] |= state.cur >> 8;
+ 101              		.loc 1 43 5 view .LVU30
+ 102              		.loc 1 43 27 is_stmt 0 view .LVU31
+ 103 0056 BDF81A20 		ldrh	r2, [sp, #26]
+ 104              		.loc 1 43 31 view .LVU32
+ 105 005a 130A     		lsrs	r3, r2, #8
+ 106              		.loc 1 43 18 view .LVU33
+ 107 005c 43EA0113 		orr	r3, r3, r1, lsl #4
+ 108 0060 8DF80F30 		strb	r3, [sp, #15]
+  44:Src/can_encos.cpp ****     txmsg.buf[5] = state.cur & 0xFF;
+ 109              		.loc 1 44 5 is_stmt 1 view .LVU34
+ 110              		.loc 1 44 18 is_stmt 0 view .LVU35
+ 111 0064 8DF81020 		strb	r2, [sp, #16]
+  45:Src/can_encos.cpp ****     txmsg.buf[6] = state.motor_temperature;
+ 112              		.loc 1 45 5 is_stmt 1 view .LVU36
+ 113              		.loc 1 45 18 is_stmt 0 view .LVU37
+ 114 0068 9DF81C30 		ldrb	r3, [sp, #28]	@ zero_extendqisi2
+ 115 006c 8DF81130 		strb	r3, [sp, #17]
+  46:Src/can_encos.cpp ****     txmsg.buf[7] = state.mos_temperature;
+ 116              		.loc 1 46 5 is_stmt 1 view .LVU38
+ 117              		.loc 1 46 18 is_stmt 0 view .LVU39
+ 118 0070 9DF81D30 		ldrb	r3, [sp, #29]	@ zero_extendqisi2
+ 119 0074 8DF81230 		strb	r3, [sp, #18]
+  47:Src/can_encos.cpp **** 
+  48:Src/can_encos.cpp ****     odCAN->write(txmsg);
+ 120              		.loc 1 48 5 is_stmt 1 view .LVU40
+ 121              		.loc 1 48 17 is_stmt 0 view .LVU41
+ 122 0078 2146     		mov	r1, r4
+ 123 007a 044B     		ldr	r3, .L3+4
+ARM GAS  /tmp/ccukGSIj.s 			page 4
+
+
+ 124 007c 1868     		ldr	r0, [r3]
+ 125 007e FFF7FEFF 		bl	_ZN9ODriveCAN5writeER13can_Message_t
+ 126              	.LVL3:
+  49:Src/can_encos.cpp **** }
+ 127              		.loc 1 49 1 view .LVU42
+ 128 0082 09B0     		add	sp, sp, #36
+ 129              	.LCFI2:
+ 130              		.cfi_def_cfa_offset 12
+ 131              		@ sp needed
+ 132 0084 30BD     		pop	{r4, r5, pc}
+ 133              	.LVL4:
+ 134              	.L4:
+ 135              		.loc 1 49 1 view .LVU43
+ 136 0086 00BF     		.align	2
+ 137              	.L3:
+ 138 0088 00000000 		.word	.LANCHOR0
+ 139 008c 00000000 		.word	odCAN
+ 140              		.cfi_endproc
+ 141              	.LFE5641:
+ 143              		.section	.text._Z16encos_cmd_handleRP4AxisR13can_Message_t,"ax",%progbits
+ 144              		.align	1
+ 145              		.global	_Z16encos_cmd_handleRP4AxisR13can_Message_t
+ 146              		.syntax unified
+ 147              		.thumb
+ 148              		.thumb_func
+ 149              		.fpu fpv4-sp-d16
+ 151              	_Z16encos_cmd_handleRP4AxisR13can_Message_t:
+ 152              	.LVL5:
+ 153              	.LFB5645:
+  50:Src/can_encos.cpp **** 
+  51:Src/can_encos.cpp **** void encos_cmd_handle(Axis* &axis, can_Message_t& msg)
+  52:Src/can_encos.cpp **** {
+ 154              		.loc 1 52 1 is_stmt 1 view -0
+ 155              		.cfi_startproc
+ 156              		@ args = 0, pretend = 0, frame = 16
+ 157              		@ frame_needed = 0, uses_anonymous_args = 0
+ 158              		.loc 1 52 1 is_stmt 0 view .LVU45
+ 159 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 160              	.LCFI3:
+ 161              		.cfi_def_cfa_offset 20
+ 162              		.cfi_offset 4, -20
+ 163              		.cfi_offset 5, -16
+ 164              		.cfi_offset 6, -12
+ 165              		.cfi_offset 7, -8
+ 166              		.cfi_offset 14, -4
+ 167 0002 85B0     		sub	sp, sp, #20
+ 168              	.LCFI4:
+ 169              		.cfi_def_cfa_offset 40
+ 170 0004 0746     		mov	r7, r0
+ 171 0006 0C46     		mov	r4, r1
+  53:Src/can_encos.cpp ****     if (axis->config_.can_node_id == msg.id) {
+ 172              		.loc 1 53 5 is_stmt 1 view .LVU46
+ 173              	.LBB39:
+ 174              		.loc 1 53 9 is_stmt 0 view .LVU47
+ 175 0008 0668     		ldr	r6, [r0]
+ 176              		.loc 1 53 15 view .LVU48
+ 177 000a 7268     		ldr	r2, [r6, #4]
+ARM GAS  /tmp/ccukGSIj.s 			page 5
+
+
+ 178              		.loc 1 53 23 view .LVU49
+ 179 000c 156F     		ldr	r5, [r2, #112]
+ 180              		.loc 1 53 42 view .LVU50
+ 181 000e 0B68     		ldr	r3, [r1]
+ 182              		.loc 1 53 5 view .LVU51
+ 183 0010 9D42     		cmp	r5, r3
+ 184 0012 0AD0     		beq	.L26
+ 185              	.LBE39:
+  54:Src/can_encos.cpp ****     switch (msg.len) {
+  55:Src/can_encos.cpp ****         case 3:
+  56:Src/can_encos.cpp ****             {
+  57:Src/can_encos.cpp ****                 encos_curr_brake_cmd_t *cmd = (encos_curr_brake_cmd_t *)&(msg.buf[0]);
+  58:Src/can_encos.cpp ****                 switch (cmd->mode) {
+  59:Src/can_encos.cpp ****                 case 3:// 手册描述能耗制动，但实际测试用来设置电流
+  60:Src/can_encos.cpp ****                     axis->set_axis_current((msg.buf[1] << 8) + msg.buf[2]);
+  61:Src/can_encos.cpp ****                     break;
+  62:Src/can_encos.cpp ****                 }
+  63:Src/can_encos.cpp ****                 
+  64:Src/can_encos.cpp ****                 switch (cmd->ack_type) {
+  65:Src/can_encos.cpp ****                 case 1:
+  66:Src/can_encos.cpp ****                     encos_ack_type_1(axis);
+  67:Src/can_encos.cpp ****                     break;
+  68:Src/can_encos.cpp ****                 }
+  69:Src/can_encos.cpp ****             }
+  70:Src/can_encos.cpp ****             break;
+  71:Src/can_encos.cpp ****         case 8:
+  72:Src/can_encos.cpp ****             switch (msg.buf[0] >> 5) {
+  73:Src/can_encos.cpp ****             case 0:
+  74:Src/can_encos.cpp ****                 {
+  75:Src/can_encos.cpp ****                     encos_cmd_pvt_t *cmd = (encos_cmd_pvt_t *)msg.buf;
+  76:Src/can_encos.cpp ****                     Axis::axis_pvt_parm_t pvt_parm;
+  77:Src/can_encos.cpp **** 
+  78:Src/can_encos.cpp ****                     encos_ack_type_1(axis);
+  79:Src/can_encos.cpp **** 
+  80:Src/can_encos.cpp ****                     pvt_parm.kp = (cmd->kp_h << 7) + cmd->kp_l;
+  81:Src/can_encos.cpp ****                     pvt_parm.kd = (cmd->kd_h << 8) + cmd->kd_l;
+  82:Src/can_encos.cpp ****                     pvt_parm.pos_setpoint = (cmd->pos_h << 8) + cmd->pos_l;
+  83:Src/can_encos.cpp ****                     pvt_parm.vel_setpoint = (cmd->vel_h << 4) + cmd->vel_l;
+  84:Src/can_encos.cpp ****                     pvt_parm.torque_setpoint = (cmd->tor_h << 8) + cmd->tor_l;
+  85:Src/can_encos.cpp ****                     axis->set_axis_pvt_parm(&pvt_parm);
+  86:Src/can_encos.cpp ****                 }
+  87:Src/can_encos.cpp ****                 break;
+  88:Src/can_encos.cpp ****             }
+  89:Src/can_encos.cpp ****             break;
+  90:Src/can_encos.cpp ****         }
+  91:Src/can_encos.cpp ****     } else if (0x7FF == msg.id) {
+ 186              		.loc 1 91 12 is_stmt 1 view .LVU52
+ 187              	.LBB126:
+ 188              	.LBB40:
+ 189 0014 40F2FF71 		movw	r1, #2047
+ 190              	.LVL6:
+ 191              		.loc 1 91 12 is_stmt 0 view .LVU53
+ 192 0018 8B42     		cmp	r3, r1
+ 193 001a 4FD0     		beq	.L27
+ 194              	.LBE40:
+ 195              	.LBE126:
+  92:Src/can_encos.cpp ****         switch (msg.len) {
+ARM GAS  /tmp/ccukGSIj.s 			page 6
+
+
+  93:Src/can_encos.cpp ****         case 4:
+  94:Src/can_encos.cpp ****             {
+  95:Src/can_encos.cpp ****                 if (0xFF == msg.buf[0] && 0xFF == msg.buf[1] && 0x00 == msg.buf[2] && 0x82 == msg.b
+  96:Src/can_encos.cpp ****                     uint32_t id;
+  97:Src/can_encos.cpp ****                     bool success = axis->get_nodeID(id);
+  98:Src/can_encos.cpp ****                     can_Message_t txmsg;
+  99:Src/can_encos.cpp ****                     txmsg.id = 0x7FF;
+ 100:Src/can_encos.cpp ****                     txmsg.isExt = axis->config_.can_node_id_extended;
+ 101:Src/can_encos.cpp ****                     if (success) {
+ 102:Src/can_encos.cpp ****                         txmsg.len = 5;
+ 103:Src/can_encos.cpp ****                         txmsg.buf[0] = 0xFF;
+ 104:Src/can_encos.cpp ****                         txmsg.buf[1] = 0xFF;
+ 105:Src/can_encos.cpp ****                         txmsg.buf[2] = 0x01;
+ 106:Src/can_encos.cpp ****                         txmsg.buf[3] = id >> 8;
+ 107:Src/can_encos.cpp ****                         txmsg.buf[4] = id & 0xFF;
+ 108:Src/can_encos.cpp ****                     } else {
+ 109:Src/can_encos.cpp ****                         txmsg.len = 4;
+ 110:Src/can_encos.cpp ****                         txmsg.buf[0] = 0x80;
+ 111:Src/can_encos.cpp ****                         txmsg.buf[1] = 0x80;
+ 112:Src/can_encos.cpp ****                         txmsg.buf[2] = 0x01;
+ 113:Src/can_encos.cpp ****                         txmsg.buf[3] = 0x80;
+ 114:Src/can_encos.cpp ****                     }
+ 115:Src/can_encos.cpp ****                     odCAN->write(txmsg);
+ 116:Src/can_encos.cpp ****                 } else {
+ 117:Src/can_encos.cpp ****                     uint32_t id = (msg.buf[0] << 8) + msg.buf[1];
+ 118:Src/can_encos.cpp ****                     if (axis->config_.can_node_id == id) {
+ 119:Src/can_encos.cpp ****                         if (0 == msg.buf[2] && 3 == msg.buf[3]) {
+ 120:Src/can_encos.cpp ****                             // 设置零位
+ 121:Src/can_encos.cpp ****                             bool success = axis->set_offset();
+ 122:Src/can_encos.cpp ****                             if(success)
+ 123:Src/can_encos.cpp ****                             {
+ 124:Src/can_encos.cpp ****                                 save_configuration();
+ 125:Src/can_encos.cpp ****                             }
+ 126:Src/can_encos.cpp ****                             
+ 127:Src/can_encos.cpp ****                             can_Message_t txmsg;
+ 128:Src/can_encos.cpp ****                             txmsg.id = 0x7FF;
+ 129:Src/can_encos.cpp ****                             txmsg.isExt = axis->config_.can_node_id_extended;
+ 130:Src/can_encos.cpp ****                             txmsg.len = 4;
+ 131:Src/can_encos.cpp ****                             txmsg.buf[0] = axis->config_.can_node_id >> 8;
+ 132:Src/can_encos.cpp ****                             txmsg.buf[1] = axis->config_.can_node_id & 0xFF;
+ 133:Src/can_encos.cpp ****                             txmsg.buf[2] = 0x01;
+ 134:Src/can_encos.cpp ****                             txmsg.buf[3] = success ? 3 : 0;
+ 135:Src/can_encos.cpp ****                             odCAN->write(txmsg);
+ 136:Src/can_encos.cpp ****                         }
+ 137:Src/can_encos.cpp ****                     }
+ 138:Src/can_encos.cpp ****                 }
+ 139:Src/can_encos.cpp ****             }
+ 140:Src/can_encos.cpp ****             break;
+ 141:Src/can_encos.cpp ****         case 6:
+ 142:Src/can_encos.cpp ****             {
+ 143:Src/can_encos.cpp ****                 if (0x7F == msg.buf[0] && 0x7F == msg.buf[1] && 0 == msg.buf[2] && 5 == msg.buf[3] 
+ 144:Src/can_encos.cpp ****                     // 重置ID为1
+ 145:Src/can_encos.cpp ****                     if (axis->set_nodeID(1)) {
+ 146:Src/can_encos.cpp ****                         save_configuration();
+ 147:Src/can_encos.cpp ****                         can_Message_t txmsg;
+ 148:Src/can_encos.cpp ****                         txmsg.id = 0x7FF;
+ 149:Src/can_encos.cpp ****                         txmsg.isExt = axis->config_.can_node_id_extended;
+ARM GAS  /tmp/ccukGSIj.s 			page 7
+
+
+ 150:Src/can_encos.cpp ****                         txmsg.len = 6;
+ 151:Src/can_encos.cpp ****                         txmsg.buf[0] = 0x7F;
+ 152:Src/can_encos.cpp ****                         txmsg.buf[1] = 0x7F;
+ 153:Src/can_encos.cpp ****                         txmsg.buf[2] = 0x01;
+ 154:Src/can_encos.cpp ****                         txmsg.buf[3] = 0x05;
+ 155:Src/can_encos.cpp ****                         txmsg.buf[4] = 0x7F;
+ 156:Src/can_encos.cpp ****                         txmsg.buf[5] = 0x7F;
+ 157:Src/can_encos.cpp ****                         odCAN->write(txmsg);
+ 158:Src/can_encos.cpp ****                     }
+ 159:Src/can_encos.cpp ****                 } else {
+ 160:Src/can_encos.cpp ****                 uint32_t id = (msg.buf[0] << 8) + msg.buf[1];
+ 161:Src/can_encos.cpp ****                 if (axis->config_.can_node_id == id) {
+ 162:Src/can_encos.cpp ****                     if (0 == msg.buf[2] && 4 == msg.buf[3]) {
+ 163:Src/can_encos.cpp ****                         // 设置ID
+ 164:Src/can_encos.cpp ****                         uint32_t new_id = (msg.buf[4] << 8) + msg.buf[5];
+ 165:Src/can_encos.cpp ****                         bool success = false;
+ 166:Src/can_encos.cpp ****                         if (new_id < 0x7FF && new_id > 0) {
+ 167:Src/can_encos.cpp ****                             success = axis->set_nodeID(new_id);
+ 168:Src/can_encos.cpp ****                             if(success)
+ 169:Src/can_encos.cpp ****                             {
+ 170:Src/can_encos.cpp ****                                 save_configuration();
+ 171:Src/can_encos.cpp ****                             }
+ 172:Src/can_encos.cpp ****                             
+ 173:Src/can_encos.cpp ****                         }
+ 174:Src/can_encos.cpp ****                         can_Message_t txmsg;
+ 175:Src/can_encos.cpp ****                         txmsg.id = 0x7FF;
+ 176:Src/can_encos.cpp ****                         txmsg.isExt = axis->config_.can_node_id_extended;
+ 177:Src/can_encos.cpp ****                         txmsg.len = 4;
+ 178:Src/can_encos.cpp ****                         txmsg.buf[2] = 0x01;
+ 179:Src/can_encos.cpp ****                         if (success) {
+ 180:Src/can_encos.cpp ****                             txmsg.buf[0] = new_id >> 8;
+ 181:Src/can_encos.cpp ****                             txmsg.buf[1] = new_id & 0xFF;
+ 182:Src/can_encos.cpp ****                             txmsg.buf[3] = 4;
+ 183:Src/can_encos.cpp ****                         } else {
+ 184:Src/can_encos.cpp ****                             txmsg.buf[0] = id >> 8;
+ 185:Src/can_encos.cpp ****                             txmsg.buf[1] = id & 0xFF;
+ 186:Src/can_encos.cpp ****                             txmsg.buf[3] = 0;
+ 187:Src/can_encos.cpp ****                         }
+ 188:Src/can_encos.cpp ****                         odCAN->write(txmsg);
+ 189:Src/can_encos.cpp ****                     }
+ 190:Src/can_encos.cpp ****                     }
+ 191:Src/can_encos.cpp ****                 }
+ 192:Src/can_encos.cpp ****             }
+ 193:Src/can_encos.cpp ****             break;
+ 194:Src/can_encos.cpp ****         }
+ 195:Src/can_encos.cpp ****     } else if (0x7FE == msg.id && msg.len >= 3) {
+ 196              		.loc 1 195 12 is_stmt 1 view .LVU54
+ 197              	.LBB127:
+ 198              	.LBB108:
+ 199              	.LBB41:
+ 200 001c 40F2FE71 		movw	r1, #2046
+ 201 0020 8B42     		cmp	r3, r1
+ 202 0022 00F03B81 		beq	.L28
+ 203              	.LVL7:
+ 204              	.L5:
+ 205              		.loc 1 195 12 is_stmt 0 view .LVU55
+ 206              	.LBE41:
+ARM GAS  /tmp/ccukGSIj.s 			page 8
+
+
+ 207              	.LBE108:
+ 208              	.LBE127:
+ 196:Src/can_encos.cpp ****         uint32_t id = (msg.buf[0] << 8) + msg.buf[1];
+ 197:Src/can_encos.cpp ****         if (axis->config_.can_node_id == id) {
+ 198:Src/can_encos.cpp ****             uint8_t index = msg.buf[2];
+ 199:Src/can_encos.cpp ****             bool success = false;
+ 200:Src/can_encos.cpp **** 
+ 201:Src/can_encos.cpp ****             if (0xFF == index) {
+ 202:Src/can_encos.cpp ****                     save_configuration();
+ 203:Src/can_encos.cpp ****                 success = true;
+ 204:Src/can_encos.cpp ****             } else if (index < sizeof(axis->config_.ext_cfg) / sizeof(axis->config_.ext_cfg[0])) {
+ 205:Src/can_encos.cpp ****                 if (7 == msg.len){
+ 206:Src/can_encos.cpp ****                     uint32_t value = (msg.buf[3] << 24) + (msg.buf[4] << 16) + (msg.buf[5] << 8) + 
+ 207:Src/can_encos.cpp ****                     axis->config_.ext_cfg[index] = value;
+ 208:Src/can_encos.cpp ****                     success = true;
+ 209:Src/can_encos.cpp **** 
+ 210:Src/can_encos.cpp ****                 }
+ 211:Src/can_encos.cpp ****             }
+ 212:Src/can_encos.cpp **** 
+ 213:Src/can_encos.cpp ****             can_Message_t txmsg;
+ 214:Src/can_encos.cpp ****             txmsg.id = 0x7FE;
+ 215:Src/can_encos.cpp ****             txmsg.isExt = axis->config_.can_node_id_extended;
+ 216:Src/can_encos.cpp ****             txmsg.len = 4;
+ 217:Src/can_encos.cpp ****             txmsg.buf[0] = msg.buf[0];
+ 218:Src/can_encos.cpp ****             txmsg.buf[1] = msg.buf[1];
+ 219:Src/can_encos.cpp ****             txmsg.buf[2] = msg.buf[2];
+ 220:Src/can_encos.cpp ****             txmsg.buf[3] = success;
+ 221:Src/can_encos.cpp ****             odCAN->write(txmsg);
+ 222:Src/can_encos.cpp ****         }
+ 223:Src/can_encos.cpp ****     }
+ 224:Src/can_encos.cpp **** }
+ 209              		.loc 1 224 1 view .LVU56
+ 210 0026 05B0     		add	sp, sp, #20
+ 211              	.LCFI5:
+ 212              		.cfi_remember_state
+ 213              		.cfi_def_cfa_offset 20
+ 214              		@ sp needed
+ 215 0028 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 216              	.LVL8:
+ 217              	.L26:
+ 218              	.LCFI6:
+ 219              		.cfi_restore_state
+  54:Src/can_encos.cpp ****         case 3:
+ 220              		.loc 1 54 5 is_stmt 1 view .LVU57
+ 221              	.LBB128:
+ 222              	.LBB109:
+  54:Src/can_encos.cpp ****         case 3:
+ 223              		.loc 1 54 17 is_stmt 0 view .LVU58
+ 224 002a 8B79     		ldrb	r3, [r1, #6]	@ zero_extendqisi2
+  54:Src/can_encos.cpp ****         case 3:
+ 225              		.loc 1 54 5 view .LVU59
+ 226 002c 032B     		cmp	r3, #3
+ 227 002e 2FD0     		beq	.L7
+ 228 0030 082B     		cmp	r3, #8
+ 229 0032 F8D1     		bne	.L5
+ 230              	.LBE109:
+ 231              	.LBE128:
+ARM GAS  /tmp/ccukGSIj.s 			page 9
+
+
+  71:Src/can_encos.cpp ****             switch (msg.buf[0] >> 5) {
+ 232              		.loc 1 71 9 is_stmt 1 view .LVU60
+  72:Src/can_encos.cpp ****             case 0:
+ 233              		.loc 1 72 13 view .LVU61
+ 234              	.LBB129:
+ 235              	.LBB114:
+ 236              	.LBB110:
+  72:Src/can_encos.cpp ****             case 0:
+ 237              		.loc 1 72 32 is_stmt 0 view .LVU62
+ 238 0034 CB79     		ldrb	r3, [r1, #7]	@ zero_extendqisi2
+ 239 0036 5B09     		lsrs	r3, r3, #5
+ 240 0038 F5D1     		bne	.L5
+ 241              	.LBB111:
+  73:Src/can_encos.cpp ****                 {
+ 242              		.loc 1 73 13 is_stmt 1 discriminator 5 view .LVU63
+  74:Src/can_encos.cpp ****                     encos_cmd_pvt_t *cmd = (encos_cmd_pvt_t *)msg.buf;
+ 243              		.loc 1 74 17 discriminator 5 view .LVU64
+ 244              	.LBB112:
+  75:Src/can_encos.cpp ****                     Axis::axis_pvt_parm_t pvt_parm;
+ 245              		.loc 1 75 21 discriminator 5 view .LVU65
+ 246              	.LVL9:
+  76:Src/can_encos.cpp **** 
+ 247              		.loc 1 76 21 discriminator 5 view .LVU66
+  78:Src/can_encos.cpp **** 
+ 248              		.loc 1 78 21 discriminator 5 view .LVU67
+  78:Src/can_encos.cpp **** 
+ 249              		.loc 1 78 37 is_stmt 0 discriminator 5 view .LVU68
+ 250 003a FFF7FEFF 		bl	_Z16encos_ack_type_1RP4Axis
+ 251              	.LVL10:
+  80:Src/can_encos.cpp ****                     pvt_parm.kd = (cmd->kd_h << 8) + cmd->kd_l;
+ 252              		.loc 1 80 21 is_stmt 1 discriminator 5 view .LVU69
+  80:Src/can_encos.cpp ****                     pvt_parm.kd = (cmd->kd_h << 8) + cmd->kd_l;
+ 253              		.loc 1 80 41 is_stmt 0 discriminator 5 view .LVU70
+ 254 003e E279     		ldrb	r2, [r4, #7]	@ zero_extendqisi2
+ 255 0040 02F01F01 		and	r1, r2, #31
+  80:Src/can_encos.cpp ****                     pvt_parm.kd = (cmd->kd_h << 8) + cmd->kd_l;
+ 256              		.loc 1 80 59 discriminator 5 view .LVU71
+ 257 0044 237A     		ldrb	r3, [r4, #8]	@ zero_extendqisi2
+ 258 0046 5A08     		lsrs	r2, r3, #1
+  80:Src/can_encos.cpp ****                     pvt_parm.kd = (cmd->kd_h << 8) + cmd->kd_l;
+ 259              		.loc 1 80 52 discriminator 5 view .LVU72
+ 260 0048 02EBC112 		add	r2, r2, r1, lsl #7
+  80:Src/can_encos.cpp ****                     pvt_parm.kd = (cmd->kd_h << 8) + cmd->kd_l;
+ 261              		.loc 1 80 33 discriminator 5 view .LVU73
+ 262 004c ADF80020 		strh	r2, [sp]	@ movhi
+  81:Src/can_encos.cpp ****                     pvt_parm.pos_setpoint = (cmd->pos_h << 8) + cmd->pos_l;
+ 263              		.loc 1 81 21 is_stmt 1 discriminator 5 view .LVU74
+  81:Src/can_encos.cpp ****                     pvt_parm.pos_setpoint = (cmd->pos_h << 8) + cmd->pos_l;
+ 264              		.loc 1 81 41 is_stmt 0 discriminator 5 view .LVU75
+ 265 0050 03F00103 		and	r3, r3, #1
+  81:Src/can_encos.cpp ****                     pvt_parm.pos_setpoint = (cmd->pos_h << 8) + cmd->pos_l;
+ 266              		.loc 1 81 59 discriminator 5 view .LVU76
+ 267 0054 627A     		ldrb	r2, [r4, #9]	@ zero_extendqisi2
+  81:Src/can_encos.cpp ****                     pvt_parm.pos_setpoint = (cmd->pos_h << 8) + cmd->pos_l;
+ 268              		.loc 1 81 52 discriminator 5 view .LVU77
+ 269 0056 02EB0323 		add	r3, r2, r3, lsl #8
+  81:Src/can_encos.cpp ****                     pvt_parm.pos_setpoint = (cmd->pos_h << 8) + cmd->pos_l;
+ARM GAS  /tmp/ccukGSIj.s 			page 10
+
+
+ 270              		.loc 1 81 33 discriminator 5 view .LVU78
+ 271 005a ADF80230 		strh	r3, [sp, #2]	@ movhi
+  82:Src/can_encos.cpp ****                     pvt_parm.vel_setpoint = (cmd->vel_h << 4) + cmd->vel_l;
+ 272              		.loc 1 82 21 is_stmt 1 discriminator 5 view .LVU79
+  82:Src/can_encos.cpp ****                     pvt_parm.vel_setpoint = (cmd->vel_h << 4) + cmd->vel_l;
+ 273              		.loc 1 82 51 is_stmt 0 discriminator 5 view .LVU80
+ 274 005e A27A     		ldrb	r2, [r4, #10]	@ zero_extendqisi2
+  82:Src/can_encos.cpp ****                     pvt_parm.vel_setpoint = (cmd->vel_h << 4) + cmd->vel_l;
+ 275              		.loc 1 82 70 discriminator 5 view .LVU81
+ 276 0060 E37A     		ldrb	r3, [r4, #11]	@ zero_extendqisi2
+  82:Src/can_encos.cpp ****                     pvt_parm.vel_setpoint = (cmd->vel_h << 4) + cmd->vel_l;
+ 277              		.loc 1 82 63 discriminator 5 view .LVU82
+ 278 0062 03EB0223 		add	r3, r3, r2, lsl #8
+  82:Src/can_encos.cpp ****                     pvt_parm.vel_setpoint = (cmd->vel_h << 4) + cmd->vel_l;
+ 279              		.loc 1 82 43 discriminator 5 view .LVU83
+ 280 0066 ADF80430 		strh	r3, [sp, #4]	@ movhi
+  83:Src/can_encos.cpp ****                     pvt_parm.torque_setpoint = (cmd->tor_h << 8) + cmd->tor_l;
+ 281              		.loc 1 83 21 is_stmt 1 discriminator 5 view .LVU84
+  83:Src/can_encos.cpp ****                     pvt_parm.torque_setpoint = (cmd->tor_h << 8) + cmd->tor_l;
+ 282              		.loc 1 83 51 is_stmt 0 discriminator 5 view .LVU85
+ 283 006a 217B     		ldrb	r1, [r4, #12]	@ zero_extendqisi2
+  83:Src/can_encos.cpp ****                     pvt_parm.torque_setpoint = (cmd->tor_h << 8) + cmd->tor_l;
+ 284              		.loc 1 83 70 discriminator 5 view .LVU86
+ 285 006c 637B     		ldrb	r3, [r4, #13]	@ zero_extendqisi2
+ 286 006e 1A09     		lsrs	r2, r3, #4
+  83:Src/can_encos.cpp ****                     pvt_parm.torque_setpoint = (cmd->tor_h << 8) + cmd->tor_l;
+ 287              		.loc 1 83 63 discriminator 5 view .LVU87
+ 288 0070 02EB0112 		add	r2, r2, r1, lsl #4
+  83:Src/can_encos.cpp ****                     pvt_parm.torque_setpoint = (cmd->tor_h << 8) + cmd->tor_l;
+ 289              		.loc 1 83 43 discriminator 5 view .LVU88
+ 290 0074 ADF80620 		strh	r2, [sp, #6]	@ movhi
+  84:Src/can_encos.cpp ****                     axis->set_axis_pvt_parm(&pvt_parm);
+ 291              		.loc 1 84 21 is_stmt 1 discriminator 5 view .LVU89
+  84:Src/can_encos.cpp ****                     axis->set_axis_pvt_parm(&pvt_parm);
+ 292              		.loc 1 84 54 is_stmt 0 discriminator 5 view .LVU90
+ 293 0078 03F00F03 		and	r3, r3, #15
+  84:Src/can_encos.cpp ****                     axis->set_axis_pvt_parm(&pvt_parm);
+ 294              		.loc 1 84 73 discriminator 5 view .LVU91
+ 295 007c A27B     		ldrb	r2, [r4, #14]	@ zero_extendqisi2
+  84:Src/can_encos.cpp ****                     axis->set_axis_pvt_parm(&pvt_parm);
+ 296              		.loc 1 84 66 discriminator 5 view .LVU92
+ 297 007e 02EB0323 		add	r3, r2, r3, lsl #8
+  84:Src/can_encos.cpp ****                     axis->set_axis_pvt_parm(&pvt_parm);
+ 298              		.loc 1 84 46 discriminator 5 view .LVU93
+ 299 0082 ADF80830 		strh	r3, [sp, #8]	@ movhi
+  85:Src/can_encos.cpp ****                 }
+ 300              		.loc 1 85 21 is_stmt 1 discriminator 5 view .LVU94
+  85:Src/can_encos.cpp ****                 }
+ 301              		.loc 1 85 44 is_stmt 0 discriminator 5 view .LVU95
+ 302 0086 6946     		mov	r1, sp
+ 303 0088 3868     		ldr	r0, [r7]
+ 304 008a FFF7FEFF 		bl	_ZN4Axis17set_axis_pvt_parmEPNS_15axis_pvt_parm_tE
+ 305              	.LVL11:
+ 306              	.LBE112:
+  87:Src/can_encos.cpp ****             }
+ 307              		.loc 1 87 17 is_stmt 1 discriminator 5 view .LVU96
+ 308 008e CAE7     		b	.L5
+ARM GAS  /tmp/ccukGSIj.s 			page 11
+
+
+ 309              	.LVL12:
+ 310              	.L7:
+  87:Src/can_encos.cpp ****             }
+ 311              		.loc 1 87 17 is_stmt 0 discriminator 5 view .LVU97
+ 312              	.LBE111:
+ 313              	.LBE110:
+ 314              	.LBE114:
+ 315              	.LBE129:
+  55:Src/can_encos.cpp ****             {
+ 316              		.loc 1 55 9 is_stmt 1 view .LVU98
+  56:Src/can_encos.cpp ****                 encos_curr_brake_cmd_t *cmd = (encos_curr_brake_cmd_t *)&(msg.buf[0]);
+ 317              		.loc 1 56 13 view .LVU99
+ 318              	.LBB130:
+ 319              	.LBB115:
+ 320              	.LBB113:
+  57:Src/can_encos.cpp ****                 switch (cmd->mode) {
+ 321              		.loc 1 57 17 view .LVU100
+  58:Src/can_encos.cpp ****                 case 3:// 手册描述能耗制动，但实际测试用来设置电流
+ 322              		.loc 1 58 17 view .LVU101
+  58:Src/can_encos.cpp ****                 case 3:// 手册描述能耗制动，但实际测试用来设置电流
+ 323              		.loc 1 58 30 is_stmt 0 view .LVU102
+ 324 0090 CB79     		ldrb	r3, [r1, #7]	@ zero_extendqisi2
+ 325 0092 5B09     		lsrs	r3, r3, #5
+ 326 0094 032B     		cmp	r3, #3
+ 327 0096 08D0     		beq	.L29
+ 328              	.LVL13:
+ 329              	.L10:
+  64:Src/can_encos.cpp ****                 case 1:
+ 330              		.loc 1 64 17 is_stmt 1 discriminator 1 view .LVU103
+  64:Src/can_encos.cpp ****                 case 1:
+ 331              		.loc 1 64 30 is_stmt 0 discriminator 1 view .LVU104
+ 332 0098 E379     		ldrb	r3, [r4, #7]	@ zero_extendqisi2
+ 333 009a 03F00303 		and	r3, r3, #3
+ 334 009e 012B     		cmp	r3, #1
+ 335 00a0 C1D1     		bne	.L5
+  65:Src/can_encos.cpp ****                     encos_ack_type_1(axis);
+ 336              		.loc 1 65 17 is_stmt 1 view .LVU105
+  66:Src/can_encos.cpp ****                     break;
+ 337              		.loc 1 66 21 view .LVU106
+  66:Src/can_encos.cpp ****                     break;
+ 338              		.loc 1 66 37 is_stmt 0 view .LVU107
+ 339 00a2 3846     		mov	r0, r7
+ 340 00a4 FFF7FEFF 		bl	_Z16encos_ack_type_1RP4Axis
+ 341              	.LVL14:
+  67:Src/can_encos.cpp ****                 }
+ 342              		.loc 1 67 21 is_stmt 1 view .LVU108
+ 343 00a8 BDE7     		b	.L5
+ 344              	.LVL15:
+ 345              	.L29:
+  59:Src/can_encos.cpp ****                     axis->set_axis_current((msg.buf[1] << 8) + msg.buf[2]);
+ 346              		.loc 1 59 17 view .LVU109
+  60:Src/can_encos.cpp ****                     break;
+ 347              		.loc 1 60 21 view .LVU110
+  60:Src/can_encos.cpp ****                     break;
+ 348              		.loc 1 60 54 is_stmt 0 view .LVU111
+ 349 00aa 0B7A     		ldrb	r3, [r1, #8]	@ zero_extendqisi2
+  60:Src/can_encos.cpp ****                     break;
+ARM GAS  /tmp/ccukGSIj.s 			page 12
+
+
+ 350              		.loc 1 60 73 view .LVU112
+ 351 00ac 497A     		ldrb	r1, [r1, #9]	@ zero_extendqisi2
+ 352              	.LVL16:
+  60:Src/can_encos.cpp ****                     break;
+ 353              		.loc 1 60 62 view .LVU113
+ 354 00ae 01EB0321 		add	r1, r1, r3, lsl #8
+  60:Src/can_encos.cpp ****                     break;
+ 355              		.loc 1 60 43 view .LVU114
+ 356 00b2 09B2     		sxth	r1, r1
+ 357 00b4 3046     		mov	r0, r6
+ 358              	.LVL17:
+  60:Src/can_encos.cpp ****                     break;
+ 359              		.loc 1 60 43 view .LVU115
+ 360 00b6 FFF7FEFF 		bl	_ZN4Axis16set_axis_currentEs
+ 361              	.LVL18:
+  61:Src/can_encos.cpp ****                 }
+ 362              		.loc 1 61 21 is_stmt 1 view .LVU116
+ 363 00ba EDE7     		b	.L10
+ 364              	.LVL19:
+ 365              	.L27:
+  61:Src/can_encos.cpp ****                 }
+ 366              		.loc 1 61 21 is_stmt 0 view .LVU117
+ 367              	.LBE113:
+ 368              	.LBE115:
+ 369              	.LBE130:
+  92:Src/can_encos.cpp ****         case 4:
+ 370              		.loc 1 92 9 is_stmt 1 view .LVU118
+ 371              	.LBB131:
+ 372              	.LBB116:
+ 373              	.LBB61:
+  92:Src/can_encos.cpp ****         case 4:
+ 374              		.loc 1 92 21 is_stmt 0 view .LVU119
+ 375 00bc A379     		ldrb	r3, [r4, #6]	@ zero_extendqisi2
+  92:Src/can_encos.cpp ****         case 4:
+ 376              		.loc 1 92 9 view .LVU120
+ 377 00be 042B     		cmp	r3, #4
+ 378 00c0 47D0     		beq	.L12
+ 379 00c2 062B     		cmp	r3, #6
+ 380 00c4 AFD1     		bne	.L5
+ 381              	.LBE61:
+ 382              	.LBE116:
+ 383              	.LBE131:
+ 141:Src/can_encos.cpp ****             {
+ 384              		.loc 1 141 9 is_stmt 1 view .LVU121
+ 142:Src/can_encos.cpp ****                 if (0x7F == msg.buf[0] && 0x7F == msg.buf[1] && 0 == msg.buf[2] && 5 == msg.buf[3] 
+ 385              		.loc 1 142 13 view .LVU122
+ 143:Src/can_encos.cpp ****                     // 重置ID为1
+ 386              		.loc 1 143 17 view .LVU123
+ 387              	.LBB132:
+ 388              	.LBB117:
+ 389              	.LBB98:
+ 390              	.LBB62:
+ 143:Src/can_encos.cpp ****                     // 重置ID为1
+ 391              		.loc 1 143 38 is_stmt 0 view .LVU124
+ 392 00c6 E379     		ldrb	r3, [r4, #7]	@ zero_extendqisi2
+ 143:Src/can_encos.cpp ****                     // 重置ID为1
+ 393              		.loc 1 143 17 view .LVU125
+ARM GAS  /tmp/ccukGSIj.s 			page 13
+
+
+ 394 00c8 7F2B     		cmp	r3, #127
+ 395 00ca 00F0AF80 		beq	.L30
+ 396              	.LVL20:
+ 397              	.L17:
+ 398              	.LBB63:
+ 160:Src/can_encos.cpp ****                 if (axis->config_.can_node_id == id) {
+ 399              		.loc 1 160 17 is_stmt 1 view .LVU126
+ 160:Src/can_encos.cpp ****                 if (axis->config_.can_node_id == id) {
+ 400              		.loc 1 160 60 is_stmt 0 view .LVU127
+ 401 00ce 94F808C0 		ldrb	ip, [r4, #8]	@ zero_extendqisi2
+ 160:Src/can_encos.cpp ****                 if (axis->config_.can_node_id == id) {
+ 402              		.loc 1 160 49 view .LVU128
+ 403 00d2 0CEB032C 		add	ip, ip, r3, lsl #8
+ 404              	.LVL21:
+ 161:Src/can_encos.cpp ****                     if (0 == msg.buf[2] && 4 == msg.buf[3]) {
+ 405              		.loc 1 161 17 is_stmt 1 view .LVU129
+ 406              	.LBB64:
+ 407 00d6 6545     		cmp	r5, ip
+ 408 00d8 A5D1     		bne	.L5
+ 409              	.LBE64:
+ 410              	.LBE63:
+ 411              	.LBE62:
+ 412              	.LBE98:
+ 413              	.LBE117:
+ 414              	.LBE132:
+ 162:Src/can_encos.cpp ****                         // 设置ID
+ 415              		.loc 1 162 21 view .LVU130
+ 416              	.LBB133:
+ 417              	.LBB118:
+ 418              	.LBB99:
+ 419              	.LBB79:
+ 420              	.LBB73:
+ 421              	.LBB71:
+ 422              	.LBB65:
+ 162:Src/can_encos.cpp ****                         // 设置ID
+ 423              		.loc 1 162 41 is_stmt 0 view .LVU131
+ 424 00da A368     		ldr	r3, [r4, #8]
+ 425 00dc 23F07F43 		bic	r3, r3, #-16777216
+ 426 00e0 23F0FF03 		bic	r3, r3, #255
+ 162:Src/can_encos.cpp ****                         // 设置ID
+ 427              		.loc 1 162 21 view .LVU132
+ 428 00e4 B3F5802F 		cmp	r3, #262144
+ 429 00e8 9DD1     		bne	.L5
+ 430              	.LBB66:
+ 164:Src/can_encos.cpp ****                         bool success = false;
+ 431              		.loc 1 164 25 is_stmt 1 view .LVU133
+ 164:Src/can_encos.cpp ****                         bool success = false;
+ 432              		.loc 1 164 53 is_stmt 0 view .LVU134
+ 433 00ea E37A     		ldrb	r3, [r4, #11]	@ zero_extendqisi2
+ 164:Src/can_encos.cpp ****                         bool success = false;
+ 434              		.loc 1 164 72 view .LVU135
+ 435 00ec 247B     		ldrb	r4, [r4, #12]	@ zero_extendqisi2
+ 436              	.LVL22:
+ 164:Src/can_encos.cpp ****                         bool success = false;
+ 437              		.loc 1 164 61 view .LVU136
+ 438 00ee 04EB0324 		add	r4, r4, r3, lsl #8
+ 439              	.LVL23:
+ARM GAS  /tmp/ccukGSIj.s 			page 14
+
+
+ 165:Src/can_encos.cpp ****                         if (new_id < 0x7FF && new_id > 0) {
+ 440              		.loc 1 165 25 is_stmt 1 view .LVU137
+ 166:Src/can_encos.cpp ****                             success = axis->set_nodeID(new_id);
+ 441              		.loc 1 166 25 view .LVU138
+ 166:Src/can_encos.cpp ****                             success = axis->set_nodeID(new_id);
+ 442              		.loc 1 166 44 is_stmt 0 view .LVU139
+ 443 00f2 611E     		subs	r1, r4, #1
+ 166:Src/can_encos.cpp ****                             success = axis->set_nodeID(new_id);
+ 444              		.loc 1 166 25 view .LVU140
+ 445 00f4 40F2FD73 		movw	r3, #2045
+ 446 00f8 9942     		cmp	r1, r3
+ 447 00fa 00F21A81 		bhi	.L18
+ 167:Src/can_encos.cpp ****                             if(success)
+ 448              		.loc 1 167 29 is_stmt 1 view .LVU141
+ 449              	.LVL24:
+ 450              	.LBB67:
+ 451              	.LBI67:
+ 452              		.file 2 "Inc/axis.hpp"
+   1:Inc/axis.hpp  **** #ifndef __AXIS_HPP
+   2:Inc/axis.hpp  **** #define __AXIS_HPP
+   3:Inc/axis.hpp  **** 
+   4:Inc/axis.hpp  **** 
+   5:Inc/axis.hpp  **** #include "task_timer.hpp"
+   6:Inc/axis.hpp  **** #include <array>
+   7:Inc/axis.hpp  **** #include "interfaces.hpp"
+   8:Inc/axis.hpp  **** #include "open_loop_controller.hpp"
+   9:Inc/axis.hpp  **** #include <functional>
+  10:Inc/axis.hpp  **** #include "low_level.h"  // Add this for safety_critical_disarm_motor_pwm declaration
+  11:Inc/axis.hpp  **** #include  "current_limiter.hpp"
+  12:Inc/axis.hpp  **** #include "utils.hpp"
+  13:Inc/axis.hpp  **** 
+  14:Inc/axis.hpp  **** class Motor;
+  15:Inc/axis.hpp  **** class Controller;
+  16:Inc/axis.hpp  **** class Encoder;
+  17:Inc/axis.hpp  **** class OpenLoopController;
+  18:Inc/axis.hpp  **** class  OnboardThermistorCurrentLimiter;
+  19:Inc/axis.hpp  **** class  OffboardThermistorCurrentLimiter;
+  20:Inc/axis.hpp  **** class ThermistorCurrentLimiter;
+  21:Inc/axis.hpp  **** 
+  22:Inc/axis.hpp  **** class Axis : public ODriveIntf::AxisIntf{
+  23:Inc/axis.hpp  **** public:
+  24:Inc/axis.hpp  ****     struct LockinConfig_t {
+  25:Inc/axis.hpp  ****         float current = 10.0f;           // [A]
+  26:Inc/axis.hpp  ****         float ramp_time = 0.4f;          // [s]
+  27:Inc/axis.hpp  ****         float ramp_distance = 1 * M_PI;  // [rad]
+  28:Inc/axis.hpp  ****         float accel = 20.0f;     // [rad/s^2]
+  29:Inc/axis.hpp  ****         float vel = 40.0f; // [rad/s]
+  30:Inc/axis.hpp  ****         float finish_distance = 100.0f;  // [rad]
+  31:Inc/axis.hpp  ****         bool finish_on_vel = false;
+  32:Inc/axis.hpp  ****         bool finish_on_distance = false;
+  33:Inc/axis.hpp  ****         bool finish_on_enc_idx = false;
+  34:Inc/axis.hpp  ****     };
+  35:Inc/axis.hpp  ****     struct TaskTimes {
+  36:Inc/axis.hpp  ****         TaskTimer thermistor_update;
+  37:Inc/axis.hpp  ****         TaskTimer encoder_update;
+  38:Inc/axis.hpp  ****         TaskTimer sensorless_estimator_update;
+  39:Inc/axis.hpp  ****         TaskTimer endstop_update;
+ARM GAS  /tmp/ccukGSIj.s 			page 15
+
+
+  40:Inc/axis.hpp  ****         TaskTimer can_heartbeat;
+  41:Inc/axis.hpp  ****         TaskTimer controller_update;
+  42:Inc/axis.hpp  ****         TaskTimer open_loop_controller_update;
+  43:Inc/axis.hpp  ****         TaskTimer acim_estimator_update;
+  44:Inc/axis.hpp  ****         TaskTimer motor_update;
+  45:Inc/axis.hpp  ****         TaskTimer current_controller_update;
+  46:Inc/axis.hpp  ****         TaskTimer dc_calib;
+  47:Inc/axis.hpp  ****         TaskTimer current_sense;
+  48:Inc/axis.hpp  ****         TaskTimer pwm_update;
+  49:Inc/axis.hpp  ****     };
+  50:Inc/axis.hpp  **** 
+  51:Inc/axis.hpp  **** 
+  52:Inc/axis.hpp  **** 
+  53:Inc/axis.hpp  **** 
+  54:Inc/axis.hpp  **** 
+  55:Inc/axis.hpp  ****    enum ENCOS_ERRO
+  56:Inc/axis.hpp  ****    {
+  57:Inc/axis.hpp  ****       ENCOS_ERROR_NONE = 0,
+  58:Inc/axis.hpp  ****       ENCOS_ERROR_OVER_TEMP = 1,
+  59:Inc/axis.hpp  ****       ENCOS_ERROR_CURRENT_LIMIT_VIOLATION =2,
+  60:Inc/axis.hpp  ****       ENCOS_ERROR_DC_BUS_UNDER_VOLTAGE =3,
+  61:Inc/axis.hpp  ****       ENCOS_ERROR_ABS_SPI_COM_FAIL=4,
+  62:Inc/axis.hpp  ****       ENCOS_ERROR_DC_BUS_OVER_VOLTAGE =6,
+  63:Inc/axis.hpp  ****       ENCOS_ERROR_DRV_FAULT=7,
+  64:Inc/axis.hpp  ****    };
+  65:Inc/axis.hpp  **** 
+  66:Inc/axis.hpp  **** 
+  67:Inc/axis.hpp  **** 
+  68:Inc/axis.hpp  ****     static constexpr uint32_t PARAM_LEN = 128;
+  69:Inc/axis.hpp  ****     enum EXT_CONFIG_REG
+  70:Inc/axis.hpp  ****     {
+  71:Inc/axis.hpp  ****         EXT_CONFIG_REG_ENABLE_NOTCH_FILTER = 0,
+  72:Inc/axis.hpp  ****         EXT_CONFIG_REG_ENABLE_DC_BUS_OVER_VOLTAGE_FILTER = 1,
+  73:Inc/axis.hpp  ****         EXT_CONFIG_REG_ENABLE_DC_BUS_UNDER_VOLTAGE_FILTER = 2,
+  74:Inc/axis.hpp  ****         EXT_CONFIG_REG_ENABLE_OVER_TEMP_FILTER = 3,
+  75:Inc/axis.hpp  ****         EXT_CONFIG_REG_ENABLE_CURRENT_LIMIT_VIOLATION_FILTER = 4
+  76:Inc/axis.hpp  ****     };
+  77:Inc/axis.hpp  **** 
+  78:Inc/axis.hpp  **** 
+  79:Inc/axis.hpp  **** 
+  80:Inc/axis.hpp  ****     static LockinConfig_t default_calibration();
+  81:Inc/axis.hpp  ****     static LockinConfig_t default_sensorless();
+  82:Inc/axis.hpp  ****     static LockinConfig_t default_lockin();
+  83:Inc/axis.hpp  **** 
+  84:Inc/axis.hpp  ****     struct Config_t {
+  85:Inc/axis.hpp  ****         bool startup_motor_calibration = false;   //<! run motor calibration at startup, skip other
+  86:Inc/axis.hpp  ****         bool startup_encoder_index_search = false; //<! run encoder index search after startup, ski
+  87:Inc/axis.hpp  ****                                                 // this only has an effect if encoder.config.use_in
+  88:Inc/axis.hpp  ****         bool startup_encoder_offset_calibration = false; //<! run encoder offset calibration after 
+  89:Inc/axis.hpp  ****         bool startup_closed_loop_control = false; //<! enable closed loop control after calibration
+  90:Inc/axis.hpp  ****         bool startup_sensorless_control = false; //<! enable sensorless control after calibration/s
+  91:Inc/axis.hpp  ****         bool startup_homing = false; //<! enable homing after calibration/startup
+  92:Inc/axis.hpp  **** 
+  93:Inc/axis.hpp  ****         bool enable_step_dir = false; //<! enable step/dir input after calibration
+  94:Inc/axis.hpp  ****                                     //   For M0 this has no effect if enable_uart is true
+  95:Inc/axis.hpp  ****         bool step_dir_always_on = false; //<! Keep step/dir enabled while the motor is disabled.
+  96:Inc/axis.hpp  ****                                          //<! This is ignored if enable_step_dir is false.
+ARM GAS  /tmp/ccukGSIj.s 			page 16
+
+
+  97:Inc/axis.hpp  ****                                          //<! This setting only takes effect on a state transition
+  98:Inc/axis.hpp  ****                                          //<! into idle or out of closed loop control.
+  99:Inc/axis.hpp  **** 
+ 100:Inc/axis.hpp  ****         float turns_per_step = 1.0f / 1024.0f;
+ 101:Inc/axis.hpp  **** 
+ 102:Inc/axis.hpp  ****         bool enable_sensorless_mode = false;
+ 103:Inc/axis.hpp  ****         float watchdog_timeout = 1.0f; // [s]
+ 104:Inc/axis.hpp  ****         bool enable_watchdog = true;
+ 105:Inc/axis.hpp  ****         
+ 106:Inc/axis.hpp  ****         // Defaults loaded from hw_config in load_configuration in main.cpp
+ 107:Inc/axis.hpp  ****         uint16_t step_gpio_pin = 0;
+ 108:Inc/axis.hpp  ****         uint16_t dir_gpio_pin = 0;
+ 109:Inc/axis.hpp  **** 
+ 110:Inc/axis.hpp  ****         LockinConfig_t calibration_lockin = default_calibration();
+ 111:Inc/axis.hpp  ****         LockinConfig_t sensorless_ramp = default_sensorless();
+ 112:Inc/axis.hpp  ****         LockinConfig_t general_lockin;
+ 113:Inc/axis.hpp  ****         uint32_t can_node_id = 1; // Both axes will have the same id to start
+ 114:Inc/axis.hpp  ****         bool can_node_id_extended = false;
+ 115:Inc/axis.hpp  ****         uint32_t can_heartbeat_rate_ms = 100;
+ 116:Inc/axis.hpp  ****         uint32_t offset;       
+ 117:Inc/axis.hpp  ****         
+ 118:Inc/axis.hpp  ****         uint32_t ext_cfg[PARAM_LEN];
+ 119:Inc/axis.hpp  ****         float position_base = 12.5f;
+ 120:Inc/axis.hpp  ****         float speed_base = 18.0f;
+ 121:Inc/axis.hpp  ****         float current_base = 60.0f;    
+ 122:Inc/axis.hpp  ****         bool  gear_vel_used = false;    
+ 123:Inc/axis.hpp  ****         // custom setters
+ 124:Inc/axis.hpp  ****         Axis* parent = nullptr;
+ 125:Inc/axis.hpp  ****         void set_step_gpio_pin(uint16_t value) { step_gpio_pin = value; parent->decode_step_dir_pin
+ 126:Inc/axis.hpp  ****         void set_dir_gpio_pin(uint16_t value) { dir_gpio_pin = value; parent->decode_step_dir_pins(
+ 127:Inc/axis.hpp  ****     };
+ 128:Inc/axis.hpp  **** 
+ 129:Inc/axis.hpp  ****     struct Homing_t {
+ 130:Inc/axis.hpp  ****         bool is_homed = false;
+ 131:Inc/axis.hpp  ****     };
+ 132:Inc/axis.hpp  **** 
+ 133:Inc/axis.hpp  ****     struct axis_state_t {
+ 134:Inc/axis.hpp  ****         
+ 135:Inc/axis.hpp  ****         uint8_t erro;
+ 136:Inc/axis.hpp  ****         uint16_t pos;
+ 137:Inc/axis.hpp  ****         uint16_t vel;
+ 138:Inc/axis.hpp  ****         uint16_t cur;
+ 139:Inc/axis.hpp  ****         uint8_t motor_temperature;
+ 140:Inc/axis.hpp  ****         uint8_t mos_temperature;
+ 141:Inc/axis.hpp  ****     };
+ 142:Inc/axis.hpp  ****     void get_axis_state(axis_state_t* state);
+ 143:Inc/axis.hpp  **** 
+ 144:Inc/axis.hpp  ****     struct axis_pvt_parm_t {
+ 145:Inc/axis.hpp  ****         
+ 146:Inc/axis.hpp  ****         uint16_t kp;
+ 147:Inc/axis.hpp  ****         uint16_t kd;
+ 148:Inc/axis.hpp  ****         uint16_t pos_setpoint;
+ 149:Inc/axis.hpp  ****         uint16_t vel_setpoint;
+ 150:Inc/axis.hpp  ****         uint16_t torque_setpoint;
+ 151:Inc/axis.hpp  ****     };
+ 152:Inc/axis.hpp  **** 
+ 153:Inc/axis.hpp  **** void set_axis_pvt_parm(axis_pvt_parm_t *axis_pvt_parm);
+ARM GAS  /tmp/ccukGSIj.s 			page 17
+
+
+ 154:Inc/axis.hpp  **** void set_axis_current(int16_t current); // 单位 0.01A
+ 155:Inc/axis.hpp  **** bool set_offset(void);
+ 156:Inc/axis.hpp  **** bool set_nodeID(uint32_t id) {
+ 453              		.loc 2 156 6 view .LVU142
+ 454              	.LBB68:
+ 157:Inc/axis.hpp  ****     if(current_state_ != AXIS_STATE_IDLE)
+ 455              		.loc 2 157 5 view .LVU143
+ 456              		.loc 2 157 8 is_stmt 0 view .LVU144
+ 457 00fe D6F88C31 		ldr	r3, [r6, #396]
+ 458              		.loc 2 157 5 view .LVU145
+ 459 0102 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 460 0104 012B     		cmp	r3, #1
+ 461 0106 40F01481 		bne	.L18
+ 158:Inc/axis.hpp  ****         return false;
+ 159:Inc/axis.hpp  ****     config_.can_node_id = id;
+ 462              		.loc 2 159 5 is_stmt 1 view .LVU146
+ 463              		.loc 2 159 25 is_stmt 0 view .LVU147
+ 464 010a 1467     		str	r4, [r2, #112]
+ 160:Inc/axis.hpp  ****     return true; 
+ 465              		.loc 2 160 5 is_stmt 1 view .LVU148
+ 466              	.LVL25:
+ 467              		.loc 2 160 5 is_stmt 0 view .LVU149
+ 468              	.LBE68:
+ 469              	.LBE67:
+ 168:Src/can_encos.cpp ****                             {
+ 470              		.loc 1 168 29 is_stmt 1 view .LVU150
+ 170:Src/can_encos.cpp ****                             }
+ 471              		.loc 1 170 33 view .LVU151
+ 170:Src/can_encos.cpp ****                             }
+ 472              		.loc 1 170 51 is_stmt 0 view .LVU152
+ 473 010c FFF7FEFF 		bl	_Z18save_configurationv
+ 474              	.LVL26:
+ 174:Src/can_encos.cpp ****                         txmsg.id = 0x7FF;
+ 475              		.loc 1 174 25 is_stmt 1 view .LVU153
+ 174:Src/can_encos.cpp ****                         txmsg.id = 0x7FF;
+ 476              		.loc 1 174 39 is_stmt 0 view .LVU154
+ 477 0110 954B     		ldr	r3, .L35
+ 478 0112 0FCB     		ldm	r3, {r0, r1, r2, r3}
+ 479 0114 04AD     		add	r5, sp, #16
+ 480 0116 05E90F00 		stmdb	r5, {r0, r1, r2, r3}
+ 175:Src/can_encos.cpp ****                         txmsg.isExt = axis->config_.can_node_id_extended;
+ 481              		.loc 1 175 25 is_stmt 1 view .LVU155
+ 175:Src/can_encos.cpp ****                         txmsg.isExt = axis->config_.can_node_id_extended;
+ 482              		.loc 1 175 34 is_stmt 0 view .LVU156
+ 483 011a 40F2FF73 		movw	r3, #2047
+ 484 011e 0093     		str	r3, [sp]
+ 176:Src/can_encos.cpp ****                         txmsg.len = 4;
+ 485              		.loc 1 176 25 is_stmt 1 view .LVU157
+ 176:Src/can_encos.cpp ****                         txmsg.len = 4;
+ 486              		.loc 1 176 45 is_stmt 0 view .LVU158
+ 487 0120 3B68     		ldr	r3, [r7]
+ 176:Src/can_encos.cpp ****                         txmsg.len = 4;
+ 488              		.loc 1 176 53 view .LVU159
+ 489 0122 5B68     		ldr	r3, [r3, #4]
+ 176:Src/can_encos.cpp ****                         txmsg.len = 4;
+ 490              		.loc 1 176 37 view .LVU160
+ 491 0124 93F87430 		ldrb	r3, [r3, #116]	@ zero_extendqisi2
+ARM GAS  /tmp/ccukGSIj.s 			page 18
+
+
+ 492 0128 8DF80430 		strb	r3, [sp, #4]
+ 177:Src/can_encos.cpp ****                         txmsg.buf[2] = 0x01;
+ 493              		.loc 1 177 25 is_stmt 1 view .LVU161
+ 177:Src/can_encos.cpp ****                         txmsg.buf[2] = 0x01;
+ 494              		.loc 1 177 35 is_stmt 0 view .LVU162
+ 495 012c 0423     		movs	r3, #4
+ 496 012e 8DF80630 		strb	r3, [sp, #6]
+ 178:Src/can_encos.cpp ****                         if (success) {
+ 497              		.loc 1 178 25 is_stmt 1 view .LVU163
+ 178:Src/can_encos.cpp ****                         if (success) {
+ 498              		.loc 1 178 38 is_stmt 0 view .LVU164
+ 499 0132 0122     		movs	r2, #1
+ 500 0134 8DF80920 		strb	r2, [sp, #9]
+ 179:Src/can_encos.cpp ****                             txmsg.buf[0] = new_id >> 8;
+ 501              		.loc 1 179 25 is_stmt 1 view .LVU165
+ 180:Src/can_encos.cpp ****                             txmsg.buf[1] = new_id & 0xFF;
+ 502              		.loc 1 180 29 view .LVU166
+ 180:Src/can_encos.cpp ****                             txmsg.buf[1] = new_id & 0xFF;
+ 503              		.loc 1 180 51 is_stmt 0 view .LVU167
+ 504 0138 220A     		lsrs	r2, r4, #8
+ 180:Src/can_encos.cpp ****                             txmsg.buf[1] = new_id & 0xFF;
+ 505              		.loc 1 180 42 view .LVU168
+ 506 013a 8DF80720 		strb	r2, [sp, #7]
+ 181:Src/can_encos.cpp ****                             txmsg.buf[3] = 4;
+ 507              		.loc 1 181 29 is_stmt 1 view .LVU169
+ 181:Src/can_encos.cpp ****                             txmsg.buf[3] = 4;
+ 508              		.loc 1 181 42 is_stmt 0 view .LVU170
+ 509 013e 8DF80840 		strb	r4, [sp, #8]
+ 182:Src/can_encos.cpp ****                         } else {
+ 510              		.loc 1 182 29 is_stmt 1 view .LVU171
+ 182:Src/can_encos.cpp ****                         } else {
+ 511              		.loc 1 182 42 is_stmt 0 view .LVU172
+ 512 0142 8DF80A30 		strb	r3, [sp, #10]
+ 513              	.LVL27:
+ 514              	.L21:
+ 188:Src/can_encos.cpp ****                     }
+ 515              		.loc 1 188 25 is_stmt 1 view .LVU173
+ 188:Src/can_encos.cpp ****                     }
+ 516              		.loc 1 188 37 is_stmt 0 view .LVU174
+ 517 0146 6946     		mov	r1, sp
+ 518 0148 884B     		ldr	r3, .L35+4
+ 519 014a 1868     		ldr	r0, [r3]
+ 520 014c FFF7FEFF 		bl	_ZN9ODriveCAN5writeER13can_Message_t
+ 521              	.LVL28:
+ 522              	.LBE66:
+ 523 0150 69E7     		b	.L5
+ 524              	.LVL29:
+ 525              	.L12:
+ 188:Src/can_encos.cpp ****                     }
+ 526              		.loc 1 188 37 view .LVU175
+ 527              	.LBE65:
+ 528              	.LBE71:
+ 529              	.LBE73:
+ 530              	.LBE79:
+ 531              	.LBE99:
+ 532              	.LBE118:
+ 533              	.LBE133:
+ARM GAS  /tmp/ccukGSIj.s 			page 19
+
+
+  93:Src/can_encos.cpp ****             {
+ 534              		.loc 1 93 9 is_stmt 1 view .LVU176
+  94:Src/can_encos.cpp ****                 if (0xFF == msg.buf[0] && 0xFF == msg.buf[1] && 0x00 == msg.buf[2] && 0x82 == msg.b
+ 535              		.loc 1 94 13 view .LVU177
+  95:Src/can_encos.cpp ****                     uint32_t id;
+ 536              		.loc 1 95 17 view .LVU178
+ 537              	.LBB134:
+ 538              	.LBB119:
+ 539              	.LBB100:
+ 540              	.LBB80:
+  95:Src/can_encos.cpp ****                     uint32_t id;
+ 541              		.loc 1 95 38 is_stmt 0 view .LVU179
+ 542 0152 E279     		ldrb	r2, [r4, #7]	@ zero_extendqisi2
+  95:Src/can_encos.cpp ****                     uint32_t id;
+ 543              		.loc 1 95 17 view .LVU180
+ 544 0154 FF2A     		cmp	r2, #255
+ 545 0156 3DD0     		beq	.L31
+ 546              	.L14:
+ 547              	.LBB81:
+ 117:Src/can_encos.cpp ****                     if (axis->config_.can_node_id == id) {
+ 548              		.loc 1 117 21 is_stmt 1 view .LVU181
+ 549              	.LVL30:
+ 118:Src/can_encos.cpp ****                         if (0 == msg.buf[2] && 3 == msg.buf[3]) {
+ 550              		.loc 1 118 21 view .LVU182
+ 117:Src/can_encos.cpp ****                     if (axis->config_.can_node_id == id) {
+ 551              		.loc 1 117 64 is_stmt 0 view .LVU183
+ 552 0158 237A     		ldrb	r3, [r4, #8]	@ zero_extendqisi2
+ 117:Src/can_encos.cpp ****                     if (axis->config_.can_node_id == id) {
+ 553              		.loc 1 117 53 view .LVU184
+ 554 015a 03EB0223 		add	r3, r3, r2, lsl #8
+ 555              	.LBB82:
+ 118:Src/can_encos.cpp ****                         if (0 == msg.buf[2] && 3 == msg.buf[3]) {
+ 556              		.loc 1 118 21 view .LVU185
+ 557 015e 9D42     		cmp	r5, r3
+ 558 0160 7FF461AF 		bne	.L5
+ 559              	.LBE82:
+ 560              	.LBE81:
+ 561              	.LBE80:
+ 562              	.LBE100:
+ 563              	.LBE119:
+ 564              	.LBE134:
+ 119:Src/can_encos.cpp ****                             // 设置零位
+ 565              		.loc 1 119 25 is_stmt 1 view .LVU186
+ 566              	.LBB135:
+ 567              	.LBB120:
+ 568              	.LBB101:
+ 569              	.LBB93:
+ 570              	.LBB89:
+ 571              	.LBB87:
+ 572              	.LBB83:
+ 119:Src/can_encos.cpp ****                             // 设置零位
+ 573              		.loc 1 119 45 is_stmt 0 view .LVU187
+ 574 0164 A368     		ldr	r3, [r4, #8]
+ 575 0166 23F07F43 		bic	r3, r3, #-16777216
+ 576 016a 23F0FF03 		bic	r3, r3, #255
+ 119:Src/can_encos.cpp ****                             // 设置零位
+ 577              		.loc 1 119 25 view .LVU188
+ARM GAS  /tmp/ccukGSIj.s 			page 20
+
+
+ 578 016e B3F5403F 		cmp	r3, #196608
+ 579 0172 7FF458AF 		bne	.L5
+ 580              	.LBB84:
+ 121:Src/can_encos.cpp ****                             if(success)
+ 581              		.loc 1 121 29 is_stmt 1 view .LVU189
+ 121:Src/can_encos.cpp ****                             if(success)
+ 582              		.loc 1 121 60 is_stmt 0 view .LVU190
+ 583 0176 3046     		mov	r0, r6
+ 584              	.LVL31:
+ 121:Src/can_encos.cpp ****                             if(success)
+ 585              		.loc 1 121 60 view .LVU191
+ 586 0178 FFF7FEFF 		bl	_ZN4Axis10set_offsetEv
+ 587              	.LVL32:
+ 122:Src/can_encos.cpp ****                             {
+ 588              		.loc 1 122 29 is_stmt 1 view .LVU192
+ 589 017c 0446     		mov	r4, r0
+ 590              	.LVL33:
+ 122:Src/can_encos.cpp ****                             {
+ 591              		.loc 1 122 29 is_stmt 0 view .LVU193
+ 592 017e 0028     		cmp	r0, #0
+ 593 0180 51D1     		bne	.L32
+ 594              	.LVL34:
+ 595              	.L15:
+ 127:Src/can_encos.cpp ****                             txmsg.id = 0x7FF;
+ 596              		.loc 1 127 29 is_stmt 1 view .LVU194
+ 127:Src/can_encos.cpp ****                             txmsg.id = 0x7FF;
+ 597              		.loc 1 127 43 is_stmt 0 view .LVU195
+ 598 0182 794B     		ldr	r3, .L35
+ 599 0184 0FCB     		ldm	r3, {r0, r1, r2, r3}
+ 600 0186 04AD     		add	r5, sp, #16
+ 601 0188 05E90F00 		stmdb	r5, {r0, r1, r2, r3}
+ 128:Src/can_encos.cpp ****                             txmsg.isExt = axis->config_.can_node_id_extended;
+ 602              		.loc 1 128 29 is_stmt 1 view .LVU196
+ 128:Src/can_encos.cpp ****                             txmsg.isExt = axis->config_.can_node_id_extended;
+ 603              		.loc 1 128 38 is_stmt 0 view .LVU197
+ 604 018c 40F2FF73 		movw	r3, #2047
+ 605 0190 0093     		str	r3, [sp]
+ 129:Src/can_encos.cpp ****                             txmsg.len = 4;
+ 606              		.loc 1 129 29 is_stmt 1 view .LVU198
+ 129:Src/can_encos.cpp ****                             txmsg.len = 4;
+ 607              		.loc 1 129 43 is_stmt 0 view .LVU199
+ 608 0192 3B68     		ldr	r3, [r7]
+ 129:Src/can_encos.cpp ****                             txmsg.len = 4;
+ 609              		.loc 1 129 57 view .LVU200
+ 610 0194 5A68     		ldr	r2, [r3, #4]
+ 129:Src/can_encos.cpp ****                             txmsg.len = 4;
+ 611              		.loc 1 129 41 view .LVU201
+ 612 0196 92F87420 		ldrb	r2, [r2, #116]	@ zero_extendqisi2
+ 613 019a 8DF80420 		strb	r2, [sp, #4]
+ 130:Src/can_encos.cpp ****                             txmsg.buf[0] = axis->config_.can_node_id >> 8;
+ 614              		.loc 1 130 29 is_stmt 1 view .LVU202
+ 130:Src/can_encos.cpp ****                             txmsg.buf[0] = axis->config_.can_node_id >> 8;
+ 615              		.loc 1 130 39 is_stmt 0 view .LVU203
+ 616 019e 0422     		movs	r2, #4
+ 617 01a0 8DF80620 		strb	r2, [sp, #6]
+ 131:Src/can_encos.cpp ****                             txmsg.buf[1] = axis->config_.can_node_id & 0xFF;
+ 618              		.loc 1 131 29 is_stmt 1 view .LVU204
+ARM GAS  /tmp/ccukGSIj.s 			page 21
+
+
+ 131:Src/can_encos.cpp ****                             txmsg.buf[1] = axis->config_.can_node_id & 0xFF;
+ 619              		.loc 1 131 58 is_stmt 0 view .LVU205
+ 620 01a4 5A68     		ldr	r2, [r3, #4]
+ 131:Src/can_encos.cpp ****                             txmsg.buf[1] = axis->config_.can_node_id & 0xFF;
+ 621              		.loc 1 131 70 view .LVU206
+ 622 01a6 126F     		ldr	r2, [r2, #112]
+ 623 01a8 120A     		lsrs	r2, r2, #8
+ 131:Src/can_encos.cpp ****                             txmsg.buf[1] = axis->config_.can_node_id & 0xFF;
+ 624              		.loc 1 131 42 view .LVU207
+ 625 01aa 8DF80720 		strb	r2, [sp, #7]
+ 132:Src/can_encos.cpp ****                             txmsg.buf[2] = 0x01;
+ 626              		.loc 1 132 29 is_stmt 1 view .LVU208
+ 132:Src/can_encos.cpp ****                             txmsg.buf[2] = 0x01;
+ 627              		.loc 1 132 58 is_stmt 0 view .LVU209
+ 628 01ae 5B68     		ldr	r3, [r3, #4]
+ 132:Src/can_encos.cpp ****                             txmsg.buf[2] = 0x01;
+ 629              		.loc 1 132 42 view .LVU210
+ 630 01b0 1B6F     		ldr	r3, [r3, #112]
+ 631 01b2 8DF80830 		strb	r3, [sp, #8]
+ 133:Src/can_encos.cpp ****                             txmsg.buf[3] = success ? 3 : 0;
+ 632              		.loc 1 133 29 is_stmt 1 view .LVU211
+ 133:Src/can_encos.cpp ****                             txmsg.buf[3] = success ? 3 : 0;
+ 633              		.loc 1 133 42 is_stmt 0 view .LVU212
+ 634 01b6 0123     		movs	r3, #1
+ 635 01b8 8DF80930 		strb	r3, [sp, #9]
+ 134:Src/can_encos.cpp ****                             odCAN->write(txmsg);
+ 636              		.loc 1 134 29 is_stmt 1 view .LVU213
+ 134:Src/can_encos.cpp ****                             odCAN->write(txmsg);
+ 637              		.loc 1 134 42 is_stmt 0 view .LVU214
+ 638 01bc 002C     		cmp	r4, #0
+ 639 01be 14BF     		ite	ne
+ 640 01c0 0323     		movne	r3, #3
+ 641 01c2 0023     		moveq	r3, #0
+ 642 01c4 8DF80A30 		strb	r3, [sp, #10]
+ 135:Src/can_encos.cpp ****                         }
+ 643              		.loc 1 135 29 is_stmt 1 view .LVU215
+ 135:Src/can_encos.cpp ****                         }
+ 644              		.loc 1 135 41 is_stmt 0 view .LVU216
+ 645 01c8 6946     		mov	r1, sp
+ 646 01ca 684B     		ldr	r3, .L35+4
+ 647 01cc 1868     		ldr	r0, [r3]
+ 648 01ce FFF7FEFF 		bl	_ZN9ODriveCAN5writeER13can_Message_t
+ 649              	.LVL35:
+ 650              	.LBE84:
+ 651 01d2 28E7     		b	.L5
+ 652              	.LVL36:
+ 653              	.L31:
+ 135:Src/can_encos.cpp ****                         }
+ 654              		.loc 1 135 41 view .LVU217
+ 655              	.LBE83:
+ 656              	.LBE87:
+ 657              	.LBE89:
+  95:Src/can_encos.cpp ****                     uint32_t id;
+ 658              		.loc 1 95 84 discriminator 1 view .LVU218
+ 659 01d4 A368     		ldr	r3, [r4, #8]
+ 660 01d6 23F07F43 		bic	r3, r3, #-16777216
+ 661 01da 6549     		ldr	r1, .L35+8
+ARM GAS  /tmp/ccukGSIj.s 			page 22
+
+
+ 662 01dc 8B42     		cmp	r3, r1
+ 663 01de BBD1     		bne	.L14
+ 664              	.LBB90:
+  96:Src/can_encos.cpp ****                     bool success = axis->get_nodeID(id);
+ 665              		.loc 1 96 21 is_stmt 1 view .LVU219
+  97:Src/can_encos.cpp ****                     can_Message_t txmsg;
+ 666              		.loc 1 97 21 view .LVU220
+ 667              	.LVL37:
+  97:Src/can_encos.cpp ****                     can_Message_t txmsg;
+ 668              		.loc 1 97 21 is_stmt 0 view .LVU221
+ 669              	.LBE90:
+ 670              	.LBE93:
+ 671              	.LBE101:
+ 672              	.LBE120:
+ 673              	.LBE135:
+ 161:Inc/axis.hpp  **** }
+ 162:Inc/axis.hpp  **** bool get_nodeID(uint32_t &id) { id = config_.can_node_id; return true; };
+ 674              		.loc 2 162 33 is_stmt 1 view .LVU222
+ 675              		.loc 2 162 59 view .LVU223
+ 676              	.LBB136:
+ 677              	.LBB121:
+ 678              	.LBB102:
+ 679              	.LBB94:
+ 680              	.LBB91:
+  98:Src/can_encos.cpp ****                     txmsg.id = 0x7FF;
+ 681              		.loc 1 98 21 view .LVU224
+  98:Src/can_encos.cpp ****                     txmsg.id = 0x7FF;
+ 682              		.loc 1 98 35 is_stmt 0 view .LVU225
+ 683 01e0 614B     		ldr	r3, .L35
+ 684 01e2 6C46     		mov	r4, sp
+ 685              	.LVL38:
+  98:Src/can_encos.cpp ****                     txmsg.id = 0x7FF;
+ 686              		.loc 1 98 35 view .LVU226
+ 687 01e4 0FCB     		ldm	r3, {r0, r1, r2, r3}
+ 688              	.LVL39:
+  98:Src/can_encos.cpp ****                     txmsg.id = 0x7FF;
+ 689              		.loc 1 98 35 view .LVU227
+ 690 01e6 84E80F00 		stm	r4, {r0, r1, r2, r3}
+  99:Src/can_encos.cpp ****                     txmsg.isExt = axis->config_.can_node_id_extended;
+ 691              		.loc 1 99 21 is_stmt 1 view .LVU228
+  99:Src/can_encos.cpp ****                     txmsg.isExt = axis->config_.can_node_id_extended;
+ 692              		.loc 1 99 30 is_stmt 0 view .LVU229
+ 693 01ea 40F2FF73 		movw	r3, #2047
+ 694 01ee 0093     		str	r3, [sp]
+ 100:Src/can_encos.cpp ****                     if (success) {
+ 695              		.loc 1 100 21 is_stmt 1 view .LVU230
+ 100:Src/can_encos.cpp ****                     if (success) {
+ 696              		.loc 1 100 49 is_stmt 0 view .LVU231
+ 697 01f0 7368     		ldr	r3, [r6, #4]
+ 100:Src/can_encos.cpp ****                     if (success) {
+ 698              		.loc 1 100 33 view .LVU232
+ 699 01f2 93F87430 		ldrb	r3, [r3, #116]	@ zero_extendqisi2
+ 700 01f6 8DF80430 		strb	r3, [sp, #4]
+ 101:Src/can_encos.cpp ****                         txmsg.len = 5;
+ 701              		.loc 1 101 21 is_stmt 1 view .LVU233
+ 102:Src/can_encos.cpp ****                         txmsg.buf[0] = 0xFF;
+ 702              		.loc 1 102 25 view .LVU234
+ARM GAS  /tmp/ccukGSIj.s 			page 23
+
+
+ 102:Src/can_encos.cpp ****                         txmsg.buf[0] = 0xFF;
+ 703              		.loc 1 102 35 is_stmt 0 view .LVU235
+ 704 01fa 0523     		movs	r3, #5
+ 705 01fc 8DF80630 		strb	r3, [sp, #6]
+ 103:Src/can_encos.cpp ****                         txmsg.buf[1] = 0xFF;
+ 706              		.loc 1 103 25 is_stmt 1 view .LVU236
+ 103:Src/can_encos.cpp ****                         txmsg.buf[1] = 0xFF;
+ 707              		.loc 1 103 38 is_stmt 0 view .LVU237
+ 708 0200 FF23     		movs	r3, #255
+ 709 0202 8DF80730 		strb	r3, [sp, #7]
+ 104:Src/can_encos.cpp ****                         txmsg.buf[2] = 0x01;
+ 710              		.loc 1 104 25 is_stmt 1 view .LVU238
+ 104:Src/can_encos.cpp ****                         txmsg.buf[2] = 0x01;
+ 711              		.loc 1 104 38 is_stmt 0 view .LVU239
+ 712 0206 8DF80830 		strb	r3, [sp, #8]
+ 105:Src/can_encos.cpp ****                         txmsg.buf[3] = id >> 8;
+ 713              		.loc 1 105 25 is_stmt 1 view .LVU240
+ 105:Src/can_encos.cpp ****                         txmsg.buf[3] = id >> 8;
+ 714              		.loc 1 105 38 is_stmt 0 view .LVU241
+ 715 020a 0123     		movs	r3, #1
+ 716 020c 8DF80930 		strb	r3, [sp, #9]
+ 106:Src/can_encos.cpp ****                         txmsg.buf[4] = id & 0xFF;
+ 717              		.loc 1 106 25 is_stmt 1 view .LVU242
+ 106:Src/can_encos.cpp ****                         txmsg.buf[4] = id & 0xFF;
+ 718              		.loc 1 106 43 is_stmt 0 view .LVU243
+ 719 0210 2B0A     		lsrs	r3, r5, #8
+ 106:Src/can_encos.cpp ****                         txmsg.buf[4] = id & 0xFF;
+ 720              		.loc 1 106 38 view .LVU244
+ 721 0212 8DF80A30 		strb	r3, [sp, #10]
+ 107:Src/can_encos.cpp ****                     } else {
+ 722              		.loc 1 107 25 is_stmt 1 view .LVU245
+ 107:Src/can_encos.cpp ****                     } else {
+ 723              		.loc 1 107 38 is_stmt 0 view .LVU246
+ 724 0216 8DF80B50 		strb	r5, [sp, #11]
+ 115:Src/can_encos.cpp ****                 } else {
+ 725              		.loc 1 115 21 is_stmt 1 view .LVU247
+ 115:Src/can_encos.cpp ****                 } else {
+ 726              		.loc 1 115 33 is_stmt 0 view .LVU248
+ 727 021a 2146     		mov	r1, r4
+ 728 021c 534B     		ldr	r3, .L35+4
+ 729 021e 1868     		ldr	r0, [r3]
+ 730 0220 FFF7FEFF 		bl	_ZN9ODriveCAN5writeER13can_Message_t
+ 731              	.LVL40:
+ 115:Src/can_encos.cpp ****                 } else {
+ 732              		.loc 1 115 33 view .LVU249
+ 733              	.LBE91:
+ 115:Src/can_encos.cpp ****                 } else {
+ 734              		.loc 1 115 40 view .LVU250
+ 735 0224 FFE6     		b	.L5
+ 736              	.LVL41:
+ 737              	.L32:
+ 738              	.LBB92:
+ 739              	.LBB88:
+ 740              	.LBB86:
+ 741              	.LBB85:
+ 124:Src/can_encos.cpp ****                             }
+ 742              		.loc 1 124 33 is_stmt 1 view .LVU251
+ARM GAS  /tmp/ccukGSIj.s 			page 24
+
+
+ 124:Src/can_encos.cpp ****                             }
+ 743              		.loc 1 124 51 is_stmt 0 view .LVU252
+ 744 0226 FFF7FEFF 		bl	_Z18save_configurationv
+ 745              	.LVL42:
+ 124:Src/can_encos.cpp ****                             }
+ 746              		.loc 1 124 51 view .LVU253
+ 747 022a AAE7     		b	.L15
+ 748              	.LVL43:
+ 749              	.L30:
+ 124:Src/can_encos.cpp ****                             }
+ 750              		.loc 1 124 51 view .LVU254
+ 751              	.LBE85:
+ 752              	.LBE86:
+ 753              	.LBE88:
+ 754              	.LBE92:
+ 755              	.LBE94:
+ 756              	.LBB95:
+ 143:Src/can_encos.cpp ****                     // 重置ID为1
+ 757              		.loc 1 143 100 discriminator 1 view .LVU255
+ 758 022c A068     		ldr	r0, [r4, #8]
+ 759              	.LVL44:
+ 143:Src/can_encos.cpp ****                     // 重置ID为1
+ 760              		.loc 1 143 100 discriminator 1 view .LVU256
+ 761 022e 5149     		ldr	r1, .L35+12
+ 762 0230 8842     		cmp	r0, r1
+ 763 0232 7FF44CAF 		bne	.L17
+ 143:Src/can_encos.cpp ****                     // 重置ID为1
+ 764              		.loc 1 143 122 discriminator 2 view .LVU257
+ 765 0236 237B     		ldrb	r3, [r4, #12]	@ zero_extendqisi2
+ 766 0238 7F2B     		cmp	r3, #127
+ 767 023a 7FF4F4AE 		bne	.L5
+ 768              	.LBE95:
+ 769              	.LBE102:
+ 770              	.LBE121:
+ 771              	.LBE136:
+ 145:Src/can_encos.cpp ****                         save_configuration();
+ 772              		.loc 1 145 21 is_stmt 1 view .LVU258
+ 773              	.LVL45:
+ 774              	.LBB137:
+ 775              	.LBB122:
+ 776              	.LBB103:
+ 777              	.LBB96:
+ 778              	.LBB74:
+ 779              	.LBB75:
+ 780              	.LBI75:
+ 156:Inc/axis.hpp  ****     if(current_state_ != AXIS_STATE_IDLE)
+ 781              		.loc 2 156 6 view .LVU259
+ 782              	.LBB76:
+ 157:Inc/axis.hpp  ****         return false;
+ 783              		.loc 2 157 5 view .LVU260
+ 157:Inc/axis.hpp  ****         return false;
+ 784              		.loc 2 157 8 is_stmt 0 view .LVU261
+ 785 023e D6F88C31 		ldr	r3, [r6, #396]
+ 157:Inc/axis.hpp  ****         return false;
+ 786              		.loc 2 157 5 view .LVU262
+ 787 0242 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 788 0244 012B     		cmp	r3, #1
+ARM GAS  /tmp/ccukGSIj.s 			page 25
+
+
+ 789 0246 7FF4EEAE 		bne	.L5
+ 159:Inc/axis.hpp  ****     return true; 
+ 790              		.loc 2 159 5 is_stmt 1 view .LVU263
+ 159:Inc/axis.hpp  ****     return true; 
+ 791              		.loc 2 159 25 is_stmt 0 view .LVU264
+ 792 024a 0125     		movs	r5, #1
+ 793 024c 1567     		str	r5, [r2, #112]
+ 160:Inc/axis.hpp  **** }
+ 794              		.loc 2 160 5 is_stmt 1 view .LVU265
+ 795              	.LVL46:
+ 160:Inc/axis.hpp  **** }
+ 796              		.loc 2 160 5 is_stmt 0 view .LVU266
+ 797              	.LBE76:
+ 798              	.LBE75:
+ 799              	.LBB77:
+ 146:Src/can_encos.cpp ****                         can_Message_t txmsg;
+ 800              		.loc 1 146 25 is_stmt 1 view .LVU267
+ 146:Src/can_encos.cpp ****                         can_Message_t txmsg;
+ 801              		.loc 1 146 43 is_stmt 0 view .LVU268
+ 802 024e FFF7FEFF 		bl	_Z18save_configurationv
+ 803              	.LVL47:
+ 147:Src/can_encos.cpp ****                         txmsg.id = 0x7FF;
+ 804              		.loc 1 147 25 is_stmt 1 view .LVU269
+ 147:Src/can_encos.cpp ****                         txmsg.id = 0x7FF;
+ 805              		.loc 1 147 39 is_stmt 0 view .LVU270
+ 806 0252 454B     		ldr	r3, .L35
+ 807 0254 6C46     		mov	r4, sp
+ 808              	.LVL48:
+ 147:Src/can_encos.cpp ****                         txmsg.id = 0x7FF;
+ 809              		.loc 1 147 39 view .LVU271
+ 810 0256 0FCB     		ldm	r3, {r0, r1, r2, r3}
+ 811 0258 84E80F00 		stm	r4, {r0, r1, r2, r3}
+ 148:Src/can_encos.cpp ****                         txmsg.isExt = axis->config_.can_node_id_extended;
+ 812              		.loc 1 148 25 is_stmt 1 view .LVU272
+ 148:Src/can_encos.cpp ****                         txmsg.isExt = axis->config_.can_node_id_extended;
+ 813              		.loc 1 148 34 is_stmt 0 view .LVU273
+ 814 025c 40F2FF73 		movw	r3, #2047
+ 815 0260 0093     		str	r3, [sp]
+ 149:Src/can_encos.cpp ****                         txmsg.len = 6;
+ 816              		.loc 1 149 25 is_stmt 1 view .LVU274
+ 149:Src/can_encos.cpp ****                         txmsg.len = 6;
+ 817              		.loc 1 149 45 is_stmt 0 view .LVU275
+ 818 0262 3B68     		ldr	r3, [r7]
+ 149:Src/can_encos.cpp ****                         txmsg.len = 6;
+ 819              		.loc 1 149 53 view .LVU276
+ 820 0264 5B68     		ldr	r3, [r3, #4]
+ 149:Src/can_encos.cpp ****                         txmsg.len = 6;
+ 821              		.loc 1 149 37 view .LVU277
+ 822 0266 93F87430 		ldrb	r3, [r3, #116]	@ zero_extendqisi2
+ 823 026a 8DF80430 		strb	r3, [sp, #4]
+ 150:Src/can_encos.cpp ****                         txmsg.buf[0] = 0x7F;
+ 824              		.loc 1 150 25 is_stmt 1 view .LVU278
+ 150:Src/can_encos.cpp ****                         txmsg.buf[0] = 0x7F;
+ 825              		.loc 1 150 35 is_stmt 0 view .LVU279
+ 826 026e 0623     		movs	r3, #6
+ 827 0270 8DF80630 		strb	r3, [sp, #6]
+ 151:Src/can_encos.cpp ****                         txmsg.buf[1] = 0x7F;
+ARM GAS  /tmp/ccukGSIj.s 			page 26
+
+
+ 828              		.loc 1 151 25 is_stmt 1 view .LVU280
+ 151:Src/can_encos.cpp ****                         txmsg.buf[1] = 0x7F;
+ 829              		.loc 1 151 38 is_stmt 0 view .LVU281
+ 830 0274 7F23     		movs	r3, #127
+ 831 0276 8DF80730 		strb	r3, [sp, #7]
+ 152:Src/can_encos.cpp ****                         txmsg.buf[2] = 0x01;
+ 832              		.loc 1 152 25 is_stmt 1 view .LVU282
+ 152:Src/can_encos.cpp ****                         txmsg.buf[2] = 0x01;
+ 833              		.loc 1 152 38 is_stmt 0 view .LVU283
+ 834 027a 8DF80830 		strb	r3, [sp, #8]
+ 153:Src/can_encos.cpp ****                         txmsg.buf[3] = 0x05;
+ 835              		.loc 1 153 25 is_stmt 1 view .LVU284
+ 153:Src/can_encos.cpp ****                         txmsg.buf[3] = 0x05;
+ 836              		.loc 1 153 38 is_stmt 0 view .LVU285
+ 837 027e 8DF80950 		strb	r5, [sp, #9]
+ 154:Src/can_encos.cpp ****                         txmsg.buf[4] = 0x7F;
+ 838              		.loc 1 154 25 is_stmt 1 view .LVU286
+ 154:Src/can_encos.cpp ****                         txmsg.buf[4] = 0x7F;
+ 839              		.loc 1 154 38 is_stmt 0 view .LVU287
+ 840 0282 0522     		movs	r2, #5
+ 841 0284 8DF80A20 		strb	r2, [sp, #10]
+ 155:Src/can_encos.cpp ****                         txmsg.buf[5] = 0x7F;
+ 842              		.loc 1 155 25 is_stmt 1 view .LVU288
+ 155:Src/can_encos.cpp ****                         txmsg.buf[5] = 0x7F;
+ 843              		.loc 1 155 38 is_stmt 0 view .LVU289
+ 844 0288 8DF80B30 		strb	r3, [sp, #11]
+ 156:Src/can_encos.cpp ****                         odCAN->write(txmsg);
+ 845              		.loc 1 156 25 is_stmt 1 view .LVU290
+ 156:Src/can_encos.cpp ****                         odCAN->write(txmsg);
+ 846              		.loc 1 156 38 is_stmt 0 view .LVU291
+ 847 028c 8DF80C30 		strb	r3, [sp, #12]
+ 157:Src/can_encos.cpp ****                     }
+ 848              		.loc 1 157 25 is_stmt 1 view .LVU292
+ 157:Src/can_encos.cpp ****                     }
+ 849              		.loc 1 157 37 is_stmt 0 view .LVU293
+ 850 0290 2146     		mov	r1, r4
+ 851 0292 364B     		ldr	r3, .L35+4
+ 852 0294 1868     		ldr	r0, [r3]
+ 853 0296 FFF7FEFF 		bl	_ZN9ODriveCAN5writeER13can_Message_t
+ 854              	.LVL49:
+ 855              	.LBE77:
+ 856 029a C4E6     		b	.L5
+ 857              	.LVL50:
+ 858              	.L28:
+ 157:Src/can_encos.cpp ****                     }
+ 859              		.loc 1 157 37 view .LVU294
+ 860              	.LBE74:
+ 861              	.LBE96:
+ 862              	.LBE103:
+ 863              	.LBB104:
+ 195:Src/can_encos.cpp ****         uint32_t id = (msg.buf[0] << 8) + msg.buf[1];
+ 864              		.loc 1 195 39 discriminator 1 view .LVU295
+ 865 029c A379     		ldrb	r3, [r4, #6]	@ zero_extendqisi2
+ 195:Src/can_encos.cpp ****         uint32_t id = (msg.buf[0] << 8) + msg.buf[1];
+ 866              		.loc 1 195 32 discriminator 1 view .LVU296
+ 867 029e 022B     		cmp	r3, #2
+ 868 02a0 7FF6C1AE 		bls	.L5
+ARM GAS  /tmp/ccukGSIj.s 			page 27
+
+
+ 869              	.LBB42:
+ 196:Src/can_encos.cpp ****         if (axis->config_.can_node_id == id) {
+ 870              		.loc 1 196 9 is_stmt 1 view .LVU297
+ 871              	.LVL51:
+ 197:Src/can_encos.cpp ****             uint8_t index = msg.buf[2];
+ 872              		.loc 1 197 9 view .LVU298
+ 196:Src/can_encos.cpp ****         if (axis->config_.can_node_id == id) {
+ 873              		.loc 1 196 33 is_stmt 0 view .LVU299
+ 874 02a4 E079     		ldrb	r0, [r4, #7]	@ zero_extendqisi2
+ 875              	.LVL52:
+ 196:Src/can_encos.cpp ****         if (axis->config_.can_node_id == id) {
+ 876              		.loc 1 196 52 view .LVU300
+ 877 02a6 217A     		ldrb	r1, [r4, #8]	@ zero_extendqisi2
+ 196:Src/can_encos.cpp ****         if (axis->config_.can_node_id == id) {
+ 878              		.loc 1 196 41 view .LVU301
+ 879 02a8 01EB0021 		add	r1, r1, r0, lsl #8
+ 880              	.LBB43:
+ 197:Src/can_encos.cpp ****             uint8_t index = msg.buf[2];
+ 881              		.loc 1 197 9 view .LVU302
+ 882 02ac 8D42     		cmp	r5, r1
+ 883 02ae 7FF4BAAE 		bne	.L5
+ 884              	.LBB44:
+ 198:Src/can_encos.cpp ****             bool success = false;
+ 885              		.loc 1 198 13 is_stmt 1 view .LVU303
+ 198:Src/can_encos.cpp ****             bool success = false;
+ 886              		.loc 1 198 21 is_stmt 0 view .LVU304
+ 887 02b2 617A     		ldrb	r1, [r4, #9]	@ zero_extendqisi2
+ 888              	.LVL53:
+ 199:Src/can_encos.cpp **** 
+ 889              		.loc 1 199 13 is_stmt 1 view .LVU305
+ 201:Src/can_encos.cpp ****                     save_configuration();
+ 890              		.loc 1 201 13 view .LVU306
+ 891              	.LBB45:
+ 892 02b4 FF29     		cmp	r1, #255
+ 893 02b6 06D0     		beq	.L33
+ 894              	.LBE45:
+ 895              	.LBE44:
+ 896              	.LBE43:
+ 897              	.LBE42:
+ 898              	.LBE104:
+ 899              	.LBE122:
+ 900              	.LBE137:
+ 204:Src/can_encos.cpp ****                 if (7 == msg.len){
+ 901              		.loc 1 204 20 view .LVU307
+ 902              	.LBB138:
+ 903              	.LBB123:
+ 904              	.LBB105:
+ 905              	.LBB59:
+ 906              	.LBB57:
+ 907              	.LBB55:
+ 908              	.LBB52:
+ 909              	.LBB46:
+ 910 02b8 11F0800F 		tst	r1, #128
+ 911 02bc 16D1     		bne	.L23
+ 912              	.LBE46:
+ 913              	.LBE52:
+ 914              	.LBE55:
+ARM GAS  /tmp/ccukGSIj.s 			page 28
+
+
+ 915              	.LBE57:
+ 916              	.LBE59:
+ 917              	.LBE105:
+ 918              	.LBE123:
+ 919              	.LBE138:
+ 205:Src/can_encos.cpp ****                     uint32_t value = (msg.buf[3] << 24) + (msg.buf[4] << 16) + (msg.buf[5] << 8) + 
+ 920              		.loc 1 205 17 view .LVU308
+ 921              	.LBB139:
+ 922              	.LBB124:
+ 923              	.LBB106:
+ 924              	.LBB60:
+ 925              	.LBB58:
+ 926              	.LBB56:
+ 927              	.LBB53:
+ 928              	.LBB50:
+ 929              	.LBB47:
+ 930 02be 072B     		cmp	r3, #7
+ 931 02c0 05D0     		beq	.L34
+ 932              	.LBE47:
+ 933              	.LBE50:
+ 934              	.LBE53:
+ 199:Src/can_encos.cpp **** 
+ 935              		.loc 1 199 18 is_stmt 0 view .LVU309
+ 936 02c2 0026     		movs	r6, #0
+ 937 02c4 13E0     		b	.L20
+ 938              	.L33:
+ 939              	.LBB54:
+ 202:Src/can_encos.cpp ****                 success = true;
+ 940              		.loc 1 202 21 is_stmt 1 view .LVU310
+ 202:Src/can_encos.cpp ****                 success = true;
+ 941              		.loc 1 202 39 is_stmt 0 view .LVU311
+ 942 02c6 FFF7FEFF 		bl	_Z18save_configurationv
+ 943              	.LVL54:
+ 203:Src/can_encos.cpp ****             } else if (index < sizeof(axis->config_.ext_cfg) / sizeof(axis->config_.ext_cfg[0])) {
+ 944              		.loc 1 203 17 is_stmt 1 view .LVU312
+ 203:Src/can_encos.cpp ****             } else if (index < sizeof(axis->config_.ext_cfg) / sizeof(axis->config_.ext_cfg[0])) {
+ 945              		.loc 1 203 25 is_stmt 0 view .LVU313
+ 946 02ca 0126     		movs	r6, #1
+ 947 02cc 0FE0     		b	.L20
+ 948              	.LVL55:
+ 949              	.L34:
+ 950              	.LBB51:
+ 951              	.LBB49:
+ 952              	.LBB48:
+ 206:Src/can_encos.cpp ****                     axis->config_.ext_cfg[index] = value;
+ 953              		.loc 1 206 21 is_stmt 1 view .LVU314
+ 207:Src/can_encos.cpp ****                     success = true;
+ 954              		.loc 1 207 21 view .LVU315
+ 207:Src/can_encos.cpp ****                     success = true;
+ 955              		.loc 1 207 50 is_stmt 0 view .LVU316
+ 956 02ce 2031     		adds	r1, r1, #32
+ 957              	.LVL56:
+ 206:Src/can_encos.cpp ****                     axis->config_.ext_cfg[index] = value;
+ 958              		.loc 1 206 48 view .LVU317
+ 959 02d0 A07A     		ldrb	r0, [r4, #10]	@ zero_extendqisi2
+ 960              	.LVL57:
+ 206:Src/can_encos.cpp ****                     axis->config_.ext_cfg[index] = value;
+ARM GAS  /tmp/ccukGSIj.s 			page 29
+
+
+ 961              		.loc 1 206 69 view .LVU318
+ 962 02d2 E37A     		ldrb	r3, [r4, #11]	@ zero_extendqisi2
+ 963              	.LVL58:
+ 206:Src/can_encos.cpp ****                     axis->config_.ext_cfg[index] = value;
+ 964              		.loc 1 206 71 view .LVU319
+ 965 02d4 1B04     		lsls	r3, r3, #16
+ 966              	.LVL59:
+ 206:Src/can_encos.cpp ****                     axis->config_.ext_cfg[index] = value;
+ 967              		.loc 1 206 57 view .LVU320
+ 968 02d6 03EB0063 		add	r3, r3, r0, lsl #24
+ 206:Src/can_encos.cpp ****                     axis->config_.ext_cfg[index] = value;
+ 969              		.loc 1 206 90 view .LVU321
+ 970 02da 207B     		ldrb	r0, [r4, #12]	@ zero_extendqisi2
+ 971              	.LVL60:
+ 206:Src/can_encos.cpp ****                     axis->config_.ext_cfg[index] = value;
+ 972              		.loc 1 206 78 view .LVU322
+ 973 02dc 03EB0023 		add	r3, r3, r0, lsl #8
+ 206:Src/can_encos.cpp ****                     axis->config_.ext_cfg[index] = value;
+ 974              		.loc 1 206 109 view .LVU323
+ 975 02e0 607B     		ldrb	r0, [r4, #13]	@ zero_extendqisi2
+ 206:Src/can_encos.cpp ****                     axis->config_.ext_cfg[index] = value;
+ 976              		.loc 1 206 98 view .LVU324
+ 977 02e2 0344     		add	r3, r3, r0
+ 207:Src/can_encos.cpp ****                     success = true;
+ 978              		.loc 1 207 50 view .LVU325
+ 979 02e4 42F82130 		str	r3, [r2, r1, lsl #2]
+ 980              	.LVL61:
+ 208:Src/can_encos.cpp **** 
+ 981              		.loc 1 208 21 is_stmt 1 view .LVU326
+ 208:Src/can_encos.cpp **** 
+ 982              		.loc 1 208 29 is_stmt 0 view .LVU327
+ 983 02e8 0126     		movs	r6, #1
+ 984              	.LBE48:
+ 985 02ea 00E0     		b	.L20
+ 986              	.LVL62:
+ 987              	.L23:
+ 208:Src/can_encos.cpp **** 
+ 988              		.loc 1 208 29 view .LVU328
+ 989              	.LBE49:
+ 990              	.LBE51:
+ 991              	.LBE54:
+ 199:Src/can_encos.cpp **** 
+ 992              		.loc 1 199 18 view .LVU329
+ 993 02ec 0026     		movs	r6, #0
+ 994              	.LVL63:
+ 995              	.L20:
+ 213:Src/can_encos.cpp ****             txmsg.id = 0x7FE;
+ 996              		.loc 1 213 13 is_stmt 1 discriminator 17 view .LVU330
+ 213:Src/can_encos.cpp ****             txmsg.id = 0x7FE;
+ 997              		.loc 1 213 27 is_stmt 0 discriminator 17 view .LVU331
+ 998 02ee 1E4B     		ldr	r3, .L35
+ 999 02f0 6D46     		mov	r5, sp
+ 1000 02f2 0FCB     		ldm	r3, {r0, r1, r2, r3}
+ 1001 02f4 85E80F00 		stm	r5, {r0, r1, r2, r3}
+ 214:Src/can_encos.cpp ****             txmsg.isExt = axis->config_.can_node_id_extended;
+ 1002              		.loc 1 214 13 is_stmt 1 discriminator 17 view .LVU332
+ 214:Src/can_encos.cpp ****             txmsg.isExt = axis->config_.can_node_id_extended;
+ARM GAS  /tmp/ccukGSIj.s 			page 30
+
+
+ 1003              		.loc 1 214 22 is_stmt 0 discriminator 17 view .LVU333
+ 1004 02f8 40F2FE73 		movw	r3, #2046
+ 1005 02fc 0093     		str	r3, [sp]
+ 215:Src/can_encos.cpp ****             txmsg.len = 4;
+ 1006              		.loc 1 215 13 is_stmt 1 discriminator 17 view .LVU334
+ 215:Src/can_encos.cpp ****             txmsg.len = 4;
+ 1007              		.loc 1 215 33 is_stmt 0 discriminator 17 view .LVU335
+ 1008 02fe 3B68     		ldr	r3, [r7]
+ 215:Src/can_encos.cpp ****             txmsg.len = 4;
+ 1009              		.loc 1 215 41 discriminator 17 view .LVU336
+ 1010 0300 5B68     		ldr	r3, [r3, #4]
+ 215:Src/can_encos.cpp ****             txmsg.len = 4;
+ 1011              		.loc 1 215 25 discriminator 17 view .LVU337
+ 1012 0302 93F87430 		ldrb	r3, [r3, #116]	@ zero_extendqisi2
+ 1013 0306 8DF80430 		strb	r3, [sp, #4]
+ 216:Src/can_encos.cpp ****             txmsg.buf[0] = msg.buf[0];
+ 1014              		.loc 1 216 13 is_stmt 1 discriminator 17 view .LVU338
+ 216:Src/can_encos.cpp ****             txmsg.buf[0] = msg.buf[0];
+ 1015              		.loc 1 216 23 is_stmt 0 discriminator 17 view .LVU339
+ 1016 030a 0423     		movs	r3, #4
+ 1017 030c 8DF80630 		strb	r3, [sp, #6]
+ 217:Src/can_encos.cpp ****             txmsg.buf[1] = msg.buf[1];
+ 1018              		.loc 1 217 13 is_stmt 1 discriminator 17 view .LVU340
+ 217:Src/can_encos.cpp ****             txmsg.buf[1] = msg.buf[1];
+ 1019              		.loc 1 217 26 is_stmt 0 discriminator 17 view .LVU341
+ 1020 0310 E379     		ldrb	r3, [r4, #7]	@ zero_extendqisi2
+ 1021 0312 8DF80730 		strb	r3, [sp, #7]
+ 218:Src/can_encos.cpp ****             txmsg.buf[2] = msg.buf[2];
+ 1022              		.loc 1 218 13 is_stmt 1 discriminator 17 view .LVU342
+ 218:Src/can_encos.cpp ****             txmsg.buf[2] = msg.buf[2];
+ 1023              		.loc 1 218 26 is_stmt 0 discriminator 17 view .LVU343
+ 1024 0316 237A     		ldrb	r3, [r4, #8]	@ zero_extendqisi2
+ 1025 0318 8DF80830 		strb	r3, [sp, #8]
+ 219:Src/can_encos.cpp ****             txmsg.buf[3] = success;
+ 1026              		.loc 1 219 13 is_stmt 1 discriminator 17 view .LVU344
+ 219:Src/can_encos.cpp ****             txmsg.buf[3] = success;
+ 1027              		.loc 1 219 26 is_stmt 0 discriminator 17 view .LVU345
+ 1028 031c 637A     		ldrb	r3, [r4, #9]	@ zero_extendqisi2
+ 1029 031e 8DF80930 		strb	r3, [sp, #9]
+ 220:Src/can_encos.cpp ****             odCAN->write(txmsg);
+ 1030              		.loc 1 220 13 is_stmt 1 discriminator 17 view .LVU346
+ 220:Src/can_encos.cpp ****             odCAN->write(txmsg);
+ 1031              		.loc 1 220 26 is_stmt 0 discriminator 17 view .LVU347
+ 1032 0322 8DF80A60 		strb	r6, [sp, #10]
+ 221:Src/can_encos.cpp ****         }
+ 1033              		.loc 1 221 13 is_stmt 1 discriminator 17 view .LVU348
+ 221:Src/can_encos.cpp ****         }
+ 1034              		.loc 1 221 25 is_stmt 0 discriminator 17 view .LVU349
+ 1035 0326 2946     		mov	r1, r5
+ 1036 0328 104B     		ldr	r3, .L35+4
+ 1037 032a 1868     		ldr	r0, [r3]
+ 1038 032c FFF7FEFF 		bl	_ZN9ODriveCAN5writeER13can_Message_t
+ 1039              	.LVL64:
+ 1040              	.LBE56:
+ 1041              	.LBE58:
+ 1042              	.LBE60:
+ 1043              	.LBE106:
+ARM GAS  /tmp/ccukGSIj.s 			page 31
+
+
+ 1044              	.LBE124:
+ 1045              	.LBE139:
+ 1046              		.loc 1 224 1 discriminator 17 view .LVU350
+ 1047 0330 79E6     		b	.L5
+ 1048              	.LVL65:
+ 1049              	.L18:
+ 1050              	.LBB140:
+ 1051              	.LBB125:
+ 1052              	.LBB107:
+ 1053              	.LBB97:
+ 1054              	.LBB78:
+ 1055              	.LBB72:
+ 1056              	.LBB70:
+ 1057              	.LBB69:
+ 174:Src/can_encos.cpp ****                         txmsg.id = 0x7FF;
+ 1058              		.loc 1 174 25 is_stmt 1 view .LVU351
+ 174:Src/can_encos.cpp ****                         txmsg.id = 0x7FF;
+ 1059              		.loc 1 174 39 is_stmt 0 view .LVU352
+ 1060 0332 0D4B     		ldr	r3, .L35
+ 1061 0334 0FCB     		ldm	r3, {r0, r1, r2, r3}
+ 1062 0336 04AC     		add	r4, sp, #16
+ 1063              	.LVL66:
+ 174:Src/can_encos.cpp ****                         txmsg.id = 0x7FF;
+ 1064              		.loc 1 174 39 view .LVU353
+ 1065 0338 04E90F00 		stmdb	r4, {r0, r1, r2, r3}
+ 175:Src/can_encos.cpp ****                         txmsg.isExt = axis->config_.can_node_id_extended;
+ 1066              		.loc 1 175 25 is_stmt 1 view .LVU354
+ 175:Src/can_encos.cpp ****                         txmsg.isExt = axis->config_.can_node_id_extended;
+ 1067              		.loc 1 175 34 is_stmt 0 view .LVU355
+ 1068 033c 40F2FF73 		movw	r3, #2047
+ 1069 0340 0093     		str	r3, [sp]
+ 176:Src/can_encos.cpp ****                         txmsg.len = 4;
+ 1070              		.loc 1 176 25 is_stmt 1 view .LVU356
+ 176:Src/can_encos.cpp ****                         txmsg.len = 4;
+ 1071              		.loc 1 176 53 is_stmt 0 view .LVU357
+ 1072 0342 7368     		ldr	r3, [r6, #4]
+ 176:Src/can_encos.cpp ****                         txmsg.len = 4;
+ 1073              		.loc 1 176 37 view .LVU358
+ 1074 0344 93F87430 		ldrb	r3, [r3, #116]	@ zero_extendqisi2
+ 1075 0348 8DF80430 		strb	r3, [sp, #4]
+ 177:Src/can_encos.cpp ****                         txmsg.buf[2] = 0x01;
+ 1076              		.loc 1 177 25 is_stmt 1 view .LVU359
+ 177:Src/can_encos.cpp ****                         txmsg.buf[2] = 0x01;
+ 1077              		.loc 1 177 35 is_stmt 0 view .LVU360
+ 1078 034c 0423     		movs	r3, #4
+ 1079 034e 8DF80630 		strb	r3, [sp, #6]
+ 178:Src/can_encos.cpp ****                         if (success) {
+ 1080              		.loc 1 178 25 is_stmt 1 view .LVU361
+ 178:Src/can_encos.cpp ****                         if (success) {
+ 1081              		.loc 1 178 38 is_stmt 0 view .LVU362
+ 1082 0352 0123     		movs	r3, #1
+ 1083 0354 8DF80930 		strb	r3, [sp, #9]
+ 179:Src/can_encos.cpp ****                             txmsg.buf[0] = new_id >> 8;
+ 1084              		.loc 1 179 25 is_stmt 1 view .LVU363
+ 184:Src/can_encos.cpp ****                             txmsg.buf[1] = id & 0xFF;
+ 1085              		.loc 1 184 29 view .LVU364
+ 184:Src/can_encos.cpp ****                             txmsg.buf[1] = id & 0xFF;
+ARM GAS  /tmp/ccukGSIj.s 			page 32
+
+
+ 1086              		.loc 1 184 47 is_stmt 0 view .LVU365
+ 1087 0358 4FEA1C23 		lsr	r3, ip, #8
+ 184:Src/can_encos.cpp ****                             txmsg.buf[1] = id & 0xFF;
+ 1088              		.loc 1 184 42 view .LVU366
+ 1089 035c 8DF80730 		strb	r3, [sp, #7]
+ 185:Src/can_encos.cpp ****                             txmsg.buf[3] = 0;
+ 1090              		.loc 1 185 29 is_stmt 1 view .LVU367
+ 185:Src/can_encos.cpp ****                             txmsg.buf[3] = 0;
+ 1091              		.loc 1 185 42 is_stmt 0 view .LVU368
+ 1092 0360 8DF808C0 		strb	ip, [sp, #8]
+ 186:Src/can_encos.cpp ****                         }
+ 1093              		.loc 1 186 29 is_stmt 1 view .LVU369
+ 1094 0364 EFE6     		b	.L21
+ 1095              	.L36:
+ 1096 0366 00BF     		.align	2
+ 1097              	.L35:
+ 1098 0368 00000000 		.word	.LANCHOR0
+ 1099 036c 00000000 		.word	odCAN
+ 1100 0370 FF008200 		.word	8519935
+ 1101 0374 7F00057F 		.word	2131034239
+ 1102              	.LBE69:
+ 1103              	.LBE70:
+ 1104              	.LBE72:
+ 1105              	.LBE78:
+ 1106              	.LBE97:
+ 1107              	.LBE107:
+ 1108              	.LBE125:
+ 1109              	.LBE140:
+ 1110              		.cfi_endproc
+ 1111              	.LFE5645:
+ 1113              		.section	.text._ZN8CANEncos18handle_can_messageER13can_Message_t,"ax",%progbits
+ 1114              		.align	1
+ 1115              		.global	_ZN8CANEncos18handle_can_messageER13can_Message_t
+ 1116              		.syntax unified
+ 1117              		.thumb
+ 1118              		.thumb_func
+ 1119              		.fpu fpv4-sp-d16
+ 1121              	_ZN8CANEncos18handle_can_messageER13can_Message_t:
+ 1122              	.LVL67:
+ 1123              	.LFB5646:
+ 225:Src/can_encos.cpp **** 
+ 226:Src/can_encos.cpp **** void CANEncos::handle_can_message(can_Message_t& msg)
+ 227:Src/can_encos.cpp **** {
+ 1124              		.loc 1 227 1 view -0
+ 1125              		.cfi_startproc
+ 1126              		@ args = 0, pretend = 0, frame = 8
+ 1127              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1128              		.loc 1 227 1 is_stmt 0 view .LVU371
+ 1129 0000 10B5     		push	{r4, lr}
+ 1130              	.LCFI7:
+ 1131              		.cfi_def_cfa_offset 8
+ 1132              		.cfi_offset 4, -8
+ 1133              		.cfi_offset 14, -4
+ 1134 0002 82B0     		sub	sp, sp, #8
+ 1135              	.LCFI8:
+ 1136              		.cfi_def_cfa_offset 16
+ 1137 0004 0446     		mov	r4, r0
+ARM GAS  /tmp/ccukGSIj.s 			page 33
+
+
+ 228:Src/can_encos.cpp ****     Axis* axis = nullptr;
+ 1138              		.loc 1 228 5 is_stmt 1 view .LVU372
+ 1139              		.loc 1 228 11 is_stmt 0 view .LVU373
+ 1140 0006 0023     		movs	r3, #0
+ 1141 0008 0193     		str	r3, [sp, #4]
+ 229:Src/can_encos.cpp **** 
+ 230:Src/can_encos.cpp ****     for (uint8_t i = 0; i < 1; i++) {
+ 1142              		.loc 1 230 5 is_stmt 1 view .LVU374
+ 1143              	.LVL68:
+ 1144              	.LBB141:
+ 1145              		.loc 1 230 27 view .LVU375
+ 231:Src/can_encos.cpp ****         if (axes->config_.can_node_id_extended != msg.isExt)
+ 1146              		.loc 1 231 9 view .LVU376
+ 1147              		.loc 1 231 19 is_stmt 0 view .LVU377
+ 1148 000a 154B     		ldr	r3, .L46
+ 1149 000c 1A68     		ldr	r2, [r3]
+ 1150 000e 5368     		ldr	r3, [r2, #4]
+ 1151              		.loc 1 231 9 view .LVU378
+ 1152 0010 93F87400 		ldrb	r0, [r3, #116]	@ zero_extendqisi2
+ 1153              	.LVL69:
+ 1154              		.loc 1 231 9 view .LVU379
+ 1155 0014 2179     		ldrb	r1, [r4, #4]	@ zero_extendqisi2
+ 1156 0016 8842     		cmp	r0, r1
+ 1157 0018 1CD1     		bne	.L37
+ 232:Src/can_encos.cpp ****             continue;
+ 233:Src/can_encos.cpp **** 
+ 234:Src/can_encos.cpp ****         if (0x7FF == msg.id) {
+ 1158              		.loc 1 234 9 is_stmt 1 view .LVU380
+ 1159              		.loc 1 234 26 is_stmt 0 view .LVU381
+ 1160 001a 2168     		ldr	r1, [r4]
+ 1161              		.loc 1 234 9 view .LVU382
+ 1162 001c 40F2FF70 		movw	r0, #2047
+ 1163 0020 8142     		cmp	r1, r0
+ 1164 0022 04D0     		beq	.L44
+ 235:Src/can_encos.cpp ****             encos_cmd_handle(axes, msg);
+ 236:Src/can_encos.cpp ****             continue;
+ 237:Src/can_encos.cpp ****         }
+ 238:Src/can_encos.cpp **** 
+ 239:Src/can_encos.cpp ****         if (axes->config_.can_node_id == msg.id) {
+ 1165              		.loc 1 239 9 is_stmt 1 view .LVU383
+ 1166 0024 1B6F     		ldr	r3, [r3, #112]
+ 1167 0026 9942     		cmp	r1, r3
+ 1168 0028 14D1     		bne	.L37
+ 240:Src/can_encos.cpp ****             if (nullptr == axis) {
+ 1169              		.loc 1 240 13 view .LVU384
+ 241:Src/can_encos.cpp ****                 axis = axes;
+ 1170              		.loc 1 241 17 view .LVU385
+ 1171              		.loc 1 241 22 is_stmt 0 view .LVU386
+ 1172 002a 0192     		str	r2, [sp, #4]
+ 230:Src/can_encos.cpp ****         if (axes->config_.can_node_id_extended != msg.isExt)
+ 1173              		.loc 1 230 5 is_stmt 1 view .LVU387
+ 1174              	.LVL70:
+ 230:Src/can_encos.cpp ****         if (axes->config_.can_node_id_extended != msg.isExt)
+ 1175              		.loc 1 230 27 view .LVU388
+ 230:Src/can_encos.cpp ****         if (axes->config_.can_node_id_extended != msg.isExt)
+ 1176              		.loc 1 230 27 is_stmt 0 view .LVU389
+ 1177              	.LBE141:
+ARM GAS  /tmp/ccukGSIj.s 			page 34
+
+
+ 242:Src/can_encos.cpp ****             } else {
+ 243:Src/can_encos.cpp ****                 // Duplicate can IDs, don't assign to any axis
+ 244:Src/can_encos.cpp ****                 odCAN->set_error(ODriveCAN::ERROR_DUPLICATE_CAN_IDS);
+ 245:Src/can_encos.cpp ****                 return;
+ 246:Src/can_encos.cpp ****             }
+ 247:Src/can_encos.cpp ****         }
+ 248:Src/can_encos.cpp ****     }
+ 249:Src/can_encos.cpp ****     
+ 250:Src/can_encos.cpp ****     if (nullptr == axis)
+ 1178              		.loc 1 250 5 is_stmt 1 view .LVU390
+ 1179 002c 05E0     		b	.L40
+ 1180              	.LVL71:
+ 1181              	.L44:
+ 1182              	.LBB142:
+ 235:Src/can_encos.cpp ****             continue;
+ 1183              		.loc 1 235 13 discriminator 1 view .LVU391
+ 235:Src/can_encos.cpp ****             continue;
+ 1184              		.loc 1 235 29 is_stmt 0 discriminator 1 view .LVU392
+ 1185 002e 2146     		mov	r1, r4
+ 1186 0030 0B48     		ldr	r0, .L46
+ 1187 0032 FFF7FEFF 		bl	_Z16encos_cmd_handleRP4AxisR13can_Message_t
+ 1188              	.LVL72:
+ 236:Src/can_encos.cpp ****         }
+ 1189              		.loc 1 236 13 is_stmt 1 discriminator 1 view .LVU393
+ 230:Src/can_encos.cpp ****         if (axes->config_.can_node_id_extended != msg.isExt)
+ 1190              		.loc 1 230 5 discriminator 1 view .LVU394
+ 230:Src/can_encos.cpp ****         if (axes->config_.can_node_id_extended != msg.isExt)
+ 1191              		.loc 1 230 27 discriminator 1 view .LVU395
+ 230:Src/can_encos.cpp ****         if (axes->config_.can_node_id_extended != msg.isExt)
+ 1192              		.loc 1 230 27 is_stmt 0 discriminator 1 view .LVU396
+ 1193              	.LBE142:
+ 1194              		.loc 1 250 5 is_stmt 1 discriminator 1 view .LVU397
+ 1195 0036 019B     		ldr	r3, [sp, #4]
+ 1196 0038 63B1     		cbz	r3, .L37
+ 1197              	.L40:
+ 251:Src/can_encos.cpp ****         return;
+ 252:Src/can_encos.cpp **** 
+ 253:Src/can_encos.cpp ****     encos_cmd_handle(axis, msg);
+ 1198              		.loc 1 253 5 view .LVU398
+ 1199              		.loc 1 253 21 is_stmt 0 view .LVU399
+ 1200 003a 2146     		mov	r1, r4
+ 1201 003c 01A8     		add	r0, sp, #4
+ 1202 003e FFF7FEFF 		bl	_Z16encos_cmd_handleRP4AxisR13can_Message_t
+ 1203              	.LVL73:
+ 254:Src/can_encos.cpp ****     axis->watchdog_feed();
+ 1204              		.loc 1 254 5 is_stmt 1 view .LVU400
+ 1205              		.loc 1 254 24 is_stmt 0 view .LVU401
+ 1206 0042 0198     		ldr	r0, [sp, #4]
+ 1207 0044 FFF7FEFF 		bl	_ZN4Axis13watchdog_feedEv
+ 1208              	.LVL74:
+ 255:Src/can_encos.cpp ****     if(axis->config_.can_node_id == msg.id)
+ 1209              		.loc 1 255 5 is_stmt 1 view .LVU402
+ 1210              		.loc 1 255 14 is_stmt 0 view .LVU403
+ 1211 0048 0198     		ldr	r0, [sp, #4]
+ 1212              		.loc 1 255 22 view .LVU404
+ 1213 004a 4368     		ldr	r3, [r0, #4]
+ 1214              		.loc 1 255 5 view .LVU405
+ARM GAS  /tmp/ccukGSIj.s 			page 35
+
+
+ 1215 004c 1A6F     		ldr	r2, [r3, #112]
+ 1216 004e 2368     		ldr	r3, [r4]
+ 1217 0050 9A42     		cmp	r2, r3
+ 1218 0052 01D0     		beq	.L45
+ 1219              	.LVL75:
+ 1220              	.L37:
+ 256:Src/can_encos.cpp ****     {
+ 257:Src/can_encos.cpp ****         axis->axis_enable_by_encos();
+ 258:Src/can_encos.cpp ****     }
+ 259:Src/can_encos.cpp ****         
+ 260:Src/can_encos.cpp **** }
+ 1221              		.loc 1 260 1 view .LVU406
+ 1222 0054 02B0     		add	sp, sp, #8
+ 1223              	.LCFI9:
+ 1224              		.cfi_remember_state
+ 1225              		.cfi_def_cfa_offset 8
+ 1226              		@ sp needed
+ 1227 0056 10BD     		pop	{r4, pc}
+ 1228              	.LVL76:
+ 1229              	.L45:
+ 1230              	.LCFI10:
+ 1231              		.cfi_restore_state
+ 257:Src/can_encos.cpp ****     }
+ 1232              		.loc 1 257 9 is_stmt 1 view .LVU407
+ 257:Src/can_encos.cpp ****     }
+ 1233              		.loc 1 257 35 is_stmt 0 view .LVU408
+ 1234 0058 FFF7FEFF 		bl	_ZN4Axis20axis_enable_by_encosEv
+ 1235              	.LVL77:
+ 1236 005c FAE7     		b	.L37
+ 1237              	.L47:
+ 1238 005e 00BF     		.align	2
+ 1239              	.L46:
+ 1240 0060 00000000 		.word	axes
+ 1241              		.cfi_endproc
+ 1242              	.LFE5646:
+ 1244              		.section	.rodata
+ 1245              		.align	2
+ 1246              		.set	.LANCHOR0,. + 0
+ 1247              	.LC0:
+ 1248 0000 00000000 		.word	0
+ 1249 0004 00       		.byte	0
+ 1250 0005 00       		.byte	0
+ 1251 0006 08       		.byte	8
+ 1252 0007 00000000 		.ascii	"\000\000\000\000\000\000\000\000"
+ 1252      00000000 
+ 1253 000f 00       		.space	1
+ 1254              		.text
+ 1255              	.Letext0:
+ 1256              		.file 3 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef
+ 1257              		.file 4 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
+ 1258              		.file 5 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
+ 1259              		.file 6 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h"
+ 1260              		.file 7 "Middlewares/Third_Party/FreeRTOS/Source/include/task.h"
+ 1261              		.file 8 "Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h"
+ 1262              		.file 9 "Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g431xx.h"
+ 1263              		.file 10 "Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g4xx.h"
+ 1264              		.file 11 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_def.h"
+ARM GAS  /tmp/ccukGSIj.s 			page 36
+
+
+ 1265              		.file 12 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_dma.h"
+ 1266              		.file 13 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_fdcan.h"
+ 1267              		.file 14 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_spi.h"
+ 1268              		.file 15 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim.h"
+ 1269              		.file 16 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/type_trai
+ 1270              		.file 17 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/arm-none-
+ 1271              		.file 18 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/debug/deb
+ 1272              		.file 19 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/cstdlib"
+ 1273              		.file 20 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/algo
+ 1274              		.file 21 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/exce
+ 1275              		.file 22 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/std_
+ 1276              		.file 23 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_
+ 1277              		.file 24 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/variant"
+ 1278              		.file 25 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/enab
+ 1279              		.file 26 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/optional"
+ 1280              		.file 27 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/functiona
+ 1281              		.file 28 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/cstring"
+ 1282              		.file 29 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/cwchar"
+ 1283              		.file 30 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/clocale"
+ 1284              		.file 31 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/cstdint"
+ 1285              		.file 32 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/string_vi
+ 1286              		.file 33 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/basi
+ 1287              		.file 34 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/cstdio"
+ 1288              		.file 35 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/cmath"
+ 1289              		.file 36 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/std_
+ 1290              		.file 37 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_
+ 1291              		.file 38 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/array"
+ 1292              		.file 39 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_
+ 1293              		.file 40 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/refw
+ 1294              		.file 41 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/pars
+ 1295              		.file 42 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/pred
+ 1296              		.file 43 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_types.h"
+ 1297              		.file 44 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h"
+ 1298              		.file 45 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/lock.h"
+ 1299              		.file 46 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h"
+ 1300              		.file 47 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/pstl/exec
+ 1301              		.file 48 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/string.h"
+ 1302              		.file 49 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stdar
+ 1303              		.file 50 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/wchar.h"
+ 1304              		.file 51 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/locale.h"
+ 1305              		.file 52 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdio.h"
+ 1306              		.file 53 "Inc/can_helpers.hpp"
+ 1307              		.file 54 "Inc/interfaces.hpp"
+ 1308              		.file 55 "Inc/interface_can.hpp"
+ 1309              		.file 56 "Inc/can_encos.hpp"
+ 1310              		.file 57 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h"
+ 1311              		.file 58 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_usart.h"
+ 1312              		.file 59 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h"
+ 1313              		.file 60 "Inc/mc_type.h"
+ 1314              		.file 61 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/math.h"
+ 1315              		.file 62 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/math.h"
+ 1316              		.file 63 "Inc/main.h"
+ 1317              		.file 64 "Inc/task_timer.hpp"
+ 1318              		.file 65 "Inc/component.hpp"
+ 1319              		.file 66 "Inc/utils.hpp"
+ 1320              		.file 67 "Inc/encoder.hpp"
+ 1321              		.file 68 "Inc/controller.hpp"
+ARM GAS  /tmp/ccukGSIj.s 			page 37
+
+
+ 1322              		.file 69 "Inc/motor.hpp"
+ 1323              		.file 70 "Inc/main_.hpp"
+ 1324              		.file 71 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/stdlib.h"
+ 1325              		.file 72 "<built-in>"
+ARM GAS  /tmp/ccukGSIj.s 			page 38
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 can_encos.cpp
+     /tmp/ccukGSIj.s:18     .text._Z16encos_ack_type_1RP4Axis:0000000000000000 $t
+     /tmp/ccukGSIj.s:26     .text._Z16encos_ack_type_1RP4Axis:0000000000000000 _Z16encos_ack_type_1RP4Axis
+     /tmp/ccukGSIj.s:138    .text._Z16encos_ack_type_1RP4Axis:0000000000000088 $d
+     /tmp/ccukGSIj.s:144    .text._Z16encos_cmd_handleRP4AxisR13can_Message_t:0000000000000000 $t
+     /tmp/ccukGSIj.s:151    .text._Z16encos_cmd_handleRP4AxisR13can_Message_t:0000000000000000 _Z16encos_cmd_handleRP4AxisR13can_Message_t
+     /tmp/ccukGSIj.s:1098   .text._Z16encos_cmd_handleRP4AxisR13can_Message_t:0000000000000368 $d
+     /tmp/ccukGSIj.s:1114   .text._ZN8CANEncos18handle_can_messageER13can_Message_t:0000000000000000 $t
+     /tmp/ccukGSIj.s:1121   .text._ZN8CANEncos18handle_can_messageER13can_Message_t:0000000000000000 _ZN8CANEncos18handle_can_messageER13can_Message_t
+     /tmp/ccukGSIj.s:1240   .text._ZN8CANEncos18handle_can_messageER13can_Message_t:0000000000000060 $d
+     /tmp/ccukGSIj.s:1245   .rodata:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+_ZN4Axis14get_axis_stateEPNS_12axis_state_tE
+_ZN9ODriveCAN5writeER13can_Message_t
+odCAN
+_ZN4Axis17set_axis_pvt_parmEPNS_15axis_pvt_parm_tE
+_ZN4Axis16set_axis_currentEs
+_Z18save_configurationv
+_ZN4Axis10set_offsetEv
+_ZN4Axis13watchdog_feedEv
+_ZN4Axis20axis_enable_by_encosEv
+axes

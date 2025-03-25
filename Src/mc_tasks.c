@@ -161,6 +161,47 @@ __weak void MCboot( MCI_Handle_t* pMCIList[NBR_OF_MOTORS] )
   }
 }
 
+
+
+
+
+
+/**
+ * @brief  Starts motor in open-loop mode with specified voltage
+ * @param  voltage_q Q-axis voltage (0-16000, typical start ~5000)
+ * @param  voltage_d D-axis voltage (normally 0)
+ * @param  frequency_hz Electrical frequency in Hz
+ * @retval true if command accepted, false otherwise
+ */
+bool MC_StartMotorOpenLoop(int16_t voltage_q, int16_t voltage_d, uint16_t frequency_hz)
+{
+  MCI_Handle_t *pMCI = &Mci[M1];
+  bool ret = false;
+  PWMC_Handle_t *pHandle =  pwmcHandle[M1];
+
+
+  if (IDLE == MCI_GetSTMState(pMCI))
+  {
+    
+    // Start motor (triggers state transitions)
+    ret = MCI_StartMotor(pMCI);
+    
+    if (ret)
+    {
+
+      FOCVars[M1].Vqd.q = voltage_q;
+      FOCVars[M1].Vqd.d = voltage_d;
+
+    }
+  }
+  
+  return ret;
+}
+
+
+
+
+
 /**
  * @brief Runs all the Tasks of the Motor Control cockpit
  *
@@ -194,6 +235,7 @@ __weak void MC_RunMotorControlTasks(void)
     }
     else
     {
+
       MC_BG_Perf_Measure_Start(&PerfTraces, MEASURE_TSK_MediumFrequencyTaskM1);
       TSK_MediumFrequencyTaskM1();
 
@@ -472,6 +514,9 @@ void startMediumFrequencyTask(void const * argument)
 {
   /* USER CODE BEGIN MF task 1 */
 
+  vTaskDelay(100);
+  MC_StartMotorOpenLoop(5000, 0, 30); // Higher voltage and frequency for reliable start
+
   /* Infinite loop */
   for(;;)
   {
@@ -480,16 +525,19 @@ void startMediumFrequencyTask(void const * argument)
 
     /* Buffer is ready by the HW layer to be processed */
     /* NO DMA interrupt */
-    if (LL_DMA_IsActiveFlag_TC(DMA_RX_A, DMACH_RX_A))
-    {
-      LL_DMA_ClearFlag_TC(DMA_RX_A, DMACH_RX_A);
-      ASPEP_HWDataReceivedIT(&aspepOverUartA);
-    }
-    else
-    {
-      /* Nothing to do */
-    }
+    // if (LL_DMA_IsActiveFlag_TC(DMA_RX_A, DMACH_RX_A))
+    // {
+    //   LL_DMA_ClearFlag_TC(DMA_RX_A, DMACH_RX_A);
+    //   ASPEP_HWDataReceivedIT(&aspepOverUartA);
+    // }
+    // else
+    // {
+    //   /* Nothing to do */
+    // }
 
+
+                /* Process packet */
+    
     MC_RunMotorControlTasks();
   }
   /* USER CODE END MF task 1 */
