@@ -281,3 +281,14 @@ float applyNotchFilter(NotchFilter* filter, float input) {
     
     return output;
 }
+
+void test_svm(float mod_q, float mod_d, float* theta, float *ta, float *tb, float *tc) {
+
+    float c_p = our_arm_cos_f32(*theta);
+    float s_p = our_arm_sin_f32(*theta);
+    // 逆 Park 变换
+    float mod_alpha = c_p * mod_d - s_p * mod_q;    // α = d*cos(θ) - q*sin(θ)
+    float mod_beta  = c_p * mod_q + s_p * mod_d;    // β = q*cos(θ) + d*sin(θ)
+    SVM(mod_alpha,mod_beta,ta,tb,tc);
+    *theta = wrap_pm_pi(*theta);
+}

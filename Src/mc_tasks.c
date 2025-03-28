@@ -409,9 +409,9 @@ __weak void TSK_SafetyTask(void)
   if (1U == bMCBootCompleted)
   {
     SCC_CheckOC_RL(&SCC);
-    TSK_SafetyTask_PWMOFF(M1);
+   // TSK_SafetyTask_PWMOFF(M1);
     /* User conversion execution */
-    RCM_ExecUserConv();
+//    RCM_ExecUserConv();
   /* USER CODE BEGIN TSK_SafetyTask 1 */
 
   /* USER CODE END TSK_SafetyTask 1 */

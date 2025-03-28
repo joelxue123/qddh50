@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccfodlaB.s 			page 1
+ARM GAS  /tmp/ccRI0YSi.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -10,24 +10,219 @@ ARM GAS  /tmp/ccfodlaB.s 			page 1
    7              		.eabi_attribute 24, 1
    8              		.eabi_attribute 25, 1
    9              		.eabi_attribute 26, 1
-  10              		.eabi_attribute 30, 1
+  10              		.eabi_attribute 30, 6
   11              		.eabi_attribute 34, 1
   12              		.eabi_attribute 18, 2
   13              		.file	"vesc_commands.c"
   14              		.text
   15              	.Ltext0:
   16              		.cfi_sections	.debug_frame
-  17              		.section	.text.FindParameter,"ax",%progbits
-  18              		.align	1
-  19              		.arch armv7e-m
-  20              		.syntax unified
-  21              		.thumb
-  22              		.thumb_func
-  23              		.fpu fpv4-sp-d16
-  25              	FindParameter:
-  26              	.LVL0:
-  27              	.LFB1713:
-  28              		.file 1 "Src/vesc_commands.c"
+  17              		.section	.rodata.CHANNEL_OFFSET_TAB,"a"
+  18              		.align	2
+  21              	CHANNEL_OFFSET_TAB:
+  22 0000 081C3044 		.ascii	"\010\0340DXl"
+  22      586C
+  23              		.section	.rodata.USART_PRESCALER_TAB,"a"
+  24              		.align	2
+  27              	USART_PRESCALER_TAB:
+  28 0000 01000000 		.word	1
+  29 0004 02000000 		.word	2
+  30 0008 04000000 		.word	4
+  31 000c 06000000 		.word	6
+  32 0010 08000000 		.word	8
+  33 0014 0A000000 		.word	10
+  34 0018 0C000000 		.word	12
+  35 001c 10000000 		.word	16
+  36 0020 20000000 		.word	32
+  37 0024 40000000 		.word	64
+  38 0028 80000000 		.word	128
+  39 002c 00010000 		.word	256
+  40              		.section	.rodata.OFFSET_TAB_CCMRx,"a"
+  41              		.align	2
+  44              	OFFSET_TAB_CCMRx:
+  45 0000 00000000 		.ascii	"\000\000\000\000\004\004\004\00488"
+  45      04040404 
+  45      3838
+  46              		.section	.rodata.SHIFT_TAB_OCxx,"a"
+  47              		.align	2
+  50              	SHIFT_TAB_OCxx:
+  51 0000 00000800 		.ascii	"\000\000\010\000\000\000\010\000\000\010"
+  51      00000800 
+  51      0008
+  52              		.section	.rodata.SHIFT_TAB_ICxx,"a"
+  53              		.align	2
+  56              	SHIFT_TAB_ICxx:
+  57 0000 00000800 		.ascii	"\000\000\010\000\000\000\010\000\000\000"
+  57      00000800 
+  57      0000
+  58              		.section	.rodata.SHIFT_TAB_CCxP,"a"
+  59              		.align	2
+  62              	SHIFT_TAB_CCxP:
+ARM GAS  /tmp/ccRI0YSi.s 			page 2
+
+
+  63 0000 00020406 		.ascii	"\000\002\004\006\010\012\014\016\020\024"
+  63      080A0C0E 
+  63      1014
+  64              		.section	.rodata.SHIFT_TAB_OISx,"a"
+  65              		.align	2
+  68              	SHIFT_TAB_OISx:
+  69 0000 00010203 		.ascii	"\000\001\002\003\004\005\006\007\010\012"
+  69      04050607 
+  69      080A
+  70              		.section	.bss.response_buffer,"aw",%nobits
+  71              		.align	2
+  74              	response_buffer:
+  75 0000 00000000 		.space	128
+  75      00000000 
+  75      00000000 
+  75      00000000 
+  75      00000000 
+  76              		.section	.bss.speed_pid_p,"aw",%nobits
+  77              		.align	2
+  80              	speed_pid_p:
+  81 0000 00000000 		.space	4
+  82              		.section	.bss.speed_pid_i,"aw",%nobits
+  83              		.align	2
+  86              	speed_pid_i:
+  87 0000 00000000 		.space	4
+  88              		.section	.bss.speed_pid_d,"aw",%nobits
+  89              		.align	2
+  92              	speed_pid_d:
+  93 0000 00000000 		.space	4
+  94              		.section	.data.max_rpm,"aw"
+  95              		.align	2
+  98              	max_rpm:
+  99 0000 10270000 		.word	10000
+ 100              		.section	.data.max_current,"aw"
+ 101              		.align	2
+ 104              	max_current:
+ 105 0000 3C000000 		.word	60
+ 106              		.section	.data.temperature_limit,"aw"
+ 107              		.align	2
+ 110              	temperature_limit:
+ 111 0000 0000AA42 		.word	1118437376
+ 112              		.section	.rodata
+ 113              		.align	2
+ 114              	.LC0:
+ 115 0000 53706565 		.ascii	"Speed_PID_P\000"
+ 115      645F5049 
+ 115      445F5000 
+ 116              		.align	2
+ 117              	.LC1:
+ 118 000c 00       		.ascii	"\000"
+ 119 000d 000000   		.align	2
+ 120              	.LC2:
+ 121 0010 53706565 		.ascii	"Speed_PID_I\000"
+ 121      645F5049 
+ 121      445F4900 
+ 122              		.align	2
+ 123              	.LC3:
+ARM GAS  /tmp/ccRI0YSi.s 			page 3
+
+
+ 124 001c 53706565 		.ascii	"Speed_PID_D\000"
+ 124      645F5049 
+ 124      445F4400 
+ 125              		.align	2
+ 126              	.LC4:
+ 127 0028 4D61785F 		.ascii	"Max_RPM\000"
+ 127      52504D00 
+ 128              		.align	2
+ 129              	.LC5:
+ 130 0030 52504D00 		.ascii	"RPM\000"
+ 131              		.align	2
+ 132              	.LC6:
+ 133 0034 4D61785F 		.ascii	"Max_Current\000"
+ 133      43757272 
+ 133      656E7400 
+ 134              		.align	2
+ 135              	.LC7:
+ 136 0040 4100     		.ascii	"A\000"
+ 137 0042 0000     		.align	2
+ 138              	.LC8:
+ 139 0044 54656D70 		.ascii	"Temp_Limit\000"
+ 139      5F4C696D 
+ 139      697400
+ 140 004f 00       		.align	2
+ 141              	.LC9:
+ 142 0050 C2B04300 		.ascii	"\302\260C\000"
+ 143              		.section	.rodata.param_list,"a"
+ 144              		.align	2
+ 147              	param_list:
+ 148 0000 0100     		.short	1
+ 149 0002 0000     		.space	2
+ 150 0004 00000000 		.word	.LC0
+ 151 0008 0C000000 		.word	.LC1
+ 152 000c 06       		.byte	6
+ 153 000d 03       		.byte	3
+ 154 000e 0000     		.space	2
+ 155 0010 00000000 		.word	speed_pid_p
+ 156 0014 00000000 		.word	0
+ 157 0018 0000C842 		.word	1120403456
+ 158 001c 0200     		.short	2
+ 159 001e 0000     		.space	2
+ 160 0020 10000000 		.word	.LC2
+ 161 0024 0C000000 		.word	.LC1
+ 162 0028 06       		.byte	6
+ 163 0029 03       		.byte	3
+ 164 002a 0000     		.space	2
+ 165 002c 00000000 		.word	speed_pid_i
+ 166 0030 00000000 		.word	0
+ 167 0034 0000C842 		.word	1120403456
+ 168 0038 0300     		.short	3
+ 169 003a 0000     		.space	2
+ 170 003c 1C000000 		.word	.LC3
+ 171 0040 0C000000 		.word	.LC1
+ 172 0044 06       		.byte	6
+ 173 0045 03       		.byte	3
+ 174 0046 0000     		.space	2
+ 175 0048 00000000 		.word	speed_pid_d
+ARM GAS  /tmp/ccRI0YSi.s 			page 4
+
+
+ 176 004c 00000000 		.word	0
+ 177 0050 0000C842 		.word	1120403456
+ 178 0054 0400     		.short	4
+ 179 0056 0000     		.space	2
+ 180 0058 28000000 		.word	.LC4
+ 181 005c 30000000 		.word	.LC5
+ 182 0060 04       		.byte	4
+ 183 0061 03       		.byte	3
+ 184 0062 0000     		.space	2
+ 185 0064 00000000 		.word	max_rpm
+ 186 0068 00000000 		.word	0
+ 187 006c 0050C347 		.word	1203982336
+ 188 0070 0500     		.short	5
+ 189 0072 0000     		.space	2
+ 190 0074 34000000 		.word	.LC6
+ 191 0078 40000000 		.word	.LC7
+ 192 007c 04       		.byte	4
+ 193 007d 03       		.byte	3
+ 194 007e 0000     		.space	2
+ 195 0080 00000000 		.word	max_current
+ 196 0084 00000000 		.word	0
+ 197 0088 0000C842 		.word	1120403456
+ 198 008c 0600     		.short	6
+ 199 008e 0000     		.space	2
+ 200 0090 44000000 		.word	.LC8
+ 201 0094 50000000 		.word	.LC9
+ 202 0098 06       		.byte	6
+ 203 0099 03       		.byte	3
+ 204 009a 0000     		.space	2
+ 205 009c 00000000 		.word	temperature_limit
+ 206 00a0 00000000 		.word	0
+ 207 00a4 00001643 		.word	1125515264
+ 208              		.section	.text.FindParameter,"ax",%progbits
+ 209              		.align	1
+ 210              		.arch armv7e-m
+ 211              		.syntax unified
+ 212              		.thumb
+ 213              		.thumb_func
+ 214              		.fpu fpv4-sp-d16
+ 216              	FindParameter:
+ 217              	.LFB1713:
+ 218              		.file 1 "Src/vesc_commands.c"
    1:Src/vesc_commands.c **** #include "vesc_uart.h"
    2:Src/vesc_commands.c **** #include "mc_api.h"
    3:Src/vesc_commands.c **** #include "mc_config.h"
@@ -43,6 +238,9 @@ ARM GAS  /tmp/ccfodlaB.s 			page 1
   13:Src/vesc_commands.c **** static float speed_pid_d = 0.0f;
   14:Src/vesc_commands.c **** static int32_t max_rpm = 10000;
   15:Src/vesc_commands.c **** static int32_t max_current = 60;
+ARM GAS  /tmp/ccRI0YSi.s 			page 5
+
+
   16:Src/vesc_commands.c **** static float temperature_limit = 85.0f;
   17:Src/vesc_commands.c **** 
   18:Src/vesc_commands.c **** /* Forward declarations */
@@ -58,9 +256,6 @@ ARM GAS  /tmp/ccfodlaB.s 			page 1
   28:Src/vesc_commands.c ****         .unit = "",
   29:Src/vesc_commands.c ****         .type = PARAM_TYPE_FLOAT,
   30:Src/vesc_commands.c ****         .access = PARAM_ACCESS_RW,
-ARM GAS  /tmp/ccfodlaB.s 			page 2
-
-
   31:Src/vesc_commands.c ****         .value_ptr = &speed_pid_p,
   32:Src/vesc_commands.c ****         .min = 0.0f,
   33:Src/vesc_commands.c ****         .max = 100.0f
@@ -103,6 +298,9 @@ ARM GAS  /tmp/ccfodlaB.s 			page 1
   70:Src/vesc_commands.c ****         .access = PARAM_ACCESS_RW,
   71:Src/vesc_commands.c ****         .value_ptr = &max_current,
   72:Src/vesc_commands.c ****         .min = 0.0f,
+ARM GAS  /tmp/ccRI0YSi.s 			page 6
+
+
   73:Src/vesc_commands.c ****         .max = 100.0f
   74:Src/vesc_commands.c ****     },
   75:Src/vesc_commands.c ****     {
@@ -118,1175 +316,1947 @@ ARM GAS  /tmp/ccfodlaB.s 			page 1
   85:Src/vesc_commands.c **** };
   86:Src/vesc_commands.c **** 
   87:Src/vesc_commands.c **** #define NUM_PARAMS (sizeof(param_list) / sizeof(param_list[0]))
-ARM GAS  /tmp/ccfodlaB.s 			page 3
-
-
   88:Src/vesc_commands.c **** 
   89:Src/vesc_commands.c **** /* Parameter System Functions */
   90:Src/vesc_commands.c **** static const ParamDescriptor_t* FindParameter(uint16_t param_id) {
-  29              		.loc 1 90 66 view -0
-  30              		.cfi_startproc
-  31              		@ args = 0, pretend = 0, frame = 0
-  32              		@ frame_needed = 0, uses_anonymous_args = 0
-  33              		@ link register save eliminated.
+ 219              		.loc 1 90 66
+ 220              		.cfi_startproc
+ 221              		@ args = 0, pretend = 0, frame = 16
+ 222              		@ frame_needed = 1, uses_anonymous_args = 0
+ 223              		@ link register save eliminated.
+ 224 0000 80B4     		push	{r7}
+ 225              	.LCFI0:
+ 226              		.cfi_def_cfa_offset 4
+ 227              		.cfi_offset 7, -4
+ 228 0002 85B0     		sub	sp, sp, #20
+ 229              	.LCFI1:
+ 230              		.cfi_def_cfa_offset 24
+ 231 0004 00AF     		add	r7, sp, #0
+ 232              	.LCFI2:
+ 233              		.cfi_def_cfa_register 7
+ 234 0006 0346     		mov	r3, r0
+ 235 0008 FB80     		strh	r3, [r7, #6]	@ movhi
+ 236              	.LBB2:
   91:Src/vesc_commands.c ****     for(uint16_t i = 0; i < NUM_PARAMS; i++) {
-  34              		.loc 1 91 5 view .LVU1
-  35              	.LBB2:
-  36              		.loc 1 91 9 view .LVU2
-  37              		.loc 1 91 25 view .LVU3
+ 237              		.loc 1 91 18
+ 238 000a 0023     		movs	r3, #0
+ 239 000c FB81     		strh	r3, [r7, #14]	@ movhi
+ 240              		.loc 1 91 5
+ 241 000e 15E0     		b	.L2
+ 242              	.L5:
   92:Src/vesc_commands.c ****         if(param_list[i].id == param_id) {
-  38              		.loc 1 92 9 view .LVU4
-  39              		.loc 1 92 11 is_stmt 0 view .LVU5
-  40 0000 0128     		cmp	r0, #1
-  41 0002 0DD0     		beq	.L4
-  91:Src/vesc_commands.c ****     for(uint16_t i = 0; i < NUM_PARAMS; i++) {
-  42              		.loc 1 91 41 is_stmt 1 view .LVU6
-  43              	.LVL1:
-  91:Src/vesc_commands.c ****     for(uint16_t i = 0; i < NUM_PARAMS; i++) {
-  44              		.loc 1 91 25 view .LVU7
-  45              		.loc 1 92 9 view .LVU8
-  46              		.loc 1 92 11 is_stmt 0 view .LVU9
-  47 0004 0228     		cmp	r0, #2
-  48 0006 12D0     		beq	.L5
-  91:Src/vesc_commands.c ****     for(uint16_t i = 0; i < NUM_PARAMS; i++) {
-  49              		.loc 1 91 41 is_stmt 1 view .LVU10
-  50              	.LVL2:
-  91:Src/vesc_commands.c ****     for(uint16_t i = 0; i < NUM_PARAMS; i++) {
-  51              		.loc 1 91 25 view .LVU11
-  52              		.loc 1 92 9 view .LVU12
-  53              		.loc 1 92 11 is_stmt 0 view .LVU13
-  54 0008 0328     		cmp	r0, #3
-  55 000a 12D0     		beq	.L6
-  91:Src/vesc_commands.c ****     for(uint16_t i = 0; i < NUM_PARAMS; i++) {
-  56              		.loc 1 91 41 is_stmt 1 view .LVU14
-  57              	.LVL3:
-  91:Src/vesc_commands.c ****     for(uint16_t i = 0; i < NUM_PARAMS; i++) {
-  58              		.loc 1 91 25 view .LVU15
-  59              		.loc 1 92 9 view .LVU16
-  60              		.loc 1 92 11 is_stmt 0 view .LVU17
-  61 000c 0428     		cmp	r0, #4
-  62 000e 12D0     		beq	.L7
-  91:Src/vesc_commands.c ****     for(uint16_t i = 0; i < NUM_PARAMS; i++) {
-  63              		.loc 1 91 41 is_stmt 1 view .LVU18
-  64              	.LVL4:
-  91:Src/vesc_commands.c ****     for(uint16_t i = 0; i < NUM_PARAMS; i++) {
-  65              		.loc 1 91 25 view .LVU19
-  66              		.loc 1 92 9 view .LVU20
-  67              		.loc 1 92 11 is_stmt 0 view .LVU21
-  68 0010 0528     		cmp	r0, #5
-  69 0012 12D0     		beq	.L8
-  91:Src/vesc_commands.c ****     for(uint16_t i = 0; i < NUM_PARAMS; i++) {
-  70              		.loc 1 91 41 is_stmt 1 view .LVU22
-  71              	.LVL5:
-ARM GAS  /tmp/ccfodlaB.s 			page 4
+ 243              		.loc 1 92 25
+ 244 0010 FA89     		ldrh	r2, [r7, #14]
+ 245 0012 0F49     		ldr	r1, .L6
+ 246 0014 1346     		mov	r3, r2
+ 247 0016 DB00     		lsls	r3, r3, #3
+ 248 0018 9B1A     		subs	r3, r3, r2
+ 249 001a 9B00     		lsls	r3, r3, #2
+ 250 001c 0B44     		add	r3, r3, r1
+ 251 001e 1B88     		ldrh	r3, [r3]
+ 252              		.loc 1 92 11
+ 253 0020 FA88     		ldrh	r2, [r7, #6]
+ 254 0022 9A42     		cmp	r2, r3
+ 255 0024 07D1     		bne	.L3
+ARM GAS  /tmp/ccRI0YSi.s 			page 7
 
 
-  91:Src/vesc_commands.c ****     for(uint16_t i = 0; i < NUM_PARAMS; i++) {
-  72              		.loc 1 91 25 view .LVU23
-  73              		.loc 1 92 9 view .LVU24
-  74              		.loc 1 92 11 is_stmt 0 view .LVU25
-  75 0014 0628     		cmp	r0, #6
-  76              		.loc 1 92 25 view .LVU26
-  77 0016 08BF     		it	eq
-  78 0018 0520     		moveq	r0, #5
-  79              	.LVL6:
-  80              		.loc 1 92 11 view .LVU27
-  81 001a 02D0     		beq	.L2
-  82              	.LBE2:
   93:Src/vesc_commands.c ****             return &param_list[i];
+ 256              		.loc 1 93 31
+ 257 0026 FA89     		ldrh	r2, [r7, #14]
+ 258              		.loc 1 93 20
+ 259 0028 1346     		mov	r3, r2
+ 260 002a DB00     		lsls	r3, r3, #3
+ 261 002c 9B1A     		subs	r3, r3, r2
+ 262 002e 9B00     		lsls	r3, r3, #2
+ 263 0030 074A     		ldr	r2, .L6
+ 264 0032 1344     		add	r3, r3, r2
+ 265 0034 06E0     		b	.L4
+ 266              	.L3:
+  91:Src/vesc_commands.c ****     for(uint16_t i = 0; i < NUM_PARAMS; i++) {
+ 267              		.loc 1 91 42 discriminator 2
+ 268 0036 FB89     		ldrh	r3, [r7, #14]
+ 269 0038 0133     		adds	r3, r3, #1
+ 270 003a FB81     		strh	r3, [r7, #14]	@ movhi
+ 271              	.L2:
+  91:Src/vesc_commands.c ****     for(uint16_t i = 0; i < NUM_PARAMS; i++) {
+ 272              		.loc 1 91 5 discriminator 1
+ 273 003c FB89     		ldrh	r3, [r7, #14]
+ 274 003e 052B     		cmp	r3, #5
+ 275 0040 E6D9     		bls	.L5
+ 276              	.LBE2:
   94:Src/vesc_commands.c ****         }
   95:Src/vesc_commands.c ****     }
   96:Src/vesc_commands.c ****     return NULL;
-  83              		.loc 1 96 12 view .LVU28
-  84 001c 0020     		movs	r0, #0
-  85              	.LVL7:
+ 277              		.loc 1 96 12
+ 278 0042 0023     		movs	r3, #0
+ 279              	.L4:
   97:Src/vesc_commands.c **** }
-  86              		.loc 1 97 1 view .LVU29
-  87 001e 7047     		bx	lr
-  88              	.LVL8:
-  89              	.L4:
-  90              	.LBB3:
-  92:Src/vesc_commands.c ****         if(param_list[i].id == param_id) {
-  91              		.loc 1 92 25 view .LVU30
-  92 0020 0020     		movs	r0, #0
-  93              	.LVL9:
-  94              	.L2:
-  93:Src/vesc_commands.c ****             return &param_list[i];
-  95              		.loc 1 93 13 is_stmt 1 view .LVU31
-  93:Src/vesc_commands.c ****             return &param_list[i];
-  96              		.loc 1 93 20 is_stmt 0 view .LVU32
-  97 0022 C0EBC003 		rsb	r3, r0, r0, lsl #3
-  98 0026 0648     		ldr	r0, .L10
-  99 0028 00EB8300 		add	r0, r0, r3, lsl #2
- 100 002c 7047     		bx	lr
- 101              	.LVL10:
- 102              	.L5:
-  92:Src/vesc_commands.c ****         if(param_list[i].id == param_id) {
- 103              		.loc 1 92 25 view .LVU33
- 104 002e 0120     		movs	r0, #1
- 105              	.LVL11:
-  92:Src/vesc_commands.c ****         if(param_list[i].id == param_id) {
- 106              		.loc 1 92 25 view .LVU34
- 107 0030 F7E7     		b	.L2
- 108              	.LVL12:
- 109              	.L6:
-  92:Src/vesc_commands.c ****         if(param_list[i].id == param_id) {
- 110              		.loc 1 92 25 view .LVU35
- 111 0032 0220     		movs	r0, #2
- 112              	.LVL13:
-  92:Src/vesc_commands.c ****         if(param_list[i].id == param_id) {
- 113              		.loc 1 92 25 view .LVU36
- 114 0034 F5E7     		b	.L2
- 115              	.LVL14:
-ARM GAS  /tmp/ccfodlaB.s 			page 5
+ 280              		.loc 1 97 1
+ 281 0044 1846     		mov	r0, r3
+ 282 0046 1437     		adds	r7, r7, #20
+ 283              	.LCFI3:
+ 284              		.cfi_def_cfa_offset 4
+ 285 0048 BD46     		mov	sp, r7
+ 286              	.LCFI4:
+ 287              		.cfi_def_cfa_register 13
+ 288              		@ sp needed
+ 289 004a 5DF8047B 		ldr	r7, [sp], #4
+ 290              	.LCFI5:
+ 291              		.cfi_restore 7
+ 292              		.cfi_def_cfa_offset 0
+ 293 004e 7047     		bx	lr
+ 294              	.L7:
+ 295              		.align	2
+ 296              	.L6:
+ 297 0050 00000000 		.word	param_list
+ 298              		.cfi_endproc
+ 299              	.LFE1713:
+ 301              		.section	.text.SendParameterList,"ax",%progbits
+ 302              		.align	1
+ 303              		.global	SendParameterList
+ 304              		.syntax unified
+ 305              		.thumb
+ 306              		.thumb_func
+ARM GAS  /tmp/ccRI0YSi.s 			page 8
 
 
- 116              	.L7:
-  92:Src/vesc_commands.c ****         if(param_list[i].id == param_id) {
- 117              		.loc 1 92 25 view .LVU37
- 118 0036 0320     		movs	r0, #3
- 119              	.LVL15:
-  92:Src/vesc_commands.c ****         if(param_list[i].id == param_id) {
- 120              		.loc 1 92 25 view .LVU38
- 121 0038 F3E7     		b	.L2
- 122              	.LVL16:
- 123              	.L8:
-  92:Src/vesc_commands.c ****         if(param_list[i].id == param_id) {
- 124              		.loc 1 92 25 view .LVU39
- 125 003a 0420     		movs	r0, #4
- 126              	.LVL17:
-  92:Src/vesc_commands.c ****         if(param_list[i].id == param_id) {
- 127              		.loc 1 92 25 view .LVU40
- 128 003c F1E7     		b	.L2
- 129              	.L11:
- 130 003e 00BF     		.align	2
- 131              	.L10:
- 132 0040 00000000 		.word	.LANCHOR0
- 133              	.LBE3:
- 134              		.cfi_endproc
- 135              	.LFE1713:
- 137              		.section	.text.SendParameterList,"ax",%progbits
- 138              		.align	1
- 139              		.global	SendParameterList
- 140              		.syntax unified
- 141              		.thumb
- 142              		.thumb_func
- 143              		.fpu fpv4-sp-d16
- 145              	SendParameterList:
- 146              	.LFB1714:
+ 307              		.fpu fpv4-sp-d16
+ 309              	SendParameterList:
+ 310              	.LFB1714:
   98:Src/vesc_commands.c **** 
   99:Src/vesc_commands.c **** void SendParameterList(void) {
- 147              		.loc 1 99 30 is_stmt 1 view -0
- 148              		.cfi_startproc
- 149              		@ args = 0, pretend = 0, frame = 0
- 150              		@ frame_needed = 0, uses_anonymous_args = 0
- 151 0000 08B5     		push	{r3, lr}
- 152              	.LCFI0:
- 153              		.cfi_def_cfa_offset 8
- 154              		.cfi_offset 3, -8
- 155              		.cfi_offset 14, -4
+ 311              		.loc 1 99 30
+ 312              		.cfi_startproc
+ 313              		@ args = 0, pretend = 0, frame = 8
+ 314              		@ frame_needed = 1, uses_anonymous_args = 0
+ 315 0000 80B5     		push	{r7, lr}
+ 316              	.LCFI6:
+ 317              		.cfi_def_cfa_offset 8
+ 318              		.cfi_offset 7, -8
+ 319              		.cfi_offset 14, -4
+ 320 0002 82B0     		sub	sp, sp, #8
+ 321              	.LCFI7:
+ 322              		.cfi_def_cfa_offset 16
+ 323 0004 00AF     		add	r7, sp, #0
+ 324              	.LCFI8:
+ 325              		.cfi_def_cfa_register 7
  100:Src/vesc_commands.c ****     uint16_t idx = 0;
- 156              		.loc 1 100 5 view .LVU42
- 157              	.LVL18:
+ 326              		.loc 1 100 14
+ 327 0006 0023     		movs	r3, #0
+ 328 0008 FB80     		strh	r3, [r7, #6]	@ movhi
  101:Src/vesc_commands.c ****     
  102:Src/vesc_commands.c ****     response_buffer[idx++] = NUM_PARAMS & 0xFF;
- 158              		.loc 1 102 5 view .LVU43
- 159              		.loc 1 102 28 is_stmt 0 view .LVU44
- 160 0002 0A4A     		ldr	r2, .L16
- 161 0004 0623     		movs	r3, #6
- 162 0006 1370     		strb	r3, [r2]
+ 329              		.loc 1 102 24
+ 330 000a FB88     		ldrh	r3, [r7, #6]
+ 331 000c 5A1C     		adds	r2, r3, #1
+ 332 000e FA80     		strh	r2, [r7, #6]	@ movhi
+ 333 0010 1A46     		mov	r2, r3
+ 334              		.loc 1 102 28
+ 335 0012 1E4B     		ldr	r3, .L11
+ 336 0014 0621     		movs	r1, #6
+ 337 0016 9954     		strb	r1, [r3, r2]
  103:Src/vesc_commands.c ****     response_buffer[idx++] = (NUM_PARAMS >> 8) & 0xFF;
- 163              		.loc 1 103 5 is_stmt 1 view .LVU45
- 164              	.LVL19:
-ARM GAS  /tmp/ccfodlaB.s 			page 6
-
-
- 165              		.loc 1 103 28 is_stmt 0 view .LVU46
- 166 0008 0021     		movs	r1, #0
- 167 000a 5170     		strb	r1, [r2, #1]
+ 338              		.loc 1 103 24
+ 339 0018 FB88     		ldrh	r3, [r7, #6]
+ 340 001a 5A1C     		adds	r2, r3, #1
+ 341 001c FA80     		strh	r2, [r7, #6]	@ movhi
+ 342 001e 1A46     		mov	r2, r3
+ 343              		.loc 1 103 28
+ 344 0020 1A4B     		ldr	r3, .L11
+ 345 0022 0021     		movs	r1, #0
+ 346 0024 9954     		strb	r1, [r3, r2]
+ 347              	.LBB3:
  104:Src/vesc_commands.c ****     
  105:Src/vesc_commands.c ****     for(uint16_t i = 0; i < NUM_PARAMS; i++) {
- 168              		.loc 1 105 5 is_stmt 1 view .LVU47
- 169              	.LBB4:
- 170              		.loc 1 105 9 view .LVU48
- 171              	.LVL20:
- 172              		.loc 1 105 25 view .LVU49
+ 348              		.loc 1 105 18
+ 349 0026 0023     		movs	r3, #0
+ 350 0028 BB80     		strh	r3, [r7, #4]	@ movhi
+ 351              		.loc 1 105 5
+ 352 002a 22E0     		b	.L9
+ 353              	.L10:
  106:Src/vesc_commands.c ****         response_buffer[idx++] = param_list[i].id & 0xFF;
- 173              		.loc 1 106 47 is_stmt 0 view .LVU50
- 174 000c 0848     		ldr	r0, .L16+4
- 175              	.LVL21:
- 176              	.L13:
- 177              		.loc 1 106 9 is_stmt 1 discriminator 3 view .LVU51
- 178              		.loc 1 106 47 is_stmt 0 discriminator 3 view .LVU52
- 179 000e 30F81130 		ldrh	r3, [r0, r1, lsl #1]
- 180              	.LVL22:
- 181              		.loc 1 106 32 discriminator 3 view .LVU53
- 182 0012 9370     		strb	r3, [r2, #2]
+ 354              		.loc 1 106 47 discriminator 3
+ 355 002c BA88     		ldrh	r2, [r7, #4]
+ARM GAS  /tmp/ccRI0YSi.s 			page 9
+
+
+ 356 002e 1849     		ldr	r1, .L11+4
+ 357 0030 1346     		mov	r3, r2
+ 358 0032 DB00     		lsls	r3, r3, #3
+ 359 0034 9B1A     		subs	r3, r3, r2
+ 360 0036 9B00     		lsls	r3, r3, #2
+ 361 0038 0B44     		add	r3, r3, r1
+ 362 003a 1988     		ldrh	r1, [r3]
+ 363              		.loc 1 106 28 discriminator 3
+ 364 003c FB88     		ldrh	r3, [r7, #6]
+ 365 003e 5A1C     		adds	r2, r3, #1
+ 366 0040 FA80     		strh	r2, [r7, #6]	@ movhi
+ 367 0042 1A46     		mov	r2, r3
+ 368              		.loc 1 106 32 discriminator 3
+ 369 0044 C9B2     		uxtb	r1, r1
+ 370 0046 114B     		ldr	r3, .L11
+ 371 0048 9954     		strb	r1, [r3, r2]
  107:Src/vesc_commands.c ****         response_buffer[idx++] = (param_list[i].id >> 8) & 0xFF;
- 183              		.loc 1 107 9 is_stmt 1 discriminator 3 view .LVU54
- 184              	.LVL23:
- 185              		.loc 1 107 32 is_stmt 0 discriminator 3 view .LVU55
- 186 0014 1B0A     		lsrs	r3, r3, #8
- 187 0016 D370     		strb	r3, [r2, #3]
+ 372              		.loc 1 107 48 discriminator 3
+ 373 004a BA88     		ldrh	r2, [r7, #4]
+ 374 004c 1049     		ldr	r1, .L11+4
+ 375 004e 1346     		mov	r3, r2
+ 376 0050 DB00     		lsls	r3, r3, #3
+ 377 0052 9B1A     		subs	r3, r3, r2
+ 378 0054 9B00     		lsls	r3, r3, #2
+ 379 0056 0B44     		add	r3, r3, r1
+ 380 0058 1B88     		ldrh	r3, [r3]
+ 381              		.loc 1 107 32 discriminator 3
+ 382 005a 1B0A     		lsrs	r3, r3, #8
+ 383 005c 99B2     		uxth	r1, r3
+ 384              		.loc 1 107 28 discriminator 3
+ 385 005e FB88     		ldrh	r3, [r7, #6]
+ 386 0060 5A1C     		adds	r2, r3, #1
+ 387 0062 FA80     		strh	r2, [r7, #6]	@ movhi
+ 388 0064 1A46     		mov	r2, r3
+ 389              		.loc 1 107 32 discriminator 3
+ 390 0066 C9B2     		uxtb	r1, r1
+ 391 0068 084B     		ldr	r3, .L11
+ 392 006a 9954     		strb	r1, [r3, r2]
  105:Src/vesc_commands.c ****         response_buffer[idx++] = param_list[i].id & 0xFF;
- 188              		.loc 1 105 41 is_stmt 1 discriminator 3 view .LVU56
- 189              	.LVL24:
+ 393              		.loc 1 105 42 discriminator 3
+ 394 006c BB88     		ldrh	r3, [r7, #4]
+ 395 006e 0133     		adds	r3, r3, #1
+ 396 0070 BB80     		strh	r3, [r7, #4]	@ movhi
+ 397              	.L9:
  105:Src/vesc_commands.c ****         response_buffer[idx++] = param_list[i].id & 0xFF;
- 190              		.loc 1 105 25 discriminator 3 view .LVU57
- 105:Src/vesc_commands.c ****         response_buffer[idx++] = param_list[i].id & 0xFF;
- 191              		.loc 1 105 5 is_stmt 0 discriminator 3 view .LVU58
- 192 0018 0E31     		adds	r1, r1, #14
- 193              	.LVL25:
- 105:Src/vesc_commands.c ****         response_buffer[idx++] = param_list[i].id & 0xFF;
- 194              		.loc 1 105 5 discriminator 3 view .LVU59
- 195 001a 0232     		adds	r2, r2, #2
- 196              	.LVL26:
- 105:Src/vesc_commands.c ****         response_buffer[idx++] = param_list[i].id & 0xFF;
- 197              		.loc 1 105 5 discriminator 3 view .LVU60
- 198 001c 5429     		cmp	r1, #84
- 199 001e F6D1     		bne	.L13
- 200              	.LBE4:
+ 398              		.loc 1 105 5 discriminator 1
+ 399 0072 BB88     		ldrh	r3, [r7, #4]
+ 400 0074 052B     		cmp	r3, #5
+ 401 0076 D9D9     		bls	.L10
+ 402              	.LBE3:
  108:Src/vesc_commands.c ****     }
  109:Src/vesc_commands.c ****     
  110:Src/vesc_commands.c ****     VESC_SendPacket(COMM_GET_PARAM_LIST, response_buffer, idx);
- 201              		.loc 1 110 5 is_stmt 1 view .LVU61
- 202 0020 0E22     		movs	r2, #14
- 203 0022 0249     		ldr	r1, .L16
- 204              	.LVL27:
- 205              		.loc 1 110 5 is_stmt 0 view .LVU62
- 206 0024 2820     		movs	r0, #40
- 207 0026 FFF7FEFF 		bl	VESC_SendPacket
- 208              	.LVL28:
+ 403              		.loc 1 110 5
+ 404 0078 FB88     		ldrh	r3, [r7, #6]
+ 405 007a 1A46     		mov	r2, r3
+ 406 007c 0349     		ldr	r1, .L11
+ARM GAS  /tmp/ccRI0YSi.s 			page 10
+
+
+ 407 007e 2820     		movs	r0, #40
+ 408 0080 FFF7FEFF 		bl	VESC_SendPacket
  111:Src/vesc_commands.c **** }
-ARM GAS  /tmp/ccfodlaB.s 			page 7
-
-
- 209              		.loc 1 111 1 view .LVU63
- 210 002a 08BD     		pop	{r3, pc}
- 211              	.L17:
- 212              		.align	2
- 213              	.L16:
- 214 002c 00000000 		.word	.LANCHOR1
- 215 0030 00000000 		.word	.LANCHOR0
- 216              		.cfi_endproc
- 217              	.LFE1714:
- 219              		.section	.text.SendParameterInfo,"ax",%progbits
- 220              		.align	1
- 221              		.global	SendParameterInfo
- 222              		.syntax unified
- 223              		.thumb
- 224              		.thumb_func
- 225              		.fpu fpv4-sp-d16
- 227              	SendParameterInfo:
- 228              	.LVL29:
- 229              	.LFB1715:
+ 409              		.loc 1 111 1
+ 410 0084 00BF     		nop
+ 411 0086 0837     		adds	r7, r7, #8
+ 412              	.LCFI9:
+ 413              		.cfi_def_cfa_offset 8
+ 414 0088 BD46     		mov	sp, r7
+ 415              	.LCFI10:
+ 416              		.cfi_def_cfa_register 13
+ 417              		@ sp needed
+ 418 008a 80BD     		pop	{r7, pc}
+ 419              	.L12:
+ 420              		.align	2
+ 421              	.L11:
+ 422 008c 00000000 		.word	response_buffer
+ 423 0090 00000000 		.word	param_list
+ 424              		.cfi_endproc
+ 425              	.LFE1714:
+ 427              		.section	.text.SendParameterInfo,"ax",%progbits
+ 428              		.align	1
+ 429              		.global	SendParameterInfo
+ 430              		.syntax unified
+ 431              		.thumb
+ 432              		.thumb_func
+ 433              		.fpu fpv4-sp-d16
+ 435              	SendParameterInfo:
+ 436              	.LFB1715:
  112:Src/vesc_commands.c **** 
  113:Src/vesc_commands.c **** void SendParameterInfo(uint16_t param_id) {
- 230              		.loc 1 113 43 is_stmt 1 view -0
- 231              		.cfi_startproc
- 232              		@ args = 0, pretend = 0, frame = 0
- 233              		@ frame_needed = 0, uses_anonymous_args = 0
- 234              		.loc 1 113 43 is_stmt 0 view .LVU65
- 235 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
- 236              	.LCFI1:
- 237              		.cfi_def_cfa_offset 24
- 238              		.cfi_offset 4, -24
- 239              		.cfi_offset 5, -20
- 240              		.cfi_offset 6, -16
- 241              		.cfi_offset 7, -12
- 242              		.cfi_offset 8, -8
- 243              		.cfi_offset 14, -4
+ 437              		.loc 1 113 43
+ 438              		.cfi_startproc
+ 439              		@ args = 0, pretend = 0, frame = 16
+ 440              		@ frame_needed = 1, uses_anonymous_args = 0
+ 441 0000 80B5     		push	{r7, lr}
+ 442              	.LCFI11:
+ 443              		.cfi_def_cfa_offset 8
+ 444              		.cfi_offset 7, -8
+ 445              		.cfi_offset 14, -4
+ 446 0002 84B0     		sub	sp, sp, #16
+ 447              	.LCFI12:
+ 448              		.cfi_def_cfa_offset 24
+ 449 0004 00AF     		add	r7, sp, #0
+ 450              	.LCFI13:
+ 451              		.cfi_def_cfa_register 7
+ 452 0006 0346     		mov	r3, r0
+ 453 0008 FB80     		strh	r3, [r7, #6]	@ movhi
  114:Src/vesc_commands.c ****     const ParamDescriptor_t* param = FindParameter(param_id);
- 244              		.loc 1 114 5 is_stmt 1 view .LVU66
- 245              		.loc 1 114 38 is_stmt 0 view .LVU67
- 246 0004 FFF7FEFF 		bl	FindParameter
- 247              	.LVL30:
+ 454              		.loc 1 114 38
+ 455 000a FB88     		ldrh	r3, [r7, #6]
+ 456 000c 1846     		mov	r0, r3
+ 457 000e FFF7FEFF 		bl	FindParameter
+ 458 0012 F860     		str	r0, [r7, #12]
  115:Src/vesc_commands.c ****     if(!param) return;
- 248              		.loc 1 115 5 is_stmt 1 view .LVU68
- 249              		.loc 1 115 7 is_stmt 0 view .LVU69
- 250 0008 70B3     		cbz	r0, .L18
- 251 000a 0546     		mov	r5, r0
+ 459              		.loc 1 115 7
+ 460 0014 FB68     		ldr	r3, [r7, #12]
+ARM GAS  /tmp/ccRI0YSi.s 			page 11
+
+
+ 461 0016 002B     		cmp	r3, #0
+ 462 0018 78D0     		beq	.L16
  116:Src/vesc_commands.c ****     
  117:Src/vesc_commands.c ****     uint16_t idx = 0;
- 252              		.loc 1 117 5 is_stmt 1 view .LVU70
- 253              	.LVL31:
+ 463              		.loc 1 117 14
+ 464 001a 0023     		movs	r3, #0
+ 465 001c 7B81     		strh	r3, [r7, #10]	@ movhi
  118:Src/vesc_commands.c ****     uint8_t name_len = strlen(param->name);
- 254              		.loc 1 118 5 view .LVU71
- 255              		.loc 1 118 24 is_stmt 0 view .LVU72
- 256 000c 4068     		ldr	r0, [r0, #4]
- 257              	.LVL32:
- 258              		.loc 1 118 24 view .LVU73
- 259 000e FFF7FEFF 		bl	strlen
- 260              	.LVL33:
-ARM GAS  /tmp/ccfodlaB.s 			page 8
-
-
- 261              		.loc 1 118 13 view .LVU74
- 262 0012 C6B2     		uxtb	r6, r0
- 263              	.LVL34:
+ 466              		.loc 1 118 24
+ 467 001e FB68     		ldr	r3, [r7, #12]
+ 468 0020 5B68     		ldr	r3, [r3, #4]
+ 469 0022 1846     		mov	r0, r3
+ 470 0024 FFF7FEFF 		bl	strlen
+ 471 0028 0346     		mov	r3, r0
+ 472              		.loc 1 118 13
+ 473 002a 7B72     		strb	r3, [r7, #9]
  119:Src/vesc_commands.c ****     uint8_t unit_len = strlen(param->unit);
- 264              		.loc 1 119 5 is_stmt 1 view .LVU75
- 265              		.loc 1 119 24 is_stmt 0 view .LVU76
- 266 0014 A868     		ldr	r0, [r5, #8]
- 267 0016 FFF7FEFF 		bl	strlen
- 268              	.LVL35:
- 269              		.loc 1 119 13 view .LVU77
- 270 001a 5FFA80F8 		uxtb	r8, r0
- 271              	.LVL36:
+ 474              		.loc 1 119 24
+ 475 002c FB68     		ldr	r3, [r7, #12]
+ 476 002e 9B68     		ldr	r3, [r3, #8]
+ 477 0030 1846     		mov	r0, r3
+ 478 0032 FFF7FEFF 		bl	strlen
+ 479 0036 0346     		mov	r3, r0
+ 480              		.loc 1 119 13
+ 481 0038 3B72     		strb	r3, [r7, #8]
  120:Src/vesc_commands.c ****     
  121:Src/vesc_commands.c ****     response_buffer[idx++] = param->id & 0xFF;
- 272              		.loc 1 121 5 is_stmt 1 view .LVU78
- 273              		.loc 1 121 28 is_stmt 0 view .LVU79
- 274 001e 134C     		ldr	r4, .L21
- 275 0020 2B88     		ldrh	r3, [r5]
- 276 0022 2370     		strb	r3, [r4]
+ 482              		.loc 1 121 35
+ 483 003a FB68     		ldr	r3, [r7, #12]
+ 484 003c 1988     		ldrh	r1, [r3]
+ 485              		.loc 1 121 24
+ 486 003e 7B89     		ldrh	r3, [r7, #10]
+ 487 0040 5A1C     		adds	r2, r3, #1
+ 488 0042 7A81     		strh	r2, [r7, #10]	@ movhi
+ 489 0044 1A46     		mov	r2, r3
+ 490              		.loc 1 121 28
+ 491 0046 C9B2     		uxtb	r1, r1
+ 492 0048 324B     		ldr	r3, .L17
+ 493 004a 9954     		strb	r1, [r3, r2]
  122:Src/vesc_commands.c ****     response_buffer[idx++] = (param->id >> 8) & 0xFF;
- 277              		.loc 1 122 5 is_stmt 1 view .LVU80
- 278              	.LVL37:
- 279              		.loc 1 122 28 is_stmt 0 view .LVU81
- 280 0024 2B88     		ldrh	r3, [r5]
- 281 0026 1B0A     		lsrs	r3, r3, #8
- 282 0028 6370     		strb	r3, [r4, #1]
+ 494              		.loc 1 122 36
+ 495 004c FB68     		ldr	r3, [r7, #12]
+ 496 004e 1B88     		ldrh	r3, [r3]
+ 497              		.loc 1 122 28
+ 498 0050 1B0A     		lsrs	r3, r3, #8
+ 499 0052 99B2     		uxth	r1, r3
+ 500              		.loc 1 122 24
+ 501 0054 7B89     		ldrh	r3, [r7, #10]
+ 502 0056 5A1C     		adds	r2, r3, #1
+ 503 0058 7A81     		strh	r2, [r7, #10]	@ movhi
+ 504 005a 1A46     		mov	r2, r3
+ 505              		.loc 1 122 28
+ 506 005c C9B2     		uxtb	r1, r1
+ 507 005e 2D4B     		ldr	r3, .L17
+ 508 0060 9954     		strb	r1, [r3, r2]
  123:Src/vesc_commands.c ****     response_buffer[idx++] = param->type;
- 283              		.loc 1 123 5 is_stmt 1 view .LVU82
- 284              	.LVL38:
- 285              		.loc 1 123 28 is_stmt 0 view .LVU83
- 286 002a 2B7B     		ldrb	r3, [r5, #12]	@ zero_extendqisi2
- 287 002c A370     		strb	r3, [r4, #2]
+ 509              		.loc 1 123 24
+ARM GAS  /tmp/ccRI0YSi.s 			page 12
+
+
+ 510 0062 7B89     		ldrh	r3, [r7, #10]
+ 511 0064 5A1C     		adds	r2, r3, #1
+ 512 0066 7A81     		strh	r2, [r7, #10]	@ movhi
+ 513 0068 1A46     		mov	r2, r3
+ 514              		.loc 1 123 35
+ 515 006a FB68     		ldr	r3, [r7, #12]
+ 516 006c 197B     		ldrb	r1, [r3, #12]	@ zero_extendqisi2
+ 517              		.loc 1 123 28
+ 518 006e 294B     		ldr	r3, .L17
+ 519 0070 9954     		strb	r1, [r3, r2]
  124:Src/vesc_commands.c ****     response_buffer[idx++] = param->access;
- 288              		.loc 1 124 5 is_stmt 1 view .LVU84
- 289              	.LVL39:
- 290              		.loc 1 124 28 is_stmt 0 view .LVU85
- 291 002e 6B7B     		ldrb	r3, [r5, #13]	@ zero_extendqisi2
- 292 0030 E370     		strb	r3, [r4, #3]
+ 520              		.loc 1 124 24
+ 521 0072 7B89     		ldrh	r3, [r7, #10]
+ 522 0074 5A1C     		adds	r2, r3, #1
+ 523 0076 7A81     		strh	r2, [r7, #10]	@ movhi
+ 524 0078 1A46     		mov	r2, r3
+ 525              		.loc 1 124 35
+ 526 007a FB68     		ldr	r3, [r7, #12]
+ 527 007c 597B     		ldrb	r1, [r3, #13]	@ zero_extendqisi2
+ 528              		.loc 1 124 28
+ 529 007e 254B     		ldr	r3, .L17
+ 530 0080 9954     		strb	r1, [r3, r2]
  125:Src/vesc_commands.c ****     
  126:Src/vesc_commands.c ****     response_buffer[idx++] = name_len;
- 293              		.loc 1 126 5 is_stmt 1 view .LVU86
- 294              	.LVL40:
- 295              		.loc 1 126 28 is_stmt 0 view .LVU87
- 296 0032 2671     		strb	r6, [r4, #4]
+ 531              		.loc 1 126 24
+ 532 0082 7B89     		ldrh	r3, [r7, #10]
+ 533 0084 5A1C     		adds	r2, r3, #1
+ 534 0086 7A81     		strh	r2, [r7, #10]	@ movhi
+ 535 0088 1946     		mov	r1, r3
+ 536              		.loc 1 126 28
+ 537 008a 224A     		ldr	r2, .L17
+ 538 008c 7B7A     		ldrb	r3, [r7, #9]
+ 539 008e 5354     		strb	r3, [r2, r1]
  127:Src/vesc_commands.c ****     memcpy(&response_buffer[idx], param->name, name_len);
- 297              		.loc 1 127 5 is_stmt 1 view .LVU88
- 298 0034 3246     		mov	r2, r6
- 299 0036 6968     		ldr	r1, [r5, #4]
- 300 0038 601D     		adds	r0, r4, #5
- 301 003a FFF7FEFF 		bl	memcpy
- 302              	.LVL41:
+ 540              		.loc 1 127 28
+ 541 0090 7B89     		ldrh	r3, [r7, #10]
+ 542              		.loc 1 127 12
+ 543 0092 204A     		ldr	r2, .L17
+ 544 0094 9818     		adds	r0, r3, r2
+ 545              		.loc 1 127 40
+ 546 0096 FB68     		ldr	r3, [r7, #12]
+ 547 0098 5B68     		ldr	r3, [r3, #4]
+ 548              		.loc 1 127 5
+ 549 009a 7A7A     		ldrb	r2, [r7, #9]	@ zero_extendqisi2
+ 550 009c 1946     		mov	r1, r3
+ 551 009e FFF7FEFF 		bl	memcpy
  128:Src/vesc_commands.c ****     idx += name_len;
- 303              		.loc 1 128 5 view .LVU89
+ 552              		.loc 1 128 9
+ 553 00a2 7B7A     		ldrb	r3, [r7, #9]	@ zero_extendqisi2
+ 554 00a4 9AB2     		uxth	r2, r3
+ 555 00a6 7B89     		ldrh	r3, [r7, #10]	@ movhi
+ 556 00a8 1344     		add	r3, r3, r2
+ 557 00aa 7B81     		strh	r3, [r7, #10]	@ movhi
  129:Src/vesc_commands.c ****     
  130:Src/vesc_commands.c ****     response_buffer[idx++] = unit_len;
- 304              		.loc 1 130 5 view .LVU90
- 305              		.loc 1 130 24 is_stmt 0 view .LVU91
-ARM GAS  /tmp/ccfodlaB.s 			page 9
+ 558              		.loc 1 130 24
+ 559 00ac 7B89     		ldrh	r3, [r7, #10]
+ARM GAS  /tmp/ccRI0YSi.s 			page 13
 
 
- 306 003e B71D     		adds	r7, r6, #6
- 307              	.LVL42:
- 308              		.loc 1 130 24 view .LVU92
- 309 0040 0536     		adds	r6, r6, #5
- 310              	.LVL43:
- 311              		.loc 1 130 28 view .LVU93
- 312 0042 04F80680 		strb	r8, [r4, r6]
+ 560 00ae 5A1C     		adds	r2, r3, #1
+ 561 00b0 7A81     		strh	r2, [r7, #10]	@ movhi
+ 562 00b2 1946     		mov	r1, r3
+ 563              		.loc 1 130 28
+ 564 00b4 174A     		ldr	r2, .L17
+ 565 00b6 3B7A     		ldrb	r3, [r7, #8]
+ 566 00b8 5354     		strb	r3, [r2, r1]
  131:Src/vesc_commands.c ****     memcpy(&response_buffer[idx], param->unit, unit_len);
- 313              		.loc 1 131 5 is_stmt 1 view .LVU94
- 314 0046 4246     		mov	r2, r8
- 315 0048 A968     		ldr	r1, [r5, #8]
- 316 004a E019     		adds	r0, r4, r7
- 317 004c FFF7FEFF 		bl	memcpy
- 318              	.LVL44:
+ 567              		.loc 1 131 28
+ 568 00ba 7B89     		ldrh	r3, [r7, #10]
+ 569              		.loc 1 131 12
+ 570 00bc 154A     		ldr	r2, .L17
+ 571 00be 9818     		adds	r0, r3, r2
+ 572              		.loc 1 131 40
+ 573 00c0 FB68     		ldr	r3, [r7, #12]
+ 574 00c2 9B68     		ldr	r3, [r3, #8]
+ 575              		.loc 1 131 5
+ 576 00c4 3A7A     		ldrb	r2, [r7, #8]	@ zero_extendqisi2
+ 577 00c6 1946     		mov	r1, r3
+ 578 00c8 FFF7FEFF 		bl	memcpy
  132:Src/vesc_commands.c ****     idx += unit_len;
- 319              		.loc 1 132 5 view .LVU95
- 320              		.loc 1 132 9 is_stmt 0 view .LVU96
- 321 0050 07EB0802 		add	r2, r7, r8
- 322              	.LVL45:
+ 579              		.loc 1 132 9
+ 580 00cc 3B7A     		ldrb	r3, [r7, #8]	@ zero_extendqisi2
+ 581 00ce 9AB2     		uxth	r2, r3
+ 582 00d0 7B89     		ldrh	r3, [r7, #10]	@ movhi
+ 583 00d2 1344     		add	r3, r3, r2
+ 584 00d4 7B81     		strh	r3, [r7, #10]	@ movhi
  133:Src/vesc_commands.c ****     
  134:Src/vesc_commands.c ****     memcpy(&response_buffer[idx], &param->min, sizeof(float));
- 323              		.loc 1 134 5 is_stmt 1 view .LVU97
- 324 0054 6B69     		ldr	r3, [r5, #20]	@ unaligned
- 325 0056 A350     		str	r3, [r4, r2]	@ unaligned
+ 585              		.loc 1 134 28
+ 586 00d6 7B89     		ldrh	r3, [r7, #10]
+ 587              		.loc 1 134 12
+ 588 00d8 0E4A     		ldr	r2, .L17
+ 589 00da 1344     		add	r3, r3, r2
+ 590              		.loc 1 134 35
+ 591 00dc FA68     		ldr	r2, [r7, #12]
+ 592 00de 1432     		adds	r2, r2, #20
+ 593 00e0 1268     		ldr	r2, [r2]	@ unaligned
+ 594              		.loc 1 134 5
+ 595 00e2 1A60     		str	r2, [r3]	@ unaligned
  135:Src/vesc_commands.c ****     idx += sizeof(float);
- 326              		.loc 1 135 5 view .LVU98
- 327              	.LVL46:
+ 596              		.loc 1 135 9
+ 597 00e4 7B89     		ldrh	r3, [r7, #10]	@ movhi
+ 598 00e6 0433     		adds	r3, r3, #4
+ 599 00e8 7B81     		strh	r3, [r7, #10]	@ movhi
  136:Src/vesc_commands.c ****     memcpy(&response_buffer[idx], &param->max, sizeof(float));
- 328              		.loc 1 136 5 view .LVU99
- 329 0058 A969     		ldr	r1, [r5, #24]	@ unaligned
- 330              		.loc 1 136 12 is_stmt 0 view .LVU100
- 331 005a 131D     		adds	r3, r2, #4
- 332              		.loc 1 136 5 view .LVU101
- 333 005c E150     		str	r1, [r4, r3]	@ unaligned
+ 600              		.loc 1 136 28
+ 601 00ea 7B89     		ldrh	r3, [r7, #10]
+ 602              		.loc 1 136 12
+ 603 00ec 094A     		ldr	r2, .L17
+ 604 00ee 1344     		add	r3, r3, r2
+ 605              		.loc 1 136 35
+ 606 00f0 FA68     		ldr	r2, [r7, #12]
+ 607 00f2 1832     		adds	r2, r2, #24
+ 608 00f4 1268     		ldr	r2, [r2]	@ unaligned
+ 609              		.loc 1 136 5
+ 610 00f6 1A60     		str	r2, [r3]	@ unaligned
+ARM GAS  /tmp/ccRI0YSi.s 			page 14
+
+
  137:Src/vesc_commands.c ****     idx += sizeof(float);
- 334              		.loc 1 137 5 is_stmt 1 view .LVU102
- 335              	.LVL47:
+ 611              		.loc 1 137 9
+ 612 00f8 7B89     		ldrh	r3, [r7, #10]	@ movhi
+ 613 00fa 0433     		adds	r3, r3, #4
+ 614 00fc 7B81     		strh	r3, [r7, #10]	@ movhi
  138:Src/vesc_commands.c ****     
  139:Src/vesc_commands.c ****     VESC_SendPacket(COMM_GET_PARAM_INFO, response_buffer, idx);
- 336              		.loc 1 139 5 view .LVU103
- 337 005e 0832     		adds	r2, r2, #8
- 338              	.LVL48:
- 339              		.loc 1 139 5 is_stmt 0 view .LVU104
- 340 0060 2146     		mov	r1, r4
- 341 0062 2920     		movs	r0, #41
- 342 0064 FFF7FEFF 		bl	VESC_SendPacket
- 343              	.LVL49:
- 344              	.L18:
+ 615              		.loc 1 139 5
+ 616 00fe 7B89     		ldrh	r3, [r7, #10]
+ 617 0100 1A46     		mov	r2, r3
+ 618 0102 0449     		ldr	r1, .L17
+ 619 0104 2920     		movs	r0, #41
+ 620 0106 FFF7FEFF 		bl	VESC_SendPacket
+ 621 010a 00E0     		b	.L13
+ 622              	.L16:
+ 115:Src/vesc_commands.c ****     
+ 623              		.loc 1 115 16
+ 624 010c 00BF     		nop
+ 625              	.L13:
  140:Src/vesc_commands.c **** }
- 345              		.loc 1 140 1 view .LVU105
- 346 0068 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
- 347              	.L22:
- 348              		.align	2
- 349              	.L21:
- 350 006c 00000000 		.word	.LANCHOR1
- 351              		.cfi_endproc
- 352              	.LFE1715:
-ARM GAS  /tmp/ccfodlaB.s 			page 10
-
-
- 354              		.section	.text.SendParameterValue,"ax",%progbits
- 355              		.align	1
- 356              		.global	SendParameterValue
- 357              		.syntax unified
- 358              		.thumb
- 359              		.thumb_func
- 360              		.fpu fpv4-sp-d16
- 362              	SendParameterValue:
- 363              	.LVL50:
- 364              	.LFB1717:
+ 626              		.loc 1 140 1
+ 627 010e 1037     		adds	r7, r7, #16
+ 628              	.LCFI14:
+ 629              		.cfi_def_cfa_offset 8
+ 630 0110 BD46     		mov	sp, r7
+ 631              	.LCFI15:
+ 632              		.cfi_def_cfa_register 13
+ 633              		@ sp needed
+ 634 0112 80BD     		pop	{r7, pc}
+ 635              	.L18:
+ 636              		.align	2
+ 637              	.L17:
+ 638 0114 00000000 		.word	response_buffer
+ 639              		.cfi_endproc
+ 640              	.LFE1715:
+ 642              		.section	.text.PackBytes,"ax",%progbits
+ 643              		.align	1
+ 644              		.syntax unified
+ 645              		.thumb
+ 646              		.thumb_func
+ 647              		.fpu fpv4-sp-d16
+ 649              	PackBytes:
+ 650              	.LFB1716:
  141:Src/vesc_commands.c **** 
  142:Src/vesc_commands.c **** static void PackBytes(uint8_t* buffer, uint16_t* idx, const void* data, size_t size) {
+ 651              		.loc 1 142 86
+ 652              		.cfi_startproc
+ 653              		@ args = 0, pretend = 0, frame = 24
+ 654              		@ frame_needed = 1, uses_anonymous_args = 0
+ 655              		@ link register save eliminated.
+ 656 0000 80B4     		push	{r7}
+ 657              	.LCFI16:
+ 658              		.cfi_def_cfa_offset 4
+ 659              		.cfi_offset 7, -4
+ 660 0002 87B0     		sub	sp, sp, #28
+ 661              	.LCFI17:
+ 662              		.cfi_def_cfa_offset 32
+ARM GAS  /tmp/ccRI0YSi.s 			page 15
+
+
+ 663 0004 00AF     		add	r7, sp, #0
+ 664              	.LCFI18:
+ 665              		.cfi_def_cfa_register 7
+ 666 0006 F860     		str	r0, [r7, #12]
+ 667 0008 B960     		str	r1, [r7, #8]
+ 668 000a 7A60     		str	r2, [r7, #4]
+ 669 000c 3B60     		str	r3, [r7]
  143:Src/vesc_commands.c ****     const uint8_t* src = (const uint8_t*)data;
+ 670              		.loc 1 143 20
+ 671 000e 7B68     		ldr	r3, [r7, #4]
+ 672 0010 3B61     		str	r3, [r7, #16]
  144:Src/vesc_commands.c ****     size_t i;
  145:Src/vesc_commands.c ****     for(i = 0; i < size; i++) {
+ 673              		.loc 1 145 11
+ 674 0012 0023     		movs	r3, #0
+ 675 0014 7B61     		str	r3, [r7, #20]
+ 676              		.loc 1 145 5
+ 677 0016 10E0     		b	.L20
+ 678              	.L21:
  146:Src/vesc_commands.c ****         buffer[(*idx)++] = src[i];
+ 679              		.loc 1 146 31 discriminator 3
+ 680 0018 3A69     		ldr	r2, [r7, #16]
+ 681 001a 7B69     		ldr	r3, [r7, #20]
+ 682 001c 1A44     		add	r2, r2, r3
+ 683              		.loc 1 146 17 discriminator 3
+ 684 001e BB68     		ldr	r3, [r7, #8]
+ 685 0020 1B88     		ldrh	r3, [r3]
+ 686              		.loc 1 146 22 discriminator 3
+ 687 0022 591C     		adds	r1, r3, #1
+ 688 0024 88B2     		uxth	r0, r1
+ 689 0026 B968     		ldr	r1, [r7, #8]
+ 690 0028 0880     		strh	r0, [r1]	@ movhi
+ 691 002a 1946     		mov	r1, r3
+ 692              		.loc 1 146 15 discriminator 3
+ 693 002c FB68     		ldr	r3, [r7, #12]
+ 694 002e 0B44     		add	r3, r3, r1
+ 695              		.loc 1 146 31 discriminator 3
+ 696 0030 1278     		ldrb	r2, [r2]	@ zero_extendqisi2
+ 697              		.loc 1 146 26 discriminator 3
+ 698 0032 1A70     		strb	r2, [r3]
+ 145:Src/vesc_commands.c ****         buffer[(*idx)++] = src[i];
+ 699              		.loc 1 145 27 discriminator 3
+ 700 0034 7B69     		ldr	r3, [r7, #20]
+ 701 0036 0133     		adds	r3, r3, #1
+ 702 0038 7B61     		str	r3, [r7, #20]
+ 703              	.L20:
+ 145:Src/vesc_commands.c ****         buffer[(*idx)++] = src[i];
+ 704              		.loc 1 145 5 discriminator 1
+ 705 003a 7A69     		ldr	r2, [r7, #20]
+ 706 003c 3B68     		ldr	r3, [r7]
+ 707 003e 9A42     		cmp	r2, r3
+ 708 0040 EAD3     		bcc	.L21
  147:Src/vesc_commands.c ****     }
  148:Src/vesc_commands.c **** }
+ 709              		.loc 1 148 1
+ 710 0042 00BF     		nop
+ 711 0044 00BF     		nop
+ARM GAS  /tmp/ccRI0YSi.s 			page 16
+
+
+ 712 0046 1C37     		adds	r7, r7, #28
+ 713              	.LCFI19:
+ 714              		.cfi_def_cfa_offset 4
+ 715 0048 BD46     		mov	sp, r7
+ 716              	.LCFI20:
+ 717              		.cfi_def_cfa_register 13
+ 718              		@ sp needed
+ 719 004a 5DF8047B 		ldr	r7, [sp], #4
+ 720              	.LCFI21:
+ 721              		.cfi_restore 7
+ 722              		.cfi_def_cfa_offset 0
+ 723 004e 7047     		bx	lr
+ 724              		.cfi_endproc
+ 725              	.LFE1716:
+ 727              		.section	.text.SendParameterValue,"ax",%progbits
+ 728              		.align	1
+ 729              		.global	SendParameterValue
+ 730              		.syntax unified
+ 731              		.thumb
+ 732              		.thumb_func
+ 733              		.fpu fpv4-sp-d16
+ 735              	SendParameterValue:
+ 736              	.LFB1717:
  149:Src/vesc_commands.c **** 
  150:Src/vesc_commands.c **** void SendParameterValue(uint16_t param_id) {
- 365              		.loc 1 150 44 is_stmt 1 view -0
- 366              		.cfi_startproc
- 367              		@ args = 0, pretend = 0, frame = 0
- 368              		@ frame_needed = 0, uses_anonymous_args = 0
- 369              		.loc 1 150 44 is_stmt 0 view .LVU107
- 370 0000 08B5     		push	{r3, lr}
- 371              	.LCFI2:
- 372              		.cfi_def_cfa_offset 8
- 373              		.cfi_offset 3, -8
- 374              		.cfi_offset 14, -4
+ 737              		.loc 1 150 44
+ 738              		.cfi_startproc
+ 739              		@ args = 0, pretend = 0, frame = 16
+ 740              		@ frame_needed = 1, uses_anonymous_args = 0
+ 741 0000 80B5     		push	{r7, lr}
+ 742              	.LCFI22:
+ 743              		.cfi_def_cfa_offset 8
+ 744              		.cfi_offset 7, -8
+ 745              		.cfi_offset 14, -4
+ 746 0002 84B0     		sub	sp, sp, #16
+ 747              	.LCFI23:
+ 748              		.cfi_def_cfa_offset 24
+ 749 0004 00AF     		add	r7, sp, #0
+ 750              	.LCFI24:
+ 751              		.cfi_def_cfa_register 7
+ 752 0006 0346     		mov	r3, r0
+ 753 0008 FB80     		strh	r3, [r7, #6]	@ movhi
  151:Src/vesc_commands.c ****     const ParamDescriptor_t* param = FindParameter(param_id);
- 375              		.loc 1 151 5 is_stmt 1 view .LVU108
- 376              		.loc 1 151 38 is_stmt 0 view .LVU109
- 377 0002 FFF7FEFF 		bl	FindParameter
- 378              	.LVL51:
+ 754              		.loc 1 151 38
+ 755 000a FB88     		ldrh	r3, [r7, #6]
+ 756 000c 1846     		mov	r0, r3
+ 757 000e FFF7FEFF 		bl	FindParameter
+ 758 0012 F860     		str	r0, [r7, #12]
  152:Src/vesc_commands.c ****     if(!param || !(param->access & PARAM_ACCESS_READ)) return;
- 379              		.loc 1 152 5 is_stmt 1 view .LVU110
- 380              		.loc 1 152 7 is_stmt 0 view .LVU111
- 381 0006 0028     		cmp	r0, #0
- 382 0008 31D0     		beq	.L23
- 383              		.loc 1 152 15 discriminator 2 view .LVU112
- 384 000a 437B     		ldrb	r3, [r0, #13]	@ zero_extendqisi2
- 385 000c 13F0010F 		tst	r3, #1
- 386 0010 2DD0     		beq	.L23
+ 759              		.loc 1 152 7
+ 760 0014 FB68     		ldr	r3, [r7, #12]
+ 761 0016 002B     		cmp	r3, #0
+ 762 0018 4ED0     		beq	.L32
+ 763              		.loc 1 152 25 discriminator 2
+ 764 001a FB68     		ldr	r3, [r7, #12]
+ 765 001c 5B7B     		ldrb	r3, [r3, #13]	@ zero_extendqisi2
+ 766              		.loc 1 152 34 discriminator 2
+ARM GAS  /tmp/ccRI0YSi.s 			page 17
+
+
+ 767 001e 03F00103 		and	r3, r3, #1
+ 768              		.loc 1 152 15 discriminator 2
+ 769 0022 002B     		cmp	r3, #0
+ 770 0024 48D0     		beq	.L32
  153:Src/vesc_commands.c ****     
  154:Src/vesc_commands.c ****     uint16_t idx = 0;
- 387              		.loc 1 154 5 is_stmt 1 view .LVU113
+ 771              		.loc 1 154 14
+ 772 0026 0023     		movs	r3, #0
+ 773 0028 7B81     		strh	r3, [r7, #10]	@ movhi
  155:Src/vesc_commands.c ****     
  156:Src/vesc_commands.c ****     // Pack parameter ID
  157:Src/vesc_commands.c ****     response_buffer[idx++] = param->id & 0xFF;
- 388              		.loc 1 157 5 view .LVU114
- 389              		.loc 1 157 28 is_stmt 0 view .LVU115
- 390 0012 1749     		ldr	r1, .L38
- 391 0014 0388     		ldrh	r3, [r0]
- 392 0016 0B70     		strb	r3, [r1]
+ 774              		.loc 1 157 35
+ 775 002a FB68     		ldr	r3, [r7, #12]
+ 776 002c 1988     		ldrh	r1, [r3]
+ 777              		.loc 1 157 24
+ 778 002e 7B89     		ldrh	r3, [r7, #10]
+ 779 0030 5A1C     		adds	r2, r3, #1
+ 780 0032 92B2     		uxth	r2, r2
+ 781 0034 7A81     		strh	r2, [r7, #10]	@ movhi
+ 782 0036 1A46     		mov	r2, r3
+ 783              		.loc 1 157 28
+ 784 0038 C9B2     		uxtb	r1, r1
+ 785 003a 214B     		ldr	r3, .L33
+ 786 003c 9954     		strb	r1, [r3, r2]
  158:Src/vesc_commands.c ****     response_buffer[idx++] = (param->id >> 8) & 0xFF;
- 393              		.loc 1 158 5 is_stmt 1 view .LVU116
-ARM GAS  /tmp/ccfodlaB.s 			page 11
-
-
- 394              	.LVL52:
- 395              		.loc 1 158 28 is_stmt 0 view .LVU117
- 396 0018 0388     		ldrh	r3, [r0]
- 397 001a 1B0A     		lsrs	r3, r3, #8
- 398 001c 4B70     		strb	r3, [r1, #1]
+ 787              		.loc 1 158 36
+ 788 003e FB68     		ldr	r3, [r7, #12]
+ 789 0040 1B88     		ldrh	r3, [r3]
+ 790              		.loc 1 158 28
+ 791 0042 1B0A     		lsrs	r3, r3, #8
+ 792 0044 99B2     		uxth	r1, r3
+ 793              		.loc 1 158 24
+ 794 0046 7B89     		ldrh	r3, [r7, #10]
+ 795 0048 5A1C     		adds	r2, r3, #1
+ 796 004a 92B2     		uxth	r2, r2
+ 797 004c 7A81     		strh	r2, [r7, #10]	@ movhi
+ 798 004e 1A46     		mov	r2, r3
+ 799              		.loc 1 158 28
+ 800 0050 C9B2     		uxtb	r1, r1
+ 801 0052 1B4B     		ldr	r3, .L33
+ 802 0054 9954     		strb	r1, [r3, r2]
  159:Src/vesc_commands.c ****     
  160:Src/vesc_commands.c ****     // Pack value
  161:Src/vesc_commands.c ****     switch(param->type) {
- 399              		.loc 1 161 5 is_stmt 1 view .LVU118
- 400              		.loc 1 161 17 is_stmt 0 view .LVU119
- 401 001e 037B     		ldrb	r3, [r0, #12]	@ zero_extendqisi2
- 402              		.loc 1 161 5 view .LVU120
- 403 0020 032B     		cmp	r3, #3
- 404 0022 07D8     		bhi	.L25
- 405 0024 012B     		cmp	r3, #1
- 406 0026 15D8     		bhi	.L36
+ 803              		.loc 1 161 17
+ 804 0056 FB68     		ldr	r3, [r7, #12]
+ 805 0058 1B7B     		ldrb	r3, [r3, #12]	@ zero_extendqisi2
+ 806              		.loc 1 161 5
+ 807 005a 062B     		cmp	r3, #6
+ 808 005c 25DC     		bgt	.L26
+ 809 005e 042B     		cmp	r3, #4
+ 810 0060 1ADA     		bge	.L27
+ 811 0062 012B     		cmp	r3, #1
+ 812 0064 02DC     		bgt	.L28
+ 813 0066 002B     		cmp	r3, #0
+ 814 0068 04DA     		bge	.L29
+ARM GAS  /tmp/ccRI0YSi.s 			page 18
+
+
+ 815 006a 1EE0     		b	.L26
+ 816              	.L28:
+ 817 006c 023B     		subs	r3, r3, #2
+ 818 006e 012B     		cmp	r3, #1
+ 819 0070 1BD8     		bhi	.L26
+ 820 0072 08E0     		b	.L31
+ 821              	.L29:
  162:Src/vesc_commands.c ****         case PARAM_TYPE_INT8:
  163:Src/vesc_commands.c ****         case PARAM_TYPE_UINT8:
  164:Src/vesc_commands.c ****             PackBytes(response_buffer, &idx, param->value_ptr, 1);
- 407              		.loc 1 164 13 is_stmt 1 view .LVU121
- 408              	.LVL53:
- 409              	.LBB11:
- 410              	.LBI11:
- 142:Src/vesc_commands.c ****     const uint8_t* src = (const uint8_t*)data;
- 411              		.loc 1 142 13 view .LVU122
- 412              	.LBB12:
- 143:Src/vesc_commands.c ****     size_t i;
- 413              		.loc 1 143 5 view .LVU123
- 144:Src/vesc_commands.c ****     for(i = 0; i < size; i++) {
- 414              		.loc 1 144 5 view .LVU124
- 145:Src/vesc_commands.c ****         buffer[(*idx)++] = src[i];
- 415              		.loc 1 145 5 view .LVU125
- 145:Src/vesc_commands.c ****         buffer[(*idx)++] = src[i];
- 416              		.loc 1 145 16 view .LVU126
- 146:Src/vesc_commands.c ****     }
- 417              		.loc 1 146 9 view .LVU127
- 146:Src/vesc_commands.c ****     }
- 418              		.loc 1 146 31 is_stmt 0 view .LVU128
- 419 0028 0369     		ldr	r3, [r0, #16]
- 420 002a 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
- 146:Src/vesc_commands.c ****     }
- 421              		.loc 1 146 26 view .LVU129
- 422 002c 104B     		ldr	r3, .L38
- 423 002e 9A70     		strb	r2, [r3, #2]
- 145:Src/vesc_commands.c ****         buffer[(*idx)++] = src[i];
- 424              		.loc 1 145 26 is_stmt 1 view .LVU130
- 425              	.LVL54:
- 145:Src/vesc_commands.c ****         buffer[(*idx)++] = src[i];
- 426              		.loc 1 145 16 view .LVU131
- 146:Src/vesc_commands.c ****     }
- 427              		.loc 1 146 22 is_stmt 0 view .LVU132
- 428 0030 0322     		movs	r2, #3
- 429 0032 18E0     		b	.L28
- 430              	.LVL55:
- 431              	.L25:
- 146:Src/vesc_commands.c ****     }
- 432              		.loc 1 146 22 view .LVU133
-ARM GAS  /tmp/ccfodlaB.s 			page 12
-
-
- 433              	.LBE12:
- 434              	.LBE11:
- 161:Src/vesc_commands.c ****         case PARAM_TYPE_INT8:
- 435              		.loc 1 161 5 view .LVU134
- 436 0034 043B     		subs	r3, r3, #4
- 437 0036 DBB2     		uxtb	r3, r3
- 438 0038 022B     		cmp	r3, #2
- 439 003a 13D8     		bhi	.L37
+ 822              		.loc 1 164 51
+ 823 0074 FB68     		ldr	r3, [r7, #12]
+ 824 0076 1A69     		ldr	r2, [r3, #16]
+ 825              		.loc 1 164 13
+ 826 0078 07F10A01 		add	r1, r7, #10
+ 827 007c 0123     		movs	r3, #1
+ 828 007e 1048     		ldr	r0, .L33
+ 829 0080 FFF7FEFF 		bl	PackBytes
  165:Src/vesc_commands.c ****             break;
+ 830              		.loc 1 165 13
+ 831 0084 11E0     		b	.L26
+ 832              	.L31:
  166:Src/vesc_commands.c ****         case PARAM_TYPE_INT16:
  167:Src/vesc_commands.c ****         case PARAM_TYPE_UINT16:
  168:Src/vesc_commands.c ****             PackBytes(response_buffer, &idx, param->value_ptr, 2);
+ 833              		.loc 1 168 51
+ 834 0086 FB68     		ldr	r3, [r7, #12]
+ 835 0088 1A69     		ldr	r2, [r3, #16]
+ 836              		.loc 1 168 13
+ 837 008a 07F10A01 		add	r1, r7, #10
+ 838 008e 0223     		movs	r3, #2
+ 839 0090 0B48     		ldr	r0, .L33
+ 840 0092 FFF7FEFF 		bl	PackBytes
  169:Src/vesc_commands.c ****             break;
+ 841              		.loc 1 169 13
+ 842 0096 08E0     		b	.L26
+ 843              	.L27:
  170:Src/vesc_commands.c ****         case PARAM_TYPE_INT32:
  171:Src/vesc_commands.c ****         case PARAM_TYPE_UINT32:
  172:Src/vesc_commands.c ****         case PARAM_TYPE_FLOAT:
  173:Src/vesc_commands.c ****             PackBytes(response_buffer, &idx, param->value_ptr, 4);
- 440              		.loc 1 173 13 is_stmt 1 view .LVU135
- 441              		.loc 1 173 51 is_stmt 0 view .LVU136
- 442 003c 0069     		ldr	r0, [r0, #16]
- 443              	.LVL56:
- 444              	.LBB13:
- 445              	.LBI13:
- 142:Src/vesc_commands.c ****     const uint8_t* src = (const uint8_t*)data;
- 446              		.loc 1 142 13 is_stmt 1 view .LVU137
- 447              	.LBB14:
- 143:Src/vesc_commands.c ****     size_t i;
- 448              		.loc 1 143 5 view .LVU138
- 144:Src/vesc_commands.c ****     for(i = 0; i < size; i++) {
- 449              		.loc 1 144 5 view .LVU139
- 145:Src/vesc_commands.c ****         buffer[(*idx)++] = src[i];
- 450              		.loc 1 145 5 view .LVU140
- 145:Src/vesc_commands.c ****         buffer[(*idx)++] = src[i];
- 451              		.loc 1 145 16 view .LVU141
- 452 003e 431E     		subs	r3, r0, #1
- 453 0040 0C4A     		ldr	r2, .L38+4
- 454 0042 0330     		adds	r0, r0, #3
- 455              	.LVL57:
- 456              	.L30:
- 146:Src/vesc_commands.c ****     }
- 457              		.loc 1 146 9 view .LVU142
- 146:Src/vesc_commands.c ****     }
- 458              		.loc 1 146 31 is_stmt 0 view .LVU143
- 459 0044 13F8011F 		ldrb	r1, [r3, #1]!	@ zero_extendqisi2
- 460              	.LVL58:
- 146:Src/vesc_commands.c ****     }
- 461              		.loc 1 146 26 view .LVU144
- 462 0048 02F8011F 		strb	r1, [r2, #1]!
- 145:Src/vesc_commands.c ****         buffer[(*idx)++] = src[i];
- 463              		.loc 1 145 26 is_stmt 1 view .LVU145
- 464              	.LVL59:
- 145:Src/vesc_commands.c ****         buffer[(*idx)++] = src[i];
- 465              		.loc 1 145 16 view .LVU146
- 145:Src/vesc_commands.c ****         buffer[(*idx)++] = src[i];
- 466              		.loc 1 145 5 is_stmt 0 view .LVU147
- 467 004c 8342     		cmp	r3, r0
- 468 004e F9D1     		bne	.L30
-ARM GAS  /tmp/ccfodlaB.s 			page 13
-
-
- 146:Src/vesc_commands.c ****     }
- 469              		.loc 1 146 22 view .LVU148
- 470 0050 0622     		movs	r2, #6
- 471 0052 08E0     		b	.L28
- 472              	.LVL60:
- 473              	.L36:
- 146:Src/vesc_commands.c ****     }
- 474              		.loc 1 146 22 view .LVU149
- 475              	.LBE14:
- 476              	.LBE13:
- 168:Src/vesc_commands.c ****             break;
- 477              		.loc 1 168 13 is_stmt 1 view .LVU150
- 168:Src/vesc_commands.c ****             break;
- 478              		.loc 1 168 51 is_stmt 0 view .LVU151
- 479 0054 0269     		ldr	r2, [r0, #16]
- 480              	.LVL61:
- 481              	.LBB15:
- 482              	.LBI15:
- 142:Src/vesc_commands.c ****     const uint8_t* src = (const uint8_t*)data;
- 483              		.loc 1 142 13 is_stmt 1 view .LVU152
- 484              	.LBB16:
- 143:Src/vesc_commands.c ****     size_t i;
- 485              		.loc 1 143 5 view .LVU153
- 144:Src/vesc_commands.c ****     for(i = 0; i < size; i++) {
- 486              		.loc 1 144 5 view .LVU154
- 145:Src/vesc_commands.c ****         buffer[(*idx)++] = src[i];
- 487              		.loc 1 145 5 view .LVU155
- 145:Src/vesc_commands.c ****         buffer[(*idx)++] = src[i];
- 488              		.loc 1 145 16 view .LVU156
- 146:Src/vesc_commands.c ****     }
- 489              		.loc 1 146 9 view .LVU157
- 146:Src/vesc_commands.c ****     }
- 490              		.loc 1 146 31 is_stmt 0 view .LVU158
- 491 0056 1178     		ldrb	r1, [r2]	@ zero_extendqisi2
- 146:Src/vesc_commands.c ****     }
- 492              		.loc 1 146 26 view .LVU159
- 493 0058 054B     		ldr	r3, .L38
- 494 005a 9970     		strb	r1, [r3, #2]
- 145:Src/vesc_commands.c ****         buffer[(*idx)++] = src[i];
- 495              		.loc 1 145 26 is_stmt 1 view .LVU160
- 496              	.LVL62:
- 145:Src/vesc_commands.c ****         buffer[(*idx)++] = src[i];
- 497              		.loc 1 145 16 view .LVU161
- 146:Src/vesc_commands.c ****     }
- 498              		.loc 1 146 9 view .LVU162
- 146:Src/vesc_commands.c ****     }
- 499              		.loc 1 146 31 is_stmt 0 view .LVU163
- 500 005c 5278     		ldrb	r2, [r2, #1]	@ zero_extendqisi2
- 501              	.LVL63:
- 146:Src/vesc_commands.c ****     }
- 502              		.loc 1 146 26 view .LVU164
- 503 005e DA70     		strb	r2, [r3, #3]
- 145:Src/vesc_commands.c ****         buffer[(*idx)++] = src[i];
- 504              		.loc 1 145 26 is_stmt 1 view .LVU165
- 505              	.LVL64:
- 145:Src/vesc_commands.c ****         buffer[(*idx)++] = src[i];
- 506              		.loc 1 145 16 view .LVU166
-ARM GAS  /tmp/ccfodlaB.s 			page 14
-
-
- 146:Src/vesc_commands.c ****     }
- 507              		.loc 1 146 22 is_stmt 0 view .LVU167
- 508 0060 0422     		movs	r2, #4
- 509 0062 00E0     		b	.L28
- 510              	.LVL65:
- 511              	.L37:
- 146:Src/vesc_commands.c ****     }
- 512              		.loc 1 146 22 view .LVU168
- 513              	.LBE16:
- 514              	.LBE15:
- 161:Src/vesc_commands.c ****         case PARAM_TYPE_INT8:
- 515              		.loc 1 161 5 view .LVU169
- 516 0064 0222     		movs	r2, #2
- 517              	.LVL66:
- 518              	.L28:
+ 844              		.loc 1 173 51
+ 845 0098 FB68     		ldr	r3, [r7, #12]
+ 846 009a 1A69     		ldr	r2, [r3, #16]
+ 847              		.loc 1 173 13
+ 848 009c 07F10A01 		add	r1, r7, #10
+ 849 00a0 0423     		movs	r3, #4
+ 850 00a2 0748     		ldr	r0, .L33
+ 851 00a4 FFF7FEFF 		bl	PackBytes
  174:Src/vesc_commands.c ****             break;
+ 852              		.loc 1 174 13
+ 853 00a8 00BF     		nop
+ 854              	.L26:
  175:Src/vesc_commands.c ****     }
  176:Src/vesc_commands.c ****     VESC_SendPacket(COMM_GET_PARAM, response_buffer, idx);
- 519              		.loc 1 176 5 is_stmt 1 view .LVU170
- 520 0066 0249     		ldr	r1, .L38
- 521 0068 2A20     		movs	r0, #42
- 522 006a FFF7FEFF 		bl	VESC_SendPacket
- 523              	.LVL67:
- 524              	.L23:
+ 855              		.loc 1 176 5
+ 856 00aa 7B89     		ldrh	r3, [r7, #10]
+ARM GAS  /tmp/ccRI0YSi.s 			page 19
+
+
+ 857 00ac 1A46     		mov	r2, r3
+ 858 00ae 0449     		ldr	r1, .L33
+ 859 00b0 2A20     		movs	r0, #42
+ 860 00b2 FFF7FEFF 		bl	VESC_SendPacket
+ 861 00b6 00E0     		b	.L22
+ 862              	.L32:
+ 152:Src/vesc_commands.c ****     
+ 863              		.loc 1 152 56
+ 864 00b8 00BF     		nop
+ 865              	.L22:
  177:Src/vesc_commands.c **** }
- 525              		.loc 1 177 1 is_stmt 0 view .LVU171
- 526 006e 08BD     		pop	{r3, pc}
- 527              	.L39:
- 528              		.align	2
- 529              	.L38:
- 530 0070 00000000 		.word	.LANCHOR1
- 531 0074 01000000 		.word	.LANCHOR1+1
- 532              		.cfi_endproc
- 533              	.LFE1717:
- 535              		.section	.text.HandleParameterSet,"ax",%progbits
- 536              		.align	1
- 537              		.global	HandleParameterSet
- 538              		.syntax unified
- 539              		.thumb
- 540              		.thumb_func
- 541              		.fpu fpv4-sp-d16
- 543              	HandleParameterSet:
- 544              	.LVL68:
- 545              	.LFB1718:
+ 866              		.loc 1 177 1
+ 867 00ba 1037     		adds	r7, r7, #16
+ 868              	.LCFI25:
+ 869              		.cfi_def_cfa_offset 8
+ 870 00bc BD46     		mov	sp, r7
+ 871              	.LCFI26:
+ 872              		.cfi_def_cfa_register 13
+ 873              		@ sp needed
+ 874 00be 80BD     		pop	{r7, pc}
+ 875              	.L34:
+ 876              		.align	2
+ 877              	.L33:
+ 878 00c0 00000000 		.word	response_buffer
+ 879              		.cfi_endproc
+ 880              	.LFE1717:
+ 882              		.section	.text.HandleParameterSet,"ax",%progbits
+ 883              		.align	1
+ 884              		.global	HandleParameterSet
+ 885              		.syntax unified
+ 886              		.thumb
+ 887              		.thumb_func
+ 888              		.fpu fpv4-sp-d16
+ 890              	HandleParameterSet:
+ 891              	.LFB1718:
  178:Src/vesc_commands.c **** 
  179:Src/vesc_commands.c **** bool HandleParameterSet(uint16_t param_id, uint8_t* data, uint16_t len) {
- 546              		.loc 1 179 73 is_stmt 1 view -0
- 547              		.cfi_startproc
- 548              		@ args = 0, pretend = 0, frame = 0
- 549              		@ frame_needed = 0, uses_anonymous_args = 0
- 550              		.loc 1 179 73 is_stmt 0 view .LVU173
- 551 0000 38B5     		push	{r3, r4, r5, lr}
- 552              	.LCFI3:
- 553              		.cfi_def_cfa_offset 16
- 554              		.cfi_offset 3, -16
- 555              		.cfi_offset 4, -12
- 556              		.cfi_offset 5, -8
-ARM GAS  /tmp/ccfodlaB.s 			page 15
+ 892              		.loc 1 179 73
+ 893              		.cfi_startproc
+ 894              		@ args = 0, pretend = 0, frame = 24
+ 895              		@ frame_needed = 1, uses_anonymous_args = 0
+ 896 0000 80B5     		push	{r7, lr}
+ 897              	.LCFI27:
+ 898              		.cfi_def_cfa_offset 8
+ 899              		.cfi_offset 7, -8
+ 900              		.cfi_offset 14, -4
+ 901 0002 86B0     		sub	sp, sp, #24
+ 902              	.LCFI28:
+ 903              		.cfi_def_cfa_offset 32
+ 904 0004 00AF     		add	r7, sp, #0
+ 905              	.LCFI29:
+ 906              		.cfi_def_cfa_register 7
+ 907 0006 0346     		mov	r3, r0
+ 908 0008 3960     		str	r1, [r7]
+ 909 000a FB80     		strh	r3, [r7, #6]	@ movhi
+ 910 000c 1346     		mov	r3, r2	@ movhi
+ 911 000e BB80     		strh	r3, [r7, #4]	@ movhi
+ARM GAS  /tmp/ccRI0YSi.s 			page 20
 
 
- 557              		.cfi_offset 14, -4
- 558 0002 0D46     		mov	r5, r1
- 559 0004 1446     		mov	r4, r2
  180:Src/vesc_commands.c ****     const ParamDescriptor_t* param = FindParameter(param_id);
- 560              		.loc 1 180 5 is_stmt 1 view .LVU174
- 561              		.loc 1 180 38 is_stmt 0 view .LVU175
- 562 0006 FFF7FEFF 		bl	FindParameter
- 563              	.LVL69:
+ 912              		.loc 1 180 38
+ 913 0010 FB88     		ldrh	r3, [r7, #6]
+ 914 0012 1846     		mov	r0, r3
+ 915 0014 FFF7FEFF 		bl	FindParameter
+ 916 0018 F860     		str	r0, [r7, #12]
  181:Src/vesc_commands.c ****     if(!param || !(param->access & PARAM_ACCESS_WRITE)) return false;
- 564              		.loc 1 181 5 is_stmt 1 view .LVU176
- 565              		.loc 1 181 7 is_stmt 0 view .LVU177
- 566 000a 0028     		cmp	r0, #0
- 567 000c 61D0     		beq	.L54
- 568 000e 0346     		mov	r3, r0
- 569              		.loc 1 181 15 discriminator 2 view .LVU178
- 570 0010 427B     		ldrb	r2, [r0, #13]	@ zero_extendqisi2
- 571 0012 12F0020F 		tst	r2, #2
- 572 0016 5ED0     		beq	.L55
+ 917              		.loc 1 181 7
+ 918 001a FB68     		ldr	r3, [r7, #12]
+ 919 001c 002B     		cmp	r3, #0
+ 920 001e 05D0     		beq	.L36
+ 921              		.loc 1 181 25 discriminator 2
+ 922 0020 FB68     		ldr	r3, [r7, #12]
+ 923 0022 5B7B     		ldrb	r3, [r3, #13]	@ zero_extendqisi2
+ 924              		.loc 1 181 34 discriminator 2
+ 925 0024 03F00203 		and	r3, r3, #2
+ 926              		.loc 1 181 15 discriminator 2
+ 927 0028 002B     		cmp	r3, #0
+ 928 002a 01D1     		bne	.L37
+ 929              	.L36:
+ 930              		.loc 1 181 64 discriminator 3
+ 931 002c 0023     		movs	r3, #0
+ 932 002e 93E0     		b	.L38
+ 933              	.L37:
  182:Src/vesc_commands.c ****     
  183:Src/vesc_commands.c ****     uint8_t expected_len = 0;
- 573              		.loc 1 183 5 is_stmt 1 view .LVU179
- 574              	.LVL70:
+ 934              		.loc 1 183 13
+ 935 0030 0023     		movs	r3, #0
+ 936 0032 FB75     		strb	r3, [r7, #23]
  184:Src/vesc_commands.c ****     switch(param->type) {
- 575              		.loc 1 184 5 view .LVU180
- 576              		.loc 1 184 17 is_stmt 0 view .LVU181
- 577 0018 007B     		ldrb	r0, [r0, #12]	@ zero_extendqisi2
- 578              	.LVL71:
- 579              		.loc 1 184 5 view .LVU182
- 580 001a 0328     		cmp	r0, #3
- 581 001c 08D8     		bhi	.L42
+ 937              		.loc 1 184 17
+ 938 0034 FB68     		ldr	r3, [r7, #12]
+ 939 0036 1B7B     		ldrb	r3, [r3, #12]	@ zero_extendqisi2
+ 940              		.loc 1 184 5
+ 941 0038 062B     		cmp	r3, #6
+ 942 003a 13DC     		bgt	.L39
+ 943 003c 042B     		cmp	r3, #4
+ 944 003e 0EDA     		bge	.L40
+ 945 0040 012B     		cmp	r3, #1
+ 946 0042 02DC     		bgt	.L41
+ 947 0044 002B     		cmp	r3, #0
+ 948 0046 04DA     		bge	.L42
+ 949 0048 0CE0     		b	.L39
+ 950              	.L41:
+ 951 004a 023B     		subs	r3, r3, #2
+ 952 004c 012B     		cmp	r3, #1
+ 953 004e 09D8     		bhi	.L39
+ 954 0050 02E0     		b	.L57
+ 955              	.L42:
  185:Src/vesc_commands.c ****         case PARAM_TYPE_INT8:
  186:Src/vesc_commands.c ****         case PARAM_TYPE_UINT8:
  187:Src/vesc_commands.c ****             expected_len = 1;
+ 956              		.loc 1 187 26
+ 957 0052 0123     		movs	r3, #1
+ 958 0054 FB75     		strb	r3, [r7, #23]
  188:Src/vesc_commands.c ****             break;
+ 959              		.loc 1 188 13
+ARM GAS  /tmp/ccRI0YSi.s 			page 21
+
+
+ 960 0056 05E0     		b	.L39
+ 961              	.L57:
  189:Src/vesc_commands.c ****         case PARAM_TYPE_INT16:
  190:Src/vesc_commands.c ****         case PARAM_TYPE_UINT16:
  191:Src/vesc_commands.c ****             expected_len = 2;
- 582              		.loc 1 191 26 view .LVU183
- 583 001e 0228     		cmp	r0, #2
- 584 0020 34BF     		ite	cc
- 585 0022 0122     		movcc	r2, #1
- 586 0024 0222     		movcs	r2, #2
- 587              	.L43:
- 588              	.LVL72:
+ 962              		.loc 1 191 26
+ 963 0058 0223     		movs	r3, #2
+ 964 005a FB75     		strb	r3, [r7, #23]
  192:Src/vesc_commands.c ****             break;
+ 965              		.loc 1 192 13
+ 966 005c 02E0     		b	.L39
+ 967              	.L40:
  193:Src/vesc_commands.c ****         case PARAM_TYPE_INT32:
  194:Src/vesc_commands.c ****         case PARAM_TYPE_UINT32:
  195:Src/vesc_commands.c ****         case PARAM_TYPE_FLOAT:
  196:Src/vesc_commands.c ****             expected_len = 4;
+ 968              		.loc 1 196 26
+ 969 005e 0423     		movs	r3, #4
+ 970 0060 FB75     		strb	r3, [r7, #23]
  197:Src/vesc_commands.c ****             break;
+ 971              		.loc 1 197 13
+ 972 0062 00BF     		nop
+ 973              	.L39:
  198:Src/vesc_commands.c ****     }
  199:Src/vesc_commands.c ****     
  200:Src/vesc_commands.c ****     if(len < expected_len) return false;
- 589              		.loc 1 200 5 is_stmt 1 view .LVU184
- 590              		.loc 1 200 7 is_stmt 0 view .LVU185
- 591 0026 91B2     		uxth	r1, r2
- 592 0028 A142     		cmp	r1, r4
-ARM GAS  /tmp/ccfodlaB.s 			page 16
-
-
- 593 002a 0BD9     		bls	.L44
- 594              		.loc 1 200 35 view .LVU186
- 595 002c 0020     		movs	r0, #0
- 596 002e 53E0     		b	.L41
- 597              	.LVL73:
- 598              	.L42:
- 184:Src/vesc_commands.c ****         case PARAM_TYPE_INT8:
- 599              		.loc 1 184 5 view .LVU187
- 600 0030 A0F1040C 		sub	ip, r0, #4
- 601 0034 5FFA8CFC 		uxtb	ip, ip
- 602 0038 BCF1020F 		cmp	ip, #2
- 603 003c 01D8     		bhi	.L57
- 196:Src/vesc_commands.c ****             break;
- 604              		.loc 1 196 26 view .LVU188
- 605 003e 0422     		movs	r2, #4
- 606 0040 F1E7     		b	.L43
- 607              	.L57:
- 183:Src/vesc_commands.c ****     switch(param->type) {
- 608              		.loc 1 183 13 view .LVU189
- 609 0042 0022     		movs	r2, #0
- 610              	.LVL74:
- 611              	.L44:
+ 974              		.loc 1 200 12
+ 975 0064 FB7D     		ldrb	r3, [r7, #23]	@ zero_extendqisi2
+ 976 0066 9BB2     		uxth	r3, r3
+ 977              		.loc 1 200 7
+ 978 0068 BA88     		ldrh	r2, [r7, #4]
+ 979 006a 9A42     		cmp	r2, r3
+ 980 006c 01D2     		bcs	.L44
+ 981              		.loc 1 200 35 discriminator 1
+ 982 006e 0023     		movs	r3, #0
+ 983 0070 72E0     		b	.L38
+ 984              	.L44:
  201:Src/vesc_commands.c ****     
  202:Src/vesc_commands.c ****     float value = 0;
- 612              		.loc 1 202 5 is_stmt 1 view .LVU190
+ 985              		.loc 1 202 11
+ 986 0072 4FF00003 		mov	r3, #0
+ 987 0076 3B61     		str	r3, [r7, #16]	@ float
  203:Src/vesc_commands.c ****     switch(param->type) {
- 613              		.loc 1 203 5 view .LVU191
- 614 0044 0628     		cmp	r0, #6
- 615 0046 3BD8     		bhi	.L59
- 616 0048 DFE800F0 		tbb	[pc, r0]
- 617              	.L47:
- 618 004c 04       		.byte	(.L53-.L47)/2
- 619 004d 1A       		.byte	(.L52-.L47)/2
- 620 004e 20       		.byte	(.L51-.L47)/2
- 621 004f 27       		.byte	(.L50-.L47)/2
- 622 0050 2D       		.byte	(.L49-.L47)/2
- 623 0051 32       		.byte	(.L48-.L47)/2
- 624 0052 37       		.byte	(.L46-.L47)/2
- 625 0053 00       		.p2align 1
- 626              	.L53:
+ 988              		.loc 1 203 17
+ 989 0078 FB68     		ldr	r3, [r7, #12]
+ 990 007a 1B7B     		ldrb	r3, [r3, #12]	@ zero_extendqisi2
+ 991 007c 062B     		cmp	r3, #6
+ 992 007e 4DD8     		bhi	.L45
+ 993 0080 01A2     		adr	r2, .L47
+ 994 0082 52F823F0 		ldr	pc, [r2, r3, lsl #2]
+ 995 0086 00BF     		.p2align 2
+ 996              	.L47:
+ 997 0088 A5000000 		.word	.L53+1
+ 998 008c B9000000 		.word	.L52+1
+ 999 0090 CB000000 		.word	.L51+1
+ 1000 0094 DF000000 		.word	.L50+1
+ 1001 0098 F1000000 		.word	.L49+1
+ARM GAS  /tmp/ccRI0YSi.s 			page 22
+
+
+ 1002 009c 03010000 		.word	.L48+1
+ 1003 00a0 15010000 		.word	.L46+1
+ 1004              		.p2align 1
+ 1005              	.L53:
  204:Src/vesc_commands.c ****         case PARAM_TYPE_INT8:
  205:Src/vesc_commands.c ****             value = (float)(*(int8_t*)data);
- 627              		.loc 1 205 13 view .LVU192
- 628              		.loc 1 205 19 is_stmt 0 view .LVU193
- 629 0054 95F90010 		ldrsb	r1, [r5]
- 630 0058 07EE901A 		vmov	s15, r1	@ int
- 631 005c F8EEE77A 		vcvt.f32.s32	s15, s15
- 632              	.LVL75:
+ 1006              		.loc 1 205 29
+ 1007 00a4 3B68     		ldr	r3, [r7]
+ 1008 00a6 93F90030 		ldrsb	r3, [r3]
+ 1009              		.loc 1 205 19
+ 1010 00aa 07EE903A 		vmov	s15, r3	@ int
+ 1011 00ae F8EEE77A 		vcvt.f32.s32	s15, s15
+ 1012 00b2 C7ED047A 		vstr.32	s15, [r7, #16]
  206:Src/vesc_commands.c ****             break;
- 633              		.loc 1 206 13 is_stmt 1 view .LVU194
- 634              	.L45:
+ 1013              		.loc 1 206 13
+ 1014 00b6 31E0     		b	.L45
+ 1015              	.L52:
  207:Src/vesc_commands.c ****         case PARAM_TYPE_UINT8:
  208:Src/vesc_commands.c ****             value = (float)(*(uint8_t*)data);
+ 1016              		.loc 1 208 29
+ 1017 00b8 3B68     		ldr	r3, [r7]
+ 1018 00ba 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1019              		.loc 1 208 19
+ 1020 00bc 07EE903A 		vmov	s15, r3	@ int
+ 1021 00c0 F8EE677A 		vcvt.f32.u32	s15, s15
+ 1022 00c4 C7ED047A 		vstr.32	s15, [r7, #16]
  209:Src/vesc_commands.c ****             break;
+ 1023              		.loc 1 209 13
+ 1024 00c8 28E0     		b	.L45
+ 1025              	.L51:
  210:Src/vesc_commands.c ****         case PARAM_TYPE_INT16:
  211:Src/vesc_commands.c ****             value = (float)(*(int16_t*)data);
+ 1026              		.loc 1 211 29
+ 1027 00ca 3B68     		ldr	r3, [r7]
+ 1028 00cc B3F90030 		ldrsh	r3, [r3]
+ 1029              		.loc 1 211 19
+ 1030 00d0 07EE903A 		vmov	s15, r3	@ int
+ 1031 00d4 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 1032 00d8 C7ED047A 		vstr.32	s15, [r7, #16]
  212:Src/vesc_commands.c ****             break;
-ARM GAS  /tmp/ccfodlaB.s 			page 17
-
-
+ 1033              		.loc 1 212 13
+ 1034 00dc 1EE0     		b	.L45
+ 1035              	.L50:
  213:Src/vesc_commands.c ****         case PARAM_TYPE_UINT16:
  214:Src/vesc_commands.c ****             value = (float)(*(uint16_t*)data);
+ 1036              		.loc 1 214 29
+ 1037 00de 3B68     		ldr	r3, [r7]
+ 1038 00e0 1B88     		ldrh	r3, [r3]
+ 1039              		.loc 1 214 19
+ 1040 00e2 07EE903A 		vmov	s15, r3	@ int
+ 1041 00e6 F8EE677A 		vcvt.f32.u32	s15, s15
+ 1042 00ea C7ED047A 		vstr.32	s15, [r7, #16]
  215:Src/vesc_commands.c ****             break;
+ 1043              		.loc 1 215 13
+ 1044 00ee 15E0     		b	.L45
+ 1045              	.L49:
  216:Src/vesc_commands.c ****         case PARAM_TYPE_INT32:
+ARM GAS  /tmp/ccRI0YSi.s 			page 23
+
+
  217:Src/vesc_commands.c ****             value = (float)(*(int32_t*)data);
+ 1046              		.loc 1 217 29
+ 1047 00f0 3B68     		ldr	r3, [r7]
+ 1048 00f2 1B68     		ldr	r3, [r3]
+ 1049              		.loc 1 217 19
+ 1050 00f4 07EE903A 		vmov	s15, r3	@ int
+ 1051 00f8 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 1052 00fc C7ED047A 		vstr.32	s15, [r7, #16]
  218:Src/vesc_commands.c ****             break;
+ 1053              		.loc 1 218 13
+ 1054 0100 0CE0     		b	.L45
+ 1055              	.L48:
  219:Src/vesc_commands.c ****         case PARAM_TYPE_UINT32:
  220:Src/vesc_commands.c ****             value = (float)(*(uint32_t*)data);
+ 1056              		.loc 1 220 29
+ 1057 0102 3B68     		ldr	r3, [r7]
+ 1058 0104 1B68     		ldr	r3, [r3]
+ 1059              		.loc 1 220 19
+ 1060 0106 07EE903A 		vmov	s15, r3	@ int
+ 1061 010a F8EE677A 		vcvt.f32.u32	s15, s15
+ 1062 010e C7ED047A 		vstr.32	s15, [r7, #16]
  221:Src/vesc_commands.c ****             break;
+ 1063              		.loc 1 221 13
+ 1064 0112 03E0     		b	.L45
+ 1065              	.L46:
  222:Src/vesc_commands.c ****         case PARAM_TYPE_FLOAT:
  223:Src/vesc_commands.c ****             value = *(float*)data;
+ 1066              		.loc 1 223 19
+ 1067 0114 3B68     		ldr	r3, [r7]
+ 1068 0116 1B68     		ldr	r3, [r3]	@ float
+ 1069 0118 3B61     		str	r3, [r7, #16]	@ float
  224:Src/vesc_commands.c ****             break;
+ 1070              		.loc 1 224 13
+ 1071 011a 00BF     		nop
+ 1072              	.L45:
  225:Src/vesc_commands.c ****     }
  226:Src/vesc_commands.c ****     
  227:Src/vesc_commands.c ****     if(value < param->min || value > param->max) return false;
- 635              		.loc 1 227 5 view .LVU195
- 636              		.loc 1 227 7 is_stmt 0 view .LVU196
- 637 0060 93ED057A 		vldr.32	s14, [r3, #20]
- 638 0064 B4EEE77A 		vcmpe.f32	s14, s15
- 639 0068 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
- 640 006c 35DC     		bgt	.L60
- 641              		.loc 1 227 27 discriminator 2 view .LVU197
- 642 006e 93ED067A 		vldr.32	s14, [r3, #24]
- 643 0072 B4EEE77A 		vcmpe.f32	s14, s15
- 644 0076 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
- 645 007a 24D5     		bpl	.L63
- 646              		.loc 1 227 57 view .LVU198
- 647 007c 0020     		movs	r0, #0
- 648 007e 2BE0     		b	.L41
- 649              	.LVL76:
- 650              	.L52:
- 208:Src/vesc_commands.c ****             break;
- 651              		.loc 1 208 13 is_stmt 1 view .LVU199
- 208:Src/vesc_commands.c ****             break;
- 652              		.loc 1 208 19 is_stmt 0 view .LVU200
- 653 0080 2978     		ldrb	r1, [r5]	@ zero_extendqisi2
- 654 0082 07EE901A 		vmov	s15, r1	@ int
- 655 0086 F8EE677A 		vcvt.f32.u32	s15, s15
- 656              	.LVL77:
- 209:Src/vesc_commands.c ****         case PARAM_TYPE_INT16:
- 657              		.loc 1 209 13 is_stmt 1 view .LVU201
- 658 008a E9E7     		b	.L45
- 659              	.LVL78:
- 660              	.L51:
- 211:Src/vesc_commands.c ****             break;
- 661              		.loc 1 211 13 view .LVU202
- 211:Src/vesc_commands.c ****             break;
- 662              		.loc 1 211 19 is_stmt 0 view .LVU203
- 663 008c B5F90010 		ldrsh	r1, [r5]
- 664 0090 07EE901A 		vmov	s15, r1	@ int
- 665 0094 F8EEE77A 		vcvt.f32.s32	s15, s15
- 666              	.LVL79:
- 212:Src/vesc_commands.c ****         case PARAM_TYPE_UINT16:
- 667              		.loc 1 212 13 is_stmt 1 view .LVU204
- 668 0098 E2E7     		b	.L45
- 669              	.LVL80:
- 670              	.L50:
-ARM GAS  /tmp/ccfodlaB.s 			page 18
+ 1073              		.loc 1 227 21
+ 1074 011c FB68     		ldr	r3, [r7, #12]
+ 1075 011e D3ED057A 		vldr.32	s15, [r3, #20]
+ 1076              		.loc 1 227 7
+ 1077 0122 97ED047A 		vldr.32	s14, [r7, #16]
+ 1078 0126 B4EEE77A 		vcmpe.f32	s14, s15
+ 1079 012a F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 1080 012e 09D4     		bmi	.L54
+ 1081              		.loc 1 227 43 discriminator 2
+ 1082 0130 FB68     		ldr	r3, [r7, #12]
+ 1083 0132 D3ED067A 		vldr.32	s15, [r3, #24]
+ 1084              		.loc 1 227 27 discriminator 2
+ 1085 0136 97ED047A 		vldr.32	s14, [r7, #16]
+ 1086 013a B4EEE77A 		vcmpe.f32	s14, s15
+ 1087 013e F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 1088 0142 01DD     		ble	.L58
+ 1089              	.L54:
+ 1090              		.loc 1 227 57 discriminator 3
+ 1091 0144 0023     		movs	r3, #0
+ARM GAS  /tmp/ccRI0YSi.s 			page 24
 
 
- 214:Src/vesc_commands.c ****             break;
- 671              		.loc 1 214 13 view .LVU205
- 214:Src/vesc_commands.c ****             break;
- 672              		.loc 1 214 19 is_stmt 0 view .LVU206
- 673 009a 2988     		ldrh	r1, [r5]
- 674 009c 07EE901A 		vmov	s15, r1	@ int
- 675 00a0 F8EE677A 		vcvt.f32.u32	s15, s15
- 676              	.LVL81:
- 215:Src/vesc_commands.c ****         case PARAM_TYPE_INT32:
- 677              		.loc 1 215 13 is_stmt 1 view .LVU207
- 678 00a4 DCE7     		b	.L45
- 679              	.LVL82:
- 680              	.L49:
- 217:Src/vesc_commands.c ****             break;
- 681              		.loc 1 217 13 view .LVU208
- 217:Src/vesc_commands.c ****             break;
- 682              		.loc 1 217 19 is_stmt 0 view .LVU209
- 683 00a6 D5ED007A 		vldr.32	s15, [r5]	@ int
- 684 00aa F8EEE77A 		vcvt.f32.s32	s15, s15
- 685              	.LVL83:
- 218:Src/vesc_commands.c ****         case PARAM_TYPE_UINT32:
- 686              		.loc 1 218 13 is_stmt 1 view .LVU210
- 687 00ae D7E7     		b	.L45
- 688              	.LVL84:
- 689              	.L48:
- 220:Src/vesc_commands.c ****             break;
- 690              		.loc 1 220 13 view .LVU211
- 220:Src/vesc_commands.c ****             break;
- 691              		.loc 1 220 19 is_stmt 0 view .LVU212
- 692 00b0 D5ED007A 		vldr.32	s15, [r5]	@ int
- 693 00b4 F8EE677A 		vcvt.f32.u32	s15, s15
- 694              	.LVL85:
- 221:Src/vesc_commands.c ****         case PARAM_TYPE_FLOAT:
- 695              		.loc 1 221 13 is_stmt 1 view .LVU213
- 696 00b8 D2E7     		b	.L45
- 697              	.LVL86:
- 698              	.L46:
- 223:Src/vesc_commands.c ****             break;
- 699              		.loc 1 223 13 view .LVU214
- 223:Src/vesc_commands.c ****             break;
- 700              		.loc 1 223 19 is_stmt 0 view .LVU215
- 701 00ba D5ED007A 		vldr.32	s15, [r5]
- 702              	.LVL87:
- 224:Src/vesc_commands.c ****     }
- 703              		.loc 1 224 13 is_stmt 1 view .LVU216
- 704 00be CFE7     		b	.L45
- 705              	.LVL88:
- 706              	.L59:
- 183:Src/vesc_commands.c ****     switch(param->type) {
- 707              		.loc 1 183 13 is_stmt 0 view .LVU217
- 708 00c0 DFED077A 		vldr.32	s15, .L64
- 709 00c4 CCE7     		b	.L45
- 710              	.LVL89:
- 711              	.L63:
+ 1092 0146 07E0     		b	.L38
+ 1093              	.L58:
  228:Src/vesc_commands.c ****     
  229:Src/vesc_commands.c ****     memcpy(param->value_ptr, data, expected_len);
- 712              		.loc 1 229 5 is_stmt 1 view .LVU218
-ARM GAS  /tmp/ccfodlaB.s 			page 19
-
-
- 713 00c6 2946     		mov	r1, r5
- 714 00c8 1869     		ldr	r0, [r3, #16]
- 715 00ca FFF7FEFF 		bl	memcpy
- 716              	.LVL90:
+ 1094              		.loc 1 229 5
+ 1095 0148 FB68     		ldr	r3, [r7, #12]
+ 1096 014a 1B69     		ldr	r3, [r3, #16]
+ 1097 014c FA7D     		ldrb	r2, [r7, #23]	@ zero_extendqisi2
+ 1098 014e 3968     		ldr	r1, [r7]
+ 1099 0150 1846     		mov	r0, r3
+ 1100 0152 FFF7FEFF 		bl	memcpy
  230:Src/vesc_commands.c ****     return true;
- 717              		.loc 1 230 5 view .LVU219
- 718              		.loc 1 230 12 is_stmt 0 view .LVU220
- 719 00ce 0120     		movs	r0, #1
- 720 00d0 02E0     		b	.L41
- 721              	.LVL91:
- 722              	.L54:
- 181:Src/vesc_commands.c ****     
- 723              		.loc 1 181 64 view .LVU221
- 724 00d2 0020     		movs	r0, #0
- 725              	.LVL92:
- 181:Src/vesc_commands.c ****     
- 726              		.loc 1 181 64 view .LVU222
- 727 00d4 00E0     		b	.L41
- 728              	.LVL93:
- 729              	.L55:
- 181:Src/vesc_commands.c ****     
- 730              		.loc 1 181 64 view .LVU223
- 731 00d6 0020     		movs	r0, #0
- 732              	.LVL94:
- 733              	.L41:
+ 1101              		.loc 1 230 12
+ 1102 0156 0123     		movs	r3, #1
+ 1103              	.L38:
  231:Src/vesc_commands.c **** }
- 734              		.loc 1 231 1 view .LVU224
- 735 00d8 38BD     		pop	{r3, r4, r5, pc}
- 736              	.LVL95:
- 737              	.L60:
- 227:Src/vesc_commands.c ****     
- 738              		.loc 1 227 57 view .LVU225
- 739 00da 0020     		movs	r0, #0
- 740 00dc FCE7     		b	.L41
- 741              	.L65:
- 742 00de 00BF     		.align	2
- 743              	.L64:
- 744 00e0 00000000 		.word	0
- 745              		.cfi_endproc
- 746              	.LFE1718:
- 748              		.section	.text.VESC_ExecuteCommand,"ax",%progbits
- 749              		.align	1
- 750              		.global	VESC_ExecuteCommand
- 751              		.syntax unified
- 752              		.thumb
- 753              		.thumb_func
- 754              		.fpu fpv4-sp-d16
- 756              	VESC_ExecuteCommand:
- 757              	.LVL96:
- 758              	.LFB1721:
+ 1104              		.loc 1 231 1
+ 1105 0158 1846     		mov	r0, r3
+ 1106 015a 1837     		adds	r7, r7, #24
+ 1107              	.LCFI30:
+ 1108              		.cfi_def_cfa_offset 8
+ 1109 015c BD46     		mov	sp, r7
+ 1110              	.LCFI31:
+ 1111              		.cfi_def_cfa_register 13
+ 1112              		@ sp needed
+ 1113 015e 80BD     		pop	{r7, pc}
+ 1114              		.cfi_endproc
+ 1115              	.LFE1718:
+ 1117              		.section	.text.PackMotorStatus,"ax",%progbits
+ 1118              		.align	1
+ 1119              		.syntax unified
+ 1120              		.thumb
+ 1121              		.thumb_func
+ 1122              		.fpu fpv4-sp-d16
+ 1124              	PackMotorStatus:
+ 1125              	.LFB1719:
  232:Src/vesc_commands.c **** 
  233:Src/vesc_commands.c **** /* Motor Status Functions */
  234:Src/vesc_commands.c **** static uint16_t PackMotorStatus(uint8_t* buffer, const MotorStatus_t* status) {
+ 1126              		.loc 1 234 79
+ 1127              		.cfi_startproc
+ 1128              		@ args = 0, pretend = 0, frame = 16
+ 1129              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1130              		@ link register save eliminated.
+ 1131 0000 80B4     		push	{r7}
+ 1132              	.LCFI32:
+ 1133              		.cfi_def_cfa_offset 4
+ 1134              		.cfi_offset 7, -4
+ 1135 0002 85B0     		sub	sp, sp, #20
+ 1136              	.LCFI33:
+ 1137              		.cfi_def_cfa_offset 24
+ 1138 0004 00AF     		add	r7, sp, #0
+ 1139              	.LCFI34:
+ 1140              		.cfi_def_cfa_register 7
+ 1141 0006 7860     		str	r0, [r7, #4]
+ 1142 0008 3960     		str	r1, [r7]
  235:Src/vesc_commands.c ****     uint16_t idx = 0;
+ARM GAS  /tmp/ccRI0YSi.s 			page 25
+
+
+ 1143              		.loc 1 235 14
+ 1144 000a 0023     		movs	r3, #0
+ 1145 000c FB81     		strh	r3, [r7, #14]	@ movhi
  236:Src/vesc_commands.c ****     
  237:Src/vesc_commands.c ****     buffer[idx++] = (status->position_set >> 24) & 0xFF;
+ 1146              		.loc 1 237 28
+ 1147 000e 3B68     		ldr	r3, [r7]
+ 1148 0010 1B68     		ldr	r3, [r3]
+ 1149              		.loc 1 237 50
+ 1150 0012 1A0E     		lsrs	r2, r3, #24
+ 1151              		.loc 1 237 15
+ 1152 0014 FB89     		ldrh	r3, [r7, #14]
+ 1153 0016 591C     		adds	r1, r3, #1
+ 1154 0018 F981     		strh	r1, [r7, #14]	@ movhi
+ 1155 001a 1946     		mov	r1, r3
+ 1156              		.loc 1 237 11
+ 1157 001c 7B68     		ldr	r3, [r7, #4]
+ 1158 001e 0B44     		add	r3, r3, r1
+ 1159              		.loc 1 237 19
+ 1160 0020 D2B2     		uxtb	r2, r2
+ 1161 0022 1A70     		strb	r2, [r3]
  238:Src/vesc_commands.c ****     buffer[idx++] = (status->position_set >> 16) & 0xFF;
-ARM GAS  /tmp/ccfodlaB.s 			page 20
-
-
+ 1162              		.loc 1 238 28
+ 1163 0024 3B68     		ldr	r3, [r7]
+ 1164 0026 1B68     		ldr	r3, [r3]
+ 1165              		.loc 1 238 43
+ 1166 0028 1A14     		asrs	r2, r3, #16
+ 1167              		.loc 1 238 15
+ 1168 002a FB89     		ldrh	r3, [r7, #14]
+ 1169 002c 591C     		adds	r1, r3, #1
+ 1170 002e F981     		strh	r1, [r7, #14]	@ movhi
+ 1171 0030 1946     		mov	r1, r3
+ 1172              		.loc 1 238 11
+ 1173 0032 7B68     		ldr	r3, [r7, #4]
+ 1174 0034 0B44     		add	r3, r3, r1
+ 1175              		.loc 1 238 19
+ 1176 0036 D2B2     		uxtb	r2, r2
+ 1177 0038 1A70     		strb	r2, [r3]
  239:Src/vesc_commands.c ****     buffer[idx++] = (status->position_set >> 8) & 0xFF;
+ 1178              		.loc 1 239 28
+ 1179 003a 3B68     		ldr	r3, [r7]
+ 1180 003c 1B68     		ldr	r3, [r3]
+ 1181              		.loc 1 239 43
+ 1182 003e 1A12     		asrs	r2, r3, #8
+ 1183              		.loc 1 239 15
+ 1184 0040 FB89     		ldrh	r3, [r7, #14]
+ 1185 0042 591C     		adds	r1, r3, #1
+ 1186 0044 F981     		strh	r1, [r7, #14]	@ movhi
+ 1187 0046 1946     		mov	r1, r3
+ 1188              		.loc 1 239 11
+ 1189 0048 7B68     		ldr	r3, [r7, #4]
+ 1190 004a 0B44     		add	r3, r3, r1
+ 1191              		.loc 1 239 19
+ 1192 004c D2B2     		uxtb	r2, r2
+ 1193 004e 1A70     		strb	r2, [r3]
  240:Src/vesc_commands.c ****     buffer[idx++] = status->position_set & 0xFF;
+ 1194              		.loc 1 240 27
+ARM GAS  /tmp/ccRI0YSi.s 			page 26
+
+
+ 1195 0050 3B68     		ldr	r3, [r7]
+ 1196 0052 1A68     		ldr	r2, [r3]
+ 1197              		.loc 1 240 15
+ 1198 0054 FB89     		ldrh	r3, [r7, #14]
+ 1199 0056 591C     		adds	r1, r3, #1
+ 1200 0058 F981     		strh	r1, [r7, #14]	@ movhi
+ 1201 005a 1946     		mov	r1, r3
+ 1202              		.loc 1 240 11
+ 1203 005c 7B68     		ldr	r3, [r7, #4]
+ 1204 005e 0B44     		add	r3, r3, r1
+ 1205              		.loc 1 240 19
+ 1206 0060 D2B2     		uxtb	r2, r2
+ 1207 0062 1A70     		strb	r2, [r3]
  241:Src/vesc_commands.c ****     
  242:Src/vesc_commands.c ****     buffer[idx++] = (status->position_act >> 24) & 0xFF;
+ 1208              		.loc 1 242 28
+ 1209 0064 3B68     		ldr	r3, [r7]
+ 1210 0066 5B68     		ldr	r3, [r3, #4]
+ 1211              		.loc 1 242 50
+ 1212 0068 1A0E     		lsrs	r2, r3, #24
+ 1213              		.loc 1 242 15
+ 1214 006a FB89     		ldrh	r3, [r7, #14]
+ 1215 006c 591C     		adds	r1, r3, #1
+ 1216 006e F981     		strh	r1, [r7, #14]	@ movhi
+ 1217 0070 1946     		mov	r1, r3
+ 1218              		.loc 1 242 11
+ 1219 0072 7B68     		ldr	r3, [r7, #4]
+ 1220 0074 0B44     		add	r3, r3, r1
+ 1221              		.loc 1 242 19
+ 1222 0076 D2B2     		uxtb	r2, r2
+ 1223 0078 1A70     		strb	r2, [r3]
  243:Src/vesc_commands.c ****     buffer[idx++] = (status->position_act >> 16) & 0xFF;
+ 1224              		.loc 1 243 28
+ 1225 007a 3B68     		ldr	r3, [r7]
+ 1226 007c 5B68     		ldr	r3, [r3, #4]
+ 1227              		.loc 1 243 43
+ 1228 007e 1A14     		asrs	r2, r3, #16
+ 1229              		.loc 1 243 15
+ 1230 0080 FB89     		ldrh	r3, [r7, #14]
+ 1231 0082 591C     		adds	r1, r3, #1
+ 1232 0084 F981     		strh	r1, [r7, #14]	@ movhi
+ 1233 0086 1946     		mov	r1, r3
+ 1234              		.loc 1 243 11
+ 1235 0088 7B68     		ldr	r3, [r7, #4]
+ 1236 008a 0B44     		add	r3, r3, r1
+ 1237              		.loc 1 243 19
+ 1238 008c D2B2     		uxtb	r2, r2
+ 1239 008e 1A70     		strb	r2, [r3]
  244:Src/vesc_commands.c ****     buffer[idx++] = (status->position_act >> 8) & 0xFF;
+ 1240              		.loc 1 244 28
+ 1241 0090 3B68     		ldr	r3, [r7]
+ 1242 0092 5B68     		ldr	r3, [r3, #4]
+ 1243              		.loc 1 244 43
+ 1244 0094 1A12     		asrs	r2, r3, #8
+ 1245              		.loc 1 244 15
+ 1246 0096 FB89     		ldrh	r3, [r7, #14]
+ 1247 0098 591C     		adds	r1, r3, #1
+ARM GAS  /tmp/ccRI0YSi.s 			page 27
+
+
+ 1248 009a F981     		strh	r1, [r7, #14]	@ movhi
+ 1249 009c 1946     		mov	r1, r3
+ 1250              		.loc 1 244 11
+ 1251 009e 7B68     		ldr	r3, [r7, #4]
+ 1252 00a0 0B44     		add	r3, r3, r1
+ 1253              		.loc 1 244 19
+ 1254 00a2 D2B2     		uxtb	r2, r2
+ 1255 00a4 1A70     		strb	r2, [r3]
  245:Src/vesc_commands.c ****     buffer[idx++] = status->position_act & 0xFF;
+ 1256              		.loc 1 245 27
+ 1257 00a6 3B68     		ldr	r3, [r7]
+ 1258 00a8 5A68     		ldr	r2, [r3, #4]
+ 1259              		.loc 1 245 15
+ 1260 00aa FB89     		ldrh	r3, [r7, #14]
+ 1261 00ac 591C     		adds	r1, r3, #1
+ 1262 00ae F981     		strh	r1, [r7, #14]	@ movhi
+ 1263 00b0 1946     		mov	r1, r3
+ 1264              		.loc 1 245 11
+ 1265 00b2 7B68     		ldr	r3, [r7, #4]
+ 1266 00b4 0B44     		add	r3, r3, r1
+ 1267              		.loc 1 245 19
+ 1268 00b6 D2B2     		uxtb	r2, r2
+ 1269 00b8 1A70     		strb	r2, [r3]
  246:Src/vesc_commands.c ****     
  247:Src/vesc_commands.c ****     buffer[idx++] = (status->speed_set >> 24) & 0xFF;
+ 1270              		.loc 1 247 28
+ 1271 00ba 3B68     		ldr	r3, [r7]
+ 1272 00bc 9B68     		ldr	r3, [r3, #8]
+ 1273              		.loc 1 247 47
+ 1274 00be 1A0E     		lsrs	r2, r3, #24
+ 1275              		.loc 1 247 15
+ 1276 00c0 FB89     		ldrh	r3, [r7, #14]
+ 1277 00c2 591C     		adds	r1, r3, #1
+ 1278 00c4 F981     		strh	r1, [r7, #14]	@ movhi
+ 1279 00c6 1946     		mov	r1, r3
+ 1280              		.loc 1 247 11
+ 1281 00c8 7B68     		ldr	r3, [r7, #4]
+ 1282 00ca 0B44     		add	r3, r3, r1
+ 1283              		.loc 1 247 19
+ 1284 00cc D2B2     		uxtb	r2, r2
+ 1285 00ce 1A70     		strb	r2, [r3]
  248:Src/vesc_commands.c ****     buffer[idx++] = (status->speed_set >> 16) & 0xFF;
+ 1286              		.loc 1 248 28
+ 1287 00d0 3B68     		ldr	r3, [r7]
+ 1288 00d2 9B68     		ldr	r3, [r3, #8]
+ 1289              		.loc 1 248 40
+ 1290 00d4 1A14     		asrs	r2, r3, #16
+ 1291              		.loc 1 248 15
+ 1292 00d6 FB89     		ldrh	r3, [r7, #14]
+ 1293 00d8 591C     		adds	r1, r3, #1
+ 1294 00da F981     		strh	r1, [r7, #14]	@ movhi
+ 1295 00dc 1946     		mov	r1, r3
+ 1296              		.loc 1 248 11
+ 1297 00de 7B68     		ldr	r3, [r7, #4]
+ 1298 00e0 0B44     		add	r3, r3, r1
+ 1299              		.loc 1 248 19
+ 1300 00e2 D2B2     		uxtb	r2, r2
+ARM GAS  /tmp/ccRI0YSi.s 			page 28
+
+
+ 1301 00e4 1A70     		strb	r2, [r3]
  249:Src/vesc_commands.c ****     buffer[idx++] = (status->speed_set >> 8) & 0xFF;
+ 1302              		.loc 1 249 28
+ 1303 00e6 3B68     		ldr	r3, [r7]
+ 1304 00e8 9B68     		ldr	r3, [r3, #8]
+ 1305              		.loc 1 249 40
+ 1306 00ea 1A12     		asrs	r2, r3, #8
+ 1307              		.loc 1 249 15
+ 1308 00ec FB89     		ldrh	r3, [r7, #14]
+ 1309 00ee 591C     		adds	r1, r3, #1
+ 1310 00f0 F981     		strh	r1, [r7, #14]	@ movhi
+ 1311 00f2 1946     		mov	r1, r3
+ 1312              		.loc 1 249 11
+ 1313 00f4 7B68     		ldr	r3, [r7, #4]
+ 1314 00f6 0B44     		add	r3, r3, r1
+ 1315              		.loc 1 249 19
+ 1316 00f8 D2B2     		uxtb	r2, r2
+ 1317 00fa 1A70     		strb	r2, [r3]
  250:Src/vesc_commands.c ****     buffer[idx++] = status->speed_set & 0xFF;
+ 1318              		.loc 1 250 27
+ 1319 00fc 3B68     		ldr	r3, [r7]
+ 1320 00fe 9A68     		ldr	r2, [r3, #8]
+ 1321              		.loc 1 250 15
+ 1322 0100 FB89     		ldrh	r3, [r7, #14]
+ 1323 0102 591C     		adds	r1, r3, #1
+ 1324 0104 F981     		strh	r1, [r7, #14]	@ movhi
+ 1325 0106 1946     		mov	r1, r3
+ 1326              		.loc 1 250 11
+ 1327 0108 7B68     		ldr	r3, [r7, #4]
+ 1328 010a 0B44     		add	r3, r3, r1
+ 1329              		.loc 1 250 19
+ 1330 010c D2B2     		uxtb	r2, r2
+ 1331 010e 1A70     		strb	r2, [r3]
  251:Src/vesc_commands.c ****     
  252:Src/vesc_commands.c ****     buffer[idx++] = (status->speed_act >> 24) & 0xFF;
+ 1332              		.loc 1 252 28
+ 1333 0110 3B68     		ldr	r3, [r7]
+ 1334 0112 DB68     		ldr	r3, [r3, #12]
+ 1335              		.loc 1 252 47
+ 1336 0114 1A0E     		lsrs	r2, r3, #24
+ 1337              		.loc 1 252 15
+ 1338 0116 FB89     		ldrh	r3, [r7, #14]
+ 1339 0118 591C     		adds	r1, r3, #1
+ 1340 011a F981     		strh	r1, [r7, #14]	@ movhi
+ 1341 011c 1946     		mov	r1, r3
+ 1342              		.loc 1 252 11
+ 1343 011e 7B68     		ldr	r3, [r7, #4]
+ 1344 0120 0B44     		add	r3, r3, r1
+ 1345              		.loc 1 252 19
+ 1346 0122 D2B2     		uxtb	r2, r2
+ 1347 0124 1A70     		strb	r2, [r3]
  253:Src/vesc_commands.c ****     buffer[idx++] = (status->speed_act >> 16) & 0xFF;
+ 1348              		.loc 1 253 28
+ 1349 0126 3B68     		ldr	r3, [r7]
+ 1350 0128 DB68     		ldr	r3, [r3, #12]
+ 1351              		.loc 1 253 40
+ 1352 012a 1A14     		asrs	r2, r3, #16
+ARM GAS  /tmp/ccRI0YSi.s 			page 29
+
+
+ 1353              		.loc 1 253 15
+ 1354 012c FB89     		ldrh	r3, [r7, #14]
+ 1355 012e 591C     		adds	r1, r3, #1
+ 1356 0130 F981     		strh	r1, [r7, #14]	@ movhi
+ 1357 0132 1946     		mov	r1, r3
+ 1358              		.loc 1 253 11
+ 1359 0134 7B68     		ldr	r3, [r7, #4]
+ 1360 0136 0B44     		add	r3, r3, r1
+ 1361              		.loc 1 253 19
+ 1362 0138 D2B2     		uxtb	r2, r2
+ 1363 013a 1A70     		strb	r2, [r3]
  254:Src/vesc_commands.c ****     buffer[idx++] = (status->speed_act >> 8) & 0xFF;
+ 1364              		.loc 1 254 28
+ 1365 013c 3B68     		ldr	r3, [r7]
+ 1366 013e DB68     		ldr	r3, [r3, #12]
+ 1367              		.loc 1 254 40
+ 1368 0140 1A12     		asrs	r2, r3, #8
+ 1369              		.loc 1 254 15
+ 1370 0142 FB89     		ldrh	r3, [r7, #14]
+ 1371 0144 591C     		adds	r1, r3, #1
+ 1372 0146 F981     		strh	r1, [r7, #14]	@ movhi
+ 1373 0148 1946     		mov	r1, r3
+ 1374              		.loc 1 254 11
+ 1375 014a 7B68     		ldr	r3, [r7, #4]
+ 1376 014c 0B44     		add	r3, r3, r1
+ 1377              		.loc 1 254 19
+ 1378 014e D2B2     		uxtb	r2, r2
+ 1379 0150 1A70     		strb	r2, [r3]
  255:Src/vesc_commands.c ****     buffer[idx++] = status->speed_act & 0xFF;
+ 1380              		.loc 1 255 27
+ 1381 0152 3B68     		ldr	r3, [r7]
+ 1382 0154 DA68     		ldr	r2, [r3, #12]
+ 1383              		.loc 1 255 15
+ 1384 0156 FB89     		ldrh	r3, [r7, #14]
+ 1385 0158 591C     		adds	r1, r3, #1
+ 1386 015a F981     		strh	r1, [r7, #14]	@ movhi
+ 1387 015c 1946     		mov	r1, r3
+ 1388              		.loc 1 255 11
+ 1389 015e 7B68     		ldr	r3, [r7, #4]
+ 1390 0160 0B44     		add	r3, r3, r1
+ 1391              		.loc 1 255 19
+ 1392 0162 D2B2     		uxtb	r2, r2
+ 1393 0164 1A70     		strb	r2, [r3]
  256:Src/vesc_commands.c ****     
  257:Src/vesc_commands.c ****     buffer[idx++] = (status->current_set >> 24) & 0xFF;
+ 1394              		.loc 1 257 28
+ 1395 0166 3B68     		ldr	r3, [r7]
+ 1396 0168 1B69     		ldr	r3, [r3, #16]
+ 1397              		.loc 1 257 49
+ 1398 016a 1A0E     		lsrs	r2, r3, #24
+ 1399              		.loc 1 257 15
+ 1400 016c FB89     		ldrh	r3, [r7, #14]
+ 1401 016e 591C     		adds	r1, r3, #1
+ 1402 0170 F981     		strh	r1, [r7, #14]	@ movhi
+ 1403 0172 1946     		mov	r1, r3
+ 1404              		.loc 1 257 11
+ 1405 0174 7B68     		ldr	r3, [r7, #4]
+ARM GAS  /tmp/ccRI0YSi.s 			page 30
+
+
+ 1406 0176 0B44     		add	r3, r3, r1
+ 1407              		.loc 1 257 19
+ 1408 0178 D2B2     		uxtb	r2, r2
+ 1409 017a 1A70     		strb	r2, [r3]
  258:Src/vesc_commands.c ****     buffer[idx++] = (status->current_set >> 16) & 0xFF;
+ 1410              		.loc 1 258 28
+ 1411 017c 3B68     		ldr	r3, [r7]
+ 1412 017e 1B69     		ldr	r3, [r3, #16]
+ 1413              		.loc 1 258 42
+ 1414 0180 1A14     		asrs	r2, r3, #16
+ 1415              		.loc 1 258 15
+ 1416 0182 FB89     		ldrh	r3, [r7, #14]
+ 1417 0184 591C     		adds	r1, r3, #1
+ 1418 0186 F981     		strh	r1, [r7, #14]	@ movhi
+ 1419 0188 1946     		mov	r1, r3
+ 1420              		.loc 1 258 11
+ 1421 018a 7B68     		ldr	r3, [r7, #4]
+ 1422 018c 0B44     		add	r3, r3, r1
+ 1423              		.loc 1 258 19
+ 1424 018e D2B2     		uxtb	r2, r2
+ 1425 0190 1A70     		strb	r2, [r3]
  259:Src/vesc_commands.c ****     buffer[idx++] = (status->current_set >> 8) & 0xFF;
+ 1426              		.loc 1 259 28
+ 1427 0192 3B68     		ldr	r3, [r7]
+ 1428 0194 1B69     		ldr	r3, [r3, #16]
+ 1429              		.loc 1 259 42
+ 1430 0196 1A12     		asrs	r2, r3, #8
+ 1431              		.loc 1 259 15
+ 1432 0198 FB89     		ldrh	r3, [r7, #14]
+ 1433 019a 591C     		adds	r1, r3, #1
+ 1434 019c F981     		strh	r1, [r7, #14]	@ movhi
+ 1435 019e 1946     		mov	r1, r3
+ 1436              		.loc 1 259 11
+ 1437 01a0 7B68     		ldr	r3, [r7, #4]
+ 1438 01a2 0B44     		add	r3, r3, r1
+ 1439              		.loc 1 259 19
+ 1440 01a4 D2B2     		uxtb	r2, r2
+ 1441 01a6 1A70     		strb	r2, [r3]
  260:Src/vesc_commands.c ****     buffer[idx++] = status->current_set & 0xFF;
+ 1442              		.loc 1 260 27
+ 1443 01a8 3B68     		ldr	r3, [r7]
+ 1444 01aa 1A69     		ldr	r2, [r3, #16]
+ 1445              		.loc 1 260 15
+ 1446 01ac FB89     		ldrh	r3, [r7, #14]
+ 1447 01ae 591C     		adds	r1, r3, #1
+ 1448 01b0 F981     		strh	r1, [r7, #14]	@ movhi
+ 1449 01b2 1946     		mov	r1, r3
+ 1450              		.loc 1 260 11
+ 1451 01b4 7B68     		ldr	r3, [r7, #4]
+ 1452 01b6 0B44     		add	r3, r3, r1
+ 1453              		.loc 1 260 19
+ 1454 01b8 D2B2     		uxtb	r2, r2
+ 1455 01ba 1A70     		strb	r2, [r3]
  261:Src/vesc_commands.c ****     
  262:Src/vesc_commands.c ****     buffer[idx++] = (status->current_act >> 24) & 0xFF;
+ 1456              		.loc 1 262 28
+ 1457 01bc 3B68     		ldr	r3, [r7]
+ARM GAS  /tmp/ccRI0YSi.s 			page 31
+
+
+ 1458 01be 5B69     		ldr	r3, [r3, #20]
+ 1459              		.loc 1 262 49
+ 1460 01c0 1A0E     		lsrs	r2, r3, #24
+ 1461              		.loc 1 262 15
+ 1462 01c2 FB89     		ldrh	r3, [r7, #14]
+ 1463 01c4 591C     		adds	r1, r3, #1
+ 1464 01c6 F981     		strh	r1, [r7, #14]	@ movhi
+ 1465 01c8 1946     		mov	r1, r3
+ 1466              		.loc 1 262 11
+ 1467 01ca 7B68     		ldr	r3, [r7, #4]
+ 1468 01cc 0B44     		add	r3, r3, r1
+ 1469              		.loc 1 262 19
+ 1470 01ce D2B2     		uxtb	r2, r2
+ 1471 01d0 1A70     		strb	r2, [r3]
  263:Src/vesc_commands.c ****     buffer[idx++] = (status->current_act >> 16) & 0xFF;
+ 1472              		.loc 1 263 28
+ 1473 01d2 3B68     		ldr	r3, [r7]
+ 1474 01d4 5B69     		ldr	r3, [r3, #20]
+ 1475              		.loc 1 263 42
+ 1476 01d6 1A14     		asrs	r2, r3, #16
+ 1477              		.loc 1 263 15
+ 1478 01d8 FB89     		ldrh	r3, [r7, #14]
+ 1479 01da 591C     		adds	r1, r3, #1
+ 1480 01dc F981     		strh	r1, [r7, #14]	@ movhi
+ 1481 01de 1946     		mov	r1, r3
+ 1482              		.loc 1 263 11
+ 1483 01e0 7B68     		ldr	r3, [r7, #4]
+ 1484 01e2 0B44     		add	r3, r3, r1
+ 1485              		.loc 1 263 19
+ 1486 01e4 D2B2     		uxtb	r2, r2
+ 1487 01e6 1A70     		strb	r2, [r3]
  264:Src/vesc_commands.c ****     buffer[idx++] = (status->current_act >> 8) & 0xFF;
+ 1488              		.loc 1 264 28
+ 1489 01e8 3B68     		ldr	r3, [r7]
+ 1490 01ea 5B69     		ldr	r3, [r3, #20]
+ 1491              		.loc 1 264 42
+ 1492 01ec 1A12     		asrs	r2, r3, #8
+ 1493              		.loc 1 264 15
+ 1494 01ee FB89     		ldrh	r3, [r7, #14]
+ 1495 01f0 591C     		adds	r1, r3, #1
+ 1496 01f2 F981     		strh	r1, [r7, #14]	@ movhi
+ 1497 01f4 1946     		mov	r1, r3
+ 1498              		.loc 1 264 11
+ 1499 01f6 7B68     		ldr	r3, [r7, #4]
+ 1500 01f8 0B44     		add	r3, r3, r1
+ 1501              		.loc 1 264 19
+ 1502 01fa D2B2     		uxtb	r2, r2
+ 1503 01fc 1A70     		strb	r2, [r3]
  265:Src/vesc_commands.c ****     buffer[idx++] = status->current_act & 0xFF;
+ 1504              		.loc 1 265 27
+ 1505 01fe 3B68     		ldr	r3, [r7]
+ 1506 0200 5A69     		ldr	r2, [r3, #20]
+ 1507              		.loc 1 265 15
+ 1508 0202 FB89     		ldrh	r3, [r7, #14]
+ 1509 0204 591C     		adds	r1, r3, #1
+ 1510 0206 F981     		strh	r1, [r7, #14]	@ movhi
+ 1511 0208 1946     		mov	r1, r3
+ARM GAS  /tmp/ccRI0YSi.s 			page 32
+
+
+ 1512              		.loc 1 265 11
+ 1513 020a 7B68     		ldr	r3, [r7, #4]
+ 1514 020c 0B44     		add	r3, r3, r1
+ 1515              		.loc 1 265 19
+ 1516 020e D2B2     		uxtb	r2, r2
+ 1517 0210 1A70     		strb	r2, [r3]
  266:Src/vesc_commands.c ****     
  267:Src/vesc_commands.c ****     buffer[idx++] = (status->temp >> 8) & 0xFF;
+ 1518              		.loc 1 267 28
+ 1519 0212 3B68     		ldr	r3, [r7]
+ 1520 0214 1B8B     		ldrh	r3, [r3, #24]
+ 1521              		.loc 1 267 19
+ 1522 0216 1B0A     		lsrs	r3, r3, #8
+ 1523 0218 9AB2     		uxth	r2, r3
+ 1524              		.loc 1 267 15
+ 1525 021a FB89     		ldrh	r3, [r7, #14]
+ 1526 021c 591C     		adds	r1, r3, #1
+ 1527 021e F981     		strh	r1, [r7, #14]	@ movhi
+ 1528 0220 1946     		mov	r1, r3
+ 1529              		.loc 1 267 11
+ 1530 0222 7B68     		ldr	r3, [r7, #4]
+ 1531 0224 0B44     		add	r3, r3, r1
+ 1532              		.loc 1 267 19
+ 1533 0226 D2B2     		uxtb	r2, r2
+ 1534 0228 1A70     		strb	r2, [r3]
  268:Src/vesc_commands.c ****     buffer[idx++] = status->temp & 0xFF;
+ 1535              		.loc 1 268 27
+ 1536 022a 3B68     		ldr	r3, [r7]
+ 1537 022c 1A8B     		ldrh	r2, [r3, #24]
+ 1538              		.loc 1 268 15
+ 1539 022e FB89     		ldrh	r3, [r7, #14]
+ 1540 0230 591C     		adds	r1, r3, #1
+ 1541 0232 F981     		strh	r1, [r7, #14]	@ movhi
+ 1542 0234 1946     		mov	r1, r3
+ 1543              		.loc 1 268 11
+ 1544 0236 7B68     		ldr	r3, [r7, #4]
+ 1545 0238 0B44     		add	r3, r3, r1
+ 1546              		.loc 1 268 19
+ 1547 023a D2B2     		uxtb	r2, r2
+ 1548 023c 1A70     		strb	r2, [r3]
  269:Src/vesc_commands.c ****     
  270:Src/vesc_commands.c ****     buffer[idx++] = status->voltage;
+ 1549              		.loc 1 270 15
+ 1550 023e FB89     		ldrh	r3, [r7, #14]
+ 1551 0240 5A1C     		adds	r2, r3, #1
+ 1552 0242 FA81     		strh	r2, [r7, #14]	@ movhi
+ 1553 0244 1A46     		mov	r2, r3
+ 1554              		.loc 1 270 11
+ 1555 0246 7B68     		ldr	r3, [r7, #4]
+ 1556 0248 1344     		add	r3, r3, r2
+ 1557              		.loc 1 270 27
+ 1558 024a 3A68     		ldr	r2, [r7]
+ 1559 024c 927E     		ldrb	r2, [r2, #26]	@ zero_extendqisi2
+ 1560              		.loc 1 270 19
+ 1561 024e 1A70     		strb	r2, [r3]
  271:Src/vesc_commands.c ****     
  272:Src/vesc_commands.c ****     return idx;
+ARM GAS  /tmp/ccRI0YSi.s 			page 33
+
+
+ 1562              		.loc 1 272 12
+ 1563 0250 FB89     		ldrh	r3, [r7, #14]
  273:Src/vesc_commands.c **** }
+ 1564              		.loc 1 273 1
+ 1565 0252 1846     		mov	r0, r3
+ 1566 0254 1437     		adds	r7, r7, #20
+ 1567              	.LCFI35:
+ 1568              		.cfi_def_cfa_offset 4
+ 1569 0256 BD46     		mov	sp, r7
+ 1570              	.LCFI36:
+ 1571              		.cfi_def_cfa_register 13
+ 1572              		@ sp needed
+ 1573 0258 5DF8047B 		ldr	r7, [sp], #4
+ 1574              	.LCFI37:
+ 1575              		.cfi_restore 7
+ 1576              		.cfi_def_cfa_offset 0
+ 1577 025c 7047     		bx	lr
+ 1578              		.cfi_endproc
+ 1579              	.LFE1719:
+ 1581              		.section	.text.GetMotorStatus,"ax",%progbits
+ 1582              		.align	1
+ 1583              		.syntax unified
+ 1584              		.thumb
+ 1585              		.thumb_func
+ 1586              		.fpu fpv4-sp-d16
+ 1588              	GetMotorStatus:
+ 1589              	.LFB1720:
  274:Src/vesc_commands.c **** 
  275:Src/vesc_commands.c **** static void GetMotorStatus(MotorStatus_t* status) {
+ 1590              		.loc 1 275 51
+ 1591              		.cfi_startproc
+ 1592              		@ args = 0, pretend = 0, frame = 8
+ 1593              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1594              		@ link register save eliminated.
+ 1595 0000 80B4     		push	{r7}
+ 1596              	.LCFI38:
+ 1597              		.cfi_def_cfa_offset 4
+ 1598              		.cfi_offset 7, -4
+ 1599 0002 83B0     		sub	sp, sp, #12
+ 1600              	.LCFI39:
+ 1601              		.cfi_def_cfa_offset 16
+ 1602 0004 00AF     		add	r7, sp, #0
+ 1603              	.LCFI40:
+ 1604              		.cfi_def_cfa_register 7
+ 1605 0006 7860     		str	r0, [r7, #4]
  276:Src/vesc_commands.c ****     status->position_set = 0;
+ 1606              		.loc 1 276 26
+ 1607 0008 7B68     		ldr	r3, [r7, #4]
+ 1608 000a 0022     		movs	r2, #0
+ 1609 000c 1A60     		str	r2, [r3]
  277:Src/vesc_commands.c ****     status->position_act = 0;
+ 1610              		.loc 1 277 26
+ 1611 000e 7B68     		ldr	r3, [r7, #4]
+ 1612 0010 0022     		movs	r2, #0
+ 1613 0012 5A60     		str	r2, [r3, #4]
  278:Src/vesc_commands.c ****     status->speed_set = 1;
+ 1614              		.loc 1 278 23
+ARM GAS  /tmp/ccRI0YSi.s 			page 34
+
+
+ 1615 0014 7B68     		ldr	r3, [r7, #4]
+ 1616 0016 0122     		movs	r2, #1
+ 1617 0018 9A60     		str	r2, [r3, #8]
  279:Src/vesc_commands.c ****     status->speed_act = 1;
+ 1618              		.loc 1 279 23
+ 1619 001a 7B68     		ldr	r3, [r7, #4]
+ 1620 001c 0122     		movs	r2, #1
+ 1621 001e DA60     		str	r2, [r3, #12]
  280:Src/vesc_commands.c ****     status->current_set = 2;
+ 1622              		.loc 1 280 25
+ 1623 0020 7B68     		ldr	r3, [r7, #4]
+ 1624 0022 0222     		movs	r2, #2
+ 1625 0024 1A61     		str	r2, [r3, #16]
  281:Src/vesc_commands.c ****     status->current_act = 2;
+ 1626              		.loc 1 281 25
+ 1627 0026 7B68     		ldr	r3, [r7, #4]
+ 1628 0028 0222     		movs	r2, #2
+ 1629 002a 5A61     		str	r2, [r3, #20]
  282:Src/vesc_commands.c ****     status->temp = 4;
+ 1630              		.loc 1 282 18
+ 1631 002c 7B68     		ldr	r3, [r7, #4]
+ 1632 002e 0422     		movs	r2, #4
+ 1633 0030 1A83     		strh	r2, [r3, #24]	@ movhi
  283:Src/vesc_commands.c ****     status->voltage = 5;
+ 1634              		.loc 1 283 21
+ 1635 0032 7B68     		ldr	r3, [r7, #4]
+ 1636 0034 0522     		movs	r2, #5
+ 1637 0036 9A76     		strb	r2, [r3, #26]
  284:Src/vesc_commands.c **** }
+ 1638              		.loc 1 284 1
+ 1639 0038 00BF     		nop
+ 1640 003a 0C37     		adds	r7, r7, #12
+ 1641              	.LCFI41:
+ 1642              		.cfi_def_cfa_offset 4
+ 1643 003c BD46     		mov	sp, r7
+ 1644              	.LCFI42:
+ 1645              		.cfi_def_cfa_register 13
+ 1646              		@ sp needed
+ 1647 003e 5DF8047B 		ldr	r7, [sp], #4
+ 1648              	.LCFI43:
+ 1649              		.cfi_restore 7
+ 1650              		.cfi_def_cfa_offset 0
+ 1651 0042 7047     		bx	lr
+ 1652              		.cfi_endproc
+ 1653              	.LFE1720:
+ 1655              		.section	.text.VESC_ExecuteCommand,"ax",%progbits
+ 1656              		.align	1
+ 1657              		.global	VESC_ExecuteCommand
+ 1658              		.syntax unified
+ 1659              		.thumb
+ 1660              		.thumb_func
+ 1661              		.fpu fpv4-sp-d16
+ 1663              	VESC_ExecuteCommand:
+ 1664              	.LFB1721:
  285:Src/vesc_commands.c **** 
  286:Src/vesc_commands.c **** void VESC_ExecuteCommand(uint8_t cmd, uint8_t* data, uint16_t len) {
- 759              		.loc 1 286 68 is_stmt 1 view -0
- 760              		.cfi_startproc
- 761              		@ args = 0, pretend = 0, frame = 0
- 762              		@ frame_needed = 0, uses_anonymous_args = 0
- 763              		.loc 1 286 68 is_stmt 0 view .LVU227
- 764 0000 10B5     		push	{r4, lr}
- 765              	.LCFI4:
- 766              		.cfi_def_cfa_offset 8
- 767              		.cfi_offset 4, -8
-ARM GAS  /tmp/ccfodlaB.s 			page 21
+ 1665              		.loc 1 286 68
+ARM GAS  /tmp/ccRI0YSi.s 			page 35
 
 
- 768              		.cfi_offset 14, -4
+ 1666              		.cfi_startproc
+ 1667              		@ args = 0, pretend = 0, frame = 64
+ 1668              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1669 0000 80B5     		push	{r7, lr}
+ 1670              	.LCFI44:
+ 1671              		.cfi_def_cfa_offset 8
+ 1672              		.cfi_offset 7, -8
+ 1673              		.cfi_offset 14, -4
+ 1674 0002 90B0     		sub	sp, sp, #64
+ 1675              	.LCFI45:
+ 1676              		.cfi_def_cfa_offset 72
+ 1677 0004 00AF     		add	r7, sp, #0
+ 1678              	.LCFI46:
+ 1679              		.cfi_def_cfa_register 7
+ 1680 0006 0346     		mov	r3, r0
+ 1681 0008 3960     		str	r1, [r7]
+ 1682 000a FB71     		strb	r3, [r7, #7]
+ 1683 000c 1346     		mov	r3, r2	@ movhi
+ 1684 000e BB80     		strh	r3, [r7, #4]	@ movhi
  287:Src/vesc_commands.c ****     switch(cmd) {
- 769              		.loc 1 287 5 is_stmt 1 view .LVU228
- 770 0002 0438     		subs	r0, r0, #4
- 771              	.LVL97:
- 772              		.loc 1 287 5 is_stmt 0 view .LVU229
- 773 0004 2728     		cmp	r0, #39
- 774 0006 17D8     		bhi	.L66
- 775 0008 DFE800F0 		tbb	[pc, r0]
- 776              	.L69:
- 777 000c 3B       		.byte	(.L74-.L69)/2
- 778 000d 16       		.byte	(.L66-.L69)/2
- 779 000e 16       		.byte	(.L66-.L69)/2
- 780 000f 16       		.byte	(.L66-.L69)/2
- 781 0010 16       		.byte	(.L66-.L69)/2
- 782 0011 16       		.byte	(.L66-.L69)/2
- 783 0012 16       		.byte	(.L66-.L69)/2
- 784 0013 16       		.byte	(.L66-.L69)/2
- 785 0014 16       		.byte	(.L66-.L69)/2
- 786 0015 16       		.byte	(.L66-.L69)/2
- 787 0016 16       		.byte	(.L66-.L69)/2
- 788 0017 16       		.byte	(.L66-.L69)/2
- 789 0018 16       		.byte	(.L66-.L69)/2
- 790 0019 16       		.byte	(.L66-.L69)/2
- 791 001a 16       		.byte	(.L66-.L69)/2
- 792 001b 16       		.byte	(.L66-.L69)/2
- 793 001c 16       		.byte	(.L66-.L69)/2
- 794 001d 16       		.byte	(.L66-.L69)/2
- 795 001e 16       		.byte	(.L66-.L69)/2
- 796 001f 16       		.byte	(.L66-.L69)/2
- 797 0020 16       		.byte	(.L66-.L69)/2
- 798 0021 16       		.byte	(.L66-.L69)/2
- 799 0022 16       		.byte	(.L66-.L69)/2
- 800 0023 16       		.byte	(.L66-.L69)/2
- 801 0024 16       		.byte	(.L66-.L69)/2
- 802 0025 16       		.byte	(.L66-.L69)/2
- 803 0026 60       		.byte	(.L73-.L69)/2
- 804 0027 16       		.byte	(.L66-.L69)/2
- 805 0028 16       		.byte	(.L66-.L69)/2
- 806 0029 16       		.byte	(.L66-.L69)/2
- 807 002a 16       		.byte	(.L66-.L69)/2
- 808 002b 16       		.byte	(.L66-.L69)/2
- 809 002c 16       		.byte	(.L66-.L69)/2
- 810 002d 16       		.byte	(.L66-.L69)/2
- 811 002e 16       		.byte	(.L66-.L69)/2
- 812 002f 16       		.byte	(.L66-.L69)/2
- 813 0030 14       		.byte	(.L72-.L69)/2
- 814 0031 17       		.byte	(.L71-.L69)/2
- 815 0032 20       		.byte	(.L70-.L69)/2
- 816 0033 29       		.byte	(.L68-.L69)/2
- 817              		.p2align 1
- 818              	.L72:
+ 1685              		.loc 1 287 5
+ 1686 0010 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1687 0012 043B     		subs	r3, r3, #4
+ 1688 0014 282B     		cmp	r3, #40
+ 1689 0016 00F2E680 		bhi	.L92
+ 1690 001a 01A2     		adr	r2, .L65
+ 1691 001c 52F823F0 		ldr	pc, [r2, r3, lsl #2]
+ 1692              		.p2align 2
+ 1693              	.L65:
+ 1694 0020 57010000 		.word	.L74+1
+ 1695 0024 7F010000 		.word	.L73+1
+ 1696 0028 BF010000 		.word	.L72+1
+ 1697 002c E7010000 		.word	.L92+1
+ 1698 0030 CD010000 		.word	.L71+1
+ 1699 0034 E7010000 		.word	.L92+1
+ 1700 0038 E7010000 		.word	.L92+1
+ 1701 003c E7010000 		.word	.L92+1
+ 1702 0040 E7010000 		.word	.L92+1
+ 1703 0044 E7010000 		.word	.L92+1
+ 1704 0048 E7010000 		.word	.L92+1
+ 1705 004c E7010000 		.word	.L92+1
+ 1706 0050 E7010000 		.word	.L92+1
+ 1707 0054 E7010000 		.word	.L92+1
+ 1708 0058 E7010000 		.word	.L92+1
+ 1709 005c E7010000 		.word	.L92+1
+ 1710 0060 E7010000 		.word	.L92+1
+ 1711 0064 E7010000 		.word	.L92+1
+ 1712 0068 E7010000 		.word	.L92+1
+ 1713 006c E7010000 		.word	.L92+1
+ 1714 0070 E7010000 		.word	.L92+1
+ 1715 0074 E7010000 		.word	.L92+1
+ 1716 0078 E7010000 		.word	.L92+1
+ 1717 007c E7010000 		.word	.L92+1
+ 1718 0080 E7010000 		.word	.L92+1
+ 1719 0084 E7010000 		.word	.L92+1
+ 1720 0088 DB010000 		.word	.L70+1
+ 1721 008c E7010000 		.word	.L92+1
+ARM GAS  /tmp/ccRI0YSi.s 			page 36
+
+
+ 1722 0090 E7010000 		.word	.L92+1
+ 1723 0094 E7010000 		.word	.L92+1
+ 1724 0098 E7010000 		.word	.L92+1
+ 1725 009c E7010000 		.word	.L92+1
+ 1726 00a0 E7010000 		.word	.L92+1
+ 1727 00a4 E7010000 		.word	.L92+1
+ 1728 00a8 E7010000 		.word	.L92+1
+ 1729 00ac E7010000 		.word	.L92+1
+ 1730 00b0 C5000000 		.word	.L69+1
+ 1731 00b4 CB000000 		.word	.L68+1
+ 1732 00b8 F3000000 		.word	.L67+1
+ 1733 00bc 19010000 		.word	.L66+1
+ 1734 00c0 E7010000 		.word	.L92+1
+ 1735              		.p2align 1
+ 1736              	.L69:
  288:Src/vesc_commands.c ****         case COMM_GET_PARAM_LIST:
  289:Src/vesc_commands.c ****             SendParameterList();
- 819              		.loc 1 289 13 is_stmt 1 view .LVU230
- 820 0034 FFF7FEFF 		bl	SendParameterList
- 821              	.LVL98:
-ARM GAS  /tmp/ccfodlaB.s 			page 22
-
-
+ 1737              		.loc 1 289 13
+ 1738 00c4 FFF7FEFF 		bl	SendParameterList
  290:Src/vesc_commands.c ****             break;
- 822              		.loc 1 290 13 view .LVU231
- 823              	.L66:
+ 1739              		.loc 1 290 13
+ 1740 00c8 9AE0     		b	.L75
+ 1741              	.L68:
  291:Src/vesc_commands.c ****             
  292:Src/vesc_commands.c ****         case COMM_GET_PARAM_INFO:
  293:Src/vesc_commands.c ****             if(len >= 2) {
+ 1742              		.loc 1 293 15
+ 1743 00ca BB88     		ldrh	r3, [r7, #4]
+ 1744 00cc 012B     		cmp	r3, #1
+ 1745 00ce 40F28C80 		bls	.L93
+ 1746              	.LBB4:
  294:Src/vesc_commands.c ****                 uint16_t param_id = (data[1] << 8) | data[0];
+ 1747              		.loc 1 294 42
+ 1748 00d2 3B68     		ldr	r3, [r7]
+ 1749 00d4 0133     		adds	r3, r3, #1
+ 1750 00d6 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1751              		.loc 1 294 46
+ 1752 00d8 1B02     		lsls	r3, r3, #8
+ 1753              		.loc 1 294 52
+ 1754 00da 1AB2     		sxth	r2, r3
+ 1755              		.loc 1 294 58
+ 1756 00dc 3B68     		ldr	r3, [r7]
+ 1757 00de 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1758 00e0 1BB2     		sxth	r3, r3
+ 1759              		.loc 1 294 52
+ 1760 00e2 1343     		orrs	r3, r3, r2
+ 1761 00e4 1BB2     		sxth	r3, r3
+ 1762              		.loc 1 294 26
+ 1763 00e6 7B87     		strh	r3, [r7, #58]	@ movhi
  295:Src/vesc_commands.c ****                 SendParameterInfo(param_id);
+ 1764              		.loc 1 295 17
+ 1765 00e8 7B8F     		ldrh	r3, [r7, #58]
+ 1766 00ea 1846     		mov	r0, r3
+ 1767 00ec FFF7FEFF 		bl	SendParameterInfo
+ 1768              	.LBE4:
  296:Src/vesc_commands.c ****             }
  297:Src/vesc_commands.c ****             break;
+ARM GAS  /tmp/ccRI0YSi.s 			page 37
+
+
+ 1769              		.loc 1 297 13
+ 1770 00f0 7BE0     		b	.L93
+ 1771              	.L67:
  298:Src/vesc_commands.c ****             
  299:Src/vesc_commands.c ****         case COMM_GET_PARAM:
  300:Src/vesc_commands.c ****             if(len >= 2) {
+ 1772              		.loc 1 300 15
+ 1773 00f2 BB88     		ldrh	r3, [r7, #4]
+ 1774 00f4 012B     		cmp	r3, #1
+ 1775 00f6 7AD9     		bls	.L94
+ 1776              	.LBB5:
  301:Src/vesc_commands.c ****                 uint16_t param_id = (data[1] << 8) | data[0];
+ 1777              		.loc 1 301 42
+ 1778 00f8 3B68     		ldr	r3, [r7]
+ 1779 00fa 0133     		adds	r3, r3, #1
+ 1780 00fc 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1781              		.loc 1 301 46
+ 1782 00fe 1B02     		lsls	r3, r3, #8
+ 1783              		.loc 1 301 52
+ 1784 0100 1AB2     		sxth	r2, r3
+ 1785              		.loc 1 301 58
+ 1786 0102 3B68     		ldr	r3, [r7]
+ 1787 0104 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1788 0106 1BB2     		sxth	r3, r3
+ 1789              		.loc 1 301 52
+ 1790 0108 1343     		orrs	r3, r3, r2
+ 1791 010a 1BB2     		sxth	r3, r3
+ 1792              		.loc 1 301 26
+ 1793 010c BB87     		strh	r3, [r7, #60]	@ movhi
  302:Src/vesc_commands.c ****                 SendParameterValue(param_id);
+ 1794              		.loc 1 302 17
+ 1795 010e BB8F     		ldrh	r3, [r7, #60]
+ 1796 0110 1846     		mov	r0, r3
+ 1797 0112 FFF7FEFF 		bl	SendParameterValue
+ 1798              	.LBE5:
  303:Src/vesc_commands.c ****             }
  304:Src/vesc_commands.c ****             break;
+ 1799              		.loc 1 304 13
+ 1800 0116 6AE0     		b	.L94
+ 1801              	.L66:
  305:Src/vesc_commands.c ****             
  306:Src/vesc_commands.c ****         case COMM_SET_PARAM:
  307:Src/vesc_commands.c ****             if(len >= 3) {
+ 1802              		.loc 1 307 15
+ 1803 0118 BB88     		ldrh	r3, [r7, #4]
+ 1804 011a 022B     		cmp	r3, #2
+ 1805 011c 69D9     		bls	.L95
+ 1806              	.LBB6:
  308:Src/vesc_commands.c ****                 uint16_t param_id = (data[1] << 8) | data[0];
+ 1807              		.loc 1 308 42
+ 1808 011e 3B68     		ldr	r3, [r7]
+ 1809 0120 0133     		adds	r3, r3, #1
+ 1810 0122 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1811              		.loc 1 308 46
+ 1812 0124 1B02     		lsls	r3, r3, #8
+ 1813              		.loc 1 308 52
+ 1814 0126 1AB2     		sxth	r2, r3
+ARM GAS  /tmp/ccRI0YSi.s 			page 38
+
+
+ 1815              		.loc 1 308 58
+ 1816 0128 3B68     		ldr	r3, [r7]
+ 1817 012a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1818 012c 1BB2     		sxth	r3, r3
+ 1819              		.loc 1 308 52
+ 1820 012e 1343     		orrs	r3, r3, r2
+ 1821 0130 1BB2     		sxth	r3, r3
+ 1822              		.loc 1 308 26
+ 1823 0132 FB87     		strh	r3, [r7, #62]	@ movhi
  309:Src/vesc_commands.c ****                 if(HandleParameterSet(param_id, &data[2], len-2)) {
+ 1824              		.loc 1 309 20
+ 1825 0134 3B68     		ldr	r3, [r7]
+ 1826 0136 991C     		adds	r1, r3, #2
+ 1827 0138 BB88     		ldrh	r3, [r7, #4]	@ movhi
+ 1828 013a 023B     		subs	r3, r3, #2
+ 1829 013c 9AB2     		uxth	r2, r3
+ 1830 013e FB8F     		ldrh	r3, [r7, #62]
+ 1831 0140 1846     		mov	r0, r3
+ 1832 0142 FFF7FEFF 		bl	HandleParameterSet
+ 1833 0146 0346     		mov	r3, r0
+ 1834              		.loc 1 309 19
+ 1835 0148 002B     		cmp	r3, #0
+ 1836 014a 52D0     		beq	.L95
  310:Src/vesc_commands.c ****                     SendParameterValue(param_id);
+ 1837              		.loc 1 310 21
+ 1838 014c FB8F     		ldrh	r3, [r7, #62]
+ 1839 014e 1846     		mov	r0, r3
+ 1840 0150 FFF7FEFF 		bl	SendParameterValue
+ 1841              	.LBE6:
  311:Src/vesc_commands.c ****                 }
  312:Src/vesc_commands.c ****             }
  313:Src/vesc_commands.c ****             break;
+ 1842              		.loc 1 313 13
+ 1843 0154 4DE0     		b	.L95
+ 1844              	.L74:
+ 1845              	.LBB7:
  314:Src/vesc_commands.c ****             
  315:Src/vesc_commands.c ****         case COMM_SAVE_PARAMS:
  316:Src/vesc_commands.c ****             // TODO: Implement parameter saving to flash
@@ -1295,629 +2265,272 @@ ARM GAS  /tmp/ccfodlaB.s 			page 1
  319:Src/vesc_commands.c ****         case COMM_GET_VALUES: {
  320:Src/vesc_commands.c ****             MotorStatus_t status;
  321:Src/vesc_commands.c ****             GetMotorStatus(&status);
+ 1846              		.loc 1 321 13
+ 1847 0156 07F10C03 		add	r3, r7, #12
+ 1848 015a 1846     		mov	r0, r3
+ 1849 015c FFF7FEFF 		bl	GetMotorStatus
  322:Src/vesc_commands.c ****             uint16_t resp_len = PackMotorStatus(response_buffer, &status);
+ 1850              		.loc 1 322 33
+ 1851 0160 07F10C03 		add	r3, r7, #12
+ 1852 0164 1946     		mov	r1, r3
+ 1853 0166 2848     		ldr	r0, .L100
+ 1854 0168 FFF7FEFF 		bl	PackMotorStatus
+ 1855 016c 0346     		mov	r3, r0
+ 1856 016e 7B85     		strh	r3, [r7, #42]	@ movhi
  323:Src/vesc_commands.c ****             VESC_SendPacket(COMM_GET_VALUES, response_buffer, resp_len);
+ARM GAS  /tmp/ccRI0YSi.s 			page 39
+
+
+ 1857              		.loc 1 323 13
+ 1858 0170 7B8D     		ldrh	r3, [r7, #42]
+ 1859 0172 1A46     		mov	r2, r3
+ 1860 0174 2449     		ldr	r1, .L100
+ 1861 0176 0420     		movs	r0, #4
+ 1862 0178 FFF7FEFF 		bl	VESC_SendPacket
  324:Src/vesc_commands.c ****             break;
+ 1863              		.loc 1 324 13
+ 1864 017c 40E0     		b	.L75
+ 1865              	.L73:
+ 1866              	.LBE7:
  325:Src/vesc_commands.c ****         }
  326:Src/vesc_commands.c ****         
  327:Src/vesc_commands.c ****         case COMM_SET_DUTY: {
  328:Src/vesc_commands.c ****             if (len >= 4) {
+ 1867              		.loc 1 328 16
+ 1868 017e BB88     		ldrh	r3, [r7, #4]
+ 1869 0180 032B     		cmp	r3, #3
+ 1870 0182 38D9     		bls	.L96
+ 1871              	.LBB8:
  329:Src/vesc_commands.c ****                 float duty = *((float*)data);
+ 1872              		.loc 1 329 23
+ 1873 0184 3B68     		ldr	r3, [r7]
+ 1874 0186 1B68     		ldr	r3, [r3]	@ float
+ 1875 0188 FB62     		str	r3, [r7, #44]	@ float
  330:Src/vesc_commands.c ****                 duty = (duty < -1.0f) ? -1.0f : (duty > 1.0f) ? 1.0f : duty;
+ 1876              		.loc 1 330 47
+ 1877 018a D7ED0B7A 		vldr.32	s15, [r7, #44]
+ 1878 018e BFEE007A 		vmov.f32	s14, #-1.0e+0
+ 1879 0192 F4EEC77A 		vcmpe.f32	s15, s14
+ 1880 0196 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 1881 019a 01D5     		bpl	.L90
+ 1882              		.loc 1 330 47 is_stmt 0 discriminator 1
+ 1883 019c 1B4B     		ldr	r3, .L100+4
+ 1884 019e 0CE0     		b	.L82
+ 1885              	.L90:
+ 1886              		.loc 1 330 70 is_stmt 1 discriminator 2
+ 1887 01a0 D7ED0B7A 		vldr.32	s15, [r7, #44]
+ 1888 01a4 B7EE007A 		vmov.f32	s14, #1.0e+0
+ 1889 01a8 F4EEC77A 		vcmpe.f32	s15, s14
+ 1890 01ac F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 1891 01b0 02DD     		ble	.L91
+ 1892              		.loc 1 330 70 is_stmt 0 discriminator 4
+ 1893 01b2 4FF07E53 		mov	r3, #1065353216
+ 1894 01b6 00E0     		b	.L82
+ 1895              	.L91:
+ 1896              		.loc 1 330 70 discriminator 5
+ 1897 01b8 FB6A     		ldr	r3, [r7, #44]	@ float
+ 1898              	.L82:
+ 1899              		.loc 1 330 22 is_stmt 1 discriminator 8
+ 1900 01ba FB62     		str	r3, [r7, #44]	@ float
+ 1901              	.LBE8:
  331:Src/vesc_commands.c ****             }
  332:Src/vesc_commands.c ****             break;
+ 1902              		.loc 1 332 13 discriminator 8
+ 1903 01bc 1BE0     		b	.L96
+ 1904              	.L72:
+ARM GAS  /tmp/ccRI0YSi.s 			page 40
+
+
  333:Src/vesc_commands.c ****         }
  334:Src/vesc_commands.c ****         
  335:Src/vesc_commands.c ****         case COMM_SET_CURRENT: {
  336:Src/vesc_commands.c ****             if (len >= 4) {
+ 1905              		.loc 1 336 16
+ 1906 01be BB88     		ldrh	r3, [r7, #4]
+ 1907 01c0 032B     		cmp	r3, #3
+ 1908 01c2 1AD9     		bls	.L97
+ 1909              	.LBB9:
  337:Src/vesc_commands.c ****                 float current = *((float*)data);
+ 1910              		.loc 1 337 23
+ 1911 01c4 3B68     		ldr	r3, [r7]
+ 1912 01c6 1B68     		ldr	r3, [r3]	@ float
+ 1913 01c8 3B63     		str	r3, [r7, #48]	@ float
+ 1914              	.LBE9:
  338:Src/vesc_commands.c ****             }
  339:Src/vesc_commands.c ****             break;
+ 1915              		.loc 1 339 13
+ 1916 01ca 16E0     		b	.L97
+ 1917              	.L71:
  340:Src/vesc_commands.c ****         }
  341:Src/vesc_commands.c ****         
  342:Src/vesc_commands.c ****         case COMM_SET_RPM: {
  343:Src/vesc_commands.c ****             if (len >= 4) {
+ 1918              		.loc 1 343 16
+ 1919 01cc BB88     		ldrh	r3, [r7, #4]
+ 1920 01ce 032B     		cmp	r3, #3
+ 1921 01d0 15D9     		bls	.L98
+ 1922              	.LBB10:
  344:Src/vesc_commands.c ****                 int32_t rpm = *((int32_t*)data);
-ARM GAS  /tmp/ccfodlaB.s 			page 23
-
-
+ 1923              		.loc 1 344 25
+ 1924 01d2 3B68     		ldr	r3, [r7]
+ 1925 01d4 1B68     		ldr	r3, [r3]
+ 1926 01d6 7B63     		str	r3, [r7, #52]
+ 1927              	.LBE10:
  345:Src/vesc_commands.c ****             }
  346:Src/vesc_commands.c ****             break;
+ 1928              		.loc 1 346 13
+ 1929 01d8 11E0     		b	.L98
+ 1930              	.L70:
  347:Src/vesc_commands.c ****         }
  348:Src/vesc_commands.c ****         
  349:Src/vesc_commands.c ****         case COMM_ALIVE:
  350:Src/vesc_commands.c ****             VESC_SendPacket(COMM_ALIVE, NULL, 0);
+ 1931              		.loc 1 350 13
+ 1932 01da 0022     		movs	r2, #0
+ 1933 01dc 0021     		movs	r1, #0
+ 1934 01de 1E20     		movs	r0, #30
+ 1935 01e0 FFF7FEFF 		bl	VESC_SendPacket
  351:Src/vesc_commands.c ****             break;
+ 1936              		.loc 1 351 13
+ 1937 01e4 0CE0     		b	.L75
+ 1938              	.L92:
  352:Src/vesc_commands.c ****         
  353:Src/vesc_commands.c ****         default:
  354:Src/vesc_commands.c ****             break;
+ 1939              		.loc 1 354 13
+ARM GAS  /tmp/ccRI0YSi.s 			page 41
+
+
+ 1940 01e6 00BF     		nop
+ 1941 01e8 0AE0     		b	.L99
+ 1942              	.L93:
+ 297:Src/vesc_commands.c ****             
+ 1943              		.loc 1 297 13
+ 1944 01ea 00BF     		nop
+ 1945 01ec 08E0     		b	.L99
+ 1946              	.L94:
+ 304:Src/vesc_commands.c ****             
+ 1947              		.loc 1 304 13
+ 1948 01ee 00BF     		nop
+ 1949 01f0 06E0     		b	.L99
+ 1950              	.L95:
+ 313:Src/vesc_commands.c ****             
+ 1951              		.loc 1 313 13
+ 1952 01f2 00BF     		nop
+ 1953 01f4 04E0     		b	.L99
+ 1954              	.L96:
+ 332:Src/vesc_commands.c ****         }
+ 1955              		.loc 1 332 13
+ 1956 01f6 00BF     		nop
+ 1957 01f8 02E0     		b	.L99
+ 1958              	.L97:
+ 339:Src/vesc_commands.c ****         }
+ 1959              		.loc 1 339 13
+ 1960 01fa 00BF     		nop
+ 1961 01fc 00E0     		b	.L99
+ 1962              	.L98:
+ 346:Src/vesc_commands.c ****         }
+ 1963              		.loc 1 346 13
+ 1964 01fe 00BF     		nop
+ 1965              	.L75:
+ 1966              	.L99:
  355:Src/vesc_commands.c ****     }
  356:Src/vesc_commands.c **** }
- 824              		.loc 1 356 1 is_stmt 0 view .LVU232
- 825 0038 10BD     		pop	{r4, pc}
- 826              	.LVL99:
- 827              	.L71:
- 293:Src/vesc_commands.c ****                 uint16_t param_id = (data[1] << 8) | data[0];
- 828              		.loc 1 293 13 is_stmt 1 view .LVU233
- 293:Src/vesc_commands.c ****                 uint16_t param_id = (data[1] << 8) | data[0];
- 829              		.loc 1 293 15 is_stmt 0 view .LVU234
- 830 003a 012A     		cmp	r2, #1
- 831 003c FCD9     		bls	.L66
- 832              	.LBB26:
- 294:Src/vesc_commands.c ****                 SendParameterInfo(param_id);
- 833              		.loc 1 294 17 is_stmt 1 view .LVU235
- 834              	.LVL100:
- 295:Src/vesc_commands.c ****             }
- 835              		.loc 1 295 17 view .LVU236
- 294:Src/vesc_commands.c ****                 SendParameterInfo(param_id);
- 836              		.loc 1 294 42 is_stmt 0 view .LVU237
- 837 003e 4878     		ldrb	r0, [r1, #1]	@ zero_extendqisi2
- 294:Src/vesc_commands.c ****                 SendParameterInfo(param_id);
- 838              		.loc 1 294 58 view .LVU238
- 839 0040 0B78     		ldrb	r3, [r1]	@ zero_extendqisi2
- 295:Src/vesc_commands.c ****             }
- 840              		.loc 1 295 17 view .LVU239
- 841 0042 43EA0020 		orr	r0, r3, r0, lsl #8
- 842 0046 FFF7FEFF 		bl	SendParameterInfo
- 843              	.LVL101:
- 295:Src/vesc_commands.c ****             }
- 844              		.loc 1 295 17 view .LVU240
- 845 004a F5E7     		b	.L66
- 846              	.LVL102:
- 847              	.L70:
- 295:Src/vesc_commands.c ****             }
- 848              		.loc 1 295 17 view .LVU241
- 849              	.LBE26:
- 300:Src/vesc_commands.c ****                 uint16_t param_id = (data[1] << 8) | data[0];
- 850              		.loc 1 300 13 is_stmt 1 view .LVU242
- 300:Src/vesc_commands.c ****                 uint16_t param_id = (data[1] << 8) | data[0];
- 851              		.loc 1 300 15 is_stmt 0 view .LVU243
- 852 004c 012A     		cmp	r2, #1
- 853 004e F3D9     		bls	.L66
- 854              	.LBB27:
- 301:Src/vesc_commands.c ****                 SendParameterValue(param_id);
- 855              		.loc 1 301 17 is_stmt 1 view .LVU244
- 856              	.LVL103:
-ARM GAS  /tmp/ccfodlaB.s 			page 24
+ 1967              		.loc 1 356 1
+ 1968 0200 00BF     		nop
+ 1969 0202 4037     		adds	r7, r7, #64
+ 1970              	.LCFI47:
+ 1971              		.cfi_def_cfa_offset 8
+ 1972 0204 BD46     		mov	sp, r7
+ 1973              	.LCFI48:
+ 1974              		.cfi_def_cfa_register 13
+ 1975              		@ sp needed
+ 1976 0206 80BD     		pop	{r7, pc}
+ 1977              	.L101:
+ 1978              		.align	2
+ 1979              	.L100:
+ 1980 0208 00000000 		.word	response_buffer
+ 1981 020c 000080BF 		.word	-1082130432
+ 1982              		.cfi_endproc
+ 1983              	.LFE1721:
+ 1985              		.text
+ 1986              	.Letext0:
+ 1987              		.file 2 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
+ 1988              		.file 3 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
+ 1989              		.file 4 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef
+ARM GAS  /tmp/ccRI0YSi.s 			page 42
 
 
- 302:Src/vesc_commands.c ****             }
- 857              		.loc 1 302 17 view .LVU245
- 301:Src/vesc_commands.c ****                 SendParameterValue(param_id);
- 858              		.loc 1 301 42 is_stmt 0 view .LVU246
- 859 0050 4878     		ldrb	r0, [r1, #1]	@ zero_extendqisi2
- 301:Src/vesc_commands.c ****                 SendParameterValue(param_id);
- 860              		.loc 1 301 58 view .LVU247
- 861 0052 0B78     		ldrb	r3, [r1]	@ zero_extendqisi2
- 302:Src/vesc_commands.c ****             }
- 862              		.loc 1 302 17 view .LVU248
- 863 0054 43EA0020 		orr	r0, r3, r0, lsl #8
- 864 0058 FFF7FEFF 		bl	SendParameterValue
- 865              	.LVL104:
- 302:Src/vesc_commands.c ****             }
- 866              		.loc 1 302 17 view .LVU249
- 867 005c ECE7     		b	.L66
- 868              	.LVL105:
- 869              	.L68:
- 302:Src/vesc_commands.c ****             }
- 870              		.loc 1 302 17 view .LVU250
- 871              	.LBE27:
- 307:Src/vesc_commands.c ****                 uint16_t param_id = (data[1] << 8) | data[0];
- 872              		.loc 1 307 13 is_stmt 1 view .LVU251
- 307:Src/vesc_commands.c ****                 uint16_t param_id = (data[1] << 8) | data[0];
- 873              		.loc 1 307 15 is_stmt 0 view .LVU252
- 874 005e 022A     		cmp	r2, #2
- 875 0060 EAD9     		bls	.L66
- 876              	.LBB28:
- 308:Src/vesc_commands.c ****                 if(HandleParameterSet(param_id, &data[2], len-2)) {
- 877              		.loc 1 308 17 is_stmt 1 view .LVU253
- 308:Src/vesc_commands.c ****                 if(HandleParameterSet(param_id, &data[2], len-2)) {
- 878              		.loc 1 308 42 is_stmt 0 view .LVU254
- 879 0062 4B78     		ldrb	r3, [r1, #1]	@ zero_extendqisi2
- 308:Src/vesc_commands.c ****                 if(HandleParameterSet(param_id, &data[2], len-2)) {
- 880              		.loc 1 308 58 view .LVU255
- 881 0064 11F8024B 		ldrb	r4, [r1], #2	@ zero_extendqisi2
- 882              	.LVL106:
- 308:Src/vesc_commands.c ****                 if(HandleParameterSet(param_id, &data[2], len-2)) {
- 883              		.loc 1 308 26 view .LVU256
- 884 0068 44EA0324 		orr	r4, r4, r3, lsl #8
- 885              	.LVL107:
- 309:Src/vesc_commands.c ****                     SendParameterValue(param_id);
- 886              		.loc 1 309 17 is_stmt 1 view .LVU257
- 309:Src/vesc_commands.c ****                     SendParameterValue(param_id);
- 887              		.loc 1 309 20 is_stmt 0 view .LVU258
- 888 006c 023A     		subs	r2, r2, #2
- 889              	.LVL108:
- 309:Src/vesc_commands.c ****                     SendParameterValue(param_id);
- 890              		.loc 1 309 20 view .LVU259
- 891 006e 92B2     		uxth	r2, r2
- 892 0070 2046     		mov	r0, r4
- 893 0072 FFF7FEFF 		bl	HandleParameterSet
- 894              	.LVL109:
- 309:Src/vesc_commands.c ****                     SendParameterValue(param_id);
- 895              		.loc 1 309 19 view .LVU260
- 896 0076 0028     		cmp	r0, #0
- 897 0078 DED0     		beq	.L66
-ARM GAS  /tmp/ccfodlaB.s 			page 25
-
-
- 310:Src/vesc_commands.c ****                 }
- 898              		.loc 1 310 21 is_stmt 1 view .LVU261
- 899 007a 2046     		mov	r0, r4
- 900 007c FFF7FEFF 		bl	SendParameterValue
- 901              	.LVL110:
- 902 0080 DAE7     		b	.L66
- 903              	.LVL111:
- 904              	.L74:
- 310:Src/vesc_commands.c ****                 }
- 905              		.loc 1 310 21 is_stmt 0 view .LVU262
- 906              	.LBE28:
- 907              	.LBB29:
- 320:Src/vesc_commands.c ****             GetMotorStatus(&status);
- 908              		.loc 1 320 13 is_stmt 1 view .LVU263
- 321:Src/vesc_commands.c ****             uint16_t resp_len = PackMotorStatus(response_buffer, &status);
- 909              		.loc 1 321 13 view .LVU264
- 321:Src/vesc_commands.c ****             uint16_t resp_len = PackMotorStatus(response_buffer, &status);
- 910              		.loc 1 321 13 is_stmt 0 view .LVU265
- 911              	.LBE29:
- 276:Src/vesc_commands.c ****     status->position_act = 0;
- 912              		.loc 1 276 5 is_stmt 1 view .LVU266
- 277:Src/vesc_commands.c ****     status->speed_set = 1;
- 913              		.loc 1 277 5 view .LVU267
- 278:Src/vesc_commands.c ****     status->speed_act = 1;
- 914              		.loc 1 278 5 view .LVU268
- 279:Src/vesc_commands.c ****     status->current_set = 2;
- 915              		.loc 1 279 5 view .LVU269
- 280:Src/vesc_commands.c ****     status->current_act = 2;
- 916              		.loc 1 280 5 view .LVU270
- 281:Src/vesc_commands.c ****     status->temp = 4;
- 917              		.loc 1 281 5 view .LVU271
- 282:Src/vesc_commands.c ****     status->voltage = 5;
- 918              		.loc 1 282 5 view .LVU272
- 283:Src/vesc_commands.c **** }
- 919              		.loc 1 283 5 view .LVU273
- 920              	.LBB32:
- 322:Src/vesc_commands.c ****             VESC_SendPacket(COMM_GET_VALUES, response_buffer, resp_len);
- 921              		.loc 1 322 13 view .LVU274
- 922              	.LBB30:
- 923              	.LBI30:
- 234:Src/vesc_commands.c ****     uint16_t idx = 0;
- 924              		.loc 1 234 17 view .LVU275
- 925              	.LBB31:
- 235:Src/vesc_commands.c ****     
- 926              		.loc 1 235 5 view .LVU276
- 237:Src/vesc_commands.c ****     buffer[idx++] = (status->position_set >> 16) & 0xFF;
- 927              		.loc 1 237 5 view .LVU277
- 237:Src/vesc_commands.c ****     buffer[idx++] = (status->position_set >> 16) & 0xFF;
- 928              		.loc 1 237 19 is_stmt 0 view .LVU278
- 929 0082 1549     		ldr	r1, .L76
- 930              	.LVL112:
- 237:Src/vesc_commands.c ****     buffer[idx++] = (status->position_set >> 16) & 0xFF;
- 931              		.loc 1 237 19 view .LVU279
- 932 0084 0023     		movs	r3, #0
- 933 0086 0B70     		strb	r3, [r1]
- 238:Src/vesc_commands.c ****     buffer[idx++] = (status->position_set >> 8) & 0xFF;
- 934              		.loc 1 238 5 is_stmt 1 view .LVU280
-ARM GAS  /tmp/ccfodlaB.s 			page 26
-
-
- 935              	.LVL113:
- 238:Src/vesc_commands.c ****     buffer[idx++] = (status->position_set >> 8) & 0xFF;
- 936              		.loc 1 238 19 is_stmt 0 view .LVU281
- 937 0088 4B70     		strb	r3, [r1, #1]
- 239:Src/vesc_commands.c ****     buffer[idx++] = status->position_set & 0xFF;
- 938              		.loc 1 239 5 is_stmt 1 view .LVU282
- 939              	.LVL114:
- 239:Src/vesc_commands.c ****     buffer[idx++] = status->position_set & 0xFF;
- 940              		.loc 1 239 19 is_stmt 0 view .LVU283
- 941 008a 8B70     		strb	r3, [r1, #2]
- 240:Src/vesc_commands.c ****     
- 942              		.loc 1 240 5 is_stmt 1 view .LVU284
- 943              	.LVL115:
- 240:Src/vesc_commands.c ****     
- 944              		.loc 1 240 19 is_stmt 0 view .LVU285
- 945 008c CB70     		strb	r3, [r1, #3]
- 242:Src/vesc_commands.c ****     buffer[idx++] = (status->position_act >> 16) & 0xFF;
- 946              		.loc 1 242 5 is_stmt 1 view .LVU286
- 947              	.LVL116:
- 242:Src/vesc_commands.c ****     buffer[idx++] = (status->position_act >> 16) & 0xFF;
- 948              		.loc 1 242 19 is_stmt 0 view .LVU287
- 949 008e 0B71     		strb	r3, [r1, #4]
- 243:Src/vesc_commands.c ****     buffer[idx++] = (status->position_act >> 8) & 0xFF;
- 950              		.loc 1 243 5 is_stmt 1 view .LVU288
- 951              	.LVL117:
- 243:Src/vesc_commands.c ****     buffer[idx++] = (status->position_act >> 8) & 0xFF;
- 952              		.loc 1 243 19 is_stmt 0 view .LVU289
- 953 0090 4B71     		strb	r3, [r1, #5]
- 244:Src/vesc_commands.c ****     buffer[idx++] = status->position_act & 0xFF;
- 954              		.loc 1 244 5 is_stmt 1 view .LVU290
- 955              	.LVL118:
- 244:Src/vesc_commands.c ****     buffer[idx++] = status->position_act & 0xFF;
- 956              		.loc 1 244 19 is_stmt 0 view .LVU291
- 957 0092 8B71     		strb	r3, [r1, #6]
- 245:Src/vesc_commands.c ****     
- 958              		.loc 1 245 5 is_stmt 1 view .LVU292
- 959              	.LVL119:
- 245:Src/vesc_commands.c ****     
- 960              		.loc 1 245 19 is_stmt 0 view .LVU293
- 961 0094 CB71     		strb	r3, [r1, #7]
- 247:Src/vesc_commands.c ****     buffer[idx++] = (status->speed_set >> 16) & 0xFF;
- 962              		.loc 1 247 5 is_stmt 1 view .LVU294
- 963              	.LVL120:
- 247:Src/vesc_commands.c ****     buffer[idx++] = (status->speed_set >> 16) & 0xFF;
- 964              		.loc 1 247 19 is_stmt 0 view .LVU295
- 965 0096 0B72     		strb	r3, [r1, #8]
- 248:Src/vesc_commands.c ****     buffer[idx++] = (status->speed_set >> 8) & 0xFF;
- 966              		.loc 1 248 5 is_stmt 1 view .LVU296
- 967              	.LVL121:
- 248:Src/vesc_commands.c ****     buffer[idx++] = (status->speed_set >> 8) & 0xFF;
- 968              		.loc 1 248 19 is_stmt 0 view .LVU297
- 969 0098 4B72     		strb	r3, [r1, #9]
- 249:Src/vesc_commands.c ****     buffer[idx++] = status->speed_set & 0xFF;
- 970              		.loc 1 249 5 is_stmt 1 view .LVU298
- 971              	.LVL122:
- 249:Src/vesc_commands.c ****     buffer[idx++] = status->speed_set & 0xFF;
- 972              		.loc 1 249 19 is_stmt 0 view .LVU299
-ARM GAS  /tmp/ccfodlaB.s 			page 27
-
-
- 973 009a 8B72     		strb	r3, [r1, #10]
- 250:Src/vesc_commands.c ****     
- 974              		.loc 1 250 5 is_stmt 1 view .LVU300
- 975              	.LVL123:
- 250:Src/vesc_commands.c ****     
- 976              		.loc 1 250 19 is_stmt 0 view .LVU301
- 977 009c 0122     		movs	r2, #1
- 978              	.LVL124:
- 250:Src/vesc_commands.c ****     
- 979              		.loc 1 250 19 view .LVU302
- 980 009e CA72     		strb	r2, [r1, #11]
- 252:Src/vesc_commands.c ****     buffer[idx++] = (status->speed_act >> 16) & 0xFF;
- 981              		.loc 1 252 5 is_stmt 1 view .LVU303
- 982              	.LVL125:
- 252:Src/vesc_commands.c ****     buffer[idx++] = (status->speed_act >> 16) & 0xFF;
- 983              		.loc 1 252 19 is_stmt 0 view .LVU304
- 984 00a0 0B73     		strb	r3, [r1, #12]
- 253:Src/vesc_commands.c ****     buffer[idx++] = (status->speed_act >> 8) & 0xFF;
- 985              		.loc 1 253 5 is_stmt 1 view .LVU305
- 986              	.LVL126:
- 253:Src/vesc_commands.c ****     buffer[idx++] = (status->speed_act >> 8) & 0xFF;
- 987              		.loc 1 253 19 is_stmt 0 view .LVU306
- 988 00a2 4B73     		strb	r3, [r1, #13]
- 254:Src/vesc_commands.c ****     buffer[idx++] = status->speed_act & 0xFF;
- 989              		.loc 1 254 5 is_stmt 1 view .LVU307
- 990              	.LVL127:
- 254:Src/vesc_commands.c ****     buffer[idx++] = status->speed_act & 0xFF;
- 991              		.loc 1 254 19 is_stmt 0 view .LVU308
- 992 00a4 8B73     		strb	r3, [r1, #14]
- 255:Src/vesc_commands.c ****     
- 993              		.loc 1 255 5 is_stmt 1 view .LVU309
- 994              	.LVL128:
- 255:Src/vesc_commands.c ****     
- 995              		.loc 1 255 19 is_stmt 0 view .LVU310
- 996 00a6 CA73     		strb	r2, [r1, #15]
- 257:Src/vesc_commands.c ****     buffer[idx++] = (status->current_set >> 16) & 0xFF;
- 997              		.loc 1 257 5 is_stmt 1 view .LVU311
- 998              	.LVL129:
- 257:Src/vesc_commands.c ****     buffer[idx++] = (status->current_set >> 16) & 0xFF;
- 999              		.loc 1 257 19 is_stmt 0 view .LVU312
- 1000 00a8 0B74     		strb	r3, [r1, #16]
- 258:Src/vesc_commands.c ****     buffer[idx++] = (status->current_set >> 8) & 0xFF;
- 1001              		.loc 1 258 5 is_stmt 1 view .LVU313
- 1002              	.LVL130:
- 258:Src/vesc_commands.c ****     buffer[idx++] = (status->current_set >> 8) & 0xFF;
- 1003              		.loc 1 258 19 is_stmt 0 view .LVU314
- 1004 00aa 4B74     		strb	r3, [r1, #17]
- 259:Src/vesc_commands.c ****     buffer[idx++] = status->current_set & 0xFF;
- 1005              		.loc 1 259 5 is_stmt 1 view .LVU315
- 1006              	.LVL131:
- 259:Src/vesc_commands.c ****     buffer[idx++] = status->current_set & 0xFF;
- 1007              		.loc 1 259 19 is_stmt 0 view .LVU316
- 1008 00ac 8B74     		strb	r3, [r1, #18]
- 260:Src/vesc_commands.c ****     
- 1009              		.loc 1 260 5 is_stmt 1 view .LVU317
- 1010              	.LVL132:
- 260:Src/vesc_commands.c ****     
-ARM GAS  /tmp/ccfodlaB.s 			page 28
-
-
- 1011              		.loc 1 260 19 is_stmt 0 view .LVU318
- 1012 00ae 0222     		movs	r2, #2
- 1013 00b0 CA74     		strb	r2, [r1, #19]
- 262:Src/vesc_commands.c ****     buffer[idx++] = (status->current_act >> 16) & 0xFF;
- 1014              		.loc 1 262 5 is_stmt 1 view .LVU319
- 1015              	.LVL133:
- 262:Src/vesc_commands.c ****     buffer[idx++] = (status->current_act >> 16) & 0xFF;
- 1016              		.loc 1 262 19 is_stmt 0 view .LVU320
- 1017 00b2 0B75     		strb	r3, [r1, #20]
- 263:Src/vesc_commands.c ****     buffer[idx++] = (status->current_act >> 8) & 0xFF;
- 1018              		.loc 1 263 5 is_stmt 1 view .LVU321
- 1019              	.LVL134:
- 263:Src/vesc_commands.c ****     buffer[idx++] = (status->current_act >> 8) & 0xFF;
- 1020              		.loc 1 263 19 is_stmt 0 view .LVU322
- 1021 00b4 4B75     		strb	r3, [r1, #21]
- 264:Src/vesc_commands.c ****     buffer[idx++] = status->current_act & 0xFF;
- 1022              		.loc 1 264 5 is_stmt 1 view .LVU323
- 1023              	.LVL135:
- 264:Src/vesc_commands.c ****     buffer[idx++] = status->current_act & 0xFF;
- 1024              		.loc 1 264 19 is_stmt 0 view .LVU324
- 1025 00b6 8B75     		strb	r3, [r1, #22]
- 265:Src/vesc_commands.c ****     
- 1026              		.loc 1 265 5 is_stmt 1 view .LVU325
- 1027              	.LVL136:
- 265:Src/vesc_commands.c ****     
- 1028              		.loc 1 265 19 is_stmt 0 view .LVU326
- 1029 00b8 CA75     		strb	r2, [r1, #23]
- 267:Src/vesc_commands.c ****     buffer[idx++] = status->temp & 0xFF;
- 1030              		.loc 1 267 5 is_stmt 1 view .LVU327
- 1031              	.LVL137:
- 267:Src/vesc_commands.c ****     buffer[idx++] = status->temp & 0xFF;
- 1032              		.loc 1 267 19 is_stmt 0 view .LVU328
- 1033 00ba 0B76     		strb	r3, [r1, #24]
- 268:Src/vesc_commands.c ****     
- 1034              		.loc 1 268 5 is_stmt 1 view .LVU329
- 1035              	.LVL138:
- 268:Src/vesc_commands.c ****     
- 1036              		.loc 1 268 19 is_stmt 0 view .LVU330
- 1037 00bc 0420     		movs	r0, #4
- 1038 00be 4876     		strb	r0, [r1, #25]
- 270:Src/vesc_commands.c ****     
- 1039              		.loc 1 270 5 is_stmt 1 view .LVU331
- 1040              	.LVL139:
- 270:Src/vesc_commands.c ****     
- 1041              		.loc 1 270 19 is_stmt 0 view .LVU332
- 1042 00c0 0523     		movs	r3, #5
- 1043 00c2 8B76     		strb	r3, [r1, #26]
- 272:Src/vesc_commands.c **** }
- 1044              		.loc 1 272 5 is_stmt 1 view .LVU333
- 1045              	.LVL140:
- 272:Src/vesc_commands.c **** }
- 1046              		.loc 1 272 5 is_stmt 0 view .LVU334
- 1047              	.LBE31:
- 1048              	.LBE30:
- 323:Src/vesc_commands.c ****             break;
- 1049              		.loc 1 323 13 is_stmt 1 view .LVU335
- 1050 00c4 1B22     		movs	r2, #27
-ARM GAS  /tmp/ccfodlaB.s 			page 29
-
-
- 1051 00c6 FFF7FEFF 		bl	VESC_SendPacket
- 1052              	.LVL141:
- 324:Src/vesc_commands.c ****         }
- 1053              		.loc 1 324 13 view .LVU336
- 1054 00ca B5E7     		b	.L66
- 1055              	.LVL142:
- 1056              	.L73:
- 324:Src/vesc_commands.c ****         }
- 1057              		.loc 1 324 13 is_stmt 0 view .LVU337
- 1058              	.LBE32:
- 350:Src/vesc_commands.c ****             break;
- 1059              		.loc 1 350 13 is_stmt 1 view .LVU338
- 1060 00cc 0022     		movs	r2, #0
- 1061              	.LVL143:
- 350:Src/vesc_commands.c ****             break;
- 1062              		.loc 1 350 13 is_stmt 0 view .LVU339
- 1063 00ce 1146     		mov	r1, r2
- 1064              	.LVL144:
- 350:Src/vesc_commands.c ****             break;
- 1065              		.loc 1 350 13 view .LVU340
- 1066 00d0 1E20     		movs	r0, #30
- 1067 00d2 FFF7FEFF 		bl	VESC_SendPacket
- 1068              	.LVL145:
- 351:Src/vesc_commands.c ****         
- 1069              		.loc 1 351 13 is_stmt 1 view .LVU341
- 1070              		.loc 1 356 1 is_stmt 0 view .LVU342
- 1071 00d6 AFE7     		b	.L66
- 1072              	.L77:
- 1073              		.align	2
- 1074              	.L76:
- 1075 00d8 00000000 		.word	.LANCHOR1
- 1076              		.cfi_endproc
- 1077              	.LFE1721:
- 1079              		.section	.rodata.str1.4,"aMS",%progbits,1
- 1080              		.align	2
- 1081              	.LC0:
- 1082 0000 53706565 		.ascii	"Speed_PID_P\000"
- 1082      645F5049 
- 1082      445F5000 
- 1083              		.align	2
- 1084              	.LC1:
- 1085 000c 00       		.ascii	"\000"
- 1086 000d 000000   		.align	2
- 1087              	.LC2:
- 1088 0010 53706565 		.ascii	"Speed_PID_I\000"
- 1088      645F5049 
- 1088      445F4900 
- 1089              		.align	2
- 1090              	.LC3:
- 1091 001c 53706565 		.ascii	"Speed_PID_D\000"
- 1091      645F5049 
- 1091      445F4400 
- 1092              		.align	2
- 1093              	.LC4:
- 1094 0028 4D61785F 		.ascii	"Max_RPM\000"
- 1094      52504D00 
- 1095              		.align	2
-ARM GAS  /tmp/ccfodlaB.s 			page 30
-
-
- 1096              	.LC5:
- 1097 0030 52504D00 		.ascii	"RPM\000"
- 1098              		.align	2
- 1099              	.LC6:
- 1100 0034 4D61785F 		.ascii	"Max_Current\000"
- 1100      43757272 
- 1100      656E7400 
- 1101              		.align	2
- 1102              	.LC7:
- 1103 0040 4100     		.ascii	"A\000"
- 1104 0042 0000     		.align	2
- 1105              	.LC8:
- 1106 0044 54656D70 		.ascii	"Temp_Limit\000"
- 1106      5F4C696D 
- 1106      697400
- 1107 004f 00       		.align	2
- 1108              	.LC9:
- 1109 0050 C2B04300 		.ascii	"\302\260C\000"
- 1110              		.section	.bss.response_buffer,"aw",%nobits
- 1111              		.align	2
- 1112              		.set	.LANCHOR1,. + 0
- 1115              	response_buffer:
- 1116 0000 00000000 		.space	128
- 1116      00000000 
- 1116      00000000 
- 1116      00000000 
- 1116      00000000 
- 1117              		.section	.bss.speed_pid_d,"aw",%nobits
- 1118              		.align	2
- 1121              	speed_pid_d:
- 1122 0000 00000000 		.space	4
- 1123              		.section	.bss.speed_pid_i,"aw",%nobits
- 1124              		.align	2
- 1127              	speed_pid_i:
- 1128 0000 00000000 		.space	4
- 1129              		.section	.bss.speed_pid_p,"aw",%nobits
- 1130              		.align	2
- 1133              	speed_pid_p:
- 1134 0000 00000000 		.space	4
- 1135              		.section	.data.max_current,"aw"
- 1136              		.align	2
- 1139              	max_current:
- 1140 0000 3C000000 		.word	60
- 1141              		.section	.data.max_rpm,"aw"
- 1142              		.align	2
- 1145              	max_rpm:
- 1146 0000 10270000 		.word	10000
- 1147              		.section	.data.temperature_limit,"aw"
- 1148              		.align	2
- 1151              	temperature_limit:
- 1152 0000 0000AA42 		.word	1118437376
- 1153              		.section	.rodata.param_list,"a"
- 1154              		.align	2
- 1155              		.set	.LANCHOR0,. + 0
- 1158              	param_list:
- 1159 0000 0100     		.short	1
- 1160 0002 0000     		.space	2
-ARM GAS  /tmp/ccfodlaB.s 			page 31
-
-
- 1161 0004 00000000 		.word	.LC0
- 1162 0008 0C000000 		.word	.LC1
- 1163 000c 06       		.byte	6
- 1164 000d 03       		.byte	3
- 1165 000e 0000     		.space	2
- 1166 0010 00000000 		.word	speed_pid_p
- 1167 0014 00000000 		.word	0
- 1168 0018 0000C842 		.word	1120403456
- 1169 001c 0200     		.short	2
- 1170 001e 0000     		.space	2
- 1171 0020 10000000 		.word	.LC2
- 1172 0024 0C000000 		.word	.LC1
- 1173 0028 06       		.byte	6
- 1174 0029 03       		.byte	3
- 1175 002a 0000     		.space	2
- 1176 002c 00000000 		.word	speed_pid_i
- 1177 0030 00000000 		.word	0
- 1178 0034 0000C842 		.word	1120403456
- 1179 0038 0300     		.short	3
- 1180 003a 0000     		.space	2
- 1181 003c 1C000000 		.word	.LC3
- 1182 0040 0C000000 		.word	.LC1
- 1183 0044 06       		.byte	6
- 1184 0045 03       		.byte	3
- 1185 0046 0000     		.space	2
- 1186 0048 00000000 		.word	speed_pid_d
- 1187 004c 00000000 		.word	0
- 1188 0050 0000C842 		.word	1120403456
- 1189 0054 0400     		.short	4
- 1190 0056 0000     		.space	2
- 1191 0058 28000000 		.word	.LC4
- 1192 005c 30000000 		.word	.LC5
- 1193 0060 04       		.byte	4
- 1194 0061 03       		.byte	3
- 1195 0062 0000     		.space	2
- 1196 0064 00000000 		.word	max_rpm
- 1197 0068 00000000 		.word	0
- 1198 006c 0050C347 		.word	1203982336
- 1199 0070 0500     		.short	5
- 1200 0072 0000     		.space	2
- 1201 0074 34000000 		.word	.LC6
- 1202 0078 40000000 		.word	.LC7
- 1203 007c 04       		.byte	4
- 1204 007d 03       		.byte	3
- 1205 007e 0000     		.space	2
- 1206 0080 00000000 		.word	max_current
- 1207 0084 00000000 		.word	0
- 1208 0088 0000C842 		.word	1120403456
- 1209 008c 0600     		.short	6
- 1210 008e 0000     		.space	2
- 1211 0090 44000000 		.word	.LC8
- 1212 0094 50000000 		.word	.LC9
- 1213 0098 06       		.byte	6
- 1214 0099 03       		.byte	3
- 1215 009a 0000     		.space	2
- 1216 009c 00000000 		.word	temperature_limit
- 1217 00a0 00000000 		.word	0
-ARM GAS  /tmp/ccfodlaB.s 			page 32
-
-
- 1218 00a4 00001643 		.word	1125515264
- 1219              		.text
- 1220              	.Letext0:
- 1221              		.file 2 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
- 1222              		.file 3 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
- 1223              		.file 4 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef
- 1224              		.file 5 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h"
- 1225              		.file 6 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_usart.h"
- 1226              		.file 7 "Inc/vesc_uart.h"
- 1227              		.file 8 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h"
- 1228              		.file 9 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/string.h"
- 1229              		.file 10 "<built-in>"
-ARM GAS  /tmp/ccfodlaB.s 			page 33
+ 1990              		.file 5 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h"
+ 1991              		.file 6 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_usart.h"
+ 1992              		.file 7 "Inc/vesc_uart.h"
+ 1993              		.file 8 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h"
+ARM GAS  /tmp/ccRI0YSi.s 			page 43
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 vesc_commands.c
-     /tmp/ccfodlaB.s:18     .text.FindParameter:0000000000000000 $t
-     /tmp/ccfodlaB.s:25     .text.FindParameter:0000000000000000 FindParameter
-     /tmp/ccfodlaB.s:132    .text.FindParameter:0000000000000040 $d
-     /tmp/ccfodlaB.s:138    .text.SendParameterList:0000000000000000 $t
-     /tmp/ccfodlaB.s:145    .text.SendParameterList:0000000000000000 SendParameterList
-     /tmp/ccfodlaB.s:214    .text.SendParameterList:000000000000002c $d
-     /tmp/ccfodlaB.s:220    .text.SendParameterInfo:0000000000000000 $t
-     /tmp/ccfodlaB.s:227    .text.SendParameterInfo:0000000000000000 SendParameterInfo
-     /tmp/ccfodlaB.s:350    .text.SendParameterInfo:000000000000006c $d
-     /tmp/ccfodlaB.s:355    .text.SendParameterValue:0000000000000000 $t
-     /tmp/ccfodlaB.s:362    .text.SendParameterValue:0000000000000000 SendParameterValue
-     /tmp/ccfodlaB.s:530    .text.SendParameterValue:0000000000000070 $d
-     /tmp/ccfodlaB.s:536    .text.HandleParameterSet:0000000000000000 $t
-     /tmp/ccfodlaB.s:543    .text.HandleParameterSet:0000000000000000 HandleParameterSet
-     /tmp/ccfodlaB.s:618    .text.HandleParameterSet:000000000000004c $d
-     /tmp/ccfodlaB.s:744    .text.HandleParameterSet:00000000000000e0 $d
-     /tmp/ccfodlaB.s:749    .text.VESC_ExecuteCommand:0000000000000000 $t
-     /tmp/ccfodlaB.s:756    .text.VESC_ExecuteCommand:0000000000000000 VESC_ExecuteCommand
-     /tmp/ccfodlaB.s:777    .text.VESC_ExecuteCommand:000000000000000c $d
-     /tmp/ccfodlaB.s:817    .text.VESC_ExecuteCommand:0000000000000034 $t
-     /tmp/ccfodlaB.s:1075   .text.VESC_ExecuteCommand:00000000000000d8 $d
-     /tmp/ccfodlaB.s:1080   .rodata.str1.4:0000000000000000 $d
-     /tmp/ccfodlaB.s:1111   .bss.response_buffer:0000000000000000 $d
-     /tmp/ccfodlaB.s:1115   .bss.response_buffer:0000000000000000 response_buffer
-     /tmp/ccfodlaB.s:1118   .bss.speed_pid_d:0000000000000000 $d
-     /tmp/ccfodlaB.s:1121   .bss.speed_pid_d:0000000000000000 speed_pid_d
-     /tmp/ccfodlaB.s:1124   .bss.speed_pid_i:0000000000000000 $d
-     /tmp/ccfodlaB.s:1127   .bss.speed_pid_i:0000000000000000 speed_pid_i
-     /tmp/ccfodlaB.s:1130   .bss.speed_pid_p:0000000000000000 $d
-     /tmp/ccfodlaB.s:1133   .bss.speed_pid_p:0000000000000000 speed_pid_p
-     /tmp/ccfodlaB.s:1136   .data.max_current:0000000000000000 $d
-     /tmp/ccfodlaB.s:1139   .data.max_current:0000000000000000 max_current
-     /tmp/ccfodlaB.s:1142   .data.max_rpm:0000000000000000 $d
-     /tmp/ccfodlaB.s:1145   .data.max_rpm:0000000000000000 max_rpm
-     /tmp/ccfodlaB.s:1148   .data.temperature_limit:0000000000000000 $d
-     /tmp/ccfodlaB.s:1151   .data.temperature_limit:0000000000000000 temperature_limit
-     /tmp/ccfodlaB.s:1154   .rodata.param_list:0000000000000000 $d
-     /tmp/ccfodlaB.s:1158   .rodata.param_list:0000000000000000 param_list
-     /tmp/ccfodlaB.s:625    .text.HandleParameterSet:0000000000000053 $d
-     /tmp/ccfodlaB.s:625    .text.HandleParameterSet:0000000000000054 $t
+     /tmp/ccRI0YSi.s:18     .rodata.CHANNEL_OFFSET_TAB:0000000000000000 $d
+     /tmp/ccRI0YSi.s:21     .rodata.CHANNEL_OFFSET_TAB:0000000000000000 CHANNEL_OFFSET_TAB
+     /tmp/ccRI0YSi.s:24     .rodata.USART_PRESCALER_TAB:0000000000000000 $d
+     /tmp/ccRI0YSi.s:27     .rodata.USART_PRESCALER_TAB:0000000000000000 USART_PRESCALER_TAB
+     /tmp/ccRI0YSi.s:41     .rodata.OFFSET_TAB_CCMRx:0000000000000000 $d
+     /tmp/ccRI0YSi.s:44     .rodata.OFFSET_TAB_CCMRx:0000000000000000 OFFSET_TAB_CCMRx
+     /tmp/ccRI0YSi.s:47     .rodata.SHIFT_TAB_OCxx:0000000000000000 $d
+     /tmp/ccRI0YSi.s:50     .rodata.SHIFT_TAB_OCxx:0000000000000000 SHIFT_TAB_OCxx
+     /tmp/ccRI0YSi.s:53     .rodata.SHIFT_TAB_ICxx:0000000000000000 $d
+     /tmp/ccRI0YSi.s:56     .rodata.SHIFT_TAB_ICxx:0000000000000000 SHIFT_TAB_ICxx
+     /tmp/ccRI0YSi.s:59     .rodata.SHIFT_TAB_CCxP:0000000000000000 $d
+     /tmp/ccRI0YSi.s:62     .rodata.SHIFT_TAB_CCxP:0000000000000000 SHIFT_TAB_CCxP
+     /tmp/ccRI0YSi.s:65     .rodata.SHIFT_TAB_OISx:0000000000000000 $d
+     /tmp/ccRI0YSi.s:68     .rodata.SHIFT_TAB_OISx:0000000000000000 SHIFT_TAB_OISx
+     /tmp/ccRI0YSi.s:71     .bss.response_buffer:0000000000000000 $d
+     /tmp/ccRI0YSi.s:74     .bss.response_buffer:0000000000000000 response_buffer
+     /tmp/ccRI0YSi.s:77     .bss.speed_pid_p:0000000000000000 $d
+     /tmp/ccRI0YSi.s:80     .bss.speed_pid_p:0000000000000000 speed_pid_p
+     /tmp/ccRI0YSi.s:83     .bss.speed_pid_i:0000000000000000 $d
+     /tmp/ccRI0YSi.s:86     .bss.speed_pid_i:0000000000000000 speed_pid_i
+     /tmp/ccRI0YSi.s:89     .bss.speed_pid_d:0000000000000000 $d
+     /tmp/ccRI0YSi.s:92     .bss.speed_pid_d:0000000000000000 speed_pid_d
+     /tmp/ccRI0YSi.s:95     .data.max_rpm:0000000000000000 $d
+     /tmp/ccRI0YSi.s:98     .data.max_rpm:0000000000000000 max_rpm
+     /tmp/ccRI0YSi.s:101    .data.max_current:0000000000000000 $d
+     /tmp/ccRI0YSi.s:104    .data.max_current:0000000000000000 max_current
+     /tmp/ccRI0YSi.s:107    .data.temperature_limit:0000000000000000 $d
+     /tmp/ccRI0YSi.s:110    .data.temperature_limit:0000000000000000 temperature_limit
+     /tmp/ccRI0YSi.s:113    .rodata:0000000000000000 $d
+     /tmp/ccRI0YSi.s:144    .rodata.param_list:0000000000000000 $d
+     /tmp/ccRI0YSi.s:147    .rodata.param_list:0000000000000000 param_list
+     /tmp/ccRI0YSi.s:209    .text.FindParameter:0000000000000000 $t
+     /tmp/ccRI0YSi.s:216    .text.FindParameter:0000000000000000 FindParameter
+     /tmp/ccRI0YSi.s:297    .text.FindParameter:0000000000000050 $d
+     /tmp/ccRI0YSi.s:302    .text.SendParameterList:0000000000000000 $t
+     /tmp/ccRI0YSi.s:309    .text.SendParameterList:0000000000000000 SendParameterList
+     /tmp/ccRI0YSi.s:422    .text.SendParameterList:000000000000008c $d
+     /tmp/ccRI0YSi.s:428    .text.SendParameterInfo:0000000000000000 $t
+     /tmp/ccRI0YSi.s:435    .text.SendParameterInfo:0000000000000000 SendParameterInfo
+     /tmp/ccRI0YSi.s:638    .text.SendParameterInfo:0000000000000114 $d
+     /tmp/ccRI0YSi.s:643    .text.PackBytes:0000000000000000 $t
+     /tmp/ccRI0YSi.s:649    .text.PackBytes:0000000000000000 PackBytes
+     /tmp/ccRI0YSi.s:728    .text.SendParameterValue:0000000000000000 $t
+     /tmp/ccRI0YSi.s:735    .text.SendParameterValue:0000000000000000 SendParameterValue
+     /tmp/ccRI0YSi.s:878    .text.SendParameterValue:00000000000000c0 $d
+     /tmp/ccRI0YSi.s:883    .text.HandleParameterSet:0000000000000000 $t
+     /tmp/ccRI0YSi.s:890    .text.HandleParameterSet:0000000000000000 HandleParameterSet
+     /tmp/ccRI0YSi.s:997    .text.HandleParameterSet:0000000000000088 $d
+     /tmp/ccRI0YSi.s:1004   .text.HandleParameterSet:00000000000000a4 $t
+     /tmp/ccRI0YSi.s:1118   .text.PackMotorStatus:0000000000000000 $t
+     /tmp/ccRI0YSi.s:1124   .text.PackMotorStatus:0000000000000000 PackMotorStatus
+     /tmp/ccRI0YSi.s:1582   .text.GetMotorStatus:0000000000000000 $t
+     /tmp/ccRI0YSi.s:1588   .text.GetMotorStatus:0000000000000000 GetMotorStatus
+     /tmp/ccRI0YSi.s:1656   .text.VESC_ExecuteCommand:0000000000000000 $t
+     /tmp/ccRI0YSi.s:1663   .text.VESC_ExecuteCommand:0000000000000000 VESC_ExecuteCommand
+ARM GAS  /tmp/ccRI0YSi.s 			page 44
+
+
+     /tmp/ccRI0YSi.s:1694   .text.VESC_ExecuteCommand:0000000000000020 $d
+     /tmp/ccRI0YSi.s:1735   .text.VESC_ExecuteCommand:00000000000000c4 $t
+     /tmp/ccRI0YSi.s:1980   .text.VESC_ExecuteCommand:0000000000000208 $d
 
 UNDEFINED SYMBOLS
 VESC_SendPacket

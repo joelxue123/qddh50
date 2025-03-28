@@ -22,7 +22,7 @@ TARGET = EVSPIN32G4_Shinano
 # debug build?
 DEBUG = 1
 # optimization
-OPT = -O1
+OPT = -O0
 
 
 #######################################
@@ -287,7 +287,7 @@ all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET
 FIRMWARE = $(BUILD_DIR)/$(TARGET).elf
 
 
-USE_STLINK ?= 1
+USE_STLINK ?= 0
 
 # Configure OpenOCD for different debuggers
 ifeq ($(USE_STLINK),1)

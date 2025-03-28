@@ -189,6 +189,8 @@ void TSK_MF_StopProcessing(uint8_t motor)
   Mci[motor].State = STOP;
 }
 
+
+void test_svm(float mod_q, float mod_d, float *theta, float *ta, float *tb, float *tc) ;
 /**
   * @brief Executes medium frequency periodic Motor Control tasks
   *
@@ -204,12 +206,12 @@ __weak void TSK_MediumFrequencyTaskM1(void)
   /* USER CODE END MediumFrequencyTask M1 0 */
 
   int16_t wAux = 0;
-  bool IsSpeedReliable = STO_PLL_CalcAvrgMecSpeedUnit(&STO_PLL_M1, &wAux);
-  PQD_CalcElMotorPower(pMPM[M1]);
+  bool IsSpeedReliable = 0;//STO_PLL_CalcAvrgMecSpeedUnit(&STO_PLL_M1, &wAux);
+  //PQD_CalcElMotorPower(pMPM[M1]);
 
   if (MCI_GetCurrentFaults(&Mci[M1]) == MC_NO_FAULTS)
   {
-    if (MCI_GetOccurredFaults(&Mci[M1]) == MC_NO_FAULTS)
+    if (1)//MCI_GetOccurredFaults(&Mci[M1]) == MC_NO_FAULTS)
     {
       switch (Mci[M1].State)
       {
@@ -219,18 +221,75 @@ __weak void TSK_MediumFrequencyTaskM1(void)
           if ((MCI_START == Mci[M1].DirectCommand) || (MCI_MEASURE_OFFSETS == Mci[M1].DirectCommand))
           {
               RUC_Clear(&RevUpControlM1, MCI_GetImposedMotorDirection(&Mci[M1]));
-            if (pwmcHandle[M1]->offsetCalibStatus == false)
+            if (0)//pwmcHandle[M1]->offsetCalibStatus == false)
             {
               (void)PWMC_CurrentReadingCalibr(pwmcHandle[M1], CRC_START);
               Mci[M1].State = OFFSET_CALIB;
             }
             else
             {
+              STSPIN32G4_clearFaults(&HdlSTSPING4);
+              STSPIN32G4_wakeup(&HdlSTSPING4, 4);
+              vTaskDelay(100);
+
               /* Calibration already done. Enables only TIM channels */
               pwmcHandle[M1]->OffCalibrWaitTimeCounter = 1u;
-              (void)PWMC_CurrentReadingCalibr(pwmcHandle[M1], CRC_EXEC);
-              R3_2_TurnOnLowSides(pwmcHandle[M1],M1_CHARGE_BOOT_CAP_DUTY_CYCLES);
+              //(void)PWMC_CurrentReadingCalibr(pwmcHandle[M1], CRC_EXEC);
+       //       (void)PWMC_CurrentReadingCalibr(pwmcHandle[M1], CRC_START);
+      //        R3_2_SwitchOnPWM(pwmcHandle[M1]);
+      //        R3_2_TurnOnLowSides(pwmcHandle[M1],M1_CHARGE_BOOT_CAP_DUTY_CYCLES);
               TSK_SetChargeBootCapDelayM1(M1_CHARGE_BOOT_CAP_TICKS);
+              float ta =0;
+              float tb =0;
+              float tc =0;
+              float theta =0.0f;
+              float mod_q = 0.1f;
+              float mod_d = 0;
+             
+
+
+              RUC_Clear(&RevUpControlM1, MCI_GetImposedMotorDirection(&Mci[M1]));
+        
+              /* PWM Configuration */
+              // 1. 配置所有PWM通道
+              LL_TIM_CC_EnableChannel(TIM1, LL_TIM_CHANNEL_CH1 | LL_TIM_CHANNEL_CH1N |
+                                          LL_TIM_CHANNEL_CH2 | LL_TIM_CHANNEL_CH2N |
+                                          LL_TIM_CHANNEL_CH3 | LL_TIM_CHANNEL_CH3N);
+              
+              // 2. 配置PWM模式
+              LL_TIM_OC_SetMode(TIM1, LL_TIM_CHANNEL_CH1, LL_TIM_OCMODE_PWM1);
+              LL_TIM_OC_SetMode(TIM1, LL_TIM_CHANNEL_CH2, LL_TIM_OCMODE_PWM1);
+              LL_TIM_OC_SetMode(TIM1, LL_TIM_CHANNEL_CH3, LL_TIM_OCMODE_PWM1);
+              
+              // 3. 设置死区时间
+              LL_TIM_OC_SetDeadTime(TIM1, 50); // 根据实际需求调整死区时间
+              
+              // 4. 使能预加载
+              LL_TIM_OC_EnablePreload(TIM1, LL_TIM_CHANNEL_CH1);
+              LL_TIM_OC_EnablePreload(TIM1, LL_TIM_CHANNEL_CH2);
+              LL_TIM_OC_EnablePreload(TIM1, LL_TIM_CHANNEL_CH3);
+              LL_TIM_OC_SetCompareCH1(TIM1, 100);
+              LL_TIM_OC_SetCompareCH2(TIM1, 100);
+              LL_TIM_OC_SetCompareCH3(TIM1, 100);
+              vTaskDelay(1000);
+              // 5. 启用 Break 功能
+              TIM1->BDTR |= LL_TIM_OSSI_ENABLE;
+              LL_TIM_EnableAllOutputs(TIM1);
+              STSPIN32G4_clearFaults(&HdlSTSPING4);
+              while(1)
+              {
+                //STSPIN32G4_clearFaults(&HdlSTSPING4);
+                test_svm(mod_q, mod_d, &theta, &ta, &tb, &tc);
+                  /* Turn on the three low side switches */
+                LL_TIM_OC_SetCompareCH1(TIM1, ta*TIM_1_8_PERIOD_CLOCKS);
+                LL_TIM_OC_SetCompareCH2(TIM1, tb*TIM_1_8_PERIOD_CLOCKS);
+                LL_TIM_OC_SetCompareCH3(TIM1, tc*TIM_1_8_PERIOD_CLOCKS);
+                TIM1->BDTR |= LL_TIM_OSSI_ENABLE;
+                LL_TIM_EnableAllOutputs(TIM1);
+
+                theta = theta + 0.1f;
+                vTaskDelay(1);
+              }
               Mci[M1].State = CHARGE_BOOT_CAP;
             }
             OTT_Clear(&OTT);
@@ -691,7 +750,7 @@ __weak uint8_t FOC_HighFrequencyTask(uint8_t bMotorNbr)
    * implementation is invoked */
   PWMC_GetPhaseCurrents(pwmcHandle[M1], &Iab);
   FOCVars[M1].Iab = Iab;
-  SCC_SetPhaseVoltage(&SCC);
+ // SCC_SetPhaseVoltage(&SCC);
 
   return (0); /* Single motor only */
 }

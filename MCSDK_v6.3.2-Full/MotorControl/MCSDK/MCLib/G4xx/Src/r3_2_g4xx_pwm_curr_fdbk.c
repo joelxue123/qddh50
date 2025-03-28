@@ -1403,9 +1403,9 @@ __weak void R3_2_TurnOnLowSides(PWMC_Handle_t *pHdl, uint32_t ticks)
   LL_TIM_ClearFlag_UPDATE(pHandle->pParams_str->TIMx);
 
   /* Turn on the three low side switches */
-  LL_TIM_OC_SetCompareCH1(TIMx, ticks);
-  LL_TIM_OC_SetCompareCH2(TIMx, ticks);
-  LL_TIM_OC_SetCompareCH3(TIMx, ticks);
+  LL_TIM_OC_SetCompareCH1(TIMx, 100);
+  LL_TIM_OC_SetCompareCH2(TIMx, 100);
+  LL_TIM_OC_SetCompareCH3(TIMx, 100);
 
   /* Wait until next update */
   while (0U == LL_TIM_IsActiveFlag_UPDATE(TIMx))
@@ -1568,10 +1568,11 @@ __weak void *R3_2_TIMx_UP_IRQHandler(PWMC_R3_2_Handle_t *pHandle)
     OPAMP_TypeDef *operationAmp;
     uint32_t OpampConfig;
 
+    /* Clear the update interrupt flag */
     if (OPAMPParams != NULL)
     {
       /* We can not change OPAMP source if ADC acquisition is ongoing (Dual motor with internal opamp use case) */
-      while (0x0u != pHandle->pParams_str->ADCDataReg1[pHandle->_Super.Sector]->JSQR)
+   //   while (0x0u != pHandle->pParams_str->ADCDataReg1[pHandle->_Super.Sector]->JSQR)
       {
         /* Nothing to do */
       }

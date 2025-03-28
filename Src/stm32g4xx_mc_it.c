@@ -146,7 +146,7 @@ void TIMx_BRK_M1_IRQHandler(void)
   }
 
   /* Systick is not executed due low priority so is necessary to call MC_Scheduler here */
-  MC_RunMotorControlTasks();
+ // MC_RunMotorControlTasks();
 
   /* USER CODE BEGIN TIMx_BRK_M1_IRQn 1 */
 

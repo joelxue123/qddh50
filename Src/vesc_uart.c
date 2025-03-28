@@ -284,7 +284,7 @@ void VESC_UART_IRQHandler(void)
             }
             uart_handle.rx_pos += dma_pos;
             
-            VESC_ProcessPacket();
+            //VESC_ProcessPacket();
             
             /* Reset DMA */
             LL_DMA_DisableChannel(VESC_DMA, VESC_DMA_RX_CHANNEL);
@@ -294,4 +294,7 @@ void VESC_UART_IRQHandler(void)
             dma_busy = false;
         }
     }
+    LL_USART_ClearFlag_FE(VESC_UART);
+    LL_USART_ClearFlag_NE(VESC_UART);
+    LL_USART_ClearFlag_ORE(VESC_UART);
 }
