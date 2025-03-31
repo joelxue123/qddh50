@@ -389,10 +389,10 @@ __weak uint8_t TSK_HighFrequencyTask(void)
   }
   else
   {
-    MCPA_dataLog (&MCPA_UART_A);
+   // MCPA_dataLog (&MCPA_UART_A);
   }
 
-  MC_Perf_Measure_Stop(&PerfTraces, MEASURE_TSK_HighFrequencyTaskM1);
+ // MC_Perf_Measure_Stop(&PerfTraces, MEASURE_TSK_HighFrequencyTaskM1);
   return (bMotorNbr);
 
 }

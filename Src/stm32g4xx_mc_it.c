@@ -64,7 +64,7 @@ void TIMx_BRK_M1_IRQHandler(void);
 __attribute__((section (".ccmram")))
 #endif
 #endif
-
+void fun1(PWMC_R3_2_Handle_t *pHandle);
 
 void pwm_trig_adc_cb(ADC_TypeDef* hadc, bool injected);
 
@@ -83,6 +83,8 @@ void ADC1_2_IRQHandler(void)
 
   /* Highfrequency task */
   (void)TSK_HighFrequencyTask();
+
+
   //pwm_trig_adc_cb(ADC1,0);
 
   /* USER CODE BEGIN HighFreq */
@@ -142,7 +144,7 @@ void TIMx_BRK_M1_IRQHandler(void)
   else
   {
     LL_TIM_ClearFlag_BRK2(TIM1);
-    PWMC_OVP_Handler(&PWM_Handle_M1._Super, TIM1);
+ //   PWMC_OVP_Handler(&PWM_Handle_M1._Super, TIM1);
   }
 
   /* Systick is not executed due low priority so is necessary to call MC_Scheduler here */

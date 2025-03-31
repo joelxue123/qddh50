@@ -231,9 +231,11 @@ __weak void TSK_MediumFrequencyTaskM1(void)
               STSPIN32G4_clearFaults(&HdlSTSPING4);
               STSPIN32G4_wakeup(&HdlSTSPING4, 4);
               vTaskDelay(100);
+   
 
               /* Calibration already done. Enables only TIM channels */
               pwmcHandle[M1]->OffCalibrWaitTimeCounter = 1u;
+
               //(void)PWMC_CurrentReadingCalibr(pwmcHandle[M1], CRC_EXEC);
               (void)PWMC_CurrentReadingCalibr(pwmcHandle[M1], CRC_START);
               R3_2_SwitchOnPWM(pwmcHandle[M1]);
@@ -267,16 +269,26 @@ __weak void TSK_MediumFrequencyTaskM1(void)
               LL_TIM_OC_SetCompareCH2(TIM1, 100);
               LL_TIM_OC_SetCompareCH3(TIM1, 100);
               vTaskDelay(1000);
+              LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);
+
+              LL_ADC_EnableIT_JEOS(ADC1);
+                            // Check Timer trigger configuration
+              LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);  // 使用TIM1 OC4作为触发源
+
+              // ADC注入组触发配置
+              LL_ADC_INJ_SetTriggerSource(ADC1, LL_ADC_INJ_TRIG_EXT_TIM1_TRGO);
+              LL_ADC_INJ_SetTriggerEdge(ADC1, LL_ADC_INJ_TRIG_EXT_RISING);
 
               // 5. 启用 Break 功能
               TIM1->BDTR |= LL_TIM_OSSI_ENABLE;
               LL_TIM_EnableAllOutputs(TIM1);
               STSPIN32G4_clearFaults(&HdlSTSPING4);
-              
+              LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);
+
               while(1)
               {
                 task_run = 1;
-
+                LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);
                 vTaskDelay(30);
               }
               Mci[M1].State = CHARGE_BOOT_CAP;
@@ -729,6 +741,9 @@ __weak uint8_t FOC_HighFrequencyTask(uint8_t bMotorNbr)
   float b = 0;
   float iq = 0;
   float id = 0;
+
+
+
   if (SWITCH_OVER == Mci[M1].State)
   {
     if (!REMNG_RampCompleted(pREMNG[M1]))
@@ -750,6 +765,7 @@ __weak uint8_t FOC_HighFrequencyTask(uint8_t bMotorNbr)
    * implementation changes in time depending on the Profiler's state
    * machine. Calling the generic function ensures that the correct
    * implementation is invoked */
+
   PWMC_GetPhaseCurrents(pwmcHandle[M1], &Iab);
   FOCVars[M1].Iab = Iab;
 
@@ -773,6 +789,7 @@ if(task_run == 1)
                   theta_ = theta_ + 0.001f;
 
 }
+LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);  // 使用TIM1 OC4作为触发源
 
  // SCC_SetPhaseVoltage(&SCC);
 

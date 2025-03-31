@@ -492,7 +492,7 @@ __weak void R3_2_CurrentReadingPolarization(PWMC_Handle_t *pHdl)
 
     /* IF CH4 is enabled, it means that JSQR is now configured to sample polarization current
      * while ( LL_TIM_CC_IsEnabledChannel(TIMx, LL_TIM_CHANNEL_CH4) == 0u ) */
-    while (((TIMx->CR2) & TIM_CR2_MMS_Msk) != LL_TIM_TRGO_OC4REF)
+  //  while (((TIMx->CR2) & TIM_CR2_MMS_Msk) != LL_TIM_TRGO_OC4REF)
     {
       /* Nothing to do */
     }
@@ -589,7 +589,7 @@ __weak void R3_2_GetPhaseCurrents(PWMC_Handle_t *pHdl, ab_t *Iab)
 
     /* Disable ADC trigger source */
     /* LL_TIM_CC_DisableChannel(TIMx, LL_TIM_CHANNEL_CH4) */
-    LL_TIM_SetTriggerOutput(TIMx, LL_TIM_TRGO_RESET);
+   // LL_TIM_SetTriggerOutput(TIMx, LL_TIM_TRGO_RESET);
 
     switch (Sector)
     {
@@ -757,7 +757,7 @@ __weak void R3_2_GetPhaseCurrents_OVM(PWMC_Handle_t *pHdl, ab_t *Iab)
     uint8_t Sector;
 
     /* Disable ADC trigger source */
-    LL_TIM_SetTriggerOutput(TIMx, LL_TIM_TRGO_RESET);
+   // LL_TIM_SetTriggerOutput(TIMx, LL_TIM_TRGO_RESET);
 
     Sector = (uint8_t)pHandle->_Super.Sector;
     ADCDataReg1 = pHandle->pParams_str->ADCDataReg1[Sector]->JDR1;
@@ -1311,7 +1311,7 @@ static void R3_2_HFCurrentsPolarizationAB(PWMC_Handle_t *pHdl, ab_t *Iab)
 
     /* Disable ADC trigger source */
     /* LL_TIM_CC_DisableChannel(TIMx, LL_TIM_CHANNEL_CH4) */
-    LL_TIM_SetTriggerOutput(TIMx, LL_TIM_TRGO_RESET);
+  //  LL_TIM_SetTriggerOutput(TIMx, LL_TIM_TRGO_RESET);
 
     if (pHandle->PolarizationCounter < NB_CONVERSIONS)
     {
@@ -1360,7 +1360,7 @@ static void R3_2_HFCurrentsPolarizationC(PWMC_Handle_t *pHdl, ab_t *Iab)
 
     /* Disable ADC trigger source */
     /* LL_TIM_CC_DisableChannel(TIMx, LL_TIM_CHANNEL_CH4) */
-    LL_TIM_SetTriggerOutput(TIMx, LL_TIM_TRGO_RESET);
+  //  LL_TIM_SetTriggerOutput(TIMx, LL_TIM_TRGO_RESET);
 
     if (pHandle->PolarizationCounter < NB_CONVERSIONS)
     {
@@ -1547,6 +1547,77 @@ __weak void R3_2_SwitchOffPWM(PWMC_Handle_t *pHdl)
 __attribute__((section(".ccmram")))
 #endif
 #endif
+
+
+void fun1(PWMC_R3_2_Handle_t *pHandle)
+{
+  void *tempPointer; //cstat !MISRAC2012-Rule-8.13
+#ifdef NULL_PTR_CHECK_R3_2_PWM_CURR_FDB
+  if (MC_NULL == pHandle)
+  {
+    tempPointer = MC_NULL;
+  }
+  else
+  {
+#endif
+
+
+
+    R3_3_OPAMPParams_t *OPAMPParams = pHandle->pParams_str->OPAMPParams;
+    OPAMP_TypeDef *operationAmp;
+    uint32_t OpampConfig;
+
+    /* Clear the update interrupt flag */
+    if (OPAMPParams != NULL)
+    {
+      pHandle->_Super.Sector = 2;
+      // /* We can not change OPAMP source if ADC acquisition is ongoing (Dual motor with internal opamp use case) */
+      // while (0x0u != pHandle->pParams_str->ADCDataReg1[pHandle->_Super.Sector]->JSQR)
+      // {
+      //   /* Nothing to do */
+      // }
+   //   return ;
+      /* We need to manage the Operational amplifier internal output enable - Dedicated to G4 and the VPSEL selection */
+      OpampConfig = OPAMPParams->OPAMPConfig1[pHandle->_Super.Sector];
+      if (OpampConfig != OPAMP_UNCHANGED)
+      {
+        operationAmp = OPAMPParams->OPAMPSelect_1[pHandle->_Super.Sector];
+        MODIFY_REG(operationAmp->CSR, (OPAMP_CSR_OPAMPINTEN | OPAMP_CSR_VPSEL), OpampConfig);
+      }
+      else
+      {
+        /* Nothing to do */
+      }
+      OpampConfig = OPAMPParams->OPAMPConfig2[pHandle->_Super.Sector];
+      if (OpampConfig != OPAMP_UNCHANGED)
+      {
+        operationAmp = OPAMPParams->OPAMPSelect_2[pHandle->_Super.Sector];
+        MODIFY_REG(operationAmp->CSR, (OPAMP_CSR_OPAMPINTEN | OPAMP_CSR_VPSEL), OpampConfig);
+      }
+      else
+      {
+        /* Nothing to do */
+      }
+    }
+    else
+    {
+      /* Nothing to do */
+    }
+
+    
+    pHandle->pParams_str->ADCDataReg1[pHandle->_Super.Sector]->JSQR = pHandle->pParams_str->ADCConfig1[pHandle->_Super.Sector] | (uint32_t) pHandle->ADC_ExternalPolarityInjected;
+    pHandle->pParams_str->ADCDataReg2[pHandle->_Super.Sector]->JSQR = pHandle->pParams_str->ADCConfig2[pHandle->_Super.Sector] | (uint32_t) pHandle->ADC_ExternalPolarityInjected;
+
+    /* Enable ADC trigger source */
+
+    pHandle->ADC_ExternalPolarityInjected = (uint16_t)LL_ADC_INJ_TRIG_EXT_RISING;
+    tempPointer = &(pHandle->_Super.Motor);
+#ifdef NULL_PTR_CHECK_R3_2_PWM_CURR_FDB
+  }
+#endif
+  return (tempPointer);
+}
+
 /*
   * @brief  Contains the TIMx Update event interrupt.
   *
@@ -1609,7 +1680,7 @@ __weak void *R3_2_TIMx_UP_IRQHandler(PWMC_R3_2_Handle_t *pHandle)
     /* Enable ADC trigger source */
 
     /* LL_TIM_CC_EnableChannel(TIMx, LL_TIM_CHANNEL_CH4) */
-    LL_TIM_SetTriggerOutput(TIMx, LL_TIM_TRGO_OC4REF);
+     LL_TIM_SetTriggerOutput(TIMx, LL_TIM_TRGO_OC4REF);
 
     pHandle->ADC_ExternalPolarityInjected = (uint16_t)LL_ADC_INJ_TRIG_EXT_RISING;
     tempPointer = &(pHandle->_Super.Motor);
@@ -1896,7 +1967,7 @@ static void R3_2_RLGetPhaseCurrents(PWMC_Handle_t *pHdl, ab_t *pStator_Currents)
     int32_t wAux;
 
     /* Disable ADC trigger source */
-    LL_TIM_SetTriggerOutput(TIMx, LL_TIM_TRGO_RESET);
+ //   LL_TIM_SetTriggerOutput(TIMx, LL_TIM_TRGO_RESET);
 
     wAux = ((int32_t)pHandle->PhaseBOffset)
          - ((int32_t)(pHandle->pParams_str->ADCDataReg2[pHandle->_Super.Sector]->JDR1));
