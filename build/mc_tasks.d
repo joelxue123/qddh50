@@ -115,7 +115,7 @@ build/mc_tasks.o: Src/mc_tasks.c Inc/main.h \
  MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/mcptl.h Inc/aspep.h \
  MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/mcptl.h \
  MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/mcpa.h \
- Inc/mc_app_hooks.h
+ Inc/mc_app_hooks.h Inc/freertos_vars.h
 Inc/main.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h:
 Inc/stm32g4xx_hal_conf.h:
@@ -254,3 +254,4 @@ Inc/aspep.h:
 MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/mcptl.h:
 MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/mcpa.h:
 Inc/mc_app_hooks.h:
+Inc/freertos_vars.h:

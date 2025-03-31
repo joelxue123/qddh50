@@ -23,6 +23,9 @@ Axis::Config_t axis_configs;
 Axis* axes;
 ODriveCAN *odCAN = nullptr;
 
+// 声明全局变量
+ MotorParams motor_params;
+ MotorRuntime motor_runtime;
 
 
 

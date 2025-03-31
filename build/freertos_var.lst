@@ -1,0 +1,487 @@
+ARM GAS  /tmp/ccFdArm2.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 2
+  13              		.file	"freertos_var.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.rodata.OFFSET_TAB_CCMRx,"a"
+  18              		.align	2
+  21              	OFFSET_TAB_CCMRx:
+  22 0000 00000000 		.ascii	"\000\000\000\000\004\004\004\00488"
+  22      04040404 
+  22      3838
+  23              		.section	.rodata.SHIFT_TAB_OCxx,"a"
+  24              		.align	2
+  27              	SHIFT_TAB_OCxx:
+  28 0000 00000800 		.ascii	"\000\000\010\000\000\000\010\000\000\010"
+  28      00000800 
+  28      0008
+  29              		.section	.rodata.SHIFT_TAB_ICxx,"a"
+  30              		.align	2
+  33              	SHIFT_TAB_ICxx:
+  34 0000 00000800 		.ascii	"\000\000\010\000\000\000\010\000\000\000"
+  34      00000800 
+  34      0000
+  35              		.section	.rodata.SHIFT_TAB_CCxP,"a"
+  36              		.align	2
+  39              	SHIFT_TAB_CCxP:
+  40 0000 00020406 		.ascii	"\000\002\004\006\010\012\014\016\020\024"
+  40      080A0C0E 
+  40      1014
+  41              		.section	.rodata.SHIFT_TAB_OISx,"a"
+  42              		.align	2
+  45              	SHIFT_TAB_OISx:
+  46 0000 00010203 		.ascii	"\000\001\002\003\004\005\006\007\010\012"
+  46      04050607 
+  46      080A
+  47              		.section	.rodata.USART_PRESCALER_TAB,"a"
+  48              		.align	2
+  51              	USART_PRESCALER_TAB:
+  52 0000 01000000 		.word	1
+  53 0004 02000000 		.word	2
+  54 0008 04000000 		.word	4
+  55 000c 06000000 		.word	6
+  56 0010 08000000 		.word	8
+  57 0014 0A000000 		.word	10
+  58 0018 0C000000 		.word	12
+  59 001c 10000000 		.word	16
+ARM GAS  /tmp/ccFdArm2.s 			page 2
+
+
+  60 0020 20000000 		.word	32
+  61 0024 40000000 		.word	64
+  62 0028 80000000 		.word	128
+  63 002c 00010000 		.word	256
+  64              		.section	.rodata.CHANNEL_OFFSET_TAB,"a"
+  65              		.align	2
+  68              	CHANNEL_OFFSET_TAB:
+  69 0000 081C3044 		.ascii	"\010\0340DXl"
+  69      586C
+  70              		.global	sem_uart_dma
+  71              		.section	.bss.sem_uart_dma,"aw",%nobits
+  72              		.align	2
+  75              	sem_uart_dma:
+  76 0000 00000000 		.space	4
+  77              		.global	sem_can
+  78              		.section	.bss.sem_can,"aw",%nobits
+  79              		.align	2
+  82              	sem_can:
+  83 0000 00000000 		.space	4
+  84              		.section	.text.vApplicationIdleHook,"ax",%progbits
+  85              		.align	1
+  86              		.weak	vApplicationIdleHook
+  87              		.arch armv7e-m
+  88              		.syntax unified
+  89              		.thumb
+  90              		.thumb_func
+  91              		.fpu fpv4-sp-d16
+  93              	vApplicationIdleHook:
+  94              	.LFB1872:
+  95              		.file 1 "Src/freertos_var.c"
+   1:Src/freertos_var.c **** /* USER CODE BEGIN Header */
+   2:Src/freertos_var.c **** /**
+   3:Src/freertos_var.c ****   ******************************************************************************
+   4:Src/freertos_var.c ****   * File Name          : freertos.c
+   5:Src/freertos_var.c ****   * Description        : Code for freertos applications
+   6:Src/freertos_var.c ****   ******************************************************************************
+   7:Src/freertos_var.c ****   * This notice applies to any and all portions of this file
+   8:Src/freertos_var.c ****   * that are not between comment pairs USER CODE BEGIN and
+   9:Src/freertos_var.c ****   * USER CODE END. Other portions of this file, whether 
+  10:Src/freertos_var.c ****   * inserted by the user or by software development tools
+  11:Src/freertos_var.c ****   * are owned by their respective copyright owners.
+  12:Src/freertos_var.c ****   *
+  13:Src/freertos_var.c ****   * Copyright (c) 2018 STMicroelectronics International N.V. 
+  14:Src/freertos_var.c ****   * All rights reserved.
+  15:Src/freertos_var.c ****   *
+  16:Src/freertos_var.c ****   * Redistribution and use in source and binary forms, with or without 
+  17:Src/freertos_var.c ****   * modification, are permitted, provided that the following conditions are met:
+  18:Src/freertos_var.c ****   *
+  19:Src/freertos_var.c ****   * 1. Redistribution of source code must retain the above copyright notice, 
+  20:Src/freertos_var.c ****   *    this list of conditions and the following disclaimer.
+  21:Src/freertos_var.c ****   * 2. Redistributions in binary form must reproduce the above copyright notice,
+  22:Src/freertos_var.c ****   *    this list of conditions and the following disclaimer in the documentation
+  23:Src/freertos_var.c ****   *    and/or other materials provided with the distribution.
+  24:Src/freertos_var.c ****   * 3. Neither the name of STMicroelectronics nor the names of other 
+  25:Src/freertos_var.c ****   *    contributors to this software may be used to endorse or promote products 
+  26:Src/freertos_var.c ****   *    derived from this software without specific written permission.
+  27:Src/freertos_var.c ****   * 4. This software, including modifications and/or derivative works of this 
+ARM GAS  /tmp/ccFdArm2.s 			page 3
+
+
+  28:Src/freertos_var.c ****   *    software, must execute solely and exclusively on microcontroller or
+  29:Src/freertos_var.c ****   *    microprocessor devices manufactured by or for STMicroelectronics.
+  30:Src/freertos_var.c ****   * 5. Redistribution and use of this software other than as permitted under 
+  31:Src/freertos_var.c ****   *    this license is void and will automatically terminate your rights under 
+  32:Src/freertos_var.c ****   *    this license. 
+  33:Src/freertos_var.c ****   *
+  34:Src/freertos_var.c ****   * THIS SOFTWARE IS PROVIDED BY STMICROELECTRONICS AND CONTRIBUTORS "AS IS" 
+  35:Src/freertos_var.c ****   * AND ANY EXPRESS, IMPLIED OR STATUTORY WARRANTIES, INCLUDING, BUT NOT 
+  36:Src/freertos_var.c ****   * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
+  37:Src/freertos_var.c ****   * PARTICULAR PURPOSE AND NON-INFRINGEMENT OF THIRD PARTY INTELLECTUAL PROPERTY
+  38:Src/freertos_var.c ****   * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW. IN NO EVENT 
+  39:Src/freertos_var.c ****   * SHALL STMICROELECTRONICS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  40:Src/freertos_var.c ****   * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  41:Src/freertos_var.c ****   * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, 
+  42:Src/freertos_var.c ****   * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
+  43:Src/freertos_var.c ****   * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+  44:Src/freertos_var.c ****   * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  45:Src/freertos_var.c ****   * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  46:Src/freertos_var.c ****   *
+  47:Src/freertos_var.c ****   ******************************************************************************
+  48:Src/freertos_var.c ****   */
+  49:Src/freertos_var.c **** /* USER CODE END Header */
+  50:Src/freertos_var.c **** 
+  51:Src/freertos_var.c **** /* Includes ------------------------------------------------------------------*/
+  52:Src/freertos_var.c **** #include "FreeRTOS.h"
+  53:Src/freertos_var.c **** #include "task.h"
+  54:Src/freertos_var.c **** #include "main.h"
+  55:Src/freertos_var.c **** #include "cmsis_os.h"
+  56:Src/freertos_var.c **** 
+  57:Src/freertos_var.c **** /* Private includes ----------------------------------------------------------*/
+  58:Src/freertos_var.c **** /* USER CODE BEGIN Includes */     
+  59:Src/freertos_var.c **** #include "freertos_vars.h"
+  60:Src/freertos_var.c **** 
+  61:Src/freertos_var.c **** void start_uart_server(void);
+  62:Src/freertos_var.c **** 
+  63:Src/freertos_var.c **** int odrive_main(void);
+  64:Src/freertos_var.c **** int load_configuration(void);
+  65:Src/freertos_var.c **** int construct_objects(void);
+  66:Src/freertos_var.c **** /* USER CODE END Includes */
+  67:Src/freertos_var.c **** 
+  68:Src/freertos_var.c **** /* Private typedef -----------------------------------------------------------*/
+  69:Src/freertos_var.c **** /* USER CODE BEGIN PTD */
+  70:Src/freertos_var.c **** 
+  71:Src/freertos_var.c **** /* USER CODE END PTD */
+  72:Src/freertos_var.c **** 
+  73:Src/freertos_var.c **** /* Private define ------------------------------------------------------------*/
+  74:Src/freertos_var.c **** /* USER CODE BEGIN PD */
+  75:Src/freertos_var.c **** 
+  76:Src/freertos_var.c **** /* USER CODE END PD */
+  77:Src/freertos_var.c **** 
+  78:Src/freertos_var.c **** /* Private macro -------------------------------------------------------------*/
+  79:Src/freertos_var.c **** /* USER CODE BEGIN PM */
+  80:Src/freertos_var.c **** 
+  81:Src/freertos_var.c **** /* USER CODE END PM */
+  82:Src/freertos_var.c **** 
+  83:Src/freertos_var.c **** /* Private variables ---------------------------------------------------------*/
+  84:Src/freertos_var.c **** /* USER CODE BEGIN Variables */
+ARM GAS  /tmp/ccFdArm2.s 			page 4
+
+
+  85:Src/freertos_var.c **** // List of semaphores
+  86:Src/freertos_var.c **** 
+  87:Src/freertos_var.c **** osSemaphoreId sem_uart_dma;
+  88:Src/freertos_var.c **** 
+  89:Src/freertos_var.c **** osSemaphoreId sem_can;
+  90:Src/freertos_var.c **** 
+  91:Src/freertos_var.c **** 
+  92:Src/freertos_var.c **** 
+  93:Src/freertos_var.c **** 
+  94:Src/freertos_var.c **** 
+  95:Src/freertos_var.c **** /* Private function prototypes -----------------------------------------------*/
+  96:Src/freertos_var.c **** /* USER CODE BEGIN FunctionPrototypes */
+  97:Src/freertos_var.c **** 
+  98:Src/freertos_var.c **** /* USER CODE END FunctionPrototypes */
+  99:Src/freertos_var.c **** 
+ 100:Src/freertos_var.c **** void StartDefaultTask(void * argument);
+ 101:Src/freertos_var.c **** 
+ 102:Src/freertos_var.c **** extern void MX_USB_DEVICE_Init(void);
+ 103:Src/freertos_var.c **** void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
+ 104:Src/freertos_var.c **** 
+ 105:Src/freertos_var.c **** /* Hook prototypes */
+ 106:Src/freertos_var.c **** void vApplicationIdleHook(void);
+ 107:Src/freertos_var.c **** void vApplicationStackOverflowHook(xTaskHandle xTask, signed char *pcTaskName);
+ 108:Src/freertos_var.c **** 
+ 109:Src/freertos_var.c **** /* USER CODE BEGIN 2 */
+ 110:Src/freertos_var.c **** __weak void vApplicationIdleHook( void )
+ 111:Src/freertos_var.c **** {
+  96              		.loc 1 111 1
+  97              		.cfi_startproc
+  98              		@ args = 0, pretend = 0, frame = 0
+  99              		@ frame_needed = 1, uses_anonymous_args = 0
+ 100              		@ link register save eliminated.
+ 101 0000 80B4     		push	{r7}
+ 102              	.LCFI0:
+ 103              		.cfi_def_cfa_offset 4
+ 104              		.cfi_offset 7, -4
+ 105 0002 00AF     		add	r7, sp, #0
+ 106              	.LCFI1:
+ 107              		.cfi_def_cfa_register 7
+ 112:Src/freertos_var.c ****    /* vApplicationIdleHook() will only be called if configUSE_IDLE_HOOK is set
+ 113:Src/freertos_var.c ****    to 1 in FreeRTOSConfig.h. It will be called on each iteration of the idle
+ 114:Src/freertos_var.c ****    task. It is essential that code added to this hook function never attempts
+ 115:Src/freertos_var.c ****    to block in any way (for example, call xQueueReceive() with a block time
+ 116:Src/freertos_var.c ****    specified, or call vTaskDelay()). If the application makes use of the
+ 117:Src/freertos_var.c ****    vTaskDelete() API function (as this demo application does) then it is also
+ 118:Src/freertos_var.c ****    important that vApplicationIdleHook() is permitted to return to its calling
+ 119:Src/freertos_var.c ****    function, because it is the responsibility of the idle task to clean up
+ 120:Src/freertos_var.c ****    memory allocated by the kernel to any task that has since been deleted. */
+ 121:Src/freertos_var.c **** }
+ 108              		.loc 1 121 1
+ 109 0004 00BF     		nop
+ 110 0006 BD46     		mov	sp, r7
+ 111              	.LCFI2:
+ 112              		.cfi_def_cfa_register 13
+ 113              		@ sp needed
+ 114 0008 5DF8047B 		ldr	r7, [sp], #4
+ 115              	.LCFI3:
+ARM GAS  /tmp/ccFdArm2.s 			page 5
+
+
+ 116              		.cfi_restore 7
+ 117              		.cfi_def_cfa_offset 0
+ 118 000c 7047     		bx	lr
+ 119              		.cfi_endproc
+ 120              	.LFE1872:
+ 122              		.section	.text.vApplicationStackOverflowHook,"ax",%progbits
+ 123              		.align	1
+ 124              		.weak	vApplicationStackOverflowHook
+ 125              		.syntax unified
+ 126              		.thumb
+ 127              		.thumb_func
+ 128              		.fpu fpv4-sp-d16
+ 130              	vApplicationStackOverflowHook:
+ 131              	.LFB1873:
+ 122:Src/freertos_var.c **** /* USER CODE END 2 */
+ 123:Src/freertos_var.c **** 
+ 124:Src/freertos_var.c **** /* USER CODE BEGIN 4 */
+ 125:Src/freertos_var.c **** __weak void vApplicationStackOverflowHook(xTaskHandle xTask, signed char *pcTaskName)
+ 126:Src/freertos_var.c **** {
+ 132              		.loc 1 126 1
+ 133              		.cfi_startproc
+ 134              		@ args = 0, pretend = 0, frame = 8
+ 135              		@ frame_needed = 1, uses_anonymous_args = 0
+ 136              		@ link register save eliminated.
+ 137 0000 80B4     		push	{r7}
+ 138              	.LCFI4:
+ 139              		.cfi_def_cfa_offset 4
+ 140              		.cfi_offset 7, -4
+ 141 0002 83B0     		sub	sp, sp, #12
+ 142              	.LCFI5:
+ 143              		.cfi_def_cfa_offset 16
+ 144 0004 00AF     		add	r7, sp, #0
+ 145              	.LCFI6:
+ 146              		.cfi_def_cfa_register 7
+ 147 0006 7860     		str	r0, [r7, #4]
+ 148 0008 3960     		str	r1, [r7]
+ 127:Src/freertos_var.c ****    /* Run time stack overflow checking is performed if
+ 128:Src/freertos_var.c ****    configCHECK_FOR_STACK_OVERFLOW is defined to 1 or 2. This hook function is
+ 129:Src/freertos_var.c ****    called if a stack overflow is detected. */
+ 130:Src/freertos_var.c **** }
+ 149              		.loc 1 130 1
+ 150 000a 00BF     		nop
+ 151 000c 0C37     		adds	r7, r7, #12
+ 152              	.LCFI7:
+ 153              		.cfi_def_cfa_offset 4
+ 154 000e BD46     		mov	sp, r7
+ 155              	.LCFI8:
+ 156              		.cfi_def_cfa_register 13
+ 157              		@ sp needed
+ 158 0010 5DF8047B 		ldr	r7, [sp], #4
+ 159              	.LCFI9:
+ 160              		.cfi_restore 7
+ 161              		.cfi_def_cfa_offset 0
+ 162 0014 7047     		bx	lr
+ 163              		.cfi_endproc
+ 164              	.LFE1873:
+ 166              		.section	.text.MX_FREERTOS_Init,"ax",%progbits
+ARM GAS  /tmp/ccFdArm2.s 			page 6
+
+
+ 167              		.align	1
+ 168              		.global	MX_FREERTOS_Init
+ 169              		.syntax unified
+ 170              		.thumb
+ 171              		.thumb_func
+ 172              		.fpu fpv4-sp-d16
+ 174              	MX_FREERTOS_Init:
+ 175              	.LFB1874:
+ 131:Src/freertos_var.c **** 
+ 132:Src/freertos_var.c **** 
+ 133:Src/freertos_var.c **** /* USER CODE END 4 */
+ 134:Src/freertos_var.c **** 
+ 135:Src/freertos_var.c **** /**
+ 136:Src/freertos_var.c ****   * @brief  FreeRTOS initialization
+ 137:Src/freertos_var.c ****   * @param  None
+ 138:Src/freertos_var.c ****   * @retval None
+ 139:Src/freertos_var.c ****   */
+ 140:Src/freertos_var.c **** void MX_FREERTOS_Init(void) {
+ 176              		.loc 1 140 29
+ 177              		.cfi_startproc
+ 178              		@ args = 0, pretend = 0, frame = 8
+ 179              		@ frame_needed = 1, uses_anonymous_args = 0
+ 180 0000 80B5     		push	{r7, lr}
+ 181              	.LCFI10:
+ 182              		.cfi_def_cfa_offset 8
+ 183              		.cfi_offset 7, -8
+ 184              		.cfi_offset 14, -4
+ 185 0002 82B0     		sub	sp, sp, #8
+ 186              	.LCFI11:
+ 187              		.cfi_def_cfa_offset 16
+ 188 0004 00AF     		add	r7, sp, #0
+ 189              	.LCFI12:
+ 190              		.cfi_def_cfa_register 7
+ 141:Src/freertos_var.c ****   /* USER CODE BEGIN Init */
+ 142:Src/freertos_var.c ****        
+ 143:Src/freertos_var.c ****   /* USER CODE END Init */
+ 144:Src/freertos_var.c **** 
+ 145:Src/freertos_var.c ****   /* USER CODE BEGIN RTOS_MUTEX */
+ 146:Src/freertos_var.c ****   /* add mutexes, ... */
+ 147:Src/freertos_var.c ****   /* USER CODE END RTOS_MUTEX */
+ 148:Src/freertos_var.c **** 
+ 149:Src/freertos_var.c ****   // Create a semaphore for UART DMA and remove a token
+ 150:Src/freertos_var.c ****   osSemaphoreDef(sem_uart_dma);
+ 191              		.loc 1 150 3
+ 192 0006 0023     		movs	r3, #0
+ 193 0008 7B60     		str	r3, [r7, #4]
+ 151:Src/freertos_var.c ****   sem_uart_dma = osSemaphoreCreate(osSemaphore(sem_uart_dma), 1);
+ 194              		.loc 1 151 18
+ 195 000a 3B1D     		adds	r3, r7, #4
+ 196 000c 0121     		movs	r1, #1
+ 197 000e 1846     		mov	r0, r3
+ 198 0010 FFF7FEFF 		bl	osSemaphoreCreate
+ 199 0014 0346     		mov	r3, r0
+ 200              		.loc 1 151 16
+ 201 0016 0D4A     		ldr	r2, .L4
+ 202 0018 1360     		str	r3, [r2]
+ 152:Src/freertos_var.c **** 
+ARM GAS  /tmp/ccFdArm2.s 			page 7
+
+
+ 153:Src/freertos_var.c **** 
+ 154:Src/freertos_var.c **** 
+ 155:Src/freertos_var.c ****   osSemaphoreDef(sem_can);
+ 203              		.loc 1 155 3
+ 204 001a 0023     		movs	r3, #0
+ 205 001c 3B60     		str	r3, [r7]
+ 156:Src/freertos_var.c ****   sem_can = osSemaphoreCreate(osSemaphore(sem_can), 1);
+ 206              		.loc 1 156 13
+ 207 001e 3B46     		mov	r3, r7
+ 208 0020 0121     		movs	r1, #1
+ 209 0022 1846     		mov	r0, r3
+ 210 0024 FFF7FEFF 		bl	osSemaphoreCreate
+ 211 0028 0346     		mov	r3, r0
+ 212              		.loc 1 156 11
+ 213 002a 094A     		ldr	r2, .L4+4
+ 214 002c 1360     		str	r3, [r2]
+ 157:Src/freertos_var.c ****   osSemaphoreWait(sem_can, 0);
+ 215              		.loc 1 157 3
+ 216 002e 084B     		ldr	r3, .L4+4
+ 217 0030 1B68     		ldr	r3, [r3]
+ 218 0032 0021     		movs	r1, #0
+ 219 0034 1846     		mov	r0, r3
+ 220 0036 FFF7FEFF 		bl	osSemaphoreWait
+ 158:Src/freertos_var.c **** 
+ 159:Src/freertos_var.c **** 
+ 160:Src/freertos_var.c ****   start_uart_server();
+ 221              		.loc 1 160 3
+ 222 003a FFF7FEFF 		bl	start_uart_server
+ 161:Src/freertos_var.c **** 
+ 162:Src/freertos_var.c ****   
+ 163:Src/freertos_var.c ****   VESC_UART_Init();
+ 223              		.loc 1 163 3
+ 224 003e FFF7FEFF 		bl	VESC_UART_Init
+ 164:Src/freertos_var.c ****   // Load persistent configuration (or defaults)
+ 165:Src/freertos_var.c ****   //load_configuration();
+ 166:Src/freertos_var.c ****   //construct_objects();
+ 167:Src/freertos_var.c **** 
+ 168:Src/freertos_var.c ****   //odrive_main();
+ 169:Src/freertos_var.c ****   /* USER CODE END RTOS_SEMAPHORES */
+ 170:Src/freertos_var.c **** 
+ 171:Src/freertos_var.c ****   /* USER CODE BEGIN RTOS_TIMERS */
+ 172:Src/freertos_var.c ****   /* start timers, add new ones, ... */
+ 173:Src/freertos_var.c ****   /* USER CODE END RTOS_TIMERS */
+ 174:Src/freertos_var.c **** 
+ 175:Src/freertos_var.c ****   /* Create the thread(s) */
+ 176:Src/freertos_var.c ****   /* definition and creation of defaultTask */
+ 177:Src/freertos_var.c **** 
+ 178:Src/freertos_var.c **** 
+ 179:Src/freertos_var.c ****   /* USER CODE BEGIN RTOS_THREADS */
+ 180:Src/freertos_var.c **** 
+ 181:Src/freertos_var.c ****   /* USER CODE END RTOS_THREADS */
+ 182:Src/freertos_var.c **** 
+ 183:Src/freertos_var.c ****   /* USER CODE BEGIN RTOS_QUEUES */
+ 184:Src/freertos_var.c ****   /* add queues, ... */
+ 185:Src/freertos_var.c ****   /* USER CODE END RTOS_QUEUES */
+ 186:Src/freertos_var.c **** }
+ 225              		.loc 1 186 1
+ARM GAS  /tmp/ccFdArm2.s 			page 8
+
+
+ 226 0042 00BF     		nop
+ 227 0044 0837     		adds	r7, r7, #8
+ 228              	.LCFI13:
+ 229              		.cfi_def_cfa_offset 8
+ 230 0046 BD46     		mov	sp, r7
+ 231              	.LCFI14:
+ 232              		.cfi_def_cfa_register 13
+ 233              		@ sp needed
+ 234 0048 80BD     		pop	{r7, pc}
+ 235              	.L5:
+ 236 004a 00BF     		.align	2
+ 237              	.L4:
+ 238 004c 00000000 		.word	sem_uart_dma
+ 239 0050 00000000 		.word	sem_can
+ 240              		.cfi_endproc
+ 241              	.LFE1874:
+ 243              		.text
+ 244              	.Letext0:
+ 245              		.file 2 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
+ 246              		.file 3 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
+ 247              		.file 4 "Middlewares/Third_Party/FreeRTOS/Source/include/task.h"
+ 248              		.file 5 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h"
+ 249              		.file 6 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_usart.h"
+ 250              		.file 7 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h"
+ 251              		.file 8 "Middlewares/Third_Party/FreeRTOS/Source/include/queue.h"
+ 252              		.file 9 "Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h"
+ 253              		.file 10 "Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h"
+ 254              		.file 11 "Inc/freertos_vars.h"
+ARM GAS  /tmp/ccFdArm2.s 			page 9
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 freertos_var.c
+     /tmp/ccFdArm2.s:18     .rodata.OFFSET_TAB_CCMRx:0000000000000000 $d
+     /tmp/ccFdArm2.s:21     .rodata.OFFSET_TAB_CCMRx:0000000000000000 OFFSET_TAB_CCMRx
+     /tmp/ccFdArm2.s:24     .rodata.SHIFT_TAB_OCxx:0000000000000000 $d
+     /tmp/ccFdArm2.s:27     .rodata.SHIFT_TAB_OCxx:0000000000000000 SHIFT_TAB_OCxx
+     /tmp/ccFdArm2.s:30     .rodata.SHIFT_TAB_ICxx:0000000000000000 $d
+     /tmp/ccFdArm2.s:33     .rodata.SHIFT_TAB_ICxx:0000000000000000 SHIFT_TAB_ICxx
+     /tmp/ccFdArm2.s:36     .rodata.SHIFT_TAB_CCxP:0000000000000000 $d
+     /tmp/ccFdArm2.s:39     .rodata.SHIFT_TAB_CCxP:0000000000000000 SHIFT_TAB_CCxP
+     /tmp/ccFdArm2.s:42     .rodata.SHIFT_TAB_OISx:0000000000000000 $d
+     /tmp/ccFdArm2.s:45     .rodata.SHIFT_TAB_OISx:0000000000000000 SHIFT_TAB_OISx
+     /tmp/ccFdArm2.s:48     .rodata.USART_PRESCALER_TAB:0000000000000000 $d
+     /tmp/ccFdArm2.s:51     .rodata.USART_PRESCALER_TAB:0000000000000000 USART_PRESCALER_TAB
+     /tmp/ccFdArm2.s:65     .rodata.CHANNEL_OFFSET_TAB:0000000000000000 $d
+     /tmp/ccFdArm2.s:68     .rodata.CHANNEL_OFFSET_TAB:0000000000000000 CHANNEL_OFFSET_TAB
+     /tmp/ccFdArm2.s:75     .bss.sem_uart_dma:0000000000000000 sem_uart_dma
+     /tmp/ccFdArm2.s:72     .bss.sem_uart_dma:0000000000000000 $d
+     /tmp/ccFdArm2.s:82     .bss.sem_can:0000000000000000 sem_can
+     /tmp/ccFdArm2.s:79     .bss.sem_can:0000000000000000 $d
+     /tmp/ccFdArm2.s:85     .text.vApplicationIdleHook:0000000000000000 $t
+     /tmp/ccFdArm2.s:93     .text.vApplicationIdleHook:0000000000000000 vApplicationIdleHook
+     /tmp/ccFdArm2.s:123    .text.vApplicationStackOverflowHook:0000000000000000 $t
+     /tmp/ccFdArm2.s:130    .text.vApplicationStackOverflowHook:0000000000000000 vApplicationStackOverflowHook
+     /tmp/ccFdArm2.s:167    .text.MX_FREERTOS_Init:0000000000000000 $t
+     /tmp/ccFdArm2.s:174    .text.MX_FREERTOS_Init:0000000000000000 MX_FREERTOS_Init
+     /tmp/ccFdArm2.s:238    .text.MX_FREERTOS_Init:000000000000004c $d
+
+UNDEFINED SYMBOLS
+osSemaphoreCreate
+osSemaphoreWait
+start_uart_server
+VESC_UART_Init

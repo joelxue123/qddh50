@@ -175,6 +175,15 @@ void Error_Handler(void);
 #define MU128_2_GPIO_Port GPIOA
 
 
+/* Hardware Definitions */
+#define VESC_UART                   USART1
+#define VESC_DMA                    DMA1
+#define VESC_DMA_RX_CHANNEL        LL_DMA_CHANNEL_1
+#define VESC_DMA_TX_CHANNEL        LL_DMA_CHANNEL_2
+#define VESC_TX_PIN                UART_TX_Pin
+#define VESC_RX_PIN                UART_RX_Pin
+#define VESC_GPIO_PORT             GPIOA
+
 
 /* USER CODE BEGIN Private defines */
 

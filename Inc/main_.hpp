@@ -110,6 +110,99 @@ struct BoardConfig_t {
 
 } SystemStats_t;
 
+#define FACTORY_RESET_MAGIC  0x55AA  
+#define MOTOR_PARAMS_MAGIC        0xAA55      // 用于验证参数有效性
+#define MIN_PARAMS_VERSION        0x0100
+#define MOTOR_PARAMS_VERSION      0x0100      // 版本号 v1.0
+
+// 默认参数值 (Q15格式)
+#define DEFAULT_POS_KP    16384   // 0.5 in Q15 format
+#define DEFAULT_POS_KD    3276    // 0.1 in Q15 format
+#define DEFAULT_VEL_KP    16384   // 0.5 in Q15 format
+#define DEFAULT_VEL_KI    3276    // 0.1 in Q15 format
+#define DEFAULT_CUR_KP    16384   // 0.5 in Q15 format
+#define DEFAULT_CUR_KI    3276    // 0.1 in Q15 format
+
+
+typedef struct {
+    uint16_t magic;           
+    uint16_t version;          // 固件版本号
+    uint16_t motor_id;         // 电机ID
+    
+    // Physical parameters
+    int16_t inductance;        // 电感值 (Q15格式)
+    int16_t resistance;        // 电阻值 (Q15格式)
+    
+    // Encoder parameters - 主编码器
+    uint16_t main_encoder_type;    // 主编码器类型 (0:增量式 1:绝对式)
+    uint16_t main_encoder_lines;   // 主编码器线数
+    int16_t main_encoder_offset;   // 主编码器零点偏置
+    uint16_t main_encoder_dir;     // 主编码器方向 (0:正向 1:反向)
+    
+    // Encoder parameters - 副编码器
+    uint16_t sub_encoder_type;     // 副编码器类型 (0:增量式 1:绝对式)
+    uint16_t sub_encoder_lines;    // 副编码器线数
+    int16_t sub_encoder_offset;    // 副编码器零点偏置
+    uint16_t sub_encoder_dir;      // 副编码器方向 (0:正向 1:反向)
+    
+    // PID控制参数 (Q15格式)
+    int16_t pos_kp;           // 位置环KP
+    int16_t pos_kd;           // 位置环KD
+    int16_t vel_kp;           // 速度环KP 
+    int16_t vel_ki;           // 速度环KI
+    int16_t cur_kp;           // 电流环KP
+    int16_t cur_ki;           // 电流环KI
+    
+    // 限制参数
+    int16_t max_current;      // 最大电流限制
+    int16_t max_speed;        // 最大速度限制
+    int16_t max_position;     // 最大位置限制
+    int16_t min_position;     // 最小位置限制
+
+    // 电机控制参数
+    uint16_t ctrl_mode;        // 控制模式 (0:开环 1:电流 2:速度 3:位置)
+    
+} MotorParams;
+
+// 电机运行时变量结构体 - 使用Q15定点数格式
+typedef struct {
+    // 位置相关
+    volatile int16_t input_pos;      // 目标位置
+    volatile int16_t profile_pos;     // 规划位置
+    volatile int16_t des_pos;        // 期望位置 (Q15格式)
+    volatile int16_t current_pos;     // 当前位置
+    
+    // 速度相关
+    volatile int16_t input_vel;      // 目标速度
+    volatile int16_t profile_vel;     // 规划速度
+    volatile int16_t des_vel;       // 期望速度 (Q15格式)
+    volatile int16_t current_vel;     // 当前速度
+    
+    // 电流相关
+    volatile int16_t input_cur;      // 目标电流
+    volatile int16_t profile_cur;     // 规划电流
+    volatile int16_t des_cur;        // 期望电流 (Q15格式)
+    volatile int16_t current_cur;     // 实际电流
+    
+    // 状态标志
+    volatile uint16_t is_enabled;      // 使能状态
+    volatile uint16_t is_running;      // 运行状态
+	volatile int16_t temperatrue; 
+    volatile uint16_t error_code;      // 错误代码
+    
+    // Scope channels
+
+
+} MotorRuntime;
+
+
+
+// 声明全局变量
+extern MotorParams motor_params;
+extern MotorRuntime motor_runtime;
+
+
+
 
 
 

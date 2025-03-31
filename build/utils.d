@@ -43,7 +43,8 @@ build/utils.o: Src/utils.cpp \
  Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_spi.h \
  Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_spi_ex.h \
  Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim.h \
- Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h Inc/utils.hpp \
+ Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h \
+ Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h Inc/utils.hpp \
  Inc/main.h Inc/motorcontrol.h Inc/mc_config.h \
  MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/pid_regulator.h \
  Inc/mc_type.h Inc/mc_stm_types.h \
@@ -59,7 +60,6 @@ build/utils.o: Src/utils.cpp \
  Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dmamux.h \
  Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_comp.h \
  Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_opamp.h \
- Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h \
  MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h \
  MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/pid_regulator.h \
  MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h \
@@ -155,6 +155,7 @@ Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_spi.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_spi_ex.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim_ex.h:
+Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h:
 Inc/utils.hpp:
 Inc/main.h:
 Inc/motorcontrol.h:
@@ -174,7 +175,6 @@ Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dmamux.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_comp.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_opamp.h:
-Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h:
 MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h:
 MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/pid_regulator.h:
 MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h:

@@ -63,7 +63,6 @@ Src/mc_app_hooks.c \
 Src/stm32g4xx_it.c \
 Src/stm32g4xx_hal_msp.c \
 Src/stm32g4xx_hal_timebase_tim.c \
-Src/vesc_commands.c \
 Src/vesc_uart.c \
 Src/tim.c \
 Src/nvm.c \
@@ -71,6 +70,8 @@ Src/spi.c \
 Src/dma.c \
 Src/arm_cos_f32.c \
 Src/arm_sin_f32.c \
+Src/interface_uart.c \
+Src/freertos_var.c \
 Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_utils.c \
 Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_exti.c \
 Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_gpio.c \
@@ -131,7 +132,7 @@ MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/G4xx/Src/r3_2_g4xx_pwm_curr_fdbk.c \
 MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/mcpa.c \
 Src/sysmem.c \
 Src/syscalls.c \
-Src/div.c
+Src/div.c 
 
 
 # Add after C_SOURCES definition
@@ -150,6 +151,7 @@ Src/controller.cpp \
 Src/encoder.cpp \
 Src/thermistor.cpp \
 Src/open_loop_controller.cpp \
+Src/canopen.cpp \
 
 
 

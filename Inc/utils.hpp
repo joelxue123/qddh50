@@ -137,7 +137,7 @@ void initNotchFilter(NotchFilter* filter, float frequency, float sampleRate, flo
 float applyNotchFilter(NotchFilter* filter, float input);
 
 void test_svm(float mod_q, float mod_d, float *theta, float *ta, float *tb, float *tc) ;
-
+void clark_park(float *iq, float *id, float theta, float ia, float ib);
 #ifdef __cplusplus
 }
 #endif

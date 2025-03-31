@@ -189,7 +189,7 @@ void TSK_MF_StopProcessing(uint8_t motor)
   Mci[motor].State = STOP;
 }
 
-
+ float  theta_ =0.0f;
 void test_svm(float mod_q, float mod_d, float *theta, float *ta, float *tb, float *tc) ;
 /**
   * @brief Executes medium frequency periodic Motor Control tasks
@@ -235,14 +235,14 @@ __weak void TSK_MediumFrequencyTaskM1(void)
               /* Calibration already done. Enables only TIM channels */
               pwmcHandle[M1]->OffCalibrWaitTimeCounter = 1u;
               //(void)PWMC_CurrentReadingCalibr(pwmcHandle[M1], CRC_EXEC);
-       //       (void)PWMC_CurrentReadingCalibr(pwmcHandle[M1], CRC_START);
-      //        R3_2_SwitchOnPWM(pwmcHandle[M1]);
+              (void)PWMC_CurrentReadingCalibr(pwmcHandle[M1], CRC_START);
+              R3_2_SwitchOnPWM(pwmcHandle[M1]);
       //        R3_2_TurnOnLowSides(pwmcHandle[M1],M1_CHARGE_BOOT_CAP_DUTY_CYCLES);
               TSK_SetChargeBootCapDelayM1(M1_CHARGE_BOOT_CAP_TICKS);
               float ta =0;
               float tb =0;
               float tc =0;
-              float theta =0.0f;
+              
               float mod_q = 0.1f;
               float mod_d = 0;
              
@@ -276,10 +276,11 @@ __weak void TSK_MediumFrequencyTaskM1(void)
               TIM1->BDTR |= LL_TIM_OSSI_ENABLE;
               LL_TIM_EnableAllOutputs(TIM1);
               STSPIN32G4_clearFaults(&HdlSTSPING4);
+              
               while(1)
               {
                 //STSPIN32G4_clearFaults(&HdlSTSPING4);
-                test_svm(mod_q, mod_d, &theta, &ta, &tb, &tc);
+                test_svm(mod_q, mod_d, &theta_, &ta, &tb, &tc);
                   /* Turn on the three low side switches */
                 LL_TIM_OC_SetCompareCH1(TIM1, ta*TIM_1_8_PERIOD_CLOCKS);
                 LL_TIM_OC_SetCompareCH2(TIM1, tb*TIM_1_8_PERIOD_CLOCKS);
@@ -287,8 +288,8 @@ __weak void TSK_MediumFrequencyTaskM1(void)
                 TIM1->BDTR |= LL_TIM_OSSI_ENABLE;
                 LL_TIM_EnableAllOutputs(TIM1);
 
-                theta = theta + 0.1f;
-                vTaskDelay(1);
+                theta_ = theta_ + 0.1f;
+                vTaskDelay(30);
               }
               Mci[M1].State = CHARGE_BOOT_CAP;
             }
@@ -711,6 +712,7 @@ __weak void FOC_CalcCurrRef(uint8_t bMotor)
   /* USER CODE END FOC_CalcCurrRef 1 */
 }
 
+
 #if defined (CCMRAM)
 #if defined (__ICCARM__)
 #pragma location = ".ccmram"
@@ -718,6 +720,9 @@ __weak void FOC_CalcCurrRef(uint8_t bMotor)
 __attribute__((section (".ccmram")))
 #endif
 #endif
+
+
+extern void clark_park(float *iq, float *id, float theta, float ia, float ib);
 /**
   * @brief  Motor control profiler HF task
   * @param  None
@@ -726,7 +731,10 @@ __attribute__((section (".ccmram")))
 __weak uint8_t FOC_HighFrequencyTask(uint8_t bMotorNbr)
 {
   ab_t Iab;
-
+  float a = 0;
+  float b = 0;
+  float iq = 0;
+  float id = 0;
   if (SWITCH_OVER == Mci[M1].State)
   {
     if (!REMNG_RampCompleted(pREMNG[M1]))
@@ -750,6 +758,12 @@ __weak uint8_t FOC_HighFrequencyTask(uint8_t bMotorNbr)
    * implementation is invoked */
   PWMC_GetPhaseCurrents(pwmcHandle[M1], &Iab);
   FOCVars[M1].Iab = Iab;
+
+  a = Iab.a;
+  b = Iab.b;
+  clark_park(&iq,&id,theta_,a,b);
+  FOCVars[M1].Iqd.q = iq;
+  FOCVars[M1].Iqd.d = id;
  // SCC_SetPhaseVoltage(&SCC);
 
   return (0); /* Single motor only */

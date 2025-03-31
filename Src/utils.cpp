@@ -3,7 +3,7 @@
 #include <float.h>
 #include <math.h>
 #include "stm32g4xx_hal.h"
-
+#include "stm32g4xx_ll_cordic.h"
 #include <utils.hpp>
 #include "main.h"
 // poly = x
@@ -281,14 +281,76 @@ float applyNotchFilter(NotchFilter* filter, float input) {
     
     return output;
 }
-
-void test_svm(float mod_q, float mod_d, float* theta, float *ta, float *tb, float *tc) {
-
-    float c_p = our_arm_cos_f32(*theta);
-    float s_p = our_arm_sin_f32(*theta);
-    // 逆 Park 变换
+void test_svm(float mod_q, float mod_d, float* theta, float *ta, float *tb, float *tc) 
+{
+    // Convert theta to Q1.31 format
+    int32_t angle = (int32_t)(*theta * 2147483648.0f / M_PI);
+    
+    // Configure CORDIC for sine/cosine calculation
+    LL_CORDIC_Config(CORDIC, 
+                     LL_CORDIC_FUNCTION_COSINE,
+                     LL_CORDIC_PRECISION_6CYCLES,
+                     LL_CORDIC_SCALE_0,
+                     LL_CORDIC_NBWRITE_1,
+                     LL_CORDIC_NBREAD_2,
+                     LL_CORDIC_INSIZE_32BITS,
+                     LL_CORDIC_OUTSIZE_32BITS);
+    
+    // Write input data
+    LL_CORDIC_WriteData(CORDIC, angle);
+    
+    // Read results in Q1.31 format
+    int32_t cos_theta = LL_CORDIC_ReadData(CORDIC);  // cosine
+    int32_t sin_theta = LL_CORDIC_ReadData(CORDIC);  // sine
+    
+    // Convert Q1.31 to float
+    float c_p = (float)cos_theta / 2147483648.0f;
+    float s_p = (float)sin_theta / 2147483648.0f;
+    
+    // Inverse Park transform
     float mod_alpha = c_p * mod_d - s_p * mod_q;    // α = d*cos(θ) - q*sin(θ)
     float mod_beta  = c_p * mod_q + s_p * mod_d;    // β = q*cos(θ) + d*sin(θ)
-    SVM(mod_alpha,mod_beta,ta,tb,tc);
+    
+    // Calculate PWM duty cycles
+    SVM(mod_alpha, mod_beta, ta, tb, tc);
+    
+    // Wrap angle to [-π, π]
     *theta = wrap_pm_pi(*theta);
+}
+
+#include "stm32g4xx_ll_cordic.h"
+
+void clark_park(float *iq, float *id, float theta, float ia, float ib)
+{
+    // Convert theta to Q1.31 format
+    int32_t angle = (int32_t)(theta * 2147483648.0f / M_PI);  // 2^31 = 2147483648
+    
+    // Configure CORDIC for sine/cosine calculation
+    LL_CORDIC_Config(CORDIC, 
+                     LL_CORDIC_FUNCTION_COSINE,        // Function
+                     LL_CORDIC_PRECISION_6CYCLES,      // Precision
+                     LL_CORDIC_SCALE_0,               // Scale
+                     LL_CORDIC_NBWRITE_1,             // Input size
+                     LL_CORDIC_NBREAD_2,              // Output size
+                     LL_CORDIC_INSIZE_32BITS,         // Input width
+                     LL_CORDIC_OUTSIZE_32BITS);       // Output width
+    
+    // Write input data
+    LL_CORDIC_WriteData(CORDIC, angle);
+    
+    // Read results in Q1.31 format
+    int32_t cos_theta = LL_CORDIC_ReadData(CORDIC);  // cosine
+    int32_t sin_theta = LL_CORDIC_ReadData(CORDIC);  // sine
+    
+    // Convert Q1.31 to float
+    float c_p = (float)cos_theta / 2147483648.0f;
+    float s_p = (float)sin_theta / 2147483648.0f;
+    
+    // Clarke transform (abc -> αβ)
+    float i_alpha = ia;
+    float i_beta = (ia + 2.0f * ib) * one_by_sqrt3;
+    
+    // Park transform (αβ -> dq)
+    *id = i_alpha * c_p + i_beta * s_p;
+    *iq = -i_alpha * s_p + i_beta * c_p;
 }

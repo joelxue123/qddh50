@@ -121,7 +121,6 @@ int main(void)
   MX_USART1_UART_Init();
   MX_MotorControl_Init();
 
-  VESC_UART_Init();
   /* Initialize interrupts */
   MX_NVIC_Init();
   /* USER CODE BEGIN 2 */

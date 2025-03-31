@@ -35,6 +35,7 @@
 #include "parameters_conversion.h"
 #include "mcp_config.h"
 #include "mc_app_hooks.h"
+#include "freertos_vars.h"
 
 /* USER CODE BEGIN Includes */
 
@@ -108,7 +109,7 @@ __weak void MCboot( MCI_Handle_t* pMCIList[NBR_OF_MOTORS] )
     pMCIList[M1] = &Mci[M1];
     FOC_Init();
 
-    ASPEP_start(&aspepOverUartA);
+    //ASPEP_start(&aspepOverUartA);
     /* USER CODE BEGIN MCboot 1 */
 
     /* USER CODE END MCboot 1 */
@@ -513,6 +514,7 @@ __weak void TSK_HardwareFaultTask(void)
 void startMediumFrequencyTask(void const * argument)
 {
   /* USER CODE BEGIN MF task 1 */
+  MX_FREERTOS_Init();
 
   vTaskDelay(100);
   MC_StartMotorOpenLoop(5000, 0, 30); // Higher voltage and frequency for reliable start

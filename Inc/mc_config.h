@@ -22,6 +22,11 @@
 #ifndef MC_CONFIG_H
 #define MC_CONFIG_H
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "pid_regulator.h"
 #include "speed_torq_ctrl.h"
 #include "revup_ctrl.h"
@@ -67,6 +72,10 @@ extern MCI_Handle_t Mci[NBR_OF_MOTORS];
 extern SpeednTorqCtrl_Handle_t SpeednTorqCtrlM1;
 extern PID_Handle_t PIDSpeedHandle_M1;
 
+
+#ifdef __cplusplus
+}
+#endif
 /* USER CODE BEGIN Additional extern */
 
 /* USER CODE END Additional extern */
