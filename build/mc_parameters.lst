@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccrdkZup.s 			page 1
+ARM GAS  /tmp/cccnzJn5.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -10,267 +10,200 @@ ARM GAS  /tmp/ccrdkZup.s 			page 1
    7              		.eabi_attribute 24, 1
    8              		.eabi_attribute 25, 1
    9              		.eabi_attribute 26, 1
-  10              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 30, 2
   11              		.eabi_attribute 34, 1
   12              		.eabi_attribute 18, 2
   13              		.file	"mc_parameters.c"
   14              		.text
   15              	.Ltext0:
   16              		.cfi_sections	.debug_frame
-  17              		.section	.rodata.OFFSET_TAB_CCMRx,"a"
-  18              		.align	2
-  21              	OFFSET_TAB_CCMRx:
-  22 0000 00000000 		.ascii	"\000\000\000\000\004\004\004\00488"
-  22      04040404 
-  22      3838
-  23              		.section	.rodata.SHIFT_TAB_OCxx,"a"
-  24              		.align	2
-  27              	SHIFT_TAB_OCxx:
-  28 0000 00000800 		.ascii	"\000\000\010\000\000\000\010\000\000\010"
-  28      00000800 
-  28      0008
-  29              		.section	.rodata.SHIFT_TAB_ICxx,"a"
-  30              		.align	2
-  33              	SHIFT_TAB_ICxx:
-  34 0000 00000800 		.ascii	"\000\000\010\000\000\000\010\000\000\000"
-  34      00000800 
-  34      0000
-  35              		.section	.rodata.SHIFT_TAB_CCxP,"a"
-  36              		.align	2
-  39              	SHIFT_TAB_CCxP:
-  40 0000 00020406 		.ascii	"\000\002\004\006\010\012\014\016\020\024"
-  40      080A0C0E 
-  40      1014
-  41              		.section	.rodata.SHIFT_TAB_OISx,"a"
-  42              		.align	2
-  45              	SHIFT_TAB_OISx:
-  46 0000 00010203 		.ascii	"\000\001\002\003\004\005\006\007\010\012"
-  46      04050607 
-  46      080A
-  47              		.section	.rodata.USART_PRESCALER_TAB,"a"
-  48              		.align	2
-  51              	USART_PRESCALER_TAB:
-  52 0000 01000000 		.word	1
-  53 0004 02000000 		.word	2
-  54 0008 04000000 		.word	4
-  55 000c 06000000 		.word	6
-  56 0010 08000000 		.word	8
-  57 0014 0A000000 		.word	10
-  58 0018 0C000000 		.word	12
-  59 001c 10000000 		.word	16
-ARM GAS  /tmp/ccrdkZup.s 			page 2
+  17              		.global	scaleParams_M1
+  18              		.global	OTT_Params
+  19              		.global	SCC_Params
+  20              		.global	R3_2_ParamsM1
+  21              		.global	R3_3_OPAMPParamsM1
+  22              		.section	.data.SCC_Params,"aw"
+  23              		.align	2
+  26              	SCC_Params:
+  27 0000 204E0000 		.word	20000
+  28 0004 00000000 		.space	20
+  28      00000000 
+  28      00000000 
+  28      00000000 
+  28      00000000 
+  29 0018 0AD7A33B 		.word	1000593162
+  30 001c 0000E040 		.word	1088421888
+  31 0020 CDCC7C42 		.word	1115475149
+  32 0024 0AD7233D 		.word	1025758986
+  33 0028 0AD7A33D 		.word	1034147594
+  34 002c 0AD7A33F 		.word	1067702026
+  35 0030 401F     		.short	8000
+  36 0032 E803     		.short	1000
+  37 0034 F401     		.short	500
+  38 0036 0000     		.space	2
+  39 0038 0000803F 		.word	1065353216
+  40 003c 0080BB45 		.word	1169915904
+  41 0040 00       		.byte	0
+  42 0041 000000   		.space	3
+  43 0044 A00F0000 		.word	4000
+  44 0048 204E     		.short	20000
+  45 004a 01       		.byte	1
+  46 004b 00       		.space	1
+  47 004c 33335340 		.word	1079194419
+  48 0050 CDCC4C3D 		.word	1028443341
+  49              		.section	.data.scaleParams_M1,"aw"
+  50              		.align	2
+  53              	scaleParams_M1:
+  54 0000 99B5DD39 		.word	970831257
+  55 0004 4992BC3A 		.word	985436745
+  56 0008 B399E03F 		.word	1071684019
+  57 000c 00000000 		.space	4
+ARM GAS  /tmp/cccnzJn5.s 			page 2
 
 
-  60 0020 20000000 		.word	32
-  61 0024 40000000 		.word	64
-  62 0028 80000000 		.word	128
-  63 002c 00010000 		.word	256
-  64              		.section	.rodata.CHANNEL_OFFSET_TAB,"a"
-  65              		.align	2
-  68              	CHANNEL_OFFSET_TAB:
-  69 0000 081C3044 		.ascii	"\010\0340DXl"
-  69      586C
-  70              		.global	R3_3_OPAMPParamsM1
-  71              		.section	.rodata.R3_3_OPAMPParamsM1,"a"
-  72              		.align	2
-  75              	R3_3_OPAMPParamsM1:
-  76 0000 00030140 		.word	1073808128
-  77 0004 00030140 		.word	1073808128
-  78 0008 00030140 		.word	1073808128
-  79 000c 00030140 		.word	1073808128
-  80 0010 00030140 		.word	1073808128
-  81 0014 00030140 		.word	1073808128
-  82 0018 04030140 		.word	1073808132
-  83 001c 04030140 		.word	1073808132
-  84 0020 04030140 		.word	1073808132
-  85 0024 04030140 		.word	1073808132
-  86 0028 04030140 		.word	1073808132
-  87 002c 04030140 		.word	1073808132
-  88 0030 08000000 		.word	8
-  89 0034 00000000 		.word	0
-  90 0038 00000000 		.word	0
-  91 003c 00000000 		.word	0
-  92 0040 00000000 		.word	0
-  93 0044 08000000 		.word	8
-  94 0048 08000000 		.word	8
-  95 004c 08000000 		.word	8
-  96 0050 08000000 		.word	8
-  97 0054 00000000 		.word	0
-  98 0058 00000000 		.word	0
-  99 005c 08000000 		.word	8
- 100              		.global	R3_2_ParamsM1
- 101              		.section	.rodata.R3_2_ParamsM1,"a"
- 102              		.align	2
- 105              	R3_2_ParamsM1:
- 106 0000 002C0140 		.word	1073818624
- 107 0004 00000000 		.word	R3_3_OPAMPParamsM1
- 108 0008 00020140 		.word	1073807872
- 109 000c 04020140 		.word	1073807876
- 110 0010 0C020140 		.word	1073807884
- 111 0014 00000000 		.word	0
- 112 0018 00100050 		.word	1342181376
- 113 001c 00100050 		.word	1342181376
- 114 0020 00100050 		.word	1342181376
- 115 0024 00000000 		.word	0
- 116 0028 01001102 		.word	34668545
- 117 002c F2004235 		.word	893518066
- 118 0030 F2004235 		.word	893518066
- 119 0034 00000000 		.word	0
- 120 0038 00000050 		.word	1342177280
- 121 003c 00000050 		.word	1342177280
-ARM GAS  /tmp/ccrdkZup.s 			page 3
+  58              		.section	.rodata.OTT_Params,"a"
+  59              		.align	2
+  62              	OTT_Params:
+  63 0000 E8030000 		.word	1000
+  64 0004 00000000 		.space	20
+  64      00000000 
+  64      00000000 
+  64      00000000 
+  64      00000000 
+  65 0018 00000000 		.word	0
+  66 001c 0000803F 		.word	1065353216
+  67 0020 02       		.byte	2
+  68 0021 00       		.space	1
+  69 0022 5804     		.short	1112
+  70 0024 00002041 		.word	1092616192
+  71 0028 9A99193F 		.word	1058642330
+  72 002c CDCC4C3F 		.word	1061997773
+  73 0030 0000A041 		.word	1101004800
+  74 0034 00002041 		.word	1092616192
+  75 0038 6666663F 		.word	1063675494
+  76 003c A00F0000 		.word	4000
+  77 0040 0000803F 		.word	1065353216
+  78 0044 CDCCCC3D 		.word	1036831949
+  79 0048 CDCCCC3D 		.word	1036831949
+  80 004c 0AD7A33B 		.word	1000593162
+  81 0050 0000E040 		.word	1088421888
+  82              		.section	.rodata.R3_2_ParamsM1,"a"
+  83              		.align	2
+  86              	R3_2_ParamsM1:
+  87 0000 002C0140 		.word	1073818624
+  88 0004 00000000 		.word	R3_3_OPAMPParamsM1
+  89 0008 00020140 		.word	1073807872
+  90 000c 04020140 		.word	1073807876
+  91 0010 0C020140 		.word	1073807884
+  92 0014 00000000 		.word	0
+  93 0018 00100050 		.word	1342181376
+  94 001c 00100050 		.word	1342181376
+  95 0020 00100050 		.word	1342181376
+  96 0024 00000000 		.word	0
+  97 0028 01001102 		.word	34668545
+  98 002c F2004235 		.word	893518066
+  99 0030 F2004235 		.word	893518066
+ 100 0034 00000000 		.word	0
+ 101 0038 00000050 		.word	1342177280
+ 102 003c 00000050 		.word	1342177280
+ 103 0040 00000050 		.word	1342177280
+ 104 0044 00000050 		.word	1342177280
+ 105 0048 00000050 		.word	1342177280
+ 106 004c 00000050 		.word	1342177280
+ 107 0050 00010050 		.word	1342177536
+ 108 0054 00010050 		.word	1342177536
+ 109 0058 00010050 		.word	1342177536
+ 110 005c 00010050 		.word	1342177536
+ 111 0060 00010050 		.word	1342177536
+ 112 0064 00010050 		.word	1342177536
+ 113 0068 00060000 		.word	1536
+ 114 006c 00060000 		.word	1536
+ARM GAS  /tmp/cccnzJn5.s 			page 3
 
 
- 122 0040 00000050 		.word	1342177280
- 123 0044 00000050 		.word	1342177280
- 124 0048 00000050 		.word	1342177280
- 125 004c 00000050 		.word	1342177280
- 126 0050 00010050 		.word	1342177536
- 127 0054 00010050 		.word	1342177536
- 128 0058 00010050 		.word	1342177536
- 129 005c 00010050 		.word	1342177536
- 130 0060 00010050 		.word	1342177536
- 131 0064 00010050 		.word	1342177536
- 132 0068 00060000 		.word	1536
- 133 006c 00060000 		.word	1536
- 134 0070 00060000 		.word	1536
- 135 0074 00060000 		.word	1536
- 136 0078 00060000 		.word	1536
- 137 007c 00060000 		.word	1536
- 138 0080 00060000 		.word	1536
- 139 0084 00060000 		.word	1536
- 140 0088 00060000 		.word	1536
- 141 008c 00060000 		.word	1536
- 142 0090 00060000 		.word	1536
- 143 0094 00060000 		.word	1536
- 144 0098 4B01     		.short	331
- 145 009a 1A00     		.short	26
- 146 009c 2900     		.short	41
- 147 009e A300     		.short	163
- 148 00a0 B200     		.short	178
- 149 00a2 2220     		.short	8226
- 150 00a4 165D     		.short	23830
- 151 00a6 01       		.byte	1
- 152 00a7 02       		.byte	2
- 153 00a8 02       		.byte	2
- 154 00a9 02       		.byte	2
- 155 00aa 00       		.byte	0
- 156 00ab 01       		.byte	1
- 157 00ac 01       		.byte	1
- 158 00ad 000000   		.space	3
- 159              		.global	SCC_Params
- 160              		.section	.data.SCC_Params,"aw"
- 161              		.align	2
- 164              	SCC_Params:
- 165 0000 204E0000 		.word	20000
- 166 0004 00000000 		.space	20
- 166      00000000 
- 166      00000000 
- 166      00000000 
- 166      00000000 
- 167 0018 0AD7A33B 		.word	1000593162
- 168 001c 0000E040 		.word	1088421888
- 169 0020 CDCC7C42 		.word	1115475149
- 170 0024 0AD7233D 		.word	1025758986
- 171 0028 0AD7A33D 		.word	1034147594
- 172 002c 0AD7A33F 		.word	1067702026
- 173 0030 401F     		.short	8000
- 174 0032 E803     		.short	1000
- 175 0034 F401     		.short	500
- 176 0036 0000     		.space	2
-ARM GAS  /tmp/ccrdkZup.s 			page 4
+ 115 0070 00060000 		.word	1536
+ 116 0074 00060000 		.word	1536
+ 117 0078 00060000 		.word	1536
+ 118 007c 00060000 		.word	1536
+ 119 0080 00060000 		.word	1536
+ 120 0084 00060000 		.word	1536
+ 121 0088 00060000 		.word	1536
+ 122 008c 00060000 		.word	1536
+ 123 0090 00060000 		.word	1536
+ 124 0094 00060000 		.word	1536
+ 125 0098 4B01     		.short	331
+ 126 009a 1A00     		.short	26
+ 127 009c 2900     		.short	41
+ 128 009e A300     		.short	163
+ 129 00a0 B200     		.short	178
+ 130 00a2 2220     		.short	8226
+ 131 00a4 165D     		.short	23830
+ 132 00a6 01       		.byte	1
+ 133 00a7 02       		.byte	2
+ 134 00a8 02       		.byte	2
+ 135 00a9 02       		.byte	2
+ 136 00aa 00       		.byte	0
+ 137 00ab 01       		.byte	1
+ 138 00ac 01       		.byte	1
+ 139 00ad 000000   		.space	3
+ 140              		.section	.rodata.R3_3_OPAMPParamsM1,"a"
+ 141              		.align	2
+ 144              	R3_3_OPAMPParamsM1:
+ 145 0000 00030140 		.word	1073808128
+ 146 0004 00030140 		.word	1073808128
+ 147 0008 00030140 		.word	1073808128
+ 148 000c 00030140 		.word	1073808128
+ 149 0010 00030140 		.word	1073808128
+ 150 0014 00030140 		.word	1073808128
+ 151 0018 04030140 		.word	1073808132
+ 152 001c 04030140 		.word	1073808132
+ 153 0020 04030140 		.word	1073808132
+ 154 0024 04030140 		.word	1073808132
+ 155 0028 04030140 		.word	1073808132
+ 156 002c 04030140 		.word	1073808132
+ 157 0030 08000000 		.word	8
+ 158 0034 00000000 		.word	0
+ 159 0038 00000000 		.word	0
+ 160 003c 00000000 		.word	0
+ 161 0040 00000000 		.word	0
+ 162 0044 08000000 		.word	8
+ 163 0048 08000000 		.word	8
+ 164 004c 08000000 		.word	8
+ 165 0050 08000000 		.word	8
+ 166 0054 00000000 		.word	0
+ 167 0058 00000000 		.word	0
+ 168 005c 08000000 		.word	8
+ 169              		.text
+ 170              	.Letext0:
+ 171              		.file 1 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
+ 172              		.file 2 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
+ 173              		.file 3 "Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g431xx.h"
+ARM GAS  /tmp/cccnzJn5.s 			page 4
 
 
- 177 0038 0000803F 		.word	1065353216
- 178 003c 0080BB45 		.word	1169915904
- 179 0040 00       		.byte	0
- 180 0041 000000   		.space	3
- 181 0044 A00F0000 		.word	4000
- 182 0048 204E     		.short	20000
- 183 004a 01       		.byte	1
- 184 004b 00       		.space	1
- 185 004c 33335340 		.word	1079194419
- 186 0050 CDCC4C3D 		.word	1028443341
- 187              		.global	OTT_Params
- 188              		.section	.rodata.OTT_Params,"a"
- 189              		.align	2
- 192              	OTT_Params:
- 193 0000 E8030000 		.word	1000
- 194 0004 00000000 		.space	20
- 194      00000000 
- 194      00000000 
- 194      00000000 
- 194      00000000 
- 195 0018 00000000 		.word	0
- 196 001c 0000803F 		.word	1065353216
- 197 0020 02       		.byte	2
- 198 0021 00       		.space	1
- 199 0022 5804     		.short	1112
- 200 0024 00002041 		.word	1092616192
- 201 0028 9A99193F 		.word	1058642330
- 202 002c CDCC4C3F 		.word	1061997773
- 203 0030 0000A041 		.word	1101004800
- 204 0034 00002041 		.word	1092616192
- 205 0038 6666663F 		.word	1063675494
- 206 003c A00F0000 		.word	4000
- 207 0040 0000803F 		.word	1065353216
- 208 0044 CDCCCC3D 		.word	1036831949
- 209 0048 CDCCCC3D 		.word	1036831949
- 210 004c 0AD7A33B 		.word	1000593162
- 211 0050 0000E040 		.word	1088421888
- 212              		.global	scaleParams_M1
- 213              		.section	.data.scaleParams_M1,"aw"
- 214              		.align	2
- 217              	scaleParams_M1:
- 218 0000 99B5DD39 		.word	970831257
- 219 0004 4992BC3A 		.word	985436745
- 220 0008 B399E03F 		.word	1071684019
- 221 000c 00000000 		.space	4
- 222              		.text
- 223              	.Letext0:
- 224              		.file 1 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
- 225              		.file 2 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
- 226              		.file 3 "Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g431xx.h"
- 227              		.file 4 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h"
- 228              		.file 5 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_usart.h"
- 229              		.file 6 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h"
- 230              		.file 7 "Inc/mc_interface.h"
- 231              		.file 8 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/ramp_ext_mngr.h"
- 232              		.file 9 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/mp_one_touch_tuning.h"
- 233              		.file 10 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/mp_self_com_ctrl.h"
-ARM GAS  /tmp/ccrdkZup.s 			page 5
-
-
- 234              		.file 11 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/G4xx/Inc/r3_2_g4xx_pwm_curr_fdbk.h"
- 235              		.file 12 "Src/mc_parameters.c"
-ARM GAS  /tmp/ccrdkZup.s 			page 6
+ 174              		.file 4 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h"
+ 175              		.file 5 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_usart.h"
+ 176              		.file 6 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h"
+ 177              		.file 7 "Inc/mc_interface.h"
+ 178              		.file 8 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/ramp_ext_mngr.h"
+ 179              		.file 9 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/mp_one_touch_tuning.h"
+ 180              		.file 10 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/mp_self_com_ctrl.h"
+ 181              		.file 11 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/G4xx/Inc/r3_2_g4xx_pwm_curr_fdbk.h"
+ 182              		.file 12 "Src/mc_parameters.c"
+ARM GAS  /tmp/cccnzJn5.s 			page 5
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 mc_parameters.c
-     /tmp/ccrdkZup.s:18     .rodata.OFFSET_TAB_CCMRx:0000000000000000 $d
-     /tmp/ccrdkZup.s:21     .rodata.OFFSET_TAB_CCMRx:0000000000000000 OFFSET_TAB_CCMRx
-     /tmp/ccrdkZup.s:24     .rodata.SHIFT_TAB_OCxx:0000000000000000 $d
-     /tmp/ccrdkZup.s:27     .rodata.SHIFT_TAB_OCxx:0000000000000000 SHIFT_TAB_OCxx
-     /tmp/ccrdkZup.s:30     .rodata.SHIFT_TAB_ICxx:0000000000000000 $d
-     /tmp/ccrdkZup.s:33     .rodata.SHIFT_TAB_ICxx:0000000000000000 SHIFT_TAB_ICxx
-     /tmp/ccrdkZup.s:36     .rodata.SHIFT_TAB_CCxP:0000000000000000 $d
-     /tmp/ccrdkZup.s:39     .rodata.SHIFT_TAB_CCxP:0000000000000000 SHIFT_TAB_CCxP
-     /tmp/ccrdkZup.s:42     .rodata.SHIFT_TAB_OISx:0000000000000000 $d
-     /tmp/ccrdkZup.s:45     .rodata.SHIFT_TAB_OISx:0000000000000000 SHIFT_TAB_OISx
-     /tmp/ccrdkZup.s:48     .rodata.USART_PRESCALER_TAB:0000000000000000 $d
-     /tmp/ccrdkZup.s:51     .rodata.USART_PRESCALER_TAB:0000000000000000 USART_PRESCALER_TAB
-     /tmp/ccrdkZup.s:65     .rodata.CHANNEL_OFFSET_TAB:0000000000000000 $d
-     /tmp/ccrdkZup.s:68     .rodata.CHANNEL_OFFSET_TAB:0000000000000000 CHANNEL_OFFSET_TAB
-     /tmp/ccrdkZup.s:75     .rodata.R3_3_OPAMPParamsM1:0000000000000000 R3_3_OPAMPParamsM1
-     /tmp/ccrdkZup.s:72     .rodata.R3_3_OPAMPParamsM1:0000000000000000 $d
-     /tmp/ccrdkZup.s:105    .rodata.R3_2_ParamsM1:0000000000000000 R3_2_ParamsM1
-     /tmp/ccrdkZup.s:102    .rodata.R3_2_ParamsM1:0000000000000000 $d
-     /tmp/ccrdkZup.s:164    .data.SCC_Params:0000000000000000 SCC_Params
-     /tmp/ccrdkZup.s:161    .data.SCC_Params:0000000000000000 $d
-     /tmp/ccrdkZup.s:192    .rodata.OTT_Params:0000000000000000 OTT_Params
-     /tmp/ccrdkZup.s:189    .rodata.OTT_Params:0000000000000000 $d
-     /tmp/ccrdkZup.s:217    .data.scaleParams_M1:0000000000000000 scaleParams_M1
-     /tmp/ccrdkZup.s:214    .data.scaleParams_M1:0000000000000000 $d
+     /tmp/cccnzJn5.s:53     .data.scaleParams_M1:0000000000000000 scaleParams_M1
+     /tmp/cccnzJn5.s:62     .rodata.OTT_Params:0000000000000000 OTT_Params
+     /tmp/cccnzJn5.s:26     .data.SCC_Params:0000000000000000 SCC_Params
+     /tmp/cccnzJn5.s:86     .rodata.R3_2_ParamsM1:0000000000000000 R3_2_ParamsM1
+     /tmp/cccnzJn5.s:144    .rodata.R3_3_OPAMPParamsM1:0000000000000000 R3_3_OPAMPParamsM1
+     /tmp/cccnzJn5.s:23     .data.SCC_Params:0000000000000000 $d
+     /tmp/cccnzJn5.s:50     .data.scaleParams_M1:0000000000000000 $d
+     /tmp/cccnzJn5.s:59     .rodata.OTT_Params:0000000000000000 $d
+     /tmp/cccnzJn5.s:83     .rodata.R3_2_ParamsM1:0000000000000000 $d
+     /tmp/cccnzJn5.s:141    .rodata.R3_3_OPAMPParamsM1:0000000000000000 $d
 
 NO UNDEFINED SYMBOLS

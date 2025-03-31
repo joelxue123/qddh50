@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccnSHqgh.s 			page 1
+ARM GAS  /tmp/ccOIcQQY.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -10,57 +10,133 @@ ARM GAS  /tmp/ccnSHqgh.s 			page 1
    7              		.eabi_attribute 24, 1
    8              		.eabi_attribute 25, 1
    9              		.eabi_attribute 26, 1
-  10              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 30, 2
   11              		.eabi_attribute 34, 1
   12              		.eabi_attribute 18, 2
   13              		.file	"digital_output.c"
   14              		.text
   15              	.Ltext0:
   16              		.cfi_sections	.debug_frame
-  17              		.section	.rodata.OFFSET_TAB_CCMRx,"a"
-  18              		.align	2
-  21              	OFFSET_TAB_CCMRx:
-  22 0000 00000000 		.ascii	"\000\000\000\000\004\004\004\00488"
-  22      04040404 
-  22      3838
-  23              		.section	.rodata.SHIFT_TAB_OCxx,"a"
-  24              		.align	2
-  27              	SHIFT_TAB_OCxx:
-  28 0000 00000800 		.ascii	"\000\000\010\000\000\000\010\000\000\010"
-  28      00000800 
-  28      0008
-  29              		.section	.rodata.SHIFT_TAB_ICxx,"a"
-  30              		.align	2
-  33              	SHIFT_TAB_ICxx:
-  34 0000 00000800 		.ascii	"\000\000\010\000\000\000\010\000\000\000"
-  34      00000800 
-  34      0000
-  35              		.section	.rodata.SHIFT_TAB_CCxP,"a"
-  36              		.align	2
-  39              	SHIFT_TAB_CCxP:
-  40 0000 00020406 		.ascii	"\000\002\004\006\010\012\014\016\020\024"
-  40      080A0C0E 
-  40      1014
-  41              		.section	.rodata.SHIFT_TAB_OISx,"a"
-  42              		.align	2
-  45              	SHIFT_TAB_OISx:
-  46 0000 00010203 		.ascii	"\000\001\002\003\004\005\006\007\010\012"
-  46      04050607 
-  46      080A
-  47              		.section	.text.LL_GPIO_SetOutputPin,"ax",%progbits
-  48              		.align	1
-  49              		.arch armv7e-m
-  50              		.syntax unified
-  51              		.thumb
-  52              		.thumb_func
-  53              		.fpu fpv4-sp-d16
-  55              	LL_GPIO_SetOutputPin:
-  56              	.LFB870:
-  57              		.file 1 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h"
+  17              		.section	.text.DOUT_SetOutputState,"ax",%progbits
+  18              		.align	1
+  19              		.p2align 2,,3
+  20              		.weak	DOUT_SetOutputState
+  21              		.arch armv7e-m
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  25              		.fpu fpv4-sp-d16
+  27              	DOUT_SetOutputState:
+  28              	.LVL0:
+  29              	.LFB1435:
+  30              		.file 1 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c"
+   1:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** /**
+   2:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   ******************************************************************************
+   3:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   * @file    digital_output.c
+   4:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   * @author  Motor Control SDK Team, ST Microelectronics
+   5:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   * @brief   This file provides firmware functions that implement the Digital
+   6:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   *          Output component of the Motor Control SDK:
+   7:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   *
+   8:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   ******************************************************************************
+   9:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   * @attention
+  10:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   *
+  11:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   * <h2><center>&copy; Copyright (c) 2024 STMicroelectronics.
+  12:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   * All rights reserved.</center></h2>
+  13:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   *
+  14:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   * This software component is licensed by ST under Ultimate Liberty license
+  15:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   * SLA0044, the "License"; You may not use this file except in compliance with
+  16:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   * the License. You may obtain a copy of the License at:
+  17:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   *                             www.st.com/SLA0044
+  18:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   *
+  19:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   ******************************************************************************
+  20:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   * @ingroup DigitalOutput
+  21:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   */
+  22:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** 
+  23:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** /* Includes ------------------------------------------------------------------*/
+  24:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** #include "digital_output.h"
+  25:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** #include "mc_type.h"
+  26:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** 
+  27:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** /** @addtogroup MCSDK
+  28:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   * @{
+ARM GAS  /tmp/ccOIcQQY.s 			page 2
+
+
+  29:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   */
+  30:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** 
+  31:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** /** @defgroup DigitalOutput Digital Output
+  32:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   * @brief Digital output component of the Motor Control SDK
+  33:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   *
+  34:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   * @{
+  35:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   */
+  36:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** 
+  37:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** 
+  38:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** /**
+  39:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   * @brief Accordingly with selected polarity, it sets to active or inactive the
+  40:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   *        digital output
+  41:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   * @param pHandle handler address of the digital output component.
+  42:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   * @param State New requested state
+  43:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   *
+  44:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   */
+  45:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** __weak void DOUT_SetOutputState(DOUT_handle_t *pHandle, DOutputState_t State)
+  46:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** {
+  31              		.loc 1 46 1 view -0
+  32              		.cfi_startproc
+  33              		@ args = 0, pretend = 0, frame = 0
+  34              		@ frame_needed = 0, uses_anonymous_args = 0
+  35              		@ link register save eliminated.
+  47:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** #ifdef NULL_PTR_CHECK_DIG_OUT
+  48:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   if (MC_NULL == pHandle)
+  49:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   {
+  50:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****     /* Nothing to do */
+  51:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   }
+  52:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   else
+  53:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   {
+  54:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** #endif
+  55:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****     if (ACTIVE == State)
+  36              		.loc 1 55 5 view .LVU1
+  37              		.loc 1 55 8 is_stmt 0 view .LVU2
+  38 0000 0129     		cmp	r1, #1
+  56:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****     {
+  57:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****       if (pHandle->bDOutputPolarity == DOutputActiveHigh)
+  39              		.loc 1 57 10 view .LVU3
+  40 0002 837A     		ldrb	r3, [r0, #10]	@ zero_extendqisi2
+  55:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****     {
+  41              		.loc 1 55 8 view .LVU4
+  42 0004 06D0     		beq	.L8
+  58:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****       {
+  59:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****         LL_GPIO_SetOutputPin(pHandle->hDOutputPort, pHandle->hDOutputPin);
+  60:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****       }
+  61:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****       else
+  62:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****       {
+  63:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****         LL_GPIO_ResetOutputPin(pHandle->hDOutputPort, pHandle->hDOutputPin);
+  64:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****       }
+  65:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****     }
+  66:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****     else if (pHandle->bDOutputPolarity == DOutputActiveHigh)
+  43              		.loc 1 66 10 is_stmt 1 view .LVU5
+  44              		.loc 1 66 13 is_stmt 0 view .LVU6
+  45 0006 012B     		cmp	r3, #1
+  67:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****     {
+  68:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****       LL_GPIO_ResetOutputPin(pHandle->hDOutputPort, pHandle->hDOutputPin);
+  46              		.loc 1 68 7 view .LVU7
+ARM GAS  /tmp/ccOIcQQY.s 			page 3
+
+
+  47 0008 0289     		ldrh	r2, [r0, #8]
+  48 000a 4368     		ldr	r3, [r0, #4]
+  66:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****     {
+  49              		.loc 1 66 13 view .LVU8
+  50 000c 06D0     		beq	.L6
+  51              	.L5:
+  69:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****     }
+  70:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****     else
+  71:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****     {
+  72:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****       LL_GPIO_SetOutputPin(pHandle->hDOutputPort, pHandle->hDOutputPin);
+  52              		.loc 1 72 7 is_stmt 1 view .LVU9
+  53              	.LVL1:
+  54              	.LBB10:
+  55              	.LBI10:
+  56              		.file 2 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h"
    1:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** /**
-ARM GAS  /tmp/ccnSHqgh.s 			page 2
-
-
    2:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   ******************************************************************************
    3:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   * @file    stm32g4xx_ll_gpio.h
    4:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   * @author  MCD Application Team
@@ -102,6 +178,9 @@ ARM GAS  /tmp/ccnSHqgh.s 			page 1
   40:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   * Rule-18.1_d - Medium: Array pointer `GPIOx' is accessed with index [..,..]
   41:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   * which may be out of array bounds [..,UNKNOWN] in following APIs:
   42:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   * LL_GPIO_GetAFPin_0_7
+ARM GAS  /tmp/ccOIcQQY.s 			page 4
+
+
   43:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   * LL_GPIO_SetAFPin_0_7
   44:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   * LL_GPIO_SetAFPin_8_15
   45:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   * LL_GPIO_GetAFPin_8_15
@@ -118,9 +197,6 @@ ARM GAS  /tmp/ccnSHqgh.s 			page 1
   56:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** 
   57:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** /**
   58:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   * @}
-ARM GAS  /tmp/ccnSHqgh.s 			page 3
-
-
   59:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   */
   60:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** #endif /*USE_FULL_LL_DRIVER*/
   61:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** 
@@ -162,6 +238,9 @@ ARM GAS  /tmp/ccnSHqgh.s 			page 1
   97:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****                               This parameter can be a value of @ref GPIO_LL_EC_AF.
   98:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** 
   99:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****                               GPIO HW configuration can be modified afterwards using unitary functi
+ARM GAS  /tmp/ccOIcQQY.s 			page 5
+
+
  100:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** } LL_GPIO_InitTypeDef;
  101:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** 
  102:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** /**
@@ -178,9 +257,6 @@ ARM GAS  /tmp/ccnSHqgh.s 			page 1
  113:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   * @{
  114:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   */
  115:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** #define LL_GPIO_PIN_0                      GPIO_BSRR_BS0 /*!< Select pin 0 */
-ARM GAS  /tmp/ccnSHqgh.s 			page 4
-
-
  116:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** #define LL_GPIO_PIN_1                      GPIO_BSRR_BS1 /*!< Select pin 1 */
  117:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** #define LL_GPIO_PIN_2                      GPIO_BSRR_BS2 /*!< Select pin 2 */
  118:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** #define LL_GPIO_PIN_3                      GPIO_BSRR_BS3 /*!< Select pin 3 */
@@ -222,6 +298,9 @@ ARM GAS  /tmp/ccnSHqgh.s 			page 1
  154:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   */
  155:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** #define LL_GPIO_OUTPUT_PUSHPULL            (0x00000000U) /*!< Select push-pull as output type */
  156:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** #define LL_GPIO_OUTPUT_OPENDRAIN           GPIO_OTYPER_OT0 /*!< Select open-drain as output type */
+ARM GAS  /tmp/ccOIcQQY.s 			page 6
+
+
  157:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** /**
  158:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   * @}
  159:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   */
@@ -238,9 +317,6 @@ ARM GAS  /tmp/ccnSHqgh.s 			page 1
  170:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   */
  171:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** #define LL_GPIO_SPEED_LOW                  LL_GPIO_SPEED_FREQ_LOW
  172:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** #define LL_GPIO_SPEED_MEDIUM               LL_GPIO_SPEED_FREQ_MEDIUM
-ARM GAS  /tmp/ccnSHqgh.s 			page 5
-
-
  173:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** #define LL_GPIO_SPEED_FAST                 LL_GPIO_SPEED_FREQ_HIGH
  174:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** #define LL_GPIO_SPEED_HIGH                 LL_GPIO_SPEED_FREQ_VERY_HIGH
  175:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** 
@@ -282,6 +358,9 @@ ARM GAS  /tmp/ccnSHqgh.s 			page 1
  211:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   */
  212:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** 
  213:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** /* Exported macro ------------------------------------------------------------*/
+ARM GAS  /tmp/ccOIcQQY.s 			page 7
+
+
  214:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** /** @defgroup GPIO_LL_Exported_Macros GPIO Exported Macros
  215:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   * @{
  216:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   */
@@ -298,9 +377,6 @@ ARM GAS  /tmp/ccnSHqgh.s 			page 1
  227:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   * @retval None
  228:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   */
  229:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** #define LL_GPIO_WriteReg(__INSTANCE__, __REG__, __VALUE__) WRITE_REG(__INSTANCE__->__REG__, (__VALU
-ARM GAS  /tmp/ccnSHqgh.s 			page 6
-
-
  230:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** 
  231:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** /**
  232:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   * @brief  Read a value in GPIO register
@@ -342,6 +418,9 @@ ARM GAS  /tmp/ccnSHqgh.s 			page 1
  268:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_6
  269:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_7
  270:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_8
+ARM GAS  /tmp/ccOIcQQY.s 			page 8
+
+
  271:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_9
  272:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_10
  273:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_11
@@ -358,9 +437,6 @@ ARM GAS  /tmp/ccnSHqgh.s 			page 1
  284:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   */
  285:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** __STATIC_INLINE void LL_GPIO_SetPinMode(GPIO_TypeDef *GPIOx, uint32_t Pin, uint32_t Mode)
  286:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** {
-ARM GAS  /tmp/ccnSHqgh.s 			page 7
-
-
  287:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   MODIFY_REG(GPIOx->MODER, (GPIO_MODER_MODE0 << (POSITION_VAL(Pin) * 2U)), (Mode << (POSITION_VAL(P
  288:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** }
  289:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** 
@@ -402,6 +478,9 @@ ARM GAS  /tmp/ccnSHqgh.s 			page 1
  325:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** /**
  326:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   * @brief  Configure gpio output type for several pins on dedicated port.
  327:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   * @note   Output type as to be set when gpio pin is in output or
+ARM GAS  /tmp/ccOIcQQY.s 			page 9
+
+
  328:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         alternate modes. Possible type are Push-pull or Open-drain.
  329:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   * @rmtoll OTYPER       OTy           LL_GPIO_SetPinOutputType
  330:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   * @param  GPIOx GPIO Port
@@ -418,9 +497,6 @@ ARM GAS  /tmp/ccnSHqgh.s 			page 1
  341:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_9
  342:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_10
  343:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_11
-ARM GAS  /tmp/ccnSHqgh.s 			page 8
-
-
  344:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_12
  345:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_13
  346:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_14
@@ -462,6 +538,9 @@ ARM GAS  /tmp/ccnSHqgh.s 			page 1
  382:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_15
  383:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_ALL
  384:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   * @retval Returned value can be one of the following values:
+ARM GAS  /tmp/ccOIcQQY.s 			page 10
+
+
  385:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_OUTPUT_PUSHPULL
  386:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_OUTPUT_OPENDRAIN
  387:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   */
@@ -478,9 +557,6 @@ ARM GAS  /tmp/ccnSHqgh.s 			page 1
  398:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         supply and load conditions for each speed.
  399:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   * @rmtoll OSPEEDR      OSPEEDy       LL_GPIO_SetPinSpeed
  400:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   * @param  GPIOx GPIO Port
-ARM GAS  /tmp/ccnSHqgh.s 			page 9
-
-
  401:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   * @param  Pin This parameter can be one of the following values:
  402:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_0
  403:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_1
@@ -522,6 +598,9 @@ ARM GAS  /tmp/ccnSHqgh.s 			page 1
  439:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   * @param  Pin This parameter can be one of the following values:
  440:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_0
  441:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_1
+ARM GAS  /tmp/ccOIcQQY.s 			page 11
+
+
  442:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_2
  443:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_3
  444:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_4
@@ -538,9 +617,6 @@ ARM GAS  /tmp/ccnSHqgh.s 			page 1
  455:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_15
  456:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   * @retval Returned value can be one of the following values:
  457:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_SPEED_FREQ_LOW
-ARM GAS  /tmp/ccnSHqgh.s 			page 10
-
-
  458:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_SPEED_FREQ_MEDIUM
  459:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_SPEED_FREQ_HIGH
  460:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_SPEED_FREQ_VERY_HIGH
@@ -582,6 +658,9 @@ ARM GAS  /tmp/ccnSHqgh.s 			page 1
  496:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** __STATIC_INLINE void LL_GPIO_SetPinPull(GPIO_TypeDef *GPIOx, uint32_t Pin, uint32_t Pull)
  497:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** {
  498:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   MODIFY_REG(GPIOx->PUPDR, (GPIO_PUPDR_PUPD0 << (POSITION_VAL(Pin) * 2U)), (Pull << (POSITION_VAL(P
+ARM GAS  /tmp/ccOIcQQY.s 			page 12
+
+
  499:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** }
  500:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** 
  501:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** /**
@@ -598,9 +677,6 @@ ARM GAS  /tmp/ccnSHqgh.s 			page 1
  512:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_5
  513:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_6
  514:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_7
-ARM GAS  /tmp/ccnSHqgh.s 			page 11
-
-
  515:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_8
  516:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_9
  517:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_10
@@ -642,6 +718,9 @@ ARM GAS  /tmp/ccnSHqgh.s 			page 1
  553:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_AF_3
  554:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_AF_4
  555:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_AF_5
+ARM GAS  /tmp/ccOIcQQY.s 			page 13
+
+
  556:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_AF_6
  557:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_AF_7
  558:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_AF_8
@@ -658,9 +737,6 @@ ARM GAS  /tmp/ccnSHqgh.s 			page 1
  569:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** {
  570:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   MODIFY_REG(GPIOx->AFR[0], (GPIO_AFRL_AFSEL0 << (POSITION_VAL(Pin) * 4U)),
  571:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****              (Alternate << (POSITION_VAL(Pin) * 4U)));
-ARM GAS  /tmp/ccnSHqgh.s 			page 12
-
-
  572:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** }
  573:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** 
  574:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** /**
@@ -702,6 +778,9 @@ ARM GAS  /tmp/ccnSHqgh.s 			page 1
  610:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** 
  611:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** /**
  612:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   * @brief  Configure gpio alternate function of a dedicated pin from 8 to 15 for a dedicated port.
+ARM GAS  /tmp/ccOIcQQY.s 			page 14
+
+
  613:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   * @note   Possible values are from AF0 to AF15 depending on target.
  614:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   * @note   Warning: only one pin can be passed as parameter.
  615:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   * @rmtoll AFRH         AFSELy        LL_GPIO_SetAFPin_8_15
@@ -718,9 +797,6 @@ ARM GAS  /tmp/ccnSHqgh.s 			page 1
  626:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   * @param  Alternate This parameter can be one of the following values:
  627:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_AF_0
  628:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_AF_1
-ARM GAS  /tmp/ccnSHqgh.s 			page 13
-
-
  629:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_AF_2
  630:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_AF_3
  631:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_AF_4
@@ -762,6 +838,9 @@ ARM GAS  /tmp/ccnSHqgh.s 			page 1
  667:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_AF_1
  668:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_AF_2
  669:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_AF_3
+ARM GAS  /tmp/ccOIcQQY.s 			page 15
+
+
  670:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_AF_4
  671:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_AF_5
  672:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_AF_6
@@ -778,9 +857,6 @@ ARM GAS  /tmp/ccnSHqgh.s 			page 1
  683:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** __STATIC_INLINE uint32_t LL_GPIO_GetAFPin_8_15(GPIO_TypeDef *GPIOx, uint32_t Pin)
  684:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** {
  685:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   return (uint32_t)(READ_BIT(GPIOx->AFR[1],
-ARM GAS  /tmp/ccnSHqgh.s 			page 14
-
-
  686:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****                              (GPIO_AFRH_AFSEL8 << (POSITION_VAL(Pin >> 8U) * 4U))) >> (POSITION_VAL
  687:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** }
  688:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** 
@@ -822,6 +898,9 @@ ARM GAS  /tmp/ccnSHqgh.s 			page 1
  724:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   WRITE_REG(GPIOx->LCKR, GPIO_LCKR_LCKK | PinMask);
  725:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   /* Read LCKR register. This read is mandatory to complete key lock sequence */
  726:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   temp = READ_REG(GPIOx->LCKR);
+ARM GAS  /tmp/ccOIcQQY.s 			page 16
+
+
  727:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   (void) temp;
  728:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** }
  729:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** 
@@ -838,9 +917,6 @@ ARM GAS  /tmp/ccnSHqgh.s 			page 1
  740:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_5
  741:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_6
  742:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_7
-ARM GAS  /tmp/ccnSHqgh.s 			page 15
-
-
  743:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_8
  744:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_9
  745:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_10
@@ -882,6 +958,9 @@ ARM GAS  /tmp/ccnSHqgh.s 			page 1
  781:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   * @param  GPIOx GPIO Port
  782:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   * @retval Input data register value of port
  783:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   */
+ARM GAS  /tmp/ccOIcQQY.s 			page 17
+
+
  784:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** __STATIC_INLINE uint32_t LL_GPIO_ReadInputPort(GPIO_TypeDef *GPIOx)
  785:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** {
  786:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   return (uint32_t)(READ_REG(GPIOx->IDR));
@@ -898,9 +977,6 @@ ARM GAS  /tmp/ccnSHqgh.s 			page 1
  797:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_3
  798:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_4
  799:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_5
-ARM GAS  /tmp/ccnSHqgh.s 			page 16
-
-
  800:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_6
  801:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_7
  802:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_8
@@ -942,6 +1018,9 @@ ARM GAS  /tmp/ccnSHqgh.s 			page 1
  838:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   return (uint32_t)(READ_REG(GPIOx->ODR));
  839:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** }
  840:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** 
+ARM GAS  /tmp/ccOIcQQY.s 			page 18
+
+
  841:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** /**
  842:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   * @brief  Return if input data level for several pins of dedicated port is high or low.
  843:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   * @rmtoll ODR          ODy           LL_GPIO_IsOutputPinSet
@@ -958,9 +1037,6 @@ ARM GAS  /tmp/ccnSHqgh.s 			page 1
  854:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_8
  855:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_9
  856:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_10
-ARM GAS  /tmp/ccnSHqgh.s 			page 17
-
-
  857:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_11
  858:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_12
  859:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_13
@@ -999,57 +1075,50 @@ ARM GAS  /tmp/ccnSHqgh.s 			page 1
  892:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   * @retval None
  893:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   */
  894:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** __STATIC_INLINE void LL_GPIO_SetOutputPin(GPIO_TypeDef *GPIOx, uint32_t PinMask)
+  57              		.loc 2 894 22 view .LVU10
+  58              	.LBB11:
  895:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** {
-  58              		.loc 1 895 1
-  59              		.cfi_startproc
-  60              		@ args = 0, pretend = 0, frame = 8
-  61              		@ frame_needed = 1, uses_anonymous_args = 0
-  62              		@ link register save eliminated.
-  63 0000 80B4     		push	{r7}
-  64              	.LCFI0:
-  65              		.cfi_def_cfa_offset 4
-  66              		.cfi_offset 7, -4
-  67 0002 83B0     		sub	sp, sp, #12
-  68              	.LCFI1:
-  69              		.cfi_def_cfa_offset 16
-  70 0004 00AF     		add	r7, sp, #0
-  71              	.LCFI2:
-  72              		.cfi_def_cfa_register 7
-  73 0006 7860     		str	r0, [r7, #4]
-  74 0008 3960     		str	r1, [r7]
+ARM GAS  /tmp/ccOIcQQY.s 			page 19
+
+
  896:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   WRITE_REG(GPIOx->BSRR, PinMask);
-ARM GAS  /tmp/ccnSHqgh.s 			page 18
-
-
-  75              		.loc 1 896 3
-  76 000a 7B68     		ldr	r3, [r7, #4]
-  77 000c 3A68     		ldr	r2, [r7]
-  78 000e 9A61     		str	r2, [r3, #24]
+  59              		.loc 2 896 3 view .LVU11
+  60 000e 9A61     		str	r2, [r3, #24]
+  61              	.LVL2:
+  62              		.loc 2 896 3 is_stmt 0 view .LVU12
+  63              	.LBE11:
+  64              	.LBE10:
+  73:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****     }
+  74:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****     pHandle->OutputState = State;
+  65              		.loc 1 74 5 is_stmt 1 view .LVU13
+  66              		.loc 1 74 26 is_stmt 0 view .LVU14
+  67 0010 0170     		strb	r1, [r0]
+  75:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** #ifdef NULL_PTR_CHECK_DIG_OUT
+  76:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   }
+  77:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** #endif
+  78:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** }
+  68              		.loc 1 78 1 view .LVU15
+  69 0012 7047     		bx	lr
+  70              	.L8:
+  57:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****       {
+  71              		.loc 1 57 7 is_stmt 1 view .LVU16
+  57:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****       {
+  72              		.loc 1 57 10 is_stmt 0 view .LVU17
+  73 0014 012B     		cmp	r3, #1
+  59:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****       }
+  74              		.loc 1 59 9 view .LVU18
+  75 0016 0289     		ldrh	r2, [r0, #8]
+  76 0018 4368     		ldr	r3, [r0, #4]
+  57:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****       {
+  77              		.loc 1 57 10 view .LVU19
+  78 001a F8D0     		beq	.L5
+  79              	.L6:
+  68:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****     }
+  80              		.loc 1 68 7 is_stmt 1 view .LVU20
+  81              	.LVL3:
+  82              	.LBB12:
+  83              	.LBI12:
  897:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** }
-  79              		.loc 1 897 1
-  80 0010 00BF     		nop
-  81 0012 0C37     		adds	r7, r7, #12
-  82              	.LCFI3:
-  83              		.cfi_def_cfa_offset 4
-  84 0014 BD46     		mov	sp, r7
-  85              	.LCFI4:
-  86              		.cfi_def_cfa_register 13
-  87              		@ sp needed
-  88 0016 5DF8047B 		ldr	r7, [sp], #4
-  89              	.LCFI5:
-  90              		.cfi_restore 7
-  91              		.cfi_def_cfa_offset 0
-  92 001a 7047     		bx	lr
-  93              		.cfi_endproc
-  94              	.LFE870:
-  96              		.section	.text.LL_GPIO_ResetOutputPin,"ax",%progbits
-  97              		.align	1
-  98              		.syntax unified
-  99              		.thumb
- 100              		.thumb_func
- 101              		.fpu fpv4-sp-d16
- 103              	LL_GPIO_ResetOutputPin:
- 104              	.LFB871:
  898:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** 
  899:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** /**
  900:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   * @brief  Set several pins to low level on dedicated gpio port.
@@ -1069,6 +1138,9 @@ ARM GAS  /tmp/ccnSHqgh.s 			page 1
  914:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_10
  915:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_11
  916:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_12
+ARM GAS  /tmp/ccOIcQQY.s 			page 20
+
+
  917:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_13
  918:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_14
  919:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   *         @arg @ref LL_GPIO_PIN_15
@@ -1076,275 +1148,36 @@ ARM GAS  /tmp/ccnSHqgh.s 			page 1
  921:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   * @retval None
  922:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   */
  923:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** __STATIC_INLINE void LL_GPIO_ResetOutputPin(GPIO_TypeDef *GPIOx, uint32_t PinMask)
+  84              		.loc 2 923 22 view .LVU21
+  85              	.LBB13:
  924:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** {
- 105              		.loc 1 924 1
-ARM GAS  /tmp/ccnSHqgh.s 			page 19
-
-
- 106              		.cfi_startproc
- 107              		@ args = 0, pretend = 0, frame = 8
- 108              		@ frame_needed = 1, uses_anonymous_args = 0
- 109              		@ link register save eliminated.
- 110 0000 80B4     		push	{r7}
- 111              	.LCFI6:
- 112              		.cfi_def_cfa_offset 4
- 113              		.cfi_offset 7, -4
- 114 0002 83B0     		sub	sp, sp, #12
- 115              	.LCFI7:
- 116              		.cfi_def_cfa_offset 16
- 117 0004 00AF     		add	r7, sp, #0
- 118              	.LCFI8:
- 119              		.cfi_def_cfa_register 7
- 120 0006 7860     		str	r0, [r7, #4]
- 121 0008 3960     		str	r1, [r7]
  925:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h ****   WRITE_REG(GPIOx->BRR, PinMask);
- 122              		.loc 1 925 3
- 123 000a 7B68     		ldr	r3, [r7, #4]
- 124 000c 3A68     		ldr	r2, [r7]
- 125 000e 9A62     		str	r2, [r3, #40]
- 926:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_gpio.h **** }
- 126              		.loc 1 926 1
- 127 0010 00BF     		nop
- 128 0012 0C37     		adds	r7, r7, #12
- 129              	.LCFI9:
- 130              		.cfi_def_cfa_offset 4
- 131 0014 BD46     		mov	sp, r7
- 132              	.LCFI10:
- 133              		.cfi_def_cfa_register 13
- 134              		@ sp needed
- 135 0016 5DF8047B 		ldr	r7, [sp], #4
- 136              	.LCFI11:
- 137              		.cfi_restore 7
- 138              		.cfi_def_cfa_offset 0
- 139 001a 7047     		bx	lr
- 140              		.cfi_endproc
- 141              	.LFE871:
- 143              		.section	.rodata.USART_PRESCALER_TAB,"a"
- 144              		.align	2
- 147              	USART_PRESCALER_TAB:
- 148 0000 01000000 		.word	1
- 149 0004 02000000 		.word	2
- 150 0008 04000000 		.word	4
- 151 000c 06000000 		.word	6
- 152 0010 08000000 		.word	8
- 153 0014 0A000000 		.word	10
- 154 0018 0C000000 		.word	12
- 155 001c 10000000 		.word	16
- 156 0020 20000000 		.word	32
- 157 0024 40000000 		.word	64
- 158 0028 80000000 		.word	128
- 159 002c 00010000 		.word	256
- 160              		.section	.rodata.CHANNEL_OFFSET_TAB,"a"
- 161              		.align	2
- 164              	CHANNEL_OFFSET_TAB:
- 165 0000 081C3044 		.ascii	"\010\0340DXl"
-ARM GAS  /tmp/ccnSHqgh.s 			page 20
-
-
- 165      586C
- 166              		.section	.text.DOUT_SetOutputState,"ax",%progbits
- 167              		.align	1
- 168              		.weak	DOUT_SetOutputState
- 169              		.syntax unified
- 170              		.thumb
- 171              		.thumb_func
- 172              		.fpu fpv4-sp-d16
- 174              	DOUT_SetOutputState:
- 175              	.LFB1435:
- 176              		.file 2 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c"
-   1:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** /**
-   2:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   ******************************************************************************
-   3:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   * @file    digital_output.c
-   4:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   * @author  Motor Control SDK Team, ST Microelectronics
-   5:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   * @brief   This file provides firmware functions that implement the Digital
-   6:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   *          Output component of the Motor Control SDK:
-   7:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   *
-   8:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   ******************************************************************************
-   9:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   * @attention
-  10:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   *
-  11:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   * <h2><center>&copy; Copyright (c) 2024 STMicroelectronics.
-  12:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   * All rights reserved.</center></h2>
-  13:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   *
-  14:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   * This software component is licensed by ST under Ultimate Liberty license
-  15:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   * SLA0044, the "License"; You may not use this file except in compliance with
-  16:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   * the License. You may obtain a copy of the License at:
-  17:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   *                             www.st.com/SLA0044
-  18:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   *
-  19:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   ******************************************************************************
-  20:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   * @ingroup DigitalOutput
-  21:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   */
-  22:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** 
-  23:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** /* Includes ------------------------------------------------------------------*/
-  24:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** #include "digital_output.h"
-  25:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** #include "mc_type.h"
-  26:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** 
-  27:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** /** @addtogroup MCSDK
-  28:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   * @{
-  29:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   */
-  30:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** 
-  31:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** /** @defgroup DigitalOutput Digital Output
-  32:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   * @brief Digital output component of the Motor Control SDK
-  33:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   *
-  34:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   * @{
-  35:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   */
-  36:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** 
-  37:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** 
-  38:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** /**
-  39:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   * @brief Accordingly with selected polarity, it sets to active or inactive the
-  40:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   *        digital output
-  41:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   * @param pHandle handler address of the digital output component.
-  42:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   * @param State New requested state
-  43:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   *
-  44:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   */
-  45:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** __weak void DOUT_SetOutputState(DOUT_handle_t *pHandle, DOutputState_t State)
-  46:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** {
-ARM GAS  /tmp/ccnSHqgh.s 			page 21
-
-
- 177              		.loc 2 46 1
- 178              		.cfi_startproc
- 179              		@ args = 0, pretend = 0, frame = 8
- 180              		@ frame_needed = 1, uses_anonymous_args = 0
- 181 0000 80B5     		push	{r7, lr}
- 182              	.LCFI12:
- 183              		.cfi_def_cfa_offset 8
- 184              		.cfi_offset 7, -8
- 185              		.cfi_offset 14, -4
- 186 0002 82B0     		sub	sp, sp, #8
- 187              	.LCFI13:
- 188              		.cfi_def_cfa_offset 16
- 189 0004 00AF     		add	r7, sp, #0
- 190              	.LCFI14:
- 191              		.cfi_def_cfa_register 7
- 192 0006 7860     		str	r0, [r7, #4]
- 193 0008 0B46     		mov	r3, r1
- 194 000a FB70     		strb	r3, [r7, #3]
-  47:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** #ifdef NULL_PTR_CHECK_DIG_OUT
-  48:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   if (MC_NULL == pHandle)
-  49:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   {
-  50:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****     /* Nothing to do */
-  51:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   }
-  52:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   else
-  53:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   {
-  54:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** #endif
-  55:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****     if (ACTIVE == State)
- 195              		.loc 2 55 8
- 196 000c FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
- 197 000e 012B     		cmp	r3, #1
- 198 0010 15D1     		bne	.L4
-  56:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****     {
-  57:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****       if (pHandle->bDOutputPolarity == DOutputActiveHigh)
- 199              		.loc 2 57 18
- 200 0012 7B68     		ldr	r3, [r7, #4]
- 201 0014 9B7A     		ldrb	r3, [r3, #10]	@ zero_extendqisi2
- 202              		.loc 2 57 10
- 203 0016 012B     		cmp	r3, #1
- 204 0018 08D1     		bne	.L5
-  58:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****       {
-  59:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****         LL_GPIO_SetOutputPin(pHandle->hDOutputPort, pHandle->hDOutputPin);
- 205              		.loc 2 59 9
- 206 001a 7B68     		ldr	r3, [r7, #4]
- 207 001c 5A68     		ldr	r2, [r3, #4]
- 208              		.loc 2 59 60
- 209 001e 7B68     		ldr	r3, [r7, #4]
- 210 0020 1B89     		ldrh	r3, [r3, #8]
- 211              		.loc 2 59 9
- 212 0022 1946     		mov	r1, r3
- 213 0024 1046     		mov	r0, r2
- 214 0026 FFF7FEFF 		bl	LL_GPIO_SetOutputPin
- 215 002a 1DE0     		b	.L6
- 216              	.L5:
-  60:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****       }
-  61:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****       else
-  62:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****       {
-  63:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****         LL_GPIO_ResetOutputPin(pHandle->hDOutputPort, pHandle->hDOutputPin);
-ARM GAS  /tmp/ccnSHqgh.s 			page 22
-
-
- 217              		.loc 2 63 9
- 218 002c 7B68     		ldr	r3, [r7, #4]
- 219 002e 5A68     		ldr	r2, [r3, #4]
- 220              		.loc 2 63 62
- 221 0030 7B68     		ldr	r3, [r7, #4]
- 222 0032 1B89     		ldrh	r3, [r3, #8]
- 223              		.loc 2 63 9
- 224 0034 1946     		mov	r1, r3
- 225 0036 1046     		mov	r0, r2
- 226 0038 FFF7FEFF 		bl	LL_GPIO_ResetOutputPin
- 227 003c 14E0     		b	.L6
- 228              	.L4:
-  64:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****       }
-  65:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****     }
-  66:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****     else if (pHandle->bDOutputPolarity == DOutputActiveHigh)
- 229              		.loc 2 66 21
- 230 003e 7B68     		ldr	r3, [r7, #4]
- 231 0040 9B7A     		ldrb	r3, [r3, #10]	@ zero_extendqisi2
- 232              		.loc 2 66 13
- 233 0042 012B     		cmp	r3, #1
- 234 0044 08D1     		bne	.L7
-  67:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****     {
-  68:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****       LL_GPIO_ResetOutputPin(pHandle->hDOutputPort, pHandle->hDOutputPin);
- 235              		.loc 2 68 7
- 236 0046 7B68     		ldr	r3, [r7, #4]
- 237 0048 5A68     		ldr	r2, [r3, #4]
- 238              		.loc 2 68 60
- 239 004a 7B68     		ldr	r3, [r7, #4]
- 240 004c 1B89     		ldrh	r3, [r3, #8]
- 241              		.loc 2 68 7
- 242 004e 1946     		mov	r1, r3
- 243 0050 1046     		mov	r0, r2
- 244 0052 FFF7FEFF 		bl	LL_GPIO_ResetOutputPin
- 245 0056 07E0     		b	.L6
- 246              	.L7:
-  69:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****     }
-  70:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****     else
-  71:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****     {
-  72:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****       LL_GPIO_SetOutputPin(pHandle->hDOutputPort, pHandle->hDOutputPin);
- 247              		.loc 2 72 7
- 248 0058 7B68     		ldr	r3, [r7, #4]
- 249 005a 5A68     		ldr	r2, [r3, #4]
- 250              		.loc 2 72 58
- 251 005c 7B68     		ldr	r3, [r7, #4]
- 252 005e 1B89     		ldrh	r3, [r3, #8]
- 253              		.loc 2 72 7
- 254 0060 1946     		mov	r1, r3
- 255 0062 1046     		mov	r0, r2
- 256 0064 FFF7FEFF 		bl	LL_GPIO_SetOutputPin
- 257              	.L6:
-  73:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****     }
-  74:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****     pHandle->OutputState = State;
- 258              		.loc 2 74 26
- 259 0068 7B68     		ldr	r3, [r7, #4]
- 260 006a FA78     		ldrb	r2, [r7, #3]
- 261 006c 1A70     		strb	r2, [r3]
-  75:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** #ifdef NULL_PTR_CHECK_DIG_OUT
-ARM GAS  /tmp/ccnSHqgh.s 			page 23
-
-
-  76:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   }
-  77:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** #endif
-  78:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** }
- 262              		.loc 2 78 1
- 263 006e 00BF     		nop
- 264 0070 0837     		adds	r7, r7, #8
- 265              	.LCFI15:
- 266              		.cfi_def_cfa_offset 8
- 267 0072 BD46     		mov	sp, r7
- 268              	.LCFI16:
- 269              		.cfi_def_cfa_register 13
- 270              		@ sp needed
- 271 0074 80BD     		pop	{r7, pc}
- 272              		.cfi_endproc
- 273              	.LFE1435:
- 275              		.section	.text.DOUT_GetOutputState,"ax",%progbits
- 276              		.align	1
- 277              		.weak	DOUT_GetOutputState
- 278              		.syntax unified
- 279              		.thumb
- 280              		.thumb_func
- 281              		.fpu fpv4-sp-d16
- 283              	DOUT_GetOutputState:
- 284              	.LFB1436:
+  86              		.loc 2 925 3 view .LVU22
+  87 001c 9A62     		str	r2, [r3, #40]
+  88              	.LVL4:
+  89              		.loc 2 925 3 is_stmt 0 view .LVU23
+  90              	.LBE13:
+  91              	.LBE12:
+  74:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** #ifdef NULL_PTR_CHECK_DIG_OUT
+  92              		.loc 1 74 5 is_stmt 1 view .LVU24
+  74:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** #ifdef NULL_PTR_CHECK_DIG_OUT
+  93              		.loc 1 74 26 is_stmt 0 view .LVU25
+  94 001e 0170     		strb	r1, [r0]
+  95              		.loc 1 78 1 view .LVU26
+  96 0020 7047     		bx	lr
+  97              		.cfi_endproc
+  98              	.LFE1435:
+ 100 0022 00BF     		.section	.text.DOUT_GetOutputState,"ax",%progbits
+ 101              		.align	1
+ 102              		.p2align 2,,3
+ 103              		.weak	DOUT_GetOutputState
+ 104              		.syntax unified
+ 105              		.thumb
+ 106              		.thumb_func
+ 107              		.fpu fpv4-sp-d16
+ 109              	DOUT_GetOutputState:
+ 110              	.LVL5:
+ 111              	.LFB1436:
   79:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** 
   80:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** /**
   81:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   * @brief It returns the state of the digital output
@@ -1353,22 +1186,11 @@ ARM GAS  /tmp/ccnSHqgh.s 			page 1
   84:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   */
   85:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** __weak DOutputState_t DOUT_GetOutputState(DOUT_handle_t *pHandle) //cstat !MISRAC2012-Rule-8.13
   86:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** {
- 285              		.loc 2 86 1
- 286              		.cfi_startproc
- 287              		@ args = 0, pretend = 0, frame = 8
- 288              		@ frame_needed = 1, uses_anonymous_args = 0
- 289              		@ link register save eliminated.
- 290 0000 80B4     		push	{r7}
- 291              	.LCFI17:
- 292              		.cfi_def_cfa_offset 4
- 293              		.cfi_offset 7, -4
- 294 0002 83B0     		sub	sp, sp, #12
- 295              	.LCFI18:
- 296              		.cfi_def_cfa_offset 16
- 297 0004 00AF     		add	r7, sp, #0
- 298              	.LCFI19:
- 299              		.cfi_def_cfa_register 7
- 300 0006 7860     		str	r0, [r7, #4]
+ 112              		.loc 1 86 1 is_stmt 1 view -0
+ 113              		.cfi_startproc
+ 114              		@ args = 0, pretend = 0, frame = 0
+ 115              		@ frame_needed = 0, uses_anonymous_args = 0
+ 116              		@ link register save eliminated.
   87:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** #ifdef NULL_PTR_CHECK_DIG_OUT
   88:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   DOutputState_t temp_outputState;
   89:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** 
@@ -1376,73 +1198,44 @@ ARM GAS  /tmp/ccnSHqgh.s 			page 1
   91:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   {
   92:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****     temp_outputState = INACTIVE;
   93:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   }
+ARM GAS  /tmp/ccOIcQQY.s 			page 21
+
+
   94:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   else
   95:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   {
-ARM GAS  /tmp/ccnSHqgh.s 			page 24
-
-
   96:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****     temp_outputState = pHandle->OutputState;
   97:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   }
   98:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   return (temp_outputState);
   99:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** #else
  100:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c ****   return (pHandle->OutputState);
- 301              		.loc 2 100 18
- 302 0008 7B68     		ldr	r3, [r7, #4]
- 303 000a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 117              		.loc 1 100 3 view .LVU28
  101:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** #endif
  102:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/digital_output.c **** }
- 304              		.loc 2 102 1
- 305 000c 1846     		mov	r0, r3
- 306 000e 0C37     		adds	r7, r7, #12
- 307              	.LCFI20:
- 308              		.cfi_def_cfa_offset 4
- 309 0010 BD46     		mov	sp, r7
- 310              	.LCFI21:
- 311              		.cfi_def_cfa_register 13
- 312              		@ sp needed
- 313 0012 5DF8047B 		ldr	r7, [sp], #4
- 314              	.LCFI22:
- 315              		.cfi_restore 7
- 316              		.cfi_def_cfa_offset 0
- 317 0016 7047     		bx	lr
- 318              		.cfi_endproc
- 319              	.LFE1436:
- 321              		.text
- 322              	.Letext0:
- 323              		.file 3 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
- 324              		.file 4 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
- 325              		.file 5 "Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g431xx.h"
- 326              		.file 6 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h"
- 327              		.file 7 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_usart.h"
- 328              		.file 8 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h"
- 329              		.file 9 "Inc/mc_type.h"
- 330              		.file 10 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/digital_output.h"
-ARM GAS  /tmp/ccnSHqgh.s 			page 25
+ 118              		.loc 1 102 1 is_stmt 0 view .LVU29
+ 119 0000 0078     		ldrb	r0, [r0]	@ zero_extendqisi2
+ 120              	.LVL6:
+ 121              		.loc 1 102 1 view .LVU30
+ 122 0002 7047     		bx	lr
+ 123              		.cfi_endproc
+ 124              	.LFE1436:
+ 126              		.text
+ 127              	.Letext0:
+ 128              		.file 3 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
+ 129              		.file 4 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
+ 130              		.file 5 "Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g431xx.h"
+ 131              		.file 6 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h"
+ 132              		.file 7 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_usart.h"
+ 133              		.file 8 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h"
+ 134              		.file 9 "Inc/mc_type.h"
+ 135              		.file 10 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/digital_output.h"
+ARM GAS  /tmp/ccOIcQQY.s 			page 22
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 digital_output.c
-     /tmp/ccnSHqgh.s:18     .rodata.OFFSET_TAB_CCMRx:0000000000000000 $d
-     /tmp/ccnSHqgh.s:21     .rodata.OFFSET_TAB_CCMRx:0000000000000000 OFFSET_TAB_CCMRx
-     /tmp/ccnSHqgh.s:24     .rodata.SHIFT_TAB_OCxx:0000000000000000 $d
-     /tmp/ccnSHqgh.s:27     .rodata.SHIFT_TAB_OCxx:0000000000000000 SHIFT_TAB_OCxx
-     /tmp/ccnSHqgh.s:30     .rodata.SHIFT_TAB_ICxx:0000000000000000 $d
-     /tmp/ccnSHqgh.s:33     .rodata.SHIFT_TAB_ICxx:0000000000000000 SHIFT_TAB_ICxx
-     /tmp/ccnSHqgh.s:36     .rodata.SHIFT_TAB_CCxP:0000000000000000 $d
-     /tmp/ccnSHqgh.s:39     .rodata.SHIFT_TAB_CCxP:0000000000000000 SHIFT_TAB_CCxP
-     /tmp/ccnSHqgh.s:42     .rodata.SHIFT_TAB_OISx:0000000000000000 $d
-     /tmp/ccnSHqgh.s:45     .rodata.SHIFT_TAB_OISx:0000000000000000 SHIFT_TAB_OISx
-     /tmp/ccnSHqgh.s:48     .text.LL_GPIO_SetOutputPin:0000000000000000 $t
-     /tmp/ccnSHqgh.s:55     .text.LL_GPIO_SetOutputPin:0000000000000000 LL_GPIO_SetOutputPin
-     /tmp/ccnSHqgh.s:97     .text.LL_GPIO_ResetOutputPin:0000000000000000 $t
-     /tmp/ccnSHqgh.s:103    .text.LL_GPIO_ResetOutputPin:0000000000000000 LL_GPIO_ResetOutputPin
-     /tmp/ccnSHqgh.s:144    .rodata.USART_PRESCALER_TAB:0000000000000000 $d
-     /tmp/ccnSHqgh.s:147    .rodata.USART_PRESCALER_TAB:0000000000000000 USART_PRESCALER_TAB
-     /tmp/ccnSHqgh.s:161    .rodata.CHANNEL_OFFSET_TAB:0000000000000000 $d
-     /tmp/ccnSHqgh.s:164    .rodata.CHANNEL_OFFSET_TAB:0000000000000000 CHANNEL_OFFSET_TAB
-     /tmp/ccnSHqgh.s:167    .text.DOUT_SetOutputState:0000000000000000 $t
-     /tmp/ccnSHqgh.s:174    .text.DOUT_SetOutputState:0000000000000000 DOUT_SetOutputState
-     /tmp/ccnSHqgh.s:276    .text.DOUT_GetOutputState:0000000000000000 $t
-     /tmp/ccnSHqgh.s:283    .text.DOUT_GetOutputState:0000000000000000 DOUT_GetOutputState
+     /tmp/ccOIcQQY.s:18     .text.DOUT_SetOutputState:0000000000000000 $t
+     /tmp/ccOIcQQY.s:27     .text.DOUT_SetOutputState:0000000000000000 DOUT_SetOutputState
+     /tmp/ccOIcQQY.s:101    .text.DOUT_GetOutputState:0000000000000000 $t
+     /tmp/ccOIcQQY.s:109    .text.DOUT_GetOutputState:0000000000000000 DOUT_GetOutputState
 
 NO UNDEFINED SYMBOLS

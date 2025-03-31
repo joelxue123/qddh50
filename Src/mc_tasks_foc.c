@@ -188,7 +188,7 @@ void TSK_MF_StopProcessing(uint8_t motor)
   TSK_SetStopPermanencyTimeM1(STOPPERMANENCY_TICKS);
   Mci[motor].State = STOP;
 }
-
+int32_t  task_run = 0;
  float  theta_ =0.0f;
 void test_svm(float mod_q, float mod_d, float *theta, float *ta, float *tb, float *tc) ;
 /**
@@ -239,12 +239,7 @@ __weak void TSK_MediumFrequencyTaskM1(void)
               R3_2_SwitchOnPWM(pwmcHandle[M1]);
       //        R3_2_TurnOnLowSides(pwmcHandle[M1],M1_CHARGE_BOOT_CAP_DUTY_CYCLES);
               TSK_SetChargeBootCapDelayM1(M1_CHARGE_BOOT_CAP_TICKS);
-              float ta =0;
-              float tb =0;
-              float tc =0;
-              
-              float mod_q = 0.1f;
-              float mod_d = 0;
+
              
 
 
@@ -272,6 +267,7 @@ __weak void TSK_MediumFrequencyTaskM1(void)
               LL_TIM_OC_SetCompareCH2(TIM1, 100);
               LL_TIM_OC_SetCompareCH3(TIM1, 100);
               vTaskDelay(1000);
+
               // 5. 启用 Break 功能
               TIM1->BDTR |= LL_TIM_OSSI_ENABLE;
               LL_TIM_EnableAllOutputs(TIM1);
@@ -279,16 +275,8 @@ __weak void TSK_MediumFrequencyTaskM1(void)
               
               while(1)
               {
-                //STSPIN32G4_clearFaults(&HdlSTSPING4);
-                test_svm(mod_q, mod_d, &theta_, &ta, &tb, &tc);
-                  /* Turn on the three low side switches */
-                LL_TIM_OC_SetCompareCH1(TIM1, ta*TIM_1_8_PERIOD_CLOCKS);
-                LL_TIM_OC_SetCompareCH2(TIM1, tb*TIM_1_8_PERIOD_CLOCKS);
-                LL_TIM_OC_SetCompareCH3(TIM1, tc*TIM_1_8_PERIOD_CLOCKS);
-                TIM1->BDTR |= LL_TIM_OSSI_ENABLE;
-                LL_TIM_EnableAllOutputs(TIM1);
+                task_run = 1;
 
-                theta_ = theta_ + 0.1f;
                 vTaskDelay(30);
               }
               Mci[M1].State = CHARGE_BOOT_CAP;
@@ -730,6 +718,12 @@ extern void clark_park(float *iq, float *id, float theta, float ia, float ib);
   */
 __weak uint8_t FOC_HighFrequencyTask(uint8_t bMotorNbr)
 {
+  float ta =0;
+  float tb =0;
+  float tc =0;
+  
+  float mod_q = 0.1f;
+  float mod_d = 0;
   ab_t Iab;
   float a = 0;
   float b = 0;
@@ -764,6 +758,22 @@ __weak uint8_t FOC_HighFrequencyTask(uint8_t bMotorNbr)
   clark_park(&iq,&id,theta_,a,b);
   FOCVars[M1].Iqd.q = iq;
   FOCVars[M1].Iqd.d = id;
+
+if(task_run == 1)
+{
+                  //STSPIN32G4_clearFaults(&HdlSTSPING4);
+                  test_svm(mod_q, mod_d, &theta_, &ta, &tb, &tc);
+                  /* Turn on the three low side switches */
+                  LL_TIM_OC_SetCompareCH1(TIM1, ta*TIM_1_8_PERIOD_CLOCKS);
+                  LL_TIM_OC_SetCompareCH2(TIM1, tb*TIM_1_8_PERIOD_CLOCKS);
+                  LL_TIM_OC_SetCompareCH3(TIM1, tc*TIM_1_8_PERIOD_CLOCKS);
+                  TIM1->BDTR |= LL_TIM_OSSI_ENABLE;
+                  LL_TIM_EnableAllOutputs(TIM1);
+  
+                  theta_ = theta_ + 0.001f;
+
+}
+
  // SCC_SetPhaseVoltage(&SCC);
 
   return (0); /* Single motor only */

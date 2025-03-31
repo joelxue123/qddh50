@@ -281,6 +281,10 @@ float applyNotchFilter(NotchFilter* filter, float input) {
     
     return output;
 }
+
+constexpr float INV_2_POW_31 = 1.0f / 2147483648.0f;  // 1/2^31
+
+
 void test_svm(float mod_q, float mod_d, float* theta, float *ta, float *tb, float *tc) 
 {
     // Convert theta to Q1.31 format
@@ -304,8 +308,8 @@ void test_svm(float mod_q, float mod_d, float* theta, float *ta, float *tb, floa
     int32_t sin_theta = LL_CORDIC_ReadData(CORDIC);  // sine
     
     // Convert Q1.31 to float
-    float c_p = (float)cos_theta / 2147483648.0f;
-    float s_p = (float)sin_theta / 2147483648.0f;
+    float c_p = (float)cos_theta * INV_2_POW_31;
+    float s_p = (float)sin_theta * INV_2_POW_31;
     
     // Inverse Park transform
     float mod_alpha = c_p * mod_d - s_p * mod_q;    // α = d*cos(θ) - q*sin(θ)
@@ -343,8 +347,8 @@ void clark_park(float *iq, float *id, float theta, float ia, float ib)
     int32_t sin_theta = LL_CORDIC_ReadData(CORDIC);  // sine
     
     // Convert Q1.31 to float
-    float c_p = (float)cos_theta / 2147483648.0f;
-    float s_p = (float)sin_theta / 2147483648.0f;
+    float c_p = (float)cos_theta * INV_2_POW_31;
+    float s_p = (float)sin_theta * INV_2_POW_31;
     
     // Clarke transform (abc -> αβ)
     float i_alpha = ia;

@@ -1,4 +1,4 @@
-ARM GAS  /tmp/cc63uUNA.s 			page 1
+ARM GAS  /tmp/cciFInG2.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -10,77 +10,26 @@ ARM GAS  /tmp/cc63uUNA.s 			page 1
    7              		.eabi_attribute 24, 1
    8              		.eabi_attribute 25, 1
    9              		.eabi_attribute 26, 1
-  10              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 30, 2
   11              		.eabi_attribute 34, 1
   12              		.eabi_attribute 18, 2
   13              		.file	"pqd_motor_power_measurement.c"
   14              		.text
   15              	.Ltext0:
   16              		.cfi_sections	.debug_frame
-  17              		.section	.rodata.OFFSET_TAB_CCMRx,"a"
-  18              		.align	2
-  21              	OFFSET_TAB_CCMRx:
-  22 0000 00000000 		.ascii	"\000\000\000\000\004\004\004\00488"
-  22      04040404 
-  22      3838
-  23              		.section	.rodata.SHIFT_TAB_OCxx,"a"
-  24              		.align	2
-  27              	SHIFT_TAB_OCxx:
-  28 0000 00000800 		.ascii	"\000\000\010\000\000\000\010\000\000\010"
-  28      00000800 
-  28      0008
-  29              		.section	.rodata.SHIFT_TAB_ICxx,"a"
-  30              		.align	2
-  33              	SHIFT_TAB_ICxx:
-  34 0000 00000800 		.ascii	"\000\000\010\000\000\000\010\000\000\000"
-  34      00000800 
-  34      0000
-  35              		.section	.rodata.SHIFT_TAB_CCxP,"a"
-  36              		.align	2
-  39              	SHIFT_TAB_CCxP:
-  40 0000 00020406 		.ascii	"\000\002\004\006\010\012\014\016\020\024"
-  40      080A0C0E 
-  40      1014
-  41              		.section	.rodata.SHIFT_TAB_OISx,"a"
-  42              		.align	2
-  45              	SHIFT_TAB_OISx:
-  46 0000 00010203 		.ascii	"\000\001\002\003\004\005\006\007\010\012"
-  46      04050607 
-  46      080A
-  47              		.section	.rodata.USART_PRESCALER_TAB,"a"
-  48              		.align	2
-  51              	USART_PRESCALER_TAB:
-  52 0000 01000000 		.word	1
-  53 0004 02000000 		.word	2
-  54 0008 04000000 		.word	4
-  55 000c 06000000 		.word	6
-  56 0010 08000000 		.word	8
-  57 0014 0A000000 		.word	10
-  58 0018 0C000000 		.word	12
-  59 001c 10000000 		.word	16
-ARM GAS  /tmp/cc63uUNA.s 			page 2
-
-
-  60 0020 20000000 		.word	32
-  61 0024 40000000 		.word	64
-  62 0028 80000000 		.word	128
-  63 002c 00010000 		.word	256
-  64              		.section	.rodata.CHANNEL_OFFSET_TAB,"a"
-  65              		.align	2
-  68              	CHANNEL_OFFSET_TAB:
-  69 0000 081C3044 		.ascii	"\010\0340DXl"
-  69      586C
-  70              		.section	.text.PQD_CalcElMotorPower,"ax",%progbits
-  71              		.align	1
-  72              		.weak	PQD_CalcElMotorPower
-  73              		.arch armv7e-m
-  74              		.syntax unified
-  75              		.thumb
-  76              		.thumb_func
-  77              		.fpu fpv4-sp-d16
-  79              	PQD_CalcElMotorPower:
-  80              	.LFB1437:
-  81              		.file 1 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c"
+  17              		.section	.text.PQD_CalcElMotorPower,"ax",%progbits
+  18              		.align	1
+  19              		.p2align 2,,3
+  20              		.weak	PQD_CalcElMotorPower
+  21              		.arch armv7e-m
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  25              		.fpu fpv4-sp-d16
+  27              	PQD_CalcElMotorPower:
+  28              	.LVL0:
+  29              	.LFB1437:
+  30              		.file 1 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c"
    1:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** /**
    2:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****   ******************************************************************************
    3:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****   * @file    pqd_motor_power_measurement.c
@@ -109,6 +58,9 @@ ARM GAS  /tmp/cc63uUNA.s 			page 1
   26:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** #include "mc_type.h"
   27:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** 
   28:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** 
+ARM GAS  /tmp/cciFInG2.s 			page 2
+
+
   29:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** /** @addtogroup MCSDK
   30:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****   * @{
   31:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****   */
@@ -118,9 +70,6 @@ ARM GAS  /tmp/cc63uUNA.s 			page 1
   35:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****   *
   36:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****   * The PQD Motor Power Measurement component uses @f$I_d@f$, @f$I_q@f$, @f$V_d@f$ and @f$V_q@f$
   37:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****   * to compute the electrical power flowing through the motor.
-ARM GAS  /tmp/cc63uUNA.s 			page 3
-
-
   38:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****   * 
   39:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****   * These values are periodically sampled from the current regulation loop and used to compute 
   40:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****   * instantaneous power values. The instantaneous values are then used to compute an average
@@ -150,22 +99,10 @@ ARM GAS  /tmp/cc63uUNA.s 			page 1
   64:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****   */
   65:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** __weak void PQD_CalcElMotorPower(PQD_MotorPowMeas_Handle_t *pHandle)
   66:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** {
-  82              		.loc 1 66 1
-  83              		.cfi_startproc
-  84              		@ args = 0, pretend = 0, frame = 24
-  85              		@ frame_needed = 1, uses_anonymous_args = 0
-  86              		@ link register save eliminated.
-  87 0000 80B4     		push	{r7}
-  88              	.LCFI0:
-  89              		.cfi_def_cfa_offset 4
-  90              		.cfi_offset 7, -4
-  91 0002 87B0     		sub	sp, sp, #28
-  92              	.LCFI1:
-  93              		.cfi_def_cfa_offset 32
-  94 0004 00AF     		add	r7, sp, #0
-  95              	.LCFI2:
-  96              		.cfi_def_cfa_register 7
-  97 0006 7860     		str	r0, [r7, #4]
+  31              		.loc 1 66 1 view -0
+  32              		.cfi_startproc
+  33              		@ args = 0, pretend = 0, frame = 0
+  34              		@ frame_needed = 0, uses_anonymous_args = 0
   67:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** #ifdef NULL_PTR_CHECK_PQD_MOT_POW_MEAS
   68:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****   if (MC_NULL == pHandle)
   69:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****   {
@@ -175,118 +112,91 @@ ARM GAS  /tmp/cc63uUNA.s 			page 1
   73:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****   {
   74:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** #endif
   75:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****     int32_t wAux;
+  35              		.loc 1 75 5 view .LVU1
   76:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****     qd_t Iqd = pHandle->pFOCVars->Iqd;
-  98              		.loc 1 76 23
-  99 0008 7B68     		ldr	r3, [r7, #4]
-ARM GAS  /tmp/cc63uUNA.s 			page 4
+  36              		.loc 1 76 5 view .LVU2
+  37              		.loc 1 76 23 is_stmt 0 view .LVU3
+  38 0000 8268     		ldr	r2, [r0, #8]
+  39              	.LVL1:
+ARM GAS  /tmp/cciFInG2.s 			page 3
 
 
- 100 000a 9A68     		ldr	r2, [r3, #8]
- 101              		.loc 1 76 10
- 102 000c 07F11003 		add	r3, r7, #16
- 103 0010 0C32     		adds	r2, r2, #12
- 104 0012 1068     		ldr	r0, [r2]	@ unaligned
- 105 0014 1860     		str	r0, [r3]
   77:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****     qd_t Vqd = pHandle->pFOCVars->Vqd;
- 106              		.loc 1 77 23
- 107 0016 7B68     		ldr	r3, [r7, #4]
- 108 0018 9A68     		ldr	r2, [r3, #8]
- 109              		.loc 1 77 10
- 110 001a 07F10C03 		add	r3, r7, #12
- 111 001e 1632     		adds	r2, r2, #22
- 112 0020 1068     		ldr	r0, [r2]	@ unaligned
- 113 0022 1860     		str	r0, [r3]
+  40              		.loc 1 77 5 is_stmt 1 view .LVU4
   78:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** 
   79:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****     wAux = ((int32_t)Iqd.q * (int32_t)Vqd.q)
- 114              		.loc 1 79 25
- 115 0024 B7F91030 		ldrsh	r3, [r7, #16]
- 116              		.loc 1 79 42
- 117 0028 B7F90C20 		ldrsh	r2, [r7, #12]
- 118              		.loc 1 79 28
- 119 002c 03FB02F2 		mul	r2, r3, r2
+  41              		.loc 1 79 5 view .LVU5
+  66:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** #ifdef NULL_PTR_CHECK_PQD_MOT_POW_MEAS
+  42              		.loc 1 66 1 is_stmt 0 view .LVU6
+  43 0002 00B5     		push	{lr}
+  44              	.LCFI0:
+  45              		.cfi_def_cfa_offset 4
+  46              		.cfi_offset 14, -4
   80:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****          + ((int32_t)Iqd.d * (int32_t)Vqd.d);
- 120              		.loc 1 80 25
- 121 0030 B7F91230 		ldrsh	r3, [r7, #18]
- 122              		.loc 1 80 42
- 123 0034 B7F90E10 		ldrsh	r1, [r7, #14]
- 124              		.loc 1 80 28
- 125 0038 01FB03F3 		mul	r3, r1, r3
+  47              		.loc 1 80 28 view .LVU7
+  48 0004 D189     		ldrh	r1, [r2, #14]
+  49 0006 B2F818E0 		ldrh	lr, [r2, #24]
   79:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****          + ((int32_t)Iqd.d * (int32_t)Vqd.d);
- 126              		.loc 1 79 10
- 127 003c 1344     		add	r3, r3, r2
- 128 003e 7B61     		str	r3, [r7, #20]
+  50              		.loc 1 79 10 view .LVU8
+  51 000a 9389     		ldrh	r3, [r2, #12]
+  52 000c B2F816C0 		ldrh	ip, [r2, #22]
+  53              		.loc 1 80 28 view .LVU9
+  54 0010 11FB0EF2 		smulbb	r2, r1, lr
+  55              	.LVL2:
   81:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****     wAux /= 65536;
- 129              		.loc 1 81 10
- 130 0040 7B69     		ldr	r3, [r7, #20]
- 131 0042 002B     		cmp	r3, #0
- 132 0044 02DA     		bge	.L2
- 133 0046 03F57F43 		add	r3, r3, #65280
- 134 004a FF33     		adds	r3, r3, #255
- 135              	.L2:
- 136 004c 1B14     		asrs	r3, r3, #16
- 137 004e 7B61     		str	r3, [r7, #20]
+  56              		.loc 1 81 5 is_stmt 1 view .LVU10
   82:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** 
   83:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****     /* pHandle->hAvrgElMotorPower += (wAux - pHandle->hAvrgElMotorPower) >> 4 */
   84:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****     pHandle->hAvrgElMotorPower += (int16_t)((wAux - (int32_t)pHandle->hAvrgElMotorPower) / 16);
- 138              		.loc 1 84 32
- 139 0050 7B68     		ldr	r3, [r7, #4]
- 140 0052 B3F90030 		ldrsh	r3, [r3]
- 141 0056 9AB2     		uxth	r2, r3
- 142              		.loc 1 84 69
- 143 0058 7B68     		ldr	r3, [r7, #4]
- 144 005a B3F90030 		ldrsh	r3, [r3]
- 145              		.loc 1 84 53
- 146 005e 1946     		mov	r1, r3
- 147              		.loc 1 84 51
-ARM GAS  /tmp/cc63uUNA.s 			page 5
-
-
- 148 0060 7B69     		ldr	r3, [r7, #20]
- 149 0062 5B1A     		subs	r3, r3, r1
- 150              		.loc 1 84 90
- 151 0064 002B     		cmp	r3, #0
- 152 0066 00DA     		bge	.L3
- 153 0068 0F33     		adds	r3, r3, #15
- 154              	.L3:
- 155 006a 1B11     		asrs	r3, r3, #4
- 156              		.loc 1 84 35
- 157 006c 9BB2     		uxth	r3, r3
- 158              		.loc 1 84 32
- 159 006e 1344     		add	r3, r3, r2
- 160 0070 9BB2     		uxth	r3, r3
- 161 0072 1AB2     		sxth	r2, r3
- 162 0074 7B68     		ldr	r3, [r7, #4]
- 163 0076 1A80     		strh	r2, [r3]	@ movhi
+  57              		.loc 1 84 5 view .LVU11
+  81:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****     wAux /= 65536;
+  58              		.loc 1 81 10 is_stmt 0 view .LVU12
+  59 0014 13FB0C23 		smlabb	r3, r3, ip, r2
+  60              	.LVL3:
+  81:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****     wAux /= 65536;
+  61              		.loc 1 81 10 view .LVU13
+  62 0018 002B     		cmp	r3, #0
+  63              		.loc 1 84 32 view .LVU14
+  64 001a B0F90020 		ldrsh	r2, [r0]
+  81:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****     wAux /= 65536;
+  65              		.loc 1 81 10 view .LVU15
+  66 001e BCBF     		itt	lt
+  67 0020 03F57F43 		addlt	r3, r3, #65280
+  68              	.LVL4:
+  81:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****     wAux /= 65536;
+  69              		.loc 1 81 10 view .LVU16
+  70 0024 FF33     		addlt	r3, r3, #255
+  71              		.loc 1 84 90 view .LVU17
+  72 0026 D2EB2343 		rsbs	r3, r2, r3, asr #16
+  73 002a 48BF     		it	mi
+  74 002c 0F33     		addmi	r3, r3, #15
+  75              		.loc 1 84 32 view .LVU18
+  76 002e 02EB2313 		add	r3, r2, r3, asr #4
+  77 0032 0380     		strh	r3, [r0]	@ movhi
+  78              	.LVL5:
   85:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** 
   86:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** #ifdef NULL_PTR_CHECK_PQD_MOT_POW_MEAS
   87:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****   }
   88:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** #endif
+ARM GAS  /tmp/cciFInG2.s 			page 4
+
+
   89:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** }
- 164              		.loc 1 89 1
- 165 0078 00BF     		nop
- 166 007a 1C37     		adds	r7, r7, #28
- 167              	.LCFI3:
- 168              		.cfi_def_cfa_offset 4
- 169 007c BD46     		mov	sp, r7
- 170              	.LCFI4:
- 171              		.cfi_def_cfa_register 13
- 172              		@ sp needed
- 173 007e 5DF8047B 		ldr	r7, [sp], #4
- 174              	.LCFI5:
- 175              		.cfi_restore 7
- 176              		.cfi_def_cfa_offset 0
- 177 0082 7047     		bx	lr
- 178              		.cfi_endproc
- 179              	.LFE1437:
- 181              		.section	.text.PQD_Clear,"ax",%progbits
- 182              		.align	1
- 183              		.weak	PQD_Clear
- 184              		.syntax unified
- 185              		.thumb
- 186              		.thumb_func
- 187              		.fpu fpv4-sp-d16
- 189              	PQD_Clear:
- 190              	.LFB1438:
+  79              		.loc 1 89 1 view .LVU19
+  80 0034 5DF804FB 		ldr	pc, [sp], #4
+  81              		.cfi_endproc
+  82              	.LFE1437:
+  84              		.section	.text.PQD_Clear,"ax",%progbits
+  85              		.align	1
+  86              		.p2align 2,,3
+  87              		.weak	PQD_Clear
+  88              		.syntax unified
+  89              		.thumb
+  90              		.thumb_func
+  91              		.fpu fpv4-sp-d16
+  93              	PQD_Clear:
+  94              	.LVL6:
+  95              	.LFB1438:
   90:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** 
   91:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** /**
   92:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****   * @brief  Clears the int16_t digit average motor power value stored in the handle.
@@ -297,25 +207,11 @@ ARM GAS  /tmp/cc63uUNA.s 			page 1
   97:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****   */
   98:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** __weak void PQD_Clear(PQD_MotorPowMeas_Handle_t *pHandle)
   99:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** {
- 191              		.loc 1 99 1
-ARM GAS  /tmp/cc63uUNA.s 			page 6
-
-
- 192              		.cfi_startproc
- 193              		@ args = 0, pretend = 0, frame = 8
- 194              		@ frame_needed = 1, uses_anonymous_args = 0
- 195              		@ link register save eliminated.
- 196 0000 80B4     		push	{r7}
- 197              	.LCFI6:
- 198              		.cfi_def_cfa_offset 4
- 199              		.cfi_offset 7, -4
- 200 0002 83B0     		sub	sp, sp, #12
- 201              	.LCFI7:
- 202              		.cfi_def_cfa_offset 16
- 203 0004 00AF     		add	r7, sp, #0
- 204              	.LCFI8:
- 205              		.cfi_def_cfa_register 7
- 206 0006 7860     		str	r0, [r7, #4]
+  96              		.loc 1 99 1 is_stmt 1 view -0
+  97              		.cfi_startproc
+  98              		@ args = 0, pretend = 0, frame = 0
+  99              		@ frame_needed = 0, uses_anonymous_args = 0
+ 100              		@ link register save eliminated.
  100:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** #ifdef NULL_PTR_CHECK_MOT_POW_MES
  101:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****   if (MC_NULL == pHandle)
  102:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****   {
@@ -325,42 +221,32 @@ ARM GAS  /tmp/cc63uUNA.s 			page 1
  106:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****   {
  107:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** #endif
  108:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****     pHandle->hAvrgElMotorPower = 0;
- 207              		.loc 1 108 32
- 208 0008 7B68     		ldr	r3, [r7, #4]
- 209 000a 0022     		movs	r2, #0
- 210 000c 1A80     		strh	r2, [r3]	@ movhi
+ 101              		.loc 1 108 5 view .LVU21
+ 102              		.loc 1 108 32 is_stmt 0 view .LVU22
+ 103 0000 0023     		movs	r3, #0
+ 104 0002 0380     		strh	r3, [r0]	@ movhi
  109:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** #ifdef NULL_PTR_CHECK_MOT_POW_MES
  110:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****   }
  111:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** #endif
  112:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** }
- 211              		.loc 1 112 1
- 212 000e 00BF     		nop
- 213 0010 0C37     		adds	r7, r7, #12
- 214              	.LCFI9:
- 215              		.cfi_def_cfa_offset 4
- 216 0012 BD46     		mov	sp, r7
- 217              	.LCFI10:
- 218              		.cfi_def_cfa_register 13
- 219              		@ sp needed
- 220 0014 5DF8047B 		ldr	r7, [sp], #4
- 221              	.LCFI11:
- 222              		.cfi_restore 7
- 223              		.cfi_def_cfa_offset 0
- 224 0018 7047     		bx	lr
- 225              		.cfi_endproc
- 226              	.LFE1438:
- 228              		.section	.text.PQD_GetAvrgElMotorPowerW,"ax",%progbits
- 229              		.align	1
- 230              		.weak	PQD_GetAvrgElMotorPowerW
- 231              		.syntax unified
- 232              		.thumb
- 233              		.thumb_func
- 234              		.fpu fpv4-sp-d16
- 236              	PQD_GetAvrgElMotorPowerW:
- 237              	.LFB1439:
-ARM GAS  /tmp/cc63uUNA.s 			page 7
+ 105              		.loc 1 112 1 view .LVU23
+ 106 0004 7047     		bx	lr
+ 107              		.cfi_endproc
+ 108              	.LFE1438:
+ 110 0006 00BF     		.section	.text.PQD_GetAvrgElMotorPowerW,"ax",%progbits
+ 111              		.align	1
+ 112              		.p2align 2,,3
+ 113              		.weak	PQD_GetAvrgElMotorPowerW
+ 114              		.syntax unified
+ARM GAS  /tmp/cciFInG2.s 			page 5
 
 
+ 115              		.thumb
+ 116              		.thumb_func
+ 117              		.fpu fpv4-sp-d16
+ 119              	PQD_GetAvrgElMotorPowerW:
+ 120              	.LVL7:
+ 121              	.LFB1439:
  113:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** 
  114:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** /**
  115:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****   * @brief Returns an average value of the measured motor power expressed in Watts
@@ -373,31 +259,12 @@ ARM GAS  /tmp/cc63uUNA.s 			page 1
  122:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****   */
  123:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** __weak float_t PQD_GetAvrgElMotorPowerW(const PQD_MotorPowMeas_Handle_t *pHandle)
  124:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** {
- 238              		.loc 1 124 1
- 239              		.cfi_startproc
- 240              		@ args = 0, pretend = 0, frame = 16
- 241              		@ frame_needed = 1, uses_anonymous_args = 0
- 242 0000 80B5     		push	{r7, lr}
- 243              	.LCFI12:
- 244              		.cfi_def_cfa_offset 8
- 245              		.cfi_offset 7, -8
- 246              		.cfi_offset 14, -4
- 247 0002 2DED028B 		vpush.64	{d8}
- 248              	.LCFI13:
- 249              		.cfi_def_cfa_offset 16
- 250              		.cfi_offset 80, -16
- 251              		.cfi_offset 81, -12
- 252 0006 84B0     		sub	sp, sp, #16
- 253              	.LCFI14:
- 254              		.cfi_def_cfa_offset 32
- 255 0008 00AF     		add	r7, sp, #0
- 256              	.LCFI15:
- 257              		.cfi_def_cfa_register 7
- 258 000a 7860     		str	r0, [r7, #4]
+ 122              		.loc 1 124 1 is_stmt 1 view -0
+ 123              		.cfi_startproc
+ 124              		@ args = 0, pretend = 0, frame = 0
+ 125              		@ frame_needed = 0, uses_anonymous_args = 0
  125:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****   float_t PowerW = 0.0f;
- 259              		.loc 1 125 11
- 260 000c 4FF00003 		mov	r3, #0
- 261 0010 FB60     		str	r3, [r7, #12]	@ float
+ 126              		.loc 1 125 3 view .LVU25
  126:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****   
  127:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** #ifdef NULL_PTR_CHECK_PQD_MOT_POW_MEAS
  128:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****   if (MC_NULL == pHandle)
@@ -410,94 +277,89 @@ ARM GAS  /tmp/cc63uUNA.s 			page 1
  135:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** 
  136:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****   /* First perform an integer multiplication, then a float one. */
  137:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****   PowerW = ((float_t)pHandle->hAvrgElMotorPower * (float_t)VBS_GetAvBusVoltage_V(pHandle->pVBS)) * 
- 262              		.loc 1 137 29
- 263 0012 7B68     		ldr	r3, [r7, #4]
- 264 0014 B3F90030 		ldrsh	r3, [r3]
- 265              		.loc 1 137 13
- 266 0018 07EE903A 		vmov	s15, r3	@ int
- 267 001c B8EEE78A 		vcvt.f32.s32	s16, s15
- 268              		.loc 1 137 89
- 269 0020 7B68     		ldr	r3, [r7, #4]
-ARM GAS  /tmp/cc63uUNA.s 			page 8
+ 127              		.loc 1 137 3 view .LVU26
+ 124:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****   float_t PowerW = 0.0f;
+ 128              		.loc 1 124 1 is_stmt 0 view .LVU27
+ 129 0000 10B5     		push	{r4, lr}
+ 130              	.LCFI1:
+ 131              		.cfi_def_cfa_offset 8
+ 132              		.cfi_offset 4, -8
+ 133              		.cfi_offset 14, -4
+ 134              		.loc 1 137 13 view .LVU28
+ 135 0002 B0F90030 		ldrsh	r3, [r0]
+ 136 0006 07EE903A 		vmov	s15, r3	@ int
+ 124:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****   float_t PowerW = 0.0f;
+ 137              		.loc 1 124 1 view .LVU29
+ 138 000a 2DED028B 		vpush.64	{d8}
+ 139              	.LCFI2:
+ 140              		.cfi_def_cfa_offset 16
+ 141              		.cfi_offset 80, -16
+ 142              		.cfi_offset 81, -12
+ 124:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****   float_t PowerW = 0.0f;
+ 143              		.loc 1 124 1 view .LVU30
+ 144 000e 0446     		mov	r4, r0
+ARM GAS  /tmp/cciFInG2.s 			page 6
 
 
- 270 0022 DB68     		ldr	r3, [r3, #12]
- 271              		.loc 1 137 60
- 272 0024 1846     		mov	r0, r3
- 273 0026 FFF7FEFF 		bl	VBS_GetAvBusVoltage_V
- 274 002a 0346     		mov	r3, r0
- 275 002c 07EE903A 		vmov	s15, r3	@ int
- 276              		.loc 1 137 51
- 277 0030 F8EE677A 		vcvt.f32.u32	s15, s15
- 278              		.loc 1 137 49
- 279 0034 28EE277A 		vmul.f32	s14, s16, s15
- 280              		.loc 1 137 107
- 281 0038 7B68     		ldr	r3, [r7, #4]
- 282 003a D3ED017A 		vldr.32	s15, [r3, #4]
- 283              		.loc 1 137 10
- 284 003e 67EE277A 		vmul.f32	s15, s14, s15
- 285 0042 C7ED037A 		vstr.32	s15, [r7, #12]
+ 145              		.loc 1 137 60 view .LVU31
+ 146 0010 C068     		ldr	r0, [r0, #12]
+ 147              	.LVL8:
+ 148              		.loc 1 137 13 view .LVU32
+ 149 0012 B8EEE78A 		vcvt.f32.s32	s16, s15
+ 150              		.loc 1 137 60 view .LVU33
+ 151 0016 FFF7FEFF 		bl	VBS_GetAvBusVoltage_V
+ 152              	.LVL9:
  138:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** 
  139:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** #ifdef NULL_PTR_CHECK_PQD_MOT_POW_MEAS
  140:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****   }
  141:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** #endif
  142:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c ****   return (PowerW);
- 286              		.loc 1 142 10
- 287 0046 FB68     		ldr	r3, [r7, #12]	@ float
- 288 0048 07EE903A 		vmov	s15, r3
+ 153              		.loc 1 142 3 is_stmt 1 view .LVU34
+ 137:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** 
+ 154              		.loc 1 137 51 is_stmt 0 view .LVU35
+ 155 001a 07EE900A 		vmov	s15, r0	@ int
+ 156 001e F8EE677A 		vcvt.f32.u32	s15, s15
+ 137:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** 
+ 157              		.loc 1 137 10 view .LVU36
+ 158 0022 94ED010A 		vldr.32	s0, [r4, #4]
+ 137:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** 
+ 159              		.loc 1 137 49 view .LVU37
+ 160 0026 67EE887A 		vmul.f32	s15, s15, s16
  143:MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Src/pqd_motor_power_measurement.c **** }
- 289              		.loc 1 143 1
- 290 004c B0EE670A 		vmov.f32	s0, s15
- 291 0050 1037     		adds	r7, r7, #16
- 292              	.LCFI16:
- 293              		.cfi_def_cfa_offset 16
- 294 0052 BD46     		mov	sp, r7
- 295              	.LCFI17:
- 296              		.cfi_def_cfa_register 13
- 297              		@ sp needed
- 298 0054 BDEC028B 		vldm	sp!, {d8}
- 299              	.LCFI18:
- 300              		.cfi_restore 80
- 301              		.cfi_restore 81
- 302              		.cfi_def_cfa_offset 8
- 303 0058 80BD     		pop	{r7, pc}
- 304              		.cfi_endproc
- 305              	.LFE1439:
- 307              		.text
- 308              	.Letext0:
- 309              		.file 2 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
- 310              		.file 3 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
- 311              		.file 4 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h"
- 312              		.file 5 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_usart.h"
- 313              		.file 6 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h"
- 314              		.file 7 "Inc/mc_type.h"
- 315              		.file 8 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/bus_voltage_sensor.h"
- 316              		.file 9 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/pqd_motor_power_measurement.h"
-ARM GAS  /tmp/cc63uUNA.s 			page 9
+ 161              		.loc 1 143 1 view .LVU38
+ 162 002a BDEC028B 		vldm	sp!, {d8}
+ 163              	.LCFI3:
+ 164              		.cfi_restore 80
+ 165              		.cfi_restore 81
+ 166              		.cfi_def_cfa_offset 8
+ 167              	.LVL10:
+ 168              		.loc 1 143 1 view .LVU39
+ 169 002e 27EE800A 		vmul.f32	s0, s15, s0
+ 170 0032 10BD     		pop	{r4, pc}
+ 171              		.loc 1 143 1 view .LVU40
+ 172              		.cfi_endproc
+ 173              	.LFE1439:
+ 175              		.text
+ 176              	.Letext0:
+ 177              		.file 2 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
+ 178              		.file 3 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
+ 179              		.file 4 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h"
+ 180              		.file 5 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_usart.h"
+ 181              		.file 6 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h"
+ 182              		.file 7 "Inc/mc_type.h"
+ 183              		.file 8 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/bus_voltage_sensor.h"
+ 184              		.file 9 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/pqd_motor_power_measurement.h"
+ARM GAS  /tmp/cciFInG2.s 			page 7
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 pqd_motor_power_measurement.c
-     /tmp/cc63uUNA.s:18     .rodata.OFFSET_TAB_CCMRx:0000000000000000 $d
-     /tmp/cc63uUNA.s:21     .rodata.OFFSET_TAB_CCMRx:0000000000000000 OFFSET_TAB_CCMRx
-     /tmp/cc63uUNA.s:24     .rodata.SHIFT_TAB_OCxx:0000000000000000 $d
-     /tmp/cc63uUNA.s:27     .rodata.SHIFT_TAB_OCxx:0000000000000000 SHIFT_TAB_OCxx
-     /tmp/cc63uUNA.s:30     .rodata.SHIFT_TAB_ICxx:0000000000000000 $d
-     /tmp/cc63uUNA.s:33     .rodata.SHIFT_TAB_ICxx:0000000000000000 SHIFT_TAB_ICxx
-     /tmp/cc63uUNA.s:36     .rodata.SHIFT_TAB_CCxP:0000000000000000 $d
-     /tmp/cc63uUNA.s:39     .rodata.SHIFT_TAB_CCxP:0000000000000000 SHIFT_TAB_CCxP
-     /tmp/cc63uUNA.s:42     .rodata.SHIFT_TAB_OISx:0000000000000000 $d
-     /tmp/cc63uUNA.s:45     .rodata.SHIFT_TAB_OISx:0000000000000000 SHIFT_TAB_OISx
-     /tmp/cc63uUNA.s:48     .rodata.USART_PRESCALER_TAB:0000000000000000 $d
-     /tmp/cc63uUNA.s:51     .rodata.USART_PRESCALER_TAB:0000000000000000 USART_PRESCALER_TAB
-     /tmp/cc63uUNA.s:65     .rodata.CHANNEL_OFFSET_TAB:0000000000000000 $d
-     /tmp/cc63uUNA.s:68     .rodata.CHANNEL_OFFSET_TAB:0000000000000000 CHANNEL_OFFSET_TAB
-     /tmp/cc63uUNA.s:71     .text.PQD_CalcElMotorPower:0000000000000000 $t
-     /tmp/cc63uUNA.s:79     .text.PQD_CalcElMotorPower:0000000000000000 PQD_CalcElMotorPower
-     /tmp/cc63uUNA.s:182    .text.PQD_Clear:0000000000000000 $t
-     /tmp/cc63uUNA.s:189    .text.PQD_Clear:0000000000000000 PQD_Clear
-     /tmp/cc63uUNA.s:229    .text.PQD_GetAvrgElMotorPowerW:0000000000000000 $t
-     /tmp/cc63uUNA.s:236    .text.PQD_GetAvrgElMotorPowerW:0000000000000000 PQD_GetAvrgElMotorPowerW
+     /tmp/cciFInG2.s:18     .text.PQD_CalcElMotorPower:0000000000000000 $t
+     /tmp/cciFInG2.s:27     .text.PQD_CalcElMotorPower:0000000000000000 PQD_CalcElMotorPower
+     /tmp/cciFInG2.s:85     .text.PQD_Clear:0000000000000000 $t
+     /tmp/cciFInG2.s:93     .text.PQD_Clear:0000000000000000 PQD_Clear
+     /tmp/cciFInG2.s:111    .text.PQD_GetAvrgElMotorPowerW:0000000000000000 $t
+     /tmp/cciFInG2.s:119    .text.PQD_GetAvrgElMotorPowerW:0000000000000000 PQD_GetAvrgElMotorPowerW
 
 UNDEFINED SYMBOLS
 VBS_GetAvBusVoltage_V

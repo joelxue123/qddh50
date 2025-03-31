@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccTwAU9V.s 			page 1
+ARM GAS  /tmp/cc7A76rz.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -10,77 +10,25 @@ ARM GAS  /tmp/ccTwAU9V.s 			page 1
    7              		.eabi_attribute 24, 1
    8              		.eabi_attribute 25, 1
    9              		.eabi_attribute 26, 1
-  10              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 30, 2
   11              		.eabi_attribute 34, 1
   12              		.eabi_attribute 18, 2
   13              		.file	"dma.c"
   14              		.text
   15              	.Ltext0:
   16              		.cfi_sections	.debug_frame
-  17              		.section	.rodata.OFFSET_TAB_CCMRx,"a"
-  18              		.align	2
-  21              	OFFSET_TAB_CCMRx:
-  22 0000 00000000 		.ascii	"\000\000\000\000\004\004\004\00488"
-  22      04040404 
-  22      3838
-  23              		.section	.rodata.SHIFT_TAB_OCxx,"a"
-  24              		.align	2
-  27              	SHIFT_TAB_OCxx:
-  28 0000 00000800 		.ascii	"\000\000\010\000\000\000\010\000\000\010"
-  28      00000800 
-  28      0008
-  29              		.section	.rodata.SHIFT_TAB_ICxx,"a"
-  30              		.align	2
-  33              	SHIFT_TAB_ICxx:
-  34 0000 00000800 		.ascii	"\000\000\010\000\000\000\010\000\000\000"
-  34      00000800 
-  34      0000
-  35              		.section	.rodata.SHIFT_TAB_CCxP,"a"
-  36              		.align	2
-  39              	SHIFT_TAB_CCxP:
-  40 0000 00020406 		.ascii	"\000\002\004\006\010\012\014\016\020\024"
-  40      080A0C0E 
-  40      1014
-  41              		.section	.rodata.SHIFT_TAB_OISx,"a"
-  42              		.align	2
-  45              	SHIFT_TAB_OISx:
-  46 0000 00010203 		.ascii	"\000\001\002\003\004\005\006\007\010\012"
-  46      04050607 
-  46      080A
-  47              		.section	.rodata.USART_PRESCALER_TAB,"a"
-  48              		.align	2
-  51              	USART_PRESCALER_TAB:
-  52 0000 01000000 		.word	1
-  53 0004 02000000 		.word	2
-  54 0008 04000000 		.word	4
-  55 000c 06000000 		.word	6
-  56 0010 08000000 		.word	8
-  57 0014 0A000000 		.word	10
-  58 0018 0C000000 		.word	12
-  59 001c 10000000 		.word	16
-ARM GAS  /tmp/ccTwAU9V.s 			page 2
-
-
-  60 0020 20000000 		.word	32
-  61 0024 40000000 		.word	64
-  62 0028 80000000 		.word	128
-  63 002c 00010000 		.word	256
-  64              		.section	.rodata.CHANNEL_OFFSET_TAB,"a"
-  65              		.align	2
-  68              	CHANNEL_OFFSET_TAB:
-  69 0000 081C3044 		.ascii	"\010\0340DXl"
-  69      586C
-  70              		.section	.text.MX_DMA_Init,"ax",%progbits
-  71              		.align	1
-  72              		.global	MX_DMA_Init
-  73              		.arch armv7e-m
-  74              		.syntax unified
-  75              		.thumb
-  76              		.thumb_func
-  77              		.fpu fpv4-sp-d16
-  79              	MX_DMA_Init:
-  80              	.LFB1867:
-  81              		.file 1 "Src/dma.c"
+  17              		.section	.text.MX_DMA_Init,"ax",%progbits
+  18              		.align	1
+  19              		.p2align 2,,3
+  20              		.global	MX_DMA_Init
+  21              		.arch armv7e-m
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  25              		.fpu fpv4-sp-d16
+  27              	MX_DMA_Init:
+  28              	.LFB1867:
+  29              		.file 1 "Src/dma.c"
    1:Src/dma.c     **** /**
    2:Src/dma.c     ****   ******************************************************************************
    3:Src/dma.c     ****   * File Name          : dma.c
@@ -110,6 +58,9 @@ ARM GAS  /tmp/ccTwAU9V.s 			page 1
   27:Src/dma.c     ****   * 4. This software, including modifications and/or derivative works of this 
   28:Src/dma.c     ****   *    software, must execute solely and exclusively on microcontroller or
   29:Src/dma.c     ****   *    microprocessor devices manufactured by or for STMicroelectronics.
+ARM GAS  /tmp/cc7A76rz.s 			page 2
+
+
   30:Src/dma.c     ****   * 5. Redistribution and use of this software other than as permitted under 
   31:Src/dma.c     ****   *    this license is void and will automatically terminate your rights under 
   32:Src/dma.c     ****   *    this license. 
@@ -118,9 +69,6 @@ ARM GAS  /tmp/ccTwAU9V.s 			page 1
   35:Src/dma.c     ****   * AND ANY EXPRESS, IMPLIED OR STATUTORY WARRANTIES, INCLUDING, BUT NOT 
   36:Src/dma.c     ****   * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A 
   37:Src/dma.c     ****   * PARTICULAR PURPOSE AND NON-INFRINGEMENT OF THIRD PARTY INTELLECTUAL PROPERTY
-ARM GAS  /tmp/ccTwAU9V.s 			page 3
-
-
   38:Src/dma.c     ****   * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW. IN NO EVENT 
   39:Src/dma.c     ****   * SHALL STMICROELECTRONICS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
   40:Src/dma.c     ****   * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
@@ -153,58 +101,58 @@ ARM GAS  /tmp/ccTwAU9V.s 			page 1
   67:Src/dma.c     **** 
   68:Src/dma.c     **** void MX_DMA_Init(void) 
   69:Src/dma.c     **** {
-  82              		.loc 1 69 1
-  83              		.cfi_startproc
-  84              		@ args = 0, pretend = 0, frame = 16
-  85              		@ frame_needed = 1, uses_anonymous_args = 0
-  86              		@ link register save eliminated.
-  87 0000 80B4     		push	{r7}
-  88              	.LCFI0:
-  89              		.cfi_def_cfa_offset 4
-  90              		.cfi_offset 7, -4
-  91 0002 85B0     		sub	sp, sp, #20
-  92              	.LCFI1:
-  93              		.cfi_def_cfa_offset 24
-  94 0004 00AF     		add	r7, sp, #0
-  95              	.LCFI2:
-  96              		.cfi_def_cfa_register 7
-  68:Src/dma.c     **** {
-  97              		.loc 1 68 6
-  98 0006 07F11803 		add	r3, r7, #24
-  99 000a FB60     		str	r3, [r7, #12]
- 100              	.LBB2:
+  30              		.loc 1 69 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 8
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		@ link register save eliminated.
   70:Src/dma.c     ****   /* DMA controller clock enable */
   71:Src/dma.c     ****   __HAL_RCC_DMA1_CLK_ENABLE();
- 101              		.loc 1 71 3
- 102 000c 0E4B     		ldr	r3, .L2
- 103 000e 9B6C     		ldr	r3, [r3, #72]
-ARM GAS  /tmp/ccTwAU9V.s 			page 4
+  35              		.loc 1 71 3 view .LVU1
+  36              	.LBB2:
+  37              		.loc 1 71 3 view .LVU2
+  38              		.loc 1 71 3 view .LVU3
+  39 0000 0A4B     		ldr	r3, .L4
+  40 0002 9A6C     		ldr	r2, [r3, #72]
+  41 0004 42F00102 		orr	r2, r2, #1
+  42 0008 9A64     		str	r2, [r3, #72]
+  43              		.loc 1 71 3 view .LVU4
+  44 000a 9A6C     		ldr	r2, [r3, #72]
+ARM GAS  /tmp/cc7A76rz.s 			page 3
 
 
- 104 0010 0D4A     		ldr	r2, .L2
- 105 0012 43F00103 		orr	r3, r3, #1
- 106 0016 9364     		str	r3, [r2, #72]
- 107 0018 0B4B     		ldr	r3, .L2
- 108 001a 9B6C     		ldr	r3, [r3, #72]
- 109 001c 03F00103 		and	r3, r3, #1
- 110 0020 BB60     		str	r3, [r7, #8]
- 111 0022 BB68     		ldr	r3, [r7, #8]
- 112              	.LBE2:
- 113              	.LBB3:
+  45              	.LBE2:
+  69:Src/dma.c     ****   /* DMA controller clock enable */
+  46              		.loc 1 69 1 is_stmt 0 view .LVU5
+  47 000c 82B0     		sub	sp, sp, #8
+  48              	.LCFI0:
+  49              		.cfi_def_cfa_offset 8
+  50              	.LBB3:
+  51              		.loc 1 71 3 view .LVU6
+  52 000e 02F00102 		and	r2, r2, #1
+  53 0012 0092     		str	r2, [sp]
+  54              		.loc 1 71 3 is_stmt 1 view .LVU7
+  55 0014 009A     		ldr	r2, [sp]
+  56              	.LBE3:
+  57              		.loc 1 71 3 view .LVU8
   72:Src/dma.c     ****   __HAL_RCC_DMA2_CLK_ENABLE();
- 114              		.loc 1 72 3
- 115 0024 084B     		ldr	r3, .L2
- 116 0026 9B6C     		ldr	r3, [r3, #72]
- 117 0028 074A     		ldr	r2, .L2
- 118 002a 43F00203 		orr	r3, r3, #2
- 119 002e 9364     		str	r3, [r2, #72]
- 120 0030 054B     		ldr	r3, .L2
- 121 0032 9B6C     		ldr	r3, [r3, #72]
- 122 0034 03F00203 		and	r3, r3, #2
- 123 0038 7B60     		str	r3, [r7, #4]
- 124 003a 7B68     		ldr	r3, [r7, #4]
- 125              	.LBE3:
+  58              		.loc 1 72 3 view .LVU9
+  59              	.LBB4:
+  60              		.loc 1 72 3 view .LVU10
+  61              		.loc 1 72 3 view .LVU11
+  62 0016 9A6C     		ldr	r2, [r3, #72]
+  63 0018 42F00202 		orr	r2, r2, #2
+  64 001c 9A64     		str	r2, [r3, #72]
+  65              		.loc 1 72 3 view .LVU12
+  66 001e 9B6C     		ldr	r3, [r3, #72]
+  67 0020 03F00203 		and	r3, r3, #2
+  68 0024 0193     		str	r3, [sp, #4]
+  69              		.loc 1 72 3 view .LVU13
+  70 0026 019B     		ldr	r3, [sp, #4]
+  71              	.LBE4:
+  72              		.loc 1 72 3 view .LVU14
   73:Src/dma.c     ****   void MX_DMA_Init(void) 
+  73              		.loc 1 73 3 view .LVU15
   74:Src/dma.c     ****   {
   75:Src/dma.c     ****       /* DMA controller clock enable */
   76:Src/dma.c     ****       __HAL_RCC_DMA1_CLK_ENABLE();
@@ -230,6 +178,9 @@ ARM GAS  /tmp/ccTwAU9V.s 			page 1
   96:Src/dma.c     ****       /* DMA2 Channel1 interrupt configuration */
   97:Src/dma.c     ****       HAL_NVIC_SetPriority(DMA2_Channel1_IRQn, 6, 0);
   98:Src/dma.c     ****       HAL_NVIC_EnableIRQ(DMA2_Channel1_IRQn);
+ARM GAS  /tmp/cc7A76rz.s 			page 4
+
+
   99:Src/dma.c     ****       
  100:Src/dma.c     ****       /* DMA2 Channel2 interrupt configuration */
  101:Src/dma.c     ****       HAL_NVIC_SetPriority(DMA2_Channel2_IRQn, 6, 0);
@@ -237,58 +188,33 @@ ARM GAS  /tmp/ccTwAU9V.s 			page 1
  103:Src/dma.c     ****   }
  104:Src/dma.c     **** 
  105:Src/dma.c     **** }
- 126              		.loc 1 105 1
-ARM GAS  /tmp/ccTwAU9V.s 			page 5
-
-
- 127 003c 00BF     		nop
- 128 003e 1437     		adds	r7, r7, #20
- 129              	.LCFI3:
- 130              		.cfi_def_cfa_offset 4
- 131 0040 BD46     		mov	sp, r7
- 132              	.LCFI4:
- 133              		.cfi_def_cfa_register 13
- 134              		@ sp needed
- 135 0042 5DF8047B 		ldr	r7, [sp], #4
- 136              	.LCFI5:
- 137              		.cfi_restore 7
- 138              		.cfi_def_cfa_offset 0
- 139 0046 7047     		bx	lr
- 140              	.L3:
- 141              		.align	2
- 142              	.L2:
- 143 0048 00100240 		.word	1073876992
- 144              		.cfi_endproc
- 145              	.LFE1867:
- 147              		.text
- 148              	.Letext0:
- 149              		.file 2 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
- 150              		.file 3 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
- 151              		.file 4 "Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g431xx.h"
- 152              		.file 5 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h"
- 153              		.file 6 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_usart.h"
- 154              		.file 7 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h"
-ARM GAS  /tmp/ccTwAU9V.s 			page 6
+  74              		.loc 1 105 1 is_stmt 0 view .LVU16
+  75 0028 02B0     		add	sp, sp, #8
+  76              	.LCFI1:
+  77              		.cfi_def_cfa_offset 0
+  78              		@ sp needed
+  79 002a 7047     		bx	lr
+  80              	.L5:
+  81              		.align	2
+  82              	.L4:
+  83 002c 00100240 		.word	1073876992
+  84              		.cfi_endproc
+  85              	.LFE1867:
+  87              		.text
+  88              	.Letext0:
+  89              		.file 2 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
+  90              		.file 3 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
+  91              		.file 4 "Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g431xx.h"
+  92              		.file 5 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h"
+  93              		.file 6 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_usart.h"
+  94              		.file 7 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h"
+ARM GAS  /tmp/cc7A76rz.s 			page 5
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 dma.c
-     /tmp/ccTwAU9V.s:18     .rodata.OFFSET_TAB_CCMRx:0000000000000000 $d
-     /tmp/ccTwAU9V.s:21     .rodata.OFFSET_TAB_CCMRx:0000000000000000 OFFSET_TAB_CCMRx
-     /tmp/ccTwAU9V.s:24     .rodata.SHIFT_TAB_OCxx:0000000000000000 $d
-     /tmp/ccTwAU9V.s:27     .rodata.SHIFT_TAB_OCxx:0000000000000000 SHIFT_TAB_OCxx
-     /tmp/ccTwAU9V.s:30     .rodata.SHIFT_TAB_ICxx:0000000000000000 $d
-     /tmp/ccTwAU9V.s:33     .rodata.SHIFT_TAB_ICxx:0000000000000000 SHIFT_TAB_ICxx
-     /tmp/ccTwAU9V.s:36     .rodata.SHIFT_TAB_CCxP:0000000000000000 $d
-     /tmp/ccTwAU9V.s:39     .rodata.SHIFT_TAB_CCxP:0000000000000000 SHIFT_TAB_CCxP
-     /tmp/ccTwAU9V.s:42     .rodata.SHIFT_TAB_OISx:0000000000000000 $d
-     /tmp/ccTwAU9V.s:45     .rodata.SHIFT_TAB_OISx:0000000000000000 SHIFT_TAB_OISx
-     /tmp/ccTwAU9V.s:48     .rodata.USART_PRESCALER_TAB:0000000000000000 $d
-     /tmp/ccTwAU9V.s:51     .rodata.USART_PRESCALER_TAB:0000000000000000 USART_PRESCALER_TAB
-     /tmp/ccTwAU9V.s:65     .rodata.CHANNEL_OFFSET_TAB:0000000000000000 $d
-     /tmp/ccTwAU9V.s:68     .rodata.CHANNEL_OFFSET_TAB:0000000000000000 CHANNEL_OFFSET_TAB
-     /tmp/ccTwAU9V.s:71     .text.MX_DMA_Init:0000000000000000 $t
-     /tmp/ccTwAU9V.s:79     .text.MX_DMA_Init:0000000000000000 MX_DMA_Init
-     /tmp/ccTwAU9V.s:143    .text.MX_DMA_Init:0000000000000048 $d
+     /tmp/cc7A76rz.s:18     .text.MX_DMA_Init:0000000000000000 $t
+     /tmp/cc7A76rz.s:27     .text.MX_DMA_Init:0000000000000000 MX_DMA_Init
+     /tmp/cc7A76rz.s:83     .text.MX_DMA_Init:000000000000002c $d
 
 NO UNDEFINED SYMBOLS

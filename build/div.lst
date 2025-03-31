@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccIVhKnY.s 			page 1
+ARM GAS  /tmp/ccCxsZN2.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -10,7 +10,7 @@ ARM GAS  /tmp/ccIVhKnY.s 			page 1
    7              		.eabi_attribute 24, 1
    8              		.eabi_attribute 25, 1
    9              		.eabi_attribute 26, 1
-  10              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 30, 2
   11              		.eabi_attribute 34, 1
   12              		.eabi_attribute 18, 2
   13              		.file	"div.c"
@@ -20,125 +20,92 @@ ARM GAS  /tmp/ccIVhKnY.s 			page 1
   17              		.global	__aeabi_ldivmod
   18              		.section	.text.test_div64,"ax",%progbits
   19              		.align	1
-  20              		.global	test_div64
-  21              		.arch armv7e-m
-  22              		.syntax unified
-  23              		.thumb
-  24              		.thumb_func
-  25              		.fpu fpv4-sp-d16
-  27              	test_div64:
-  28              	.LFB0:
-  29              		.file 1 "Src/div.c"
+  20              		.p2align 2,,3
+  21              		.global	test_div64
+  22              		.arch armv7e-m
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  26              		.fpu fpv4-sp-d16
+  28              	test_div64:
+  29              	.LVL0:
+  30              	.LFB0:
+  31              		.file 1 "Src/div.c"
    1:Src/div.c     **** #include <stdint.h>
    2:Src/div.c     **** 
    3:Src/div.c     **** int64_t test_div64(int64_t a, int64_t b) {
-  30              		.loc 1 3 42
-  31              		.cfi_startproc
-  32              		@ args = 0, pretend = 0, frame = 16
-  33              		@ frame_needed = 1, uses_anonymous_args = 0
-  34 0000 80B5     		push	{r7, lr}
-  35              	.LCFI0:
-  36              		.cfi_def_cfa_offset 8
-  37              		.cfi_offset 7, -8
-  38              		.cfi_offset 14, -4
-  39 0002 84B0     		sub	sp, sp, #16
-  40              	.LCFI1:
-  41              		.cfi_def_cfa_offset 24
-  42 0004 00AF     		add	r7, sp, #0
-  43              	.LCFI2:
-  44              		.cfi_def_cfa_register 7
-  45 0006 C7E90201 		strd	r0, [r7, #8]
-  46 000a C7E90023 		strd	r2, [r7]
+  32              		.loc 1 3 42 view -0
+  33              		.cfi_startproc
+  34              		@ args = 0, pretend = 0, frame = 0
+  35              		@ frame_needed = 0, uses_anonymous_args = 0
    4:Src/div.c     ****     return a / b;
-  47              		.loc 1 4 14
-  48 000e D7E90023 		ldrd	r2, [r7]
-  49 0012 D7E90201 		ldrd	r0, [r7, #8]
-  50 0016 FFF7FEFF 		bl	__aeabi_ldivmod
-  51 001a 0246     		mov	r2, r0
-  52 001c 0B46     		mov	r3, r1
+  36              		.loc 1 4 5 view .LVU1
+   3:Src/div.c     **** 
+  37              		.loc 1 3 42 is_stmt 0 view .LVU2
+  38 0000 08B5     		push	{r3, lr}
+  39              	.LCFI0:
+  40              		.cfi_def_cfa_offset 8
+  41              		.cfi_offset 3, -8
+  42              		.cfi_offset 14, -4
+  43              		.loc 1 4 14 view .LVU3
+  44 0002 FFF7FEFF 		bl	__aeabi_ldivmod
+  45              	.LVL1:
    5:Src/div.c     **** }
-  53              		.loc 1 5 1
-ARM GAS  /tmp/ccIVhKnY.s 			page 2
+  46              		.loc 1 5 1 view .LVU4
+  47 0006 08BD     		pop	{r3, pc}
+  48              		.cfi_endproc
+  49              	.LFE0:
+  51              		.global	__aeabi_uldivmod
+  52              		.section	.text.test_udiv64,"ax",%progbits
+  53              		.align	1
+ARM GAS  /tmp/ccCxsZN2.s 			page 2
 
 
-  54 001e 1046     		mov	r0, r2
-  55 0020 1946     		mov	r1, r3
-  56 0022 1037     		adds	r7, r7, #16
-  57              	.LCFI3:
-  58              		.cfi_def_cfa_offset 8
-  59 0024 BD46     		mov	sp, r7
-  60              	.LCFI4:
-  61              		.cfi_def_cfa_register 13
-  62              		@ sp needed
-  63 0026 80BD     		pop	{r7, pc}
-  64              		.cfi_endproc
-  65              	.LFE0:
-  67              		.global	__aeabi_uldivmod
-  68              		.section	.text.test_udiv64,"ax",%progbits
-  69              		.align	1
-  70              		.global	test_udiv64
-  71              		.syntax unified
-  72              		.thumb
-  73              		.thumb_func
-  74              		.fpu fpv4-sp-d16
-  76              	test_udiv64:
-  77              	.LFB1:
+  54              		.p2align 2,,3
+  55              		.global	test_udiv64
+  56              		.syntax unified
+  57              		.thumb
+  58              		.thumb_func
+  59              		.fpu fpv4-sp-d16
+  61              	test_udiv64:
+  62              	.LVL2:
+  63              	.LFB1:
    6:Src/div.c     **** 
    7:Src/div.c     **** uint64_t test_udiv64(uint64_t a, uint64_t b) {
-  78              		.loc 1 7 46
-  79              		.cfi_startproc
-  80              		@ args = 0, pretend = 0, frame = 16
-  81              		@ frame_needed = 1, uses_anonymous_args = 0
-  82 0000 80B5     		push	{r7, lr}
-  83              	.LCFI5:
-  84              		.cfi_def_cfa_offset 8
-  85              		.cfi_offset 7, -8
-  86              		.cfi_offset 14, -4
-  87 0002 84B0     		sub	sp, sp, #16
-  88              	.LCFI6:
-  89              		.cfi_def_cfa_offset 24
-  90 0004 00AF     		add	r7, sp, #0
-  91              	.LCFI7:
-  92              		.cfi_def_cfa_register 7
-  93 0006 C7E90201 		strd	r0, [r7, #8]
-  94 000a C7E90023 		strd	r2, [r7]
+  64              		.loc 1 7 46 is_stmt 1 view -0
+  65              		.cfi_startproc
+  66              		@ args = 0, pretend = 0, frame = 0
+  67              		@ frame_needed = 0, uses_anonymous_args = 0
    8:Src/div.c     ****     return a / b;
-  95              		.loc 1 8 14
-  96 000e D7E90023 		ldrd	r2, [r7]
-  97 0012 D7E90201 		ldrd	r0, [r7, #8]
-  98 0016 FFF7FEFF 		bl	__aeabi_uldivmod
-  99 001a 0246     		mov	r2, r0
- 100 001c 0B46     		mov	r3, r1
+  68              		.loc 1 8 5 view .LVU6
+   7:Src/div.c     ****     return a / b;
+  69              		.loc 1 7 46 is_stmt 0 view .LVU7
+  70 0000 08B5     		push	{r3, lr}
+  71              	.LCFI1:
+  72              		.cfi_def_cfa_offset 8
+  73              		.cfi_offset 3, -8
+  74              		.cfi_offset 14, -4
+  75              		.loc 1 8 14 view .LVU8
+  76 0002 FFF7FEFF 		bl	__aeabi_uldivmod
+  77              	.LVL3:
    9:Src/div.c     **** }...
- 101              		.loc 1 9 1
- 102 001e 1046     		mov	r0, r2
- 103 0020 1946     		mov	r1, r3
- 104 0022 1037     		adds	r7, r7, #16
- 105              	.LCFI8:
- 106              		.cfi_def_cfa_offset 8
- 107 0024 BD46     		mov	sp, r7
- 108              	.LCFI9:
-ARM GAS  /tmp/ccIVhKnY.s 			page 3
-
-
- 109              		.cfi_def_cfa_register 13
- 110              		@ sp needed
- 111 0026 80BD     		pop	{r7, pc}
- 112              		.cfi_endproc
- 113              	.LFE1:
- 115              		.text
- 116              	.Letext0:
- 117              		.file 2 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
- 118              		.file 3 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
-ARM GAS  /tmp/ccIVhKnY.s 			page 4
+  78              		.loc 1 9 1 view .LVU9
+  79 0006 08BD     		pop	{r3, pc}
+  80              		.cfi_endproc
+  81              	.LFE1:
+  83              		.text
+  84              	.Letext0:
+  85              		.file 2 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
+  86              		.file 3 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
+ARM GAS  /tmp/ccCxsZN2.s 			page 3
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 div.c
-     /tmp/ccIVhKnY.s:19     .text.test_div64:0000000000000000 $t
-     /tmp/ccIVhKnY.s:27     .text.test_div64:0000000000000000 test_div64
-     /tmp/ccIVhKnY.s:69     .text.test_udiv64:0000000000000000 $t
-     /tmp/ccIVhKnY.s:76     .text.test_udiv64:0000000000000000 test_udiv64
+     /tmp/ccCxsZN2.s:19     .text.test_div64:0000000000000000 $t
+     /tmp/ccCxsZN2.s:28     .text.test_div64:0000000000000000 test_div64
+     /tmp/ccCxsZN2.s:53     .text.test_udiv64:0000000000000000 $t
+     /tmp/ccCxsZN2.s:61     .text.test_udiv64:0000000000000000 test_udiv64
 
 UNDEFINED SYMBOLS
 __aeabi_ldivmod

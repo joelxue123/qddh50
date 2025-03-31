@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccvp3Rdn.s 			page 1
+ARM GAS  /tmp/ccCPTpLy.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -10,269 +10,202 @@ ARM GAS  /tmp/ccvp3Rdn.s 			page 1
    7              		.eabi_attribute 24, 1
    8              		.eabi_attribute 25, 1
    9              		.eabi_attribute 26, 1
-  10              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 30, 2
   11              		.eabi_attribute 34, 1
   12              		.eabi_attribute 18, 2
   13              		.file	"mcp_config.c"
   14              		.text
   15              	.Ltext0:
   16              		.cfi_sections	.debug_frame
-  17              		.section	.rodata.OFFSET_TAB_CCMRx,"a"
-  18              		.align	2
-  21              	OFFSET_TAB_CCMRx:
-  22 0000 00000000 		.ascii	"\000\000\000\000\004\004\004\00488"
-  22      04040404 
-  22      3838
-  23              		.section	.rodata.SHIFT_TAB_OCxx,"a"
-  24              		.align	2
-  27              	SHIFT_TAB_OCxx:
-  28 0000 00000800 		.ascii	"\000\000\010\000\000\000\010\000\000\010"
-  28      00000800 
-  28      0008
-  29              		.section	.rodata.SHIFT_TAB_ICxx,"a"
-  30              		.align	2
-  33              	SHIFT_TAB_ICxx:
-  34 0000 00000800 		.ascii	"\000\000\010\000\000\000\010\000\000\000"
-  34      00000800 
-  34      0000
-  35              		.section	.rodata.SHIFT_TAB_CCxP,"a"
-  36              		.align	2
-  39              	SHIFT_TAB_CCxP:
-  40 0000 00020406 		.ascii	"\000\002\004\006\010\012\014\016\020\024"
-  40      080A0C0E 
-  40      1014
-  41              		.section	.rodata.SHIFT_TAB_OISx,"a"
-  42              		.align	2
-  45              	SHIFT_TAB_OISx:
-  46 0000 00010203 		.ascii	"\000\001\002\003\004\005\006\007\010\012"
-  46      04050607 
-  46      080A
-  47              		.section	.rodata.USART_PRESCALER_TAB,"a"
-  48              		.align	2
-  51              	USART_PRESCALER_TAB:
-  52 0000 01000000 		.word	1
-  53 0004 02000000 		.word	2
-  54 0008 04000000 		.word	4
-  55 000c 06000000 		.word	6
-  56 0010 08000000 		.word	8
-  57 0014 0A000000 		.word	10
-  58 0018 0C000000 		.word	12
-  59 001c 10000000 		.word	16
-ARM GAS  /tmp/ccvp3Rdn.s 			page 2
+  17              		.global	MCPA_UART_A
+  18              		.global	MCP_Over_UartA
+  19              		.global	aspepOverUartA
+  20              		.global	MCP_UserCallBack
+  21              		.section	.bss.MCPAsyncBuffUARTA_A,"aw",%nobits
+  22              		.align	2
+  25              	MCPAsyncBuffUARTA_A:
+  26 0000 00000000 		.space	2054
+  26      00000000 
+  26      00000000 
+  26      00000000 
+  26      00000000 
+  27              		.section	.bss.MCPAsyncBuffUARTA_B,"aw",%nobits
+  28              		.align	2
+  31              	MCPAsyncBuffUARTA_B:
+  32 0000 00000000 		.space	2054
+  32      00000000 
+  32      00000000 
+  32      00000000 
+  32      00000000 
+  33              		.section	.bss.MCPSyncRXBuff,"aw",%nobits
+  34              		.align	2
+  37              	MCPSyncRXBuff:
+  38 0000 00000000 		.space	258
+  38      00000000 
+  38      00000000 
+  38      00000000 
+  38      00000000 
+  39              		.section	.bss.MCPSyncTxBuff,"aw",%nobits
+  40              		.align	2
+  43              	MCPSyncTxBuff:
+  44 0000 00000000 		.space	262
+  44      00000000 
+  44      00000000 
+  44      00000000 
+  44      00000000 
+  45              		.section	.bss.MCP_UserCallBack,"aw",%nobits
+  46              		.align	2
+  49              	MCP_UserCallBack:
+  50 0000 00000000 		.space	8
+  50      00000000 
+ARM GAS  /tmp/ccCPTpLy.s 			page 2
 
 
-  60 0020 20000000 		.word	32
-  61 0024 40000000 		.word	64
-  62 0028 80000000 		.word	128
-  63 002c 00010000 		.word	256
-  64              		.section	.rodata.CHANNEL_OFFSET_TAB,"a"
-  65              		.align	2
-  68              	CHANNEL_OFFSET_TAB:
-  69 0000 081C3044 		.ascii	"\010\0340DXl"
-  69      586C
-  70              		.section	.bss.MCPSyncTxBuff,"aw",%nobits
-  71              		.align	2
-  74              	MCPSyncTxBuff:
-  75 0000 00000000 		.space	262
-  75      00000000 
-  75      00000000 
-  75      00000000 
-  75      00000000 
-  76              		.section	.bss.MCPSyncRXBuff,"aw",%nobits
-  77              		.align	2
-  80              	MCPSyncRXBuff:
-  81 0000 00000000 		.space	258
-  81      00000000 
-  81      00000000 
-  81      00000000 
-  81      00000000 
-  82              		.section	.bss.MCPAsyncBuffUARTA_A,"aw",%nobits
-  83              		.align	2
-  86              	MCPAsyncBuffUARTA_A:
-  87 0000 00000000 		.space	2054
+  51              		.section	.bss.dataPtrTableA,"aw",%nobits
+  52              		.align	2
+  55              	dataPtrTableA:
+  56 0000 00000000 		.space	40
+  56      00000000 
+  56      00000000 
+  56      00000000 
+  56      00000000 
+  57              		.section	.bss.dataPtrTableBuffA,"aw",%nobits
+  58              		.align	2
+  61              	dataPtrTableBuffA:
+  62 0000 00000000 		.space	40
+  62      00000000 
+  62      00000000 
+  62      00000000 
+  62      00000000 
+  63              		.section	.bss.dataSizeTableA,"aw",%nobits
+  64              		.align	2
+  67              	dataSizeTableA:
+  68 0000 00000000 		.space	10
+  68      00000000 
+  68      0000
+  69              		.section	.bss.dataSizeTableBuffA,"aw",%nobits
+  70              		.align	2
+  73              	dataSizeTableBuffA:
+  74 0000 00000000 		.space	10
+  74      00000000 
+  74      0000
+  75              		.section	.data.MCPA_UART_A,"aw"
+  76              		.align	2
+  79              	MCPA_UART_A:
+  80 0000 00000000 		.word	aspepOverUartA
+  81 0004 00000000 		.word	dataPtrTableA
+  82 0008 00000000 		.word	dataPtrTableBuffA
+  83 000c 00000000 		.word	dataSizeTableA
+  84 0010 00000000 		.word	dataSizeTableBuffA
+  85 0014 00000000 		.space	10
+  85      00000000 
+  85      0000
+  86 001e 0A       		.byte	10
+  87 001f 00000000 		.space	13
   87      00000000 
   87      00000000 
-  87      00000000 
-  87      00000000 
-  88              		.section	.bss.MCPAsyncBuffUARTA_B,"aw",%nobits
+  87      00
+  88              		.section	.data.MCP_Over_UartA,"aw"
   89              		.align	2
-  92              	MCPAsyncBuffUARTA_B:
-  93 0000 00000000 		.space	2054
-  93      00000000 
-  93      00000000 
-  93      00000000 
-  93      00000000 
-  94              		.section	.bss.dataPtrTableA,"aw",%nobits
-  95              		.align	2
-  98              	dataPtrTableA:
-  99 0000 00000000 		.space	40
-  99      00000000 
-  99      00000000 
-  99      00000000 
-  99      00000000 
- 100              		.section	.bss.dataPtrTableBuffA,"aw",%nobits
- 101              		.align	2
- 104              	dataPtrTableBuffA:
- 105 0000 00000000 		.space	40
- 105      00000000 
- 105      00000000 
- 105      00000000 
- 105      00000000 
-ARM GAS  /tmp/ccvp3Rdn.s 			page 3
+  92              	MCP_Over_UartA:
+  93 0000 00000000 		.word	aspepOverUartA
+  94 0004 00000000 		.space	12
+  94      00000000 
+  94      00000000 
+  95              		.section	.data.UASPEP_A,"aw"
+  96              		.align	2
+  99              	UASPEP_A:
+ 100 0000 00380140 		.word	1073821696
+ 101 0004 00000240 		.word	1073872896
+ 102 0008 00000240 		.word	1073872896
+ARM GAS  /tmp/ccCPTpLy.s 			page 3
 
 
- 106              		.section	.bss.dataSizeTableA,"aw",%nobits
- 107              		.align	2
- 110              	dataSizeTableA:
- 111 0000 00000000 		.space	10
- 111      00000000 
- 111      0000
- 112              		.section	.bss.dataSizeTableBuffA,"aw",%nobits
- 113              		.align	2
- 116              	dataSizeTableBuffA:
- 117 0000 00000000 		.space	10
- 117      00000000 
- 117      0000
- 118              		.global	MCP_UserCallBack
- 119              		.section	.bss.MCP_UserCallBack,"aw",%nobits
- 120              		.align	2
- 123              	MCP_UserCallBack:
- 124 0000 00000000 		.space	8
- 124      00000000 
- 125              		.section	.data.UASPEP_A,"aw"
- 126              		.align	2
- 129              	UASPEP_A:
- 130 0000 00380140 		.word	1073821696
- 131 0004 00000240 		.word	1073872896
- 132 0008 00000240 		.word	1073872896
- 133 000c 00000000 		.word	0
- 134 0010 01000000 		.word	1
- 135              		.global	aspepOverUartA
- 136              		.section	.data.aspepOverUartA,"aw"
- 137              		.align	2
- 140              	aspepOverUartA:
- 141 0000 00000000 		.word	ASPEP_getBuffer
- 142 0004 00000000 		.word	ASPEP_sendPacket
- 143 0008 00000000 		.word	ASPEP_RXframeProcess
- 144 000c 00000000 		.space	8
- 144      00000000 
- 145 0014 00000000 		.word	UASPEP_A
- 146 0018 00000000 		.word	MCPSyncRXBuff
- 147 001c 00000000 		.space	12
- 147      00000000 
- 147      00000000 
- 148 0028 00000000 		.word	MCPSyncTxBuff
- 149 002c 00000000 		.space	4
- 150 0030 00000000 		.word	MCPAsyncBuffUARTA_A
- 151 0034 00000000 		.space	4
- 152 0038 00000000 		.word	MCPAsyncBuffUARTA_B
- 153 003c 00000000 		.space	4
- 154 0040 00000000 		.space	12
- 154      00000000 
- 154      00000000 
- 155 004c 00000000 		.word	UASPEP_INIT
- 156 0050 00000000 		.word	UASPEP_IDLE_ENABLE
- 157 0054 00000000 		.word	UASPEP_CFG_RECEPTION
- 158 0058 00000000 		.word	UASPEP_CFG_TRANSMISSION
- 159 005c 00000000 		.space	7
- 159      000000
- 160 0063 00       		.byte	0
- 161 0064 00000000 		.space	8
-ARM GAS  /tmp/ccvp3Rdn.s 			page 4
-
-
- 161      00000000 
- 162 006c 00       		.byte	0
- 163 006d 07       		.byte	7
- 164 006e 07       		.byte	7
- 165 006f 20       		.byte	32
- 166 0070 00       		.byte	0
- 167 0071 000000   		.space	3
- 168              		.global	MCP_Over_UartA
- 169              		.section	.data.MCP_Over_UartA,"aw"
- 170              		.align	2
- 173              	MCP_Over_UartA:
- 174 0000 00000000 		.word	aspepOverUartA
- 175 0004 00000000 		.space	12
- 175      00000000 
- 175      00000000 
- 176              		.global	MCPA_UART_A
- 177              		.section	.data.MCPA_UART_A,"aw"
- 178              		.align	2
- 181              	MCPA_UART_A:
- 182 0000 00000000 		.word	aspepOverUartA
- 183 0004 00000000 		.word	dataPtrTableA
- 184 0008 00000000 		.word	dataPtrTableBuffA
- 185 000c 00000000 		.word	dataSizeTableA
- 186 0010 00000000 		.word	dataSizeTableBuffA
- 187 0014 00000000 		.space	10
- 187      00000000 
- 187      0000
- 188 001e 0A       		.byte	10
- 189 001f 00000000 		.space	13
- 189      00000000 
- 189      00000000 
- 189      00
- 190              		.text
- 191              	.Letext0:
- 192              		.file 1 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
- 193              		.file 2 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
- 194              		.file 3 "Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g431xx.h"
- 195              		.file 4 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h"
- 196              		.file 5 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_usart.h"
- 197              		.file 6 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h"
- 198              		.file 7 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/usart_aspep_driver.h"
- 199              		.file 8 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/mcptl.h"
- 200              		.file 9 "Inc/aspep.h"
- 201              		.file 10 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/mcp.h"
- 202              		.file 11 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/mcpa.h"
- 203              		.file 12 "Inc/mcp_config.h"
- 204              		.file 13 "Src/mcp_config.c"
-ARM GAS  /tmp/ccvp3Rdn.s 			page 5
+ 103 000c 00000000 		.word	0
+ 104 0010 01000000 		.word	1
+ 105              		.section	.data.aspepOverUartA,"aw"
+ 106              		.align	2
+ 109              	aspepOverUartA:
+ 110 0000 00000000 		.word	ASPEP_getBuffer
+ 111 0004 00000000 		.word	ASPEP_sendPacket
+ 112 0008 00000000 		.word	ASPEP_RXframeProcess
+ 113 000c 00000000 		.space	8
+ 113      00000000 
+ 114 0014 00000000 		.word	UASPEP_A
+ 115 0018 00000000 		.word	MCPSyncRXBuff
+ 116 001c 00000000 		.space	12
+ 116      00000000 
+ 116      00000000 
+ 117 0028 00000000 		.word	MCPSyncTxBuff
+ 118 002c 00000000 		.space	4
+ 119 0030 00000000 		.word	MCPAsyncBuffUARTA_A
+ 120 0034 00000000 		.space	4
+ 121 0038 00000000 		.word	MCPAsyncBuffUARTA_B
+ 122 003c 00000000 		.space	4
+ 123 0040 00000000 		.space	12
+ 123      00000000 
+ 123      00000000 
+ 124 004c 00000000 		.word	UASPEP_INIT
+ 125 0050 00000000 		.word	UASPEP_IDLE_ENABLE
+ 126 0054 00000000 		.word	UASPEP_CFG_RECEPTION
+ 127 0058 00000000 		.word	UASPEP_CFG_TRANSMISSION
+ 128 005c 00000000 		.space	7
+ 128      000000
+ 129 0063 00       		.byte	0
+ 130 0064 00000000 		.space	8
+ 130      00000000 
+ 131 006c 00       		.byte	0
+ 132 006d 07       		.byte	7
+ 133 006e 07       		.byte	7
+ 134 006f 20       		.byte	32
+ 135 0070 00       		.byte	0
+ 136 0071 000000   		.space	3
+ 137              		.text
+ 138              	.Letext0:
+ 139              		.file 1 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
+ 140              		.file 2 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
+ 141              		.file 3 "Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g431xx.h"
+ 142              		.file 4 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h"
+ 143              		.file 5 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_usart.h"
+ 144              		.file 6 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h"
+ 145              		.file 7 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/usart_aspep_driver.h"
+ 146              		.file 8 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/mcptl.h"
+ 147              		.file 9 "Inc/aspep.h"
+ 148              		.file 10 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/mcp.h"
+ 149              		.file 11 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/mcpa.h"
+ 150              		.file 12 "Inc/mcp_config.h"
+ 151              		.file 13 "Src/mcp_config.c"
+ARM GAS  /tmp/ccCPTpLy.s 			page 4
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 mcp_config.c
-     /tmp/ccvp3Rdn.s:18     .rodata.OFFSET_TAB_CCMRx:0000000000000000 $d
-     /tmp/ccvp3Rdn.s:21     .rodata.OFFSET_TAB_CCMRx:0000000000000000 OFFSET_TAB_CCMRx
-     /tmp/ccvp3Rdn.s:24     .rodata.SHIFT_TAB_OCxx:0000000000000000 $d
-     /tmp/ccvp3Rdn.s:27     .rodata.SHIFT_TAB_OCxx:0000000000000000 SHIFT_TAB_OCxx
-     /tmp/ccvp3Rdn.s:30     .rodata.SHIFT_TAB_ICxx:0000000000000000 $d
-     /tmp/ccvp3Rdn.s:33     .rodata.SHIFT_TAB_ICxx:0000000000000000 SHIFT_TAB_ICxx
-     /tmp/ccvp3Rdn.s:36     .rodata.SHIFT_TAB_CCxP:0000000000000000 $d
-     /tmp/ccvp3Rdn.s:39     .rodata.SHIFT_TAB_CCxP:0000000000000000 SHIFT_TAB_CCxP
-     /tmp/ccvp3Rdn.s:42     .rodata.SHIFT_TAB_OISx:0000000000000000 $d
-     /tmp/ccvp3Rdn.s:45     .rodata.SHIFT_TAB_OISx:0000000000000000 SHIFT_TAB_OISx
-     /tmp/ccvp3Rdn.s:48     .rodata.USART_PRESCALER_TAB:0000000000000000 $d
-     /tmp/ccvp3Rdn.s:51     .rodata.USART_PRESCALER_TAB:0000000000000000 USART_PRESCALER_TAB
-     /tmp/ccvp3Rdn.s:65     .rodata.CHANNEL_OFFSET_TAB:0000000000000000 $d
-     /tmp/ccvp3Rdn.s:68     .rodata.CHANNEL_OFFSET_TAB:0000000000000000 CHANNEL_OFFSET_TAB
-     /tmp/ccvp3Rdn.s:71     .bss.MCPSyncTxBuff:0000000000000000 $d
-     /tmp/ccvp3Rdn.s:74     .bss.MCPSyncTxBuff:0000000000000000 MCPSyncTxBuff
-     /tmp/ccvp3Rdn.s:77     .bss.MCPSyncRXBuff:0000000000000000 $d
-     /tmp/ccvp3Rdn.s:80     .bss.MCPSyncRXBuff:0000000000000000 MCPSyncRXBuff
-     /tmp/ccvp3Rdn.s:83     .bss.MCPAsyncBuffUARTA_A:0000000000000000 $d
-     /tmp/ccvp3Rdn.s:86     .bss.MCPAsyncBuffUARTA_A:0000000000000000 MCPAsyncBuffUARTA_A
-     /tmp/ccvp3Rdn.s:89     .bss.MCPAsyncBuffUARTA_B:0000000000000000 $d
-     /tmp/ccvp3Rdn.s:92     .bss.MCPAsyncBuffUARTA_B:0000000000000000 MCPAsyncBuffUARTA_B
-     /tmp/ccvp3Rdn.s:95     .bss.dataPtrTableA:0000000000000000 $d
-     /tmp/ccvp3Rdn.s:98     .bss.dataPtrTableA:0000000000000000 dataPtrTableA
-     /tmp/ccvp3Rdn.s:101    .bss.dataPtrTableBuffA:0000000000000000 $d
-     /tmp/ccvp3Rdn.s:104    .bss.dataPtrTableBuffA:0000000000000000 dataPtrTableBuffA
-     /tmp/ccvp3Rdn.s:107    .bss.dataSizeTableA:0000000000000000 $d
-     /tmp/ccvp3Rdn.s:110    .bss.dataSizeTableA:0000000000000000 dataSizeTableA
-     /tmp/ccvp3Rdn.s:113    .bss.dataSizeTableBuffA:0000000000000000 $d
-     /tmp/ccvp3Rdn.s:116    .bss.dataSizeTableBuffA:0000000000000000 dataSizeTableBuffA
-     /tmp/ccvp3Rdn.s:123    .bss.MCP_UserCallBack:0000000000000000 MCP_UserCallBack
-     /tmp/ccvp3Rdn.s:120    .bss.MCP_UserCallBack:0000000000000000 $d
-     /tmp/ccvp3Rdn.s:126    .data.UASPEP_A:0000000000000000 $d
-     /tmp/ccvp3Rdn.s:129    .data.UASPEP_A:0000000000000000 UASPEP_A
-     /tmp/ccvp3Rdn.s:140    .data.aspepOverUartA:0000000000000000 aspepOverUartA
-     /tmp/ccvp3Rdn.s:137    .data.aspepOverUartA:0000000000000000 $d
-     /tmp/ccvp3Rdn.s:173    .data.MCP_Over_UartA:0000000000000000 MCP_Over_UartA
-     /tmp/ccvp3Rdn.s:170    .data.MCP_Over_UartA:0000000000000000 $d
-     /tmp/ccvp3Rdn.s:181    .data.MCPA_UART_A:0000000000000000 MCPA_UART_A
-     /tmp/ccvp3Rdn.s:178    .data.MCPA_UART_A:0000000000000000 $d
+     /tmp/ccCPTpLy.s:79     .data.MCPA_UART_A:0000000000000000 MCPA_UART_A
+     /tmp/ccCPTpLy.s:92     .data.MCP_Over_UartA:0000000000000000 MCP_Over_UartA
+     /tmp/ccCPTpLy.s:109    .data.aspepOverUartA:0000000000000000 aspepOverUartA
+     /tmp/ccCPTpLy.s:49     .bss.MCP_UserCallBack:0000000000000000 MCP_UserCallBack
+     /tmp/ccCPTpLy.s:22     .bss.MCPAsyncBuffUARTA_A:0000000000000000 $d
+     /tmp/ccCPTpLy.s:25     .bss.MCPAsyncBuffUARTA_A:0000000000000000 MCPAsyncBuffUARTA_A
+     /tmp/ccCPTpLy.s:28     .bss.MCPAsyncBuffUARTA_B:0000000000000000 $d
+     /tmp/ccCPTpLy.s:31     .bss.MCPAsyncBuffUARTA_B:0000000000000000 MCPAsyncBuffUARTA_B
+     /tmp/ccCPTpLy.s:34     .bss.MCPSyncRXBuff:0000000000000000 $d
+     /tmp/ccCPTpLy.s:37     .bss.MCPSyncRXBuff:0000000000000000 MCPSyncRXBuff
+     /tmp/ccCPTpLy.s:40     .bss.MCPSyncTxBuff:0000000000000000 $d
+     /tmp/ccCPTpLy.s:43     .bss.MCPSyncTxBuff:0000000000000000 MCPSyncTxBuff
+     /tmp/ccCPTpLy.s:46     .bss.MCP_UserCallBack:0000000000000000 $d
+     /tmp/ccCPTpLy.s:52     .bss.dataPtrTableA:0000000000000000 $d
+     /tmp/ccCPTpLy.s:55     .bss.dataPtrTableA:0000000000000000 dataPtrTableA
+     /tmp/ccCPTpLy.s:58     .bss.dataPtrTableBuffA:0000000000000000 $d
+     /tmp/ccCPTpLy.s:61     .bss.dataPtrTableBuffA:0000000000000000 dataPtrTableBuffA
+     /tmp/ccCPTpLy.s:64     .bss.dataSizeTableA:0000000000000000 $d
+     /tmp/ccCPTpLy.s:67     .bss.dataSizeTableA:0000000000000000 dataSizeTableA
+     /tmp/ccCPTpLy.s:70     .bss.dataSizeTableBuffA:0000000000000000 $d
+     /tmp/ccCPTpLy.s:73     .bss.dataSizeTableBuffA:0000000000000000 dataSizeTableBuffA
+     /tmp/ccCPTpLy.s:76     .data.MCPA_UART_A:0000000000000000 $d
+     /tmp/ccCPTpLy.s:89     .data.MCP_Over_UartA:0000000000000000 $d
+     /tmp/ccCPTpLy.s:96     .data.UASPEP_A:0000000000000000 $d
+     /tmp/ccCPTpLy.s:99     .data.UASPEP_A:0000000000000000 UASPEP_A
+     /tmp/ccCPTpLy.s:106    .data.aspepOverUartA:0000000000000000 $d
 
 UNDEFINED SYMBOLS
 ASPEP_getBuffer
