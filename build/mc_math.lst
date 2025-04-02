@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccC00Ikq.s 			page 1
+ARM GAS  /tmp/ccmlHr0S.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -10,510 +10,76 @@ ARM GAS  /tmp/ccC00Ikq.s 			page 1
    7              		.eabi_attribute 24, 1
    8              		.eabi_attribute 25, 1
    9              		.eabi_attribute 26, 1
-  10              		.eabi_attribute 30, 2
+  10              		.eabi_attribute 30, 6
   11              		.eabi_attribute 34, 1
   12              		.eabi_attribute 18, 2
   13              		.file	"mc_math.c"
   14              		.text
   15              	.Ltext0:
   16              		.cfi_sections	.debug_frame
-  17              		.section	.text.MCM_Clarke,"ax",%progbits
-  18              		.align	1
-  19              		.p2align 2,,3
-  20              		.weak	MCM_Clarke
-  21              		.arch armv7e-m
-  22              		.syntax unified
-  23              		.thumb
-  24              		.thumb_func
-  25              		.fpu fpv4-sp-d16
-  27              	MCM_Clarke:
-  28              	.LFB1437:
-  29              		.file 1 "Src/mc_math.c"
-   1:Src/mc_math.c **** 
-   2:Src/mc_math.c **** /**
-   3:Src/mc_math.c ****   ******************************************************************************
-   4:Src/mc_math.c ****   * @file    mc_math.c
-   5:Src/mc_math.c ****   * @author  Motor Control SDK Team, ST Microelectronics
-   6:Src/mc_math.c ****   * @brief   This file provides mathematics functions useful for and specific to
-   7:Src/mc_math.c ****   *          Motor Control.
-   8:Src/mc_math.c ****   *
-   9:Src/mc_math.c ****   ******************************************************************************
-  10:Src/mc_math.c ****   * @attention
-  11:Src/mc_math.c ****   *
-  12:Src/mc_math.c ****   * <h2><center>&copy; Copyright (c) 2024 STMicroelectronics.
-  13:Src/mc_math.c ****   * All rights reserved.</center></h2>
-  14:Src/mc_math.c ****   *
-  15:Src/mc_math.c ****   * This software component is licensed by ST under Ultimate Liberty license
-  16:Src/mc_math.c ****   * SLA0044, the "License"; You may not use this file except in compliance with
-  17:Src/mc_math.c ****   * the License. You may obtain a copy of the License at:
-  18:Src/mc_math.c ****   *                             www.st.com/SLA0044
-  19:Src/mc_math.c ****   *
-  20:Src/mc_math.c ****   ******************************************************************************
-  21:Src/mc_math.c ****   */
-  22:Src/mc_math.c **** /* Includes ------------------------------------------------------------------*/
-  23:Src/mc_math.c **** #include "mc_math.h"
-  24:Src/mc_math.c **** #include "mc_type.h"
-  25:Src/mc_math.c **** 
-  26:Src/mc_math.c **** /** @addtogroup MCSDK
-  27:Src/mc_math.c ****   * @{
-  28:Src/mc_math.c ****   */
-  29:Src/mc_math.c **** 
-ARM GAS  /tmp/ccC00Ikq.s 			page 2
+  17              		.section	.rodata.OFFSET_TAB_CCMRx,"a"
+  18              		.align	2
+  21              	OFFSET_TAB_CCMRx:
+  22 0000 00000000 		.ascii	"\000\000\000\000\004\004\004\00488"
+  22      04040404 
+  22      3838
+  23              		.section	.rodata.SHIFT_TAB_OCxx,"a"
+  24              		.align	2
+  27              	SHIFT_TAB_OCxx:
+  28 0000 00000800 		.ascii	"\000\000\010\000\000\000\010\000\000\010"
+  28      00000800 
+  28      0008
+  29              		.section	.rodata.SHIFT_TAB_ICxx,"a"
+  30              		.align	2
+  33              	SHIFT_TAB_ICxx:
+  34 0000 00000800 		.ascii	"\000\000\010\000\000\000\010\000\000\000"
+  34      00000800 
+  34      0000
+  35              		.section	.rodata.SHIFT_TAB_CCxP,"a"
+  36              		.align	2
+  39              	SHIFT_TAB_CCxP:
+  40 0000 00020406 		.ascii	"\000\002\004\006\010\012\014\016\020\024"
+  40      080A0C0E 
+  40      1014
+  41              		.section	.rodata.SHIFT_TAB_OISx,"a"
+  42              		.align	2
+  45              	SHIFT_TAB_OISx:
+  46 0000 00010203 		.ascii	"\000\001\002\003\004\005\006\007\010\012"
+  46      04050607 
+  46      080A
+  47              		.section	.rodata.USART_PRESCALER_TAB,"a"
+  48              		.align	2
+  51              	USART_PRESCALER_TAB:
+  52 0000 01000000 		.word	1
+  53 0004 02000000 		.word	2
+  54 0008 04000000 		.word	4
+  55 000c 06000000 		.word	6
+  56 0010 08000000 		.word	8
+  57 0014 0A000000 		.word	10
+  58 0018 0C000000 		.word	12
+  59 001c 10000000 		.word	16
+ARM GAS  /tmp/ccmlHr0S.s 			page 2
 
 
-  30:Src/mc_math.c **** /** @defgroup MC_Math Motor Control Math functions
-  31:Src/mc_math.c ****   * @brief Motor Control Mathematic functions of the Motor Control SDK
-  32:Src/mc_math.c ****   *
-  33:Src/mc_math.c ****   * @todo Document the Motor Control Math "module".
-  34:Src/mc_math.c ****   *
-  35:Src/mc_math.c ****   * @{
-  36:Src/mc_math.c ****   */
-  37:Src/mc_math.c **** 
-  38:Src/mc_math.c **** /* Private macro -------------------------------------------------------------*/
-  39:Src/mc_math.c **** 
-  40:Src/mc_math.c **** #define divSQRT_3 (int32_t)0x49E6    /* 1/sqrt(3) in q1.15 format=0.5773315 */
-  41:Src/mc_math.c **** 
-  42:Src/mc_math.c **** #if defined (CCMRAM)
-  43:Src/mc_math.c **** #if defined (__ICCARM__)
-  44:Src/mc_math.c **** #pragma location = ".ccmram"
-  45:Src/mc_math.c **** #elif defined (__CC_ARM) || defined(__GNUC__)
-  46:Src/mc_math.c **** __attribute__( ( section ( ".ccmram" ) ) )
-  47:Src/mc_math.c **** #endif
-  48:Src/mc_math.c **** #endif
-  49:Src/mc_math.c **** /**
-  50:Src/mc_math.c ****   * @brief  This function transforms stator values a and b (which are
-  51:Src/mc_math.c ****   *         directed along axes each displaced by 120 degrees) into values
-  52:Src/mc_math.c ****   *         alpha and beta in a stationary qd reference frame.
-  53:Src/mc_math.c ****   *                               alpha = a
-  54:Src/mc_math.c ****   *                       beta = -(2*b+a)/sqrt(3)
-  55:Src/mc_math.c ****   * @param  Input: stator values a and b in ab_t format.
-  56:Src/mc_math.c ****   * @retval Stator values alpha and beta in alphabeta_t format.
-  57:Src/mc_math.c ****   */
-  58:Src/mc_math.c **** __weak alphabeta_t MCM_Clarke(ab_t Input)
-  59:Src/mc_math.c **** {
-  30              		.loc 1 59 1 view -0
-  31              		.cfi_startproc
-  32              		@ args = 0, pretend = 0, frame = 16
-  33              		@ frame_needed = 0, uses_anonymous_args = 0
-  34              		@ link register save eliminated.
-  60:Src/mc_math.c ****   alphabeta_t Output;
-  61:Src/mc_math.c **** 
-  62:Src/mc_math.c ****   int32_t a_divSQRT3_tmp;
-  63:Src/mc_math.c ****   int32_t b_divSQRT3_tmp;
-  64:Src/mc_math.c ****   int32_t wbeta_tmp;
-  65:Src/mc_math.c ****   int16_t hbeta_tmp;
-  66:Src/mc_math.c **** 
-  67:Src/mc_math.c ****   /* qIalpha = qIas*/
-  68:Src/mc_math.c ****   Output.alpha = Input.a;
-  69:Src/mc_math.c **** 
-  70:Src/mc_math.c ****   a_divSQRT3_tmp = divSQRT_3 * ((int32_t)Input.a);
-  71:Src/mc_math.c **** 
-  72:Src/mc_math.c ****   b_divSQRT3_tmp = divSQRT_3 * ((int32_t)Input.b);
-  35              		.loc 1 72 18 is_stmt 0 view .LVU1
-  36 0000 44F6E611 		movw	r1, #18918
-  37 0004 03B2     		sxth	r3, r0
-  38              	.LVL0:
-  60:Src/mc_math.c ****   alphabeta_t Output;
-  39              		.loc 1 60 3 is_stmt 1 view .LVU2
-  62:Src/mc_math.c ****   int32_t b_divSQRT3_tmp;
-  40              		.loc 1 62 3 view .LVU3
-  63:Src/mc_math.c ****   int32_t wbeta_tmp;
-ARM GAS  /tmp/ccC00Ikq.s 			page 3
-
-
-  41              		.loc 1 63 3 view .LVU4
-  64:Src/mc_math.c ****   int16_t hbeta_tmp;
-  42              		.loc 1 64 3 view .LVU5
-  65:Src/mc_math.c **** 
-  43              		.loc 1 65 3 view .LVU6
-  68:Src/mc_math.c **** 
-  44              		.loc 1 68 3 view .LVU7
-  70:Src/mc_math.c **** 
-  45              		.loc 1 70 3 view .LVU8
-  46              		.loc 1 72 3 view .LVU9
-  70:Src/mc_math.c **** 
-  47              		.loc 1 70 18 is_stmt 0 view .LVU10
-  48 0006 13FB01F2 		smulbb	r2, r3, r1
-  59:Src/mc_math.c ****   alphabeta_t Output;
-  49              		.loc 1 59 1 view .LVU11
-  50 000a C0F30F40 		ubfx	r0, r0, #16, #16
-  51              		.loc 1 72 18 view .LVU12
-  52 000e 10FB01F1 		smulbb	r1, r0, r1
-  53              	.LVL1:
-  73:Src/mc_math.c **** 
-  74:Src/mc_math.c ****   /* qIbeta = -(2*qIbs+qIas)/sqrt(3) */
-  75:Src/mc_math.c **** #ifndef FULL_MISRA_C_COMPLIANCY_MC_MATH
-  76:Src/mc_math.c ****   /* WARNING: the below instruction is not MISRA compliant, user should verify
-  77:Src/mc_math.c ****     that Cortex-M3 assembly instruction ASR (arithmetic shift right) is used by
-  78:Src/mc_math.c ****     the compiler to perform the shift (instead of LSR logical shift right) */
-  79:Src/mc_math.c ****   //cstat !MISRAC2012-Rule-1.3_n !ATH-shift-neg !MISRAC2012-Rule-10.1_R6
-  80:Src/mc_math.c ****   wbeta_tmp = (-(a_divSQRT3_tmp) - (b_divSQRT3_tmp) - (b_divSQRT3_tmp)) >> 15;
-  54              		.loc 1 80 3 is_stmt 1 view .LVU13
-  55              		.loc 1 80 16 is_stmt 0 view .LVU14
-  56 0012 5042     		rsbs	r0, r2, #0
-  57              		.loc 1 80 53 view .LVU15
-  58 0014 A0EB4100 		sub	r0, r0, r1, lsl #1
-  59              	.LVL2:
-  81:Src/mc_math.c **** #else
-  82:Src/mc_math.c ****   wbeta_tmp = (-(a_divSQRT3_tmp) - (b_divSQRT3_tmp) - (b_divSQRT3_tmp)) / 32768;
-  83:Src/mc_math.c **** #endif
-  84:Src/mc_math.c **** 
-  85:Src/mc_math.c ****   /* Check saturation of Ibeta */
-  86:Src/mc_math.c ****   if (wbeta_tmp > INT16_MAX)
-  60              		.loc 1 86 3 is_stmt 1 view .LVU16
-  61              		.loc 1 86 6 is_stmt 0 view .LVU17
-  62 0018 B0F1804F 		cmp	r0, #1073741824
-  59:Src/mc_math.c ****   alphabeta_t Output;
-  63              		.loc 1 59 1 view .LVU18
-  64 001c 84B0     		sub	sp, sp, #16
-  65              	.LCFI0:
-  66              		.cfi_def_cfa_offset 16
-  67              		.loc 1 86 6 view .LVU19
-  68 001e 05DA     		bge	.L3
-  69 0020 C113     		asrs	r1, r0, #15
-  70              	.LVL3:
-  87:Src/mc_math.c ****   {
-  88:Src/mc_math.c ****     hbeta_tmp = INT16_MAX;
-  89:Src/mc_math.c ****   }
-  90:Src/mc_math.c ****   else if (wbeta_tmp < (-32768))
-  71              		.loc 1 90 8 is_stmt 1 view .LVU20
-  72              		.loc 1 90 11 is_stmt 0 view .LVU21
-ARM GAS  /tmp/ccC00Ikq.s 			page 4
-
-
-  73 0022 11F5004F 		cmn	r1, #32768
-  74 0026 0CDA     		bge	.L7
-  75 0028 094A     		ldr	r2, .L8
-  76 002a 01E0     		b	.L2
-  77              	.LVL4:
-  78              	.L3:
-  79              		.loc 1 90 11 view .LVU22
-  80 002c 47F6FF72 		movw	r2, #32767
-  81              	.LVL5:
-  82              	.L2:
-  91:Src/mc_math.c ****   {
-  92:Src/mc_math.c ****     hbeta_tmp =  ((int16_t)-32768);
-  93:Src/mc_math.c ****   }
-  94:Src/mc_math.c ****   else
-  95:Src/mc_math.c ****   {
-  96:Src/mc_math.c ****     hbeta_tmp = ((int16_t)wbeta_tmp);
-  97:Src/mc_math.c ****   }
-  98:Src/mc_math.c **** 
-  99:Src/mc_math.c ****   Output.beta = hbeta_tmp;
-  83              		.loc 1 99 3 is_stmt 1 view .LVU23
- 100:Src/mc_math.c **** 
- 101:Src/mc_math.c ****   if (((int16_t )-32768) == Output.beta)
-  84              		.loc 1 101 3 view .LVU24
- 102:Src/mc_math.c ****   {
- 103:Src/mc_math.c ****     Output.beta = -32767;
- 104:Src/mc_math.c ****   }
- 105:Src/mc_math.c ****   else
- 106:Src/mc_math.c ****   {
- 107:Src/mc_math.c ****     /* Nothing to do */
- 108:Src/mc_math.c ****   }
-  85              		.loc 1 108 3 view .LVU25
- 109:Src/mc_math.c **** 
- 110:Src/mc_math.c ****   return (Output);
-  86              		.loc 1 110 3 view .LVU26
-  87              		.loc 1 110 10 is_stmt 0 view .LVU27
-  88 0030 9BB2     		uxth	r3, r3
-  89              		.loc 1 110 10 view .LVU28
-  90 0032 0020     		movs	r0, #0
-  91 0034 63F30F00 		bfi	r0, r3, #0, #16
-  92 0038 93B2     		uxth	r3, r2
-  93              	.LVL6:
-  94              		.loc 1 110 10 view .LVU29
-  95 003a 63F31F40 		bfi	r0, r3, #16, #16
- 111:Src/mc_math.c **** }
-  96              		.loc 1 111 1 view .LVU30
-  97 003e 04B0     		add	sp, sp, #16
-  98              	.LCFI1:
-  99              		.cfi_remember_state
- 100              		.cfi_def_cfa_offset 0
- 101              		@ sp needed
- 102 0040 7047     		bx	lr
- 103              	.LVL7:
- 104              	.L7:
- 105              	.LCFI2:
- 106              		.cfi_restore_state
-  96:Src/mc_math.c ****   }
- 107              		.loc 1 96 5 is_stmt 1 view .LVU31
-ARM GAS  /tmp/ccC00Ikq.s 			page 5
-
-
-  96:Src/mc_math.c ****   }
- 108              		.loc 1 96 5 is_stmt 0 view .LVU32
- 109 0042 0348     		ldr	r0, .L8
- 110 0044 0AB2     		sxth	r2, r1
- 111 0046 8242     		cmp	r2, r0
- 112 0048 B8BF     		it	lt
- 113 004a 0246     		movlt	r2, r0
- 114 004c F0E7     		b	.L2
- 115              	.L9:
- 116 004e 00BF     		.align	2
- 117              	.L8:
- 118 0050 0180FFFF 		.word	-32767
- 119              		.cfi_endproc
- 120              	.LFE1437:
- 122              		.section	.text.MCM_Trig_Functions,"ax",%progbits
- 123              		.align	1
- 124              		.p2align 2,,3
- 125              		.weak	MCM_Trig_Functions
- 126              		.syntax unified
- 127              		.thumb
- 128              		.thumb_func
- 129              		.fpu fpv4-sp-d16
- 131              	MCM_Trig_Functions:
- 132              	.LVL8:
- 133              	.LFB1440:
- 112:Src/mc_math.c **** 
- 113:Src/mc_math.c **** #if defined (CCMRAM)
- 114:Src/mc_math.c **** #if defined (__ICCARM__)
- 115:Src/mc_math.c **** #pragma location = ".ccmram"
- 116:Src/mc_math.c **** #elif defined (__CC_ARM) || defined(__GNUC__)
- 117:Src/mc_math.c **** __attribute__( ( section ( ".ccmram" ) ) )
- 118:Src/mc_math.c **** #endif
- 119:Src/mc_math.c **** #endif
- 120:Src/mc_math.c **** /**
- 121:Src/mc_math.c ****   * @brief  This function transforms stator values alpha and beta, which
- 122:Src/mc_math.c ****   *         belong to a stationary qd reference frame, to a rotor flux
- 123:Src/mc_math.c ****   *         synchronous reference frame (properly oriented), so as q and d.
- 124:Src/mc_math.c ****   *                   d= alpha *sin(theta)+ beta *cos(Theta)
- 125:Src/mc_math.c ****   *                   q= alpha *cos(Theta)- beta *sin(Theta)
- 126:Src/mc_math.c ****   * @param  Input: stator values alpha and beta in alphabeta_t format.
- 127:Src/mc_math.c ****   * @param  Theta: rotating frame angular position in q1.15 format.
- 128:Src/mc_math.c ****   * @retval Stator values q and d in qd_t format
- 129:Src/mc_math.c ****   */
- 130:Src/mc_math.c **** __weak qd_t MCM_Park(alphabeta_t Input, int16_t Theta)
- 131:Src/mc_math.c **** {
- 132:Src/mc_math.c ****   qd_t Output;
- 133:Src/mc_math.c ****   int32_t d_tmp_1;
- 134:Src/mc_math.c ****   int32_t d_tmp_2;
- 135:Src/mc_math.c ****   int32_t q_tmp_1;
- 136:Src/mc_math.c ****   int32_t q_tmp_2;
- 137:Src/mc_math.c ****   int32_t wqd_tmp;
- 138:Src/mc_math.c ****   int16_t hqd_tmp;
- 139:Src/mc_math.c ****   Trig_Components Local_Vector_Components;
- 140:Src/mc_math.c **** 
- 141:Src/mc_math.c ****   Local_Vector_Components = MCM_Trig_Functions(Theta);
- 142:Src/mc_math.c **** 
- 143:Src/mc_math.c ****   /* No overflow guaranteed */
-ARM GAS  /tmp/ccC00Ikq.s 			page 6
-
-
- 144:Src/mc_math.c ****   q_tmp_1 = Input.alpha * ((int32_t )Local_Vector_Components.hCos);
- 145:Src/mc_math.c **** 
- 146:Src/mc_math.c ****   /* No overflow guaranteed */
- 147:Src/mc_math.c ****   q_tmp_2 = Input.beta * ((int32_t)Local_Vector_Components.hSin);
- 148:Src/mc_math.c **** 
- 149:Src/mc_math.c ****   /* Iq component in Q1.15 Format */
- 150:Src/mc_math.c **** #ifndef FULL_MISRA_C_COMPLIANCY_MC_MATH
- 151:Src/mc_math.c ****   /* WARNING: the below instruction is not MISRA compliant, user should verify
- 152:Src/mc_math.c ****     that Cortex-M3 assembly instruction ASR (arithmetic shift right) is used by
- 153:Src/mc_math.c ****     the compiler to perform the shift (instead of LSR logical shift right) */
- 154:Src/mc_math.c ****   wqd_tmp = (q_tmp_1 - q_tmp_2) >> 15; //cstat !MISRAC2012-Rule-1.3_n !ATH-shift-neg !MISRAC2012-Ru
- 155:Src/mc_math.c **** #else
- 156:Src/mc_math.c ****   wqd_tmp = (q_tmp_1 - q_tmp_2) / 32768;
- 157:Src/mc_math.c **** #endif
- 158:Src/mc_math.c **** 
- 159:Src/mc_math.c ****   /* Check saturation of Iq */
- 160:Src/mc_math.c ****   if (wqd_tmp > INT16_MAX)
- 161:Src/mc_math.c ****   {
- 162:Src/mc_math.c ****     hqd_tmp = INT16_MAX;
- 163:Src/mc_math.c ****   }
- 164:Src/mc_math.c ****   else if (wqd_tmp < (-32768))
- 165:Src/mc_math.c ****   {
- 166:Src/mc_math.c ****     hqd_tmp = ((int16_t)-32768);
- 167:Src/mc_math.c ****   }
- 168:Src/mc_math.c ****   else
- 169:Src/mc_math.c ****   {
- 170:Src/mc_math.c ****     hqd_tmp = ((int16_t)wqd_tmp);
- 171:Src/mc_math.c ****   }
- 172:Src/mc_math.c **** 
- 173:Src/mc_math.c ****   Output.q = hqd_tmp;
- 174:Src/mc_math.c **** 
- 175:Src/mc_math.c ****   if (((int16_t)-32768) == Output.q)
- 176:Src/mc_math.c ****   {
- 177:Src/mc_math.c ****     Output.q = -32767;
- 178:Src/mc_math.c ****   }
- 179:Src/mc_math.c ****   else
- 180:Src/mc_math.c ****   {
- 181:Src/mc_math.c ****     /* Nothing to do */
- 182:Src/mc_math.c ****   }
- 183:Src/mc_math.c **** 
- 184:Src/mc_math.c ****   /* No overflow guaranteed */
- 185:Src/mc_math.c ****   d_tmp_1 = Input.alpha * ((int32_t )Local_Vector_Components.hSin);
- 186:Src/mc_math.c **** 
- 187:Src/mc_math.c ****   /* No overflow guaranteed */
- 188:Src/mc_math.c ****   d_tmp_2 = Input.beta * ((int32_t )Local_Vector_Components.hCos);
- 189:Src/mc_math.c **** 
- 190:Src/mc_math.c ****   /* Id component in Q1.15 Format */
- 191:Src/mc_math.c **** #ifndef FULL_MISRA_C_COMPLIANCY_MC_MATH
- 192:Src/mc_math.c ****   /* WARNING: the below instruction is not MISRA compliant, user should verify
- 193:Src/mc_math.c ****     that Cortex-M3 assembly instruction ASR (arithmetic shift right) is used by
- 194:Src/mc_math.c ****     the compiler to perform the shift (instead of LSR logical shift right) */
- 195:Src/mc_math.c ****   wqd_tmp = (d_tmp_1 + d_tmp_2) >> 15; //cstat !MISRAC2012-Rule-1.3_n !ATH-shift-neg !MISRAC2012-Ru
- 196:Src/mc_math.c **** #else
- 197:Src/mc_math.c ****   wqd_tmp = (d_tmp_1 + d_tmp_2) / 32768;
- 198:Src/mc_math.c **** #endif
- 199:Src/mc_math.c **** 
- 200:Src/mc_math.c ****   /* Check saturation of Id */
-ARM GAS  /tmp/ccC00Ikq.s 			page 7
-
-
- 201:Src/mc_math.c ****   if (wqd_tmp > INT16_MAX)
- 202:Src/mc_math.c ****   {
- 203:Src/mc_math.c ****     hqd_tmp = INT16_MAX;
- 204:Src/mc_math.c ****   }
- 205:Src/mc_math.c ****   else if (wqd_tmp < (-32768))
- 206:Src/mc_math.c ****   {
- 207:Src/mc_math.c ****     hqd_tmp = ((int16_t)-32768);
- 208:Src/mc_math.c ****   }
- 209:Src/mc_math.c ****   else
- 210:Src/mc_math.c ****   {
- 211:Src/mc_math.c ****     hqd_tmp = ((int16_t)wqd_tmp);
- 212:Src/mc_math.c ****   }
- 213:Src/mc_math.c **** 
- 214:Src/mc_math.c ****   Output.d = hqd_tmp;
- 215:Src/mc_math.c **** 
- 216:Src/mc_math.c ****   if (((int16_t)-32768) == Output.d)
- 217:Src/mc_math.c ****   {
- 218:Src/mc_math.c ****     Output.d = -32767;
- 219:Src/mc_math.c ****   }
- 220:Src/mc_math.c ****   else
- 221:Src/mc_math.c ****   {
- 222:Src/mc_math.c ****     /* Nothing to do */
- 223:Src/mc_math.c ****   }
- 224:Src/mc_math.c **** 
- 225:Src/mc_math.c ****   return (Output);
- 226:Src/mc_math.c **** }
- 227:Src/mc_math.c **** 
- 228:Src/mc_math.c **** #if defined (CCMRAM)
- 229:Src/mc_math.c **** #if defined (__ICCARM__)
- 230:Src/mc_math.c **** #pragma location = ".ccmram"
- 231:Src/mc_math.c **** #elif defined (__CC_ARM) || defined(__GNUC__)
- 232:Src/mc_math.c **** __attribute__( ( section ( ".ccmram" ) ) )
- 233:Src/mc_math.c **** #endif
- 234:Src/mc_math.c **** #endif
- 235:Src/mc_math.c **** /**
- 236:Src/mc_math.c ****   * @brief  This function transforms stator voltage qVq and qVd, that belong to
- 237:Src/mc_math.c ****   *         a rotor flux synchronous rotating frame, to a stationary reference
- 238:Src/mc_math.c ****   *         frame, so as to obtain qValpha and qVbeta:
- 239:Src/mc_math.c ****   *                  Valfa= Vq*Cos(theta)+ Vd*Sin(theta)
- 240:Src/mc_math.c ****   *                  Vbeta=-Vq*Sin(theta)+ Vd*Cos(theta)
- 241:Src/mc_math.c ****   * @param  Input: stator voltage Vq and Vd in qd_t format.
- 242:Src/mc_math.c ****   * @param  Theta: rotating frame angular position in q1.15 format.
- 243:Src/mc_math.c ****   * @retval Stator voltage Valpha and Vbeta in qd_t format.
- 244:Src/mc_math.c ****   */
- 245:Src/mc_math.c **** __weak alphabeta_t MCM_Rev_Park(qd_t Input, int16_t Theta)
- 246:Src/mc_math.c **** {
- 247:Src/mc_math.c ****   int32_t alpha_tmp1;
- 248:Src/mc_math.c ****   int32_t alpha_tmp2;
- 249:Src/mc_math.c ****   int32_t beta_tmp1;
- 250:Src/mc_math.c ****   int32_t beta_tmp2;
- 251:Src/mc_math.c ****   Trig_Components Local_Vector_Components;
- 252:Src/mc_math.c ****   alphabeta_t Output;
- 253:Src/mc_math.c **** 
- 254:Src/mc_math.c ****   Local_Vector_Components = MCM_Trig_Functions(Theta);
- 255:Src/mc_math.c **** 
- 256:Src/mc_math.c ****   /* No overflow guaranteed */
- 257:Src/mc_math.c ****   alpha_tmp1 = Input.q * ((int32_t)Local_Vector_Components.hCos);
-ARM GAS  /tmp/ccC00Ikq.s 			page 8
-
-
- 258:Src/mc_math.c ****   alpha_tmp2 = Input.d * ((int32_t)Local_Vector_Components.hSin);
- 259:Src/mc_math.c **** 
- 260:Src/mc_math.c **** #ifndef FULL_MISRA_C_COMPLIANCY_MC_MATH
- 261:Src/mc_math.c ****   /* WARNING: the below instruction is not MISRA compliant, user should verify
- 262:Src/mc_math.c ****     that Cortex-M3 assembly instruction ASR (arithmetic shift right) is used by
- 263:Src/mc_math.c ****     the compiler to perform the shift (instead of LSR logical shift right) */
- 264:Src/mc_math.c ****   //cstat !MISRAC2012-Rule-1.3_n !ATH-shift-neg !MISRAC2012-Rule-10.1_R6
- 265:Src/mc_math.c ****   Output.alpha = (int16_t)(((alpha_tmp1) + (alpha_tmp2)) >> 15);
- 266:Src/mc_math.c **** #else
- 267:Src/mc_math.c ****   Output.alpha = (int16_t)(((alpha_tmp1) + (alpha_tmp2)) / 32768);
- 268:Src/mc_math.c **** #endif
- 269:Src/mc_math.c **** 
- 270:Src/mc_math.c ****   beta_tmp1 = Input.q * ((int32_t)Local_Vector_Components.hSin);
- 271:Src/mc_math.c ****   beta_tmp2 = Input.d * ((int32_t)Local_Vector_Components.hCos);
- 272:Src/mc_math.c **** 
- 273:Src/mc_math.c **** #ifndef FULL_MISRA_C_COMPLIANCY_MC_MATH
- 274:Src/mc_math.c ****   /* WARNING: the below instruction is not MISRA compliant, user should verify
- 275:Src/mc_math.c ****   that Cortex-M3 assembly instruction ASR (arithmetic shift right) is used by
- 276:Src/mc_math.c ****   the compiler to perform the shift (instead of LSR logical shift right) */
- 277:Src/mc_math.c ****   //cstat !MISRAC2012-Rule-1.3_n !ATH-shift-neg !MISRAC2012-Rule-10.1_R6
- 278:Src/mc_math.c ****   Output.beta = (int16_t)((beta_tmp2 - beta_tmp1) >> 15);
- 279:Src/mc_math.c **** #else
- 280:Src/mc_math.c ****   Output.beta = (int16_t)((beta_tmp2 - beta_tmp1) / 32768);
- 281:Src/mc_math.c **** #endif
- 282:Src/mc_math.c **** 
- 283:Src/mc_math.c ****   return (Output);
- 284:Src/mc_math.c **** }
- 285:Src/mc_math.c **** 
- 286:Src/mc_math.c **** #if defined (CCMRAM)
- 287:Src/mc_math.c **** #if defined (__ICCARM__)
- 288:Src/mc_math.c **** #pragma location = ".ccmram"
- 289:Src/mc_math.c **** #elif defined (__CC_ARM) || defined(__GNUC__)
- 290:Src/mc_math.c **** __attribute__( ( section ( ".ccmram" ) ) )
- 291:Src/mc_math.c **** #endif
- 292:Src/mc_math.c **** #endif
- 293:Src/mc_math.c **** /**
- 294:Src/mc_math.c ****   * @brief  This function returns cosine and sine functions of the angle fed in input.
- 295:Src/mc_math.c ****   * @param  hAngle: angle in q1.15 format.
- 296:Src/mc_math.c ****   * @retval Sin(angle) and Cos(angle) in Trig_Components format.
- 297:Src/mc_math.c ****   */
- 298:Src/mc_math.c **** 
- 299:Src/mc_math.c **** __weak Trig_Components MCM_Trig_Functions(int16_t hAngle)
- 300:Src/mc_math.c **** {
- 134              		.loc 1 300 1 is_stmt 1 view -0
- 135              		.cfi_startproc
- 136              		@ args = 0, pretend = 0, frame = 8
- 137              		@ frame_needed = 0, uses_anonymous_args = 0
- 138              		@ link register save eliminated.
- 301:Src/mc_math.c ****   /* MISRAC2012-violation Rule 19.2. The union keyword should not be used.
- 302:Src/mc_math.c ****    * If this rule is not followed, the kinds of behavior that need to be determined
- 303:Src/mc_math.c ****    * are:
- 304:Src/mc_math.c ****    * Padding â€? how much padding is inserted at the end of the union;
- 305:Src/mc_math.c ****    * Alignment â€? how are members of any structures within the union aligned;
- 306:Src/mc_math.c ****    * Endianness â€? is the most significant byte of a word stored at the lowest or
- 307:Src/mc_math.c ****    *              highest memory address;
- 308:Src/mc_math.c ****    * Bit-order â€? how are bits numbered within bytes and how are bits allocated to
- 309:Src/mc_math.c ****    *             bit fields.
-ARM GAS  /tmp/ccC00Ikq.s 			page 9
-
-
- 310:Src/mc_math.c ****    * Low. Use of union (u32toi16x2). */
- 311:Src/mc_math.c ****   //cstat -MISRAC2012-Rule-19.2
- 312:Src/mc_math.c ****   union u32toi16x2 {
- 139              		.loc 1 312 3 view .LVU34
- 313:Src/mc_math.c ****     uint32_t CordicRdata;
- 314:Src/mc_math.c ****     Trig_Components Components;
- 315:Src/mc_math.c ****   } CosSin;
- 316:Src/mc_math.c ****   //cstat +MISRAC2012-Rule-19.2
- 317:Src/mc_math.c ****   /* Configure CORDIC */
- 318:Src/mc_math.c ****   /* Misra  violation Rule 11.4 Aï¿½Conversionï¿½shouldï¿½notï¿½beï¿½performedï¿½betweenï¿½aï¿?
- 319:Src/mc_math.c ****    * pointerï¿½toï¿½object and an integer type */
- 320:Src/mc_math.c ****   WRITE_REG(CORDIC->CSR, CORDIC_CONFIG_COSINE);
- 140              		.loc 1 320 3 view .LVU35
- 141 0000 094B     		ldr	r3, .L12
- 321:Src/mc_math.c ****   /* Misra  violation Ruleï¿?11.4 Aï¿½Conversionï¿½shouldï¿½notï¿½beï¿½performedï¿½betweenï¿½a
- 322:Src/mc_math.c ****    * pointerï¿½toï¿½object and an integer type */
- 323:Src/mc_math.c ****   LL_CORDIC_WriteData(CORDIC, ((uint32_t)0x7FFF0000) + ((uint32_t)hAngle));
- 142              		.loc 1 323 3 is_stmt 0 view .LVU36
- 143 0002 00F1FF40 		add	r0, r0, #2139095040
- 144              	.LVL9:
- 320:Src/mc_math.c ****   /* Misra  violation Ruleï¿?11.4 Aï¿½Conversionï¿½shouldï¿½notï¿½beï¿½performedï¿½betweenï¿½a
- 145              		.loc 1 320 3 view .LVU37
- 146 0006 4FF06012 		mov	r2, #6291552
- 147              		.loc 1 323 3 view .LVU38
- 148 000a 00F5FE00 		add	r0, r0, #8323072
- 320:Src/mc_math.c ****   /* Misra  violation Ruleï¿?11.4 Aï¿½Conversionï¿½shouldï¿½notï¿½beï¿½performedï¿½betweenï¿½a
- 149              		.loc 1 320 3 view .LVU39
- 150 000e 1A60     		str	r2, [r3]
- 151              		.loc 1 323 3 is_stmt 1 view .LVU40
- 152              	.LVL10:
- 153              	.LBB20:
- 154              	.LBI20:
- 155              		.file 2 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h"
+  60 0020 20000000 		.word	32
+  61 0024 40000000 		.word	64
+  62 0028 80000000 		.word	128
+  63 002c 00010000 		.word	256
+  64              		.section	.rodata.CHANNEL_OFFSET_TAB,"a"
+  65              		.align	2
+  68              	CHANNEL_OFFSET_TAB:
+  69 0000 081C3044 		.ascii	"\010\0340DXl"
+  69      586C
+  70              		.section	.text.LL_CORDIC_WriteData,"ax",%progbits
+  71              		.align	1
+  72              		.arch armv7e-m
+  73              		.syntax unified
+  74              		.thumb
+  75              		.thumb_func
+  76              		.fpu fpv4-sp-d16
+  78              	LL_CORDIC_WriteData:
+  79              	.LFB1428:
+  80              		.file 1 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h"
    1:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** /**
    2:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   ******************************************************************************
    3:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   * @file    stm32g4xx_ll_cordic.h
@@ -538,9 +104,6 @@ ARM GAS  /tmp/ccC00Ikq.s 			page 1
   22:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** 
   23:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** #ifdef __cplusplus
   24:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** extern "C" {
-ARM GAS  /tmp/ccC00Ikq.s 			page 10
-
-
   25:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** #endif
   26:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** 
   27:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** /* Includes ------------------------------------------------------------------*/
@@ -555,6 +118,9 @@ ARM GAS  /tmp/ccC00Ikq.s 			page 1
   36:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** /** @defgroup CORDIC_LL CORDIC
   37:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   * @{
   38:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   */
+ARM GAS  /tmp/ccmlHr0S.s 			page 3
+
+
   39:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** 
   40:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** /* Private variables ---------------------------------------------------------*/
   41:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** 
@@ -598,9 +164,6 @@ ARM GAS  /tmp/ccC00Ikq.s 			page 1
   79:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** #define LL_CORDIC_FUNCTION_HCOSINE         ((uint32_t)(CORDIC_CSR_FUNC_2 | CORDIC_CSR_FUNC_0))     
   80:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** #define LL_CORDIC_FUNCTION_HSINE           ((uint32_t)(CORDIC_CSR_FUNC_2 | CORDIC_CSR_FUNC_1))     
   81:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** #define LL_CORDIC_FUNCTION_HARCTANGENT     ((uint32_t)(CORDIC_CSR_FUNC_2 | CORDIC_CSR_FUNC_1 | CORD
-ARM GAS  /tmp/ccC00Ikq.s 			page 11
-
-
   82:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** #define LL_CORDIC_FUNCTION_NATURALLOG      ((uint32_t)(CORDIC_CSR_FUNC_3))                         
   83:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** #define LL_CORDIC_FUNCTION_SQUAREROOT      ((uint32_t)(CORDIC_CSR_FUNC_3 | CORDIC_CSR_FUNC_0))     
   84:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** /**
@@ -615,6 +178,9 @@ ARM GAS  /tmp/ccC00Ikq.s 			page 1
   93:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** #define LL_CORDIC_PRECISION_3CYCLES        ((uint32_t)(CORDIC_CSR_PRECISION_1 | CORDIC_CSR_PRECISIO
   94:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** #define LL_CORDIC_PRECISION_4CYCLES        ((uint32_t)(CORDIC_CSR_PRECISION_2))
   95:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** #define LL_CORDIC_PRECISION_5CYCLES        ((uint32_t)(CORDIC_CSR_PRECISION_2 | CORDIC_CSR_PRECISIO
+ARM GAS  /tmp/ccmlHr0S.s 			page 4
+
+
   96:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** #define LL_CORDIC_PRECISION_6CYCLES        ((uint32_t)(CORDIC_CSR_PRECISION_2 | CORDIC_CSR_PRECISIO
   97:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** #define LL_CORDIC_PRECISION_7CYCLES        ((uint32_t)(CORDIC_CSR_PRECISION_2\
   98:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****                                                        | CORDIC_CSR_PRECISION_1 | CORDIC_CSR_PRECIS
@@ -658,9 +224,6 @@ ARM GAS  /tmp/ccC00Ikq.s 			page 1
  136:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****                                                                           16-bit data input (Q1.15 
  137:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****                                                                           in one 32 bits Data */
  138:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** #define LL_CORDIC_NBWRITE_2                CORDIC_CSR_NARGS          /*!< Two 32-bit write containi
-ARM GAS  /tmp/ccC00Ikq.s 			page 12
-
-
  139:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****                                                                           (Q1.31 format) */
  140:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** /**
  141:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   * @}
@@ -675,6 +238,9 @@ ARM GAS  /tmp/ccC00Ikq.s 			page 1
  150:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****                                                                           in one 32 bits Data */
  151:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** #define LL_CORDIC_NBREAD_2                 CORDIC_CSR_NRES           /*!< Two 32-bit Data containin
  152:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****                                                                           (Q1.31 format) */
+ARM GAS  /tmp/ccmlHr0S.s 			page 5
+
+
  153:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** /**
  154:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   * @}
  155:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   */
@@ -718,9 +284,6 @@ ARM GAS  /tmp/ccC00Ikq.s 			page 1
  193:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** /** @defgroup CORDIC_LL_EM_WRITE_READ Common Write and read registers Macros
  194:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   * @{
  195:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   */
-ARM GAS  /tmp/ccC00Ikq.s 			page 13
-
-
  196:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** 
  197:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** /**
  198:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   * @brief  Write a value in CORDIC register.
@@ -735,6 +298,9 @@ ARM GAS  /tmp/ccC00Ikq.s 			page 1
  207:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   * @brief  Read a value in CORDIC register.
  208:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   * @param  __INSTANCE__ CORDIC Instance
  209:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   * @param  __REG__ Register to be read
+ARM GAS  /tmp/ccmlHr0S.s 			page 6
+
+
  210:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   * @retval Register value
  211:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   */
  212:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** #define LL_CORDIC_ReadReg(__INSTANCE__, __REG__) READ_REG(__INSTANCE__->__REG__)
@@ -778,9 +344,6 @@ ARM GAS  /tmp/ccC00Ikq.s 			page 1
  250:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   *         CSR          RESIZE        LL_CORDIC_Config
  251:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   * @param  CORDICx CORDIC instance
  252:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   * @param  Function parameter can be one of the following values:
-ARM GAS  /tmp/ccC00Ikq.s 			page 14
-
-
  253:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   *         @arg @ref LL_CORDIC_FUNCTION_COSINE
  254:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   *         @arg @ref LL_CORDIC_FUNCTION_SINE
  255:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   *         @arg @ref LL_CORDIC_FUNCTION_PHASE
@@ -795,6 +358,9 @@ ARM GAS  /tmp/ccC00Ikq.s 			page 1
  264:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   *         @arg @ref LL_CORDIC_PRECISION_1CYCLE
  265:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   *         @arg @ref LL_CORDIC_PRECISION_2CYCLES
  266:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   *         @arg @ref LL_CORDIC_PRECISION_3CYCLES
+ARM GAS  /tmp/ccmlHr0S.s 			page 7
+
+
  267:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   *         @arg @ref LL_CORDIC_PRECISION_4CYCLES
  268:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   *         @arg @ref LL_CORDIC_PRECISION_5CYCLES
  269:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   *         @arg @ref LL_CORDIC_PRECISION_6CYCLES
@@ -838,9 +404,6 @@ ARM GAS  /tmp/ccC00Ikq.s 			page 1
  307:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****              CORDIC_CSR_NARGS | CORDIC_CSR_NRES | CORDIC_CSR_ARGSIZE | CORDIC_CSR_RESSIZE,
  308:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****              Function | Precision | Scale |
  309:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****              NbWrite | NbRead | InSize | OutSize);
-ARM GAS  /tmp/ccC00Ikq.s 			page 15
-
-
  310:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** }
  311:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** 
  312:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** /**
@@ -855,6 +418,9 @@ ARM GAS  /tmp/ccC00Ikq.s 			page 1
  321:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   *         @arg @ref LL_CORDIC_FUNCTION_ARCTANGENT
  322:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   *         @arg @ref LL_CORDIC_FUNCTION_HCOSINE
  323:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   *         @arg @ref LL_CORDIC_FUNCTION_HSINE
+ARM GAS  /tmp/ccmlHr0S.s 			page 8
+
+
  324:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   *         @arg @ref LL_CORDIC_FUNCTION_HARCTANGENT
  325:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   *         @arg @ref LL_CORDIC_FUNCTION_NATURALLOG
  326:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   *         @arg @ref LL_CORDIC_FUNCTION_SQUAREROOT
@@ -898,9 +464,6 @@ ARM GAS  /tmp/ccC00Ikq.s 			page 1
  364:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   *         @arg @ref LL_CORDIC_PRECISION_5CYCLES
  365:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   *         @arg @ref LL_CORDIC_PRECISION_6CYCLES
  366:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   *         @arg @ref LL_CORDIC_PRECISION_7CYCLES
-ARM GAS  /tmp/ccC00Ikq.s 			page 16
-
-
  367:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   *         @arg @ref LL_CORDIC_PRECISION_8CYCLES
  368:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   *         @arg @ref LL_CORDIC_PRECISION_9CYCLES
  369:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   *         @arg @ref LL_CORDIC_PRECISION_10CYCLES
@@ -915,6 +478,9 @@ ARM GAS  /tmp/ccC00Ikq.s 			page 1
  378:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** {
  379:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   MODIFY_REG(CORDICx->CSR, CORDIC_CSR_PRECISION, Precision);
  380:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** }
+ARM GAS  /tmp/ccmlHr0S.s 			page 9
+
+
  381:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** 
  382:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** /**
  383:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   * @brief  Return precision in cycles number.
@@ -958,9 +524,6 @@ ARM GAS  /tmp/ccC00Ikq.s 			page 1
  421:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   * @retval None
  422:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   */
  423:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** __STATIC_INLINE void LL_CORDIC_SetScale(CORDIC_TypeDef *CORDICx, uint32_t Scale)
-ARM GAS  /tmp/ccC00Ikq.s 			page 17
-
-
  424:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** {
  425:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   MODIFY_REG(CORDICx->CSR, CORDIC_CSR_SCALE, Scale);
  426:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** }
@@ -975,6 +538,9 @@ ARM GAS  /tmp/ccC00Ikq.s 			page 1
  435:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   *         @arg @ref LL_CORDIC_SCALE_2
  436:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   *         @arg @ref LL_CORDIC_SCALE_3
  437:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   *         @arg @ref LL_CORDIC_SCALE_4
+ARM GAS  /tmp/ccmlHr0S.s 			page 10
+
+
  438:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   *         @arg @ref LL_CORDIC_SCALE_5
  439:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   *         @arg @ref LL_CORDIC_SCALE_6
  440:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   *         @arg @ref LL_CORDIC_SCALE_7
@@ -1018,9 +584,6 @@ ARM GAS  /tmp/ccC00Ikq.s 			page 1
  478:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   * @param  NbRead parameter can be one of the following values:
  479:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   *         @arg @ref LL_CORDIC_NBREAD_1
  480:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   *         @arg @ref LL_CORDIC_NBREAD_2
-ARM GAS  /tmp/ccC00Ikq.s 			page 18
-
-
  481:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   * @retval None
  482:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   */
  483:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** __STATIC_INLINE void LL_CORDIC_SetNbRead(CORDIC_TypeDef *CORDICx, uint32_t NbRead)
@@ -1035,6 +598,9 @@ ARM GAS  /tmp/ccC00Ikq.s 			page 1
  492:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   * @retval Returned value can be one of the following values:
  493:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   *         @arg @ref LL_CORDIC_NBREAD_1
  494:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   *         @arg @ref LL_CORDIC_NBREAD_2
+ARM GAS  /tmp/ccmlHr0S.s 			page 11
+
+
  495:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   */
  496:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** __STATIC_INLINE uint32_t LL_CORDIC_GetNbRead(const CORDIC_TypeDef *CORDICx)
  497:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** {
@@ -1078,9 +644,6 @@ ARM GAS  /tmp/ccC00Ikq.s 			page 1
  535:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   * @retval None
  536:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   */
  537:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** __STATIC_INLINE void LL_CORDIC_SetOutSize(CORDIC_TypeDef *CORDICx, uint32_t OutSize)
-ARM GAS  /tmp/ccC00Ikq.s 			page 19
-
-
  538:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** {
  539:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   MODIFY_REG(CORDICx->CSR, CORDIC_CSR_RESSIZE, OutSize);
  540:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** }
@@ -1095,6 +658,9 @@ ARM GAS  /tmp/ccC00Ikq.s 			page 1
  549:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   */
  550:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** __STATIC_INLINE uint32_t LL_CORDIC_GetOutSize(const CORDIC_TypeDef *CORDICx)
  551:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** {
+ARM GAS  /tmp/ccmlHr0S.s 			page 12
+
+
  552:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   return (uint32_t)(READ_BIT(CORDICx->CSR, CORDIC_CSR_RESSIZE));
  553:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** }
  554:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** 
@@ -1138,9 +704,6 @@ ARM GAS  /tmp/ccC00Ikq.s 			page 1
  592:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** {
  593:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   return ((READ_BIT(CORDICx->CSR, CORDIC_CSR_IEN) == (CORDIC_CSR_IEN)) ? 1U : 0U);
  594:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** }
-ARM GAS  /tmp/ccC00Ikq.s 			page 20
-
-
  595:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** 
  596:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** /**
  597:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   * @}
@@ -1155,6 +718,9 @@ ARM GAS  /tmp/ccC00Ikq.s 			page 1
  606:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   * @rmtoll CSR          DMAREN        LL_CORDIC_EnableDMAReq_RD
  607:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   * @param  CORDICx CORDIC Instance
  608:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   * @retval None
+ARM GAS  /tmp/ccmlHr0S.s 			page 13
+
+
  609:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   */
  610:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** __STATIC_INLINE void LL_CORDIC_EnableDMAReq_RD(CORDIC_TypeDef *CORDICx)
  611:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** {
@@ -1198,9 +764,6 @@ ARM GAS  /tmp/ccC00Ikq.s 			page 1
  649:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   * @brief  Disable CORDIC DMA write channel request.
  650:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   * @rmtoll CSR          DMAWEN        LL_CORDIC_DisableDMAReq_WR
  651:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   * @param  CORDICx CORDIC Instance
-ARM GAS  /tmp/ccC00Ikq.s 			page 21
-
-
  652:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   * @retval None
  653:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   */
  654:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** __STATIC_INLINE void LL_CORDIC_DisableDMAReq_WR(CORDIC_TypeDef *CORDICx)
@@ -1215,6 +778,9 @@ ARM GAS  /tmp/ccC00Ikq.s 			page 1
  663:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   * @retval State of bit (1 or 0).
  664:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   */
  665:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** __STATIC_INLINE uint32_t LL_CORDIC_IsEnabledDMAReq_WR(const CORDIC_TypeDef *CORDICx)
+ARM GAS  /tmp/ccmlHr0S.s 			page 14
+
+
  666:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** {
  667:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   return ((READ_BIT(CORDICx->CSR, CORDIC_CSR_DMAWEN) == (CORDIC_CSR_DMAWEN)) ? 1U : 0U);
  668:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** }
@@ -1258,9 +824,6 @@ ARM GAS  /tmp/ccC00Ikq.s 			page 1
  706:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** /**
  707:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   * @brief  Check CORDIC result ready flag state.
  708:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   * @rmtoll CSR          RRDY          LL_CORDIC_IsActiveFlag_RRDY
-ARM GAS  /tmp/ccC00Ikq.s 			page 22
-
-
  709:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   * @param  CORDICx CORDIC Instance
  710:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   * @retval State of bit (1 or 0).
  711:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   */
@@ -1275,6 +838,9 @@ ARM GAS  /tmp/ccC00Ikq.s 			page 1
  720:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** 
  721:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** /** @defgroup CORDIC_LL_EF_Data_Management Data_Management
  722:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   * @{
+ARM GAS  /tmp/ccmlHr0S.s 			page 15
+
+
  723:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   */
  724:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** 
  725:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** /**
@@ -1285,24 +851,57 @@ ARM GAS  /tmp/ccC00Ikq.s 			page 1
  730:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   * @retval None
  731:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   */
  732:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** __STATIC_INLINE void LL_CORDIC_WriteData(CORDIC_TypeDef *CORDICx, uint32_t InData)
- 156              		.loc 2 732 22 view .LVU41
- 157              	.LBB21:
  733:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** {
+  81              		.loc 1 733 1
+  82              		.cfi_startproc
+  83              		@ args = 0, pretend = 0, frame = 8
+  84              		@ frame_needed = 1, uses_anonymous_args = 0
+  85              		@ link register save eliminated.
+  86 0000 80B4     		push	{r7}
+  87              	.LCFI0:
+  88              		.cfi_def_cfa_offset 4
+  89              		.cfi_offset 7, -4
+  90 0002 83B0     		sub	sp, sp, #12
+  91              	.LCFI1:
+  92              		.cfi_def_cfa_offset 16
+  93 0004 00AF     		add	r7, sp, #0
+  94              	.LCFI2:
+  95              		.cfi_def_cfa_register 7
+  96 0006 7860     		str	r0, [r7, #4]
+  97 0008 3960     		str	r1, [r7]
  734:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   WRITE_REG(CORDICx->WDATA, InData);
- 158              		.loc 2 734 3 view .LVU42
- 159 0010 5860     		str	r0, [r3, #4]
- 160              	.LVL11:
- 161              		.loc 2 734 3 is_stmt 0 view .LVU43
- 162              	.LBE21:
- 163              	.LBE20:
- 324:Src/mc_math.c ****   /* Read angle */
- 325:Src/mc_math.c ****   /* Misra  violation Ruleï¿?11.4 Aï¿½Conversionï¿½shouldï¿½notï¿½beï¿½performed betweenï¿½a
- 326:Src/mc_math.c ****    * pointerï¿½to object and an integer type */
- 327:Src/mc_math.c ****   CosSin.CordicRdata = LL_CORDIC_ReadData(CORDIC);
- 164              		.loc 1 327 3 is_stmt 1 view .LVU44
- 165              	.LBB22:
- 166              	.LBI22:
+  98              		.loc 1 734 3
+  99 000a 7B68     		ldr	r3, [r7, #4]
+ 100 000c 3A68     		ldr	r2, [r7]
+ 101 000e 5A60     		str	r2, [r3, #4]
  735:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** }
+ 102              		.loc 1 735 1
+ 103 0010 00BF     		nop
+ 104 0012 0C37     		adds	r7, r7, #12
+ 105              	.LCFI3:
+ 106              		.cfi_def_cfa_offset 4
+ 107 0014 BD46     		mov	sp, r7
+ 108              	.LCFI4:
+ 109              		.cfi_def_cfa_register 13
+ 110              		@ sp needed
+ 111 0016 5DF8047B 		ldr	r7, [sp], #4
+ 112              	.LCFI5:
+ 113              		.cfi_restore 7
+ 114              		.cfi_def_cfa_offset 0
+ 115 001a 7047     		bx	lr
+ 116              		.cfi_endproc
+ 117              	.LFE1428:
+ 119              		.section	.text.LL_CORDIC_ReadData,"ax",%progbits
+ 120              		.align	1
+ 121              		.syntax unified
+ 122              		.thumb
+ 123              		.thumb_func
+ 124              		.fpu fpv4-sp-d16
+ 126              	LL_CORDIC_ReadData:
+ARM GAS  /tmp/ccmlHr0S.s 			page 16
+
+
+ 127              	.LFB1429:
  736:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** 
  737:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** /**
  738:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   * @brief  Return 32-bit output data of CORDIC processing.
@@ -1311,410 +910,872 @@ ARM GAS  /tmp/ccC00Ikq.s 			page 1
  741:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   * @retval 32-bit output data of CORDIC processing.
  742:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   */
  743:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** __STATIC_INLINE uint32_t LL_CORDIC_ReadData(const CORDIC_TypeDef *CORDICx)
- 167              		.loc 2 743 26 view .LVU45
- 168              	.LBB23:
  744:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** {
+ 128              		.loc 1 744 1
+ 129              		.cfi_startproc
+ 130              		@ args = 0, pretend = 0, frame = 8
+ 131              		@ frame_needed = 1, uses_anonymous_args = 0
+ 132              		@ link register save eliminated.
+ 133 0000 80B4     		push	{r7}
+ 134              	.LCFI6:
+ 135              		.cfi_def_cfa_offset 4
+ 136              		.cfi_offset 7, -4
+ 137 0002 83B0     		sub	sp, sp, #12
+ 138              	.LCFI7:
+ 139              		.cfi_def_cfa_offset 16
+ 140 0004 00AF     		add	r7, sp, #0
+ 141              	.LCFI8:
+ 142              		.cfi_def_cfa_register 7
+ 143 0006 7860     		str	r0, [r7, #4]
  745:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h ****   return (uint32_t)(READ_REG(CORDICx->RDATA));
- 169              		.loc 2 745 3 view .LVU46
- 170              		.loc 2 745 10 is_stmt 0 view .LVU47
- 171 0012 9B68     		ldr	r3, [r3, #8]
-ARM GAS  /tmp/ccC00Ikq.s 			page 23
+ 144              		.loc 1 745 10
+ 145 0008 7B68     		ldr	r3, [r7, #4]
+ 146 000a 9B68     		ldr	r3, [r3, #8]
+ 746:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** }
+ 147              		.loc 1 746 1
+ 148 000c 1846     		mov	r0, r3
+ 149 000e 0C37     		adds	r7, r7, #12
+ 150              	.LCFI9:
+ 151              		.cfi_def_cfa_offset 4
+ 152 0010 BD46     		mov	sp, r7
+ 153              	.LCFI10:
+ 154              		.cfi_def_cfa_register 13
+ 155              		@ sp needed
+ 156 0012 5DF8047B 		ldr	r7, [sp], #4
+ 157              	.LCFI11:
+ 158              		.cfi_restore 7
+ 159              		.cfi_def_cfa_offset 0
+ 160 0016 7047     		bx	lr
+ 161              		.cfi_endproc
+ 162              	.LFE1429:
+ 164              		.section	.text.MCM_Clarke,"ax",%progbits
+ 165              		.align	1
+ 166              		.weak	MCM_Clarke
+ 167              		.syntax unified
+ 168              		.thumb
+ 169              		.thumb_func
+ 170              		.fpu fpv4-sp-d16
+ 172              	MCM_Clarke:
+ 173              	.LFB1437:
+ 174              		.file 2 "Src/mc_math.c"
+ARM GAS  /tmp/ccmlHr0S.s 			page 17
 
 
- 172              	.LVL12:
- 173              		.loc 2 745 10 view .LVU48
- 174              	.LBE23:
- 175              	.LBE22:
+   1:Src/mc_math.c **** 
+   2:Src/mc_math.c **** /**
+   3:Src/mc_math.c ****   ******************************************************************************
+   4:Src/mc_math.c ****   * @file    mc_math.c
+   5:Src/mc_math.c ****   * @author  Motor Control SDK Team, ST Microelectronics
+   6:Src/mc_math.c ****   * @brief   This file provides mathematics functions useful for and specific to
+   7:Src/mc_math.c ****   *          Motor Control.
+   8:Src/mc_math.c ****   *
+   9:Src/mc_math.c ****   ******************************************************************************
+  10:Src/mc_math.c ****   * @attention
+  11:Src/mc_math.c ****   *
+  12:Src/mc_math.c ****   * <h2><center>&copy; Copyright (c) 2024 STMicroelectronics.
+  13:Src/mc_math.c ****   * All rights reserved.</center></h2>
+  14:Src/mc_math.c ****   *
+  15:Src/mc_math.c ****   * This software component is licensed by ST under Ultimate Liberty license
+  16:Src/mc_math.c ****   * SLA0044, the "License"; You may not use this file except in compliance with
+  17:Src/mc_math.c ****   * the License. You may obtain a copy of the License at:
+  18:Src/mc_math.c ****   *                             www.st.com/SLA0044
+  19:Src/mc_math.c ****   *
+  20:Src/mc_math.c ****   ******************************************************************************
+  21:Src/mc_math.c ****   */
+  22:Src/mc_math.c **** /* Includes ------------------------------------------------------------------*/
+  23:Src/mc_math.c **** #include "mc_math.h"
+  24:Src/mc_math.c **** #include "mc_type.h"
+  25:Src/mc_math.c **** 
+  26:Src/mc_math.c **** /** @addtogroup MCSDK
+  27:Src/mc_math.c ****   * @{
+  28:Src/mc_math.c ****   */
+  29:Src/mc_math.c **** 
+  30:Src/mc_math.c **** /** @defgroup MC_Math Motor Control Math functions
+  31:Src/mc_math.c ****   * @brief Motor Control Mathematic functions of the Motor Control SDK
+  32:Src/mc_math.c ****   *
+  33:Src/mc_math.c ****   * @todo Document the Motor Control Math "module".
+  34:Src/mc_math.c ****   *
+  35:Src/mc_math.c ****   * @{
+  36:Src/mc_math.c ****   */
+  37:Src/mc_math.c **** 
+  38:Src/mc_math.c **** /* Private macro -------------------------------------------------------------*/
+  39:Src/mc_math.c **** 
+  40:Src/mc_math.c **** #define divSQRT_3 (int32_t)0x49E6    /* 1/sqrt(3) in q1.15 format=0.5773315 */
+  41:Src/mc_math.c **** 
+  42:Src/mc_math.c **** #if defined (CCMRAM)
+  43:Src/mc_math.c **** #if defined (__ICCARM__)
+  44:Src/mc_math.c **** #pragma location = ".ccmram"
+  45:Src/mc_math.c **** #elif defined (__CC_ARM) || defined(__GNUC__)
+  46:Src/mc_math.c **** __attribute__( ( section ( ".ccmram" ) ) )
+  47:Src/mc_math.c **** #endif
+  48:Src/mc_math.c **** #endif
+  49:Src/mc_math.c **** /**
+  50:Src/mc_math.c ****   * @brief  This function transforms stator values a and b (which are
+  51:Src/mc_math.c ****   *         directed along axes each displaced by 120 degrees) into values
+  52:Src/mc_math.c ****   *         alpha and beta in a stationary qd reference frame.
+  53:Src/mc_math.c ****   *                               alpha = a
+  54:Src/mc_math.c ****   *                       beta = -(2*b+a)/sqrt(3)
+  55:Src/mc_math.c ****   * @param  Input: stator values a and b in ab_t format.
+  56:Src/mc_math.c ****   * @retval Stator values alpha and beta in alphabeta_t format.
+  57:Src/mc_math.c ****   */
+ARM GAS  /tmp/ccmlHr0S.s 			page 18
+
+
+  58:Src/mc_math.c **** __weak alphabeta_t MCM_Clarke(ab_t Input)
+  59:Src/mc_math.c **** {
+ 175              		.loc 2 59 1
+ 176              		.cfi_startproc
+ 177              		@ args = 0, pretend = 0, frame = 32
+ 178              		@ frame_needed = 1, uses_anonymous_args = 0
+ 179              		@ link register save eliminated.
+ 180 0000 80B4     		push	{r7}
+ 181              	.LCFI12:
+ 182              		.cfi_def_cfa_offset 4
+ 183              		.cfi_offset 7, -4
+ 184 0002 89B0     		sub	sp, sp, #36
+ 185              	.LCFI13:
+ 186              		.cfi_def_cfa_offset 40
+ 187 0004 00AF     		add	r7, sp, #0
+ 188              	.LCFI14:
+ 189              		.cfi_def_cfa_register 7
+ 190 0006 7860     		str	r0, [r7, #4]
+  60:Src/mc_math.c ****   alphabeta_t Output;
+  61:Src/mc_math.c **** 
+  62:Src/mc_math.c ****   int32_t a_divSQRT3_tmp;
+  63:Src/mc_math.c ****   int32_t b_divSQRT3_tmp;
+  64:Src/mc_math.c ****   int32_t wbeta_tmp;
+  65:Src/mc_math.c ****   int16_t hbeta_tmp;
+  66:Src/mc_math.c **** 
+  67:Src/mc_math.c ****   /* qIalpha = qIas*/
+  68:Src/mc_math.c ****   Output.alpha = Input.a;
+ 191              		.loc 2 68 23
+ 192 0008 B7F90430 		ldrsh	r3, [r7, #4]
+ 193              		.loc 2 68 16
+ 194 000c 3B81     		strh	r3, [r7, #8]	@ movhi
+  69:Src/mc_math.c **** 
+  70:Src/mc_math.c ****   a_divSQRT3_tmp = divSQRT_3 * ((int32_t)Input.a);
+ 195              		.loc 2 70 47
+ 196 000e B7F90430 		ldrsh	r3, [r7, #4]
+ 197              		.loc 2 70 33
+ 198 0012 1A46     		mov	r2, r3
+ 199              		.loc 2 70 18
+ 200 0014 44F6E613 		movw	r3, #18918
+ 201 0018 02FB03F3 		mul	r3, r2, r3
+ 202 001c BB61     		str	r3, [r7, #24]
+  71:Src/mc_math.c **** 
+  72:Src/mc_math.c ****   b_divSQRT3_tmp = divSQRT_3 * ((int32_t)Input.b);
+ 203              		.loc 2 72 47
+ 204 001e B7F90630 		ldrsh	r3, [r7, #6]
+ 205              		.loc 2 72 33
+ 206 0022 1A46     		mov	r2, r3
+ 207              		.loc 2 72 18
+ 208 0024 44F6E613 		movw	r3, #18918
+ 209 0028 02FB03F3 		mul	r3, r2, r3
+ 210 002c 7B61     		str	r3, [r7, #20]
+  73:Src/mc_math.c **** 
+  74:Src/mc_math.c ****   /* qIbeta = -(2*qIbs+qIas)/sqrt(3) */
+  75:Src/mc_math.c **** #ifndef FULL_MISRA_C_COMPLIANCY_MC_MATH
+  76:Src/mc_math.c ****   /* WARNING: the below instruction is not MISRA compliant, user should verify
+  77:Src/mc_math.c ****     that Cortex-M3 assembly instruction ASR (arithmetic shift right) is used by
+  78:Src/mc_math.c ****     the compiler to perform the shift (instead of LSR logical shift right) */
+ARM GAS  /tmp/ccmlHr0S.s 			page 19
+
+
+  79:Src/mc_math.c ****   //cstat !MISRAC2012-Rule-1.3_n !ATH-shift-neg !MISRAC2012-Rule-10.1_R6
+  80:Src/mc_math.c ****   wbeta_tmp = (-(a_divSQRT3_tmp) - (b_divSQRT3_tmp) - (b_divSQRT3_tmp)) >> 15;
+ 211              		.loc 2 80 16
+ 212 002e BB69     		ldr	r3, [r7, #24]
+ 213 0030 5A42     		rsbs	r2, r3, #0
+ 214              		.loc 2 80 34
+ 215 0032 7B69     		ldr	r3, [r7, #20]
+ 216 0034 D21A     		subs	r2, r2, r3
+ 217              		.loc 2 80 53
+ 218 0036 7B69     		ldr	r3, [r7, #20]
+ 219 0038 D31A     		subs	r3, r2, r3
+ 220              		.loc 2 80 13
+ 221 003a DB13     		asrs	r3, r3, #15
+ 222 003c 3B61     		str	r3, [r7, #16]
+  81:Src/mc_math.c **** #else
+  82:Src/mc_math.c ****   wbeta_tmp = (-(a_divSQRT3_tmp) - (b_divSQRT3_tmp) - (b_divSQRT3_tmp)) / 32768;
+  83:Src/mc_math.c **** #endif
+  84:Src/mc_math.c **** 
+  85:Src/mc_math.c ****   /* Check saturation of Ibeta */
+  86:Src/mc_math.c ****   if (wbeta_tmp > INT16_MAX)
+ 223              		.loc 2 86 6
+ 224 003e 3B69     		ldr	r3, [r7, #16]
+ 225 0040 B3F5004F 		cmp	r3, #32768
+ 226 0044 03DB     		blt	.L5
+  87:Src/mc_math.c ****   {
+  88:Src/mc_math.c ****     hbeta_tmp = INT16_MAX;
+ 227              		.loc 2 88 15
+ 228 0046 47F6FF73 		movw	r3, #32767
+ 229 004a FB83     		strh	r3, [r7, #30]	@ movhi
+ 230 004c 09E0     		b	.L6
+ 231              	.L5:
+  89:Src/mc_math.c ****   }
+  90:Src/mc_math.c ****   else if (wbeta_tmp < (-32768))
+ 232              		.loc 2 90 11
+ 233 004e 3B69     		ldr	r3, [r7, #16]
+ 234 0050 13F5004F 		cmn	r3, #32768
+ 235 0054 03DA     		bge	.L7
+  91:Src/mc_math.c ****   {
+  92:Src/mc_math.c ****     hbeta_tmp =  ((int16_t)-32768);
+ 236              		.loc 2 92 15
+ 237 0056 4FF40043 		mov	r3, #32768
+ 238 005a FB83     		strh	r3, [r7, #30]	@ movhi
+ 239 005c 01E0     		b	.L6
+ 240              	.L7:
+  93:Src/mc_math.c ****   }
+  94:Src/mc_math.c ****   else
+  95:Src/mc_math.c ****   {
+  96:Src/mc_math.c ****     hbeta_tmp = ((int16_t)wbeta_tmp);
+ 241              		.loc 2 96 15
+ 242 005e 3B69     		ldr	r3, [r7, #16]
+ 243 0060 FB83     		strh	r3, [r7, #30]	@ movhi
+ 244              	.L6:
+  97:Src/mc_math.c ****   }
+  98:Src/mc_math.c **** 
+  99:Src/mc_math.c ****   Output.beta = hbeta_tmp;
+ 245              		.loc 2 99 15
+ 246 0062 FB8B     		ldrh	r3, [r7, #30]	@ movhi
+ARM GAS  /tmp/ccmlHr0S.s 			page 20
+
+
+ 247 0064 7B81     		strh	r3, [r7, #10]	@ movhi
+ 100:Src/mc_math.c **** 
+ 101:Src/mc_math.c ****   if (((int16_t )-32768) == Output.beta)
+ 248              		.loc 2 101 35
+ 249 0066 B7F90A30 		ldrsh	r3, [r7, #10]
+ 250              		.loc 2 101 6
+ 251 006a 13F5004F 		cmn	r3, #32768
+ 252 006e 02D1     		bne	.L8
+ 102:Src/mc_math.c ****   {
+ 103:Src/mc_math.c ****     Output.beta = -32767;
+ 253              		.loc 2 103 17
+ 254 0070 48F20103 		movw	r3, #32769
+ 255 0074 7B81     		strh	r3, [r7, #10]	@ movhi
+ 256              	.L8:
+ 104:Src/mc_math.c ****   }
+ 105:Src/mc_math.c ****   else
+ 106:Src/mc_math.c ****   {
+ 107:Src/mc_math.c ****     /* Nothing to do */
+ 108:Src/mc_math.c ****   }
+ 109:Src/mc_math.c **** 
+ 110:Src/mc_math.c ****   return (Output);
+ 257              		.loc 2 110 10
+ 258 0076 BB68     		ldr	r3, [r7, #8]
+ 259 0078 FB60     		str	r3, [r7, #12]
+ 260 007a 0023     		movs	r3, #0
+ 261 007c BA89     		ldrh	r2, [r7, #12]
+ 262 007e 62F30F03 		bfi	r3, r2, #0, #16
+ 263 0082 FA89     		ldrh	r2, [r7, #14]
+ 264 0084 62F31F43 		bfi	r3, r2, #16, #16
+ 111:Src/mc_math.c **** }
+ 265              		.loc 2 111 1
+ 266 0088 1846     		mov	r0, r3
+ 267 008a 2437     		adds	r7, r7, #36
+ 268              	.LCFI15:
+ 269              		.cfi_def_cfa_offset 4
+ 270 008c BD46     		mov	sp, r7
+ 271              	.LCFI16:
+ 272              		.cfi_def_cfa_register 13
+ 273              		@ sp needed
+ 274 008e 5DF8047B 		ldr	r7, [sp], #4
+ 275              	.LCFI17:
+ 276              		.cfi_restore 7
+ 277              		.cfi_def_cfa_offset 0
+ 278 0092 7047     		bx	lr
+ 279              		.cfi_endproc
+ 280              	.LFE1437:
+ 282              		.section	.text.MCM_Park,"ax",%progbits
+ 283              		.align	1
+ 284              		.weak	MCM_Park
+ 285              		.syntax unified
+ 286              		.thumb
+ 287              		.thumb_func
+ 288              		.fpu fpv4-sp-d16
+ 290              	MCM_Park:
+ 291              	.LFB1438:
+ 112:Src/mc_math.c **** 
+ 113:Src/mc_math.c **** #if defined (CCMRAM)
+ARM GAS  /tmp/ccmlHr0S.s 			page 21
+
+
+ 114:Src/mc_math.c **** #if defined (__ICCARM__)
+ 115:Src/mc_math.c **** #pragma location = ".ccmram"
+ 116:Src/mc_math.c **** #elif defined (__CC_ARM) || defined(__GNUC__)
+ 117:Src/mc_math.c **** __attribute__( ( section ( ".ccmram" ) ) )
+ 118:Src/mc_math.c **** #endif
+ 119:Src/mc_math.c **** #endif
+ 120:Src/mc_math.c **** /**
+ 121:Src/mc_math.c ****   * @brief  This function transforms stator values alpha and beta, which
+ 122:Src/mc_math.c ****   *         belong to a stationary qd reference frame, to a rotor flux
+ 123:Src/mc_math.c ****   *         synchronous reference frame (properly oriented), so as q and d.
+ 124:Src/mc_math.c ****   *                   d= alpha *sin(theta)+ beta *cos(Theta)
+ 125:Src/mc_math.c ****   *                   q= alpha *cos(Theta)- beta *sin(Theta)
+ 126:Src/mc_math.c ****   * @param  Input: stator values alpha and beta in alphabeta_t format.
+ 127:Src/mc_math.c ****   * @param  Theta: rotating frame angular position in q1.15 format.
+ 128:Src/mc_math.c ****   * @retval Stator values q and d in qd_t format
+ 129:Src/mc_math.c ****   */
+ 130:Src/mc_math.c **** __weak qd_t MCM_Park(alphabeta_t Input, int16_t Theta)
+ 131:Src/mc_math.c **** {
+ 292              		.loc 2 131 1
+ 293              		.cfi_startproc
+ 294              		@ args = 0, pretend = 0, frame = 48
+ 295              		@ frame_needed = 1, uses_anonymous_args = 0
+ 296 0000 80B5     		push	{r7, lr}
+ 297              	.LCFI18:
+ 298              		.cfi_def_cfa_offset 8
+ 299              		.cfi_offset 7, -8
+ 300              		.cfi_offset 14, -4
+ 301 0002 8CB0     		sub	sp, sp, #48
+ 302              	.LCFI19:
+ 303              		.cfi_def_cfa_offset 56
+ 304 0004 00AF     		add	r7, sp, #0
+ 305              	.LCFI20:
+ 306              		.cfi_def_cfa_register 7
+ 307 0006 7860     		str	r0, [r7, #4]
+ 308 0008 0B46     		mov	r3, r1
+ 309 000a 7B80     		strh	r3, [r7, #2]	@ movhi
+ 132:Src/mc_math.c ****   qd_t Output;
+ 133:Src/mc_math.c ****   int32_t d_tmp_1;
+ 134:Src/mc_math.c ****   int32_t d_tmp_2;
+ 135:Src/mc_math.c ****   int32_t q_tmp_1;
+ 136:Src/mc_math.c ****   int32_t q_tmp_2;
+ 137:Src/mc_math.c ****   int32_t wqd_tmp;
+ 138:Src/mc_math.c ****   int16_t hqd_tmp;
+ 139:Src/mc_math.c ****   Trig_Components Local_Vector_Components;
+ 140:Src/mc_math.c **** 
+ 141:Src/mc_math.c ****   Local_Vector_Components = MCM_Trig_Functions(Theta);
+ 310              		.loc 2 141 29
+ 311 000c B7F90230 		ldrsh	r3, [r7, #2]
+ 312 0010 1846     		mov	r0, r3
+ 313 0012 FFF7FEFF 		bl	MCM_Trig_Functions
+ 314 0016 0346     		mov	r3, r0
+ 315 0018 FB60     		str	r3, [r7, #12]
+ 142:Src/mc_math.c **** 
+ 143:Src/mc_math.c ****   /* No overflow guaranteed */
+ 144:Src/mc_math.c ****   q_tmp_1 = Input.alpha * ((int32_t )Local_Vector_Components.hCos);
+ 316              		.loc 2 144 18
+ 317 001a B7F90430 		ldrsh	r3, [r7, #4]
+ARM GAS  /tmp/ccmlHr0S.s 			page 22
+
+
+ 318              		.loc 2 144 61
+ 319 001e B7F90C20 		ldrsh	r2, [r7, #12]
+ 320              		.loc 2 144 11
+ 321 0022 02FB03F3 		mul	r3, r2, r3
+ 322 0026 BB62     		str	r3, [r7, #40]
+ 145:Src/mc_math.c **** 
+ 146:Src/mc_math.c ****   /* No overflow guaranteed */
+ 147:Src/mc_math.c ****   q_tmp_2 = Input.beta * ((int32_t)Local_Vector_Components.hSin);
+ 323              		.loc 2 147 18
+ 324 0028 B7F90630 		ldrsh	r3, [r7, #6]
+ 325              		.loc 2 147 59
+ 326 002c B7F90E20 		ldrsh	r2, [r7, #14]
+ 327              		.loc 2 147 11
+ 328 0030 02FB03F3 		mul	r3, r2, r3
+ 329 0034 7B62     		str	r3, [r7, #36]
+ 148:Src/mc_math.c **** 
+ 149:Src/mc_math.c ****   /* Iq component in Q1.15 Format */
+ 150:Src/mc_math.c **** #ifndef FULL_MISRA_C_COMPLIANCY_MC_MATH
+ 151:Src/mc_math.c ****   /* WARNING: the below instruction is not MISRA compliant, user should verify
+ 152:Src/mc_math.c ****     that Cortex-M3 assembly instruction ASR (arithmetic shift right) is used by
+ 153:Src/mc_math.c ****     the compiler to perform the shift (instead of LSR logical shift right) */
+ 154:Src/mc_math.c ****   wqd_tmp = (q_tmp_1 - q_tmp_2) >> 15; //cstat !MISRAC2012-Rule-1.3_n !ATH-shift-neg !MISRAC2012-Ru
+ 330              		.loc 2 154 22
+ 331 0036 BA6A     		ldr	r2, [r7, #40]
+ 332 0038 7B6A     		ldr	r3, [r7, #36]
+ 333 003a D31A     		subs	r3, r2, r3
+ 334              		.loc 2 154 11
+ 335 003c DB13     		asrs	r3, r3, #15
+ 336 003e 3B62     		str	r3, [r7, #32]
+ 155:Src/mc_math.c **** #else
+ 156:Src/mc_math.c ****   wqd_tmp = (q_tmp_1 - q_tmp_2) / 32768;
+ 157:Src/mc_math.c **** #endif
+ 158:Src/mc_math.c **** 
+ 159:Src/mc_math.c ****   /* Check saturation of Iq */
+ 160:Src/mc_math.c ****   if (wqd_tmp > INT16_MAX)
+ 337              		.loc 2 160 6
+ 338 0040 3B6A     		ldr	r3, [r7, #32]
+ 339 0042 B3F5004F 		cmp	r3, #32768
+ 340 0046 03DB     		blt	.L11
+ 161:Src/mc_math.c ****   {
+ 162:Src/mc_math.c ****     hqd_tmp = INT16_MAX;
+ 341              		.loc 2 162 13
+ 342 0048 47F6FF73 		movw	r3, #32767
+ 343 004c FB85     		strh	r3, [r7, #46]	@ movhi
+ 344 004e 09E0     		b	.L12
+ 345              	.L11:
+ 163:Src/mc_math.c ****   }
+ 164:Src/mc_math.c ****   else if (wqd_tmp < (-32768))
+ 346              		.loc 2 164 11
+ 347 0050 3B6A     		ldr	r3, [r7, #32]
+ 348 0052 13F5004F 		cmn	r3, #32768
+ 349 0056 03DA     		bge	.L13
+ 165:Src/mc_math.c ****   {
+ 166:Src/mc_math.c ****     hqd_tmp = ((int16_t)-32768);
+ 350              		.loc 2 166 13
+ 351 0058 4FF40043 		mov	r3, #32768
+ 352 005c FB85     		strh	r3, [r7, #46]	@ movhi
+ARM GAS  /tmp/ccmlHr0S.s 			page 23
+
+
+ 353 005e 01E0     		b	.L12
+ 354              	.L13:
+ 167:Src/mc_math.c ****   }
+ 168:Src/mc_math.c ****   else
+ 169:Src/mc_math.c ****   {
+ 170:Src/mc_math.c ****     hqd_tmp = ((int16_t)wqd_tmp);
+ 355              		.loc 2 170 13
+ 356 0060 3B6A     		ldr	r3, [r7, #32]
+ 357 0062 FB85     		strh	r3, [r7, #46]	@ movhi
+ 358              	.L12:
+ 171:Src/mc_math.c ****   }
+ 172:Src/mc_math.c **** 
+ 173:Src/mc_math.c ****   Output.q = hqd_tmp;
+ 359              		.loc 2 173 12
+ 360 0064 FB8D     		ldrh	r3, [r7, #46]	@ movhi
+ 361 0066 3B82     		strh	r3, [r7, #16]	@ movhi
+ 174:Src/mc_math.c **** 
+ 175:Src/mc_math.c ****   if (((int16_t)-32768) == Output.q)
+ 362              		.loc 2 175 34
+ 363 0068 B7F91030 		ldrsh	r3, [r7, #16]
+ 364              		.loc 2 175 6
+ 365 006c 13F5004F 		cmn	r3, #32768
+ 366 0070 02D1     		bne	.L14
+ 176:Src/mc_math.c ****   {
+ 177:Src/mc_math.c ****     Output.q = -32767;
+ 367              		.loc 2 177 14
+ 368 0072 48F20103 		movw	r3, #32769
+ 369 0076 3B82     		strh	r3, [r7, #16]	@ movhi
+ 370              	.L14:
+ 178:Src/mc_math.c ****   }
+ 179:Src/mc_math.c ****   else
+ 180:Src/mc_math.c ****   {
+ 181:Src/mc_math.c ****     /* Nothing to do */
+ 182:Src/mc_math.c ****   }
+ 183:Src/mc_math.c **** 
+ 184:Src/mc_math.c ****   /* No overflow guaranteed */
+ 185:Src/mc_math.c ****   d_tmp_1 = Input.alpha * ((int32_t )Local_Vector_Components.hSin);
+ 371              		.loc 2 185 18
+ 372 0078 B7F90430 		ldrsh	r3, [r7, #4]
+ 373              		.loc 2 185 61
+ 374 007c B7F90E20 		ldrsh	r2, [r7, #14]
+ 375              		.loc 2 185 11
+ 376 0080 02FB03F3 		mul	r3, r2, r3
+ 377 0084 FB61     		str	r3, [r7, #28]
+ 186:Src/mc_math.c **** 
+ 187:Src/mc_math.c ****   /* No overflow guaranteed */
+ 188:Src/mc_math.c ****   d_tmp_2 = Input.beta * ((int32_t )Local_Vector_Components.hCos);
+ 378              		.loc 2 188 18
+ 379 0086 B7F90630 		ldrsh	r3, [r7, #6]
+ 380              		.loc 2 188 60
+ 381 008a B7F90C20 		ldrsh	r2, [r7, #12]
+ 382              		.loc 2 188 11
+ 383 008e 02FB03F3 		mul	r3, r2, r3
+ 384 0092 BB61     		str	r3, [r7, #24]
+ 189:Src/mc_math.c **** 
+ 190:Src/mc_math.c ****   /* Id component in Q1.15 Format */
+ 191:Src/mc_math.c **** #ifndef FULL_MISRA_C_COMPLIANCY_MC_MATH
+ARM GAS  /tmp/ccmlHr0S.s 			page 24
+
+
+ 192:Src/mc_math.c ****   /* WARNING: the below instruction is not MISRA compliant, user should verify
+ 193:Src/mc_math.c ****     that Cortex-M3 assembly instruction ASR (arithmetic shift right) is used by
+ 194:Src/mc_math.c ****     the compiler to perform the shift (instead of LSR logical shift right) */
+ 195:Src/mc_math.c ****   wqd_tmp = (d_tmp_1 + d_tmp_2) >> 15; //cstat !MISRAC2012-Rule-1.3_n !ATH-shift-neg !MISRAC2012-Ru
+ 385              		.loc 2 195 22
+ 386 0094 FA69     		ldr	r2, [r7, #28]
+ 387 0096 BB69     		ldr	r3, [r7, #24]
+ 388 0098 1344     		add	r3, r3, r2
+ 389              		.loc 2 195 11
+ 390 009a DB13     		asrs	r3, r3, #15
+ 391 009c 3B62     		str	r3, [r7, #32]
+ 196:Src/mc_math.c **** #else
+ 197:Src/mc_math.c ****   wqd_tmp = (d_tmp_1 + d_tmp_2) / 32768;
+ 198:Src/mc_math.c **** #endif
+ 199:Src/mc_math.c **** 
+ 200:Src/mc_math.c ****   /* Check saturation of Id */
+ 201:Src/mc_math.c ****   if (wqd_tmp > INT16_MAX)
+ 392              		.loc 2 201 6
+ 393 009e 3B6A     		ldr	r3, [r7, #32]
+ 394 00a0 B3F5004F 		cmp	r3, #32768
+ 395 00a4 03DB     		blt	.L15
+ 202:Src/mc_math.c ****   {
+ 203:Src/mc_math.c ****     hqd_tmp = INT16_MAX;
+ 396              		.loc 2 203 13
+ 397 00a6 47F6FF73 		movw	r3, #32767
+ 398 00aa FB85     		strh	r3, [r7, #46]	@ movhi
+ 399 00ac 09E0     		b	.L16
+ 400              	.L15:
+ 204:Src/mc_math.c ****   }
+ 205:Src/mc_math.c ****   else if (wqd_tmp < (-32768))
+ 401              		.loc 2 205 11
+ 402 00ae 3B6A     		ldr	r3, [r7, #32]
+ 403 00b0 13F5004F 		cmn	r3, #32768
+ 404 00b4 03DA     		bge	.L17
+ 206:Src/mc_math.c ****   {
+ 207:Src/mc_math.c ****     hqd_tmp = ((int16_t)-32768);
+ 405              		.loc 2 207 13
+ 406 00b6 4FF40043 		mov	r3, #32768
+ 407 00ba FB85     		strh	r3, [r7, #46]	@ movhi
+ 408 00bc 01E0     		b	.L16
+ 409              	.L17:
+ 208:Src/mc_math.c ****   }
+ 209:Src/mc_math.c ****   else
+ 210:Src/mc_math.c ****   {
+ 211:Src/mc_math.c ****     hqd_tmp = ((int16_t)wqd_tmp);
+ 410              		.loc 2 211 13
+ 411 00be 3B6A     		ldr	r3, [r7, #32]
+ 412 00c0 FB85     		strh	r3, [r7, #46]	@ movhi
+ 413              	.L16:
+ 212:Src/mc_math.c ****   }
+ 213:Src/mc_math.c **** 
+ 214:Src/mc_math.c ****   Output.d = hqd_tmp;
+ 414              		.loc 2 214 12
+ 415 00c2 FB8D     		ldrh	r3, [r7, #46]	@ movhi
+ 416 00c4 7B82     		strh	r3, [r7, #18]	@ movhi
+ 215:Src/mc_math.c **** 
+ 216:Src/mc_math.c ****   if (((int16_t)-32768) == Output.d)
+ARM GAS  /tmp/ccmlHr0S.s 			page 25
+
+
+ 417              		.loc 2 216 34
+ 418 00c6 B7F91230 		ldrsh	r3, [r7, #18]
+ 419              		.loc 2 216 6
+ 420 00ca 13F5004F 		cmn	r3, #32768
+ 421 00ce 02D1     		bne	.L18
+ 217:Src/mc_math.c ****   {
+ 218:Src/mc_math.c ****     Output.d = -32767;
+ 422              		.loc 2 218 14
+ 423 00d0 48F20103 		movw	r3, #32769
+ 424 00d4 7B82     		strh	r3, [r7, #18]	@ movhi
+ 425              	.L18:
+ 219:Src/mc_math.c ****   }
+ 220:Src/mc_math.c ****   else
+ 221:Src/mc_math.c ****   {
+ 222:Src/mc_math.c ****     /* Nothing to do */
+ 223:Src/mc_math.c ****   }
+ 224:Src/mc_math.c **** 
+ 225:Src/mc_math.c ****   return (Output);
+ 426              		.loc 2 225 10
+ 427 00d6 3B69     		ldr	r3, [r7, #16]
+ 428 00d8 7B61     		str	r3, [r7, #20]
+ 429 00da 0023     		movs	r3, #0
+ 430 00dc BA8A     		ldrh	r2, [r7, #20]
+ 431 00de 62F30F03 		bfi	r3, r2, #0, #16
+ 432 00e2 FA8A     		ldrh	r2, [r7, #22]
+ 433 00e4 62F31F43 		bfi	r3, r2, #16, #16
+ 226:Src/mc_math.c **** }
+ 434              		.loc 2 226 1
+ 435 00e8 1846     		mov	r0, r3
+ 436 00ea 3037     		adds	r7, r7, #48
+ 437              	.LCFI21:
+ 438              		.cfi_def_cfa_offset 8
+ 439 00ec BD46     		mov	sp, r7
+ 440              	.LCFI22:
+ 441              		.cfi_def_cfa_register 13
+ 442              		@ sp needed
+ 443 00ee 80BD     		pop	{r7, pc}
+ 444              		.cfi_endproc
+ 445              	.LFE1438:
+ 447              		.section	.text.MCM_Rev_Park,"ax",%progbits
+ 448              		.align	1
+ 449              		.weak	MCM_Rev_Park
+ 450              		.syntax unified
+ 451              		.thumb
+ 452              		.thumb_func
+ 453              		.fpu fpv4-sp-d16
+ 455              	MCM_Rev_Park:
+ 456              	.LFB1439:
+ 227:Src/mc_math.c **** 
+ 228:Src/mc_math.c **** #if defined (CCMRAM)
+ 229:Src/mc_math.c **** #if defined (__ICCARM__)
+ 230:Src/mc_math.c **** #pragma location = ".ccmram"
+ 231:Src/mc_math.c **** #elif defined (__CC_ARM) || defined(__GNUC__)
+ 232:Src/mc_math.c **** __attribute__( ( section ( ".ccmram" ) ) )
+ 233:Src/mc_math.c **** #endif
+ 234:Src/mc_math.c **** #endif
+ 235:Src/mc_math.c **** /**
+ARM GAS  /tmp/ccmlHr0S.s 			page 26
+
+
+ 236:Src/mc_math.c ****   * @brief  This function transforms stator voltage qVq and qVd, that belong to
+ 237:Src/mc_math.c ****   *         a rotor flux synchronous rotating frame, to a stationary reference
+ 238:Src/mc_math.c ****   *         frame, so as to obtain qValpha and qVbeta:
+ 239:Src/mc_math.c ****   *                  Valfa= Vq*Cos(theta)+ Vd*Sin(theta)
+ 240:Src/mc_math.c ****   *                  Vbeta=-Vq*Sin(theta)+ Vd*Cos(theta)
+ 241:Src/mc_math.c ****   * @param  Input: stator voltage Vq and Vd in qd_t format.
+ 242:Src/mc_math.c ****   * @param  Theta: rotating frame angular position in q1.15 format.
+ 243:Src/mc_math.c ****   * @retval Stator voltage Valpha and Vbeta in qd_t format.
+ 244:Src/mc_math.c ****   */
+ 245:Src/mc_math.c **** __weak alphabeta_t MCM_Rev_Park(qd_t Input, int16_t Theta)
+ 246:Src/mc_math.c **** {
+ 457              		.loc 2 246 1
+ 458              		.cfi_startproc
+ 459              		@ args = 0, pretend = 0, frame = 40
+ 460              		@ frame_needed = 1, uses_anonymous_args = 0
+ 461 0000 80B5     		push	{r7, lr}
+ 462              	.LCFI23:
+ 463              		.cfi_def_cfa_offset 8
+ 464              		.cfi_offset 7, -8
+ 465              		.cfi_offset 14, -4
+ 466 0002 8AB0     		sub	sp, sp, #40
+ 467              	.LCFI24:
+ 468              		.cfi_def_cfa_offset 48
+ 469 0004 00AF     		add	r7, sp, #0
+ 470              	.LCFI25:
+ 471              		.cfi_def_cfa_register 7
+ 472 0006 7860     		str	r0, [r7, #4]
+ 473 0008 0B46     		mov	r3, r1
+ 474 000a 7B80     		strh	r3, [r7, #2]	@ movhi
+ 247:Src/mc_math.c ****   int32_t alpha_tmp1;
+ 248:Src/mc_math.c ****   int32_t alpha_tmp2;
+ 249:Src/mc_math.c ****   int32_t beta_tmp1;
+ 250:Src/mc_math.c ****   int32_t beta_tmp2;
+ 251:Src/mc_math.c ****   Trig_Components Local_Vector_Components;
+ 252:Src/mc_math.c ****   alphabeta_t Output;
+ 253:Src/mc_math.c **** 
+ 254:Src/mc_math.c ****   Local_Vector_Components = MCM_Trig_Functions(Theta);
+ 475              		.loc 2 254 29
+ 476 000c B7F90230 		ldrsh	r3, [r7, #2]
+ 477 0010 1846     		mov	r0, r3
+ 478 0012 FFF7FEFF 		bl	MCM_Trig_Functions
+ 479 0016 0346     		mov	r3, r0
+ 480 0018 3B61     		str	r3, [r7, #16]
+ 255:Src/mc_math.c **** 
+ 256:Src/mc_math.c ****   /* No overflow guaranteed */
+ 257:Src/mc_math.c ****   alpha_tmp1 = Input.q * ((int32_t)Local_Vector_Components.hCos);
+ 481              		.loc 2 257 21
+ 482 001a B7F90430 		ldrsh	r3, [r7, #4]
+ 483              		.loc 2 257 59
+ 484 001e B7F91020 		ldrsh	r2, [r7, #16]
+ 485              		.loc 2 257 14
+ 486 0022 02FB03F3 		mul	r3, r2, r3
+ 487 0026 7B62     		str	r3, [r7, #36]
+ 258:Src/mc_math.c ****   alpha_tmp2 = Input.d * ((int32_t)Local_Vector_Components.hSin);
+ 488              		.loc 2 258 21
+ 489 0028 B7F90630 		ldrsh	r3, [r7, #6]
+ 490              		.loc 2 258 59
+ARM GAS  /tmp/ccmlHr0S.s 			page 27
+
+
+ 491 002c B7F91220 		ldrsh	r2, [r7, #18]
+ 492              		.loc 2 258 14
+ 493 0030 02FB03F3 		mul	r3, r2, r3
+ 494 0034 3B62     		str	r3, [r7, #32]
+ 259:Src/mc_math.c **** 
+ 260:Src/mc_math.c **** #ifndef FULL_MISRA_C_COMPLIANCY_MC_MATH
+ 261:Src/mc_math.c ****   /* WARNING: the below instruction is not MISRA compliant, user should verify
+ 262:Src/mc_math.c ****     that Cortex-M3 assembly instruction ASR (arithmetic shift right) is used by
+ 263:Src/mc_math.c ****     the compiler to perform the shift (instead of LSR logical shift right) */
+ 264:Src/mc_math.c ****   //cstat !MISRAC2012-Rule-1.3_n !ATH-shift-neg !MISRAC2012-Rule-10.1_R6
+ 265:Src/mc_math.c ****   Output.alpha = (int16_t)(((alpha_tmp1) + (alpha_tmp2)) >> 15);
+ 495              		.loc 2 265 42
+ 496 0036 7A6A     		ldr	r2, [r7, #36]
+ 497 0038 3B6A     		ldr	r3, [r7, #32]
+ 498 003a 1344     		add	r3, r3, r2
+ 499              		.loc 2 265 58
+ 500 003c DB13     		asrs	r3, r3, #15
+ 501              		.loc 2 265 18
+ 502 003e 1BB2     		sxth	r3, r3
+ 503              		.loc 2 265 16
+ 504 0040 BB81     		strh	r3, [r7, #12]	@ movhi
+ 266:Src/mc_math.c **** #else
+ 267:Src/mc_math.c ****   Output.alpha = (int16_t)(((alpha_tmp1) + (alpha_tmp2)) / 32768);
+ 268:Src/mc_math.c **** #endif
+ 269:Src/mc_math.c **** 
+ 270:Src/mc_math.c ****   beta_tmp1 = Input.q * ((int32_t)Local_Vector_Components.hSin);
+ 505              		.loc 2 270 20
+ 506 0042 B7F90430 		ldrsh	r3, [r7, #4]
+ 507              		.loc 2 270 58
+ 508 0046 B7F91220 		ldrsh	r2, [r7, #18]
+ 509              		.loc 2 270 13
+ 510 004a 02FB03F3 		mul	r3, r2, r3
+ 511 004e FB61     		str	r3, [r7, #28]
+ 271:Src/mc_math.c ****   beta_tmp2 = Input.d * ((int32_t)Local_Vector_Components.hCos);
+ 512              		.loc 2 271 20
+ 513 0050 B7F90630 		ldrsh	r3, [r7, #6]
+ 514              		.loc 2 271 58
+ 515 0054 B7F91020 		ldrsh	r2, [r7, #16]
+ 516              		.loc 2 271 13
+ 517 0058 02FB03F3 		mul	r3, r2, r3
+ 518 005c BB61     		str	r3, [r7, #24]
+ 272:Src/mc_math.c **** 
+ 273:Src/mc_math.c **** #ifndef FULL_MISRA_C_COMPLIANCY_MC_MATH
+ 274:Src/mc_math.c ****   /* WARNING: the below instruction is not MISRA compliant, user should verify
+ 275:Src/mc_math.c ****   that Cortex-M3 assembly instruction ASR (arithmetic shift right) is used by
+ 276:Src/mc_math.c ****   the compiler to perform the shift (instead of LSR logical shift right) */
+ 277:Src/mc_math.c ****   //cstat !MISRAC2012-Rule-1.3_n !ATH-shift-neg !MISRAC2012-Rule-10.1_R6
+ 278:Src/mc_math.c ****   Output.beta = (int16_t)((beta_tmp2 - beta_tmp1) >> 15);
+ 519              		.loc 2 278 38
+ 520 005e BA69     		ldr	r2, [r7, #24]
+ 521 0060 FB69     		ldr	r3, [r7, #28]
+ 522 0062 D31A     		subs	r3, r2, r3
+ 523              		.loc 2 278 51
+ 524 0064 DB13     		asrs	r3, r3, #15
+ 525              		.loc 2 278 17
+ 526 0066 1BB2     		sxth	r3, r3
+ 527              		.loc 2 278 15
+ARM GAS  /tmp/ccmlHr0S.s 			page 28
+
+
+ 528 0068 FB81     		strh	r3, [r7, #14]	@ movhi
+ 279:Src/mc_math.c **** #else
+ 280:Src/mc_math.c ****   Output.beta = (int16_t)((beta_tmp2 - beta_tmp1) / 32768);
+ 281:Src/mc_math.c **** #endif
+ 282:Src/mc_math.c **** 
+ 283:Src/mc_math.c ****   return (Output);
+ 529              		.loc 2 283 10
+ 530 006a FB68     		ldr	r3, [r7, #12]
+ 531 006c 7B61     		str	r3, [r7, #20]
+ 532 006e 0023     		movs	r3, #0
+ 533 0070 BA8A     		ldrh	r2, [r7, #20]
+ 534 0072 62F30F03 		bfi	r3, r2, #0, #16
+ 535 0076 FA8A     		ldrh	r2, [r7, #22]
+ 536 0078 62F31F43 		bfi	r3, r2, #16, #16
+ 284:Src/mc_math.c **** }
+ 537              		.loc 2 284 1
+ 538 007c 1846     		mov	r0, r3
+ 539 007e 2837     		adds	r7, r7, #40
+ 540              	.LCFI26:
+ 541              		.cfi_def_cfa_offset 8
+ 542 0080 BD46     		mov	sp, r7
+ 543              	.LCFI27:
+ 544              		.cfi_def_cfa_register 13
+ 545              		@ sp needed
+ 546 0082 80BD     		pop	{r7, pc}
+ 547              		.cfi_endproc
+ 548              	.LFE1439:
+ 550              		.section	.text.MCM_Trig_Functions,"ax",%progbits
+ 551              		.align	1
+ 552              		.weak	MCM_Trig_Functions
+ 553              		.syntax unified
+ 554              		.thumb
+ 555              		.thumb_func
+ 556              		.fpu fpv4-sp-d16
+ 558              	MCM_Trig_Functions:
+ 559              	.LFB1440:
+ 285:Src/mc_math.c **** 
+ 286:Src/mc_math.c **** #if defined (CCMRAM)
+ 287:Src/mc_math.c **** #if defined (__ICCARM__)
+ 288:Src/mc_math.c **** #pragma location = ".ccmram"
+ 289:Src/mc_math.c **** #elif defined (__CC_ARM) || defined(__GNUC__)
+ 290:Src/mc_math.c **** __attribute__( ( section ( ".ccmram" ) ) )
+ 291:Src/mc_math.c **** #endif
+ 292:Src/mc_math.c **** #endif
+ 293:Src/mc_math.c **** /**
+ 294:Src/mc_math.c ****   * @brief  This function returns cosine and sine functions of the angle fed in input.
+ 295:Src/mc_math.c ****   * @param  hAngle: angle in q1.15 format.
+ 296:Src/mc_math.c ****   * @retval Sin(angle) and Cos(angle) in Trig_Components format.
+ 297:Src/mc_math.c ****   */
+ 298:Src/mc_math.c **** 
+ 299:Src/mc_math.c **** __weak Trig_Components MCM_Trig_Functions(int16_t hAngle)
+ 300:Src/mc_math.c **** {
+ 560              		.loc 2 300 1
+ 561              		.cfi_startproc
+ 562              		@ args = 0, pretend = 0, frame = 16
+ 563              		@ frame_needed = 1, uses_anonymous_args = 0
+ 564 0000 80B5     		push	{r7, lr}
+ARM GAS  /tmp/ccmlHr0S.s 			page 29
+
+
+ 565              	.LCFI28:
+ 566              		.cfi_def_cfa_offset 8
+ 567              		.cfi_offset 7, -8
+ 568              		.cfi_offset 14, -4
+ 569 0002 84B0     		sub	sp, sp, #16
+ 570              	.LCFI29:
+ 571              		.cfi_def_cfa_offset 24
+ 572 0004 00AF     		add	r7, sp, #0
+ 573              	.LCFI30:
+ 574              		.cfi_def_cfa_register 7
+ 575 0006 0346     		mov	r3, r0
+ 576 0008 FB80     		strh	r3, [r7, #6]	@ movhi
+ 301:Src/mc_math.c ****   /* MISRAC2012-violation Rule 19.2. The union keyword should not be used.
+ 302:Src/mc_math.c ****    * If this rule is not followed, the kinds of behavior that need to be determined
+ 303:Src/mc_math.c ****    * are:
+ 304:Src/mc_math.c ****    * Padding â€? how much padding is inserted at the end of the union;
+ 305:Src/mc_math.c ****    * Alignment â€? how are members of any structures within the union aligned;
+ 306:Src/mc_math.c ****    * Endianness â€? is the most significant byte of a word stored at the lowest or
+ 307:Src/mc_math.c ****    *              highest memory address;
+ 308:Src/mc_math.c ****    * Bit-order â€? how are bits numbered within bytes and how are bits allocated to
+ 309:Src/mc_math.c ****    *             bit fields.
+ 310:Src/mc_math.c ****    * Low. Use of union (u32toi16x2). */
+ 311:Src/mc_math.c ****   //cstat -MISRAC2012-Rule-19.2
+ 312:Src/mc_math.c ****   union u32toi16x2 {
+ 313:Src/mc_math.c ****     uint32_t CordicRdata;
+ 314:Src/mc_math.c ****     Trig_Components Components;
+ 315:Src/mc_math.c ****   } CosSin;
+ 316:Src/mc_math.c ****   //cstat +MISRAC2012-Rule-19.2
+ 317:Src/mc_math.c ****   /* Configure CORDIC */
+ 318:Src/mc_math.c ****   /* Misra  violation Rule 11.4 Aï¿½Conversionï¿½shouldï¿½notï¿½beï¿½performedï¿½betweenï¿½aï¿?
+ 319:Src/mc_math.c ****    * pointerï¿½toï¿½object and an integer type */
+ 320:Src/mc_math.c ****   WRITE_REG(CORDIC->CSR, CORDIC_CONFIG_COSINE);
+ 577              		.loc 2 320 3
+ 578 000a 104B     		ldr	r3, .L24
+ 579 000c 4FF06012 		mov	r2, #6291552
+ 580 0010 1A60     		str	r2, [r3]
+ 321:Src/mc_math.c ****   /* Misra  violation Ruleï¿?11.4 Aï¿½Conversionï¿½shouldï¿½notï¿½beï¿½performedï¿½betweenï¿½a
+ 322:Src/mc_math.c ****    * pointerï¿½toï¿½object and an integer type */
+ 323:Src/mc_math.c ****   LL_CORDIC_WriteData(CORDIC, ((uint32_t)0x7FFF0000) + ((uint32_t)hAngle));
+ 581              		.loc 2 323 57
+ 582 0012 B7F90630 		ldrsh	r3, [r7, #6]
+ 583              		.loc 2 323 3
+ 584 0016 03F1FF43 		add	r3, r3, #2139095040
+ 585 001a 03F5FE03 		add	r3, r3, #8323072
+ 586 001e 1946     		mov	r1, r3
+ 587 0020 0A48     		ldr	r0, .L24
+ 588 0022 FFF7FEFF 		bl	LL_CORDIC_WriteData
+ 324:Src/mc_math.c ****   /* Read angle */
+ 325:Src/mc_math.c ****   /* Misra  violation Ruleï¿?11.4 Aï¿½Conversionï¿½shouldï¿½notï¿½beï¿½performed betweenï¿½a
+ 326:Src/mc_math.c ****    * pointerï¿½to object and an integer type */
+ 327:Src/mc_math.c ****   CosSin.CordicRdata = LL_CORDIC_ReadData(CORDIC);
+ 589              		.loc 2 327 24
+ 590 0026 0948     		ldr	r0, .L24
+ 591 0028 FFF7FEFF 		bl	LL_CORDIC_ReadData
+ 592 002c 0346     		mov	r3, r0
+ 593              		.loc 2 327 22
+ 594 002e BB60     		str	r3, [r7, #8]
+ARM GAS  /tmp/ccmlHr0S.s 			page 30
+
+
  328:Src/mc_math.c ****   return (CosSin.Components); //cstat !UNION-type-punning
- 176              		.loc 1 328 3 is_stmt 1 view .LVU49
- 177              		.loc 1 328 17 is_stmt 0 view .LVU50
- 178 0014 0020     		movs	r0, #0
- 179 0016 9AB2     		uxth	r2, r3
- 180 0018 62F30F00 		bfi	r0, r2, #0, #16
- 181 001c 1B0C     		lsrs	r3, r3, #16
- 300:Src/mc_math.c ****   /* MISRAC2012-violation Rule 19.2. The union keyword should not be used.
- 182              		.loc 1 300 1 view .LVU51
- 183 001e 82B0     		sub	sp, sp, #8
- 184              	.LCFI3:
- 185              		.cfi_def_cfa_offset 8
- 186              		.loc 1 328 17 view .LVU52
- 187 0020 63F31F40 		bfi	r0, r3, #16, #16
+ 595              		.loc 2 328 17
+ 596 0030 BB68     		ldr	r3, [r7, #8]
+ 597 0032 FB60     		str	r3, [r7, #12]
+ 598 0034 0023     		movs	r3, #0
+ 599 0036 BA89     		ldrh	r2, [r7, #12]
+ 600 0038 62F30F03 		bfi	r3, r2, #0, #16
+ 601 003c FA89     		ldrh	r2, [r7, #14]
+ 602 003e 62F31F43 		bfi	r3, r2, #16, #16
  329:Src/mc_math.c **** }
- 188              		.loc 1 329 1 view .LVU53
- 189 0024 02B0     		add	sp, sp, #8
- 190              	.LCFI4:
- 191              		.cfi_def_cfa_offset 0
- 192              		@ sp needed
- 193 0026 7047     		bx	lr
- 194              	.L13:
- 195              		.align	2
- 196              	.L12:
- 197 0028 000C0240 		.word	1073875968
- 198              		.cfi_endproc
- 199              	.LFE1440:
- 201              		.section	.text.MCM_Park,"ax",%progbits
- 202              		.align	1
- 203              		.p2align 2,,3
- 204              		.weak	MCM_Park
- 205              		.syntax unified
- 206              		.thumb
- 207              		.thumb_func
- 208              		.fpu fpv4-sp-d16
- 210              	MCM_Park:
- 211              	.LVL13:
- 212              	.LFB1438:
- 131:Src/mc_math.c ****   qd_t Output;
- 213              		.loc 1 131 1 is_stmt 1 view -0
- 214              		.cfi_startproc
- 215              		@ args = 0, pretend = 0, frame = 16
- 216              		@ frame_needed = 0, uses_anonymous_args = 0
- 131:Src/mc_math.c ****   qd_t Output;
- 217              		.loc 1 131 1 is_stmt 0 view .LVU55
- 218 0000 30B5     		push	{r4, r5, lr}
- 219              	.LCFI5:
- 220              		.cfi_def_cfa_offset 12
- 221              		.cfi_offset 4, -12
- 222              		.cfi_offset 5, -8
- 223              		.cfi_offset 14, -4
- 224 0002 85B0     		sub	sp, sp, #20
- 225              	.LCFI6:
-ARM GAS  /tmp/ccC00Ikq.s 			page 24
-
-
- 226              		.cfi_def_cfa_offset 32
- 131:Src/mc_math.c ****   qd_t Output;
- 227              		.loc 1 131 1 view .LVU56
- 228 0004 0346     		mov	r3, r0
- 229 0006 0546     		mov	r5, r0	@ movhi
- 141:Src/mc_math.c **** 
- 230              		.loc 1 141 29 view .LVU57
- 231 0008 0846     		mov	r0, r1
- 232 000a 1C14     		asrs	r4, r3, #16
- 131:Src/mc_math.c ****   qd_t Output;
- 233              		.loc 1 131 1 view .LVU58
- 234 000c 0193     		str	r3, [sp, #4]
- 141:Src/mc_math.c **** 
- 235              		.loc 1 141 29 view .LVU59
- 236 000e FFF7FEFF 		bl	MCM_Trig_Functions
- 237              	.LVL14:
- 141:Src/mc_math.c **** 
- 238              		.loc 1 141 29 view .LVU60
- 239 0012 2DB2     		sxth	r5, r5
- 240              	.LVL15:
- 132:Src/mc_math.c ****   int32_t d_tmp_1;
- 241              		.loc 1 132 3 is_stmt 1 view .LVU61
- 133:Src/mc_math.c ****   int32_t d_tmp_2;
- 242              		.loc 1 133 3 view .LVU62
- 134:Src/mc_math.c ****   int32_t q_tmp_1;
- 243              		.loc 1 134 3 view .LVU63
- 135:Src/mc_math.c ****   int32_t q_tmp_2;
- 244              		.loc 1 135 3 view .LVU64
- 136:Src/mc_math.c ****   int32_t wqd_tmp;
- 245              		.loc 1 136 3 view .LVU65
- 137:Src/mc_math.c ****   int16_t hqd_tmp;
- 246              		.loc 1 137 3 view .LVU66
- 138:Src/mc_math.c ****   Trig_Components Local_Vector_Components;
- 247              		.loc 1 138 3 view .LVU67
- 139:Src/mc_math.c **** 
- 248              		.loc 1 139 3 view .LVU68
- 141:Src/mc_math.c **** 
- 249              		.loc 1 141 3 view .LVU69
- 141:Src/mc_math.c **** 
- 250              		.loc 1 141 29 is_stmt 0 view .LVU70
- 251 0014 0FFA80FC 		sxth	ip, r0
- 252              	.LVL16:
- 141:Src/mc_math.c **** 
- 253              		.loc 1 141 29 view .LVU71
- 254 0018 0314     		asrs	r3, r0, #16
- 255              	.LVL17:
- 144:Src/mc_math.c **** 
- 256              		.loc 1 144 3 is_stmt 1 view .LVU72
- 147:Src/mc_math.c **** 
- 257              		.loc 1 147 3 view .LVU73
- 154:Src/mc_math.c **** #else
- 258              		.loc 1 154 3 view .LVU74
- 144:Src/mc_math.c **** 
- 259              		.loc 1 144 11 is_stmt 0 view .LVU75
- 260 001a 05FB0CF1 		mul	r1, r5, ip
- 154:Src/mc_math.c **** #else
- 261              		.loc 1 154 22 view .LVU76
-ARM GAS  /tmp/ccC00Ikq.s 			page 25
-
-
- 262 001e 04FB1311 		mls	r1, r4, r3, r1
- 263              	.LVL18:
- 160:Src/mc_math.c ****   {
- 264              		.loc 1 160 3 is_stmt 1 view .LVU77
- 160:Src/mc_math.c ****   {
- 265              		.loc 1 160 6 is_stmt 0 view .LVU78
- 266 0022 B1F1804F 		cmp	r1, #1073741824
- 267 0026 05DA     		bge	.L17
- 268 0028 CA13     		asrs	r2, r1, #15
- 269              	.LVL19:
- 164:Src/mc_math.c ****   {
- 270              		.loc 1 164 8 is_stmt 1 view .LVU79
- 164:Src/mc_math.c ****   {
- 271              		.loc 1 164 11 is_stmt 0 view .LVU80
- 272 002a 12F5004F 		cmn	r2, #32768
- 273 002e 22DA     		bge	.L22
- 274 0030 1449     		ldr	r1, .L24
- 275 0032 01E0     		b	.L15
- 276              	.LVL20:
- 277              	.L17:
- 164:Src/mc_math.c ****   {
- 278              		.loc 1 164 11 view .LVU81
- 279 0034 47F6FF71 		movw	r1, #32767
- 280              	.LVL21:
- 281              	.L15:
- 173:Src/mc_math.c **** 
- 282              		.loc 1 173 3 is_stmt 1 view .LVU82
- 175:Src/mc_math.c ****   {
- 283              		.loc 1 175 3 view .LVU83
- 182:Src/mc_math.c **** 
- 284              		.loc 1 182 3 view .LVU84
- 185:Src/mc_math.c **** 
- 285              		.loc 1 185 3 view .LVU85
- 188:Src/mc_math.c **** 
- 286              		.loc 1 188 3 view .LVU86
- 195:Src/mc_math.c **** #else
- 287              		.loc 1 195 3 view .LVU87
- 188:Src/mc_math.c **** 
- 288              		.loc 1 188 11 is_stmt 0 view .LVU88
- 289 0038 0CFB04F4 		mul	r4, ip, r4
- 290              	.LVL22:
- 195:Src/mc_math.c **** #else
- 291              		.loc 1 195 22 view .LVU89
- 292 003c 05FB0344 		mla	r4, r5, r3, r4
- 201:Src/mc_math.c ****   {
- 293              		.loc 1 201 6 view .LVU90
- 294 0040 B4F1804F 		cmp	r4, #1073741824
- 195:Src/mc_math.c **** #else
- 295              		.loc 1 195 11 view .LVU91
- 296 0044 4FEAE432 		asr	r2, r4, #15
- 297              	.LVL23:
- 201:Src/mc_math.c ****   {
- 298              		.loc 1 201 3 is_stmt 1 view .LVU92
- 201:Src/mc_math.c ****   {
- 299              		.loc 1 201 6 is_stmt 0 view .LVU93
- 300 0048 04DA     		bge	.L19
- 205:Src/mc_math.c ****   {
-ARM GAS  /tmp/ccC00Ikq.s 			page 26
-
-
- 301              		.loc 1 205 8 is_stmt 1 view .LVU94
- 205:Src/mc_math.c ****   {
- 302              		.loc 1 205 11 is_stmt 0 view .LVU95
- 303 004a 12F5004F 		cmn	r2, #32768
- 304 004e 0CDA     		bge	.L23
- 305 0050 0C4B     		ldr	r3, .L24
- 306              	.LVL24:
- 205:Src/mc_math.c ****   {
- 307              		.loc 1 205 11 view .LVU96
- 308 0052 01E0     		b	.L16
- 309              	.LVL25:
- 310              	.L19:
- 205:Src/mc_math.c ****   {
- 311              		.loc 1 205 11 view .LVU97
- 312 0054 47F6FF73 		movw	r3, #32767
- 313              	.LVL26:
- 314              	.L16:
- 214:Src/mc_math.c **** 
- 315              		.loc 1 214 3 is_stmt 1 view .LVU98
- 216:Src/mc_math.c ****   {
- 316              		.loc 1 216 3 view .LVU99
- 223:Src/mc_math.c **** 
- 317              		.loc 1 223 3 view .LVU100
- 225:Src/mc_math.c **** }
- 318              		.loc 1 225 3 view .LVU101
- 225:Src/mc_math.c **** }
- 319              		.loc 1 225 10 is_stmt 0 view .LVU102
- 320 0058 8AB2     		uxth	r2, r1
- 321              	.LVL27:
- 225:Src/mc_math.c **** }
- 322              		.loc 1 225 10 view .LVU103
- 323 005a 0020     		movs	r0, #0
- 324 005c 62F30F00 		bfi	r0, r2, #0, #16
- 325 0060 9BB2     		uxth	r3, r3
- 326 0062 63F31F40 		bfi	r0, r3, #16, #16
- 226:Src/mc_math.c **** 
- 327              		.loc 1 226 1 view .LVU104
- 328 0066 05B0     		add	sp, sp, #20
- 329              	.LCFI7:
- 330              		.cfi_remember_state
- 331              		.cfi_def_cfa_offset 12
- 332              		@ sp needed
- 333 0068 30BD     		pop	{r4, r5, pc}
- 334              	.LVL28:
- 335              	.L23:
- 336              	.LCFI8:
- 337              		.cfi_restore_state
- 211:Src/mc_math.c ****   }
- 338              		.loc 1 211 5 is_stmt 1 view .LVU105
- 211:Src/mc_math.c ****   }
- 339              		.loc 1 211 5 is_stmt 0 view .LVU106
- 340 006a 0648     		ldr	r0, .L24
- 341 006c 13B2     		sxth	r3, r2
- 342              	.LVL29:
- 211:Src/mc_math.c ****   }
- 343              		.loc 1 211 5 view .LVU107
- 344 006e 8342     		cmp	r3, r0
-ARM GAS  /tmp/ccC00Ikq.s 			page 27
-
-
- 345 0070 B8BF     		it	lt
- 346 0072 0346     		movlt	r3, r0
- 347 0074 F0E7     		b	.L16
- 348              	.LVL30:
- 349              	.L22:
- 170:Src/mc_math.c ****   }
- 350              		.loc 1 170 5 is_stmt 1 view .LVU108
- 170:Src/mc_math.c ****   }
- 351              		.loc 1 170 5 is_stmt 0 view .LVU109
- 352 0076 0349     		ldr	r1, .L24
- 353 0078 12B2     		sxth	r2, r2
- 354              	.LVL31:
- 170:Src/mc_math.c ****   }
- 355              		.loc 1 170 5 view .LVU110
- 356 007a 9142     		cmp	r1, r2
- 357 007c B8BF     		it	lt
- 358 007e 1146     		movlt	r1, r2
- 359 0080 DAE7     		b	.L15
- 360              	.L25:
- 361 0082 00BF     		.align	2
- 362              	.L24:
- 363 0084 0180FFFF 		.word	-32767
- 364              		.cfi_endproc
- 365              	.LFE1438:
- 367              		.section	.text.MCM_Rev_Park,"ax",%progbits
- 368              		.align	1
- 369              		.p2align 2,,3
- 370              		.weak	MCM_Rev_Park
- 371              		.syntax unified
- 372              		.thumb
- 373              		.thumb_func
- 374              		.fpu fpv4-sp-d16
- 376              	MCM_Rev_Park:
- 377              	.LVL32:
- 378              	.LFB1439:
- 246:Src/mc_math.c ****   int32_t alpha_tmp1;
- 379              		.loc 1 246 1 is_stmt 1 view -0
- 380              		.cfi_startproc
- 381              		@ args = 0, pretend = 0, frame = 16
- 382              		@ frame_needed = 0, uses_anonymous_args = 0
- 246:Src/mc_math.c ****   int32_t alpha_tmp1;
- 383              		.loc 1 246 1 is_stmt 0 view .LVU112
- 384 0000 30B5     		push	{r4, r5, lr}
- 385              	.LCFI9:
- 386              		.cfi_def_cfa_offset 12
- 387              		.cfi_offset 4, -12
- 388              		.cfi_offset 5, -8
- 389              		.cfi_offset 14, -4
- 390 0002 85B0     		sub	sp, sp, #20
- 391              	.LCFI10:
- 392              		.cfi_def_cfa_offset 32
- 246:Src/mc_math.c ****   int32_t alpha_tmp1;
- 393              		.loc 1 246 1 view .LVU113
- 394 0004 0446     		mov	r4, r0
- 395 0006 0546     		mov	r5, r0	@ movhi
- 254:Src/mc_math.c **** 
- 396              		.loc 1 254 29 view .LVU114
-ARM GAS  /tmp/ccC00Ikq.s 			page 28
-
-
- 397 0008 0846     		mov	r0, r1
- 246:Src/mc_math.c ****   int32_t alpha_tmp1;
- 398              		.loc 1 246 1 view .LVU115
- 399 000a 0194     		str	r4, [sp, #4]
- 254:Src/mc_math.c **** 
- 400              		.loc 1 254 29 view .LVU116
- 401 000c FFF7FEFF 		bl	MCM_Trig_Functions
- 402              	.LVL33:
- 254:Src/mc_math.c **** 
- 403              		.loc 1 254 29 view .LVU117
- 404 0010 2414     		asrs	r4, r4, #16
- 405 0012 0214     		asrs	r2, r0, #16
- 406 0014 2DB2     		sxth	r5, r5
- 407              	.LVL34:
- 247:Src/mc_math.c ****   int32_t alpha_tmp2;
- 408              		.loc 1 247 3 is_stmt 1 view .LVU118
- 248:Src/mc_math.c ****   int32_t beta_tmp1;
- 409              		.loc 1 248 3 view .LVU119
- 249:Src/mc_math.c ****   int32_t beta_tmp2;
- 410              		.loc 1 249 3 view .LVU120
- 250:Src/mc_math.c ****   Trig_Components Local_Vector_Components;
- 411              		.loc 1 250 3 view .LVU121
- 251:Src/mc_math.c ****   alphabeta_t Output;
- 412              		.loc 1 251 3 view .LVU122
- 252:Src/mc_math.c **** 
- 413              		.loc 1 252 3 view .LVU123
- 254:Src/mc_math.c **** 
- 414              		.loc 1 254 3 view .LVU124
- 254:Src/mc_math.c **** 
- 415              		.loc 1 254 29 is_stmt 0 view .LVU125
- 416 0016 00B2     		sxth	r0, r0
- 417              	.LVL35:
- 257:Src/mc_math.c ****   alpha_tmp2 = Input.d * ((int32_t)Local_Vector_Components.hSin);
- 418              		.loc 1 257 3 is_stmt 1 view .LVU126
- 258:Src/mc_math.c **** 
- 419              		.loc 1 258 3 view .LVU127
- 265:Src/mc_math.c **** #else
- 420              		.loc 1 265 3 view .LVU128
- 270:Src/mc_math.c ****   beta_tmp2 = Input.d * ((int32_t)Local_Vector_Components.hCos);
- 421              		.loc 1 270 3 view .LVU129
- 271:Src/mc_math.c **** 
- 422              		.loc 1 271 3 view .LVU130
- 278:Src/mc_math.c **** #else
- 423              		.loc 1 278 3 view .LVU131
- 283:Src/mc_math.c **** }
- 424              		.loc 1 283 3 view .LVU132
- 258:Src/mc_math.c **** 
- 425              		.loc 1 258 14 is_stmt 0 view .LVU133
- 426 0018 04FB02F3 		mul	r3, r4, r2
- 265:Src/mc_math.c **** #else
- 427              		.loc 1 265 42 view .LVU134
- 428 001c 05FB0033 		mla	r3, r5, r0, r3
- 271:Src/mc_math.c **** 
- 429              		.loc 1 271 13 view .LVU135
- 430 0020 00FB04F4 		mul	r4, r0, r4
- 431              	.LVL36:
- 278:Src/mc_math.c **** #else
-ARM GAS  /tmp/ccC00Ikq.s 			page 29
-
-
- 432              		.loc 1 278 38 view .LVU136
- 433 0024 05FB1244 		mls	r4, r5, r2, r4
- 283:Src/mc_math.c **** }
- 434              		.loc 1 283 10 view .LVU137
- 435 0028 C3F3CF33 		ubfx	r3, r3, #15, #16
- 436 002c 0020     		movs	r0, #0
- 437              	.LVL37:
- 283:Src/mc_math.c **** }
- 438              		.loc 1 283 10 view .LVU138
- 439 002e 63F30F00 		bfi	r0, r3, #0, #16
- 440 0032 C4F3CF34 		ubfx	r4, r4, #15, #16
- 441 0036 64F31F40 		bfi	r0, r4, #16, #16
- 284:Src/mc_math.c **** 
- 442              		.loc 1 284 1 view .LVU139
- 443 003a 05B0     		add	sp, sp, #20
- 444              	.LCFI11:
- 445              		.cfi_def_cfa_offset 12
- 446              		@ sp needed
- 447 003c 30BD     		pop	{r4, r5, pc}
- 284:Src/mc_math.c **** 
- 448              		.loc 1 284 1 view .LVU140
- 449              		.cfi_endproc
- 450              	.LFE1439:
- 452 003e 00BF     		.section	.text.MCM_Sqrt,"ax",%progbits
- 453              		.align	1
- 454              		.p2align 2,,3
- 455              		.weak	MCM_Sqrt
- 456              		.syntax unified
- 457              		.thumb
- 458              		.thumb_func
- 459              		.fpu fpv4-sp-d16
- 461              	MCM_Sqrt:
- 462              	.LVL38:
- 463              	.LFB1441:
+ 603              		.loc 2 329 1
+ 604 0042 1846     		mov	r0, r3
+ 605 0044 1037     		adds	r7, r7, #16
+ 606              	.LCFI31:
+ 607              		.cfi_def_cfa_offset 8
+ 608 0046 BD46     		mov	sp, r7
+ 609              	.LCFI32:
+ 610              		.cfi_def_cfa_register 13
+ 611              		@ sp needed
+ 612 0048 80BD     		pop	{r7, pc}
+ 613              	.L25:
+ 614 004a 00BF     		.align	2
+ 615              	.L24:
+ 616 004c 000C0240 		.word	1073875968
+ 617              		.cfi_endproc
+ 618              	.LFE1440:
+ 620              		.section	.text.MCM_Sqrt,"ax",%progbits
+ 621              		.align	1
+ 622              		.weak	MCM_Sqrt
+ 623              		.syntax unified
+ 624              		.thumb
+ 625              		.thumb_func
+ 626              		.fpu fpv4-sp-d16
+ 628              	MCM_Sqrt:
+ 629              	.LFB1441:
  330:Src/mc_math.c **** 
  331:Src/mc_math.c **** #if defined (CCMRAM)
  332:Src/mc_math.c **** #if defined (__ICCARM__)
@@ -1730,33 +1791,36 @@ ARM GAS  /tmp/ccC00Ikq.s 			page 1
  342:Src/mc_math.c ****   */
  343:Src/mc_math.c **** __weak int32_t MCM_Sqrt(int32_t wInput)
  344:Src/mc_math.c **** {
- 464              		.loc 1 344 1 is_stmt 1 view -0
- 465              		.cfi_startproc
- 466              		@ args = 0, pretend = 0, frame = 0
- 467              		@ frame_needed = 0, uses_anonymous_args = 0
- 468              		@ link register save eliminated.
+ 630              		.loc 2 344 1
+ 631              		.cfi_startproc
+ 632              		@ args = 0, pretend = 0, frame = 16
+ 633              		@ frame_needed = 1, uses_anonymous_args = 0
+ 634 0000 80B5     		push	{r7, lr}
+ 635              	.LCFI33:
+ 636              		.cfi_def_cfa_offset 8
+ARM GAS  /tmp/ccmlHr0S.s 			page 31
+
+
+ 637              		.cfi_offset 7, -8
+ 638              		.cfi_offset 14, -4
+ 639 0002 84B0     		sub	sp, sp, #16
+ 640              	.LCFI34:
+ 641              		.cfi_def_cfa_offset 24
+ 642 0004 00AF     		add	r7, sp, #0
+ 643              	.LCFI35:
+ 644              		.cfi_def_cfa_register 7
+ 645 0006 7860     		str	r0, [r7, #4]
  345:Src/mc_math.c ****   int32_t wtemprootnew;
- 469              		.loc 1 345 3 view .LVU142
  346:Src/mc_math.c **** 
-ARM GAS  /tmp/ccC00Ikq.s 			page 30
-
-
  347:Src/mc_math.c ****   if (wInput > 0)
- 470              		.loc 1 347 3 view .LVU143
- 471              		.loc 1 347 6 is_stmt 0 view .LVU144
- 472 0000 0028     		cmp	r0, #0
- 473              		.loc 1 347 6 view .LVU145
- 474 0002 09DD     		ble	.L30
- 475              	.LBB24:
- 348:Src/mc_math.c ****   {
- 349:Src/mc_math.c ****     uint32_t retVal;
- 476              		.loc 1 349 5 is_stmt 1 view .LVU146
- 350:Src/mc_math.c ****     /* Disable Irq as sqrt is used in MF and HF task */
- 351:Src/mc_math.c ****     __disable_irq();
- 477              		.loc 1 351 5 view .LVU147
- 478              	.LBB25:
- 479              	.LBI25:
- 480              		.file 3 "Drivers/CMSIS/Include/cmsis_gcc.h"
+ 646              		.loc 2 347 6
+ 647 0008 7B68     		ldr	r3, [r7, #4]
+ 648 000a 002B     		cmp	r3, #0
+ 649 000c 14DD     		ble	.L27
+ 650              	.LBB7:
+ 651              	.LBB8:
+ 652              	.LBB9:
+ 653              		.file 3 "Drivers/CMSIS/Include/cmsis_gcc.h"
    1:Drivers/CMSIS/Include/cmsis_gcc.h **** /**************************************************************************//**
    2:Drivers/CMSIS/Include/cmsis_gcc.h ****  * @file     cmsis_gcc.h
    3:Drivers/CMSIS/Include/cmsis_gcc.h ****  * @brief    CMSIS compiler GCC header file
@@ -1794,13 +1858,13 @@ ARM GAS  /tmp/ccC00Ikq.s 			page 1
   35:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef __has_builtin
   36:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __has_builtin(x) (0)
   37:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
+ARM GAS  /tmp/ccmlHr0S.s 			page 32
+
+
   38:Drivers/CMSIS/Include/cmsis_gcc.h **** 
   39:Drivers/CMSIS/Include/cmsis_gcc.h **** /* CMSIS compiler specific defines */
   40:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __ASM
   41:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __ASM                                  __asm
-ARM GAS  /tmp/ccC00Ikq.s 			page 31
-
-
   42:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
   43:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __INLINE
   44:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __INLINE                               inline
@@ -1854,13 +1918,13 @@ ARM GAS  /tmp/ccC00Ikq.s 			page 1
   92:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __UNALIGNED_UINT16_READ(addr)          (((const struct T_UINT16_READ *)(const void *)(add
   93:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
   94:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT32_WRITE
+ARM GAS  /tmp/ccmlHr0S.s 			page 33
+
+
   95:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic push
   96:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
   97:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
   98:Drivers/CMSIS/Include/cmsis_gcc.h ****   __PACKED_STRUCT T_UINT32_WRITE { uint32_t v; };
-ARM GAS  /tmp/ccC00Ikq.s 			page 32
-
-
   99:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic pop
  100:Drivers/CMSIS/Include/cmsis_gcc.h ****   #define __UNALIGNED_UINT32_WRITE(addr, val)    (void)((((struct T_UINT32_WRITE *)(void *)(addr))-
  101:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
@@ -1914,13 +1978,13 @@ ARM GAS  /tmp/ccC00Ikq.s 			page 1
  149:Drivers/CMSIS/Include/cmsis_gcc.h ****   extern const __zero_table_t __zero_table_end__;
  150:Drivers/CMSIS/Include/cmsis_gcc.h **** 
  151:Drivers/CMSIS/Include/cmsis_gcc.h ****   for (__copy_table_t const* pTable = &__copy_table_start__; pTable < &__copy_table_end__; ++pTable
+ARM GAS  /tmp/ccmlHr0S.s 			page 34
+
+
  152:Drivers/CMSIS/Include/cmsis_gcc.h ****     for(uint32_t i=0u; i<pTable->wlen; ++i) {
  153:Drivers/CMSIS/Include/cmsis_gcc.h ****       pTable->dest[i] = pTable->src[i];
  154:Drivers/CMSIS/Include/cmsis_gcc.h ****     }
  155:Drivers/CMSIS/Include/cmsis_gcc.h ****   }
-ARM GAS  /tmp/ccC00Ikq.s 			page 33
-
-
  156:Drivers/CMSIS/Include/cmsis_gcc.h ****  
  157:Drivers/CMSIS/Include/cmsis_gcc.h ****   for (__zero_table_t const* pTable = &__zero_table_start__; pTable < &__zero_table_end__; ++pTable
  158:Drivers/CMSIS/Include/cmsis_gcc.h ****     for(uint32_t i=0u; i<pTable->wlen; ++i) {
@@ -1973,200 +2037,216 @@ ARM GAS  /tmp/ccC00Ikq.s 			page 1
  205:Drivers/CMSIS/Include/cmsis_gcc.h ****            Can only be executed in Privileged modes.
  206:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
  207:Drivers/CMSIS/Include/cmsis_gcc.h **** __STATIC_FORCEINLINE void __disable_irq(void)
- 481              		.loc 3 207 27 view .LVU148
- 482              	.LBB26:
  208:Drivers/CMSIS/Include/cmsis_gcc.h **** {
+ARM GAS  /tmp/ccmlHr0S.s 			page 35
+
+
  209:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("cpsid i" : : : "memory");
- 483              		.loc 3 209 3 view .LVU149
-ARM GAS  /tmp/ccC00Ikq.s 			page 34
-
-
- 484              		.syntax unified
- 485              	@ 209 "Drivers/CMSIS/Include/cmsis_gcc.h" 1
- 486 0004 72B6     		cpsid i
- 487              	@ 0 "" 2
- 488              		.thumb
- 489              		.syntax unified
- 490              	.LBE26:
- 491              	.LBE25:
+ 654              		.loc 3 209 3
+ 655              		.syntax unified
+ 656              	@ 209 "Drivers/CMSIS/Include/cmsis_gcc.h" 1
+ 657 000e 72B6     		cpsid i
+ 658              	@ 0 "" 2
+ 210:Drivers/CMSIS/Include/cmsis_gcc.h **** }
+ 659              		.loc 3 210 1
+ 660              		.thumb
+ 661              		.syntax unified
+ 662 0010 00BF     		nop
+ 663              	.LBE9:
+ 664              	.LBE8:
+ 348:Src/mc_math.c ****   {
+ 349:Src/mc_math.c ****     uint32_t retVal;
+ 350:Src/mc_math.c ****     /* Disable Irq as sqrt is used in MF and HF task */
+ 351:Src/mc_math.c ****     __disable_irq();
  352:Src/mc_math.c ****     /* Configure CORDIC */
  353:Src/mc_math.c ****     WRITE_REG(CORDIC->CSR, CORDIC_CONFIG_SQRT);
- 492              		.loc 1 353 5 view .LVU150
- 493 0006 054B     		ldr	r3, .L31
- 494 0008 40F26912 		movw	r2, #361
- 495 000c 1A60     		str	r2, [r3]
+ 665              		.loc 2 353 5
+ 666 0012 0D4B     		ldr	r3, .L30
+ 667 0014 40F26912 		movw	r2, #361
+ 668 0018 1A60     		str	r2, [r3]
  354:Src/mc_math.c ****     LL_CORDIC_WriteData(CORDIC, ((uint32_t)wInput));
- 496              		.loc 1 354 5 view .LVU151
- 497              	.LVL39:
- 498              	.LBB27:
- 499              	.LBI27:
- 732:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** {
- 500              		.loc 2 732 22 view .LVU152
- 501              	.LBB28:
- 734:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** }
- 502              		.loc 2 734 3 view .LVU153
- 503 000e 5860     		str	r0, [r3, #4]
- 504              	.LVL40:
- 734:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** }
- 505              		.loc 2 734 3 is_stmt 0 view .LVU154
- 506              	.LBE28:
- 507              	.LBE27:
+ 669              		.loc 2 354 5
+ 670 001a 7B68     		ldr	r3, [r7, #4]
+ 671 001c 1946     		mov	r1, r3
+ 672 001e 0A48     		ldr	r0, .L30
+ 673 0020 FFF7FEFF 		bl	LL_CORDIC_WriteData
  355:Src/mc_math.c ****     /* Read sqrt and return */
  356:Src/mc_math.c **** #ifndef FULL_MISRA_C_COMPLIANCY_MC_MATH
  357:Src/mc_math.c ****     retVal = (LL_CORDIC_ReadData(CORDIC)) >> 15; //cstat !MISRAC2012-Rule-1.3_n !ATH-shift-neg !MIS
- 508              		.loc 1 357 5 is_stmt 1 view .LVU155
- 509              	.LBB29:
- 510              	.LBI29:
- 743:Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_cordic.h **** {
- 511              		.loc 2 743 26 view .LVU156
- 512              	.LBB30:
- 513              		.loc 2 745 3 view .LVU157
- 514              		.loc 2 745 10 is_stmt 0 view .LVU158
- 515 0010 9868     		ldr	r0, [r3, #8]
- 516              	.LVL41:
- 517              		.loc 2 745 10 view .LVU159
- 518              	.LBE30:
- 519              	.LBE29:
+ 674              		.loc 2 357 15
+ 675 0024 0848     		ldr	r0, .L30
+ 676 0026 FFF7FEFF 		bl	LL_CORDIC_ReadData
+ 677 002a 0346     		mov	r3, r0
+ 678              		.loc 2 357 12
+ 679 002c DB0B     		lsrs	r3, r3, #15
+ 680 002e BB60     		str	r3, [r7, #8]
  358:Src/mc_math.c **** #else
  359:Src/mc_math.c ****     retVal = (LL_CORDIC_ReadData(CORDIC)) / 32768U;
  360:Src/mc_math.c **** #endif
  361:Src/mc_math.c ****     wtemprootnew = (int32_t)retVal;
- 520              		.loc 1 361 5 is_stmt 1 view .LVU160
- 357:Src/mc_math.c **** #else
- 521              		.loc 1 357 12 is_stmt 0 view .LVU161
- 522 0012 C00B     		lsrs	r0, r0, #15
- 523              	.LVL42:
- 362:Src/mc_math.c ****     __enable_irq();
- 524              		.loc 1 362 5 is_stmt 1 view .LVU162
-ARM GAS  /tmp/ccC00Ikq.s 			page 35
-
-
- 525              	.LBB31:
- 526              	.LBI31:
- 196:Drivers/CMSIS/Include/cmsis_gcc.h **** {
- 527              		.loc 3 196 27 view .LVU163
- 528              	.LBB32:
+ 681              		.loc 2 361 18
+ 682 0030 BB68     		ldr	r3, [r7, #8]
+ 683 0032 FB60     		str	r3, [r7, #12]
+ 684              	.LBB10:
+ 685              	.LBB11:
  198:Drivers/CMSIS/Include/cmsis_gcc.h **** }
- 529              		.loc 3 198 3 view .LVU164
- 530              		.syntax unified
- 531              	@ 198 "Drivers/CMSIS/Include/cmsis_gcc.h" 1
- 532 0014 62B6     		cpsie i
- 533              	@ 0 "" 2
+ 686              		.loc 3 198 3
+ 687              		.syntax unified
+ 688              	@ 198 "Drivers/CMSIS/Include/cmsis_gcc.h" 1
+ 689 0034 62B6     		cpsie i
+ 690              	@ 0 "" 2
  199:Drivers/CMSIS/Include/cmsis_gcc.h **** 
- 534              		.loc 3 199 1 is_stmt 0 view .LVU165
- 535              		.thumb
- 536              		.syntax unified
- 537 0016 7047     		bx	lr
- 538              	.LVL43:
- 539              	.L30:
- 199:Drivers/CMSIS/Include/cmsis_gcc.h **** 
- 540              		.loc 3 199 1 view .LVU166
- 541              	.LBE32:
- 542              	.LBE31:
- 543              	.LBE24:
+ 691              		.loc 3 199 1
+ 692              		.thumb
+ARM GAS  /tmp/ccmlHr0S.s 			page 36
+
+
+ 693              		.syntax unified
+ 694 0036 01E0     		b	.L28
+ 695              	.L27:
+ 696              	.LBE11:
+ 697              	.LBE10:
+ 698              	.LBE7:
+ 362:Src/mc_math.c ****     __enable_irq();
  363:Src/mc_math.c **** 
  364:Src/mc_math.c ****   }
  365:Src/mc_math.c ****   else
  366:Src/mc_math.c ****   {
  367:Src/mc_math.c ****     wtemprootnew = (int32_t)0;
- 544              		.loc 1 367 18 view .LVU167
- 545 0018 0020     		movs	r0, #0
- 546              	.LVL44:
+ 699              		.loc 2 367 18
+ 700 0038 0023     		movs	r3, #0
+ 701 003a FB60     		str	r3, [r7, #12]
+ 702              	.L28:
  368:Src/mc_math.c ****   }
  369:Src/mc_math.c **** 
  370:Src/mc_math.c ****   return (wtemprootnew);
- 547              		.loc 1 370 3 is_stmt 1 view .LVU168
+ 703              		.loc 2 370 10
+ 704 003c FB68     		ldr	r3, [r7, #12]
  371:Src/mc_math.c **** }
- 548              		.loc 1 371 1 is_stmt 0 view .LVU169
- 549 001a 7047     		bx	lr
- 550              	.L32:
- 551              		.align	2
- 552              	.L31:
- 553 001c 000C0240 		.word	1073875968
- 554              		.cfi_endproc
- 555              	.LFE1441:
- 557              		.section	.text.MCM_floatToIntBit,"ax",%progbits
- 558              		.align	1
- 559              		.p2align 2,,3
- 560              		.weak	MCM_floatToIntBit
- 561              		.syntax unified
- 562              		.thumb
- 563              		.thumb_func
- 564              		.fpu fpv4-sp-d16
- 566              	MCM_floatToIntBit:
- 567              	.LVL45:
- 568              	.LFB1442:
+ 705              		.loc 2 371 1
+ 706 003e 1846     		mov	r0, r3
+ 707 0040 1037     		adds	r7, r7, #16
+ 708              	.LCFI36:
+ 709              		.cfi_def_cfa_offset 8
+ 710 0042 BD46     		mov	sp, r7
+ 711              	.LCFI37:
+ 712              		.cfi_def_cfa_register 13
+ 713              		@ sp needed
+ 714 0044 80BD     		pop	{r7, pc}
+ 715              	.L31:
+ 716 0046 00BF     		.align	2
+ 717              	.L30:
+ 718 0048 000C0240 		.word	1073875968
+ 719              		.cfi_endproc
+ 720              	.LFE1441:
+ 722              		.section	.text.MCM_floatToIntBit,"ax",%progbits
+ 723              		.align	1
+ 724              		.weak	MCM_floatToIntBit
+ 725              		.syntax unified
+ 726              		.thumb
+ 727              		.thumb_func
+ 728              		.fpu fpv4-sp-d16
+ 730              	MCM_floatToIntBit:
+ 731              	.LFB1442:
  372:Src/mc_math.c **** 
  373:Src/mc_math.c **** /**
-ARM GAS  /tmp/ccC00Ikq.s 			page 36
-
-
  374:Src/mc_math.c ****   * @brief  This function codify a floating point number into the relative 32bit integer.
  375:Src/mc_math.c ****   * @param  float Floating point number to be coded.
  376:Src/mc_math.c ****   * @retval uint32_t Coded 32bit integer.
  377:Src/mc_math.c ****   */
  378:Src/mc_math.c **** __weak uint32_t MCM_floatToIntBit( float_t x ) //cstat !MISRAC2012-Dir-4.6_a
  379:Src/mc_math.c **** {
- 569              		.loc 1 379 1 is_stmt 1 view -0
- 570              		.cfi_startproc
- 571              		@ args = 0, pretend = 0, frame = 8
- 572              		@ frame_needed = 0, uses_anonymous_args = 0
- 573              		@ link register save eliminated.
+ 732              		.loc 2 379 1
+ 733              		.cfi_startproc
+ARM GAS  /tmp/ccmlHr0S.s 			page 37
+
+
+ 734              		@ args = 0, pretend = 0, frame = 16
+ 735              		@ frame_needed = 1, uses_anonymous_args = 0
+ 736              		@ link register save eliminated.
+ 737 0000 80B4     		push	{r7}
+ 738              	.LCFI38:
+ 739              		.cfi_def_cfa_offset 4
+ 740              		.cfi_offset 7, -4
+ 741 0002 85B0     		sub	sp, sp, #20
+ 742              	.LCFI39:
+ 743              		.cfi_def_cfa_offset 24
+ 744 0004 00AF     		add	r7, sp, #0
+ 745              	.LCFI40:
+ 746              		.cfi_def_cfa_register 7
+ 747 0006 87ED010A 		vstr.32	s0, [r7, #4]
  380:Src/mc_math.c ****   const uint32_t *pInt;
- 574              		.loc 1 380 3 view .LVU171
  381:Src/mc_math.c ****   pInt = (uint32_t *)(&x); //cstat !MISRAC2012-Rule-11.3
- 575              		.loc 1 381 3 view .LVU172
+ 748              		.loc 2 381 8
+ 749 000a 3B1D     		adds	r3, r7, #4
+ 750 000c FB60     		str	r3, [r7, #12]
  382:Src/mc_math.c ****   return (*pInt);
- 576              		.loc 1 382 3 view .LVU173
- 379:Src/mc_math.c ****   const uint32_t *pInt;
- 577              		.loc 1 379 1 is_stmt 0 view .LVU174
- 578 0000 82B0     		sub	sp, sp, #8
- 579              	.LCFI12:
- 580              		.cfi_def_cfa_offset 8
- 379:Src/mc_math.c ****   const uint32_t *pInt;
- 581              		.loc 1 379 1 view .LVU175
- 582 0002 8DED010A 		vstr.32	s0, [sp, #4]
- 583              		.loc 1 382 11 view .LVU176
- 584 0006 0198     		ldr	r0, [sp, #4]
+ 751              		.loc 2 382 11
+ 752 000e FB68     		ldr	r3, [r7, #12]
+ 753 0010 1B68     		ldr	r3, [r3]
  383:Src/mc_math.c **** }
- 585              		.loc 1 383 1 view .LVU177
- 586 0008 02B0     		add	sp, sp, #8
- 587              	.LCFI13:
- 588              		.cfi_def_cfa_offset 0
- 589              		@ sp needed
- 590 000a 7047     		bx	lr
- 591              		.cfi_endproc
- 592              	.LFE1442:
- 594              		.text
- 595              	.Letext0:
- 596              		.file 4 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
- 597              		.file 5 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
- 598              		.file 6 "Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g431xx.h"
- 599              		.file 7 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h"
- 600              		.file 8 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_usart.h"
- 601              		.file 9 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h"
- 602              		.file 10 "Inc/mc_type.h"
- 603              		.file 11 "Inc/mc_math.h"
-ARM GAS  /tmp/ccC00Ikq.s 			page 37
+ 754              		.loc 2 383 1
+ 755 0012 1846     		mov	r0, r3
+ 756 0014 1437     		adds	r7, r7, #20
+ 757              	.LCFI41:
+ 758              		.cfi_def_cfa_offset 4
+ 759 0016 BD46     		mov	sp, r7
+ 760              	.LCFI42:
+ 761              		.cfi_def_cfa_register 13
+ 762              		@ sp needed
+ 763 0018 5DF8047B 		ldr	r7, [sp], #4
+ 764              	.LCFI43:
+ 765              		.cfi_restore 7
+ 766              		.cfi_def_cfa_offset 0
+ 767 001c 7047     		bx	lr
+ 768              		.cfi_endproc
+ 769              	.LFE1442:
+ 771              		.text
+ 772              	.Letext0:
+ 773              		.file 4 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
+ 774              		.file 5 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
+ 775              		.file 6 "Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g431xx.h"
+ 776              		.file 7 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h"
+ 777              		.file 8 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_usart.h"
+ 778              		.file 9 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h"
+ 779              		.file 10 "Inc/mc_type.h"
+ 780              		.file 11 "Inc/mc_math.h"
+ARM GAS  /tmp/ccmlHr0S.s 			page 38
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 mc_math.c
-     /tmp/ccC00Ikq.s:18     .text.MCM_Clarke:0000000000000000 $t
-     /tmp/ccC00Ikq.s:27     .text.MCM_Clarke:0000000000000000 MCM_Clarke
-     /tmp/ccC00Ikq.s:118    .text.MCM_Clarke:0000000000000050 $d
-     /tmp/ccC00Ikq.s:123    .text.MCM_Trig_Functions:0000000000000000 $t
-     /tmp/ccC00Ikq.s:131    .text.MCM_Trig_Functions:0000000000000000 MCM_Trig_Functions
-     /tmp/ccC00Ikq.s:197    .text.MCM_Trig_Functions:0000000000000028 $d
-     /tmp/ccC00Ikq.s:202    .text.MCM_Park:0000000000000000 $t
-     /tmp/ccC00Ikq.s:210    .text.MCM_Park:0000000000000000 MCM_Park
-     /tmp/ccC00Ikq.s:363    .text.MCM_Park:0000000000000084 $d
-     /tmp/ccC00Ikq.s:368    .text.MCM_Rev_Park:0000000000000000 $t
-     /tmp/ccC00Ikq.s:376    .text.MCM_Rev_Park:0000000000000000 MCM_Rev_Park
-     /tmp/ccC00Ikq.s:453    .text.MCM_Sqrt:0000000000000000 $t
-     /tmp/ccC00Ikq.s:461    .text.MCM_Sqrt:0000000000000000 MCM_Sqrt
-     /tmp/ccC00Ikq.s:553    .text.MCM_Sqrt:000000000000001c $d
-     /tmp/ccC00Ikq.s:558    .text.MCM_floatToIntBit:0000000000000000 $t
-     /tmp/ccC00Ikq.s:566    .text.MCM_floatToIntBit:0000000000000000 MCM_floatToIntBit
+     /tmp/ccmlHr0S.s:18     .rodata.OFFSET_TAB_CCMRx:0000000000000000 $d
+     /tmp/ccmlHr0S.s:21     .rodata.OFFSET_TAB_CCMRx:0000000000000000 OFFSET_TAB_CCMRx
+     /tmp/ccmlHr0S.s:24     .rodata.SHIFT_TAB_OCxx:0000000000000000 $d
+     /tmp/ccmlHr0S.s:27     .rodata.SHIFT_TAB_OCxx:0000000000000000 SHIFT_TAB_OCxx
+     /tmp/ccmlHr0S.s:30     .rodata.SHIFT_TAB_ICxx:0000000000000000 $d
+     /tmp/ccmlHr0S.s:33     .rodata.SHIFT_TAB_ICxx:0000000000000000 SHIFT_TAB_ICxx
+     /tmp/ccmlHr0S.s:36     .rodata.SHIFT_TAB_CCxP:0000000000000000 $d
+     /tmp/ccmlHr0S.s:39     .rodata.SHIFT_TAB_CCxP:0000000000000000 SHIFT_TAB_CCxP
+     /tmp/ccmlHr0S.s:42     .rodata.SHIFT_TAB_OISx:0000000000000000 $d
+     /tmp/ccmlHr0S.s:45     .rodata.SHIFT_TAB_OISx:0000000000000000 SHIFT_TAB_OISx
+     /tmp/ccmlHr0S.s:48     .rodata.USART_PRESCALER_TAB:0000000000000000 $d
+     /tmp/ccmlHr0S.s:51     .rodata.USART_PRESCALER_TAB:0000000000000000 USART_PRESCALER_TAB
+     /tmp/ccmlHr0S.s:65     .rodata.CHANNEL_OFFSET_TAB:0000000000000000 $d
+     /tmp/ccmlHr0S.s:68     .rodata.CHANNEL_OFFSET_TAB:0000000000000000 CHANNEL_OFFSET_TAB
+     /tmp/ccmlHr0S.s:71     .text.LL_CORDIC_WriteData:0000000000000000 $t
+     /tmp/ccmlHr0S.s:78     .text.LL_CORDIC_WriteData:0000000000000000 LL_CORDIC_WriteData
+     /tmp/ccmlHr0S.s:120    .text.LL_CORDIC_ReadData:0000000000000000 $t
+     /tmp/ccmlHr0S.s:126    .text.LL_CORDIC_ReadData:0000000000000000 LL_CORDIC_ReadData
+     /tmp/ccmlHr0S.s:165    .text.MCM_Clarke:0000000000000000 $t
+     /tmp/ccmlHr0S.s:172    .text.MCM_Clarke:0000000000000000 MCM_Clarke
+     /tmp/ccmlHr0S.s:283    .text.MCM_Park:0000000000000000 $t
+     /tmp/ccmlHr0S.s:290    .text.MCM_Park:0000000000000000 MCM_Park
+     /tmp/ccmlHr0S.s:558    .text.MCM_Trig_Functions:0000000000000000 MCM_Trig_Functions
+     /tmp/ccmlHr0S.s:448    .text.MCM_Rev_Park:0000000000000000 $t
+     /tmp/ccmlHr0S.s:455    .text.MCM_Rev_Park:0000000000000000 MCM_Rev_Park
+     /tmp/ccmlHr0S.s:551    .text.MCM_Trig_Functions:0000000000000000 $t
+     /tmp/ccmlHr0S.s:616    .text.MCM_Trig_Functions:000000000000004c $d
+     /tmp/ccmlHr0S.s:621    .text.MCM_Sqrt:0000000000000000 $t
+     /tmp/ccmlHr0S.s:628    .text.MCM_Sqrt:0000000000000000 MCM_Sqrt
+     /tmp/ccmlHr0S.s:718    .text.MCM_Sqrt:0000000000000048 $d
+     /tmp/ccmlHr0S.s:723    .text.MCM_floatToIntBit:0000000000000000 $t
+     /tmp/ccmlHr0S.s:730    .text.MCM_floatToIntBit:0000000000000000 MCM_floatToIntBit
 
 NO UNDEFINED SYMBOLS

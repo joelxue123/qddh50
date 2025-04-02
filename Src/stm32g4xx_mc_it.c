@@ -80,9 +80,22 @@ void ADC1_2_IRQHandler(void)
 
     /* Clear Flags M1 */
     LL_ADC_ClearFlag_JEOS(ADC1);
-
+    LL_ADC_ClearFlag_JEOS(ADC2);
   /* Highfrequency task */
   (void)TSK_HighFrequencyTask();
+
+
+   LL_ADC_INJ_SetSequencerRanks(ADC2, LL_ADC_INJ_RANK_1, LL_ADC_CHANNEL_3); // OPAMP1 output
+
+   LL_ADC_INJ_SetTriggerSource(ADC2, LL_ADC_INJ_TRIG_EXT_TIM1_TRGO);
+   LL_ADC_INJ_SetTriggerEdge(ADC2, LL_ADC_INJ_TRIG_EXT_RISING);
+
+   LL_ADC_INJ_SetSequencerRanks(ADC1, LL_ADC_INJ_RANK_1, LL_ADC_CHANNEL_3); // OPAMP1 output
+   LL_ADC_INJ_SetTriggerSource(ADC1, LL_ADC_INJ_TRIG_EXT_TIM1_TRGO);
+   LL_ADC_INJ_SetTriggerEdge(ADC1, LL_ADC_INJ_TRIG_EXT_RISING);
+  LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);
+
+
 
 
   //pwm_trig_adc_cb(ADC1,0);
@@ -134,7 +147,7 @@ void TIMx_BRK_M1_IRQHandler(void)
   else
   {
     LL_TIM_ClearFlag_BRK(TIM1);
-    PWMC_OCP_Handler(&PWM_Handle_M1._Super);
+   // PWMC_OCP_Handler(&PWM_Handle_M1._Super);
   }
 
   if (0U == LL_TIM_IsActiveFlag_BRK2(TIM1))

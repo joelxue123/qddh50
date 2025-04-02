@@ -84,7 +84,7 @@ static uint8_t CheckSum(uint8_t* pdata, uint8_t len)
 }
 
 
-void UART_PushFrame_(uint8_t DataLen,uint8_t Cmd, uint8_t Index, uint8_t Subindex ,uint8_t* pdata)
+void UART_PushFrame_(uint8_t DataLen,uint8_t Cmd, uint16_t Index, uint8_t Subindex ,uint8_t* pdata)
 {
 	uint8_t i;
 	uint8_t pos = 0;
@@ -138,12 +138,13 @@ void UART_ParseFrame_(uint8_t* pdata) {
             break;
 
         case FRAME_CMD_SDO_WRITE:
-						length = pdata[2] - 5;
+						length = pdata[0] - 5;
 							// Write parameter
 						if(length == 2)
 									value = (pdata[6+1] << 8) | pdata[6];
 						else if(length == 4)
 									value = (pdata[6 + 3] << 24) | (pdata[6 + 2] << 16) | (pdata[6 + 1] << 8) | pdata[6];
+                                    
 						OD_Write(index, sub_index,value);
 						// Send ACK
 						UART_PushFrame_(0, FRAME_CMD_SDO_WRITE, index,sub_index, NULL);

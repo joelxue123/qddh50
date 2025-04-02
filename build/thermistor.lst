@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccNuAypp.s 			page 1
+ARM GAS  /tmp/ccCNpeZo.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -10,26 +10,255 @@ ARM GAS  /tmp/ccNuAypp.s 			page 1
    7              		.eabi_attribute 24, 1
    8              		.eabi_attribute 25, 1
    9              		.eabi_attribute 26, 1
-  10              		.eabi_attribute 30, 2
+  10              		.eabi_attribute 30, 6
   11              		.eabi_attribute 34, 1
   12              		.eabi_attribute 18, 2
   13              		.file	"thermistor.cpp"
   14              		.text
   15              	.Ltext0:
   16              		.cfi_sections	.debug_frame
-  17              		.section	.text._ZNK24ThermistorCurrentLimiter17get_current_limitEf,"ax",%progbits
-  18              		.align	1
-  19              		.p2align 2,,3
-  20              		.global	_ZNK24ThermistorCurrentLimiter17get_current_limitEf
-  21              		.arch armv7e-m
-  22              		.syntax unified
-  23              		.thumb
-  24              		.thumb_func
-  25              		.fpu fpv4-sp-d16
-  27              	_ZNK24ThermistorCurrentLimiter17get_current_limitEf:
-  28              	.LVL0:
-  29              	.LFB4822:
-  30              		.file 1 "Src/thermistor.cpp"
+  17              		.section	.rodata._ZL16OFFSET_TAB_CCMRx,"a"
+  18              		.align	2
+  21              	_ZL16OFFSET_TAB_CCMRx:
+  22 0000 00000000 		.ascii	"\000\000\000\000\004\004\004\00488"
+  22      04040404 
+  22      3838
+  23              		.section	.rodata._ZL14SHIFT_TAB_OCxx,"a"
+  24              		.align	2
+  27              	_ZL14SHIFT_TAB_OCxx:
+  28 0000 00000800 		.ascii	"\000\000\010\000\000\000\010\000\000\010"
+  28      00000800 
+  28      0008
+  29              		.section	.rodata._ZL14SHIFT_TAB_ICxx,"a"
+  30              		.align	2
+  33              	_ZL14SHIFT_TAB_ICxx:
+  34 0000 00000800 		.ascii	"\000\000\010\000\000\000\010\000\000\000"
+  34      00000800 
+  34      0000
+  35              		.section	.rodata._ZL14SHIFT_TAB_CCxP,"a"
+  36              		.align	2
+  39              	_ZL14SHIFT_TAB_CCxP:
+  40 0000 00020406 		.ascii	"\000\002\004\006\010\012\014\016\020\024"
+  40      080A0C0E 
+  40      1014
+  41              		.section	.rodata._ZL14SHIFT_TAB_OISx,"a"
+  42              		.align	2
+  45              	_ZL14SHIFT_TAB_OISx:
+  46 0000 00010203 		.ascii	"\000\001\002\003\004\005\006\007\010\012"
+  46      04050607 
+  46      080A
+  47              		.section	.rodata._ZL19USART_PRESCALER_TAB,"a"
+  48              		.align	2
+  51              	_ZL19USART_PRESCALER_TAB:
+  52 0000 01000000 		.word	1
+  53 0004 02000000 		.word	2
+  54 0008 04000000 		.word	4
+  55 000c 06000000 		.word	6
+  56 0010 08000000 		.word	8
+  57 0014 0A000000 		.word	10
+  58 0018 0C000000 		.word	12
+  59 001c 10000000 		.word	16
+ARM GAS  /tmp/ccCNpeZo.s 			page 2
+
+
+  60 0020 20000000 		.word	32
+  61 0024 40000000 		.word	64
+  62 0028 80000000 		.word	128
+  63 002c 00010000 		.word	256
+  64              		.section	.rodata._ZL18CHANNEL_OFFSET_TAB,"a"
+  65              		.align	2
+  68              	_ZL18CHANNEL_OFFSET_TAB:
+  69 0000 081C3044 		.ascii	"\010\0340DXl"
+  69      586C
+  70              		.section	.rodata._ZL12one_by_sqrt3,"a"
+  71              		.align	2
+  74              	_ZL12one_by_sqrt3:
+  75 0000 3ACD133F 		.word	1058262330
+  76              		.section	.rodata._ZL12two_by_sqrt3,"a"
+  77              		.align	2
+  80              	_ZL12two_by_sqrt3:
+  81 0000 3ACD933F 		.word	1066650938
+  82              		.section	.rodata._ZL10sqrt3_by_2,"a"
+  83              		.align	2
+  86              	_ZL10sqrt3_by_2:
+  87 0000 D7B35D3F 		.word	1063105495
+  88              		.section	.text._ZN14CurrentLimiterC2Ev,"axG",%progbits,_ZN14CurrentLimiterC5Ev,comdat
+  89              		.align	1
+  90              		.weak	_ZN14CurrentLimiterC2Ev
+  91              		.arch armv7e-m
+  92              		.syntax unified
+  93              		.thumb
+  94              		.thumb_func
+  95              		.fpu fpv4-sp-d16
+  97              	_ZN14CurrentLimiterC2Ev:
+  98              	.LFB4811:
+  99              		.file 1 "Inc/current_limiter.hpp"
+   1:Inc/current_limiter.hpp **** #ifndef __CURRENT_LIMITER_HPP
+   2:Inc/current_limiter.hpp **** #define __CURRENT_LIMITER_HPP
+   3:Inc/current_limiter.hpp **** 
+   4:Inc/current_limiter.hpp **** 
+   5:Inc/current_limiter.hpp **** 
+   6:Inc/current_limiter.hpp **** class CurrentLimiter {
+ 100              		.loc 1 6 7
+ 101              		.cfi_startproc
+ 102              		@ args = 0, pretend = 0, frame = 8
+ 103              		@ frame_needed = 1, uses_anonymous_args = 0
+ 104              		@ link register save eliminated.
+ 105 0000 80B4     		push	{r7}
+ 106              	.LCFI0:
+ 107              		.cfi_def_cfa_offset 4
+ 108              		.cfi_offset 7, -4
+ 109 0002 83B0     		sub	sp, sp, #12
+ 110              	.LCFI1:
+ 111              		.cfi_def_cfa_offset 16
+ 112 0004 00AF     		add	r7, sp, #0
+ 113              	.LCFI2:
+ 114              		.cfi_def_cfa_register 7
+ 115 0006 7860     		str	r0, [r7, #4]
+ 116              	.LBB2:
+ 117              		.loc 1 6 7
+ 118 0008 044A     		ldr	r2, .L3
+ARM GAS  /tmp/ccCNpeZo.s 			page 3
+
+
+ 119 000a 7B68     		ldr	r3, [r7, #4]
+ 120 000c 1A60     		str	r2, [r3]
+ 121              	.LBE2:
+ 122 000e 7B68     		ldr	r3, [r7, #4]
+ 123 0010 1846     		mov	r0, r3
+ 124 0012 0C37     		adds	r7, r7, #12
+ 125              	.LCFI3:
+ 126              		.cfi_def_cfa_offset 4
+ 127 0014 BD46     		mov	sp, r7
+ 128              	.LCFI4:
+ 129              		.cfi_def_cfa_register 13
+ 130              		@ sp needed
+ 131 0016 5DF8047B 		ldr	r7, [sp], #4
+ 132              	.LCFI5:
+ 133              		.cfi_restore 7
+ 134              		.cfi_def_cfa_offset 0
+ 135 001a 7047     		bx	lr
+ 136              	.L4:
+ 137              		.align	2
+ 138              	.L3:
+ 139 001c 08000000 		.word	_ZTV14CurrentLimiter+8
+ 140              		.cfi_endproc
+ 141              	.LFE4811:
+ 143              		.weak	_ZN14CurrentLimiterC1Ev
+ 144              		.thumb_set _ZN14CurrentLimiterC1Ev,_ZN14CurrentLimiterC2Ev
+ 145              		.section	.text._ZN14CurrentLimiterD2Ev,"axG",%progbits,_ZN14CurrentLimiterD5Ev,comdat
+ 146              		.align	1
+ 147              		.weak	_ZN14CurrentLimiterD2Ev
+ 148              		.syntax unified
+ 149              		.thumb
+ 150              		.thumb_func
+ 151              		.fpu fpv4-sp-d16
+ 153              	_ZN14CurrentLimiterD2Ev:
+ 154              	.LFB4814:
+   7:Inc/current_limiter.hpp **** public:
+   8:Inc/current_limiter.hpp ****     virtual ~CurrentLimiter() = default;
+ 155              		.loc 1 8 13
+ 156              		.cfi_startproc
+ 157              		@ args = 0, pretend = 0, frame = 8
+ 158              		@ frame_needed = 1, uses_anonymous_args = 0
+ 159              		@ link register save eliminated.
+ 160 0000 80B4     		push	{r7}
+ 161              	.LCFI6:
+ 162              		.cfi_def_cfa_offset 4
+ 163              		.cfi_offset 7, -4
+ 164 0002 83B0     		sub	sp, sp, #12
+ 165              	.LCFI7:
+ 166              		.cfi_def_cfa_offset 16
+ 167 0004 00AF     		add	r7, sp, #0
+ 168              	.LCFI8:
+ 169              		.cfi_def_cfa_register 7
+ 170 0006 7860     		str	r0, [r7, #4]
+ 171              	.LBB3:
+ 172              		.loc 1 8 13
+ 173 0008 044A     		ldr	r2, .L7
+ 174 000a 7B68     		ldr	r3, [r7, #4]
+ 175 000c 1A60     		str	r2, [r3]
+ARM GAS  /tmp/ccCNpeZo.s 			page 4
+
+
+ 176              	.LBE3:
+ 177 000e 7B68     		ldr	r3, [r7, #4]
+ 178 0010 1846     		mov	r0, r3
+ 179 0012 0C37     		adds	r7, r7, #12
+ 180              	.LCFI9:
+ 181              		.cfi_def_cfa_offset 4
+ 182 0014 BD46     		mov	sp, r7
+ 183              	.LCFI10:
+ 184              		.cfi_def_cfa_register 13
+ 185              		@ sp needed
+ 186 0016 5DF8047B 		ldr	r7, [sp], #4
+ 187              	.LCFI11:
+ 188              		.cfi_restore 7
+ 189              		.cfi_def_cfa_offset 0
+ 190 001a 7047     		bx	lr
+ 191              	.L8:
+ 192              		.align	2
+ 193              	.L7:
+ 194 001c 08000000 		.word	_ZTV14CurrentLimiter+8
+ 195              		.cfi_endproc
+ 196              	.LFE4814:
+ 198              		.weak	_ZN14CurrentLimiterD1Ev
+ 199              		.thumb_set _ZN14CurrentLimiterD1Ev,_ZN14CurrentLimiterD2Ev
+ 200              		.section	.text._ZN14CurrentLimiterD0Ev,"axG",%progbits,_ZN14CurrentLimiterD5Ev,comdat
+ 201              		.align	1
+ 202              		.weak	_ZN14CurrentLimiterD0Ev
+ 203              		.syntax unified
+ 204              		.thumb
+ 205              		.thumb_func
+ 206              		.fpu fpv4-sp-d16
+ 208              	_ZN14CurrentLimiterD0Ev:
+ 209              	.LFB4816:
+ 210              		.loc 1 8 13
+ 211              		.cfi_startproc
+ 212              		@ args = 0, pretend = 0, frame = 8
+ 213              		@ frame_needed = 1, uses_anonymous_args = 0
+ 214 0000 80B5     		push	{r7, lr}
+ 215              	.LCFI12:
+ 216              		.cfi_def_cfa_offset 8
+ 217              		.cfi_offset 7, -8
+ 218              		.cfi_offset 14, -4
+ 219 0002 82B0     		sub	sp, sp, #8
+ 220              	.LCFI13:
+ 221              		.cfi_def_cfa_offset 16
+ 222 0004 00AF     		add	r7, sp, #0
+ 223              	.LCFI14:
+ 224              		.cfi_def_cfa_register 7
+ 225 0006 7860     		str	r0, [r7, #4]
+ 226              		.loc 1 8 13
+ 227 0008 7868     		ldr	r0, [r7, #4]
+ 228 000a FFF7FEFF 		bl	_ZN14CurrentLimiterD1Ev
+ 229 000e 7868     		ldr	r0, [r7, #4]
+ 230 0010 FFF7FEFF 		bl	_ZdlPv
+ 231 0014 7B68     		ldr	r3, [r7, #4]
+ 232 0016 1846     		mov	r0, r3
+ 233 0018 0837     		adds	r7, r7, #8
+ 234              	.LCFI15:
+ARM GAS  /tmp/ccCNpeZo.s 			page 5
+
+
+ 235              		.cfi_def_cfa_offset 8
+ 236 001a BD46     		mov	sp, r7
+ 237              	.LCFI16:
+ 238              		.cfi_def_cfa_register 13
+ 239              		@ sp needed
+ 240 001c 80BD     		pop	{r7, pc}
+ 241              		.cfi_endproc
+ 242              	.LFE4816:
+ 244              		.section	.text._ZN24ThermistorCurrentLimiterC2EtPKfS1_jRS0_S2_RKb,"ax",%progbits
+ 245              		.align	1
+ 246              		.global	_ZN24ThermistorCurrentLimiterC2EtPKfS1_jRS0_S2_RKb
+ 247              		.syntax unified
+ 248              		.thumb
+ 249              		.thumb_func
+ 250              		.fpu fpv4-sp-d16
+ 252              	_ZN24ThermistorCurrentLimiterC2EtPKfS1_jRS0_S2_RKb:
+ 253              	.LFB4817:
+ 254              		.file 2 "Src/thermistor.cpp"
    1:Src/thermistor.cpp **** #include "main.h"
    2:Src/thermistor.cpp **** #include "low_level.h"
    3:Src/thermistor.cpp **** #include "thermistor.hpp"
@@ -38,6 +267,27 @@ ARM GAS  /tmp/ccNuAypp.s 			page 1
    6:Src/thermistor.cpp **** 
    7:Src/thermistor.cpp **** 
    8:Src/thermistor.cpp **** ThermistorCurrentLimiter::ThermistorCurrentLimiter(uint16_t adc_channel,
+ 255              		.loc 2 8 1
+ 256              		.cfi_startproc
+ 257              		@ args = 16, pretend = 0, frame = 16
+ 258              		@ frame_needed = 1, uses_anonymous_args = 0
+ 259 0000 80B5     		push	{r7, lr}
+ 260              	.LCFI17:
+ 261              		.cfi_def_cfa_offset 8
+ 262              		.cfi_offset 7, -8
+ 263              		.cfi_offset 14, -4
+ 264 0002 84B0     		sub	sp, sp, #16
+ 265              	.LCFI18:
+ 266              		.cfi_def_cfa_offset 24
+ 267 0004 00AF     		add	r7, sp, #0
+ 268              	.LCFI19:
+ 269              		.cfi_def_cfa_register 7
+ 270 0006 F860     		str	r0, [r7, #12]
+ 271 0008 7A60     		str	r2, [r7, #4]
+ 272 000a 3B60     		str	r3, [r7]
+ 273 000c 0B46     		mov	r3, r1	@ movhi
+ 274 000e 7B81     		strh	r3, [r7, #10]	@ movhi
+ 275              	.LBB4:
    9:Src/thermistor.cpp ****                                                    const float* const coefficients,
   10:Src/thermistor.cpp ****                                                    const float* const aux_coefficients,
   11:Src/thermistor.cpp ****                                                    size_t num_coeffs,
@@ -48,93 +298,345 @@ ARM GAS  /tmp/ccNuAypp.s 			page 1
   16:Src/thermistor.cpp ****     coefficients_(coefficients),
   17:Src/thermistor.cpp ****     aux_coefficients_(aux_coefficients),
   18:Src/thermistor.cpp ****     num_coeffs_(num_coeffs),
+ARM GAS  /tmp/ccCNpeZo.s 			page 6
+
+
   19:Src/thermistor.cpp ****     temperature_(NAN),
   20:Src/thermistor.cpp ****     temp_limit_lower_(temp_limit_lower),
   21:Src/thermistor.cpp ****     temp_limit_upper_(temp_limit_upper),
   22:Src/thermistor.cpp ****     enabled_(enabled),
   23:Src/thermistor.cpp ****     error_(ERROR_NONE)
+ 276              		.loc 2 23 22
+ 277 0010 FB68     		ldr	r3, [r7, #12]
+ 278 0012 1846     		mov	r0, r3
+ 279 0014 FFF7FEFF 		bl	_ZN14CurrentLimiterC2Ev
+ 280 0018 134A     		ldr	r2, .L13
+ 281 001a FB68     		ldr	r3, [r7, #12]
+ 282 001c 1A60     		str	r2, [r3]
+ 283 001e FB68     		ldr	r3, [r7, #12]
+ 284 0020 7A89     		ldrh	r2, [r7, #10]	@ movhi
+ 285 0022 9A80     		strh	r2, [r3, #4]	@ movhi
+ 286 0024 FB68     		ldr	r3, [r7, #12]
+ 287 0026 7A68     		ldr	r2, [r7, #4]
+ 288 0028 9A60     		str	r2, [r3, #8]
+ 289 002a FB68     		ldr	r3, [r7, #12]
+ 290 002c 3A68     		ldr	r2, [r7]
+ 291 002e DA60     		str	r2, [r3, #12]
+ 292 0030 FB68     		ldr	r3, [r7, #12]
+ 293 0032 BA69     		ldr	r2, [r7, #24]
+ 294 0034 1A61     		str	r2, [r3, #16]
+ 295 0036 FB68     		ldr	r3, [r7, #12]
+ 296 0038 0C4A     		ldr	r2, .L13+4
+ 297 003a 5A61     		str	r2, [r3, #20]	@ float
+ 298 003c FB68     		ldr	r3, [r7, #12]
+ 299 003e FA69     		ldr	r2, [r7, #28]
+ 300 0040 5A62     		str	r2, [r3, #36]
+ 301 0042 FB68     		ldr	r3, [r7, #12]
+ 302 0044 3A6A     		ldr	r2, [r7, #32]
+ 303 0046 9A62     		str	r2, [r3, #40]
+ 304 0048 FB68     		ldr	r3, [r7, #12]
+ 305 004a 7A6A     		ldr	r2, [r7, #36]
+ 306 004c DA62     		str	r2, [r3, #44]
+ 307 004e FB68     		ldr	r3, [r7, #12]
+ 308 0050 0022     		movs	r2, #0
+ 309 0052 83F83020 		strb	r2, [r3, #48]
+ 310 0056 FB68     		ldr	r3, [r7, #12]
+ 311 0058 0022     		movs	r2, #0
+ 312 005a 5A63     		str	r2, [r3, #52]
+ 313              	.LBE4:
   24:Src/thermistor.cpp **** {
   25:Src/thermistor.cpp **** }
+ 314              		.loc 2 25 1
+ 315 005c FB68     		ldr	r3, [r7, #12]
+ 316 005e 1846     		mov	r0, r3
+ 317 0060 1037     		adds	r7, r7, #16
+ 318              	.LCFI20:
+ 319              		.cfi_def_cfa_offset 8
+ 320 0062 BD46     		mov	sp, r7
+ 321              	.LCFI21:
+ 322              		.cfi_def_cfa_register 13
+ 323              		@ sp needed
+ 324 0064 80BD     		pop	{r7, pc}
+ 325              	.L14:
+ARM GAS  /tmp/ccCNpeZo.s 			page 7
+
+
+ 326 0066 00BF     		.align	2
+ 327              	.L13:
+ 328 0068 08000000 		.word	_ZTV24ThermistorCurrentLimiter+8
+ 329 006c 0000C07F 		.word	2143289344
+ 330              		.cfi_endproc
+ 331              	.LFE4817:
+ 333              		.global	_ZN24ThermistorCurrentLimiterC1EtPKfS1_jRS0_S2_RKb
+ 334              		.thumb_set _ZN24ThermistorCurrentLimiterC1EtPKfS1_jRS0_S2_RKb,_ZN24ThermistorCurrentLimiterC2EtPKf
+ 335              		.section	.text._ZN24ThermistorCurrentLimiter6updateEv,"ax",%progbits
+ 336              		.align	1
+ 337              		.global	_ZN24ThermistorCurrentLimiter6updateEv
+ 338              		.syntax unified
+ 339              		.thumb
+ 340              		.thumb_func
+ 341              		.fpu fpv4-sp-d16
+ 343              	_ZN24ThermistorCurrentLimiter6updateEv:
+ 344              	.LFB4819:
   26:Src/thermistor.cpp **** 
   27:Src/thermistor.cpp **** void ThermistorCurrentLimiter::update() {
+ 345              		.loc 2 27 41
+ 346              		.cfi_startproc
+ 347              		@ args = 0, pretend = 0, frame = 16
+ 348              		@ frame_needed = 1, uses_anonymous_args = 0
+ 349 0000 80B5     		push	{r7, lr}
+ 350              	.LCFI22:
+ 351              		.cfi_def_cfa_offset 8
+ 352              		.cfi_offset 7, -8
+ 353              		.cfi_offset 14, -4
+ 354 0002 84B0     		sub	sp, sp, #16
+ 355              	.LCFI23:
+ 356              		.cfi_def_cfa_offset 24
+ 357 0004 00AF     		add	r7, sp, #0
+ 358              	.LCFI24:
+ 359              		.cfi_def_cfa_register 7
+ 360 0006 7860     		str	r0, [r7, #4]
   28:Src/thermistor.cpp ****     float voltage = get_adc_voltage_channel(14);
-ARM GAS  /tmp/ccNuAypp.s 			page 2
-
-
+ 361              		.loc 2 28 44
+ 362 0008 0E20     		movs	r0, #14
+ 363 000a FFF7FEFF 		bl	get_adc_voltage_channel
+ 364 000e 87ED030A 		vstr.32	s0, [r7, #12]
   29:Src/thermistor.cpp ****     float normalized_voltage = voltage / adc_ref_voltage;
+ 365              		.loc 2 29 42
+ 366 0012 254B     		ldr	r3, .L16
+ 367 0014 93ED007A 		vldr.32	s14, [r3]
+ 368              		.loc 2 29 11
+ 369 0018 D7ED036A 		vldr.32	s13, [r7, #12]
+ 370 001c C6EE877A 		vdiv.f32	s15, s13, s14
+ 371 0020 C7ED027A 		vstr.32	s15, [r7, #8]
   30:Src/thermistor.cpp ****     temperature_ = horner_fma(normalized_voltage, coefficients_, num_coeffs_);
+ 372              		.loc 2 30 51
+ 373 0024 7B68     		ldr	r3, [r7, #4]
+ 374 0026 9A68     		ldr	r2, [r3, #8]
+ 375              		.loc 2 30 66
+ 376 0028 7B68     		ldr	r3, [r7, #4]
+ 377 002a 1B69     		ldr	r3, [r3, #16]
+ 378              		.loc 2 30 30
+ 379 002c 1946     		mov	r1, r3
+ARM GAS  /tmp/ccCNpeZo.s 			page 8
+
+
+ 380 002e 1046     		mov	r0, r2
+ 381 0030 97ED020A 		vldr.32	s0, [r7, #8]
+ 382 0034 FFF7FEFF 		bl	horner_fma
+ 383 0038 F0EE407A 		vmov.f32	s15, s0
+ 384              		.loc 2 30 18
+ 385 003c 7B68     		ldr	r3, [r7, #4]
+ 386 003e C3ED057A 		vstr.32	s15, [r3, #20]
   31:Src/thermistor.cpp ****     temperature_int_ = (int32_t)temperature_;
+ 387              		.loc 2 31 33
+ 388 0042 7B68     		ldr	r3, [r7, #4]
+ 389 0044 D3ED057A 		vldr.32	s15, [r3, #20]
+ 390              		.loc 2 31 24
+ 391 0048 FDEEE77A 		vcvt.s32.f32	s15, s15
+ 392 004c 17EE902A 		vmov	r2, s15	@ int
+ 393              		.loc 2 31 22
+ 394 0050 7B68     		ldr	r3, [r7, #4]
+ 395 0052 9A61     		str	r2, [r3, #24]
   32:Src/thermistor.cpp ****     voltage = get_adc_voltage_channel(15);
+ 396              		.loc 2 32 38
+ 397 0054 0F20     		movs	r0, #15
+ 398 0056 FFF7FEFF 		bl	get_adc_voltage_channel
+ 399 005a 87ED030A 		vstr.32	s0, [r7, #12]
   33:Src/thermistor.cpp ****     normalized_voltage = voltage / adc_ref_voltage;
+ 400              		.loc 2 33 36
+ 401 005e 124B     		ldr	r3, .L16
+ 402 0060 93ED007A 		vldr.32	s14, [r3]
+ 403              		.loc 2 33 24
+ 404 0064 D7ED036A 		vldr.32	s13, [r7, #12]
+ 405 0068 C6EE877A 		vdiv.f32	s15, s13, s14
+ 406 006c C7ED027A 		vstr.32	s15, [r7, #8]
   34:Src/thermistor.cpp ****     aux_temperature_ = horner_fma(normalized_voltage, aux_coefficients_, num_coeffs_);
+ 407              		.loc 2 34 55
+ 408 0070 7B68     		ldr	r3, [r7, #4]
+ 409 0072 DA68     		ldr	r2, [r3, #12]
+ 410              		.loc 2 34 74
+ 411 0074 7B68     		ldr	r3, [r7, #4]
+ 412 0076 1B69     		ldr	r3, [r3, #16]
+ 413              		.loc 2 34 34
+ 414 0078 1946     		mov	r1, r3
+ 415 007a 1046     		mov	r0, r2
+ 416 007c 97ED020A 		vldr.32	s0, [r7, #8]
+ 417 0080 FFF7FEFF 		bl	horner_fma
+ 418 0084 F0EE407A 		vmov.f32	s15, s0
+ 419              		.loc 2 34 22
+ 420 0088 7B68     		ldr	r3, [r7, #4]
+ 421 008a C3ED077A 		vstr.32	s15, [r3, #28]
   35:Src/thermistor.cpp ****     aux_temperature_int_ = (int32_t)aux_temperature_;
+ 422              		.loc 2 35 37
+ 423 008e 7B68     		ldr	r3, [r7, #4]
+ 424 0090 D3ED077A 		vldr.32	s15, [r3, #28]
+ 425              		.loc 2 35 28
+ 426 0094 FDEEE77A 		vcvt.s32.f32	s15, s15
+ 427 0098 17EE902A 		vmov	r2, s15	@ int
+ 428              		.loc 2 35 26
+ 429 009c 7B68     		ldr	r3, [r7, #4]
+ 430 009e 1A62     		str	r2, [r3, #32]
   36:Src/thermistor.cpp **** 
+ARM GAS  /tmp/ccCNpeZo.s 			page 9
+
+
   37:Src/thermistor.cpp **** }
+ 431              		.loc 2 37 1
+ 432 00a0 00BF     		nop
+ 433 00a2 1037     		adds	r7, r7, #16
+ 434              	.LCFI25:
+ 435              		.cfi_def_cfa_offset 8
+ 436 00a4 BD46     		mov	sp, r7
+ 437              	.LCFI26:
+ 438              		.cfi_def_cfa_register 13
+ 439              		@ sp needed
+ 440 00a6 80BD     		pop	{r7, pc}
+ 441              	.L17:
+ 442              		.align	2
+ 443              	.L16:
+ 444 00a8 00000000 		.word	adc_ref_voltage
+ 445              		.cfi_endproc
+ 446              	.LFE4819:
+ 448              		.section	.text._ZN24ThermistorCurrentLimiter9do_checksEv,"ax",%progbits
+ 449              		.align	1
+ 450              		.global	_ZN24ThermistorCurrentLimiter9do_checksEv
+ 451              		.syntax unified
+ 452              		.thumb
+ 453              		.thumb_func
+ 454              		.fpu fpv4-sp-d16
+ 456              	_ZN24ThermistorCurrentLimiter9do_checksEv:
+ 457              	.LFB4820:
   38:Src/thermistor.cpp **** 
   39:Src/thermistor.cpp **** bool ThermistorCurrentLimiter::do_checks() {
+ 458              		.loc 2 39 44
+ 459              		.cfi_startproc
+ 460              		@ args = 0, pretend = 0, frame = 8
+ 461              		@ frame_needed = 1, uses_anonymous_args = 0
+ 462              		@ link register save eliminated.
+ 463 0000 80B4     		push	{r7}
+ 464              	.LCFI27:
+ 465              		.cfi_def_cfa_offset 4
+ 466              		.cfi_offset 7, -4
+ 467 0002 83B0     		sub	sp, sp, #12
+ 468              	.LCFI28:
+ 469              		.cfi_def_cfa_offset 16
+ 470 0004 00AF     		add	r7, sp, #0
+ 471              	.LCFI29:
+ 472              		.cfi_def_cfa_register 7
+ 473 0006 7860     		str	r0, [r7, #4]
   40:Src/thermistor.cpp ****     if (enabled_ && ( (temperature_ >= temp_limit_upper_ + 1 ) ||  (aux_temperature_ >= temp_limit_
+ 474              		.loc 2 40 9
+ 475 0008 7B68     		ldr	r3, [r7, #4]
+ 476 000a DB6A     		ldr	r3, [r3, #44]
+ 477 000c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 478              		.loc 2 40 5
+ 479 000e 002B     		cmp	r3, #0
+ 480 0010 34D0     		beq	.L19
+ 481              		.loc 2 40 24 discriminator 1
+ 482 0012 7B68     		ldr	r3, [r7, #4]
+ 483 0014 93ED057A 		vldr.32	s14, [r3, #20]
+ 484              		.loc 2 40 40 discriminator 1
+ 485 0018 7B68     		ldr	r3, [r7, #4]
+ARM GAS  /tmp/ccCNpeZo.s 			page 10
+
+
+ 486 001a 9B6A     		ldr	r3, [r3, #40]
+ 487 001c D3ED007A 		vldr.32	s15, [r3]
+ 488              		.loc 2 40 58 discriminator 1
+ 489 0020 F7EE006A 		vmov.f32	s13, #1.0e+0
+ 490 0024 77EEA67A 		vadd.f32	s15, s15, s13
+ 491              		.loc 2 40 18 discriminator 1
+ 492 0028 B4EEE77A 		vcmpe.f32	s14, s15
+ 493 002c F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 494 0030 0FDA     		bge	.L20
+ 495              		.loc 2 40 69 discriminator 2
+ 496 0032 7B68     		ldr	r3, [r7, #4]
+ 497 0034 93ED077A 		vldr.32	s14, [r3, #28]
+ 498              		.loc 2 40 89 discriminator 2
+ 499 0038 7B68     		ldr	r3, [r7, #4]
+ 500 003a 9B6A     		ldr	r3, [r3, #40]
+ 501 003c D3ED007A 		vldr.32	s15, [r3]
+ 502              		.loc 2 40 107 discriminator 2
+ 503 0040 F7EE006A 		vmov.f32	s13, #1.0e+0
+ 504 0044 77EEA67A 		vadd.f32	s15, s15, s13
+ 505              		.loc 2 40 64 discriminator 2
+ 506 0048 B4EEE77A 		vcmpe.f32	s14, s15
+ 507 004c F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 508 0050 14DB     		blt	.L19
+ 509              	.L20:
   41:Src/thermistor.cpp ****         error_ = ERROR_OVER_TEMP;
+ 510              		.loc 2 41 16
+ 511 0052 7B68     		ldr	r3, [r7, #4]
+ 512 0054 0122     		movs	r2, #1
+ 513 0056 83F83020 		strb	r2, [r3, #48]
   42:Src/thermistor.cpp ****         // Properly cast error flags when combining
   43:Src/thermistor.cpp ****         axis_->error_ = static_cast<Axis::Error>(
   44:Src/thermistor.cpp ****             static_cast<uint32_t>(axis_->error_) | 
+ 514              		.loc 2 44 35
+ 515 005a 7B68     		ldr	r3, [r7, #4]
+ 516 005c 5B6B     		ldr	r3, [r3, #52]
+ 517              		.loc 2 44 42
+ 518 005e D3F85C21 		ldr	r2, [r3, #348]
+  43:Src/thermistor.cpp ****             static_cast<uint32_t>(axis_->error_) | 
+ 519              		.loc 2 43 9
+ 520 0062 7B68     		ldr	r3, [r7, #4]
+ 521 0064 5B6B     		ldr	r3, [r3, #52]
+ 522              		.loc 2 44 50
+ 523 0066 42F48022 		orr	r2, r2, #262144
+  43:Src/thermistor.cpp ****             static_cast<uint32_t>(axis_->error_) | 
+ 524              		.loc 2 43 23
+ 525 006a C3F85C21 		str	r2, [r3, #348]
   45:Src/thermistor.cpp ****             static_cast<uint32_t>(Axis::ERROR_OVER_TEMP)
   46:Src/thermistor.cpp ****         );
   47:Src/thermistor.cpp ****                 
   48:Src/thermistor.cpp ****         axis_->axis_state_.erro = Axis::ENCOS_ERRO::ENCOS_ERROR_OVER_TEMP;
+ 526              		.loc 2 48 9
+ 527 006e 7B68     		ldr	r3, [r7, #4]
+ 528 0070 5B6B     		ldr	r3, [r3, #52]
+ 529              		.loc 2 48 33
+ 530 0072 0122     		movs	r2, #1
+ 531 0074 83F89621 		strb	r2, [r3, #406]
   49:Src/thermistor.cpp ****         return false;
+ARM GAS  /tmp/ccCNpeZo.s 			page 11
+
+
+ 532              		.loc 2 49 16
+ 533 0078 0023     		movs	r3, #0
+ 534 007a 00E0     		b	.L22
+ 535              	.L19:
   50:Src/thermistor.cpp ****     }
   51:Src/thermistor.cpp ****     return true;
+ 536              		.loc 2 51 12
+ 537 007c 0123     		movs	r3, #1
+ 538              	.L22:
   52:Src/thermistor.cpp **** }
-  53:Src/thermistor.cpp **** 
-  54:Src/thermistor.cpp **** float ThermistorCurrentLimiter::get_current_limit(float base_current_lim) const {
-  31              		.loc 1 54 81 view -0
-  32              		.cfi_startproc
-  33              		@ args = 0, pretend = 0, frame = 0
-  34              		@ frame_needed = 0, uses_anonymous_args = 0
-  35              		@ link register save eliminated.
-  55:Src/thermistor.cpp ****     if (!enabled_) {
-  36              		.loc 1 55 5 view .LVU1
-  37              		.loc 1 55 10 is_stmt 0 view .LVU2
-  38 0000 C36A     		ldr	r3, [r0, #44]
-  39              		.loc 1 55 5 view .LVU3
-  40 0002 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
-  41 0004 43B3     		cbz	r3, .L2
-  56:Src/thermistor.cpp ****         return base_current_lim;
-  57:Src/thermistor.cpp ****     }
-  58:Src/thermistor.cpp **** 
-  59:Src/thermistor.cpp ****     float aux_temp_margin = temp_limit_upper_ - aux_temperature_;
-  42              		.loc 1 59 5 is_stmt 1 view .LVU4
-  43              		.loc 1 59 29 is_stmt 0 view .LVU5
-  44 0006 836A     		ldr	r3, [r0, #40]
-  45              		.loc 1 59 47 view .LVU6
-  46 0008 90ED076A 		vldr.32	s12, [r0, #28]
-  47              		.loc 1 59 29 view .LVU7
-  48 000c 93ED007A 		vldr.32	s14, [r3]
-  60:Src/thermistor.cpp ****     float fet_temp_margin = temp_limit_upper_ - temperature_;
-  49              		.loc 1 60 47 view .LVU8
-  50 0010 D0ED057A 		vldr.32	s15, [r0, #20]
-  61:Src/thermistor.cpp ****     float temp_margin = std::min(aux_temp_margin, fet_temp_margin);
-  62:Src/thermistor.cpp ****     const float derating_range = temp_limit_upper_ - temp_limit_lower_;
-  51              		.loc 1 62 54 view .LVU9
-  52 0014 436A     		ldr	r3, [r0, #36]
-  59:Src/thermistor.cpp ****     float fet_temp_margin = temp_limit_upper_ - temperature_;
-ARM GAS  /tmp/ccNuAypp.s 			page 3
-
-
-  53              		.loc 1 59 47 view .LVU10
-  54 0016 37EE466A 		vsub.f32	s12, s14, s12
-  55              	.LVL1:
-  60:Src/thermistor.cpp ****     float fet_temp_margin = temp_limit_upper_ - temperature_;
-  56              		.loc 1 60 5 is_stmt 1 view .LVU11
-  60:Src/thermistor.cpp ****     float fet_temp_margin = temp_limit_upper_ - temperature_;
-  57              		.loc 1 60 47 is_stmt 0 view .LVU12
-  58 001a 77EE677A 		vsub.f32	s15, s14, s15
-  59              	.LVL2:
-  61:Src/thermistor.cpp ****     float temp_margin = std::min(aux_temp_margin, fet_temp_margin);
-  60              		.loc 1 61 5 is_stmt 1 view .LVU13
-  61              	.LBB53:
-  62              	.LBI53:
-  63              		.file 2 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_a
+ 539              		.loc 2 52 1
+ 540 007e 1846     		mov	r0, r3
+ 541 0080 0C37     		adds	r7, r7, #12
+ 542              	.LCFI30:
+ 543              		.cfi_def_cfa_offset 4
+ 544 0082 BD46     		mov	sp, r7
+ 545              	.LCFI31:
+ 546              		.cfi_def_cfa_register 13
+ 547              		@ sp needed
+ 548 0084 5DF8047B 		ldr	r7, [sp], #4
+ 549              	.LCFI32:
+ 550              		.cfi_restore 7
+ 551              		.cfi_def_cfa_offset 0
+ 552 0088 7047     		bx	lr
+ 553              		.cfi_endproc
+ 554              	.LFE4820:
+ 556              		.section	.text._ZSt3minIfERKT_S2_S2_,"axG",%progbits,_ZSt3minIfERKT_S2_S2_,comdat
+ 557              		.align	1
+ 558              		.weak	_ZSt3minIfERKT_S2_S2_
+ 559              		.syntax unified
+ 560              		.thumb
+ 561              		.thumb_func
+ 562              		.fpu fpv4-sp-d16
+ 564              	_ZSt3minIfERKT_S2_S2_:
+ 565              	.LFB4822:
+ 566              		.file 3 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_a
    1:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h **** // Core algorithmic facilities -*- C++ -*-
    2:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h **** 
    3:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h **** // Copyright (C) 2001-2020 Free Software Foundation, Inc.
@@ -156,6 +658,9 @@ ARM GAS  /tmp/ccNuAypp.s 			page 1
   19:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h **** 
   20:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h **** // You should have received a copy of the GNU General Public License and
   21:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h **** // a copy of the GCC Runtime Library Exception along with this program;
+ARM GAS  /tmp/ccCNpeZo.s 			page 12
+
+
   22:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h **** // see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
   23:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h **** // <http://www.gnu.org/licenses/>.
   24:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h **** 
@@ -178,9 +683,6 @@ ARM GAS  /tmp/ccNuAypp.s 			page 1
   41:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h ****  *
   42:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h ****  * Permission to use, copy, modify, distribute and sell this software
   43:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h ****  * and its documentation for any purpose is hereby granted without fee,
-ARM GAS  /tmp/ccNuAypp.s 			page 4
-
-
   44:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h ****  * provided that the above copyright notice appear in all copies and
   45:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h ****  * that both that copyright notice and this permission notice appear
   46:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h ****  * in supporting documentation.  Silicon Graphics makes no
@@ -216,6 +718,9 @@ ARM GAS  /tmp/ccNuAypp.s 			page 1
   76:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h **** # include <compare>
   77:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h **** #endif
   78:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h **** 
+ARM GAS  /tmp/ccCNpeZo.s 			page 13
+
+
   79:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h **** namespace std _GLIBCXX_VISIBILITY(default)
   80:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h **** {
   81:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h **** _GLIBCXX_BEGIN_NAMESPACE_VERSION
@@ -238,9 +743,6 @@ ARM GAS  /tmp/ccNuAypp.s 			page 1
   98:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h **** 	  for(; __num > 0; ++__first1, ++__first2, --__num)
   99:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h **** 	    if (*__first1 != *__first2)
  100:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h **** 	      return *__first1 < *__first2 ? -1 : 1;
-ARM GAS  /tmp/ccNuAypp.s 			page 5
-
-
  101:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h **** 	  return 0;
  102:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h **** 	}
  103:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h ****       else
@@ -276,6 +778,9 @@ ARM GAS  /tmp/ccNuAypp.s 			page 1
  133:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h **** 	{
  134:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h **** 	  swap(*__a, *__b);
  135:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h **** 	}
+ARM GAS  /tmp/ccCNpeZo.s 			page 14
+
+
  136:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h ****     };
  137:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h **** #endif // C++03
  138:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h **** 
@@ -298,9 +803,6 @@ ARM GAS  /tmp/ccNuAypp.s 			page 1
  155:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h ****       __glibcxx_function_requires(_Mutable_ForwardIteratorConcept<
  156:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h **** 				  _ForwardIterator1>)
  157:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h ****       __glibcxx_function_requires(_Mutable_ForwardIteratorConcept<
-ARM GAS  /tmp/ccNuAypp.s 			page 6
-
-
  158:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h **** 				  _ForwardIterator2>)
  159:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h **** 
  160:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h **** #if __cplusplus < 201103L
@@ -336,6 +838,9 @@ ARM GAS  /tmp/ccNuAypp.s 			page 1
  190:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h ****    *  @param  __last1   A forward iterator.
  191:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h ****    *  @param  __first2  A forward iterator.
  192:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h ****    *  @return   An iterator equal to @p first2+(last1-first1).
+ARM GAS  /tmp/ccCNpeZo.s 			page 15
+
+
  193:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h ****    *
  194:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h ****    *  Swaps each element in the range @p [first1,last1) with the
  195:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h ****    *  corresponding element in the range @p [first2,(last1-first1)).
@@ -358,9 +863,6 @@ ARM GAS  /tmp/ccNuAypp.s 			page 1
  212:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h **** 	std::iter_swap(__first1, __first2);
  213:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h ****       return __first2;
  214:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h ****     }
-ARM GAS  /tmp/ccNuAypp.s 			page 7
-
-
  215:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h **** 
  216:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h ****   /**
  217:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h ****    *  @brief This does what you think it does.
@@ -377,96 +879,233 @@ ARM GAS  /tmp/ccNuAypp.s 			page 1
  228:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h ****     _GLIBCXX14_CONSTEXPR
  229:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h ****     inline const _Tp&
  230:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h ****     min(const _Tp& __a, const _Tp& __b)
-  64              		.loc 2 230 5 view .LVU14
-  65              	.LBE53:
-  66              		.loc 1 62 17 is_stmt 0 view .LVU15
-  67 001e D3ED006A 		vldr.32	s13, [r3]
-  68              	.LBB56:
-  69              	.LBB54:
+ 567              		.loc 3 230 5
+ 568              		.cfi_startproc
+ 569              		@ args = 0, pretend = 0, frame = 8
+ 570              		@ frame_needed = 1, uses_anonymous_args = 0
+ 571              		@ link register save eliminated.
+ 572 0000 80B4     		push	{r7}
+ 573              	.LCFI33:
+ 574              		.cfi_def_cfa_offset 4
+ 575              		.cfi_offset 7, -4
+ 576 0002 83B0     		sub	sp, sp, #12
+ 577              	.LCFI34:
+ 578              		.cfi_def_cfa_offset 16
+ 579 0004 00AF     		add	r7, sp, #0
+ 580              	.LCFI35:
+ 581              		.cfi_def_cfa_register 7
+ 582 0006 7860     		str	r0, [r7, #4]
+ 583 0008 3960     		str	r1, [r7]
  231:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h ****     {
  232:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h ****       // concept requirements
+ARM GAS  /tmp/ccCNpeZo.s 			page 16
+
+
  233:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h ****       __glibcxx_function_requires(_LessThanComparableConcept<_Tp>)
  234:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h ****       //return __b < __a ? __b : __a;
  235:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h ****       if (__b < __a)
+ 584              		.loc 3 235 15
+ 585 000a 3B68     		ldr	r3, [r7]
+ 586 000c 93ED007A 		vldr.32	s14, [r3]
+ 587 0010 7B68     		ldr	r3, [r7, #4]
+ 588 0012 D3ED007A 		vldr.32	s15, [r3]
+ 589              		.loc 3 235 7
+ 590 0016 B4EEE77A 		vcmpe.f32	s14, s15
+ 591 001a F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 592 001e 01D5     		bpl	.L28
  236:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h **** 	return __b;
+ 593              		.loc 3 236 9
+ 594 0020 3B68     		ldr	r3, [r7]
+ 595 0022 00E0     		b	.L26
+ 596              	.L28:
  237:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h ****       return __a;
-  70              		.loc 2 237 14 view .LVU16
-  71 0022 B4EEE76A 		vcmpe.f32	s12, s15
-  72 0026 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
-  73              	.LBE54:
-  74              	.LBE56:
-  75              		.loc 1 62 17 view .LVU17
-  76 002a 77EE666A 		vsub.f32	s13, s14, s13
-  77              	.LBB57:
-  78              	.LBB55:
-  79              		.loc 2 237 14 view .LVU18
-  80 002e D8BF     		it	le
-  81 0030 F0EE467A 		vmovle.f32	s15, s12
-  82              	.LVL3:
-  83              		.loc 2 237 14 view .LVU19
-  84              	.LBE55:
-  85              	.LBE57:
-  86              		.loc 1 62 5 is_stmt 1 view .LVU20
+ 597              		.loc 3 237 14
+ 598 0024 7B68     		ldr	r3, [r7, #4]
+ 599              	.L26:
+ 238:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h ****     }
+ 600              		.loc 3 238 5
+ 601 0026 1846     		mov	r0, r3
+ 602 0028 0C37     		adds	r7, r7, #12
+ 603              	.LCFI36:
+ 604              		.cfi_def_cfa_offset 4
+ 605 002a BD46     		mov	sp, r7
+ 606              	.LCFI37:
+ 607              		.cfi_def_cfa_register 13
+ 608              		@ sp needed
+ 609 002c 5DF8047B 		ldr	r7, [sp], #4
+ 610              	.LCFI38:
+ 611              		.cfi_restore 7
+ 612              		.cfi_def_cfa_offset 0
+ 613 0030 7047     		bx	lr
+ 614              		.cfi_endproc
+ 615              	.LFE4822:
+ 617              		.section	.text._ZNK24ThermistorCurrentLimiter17get_current_limitEf,"ax",%progbits
+ 618              		.align	1
+ 619              		.global	_ZNK24ThermistorCurrentLimiter17get_current_limitEf
+ 620              		.syntax unified
+ 621              		.thumb
+ 622              		.thumb_func
+ 623              		.fpu fpv4-sp-d16
+ 625              	_ZNK24ThermistorCurrentLimiter17get_current_limitEf:
+ 626              	.LFB4821:
+  53:Src/thermistor.cpp **** 
+  54:Src/thermistor.cpp **** float ThermistorCurrentLimiter::get_current_limit(float base_current_lim) const {
+ 627              		.loc 2 54 81
+ 628              		.cfi_startproc
+ 629              		@ args = 0, pretend = 0, frame = 32
+ 630              		@ frame_needed = 1, uses_anonymous_args = 0
+ 631 0000 80B5     		push	{r7, lr}
+ 632              	.LCFI39:
+ 633              		.cfi_def_cfa_offset 8
+ 634              		.cfi_offset 7, -8
+ARM GAS  /tmp/ccCNpeZo.s 			page 17
+
+
+ 635              		.cfi_offset 14, -4
+ 636 0002 88B0     		sub	sp, sp, #32
+ 637              	.LCFI40:
+ 638              		.cfi_def_cfa_offset 40
+ 639 0004 00AF     		add	r7, sp, #0
+ 640              	.LCFI41:
+ 641              		.cfi_def_cfa_register 7
+ 642 0006 7860     		str	r0, [r7, #4]
+ 643 0008 87ED000A 		vstr.32	s0, [r7]
+  55:Src/thermistor.cpp ****     if (!enabled_) {
+ 644              		.loc 2 55 10
+ 645 000c 7B68     		ldr	r3, [r7, #4]
+ 646 000e DB6A     		ldr	r3, [r3, #44]
+ 647 0010 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 648              		.loc 2 55 9
+ 649 0012 83F00103 		eor	r3, r3, #1
+ 650 0016 DBB2     		uxtb	r3, r3
+ 651              		.loc 2 55 5
+ 652 0018 002B     		cmp	r3, #0
+ 653 001a 01D0     		beq	.L30
+  56:Src/thermistor.cpp ****         return base_current_lim;
+ 654              		.loc 2 56 16
+ 655 001c 3B68     		ldr	r3, [r7]	@ float
+ 656 001e 53E0     		b	.L33
+ 657              	.L30:
+  57:Src/thermistor.cpp ****     }
+  58:Src/thermistor.cpp **** 
+  59:Src/thermistor.cpp ****     float aux_temp_margin = temp_limit_upper_ - aux_temperature_;
+ 658              		.loc 2 59 29
+ 659 0020 7B68     		ldr	r3, [r7, #4]
+ 660 0022 9B6A     		ldr	r3, [r3, #40]
+ 661 0024 93ED007A 		vldr.32	s14, [r3]
+ 662              		.loc 2 59 49
+ 663 0028 7B68     		ldr	r3, [r7, #4]
+ 664 002a D3ED077A 		vldr.32	s15, [r3, #28]
+ 665              		.loc 2 59 47
+ 666 002e 77EE677A 		vsub.f32	s15, s14, s15
+ 667              		.loc 2 59 11
+ 668 0032 C7ED057A 		vstr.32	s15, [r7, #20]
+  60:Src/thermistor.cpp ****     float fet_temp_margin = temp_limit_upper_ - temperature_;
+ 669              		.loc 2 60 29
+ 670 0036 7B68     		ldr	r3, [r7, #4]
+ 671 0038 9B6A     		ldr	r3, [r3, #40]
+ 672 003a 93ED007A 		vldr.32	s14, [r3]
+ 673              		.loc 2 60 49
+ 674 003e 7B68     		ldr	r3, [r7, #4]
+ 675 0040 D3ED057A 		vldr.32	s15, [r3, #20]
+ 676              		.loc 2 60 47
+ 677 0044 77EE677A 		vsub.f32	s15, s14, s15
+ 678              		.loc 2 60 11
+ 679 0048 C7ED047A 		vstr.32	s15, [r7, #16]
+  61:Src/thermistor.cpp ****     float temp_margin = std::min(aux_temp_margin, fet_temp_margin);
+ 680              		.loc 2 61 66
+ 681 004c 07F11002 		add	r2, r7, #16
+ 682 0050 07F11403 		add	r3, r7, #20
+ 683 0054 1146     		mov	r1, r2
+ 684 0056 1846     		mov	r0, r3
+ARM GAS  /tmp/ccCNpeZo.s 			page 18
+
+
+ 685 0058 FFF7FEFF 		bl	_ZSt3minIfERKT_S2_S2_
+ 686 005c 0346     		mov	r3, r0
+ 687 005e 1B68     		ldr	r3, [r3]	@ float
+ 688 0060 FB61     		str	r3, [r7, #28]	@ float
+  62:Src/thermistor.cpp ****     const float derating_range = temp_limit_upper_ - temp_limit_lower_;
+ 689              		.loc 2 62 34
+ 690 0062 7B68     		ldr	r3, [r7, #4]
+ 691 0064 9B6A     		ldr	r3, [r3, #40]
+ 692 0066 93ED007A 		vldr.32	s14, [r3]
+ 693              		.loc 2 62 54
+ 694 006a 7B68     		ldr	r3, [r7, #4]
+ 695 006c 5B6A     		ldr	r3, [r3, #36]
+ 696 006e D3ED007A 		vldr.32	s15, [r3]
+ 697              		.loc 2 62 17
+ 698 0072 77EE677A 		vsub.f32	s15, s14, s15
+ 699 0076 C7ED067A 		vstr.32	s15, [r7, #24]
   63:Src/thermistor.cpp ****     float thermal_current_lim = base_current_lim * (temp_margin / derating_range);
-  87              		.loc 1 63 5 view .LVU21
-  88              		.loc 1 63 65 is_stmt 0 view .LVU22
-  89 0034 87EEA67A 		vdiv.f32	s14, s15, s13
-  90              	.LVL4:
-  91              		.loc 1 63 50 view .LVU23
-  92 0038 67EE007A 		vmul.f32	s15, s14, s0
-  93              	.LVL5:
+ 700              		.loc 2 63 65
+ 701 007a D7ED076A 		vldr.32	s13, [r7, #28]
+ 702 007e D7ED067A 		vldr.32	s15, [r7, #24]
+ 703 0082 86EEA77A 		vdiv.f32	s14, s13, s15
+ 704              		.loc 2 63 50
+ 705 0086 D7ED007A 		vldr.32	s15, [r7]
+ 706 008a 67EE277A 		vmul.f32	s15, s14, s15
+ 707              		.loc 2 63 11
+ 708 008e C7ED037A 		vstr.32	s15, [r7, #12]
   64:Src/thermistor.cpp ****     if (!(thermal_current_lim >= 0.0f)) { // Funny polarity to also catch NaN
-  94              		.loc 1 64 5 is_stmt 1 view .LVU24
-  95 003c F5EEC07A 		vcmpe.f32	s15, #0
-ARM GAS  /tmp/ccNuAypp.s 			page 8
-
-
-  96 0040 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 709              		.loc 2 64 31
+ 710 0092 D7ED037A 		vldr.32	s15, [r7, #12]
+ 711 0096 F5EEC07A 		vcmpe.f32	s15, #0
+ 712 009a F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 713 009e ACBF     		ite	ge
+ 714 00a0 0123     		movge	r3, #1
+ 715 00a2 0023     		movlt	r3, #0
+ 716 00a4 DBB2     		uxtb	r3, r3
+ 717              		.loc 2 64 9
+ 718 00a6 83F00103 		eor	r3, r3, #1
+ 719 00aa DBB2     		uxtb	r3, r3
+ 720              		.loc 2 64 5
+ 721 00ac 002B     		cmp	r3, #0
+ 722 00ae 02D0     		beq	.L32
   65:Src/thermistor.cpp ****         thermal_current_lim = 0.0f;
-  97              		.loc 1 65 29 is_stmt 0 view .LVU25
-  98 0044 B8BF     		it	lt
-  99 0046 DFED057A 		vldrlt.32	s15, .L9
- 100              	.LVL6:
+ 723              		.loc 2 65 29
+ 724 00b0 4FF00003 		mov	r3, #0
+ 725 00b4 FB60     		str	r3, [r7, #12]	@ float
+ 726              	.L32:
   66:Src/thermistor.cpp ****     }
   67:Src/thermistor.cpp **** 
   68:Src/thermistor.cpp ****     return std::min(thermal_current_lim, base_current_lim);
- 101              		.loc 1 68 5 is_stmt 1 view .LVU26
- 102              	.LBB58:
- 103              	.LBI58:
- 230:/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_algobase.h ****     {
- 104              		.loc 2 230 5 view .LVU27
- 105              	.LBB59:
- 106              		.loc 2 237 14 is_stmt 0 view .LVU28
- 107 004a F4EEC07A 		vcmpe.f32	s15, s0
- 108 004e F1EE10FA 		vmrs	APSR_nzcv, FPSCR
- 109 0052 D8BF     		it	le
- 110 0054 B0EE670A 		vmovle.f32	s0, s15
- 111              	.LVL7:
- 112              	.L2:
- 113              		.loc 2 237 14 view .LVU29
- 114              	.LBE59:
- 115              	.LBE58:
+ 727              		.loc 2 68 58
+ 728 00b6 3A46     		mov	r2, r7
+ 729 00b8 07F10C03 		add	r3, r7, #12
+ 730 00bc 1146     		mov	r1, r2
+ 731 00be 1846     		mov	r0, r3
+ 732 00c0 FFF7FEFF 		bl	_ZSt3minIfERKT_S2_S2_
+ 733 00c4 0346     		mov	r3, r0
+ 734 00c6 1B68     		ldr	r3, [r3]	@ float
+ARM GAS  /tmp/ccCNpeZo.s 			page 19
+
+
+ 735              	.L33:
   69:Src/thermistor.cpp **** }
- 116              		.loc 1 69 1 view .LVU30
- 117 0058 7047     		bx	lr
- 118              	.L10:
- 119 005a 00BF     		.align	2
- 120              	.L9:
- 121 005c 00000000 		.word	0
- 122              		.cfi_endproc
- 123              	.LFE4822:
- 125              		.section	.text._ZN24ThermistorCurrentLimiterD2Ev,"axG",%progbits,_ZN24ThermistorCurrentLimiterD5Ev
- 126              		.align	1
- 127              		.p2align 2,,3
- 128              		.weak	_ZN24ThermistorCurrentLimiterD2Ev
- 129              		.syntax unified
- 130              		.thumb
- 131              		.thumb_func
- 132              		.fpu fpv4-sp-d16
- 134              	_ZN24ThermistorCurrentLimiterD2Ev:
- 135              	.LVL8:
- 136              	.LFB4826:
- 137              		.file 3 "Inc/thermistor.hpp"
+ 736              		.loc 2 69 1 discriminator 1
+ 737 00c8 07EE903A 		vmov	s15, r3
+ 738 00cc B0EE670A 		vmov.f32	s0, s15
+ 739 00d0 2037     		adds	r7, r7, #32
+ 740              	.LCFI42:
+ 741              		.cfi_def_cfa_offset 8
+ 742 00d2 BD46     		mov	sp, r7
+ 743              	.LCFI43:
+ 744              		.cfi_def_cfa_register 13
+ 745              		@ sp needed
+ 746 00d4 80BD     		pop	{r7, pc}
+ 747              		.cfi_endproc
+ 748              	.LFE4821:
+ 750              		.section	.text._ZN24ThermistorCurrentLimiterD2Ev,"axG",%progbits,_ZN24ThermistorCurrentLimiterD5Ev
+ 751              		.align	1
+ 752              		.weak	_ZN24ThermistorCurrentLimiterD2Ev
+ 753              		.syntax unified
+ 754              		.thumb
+ 755              		.thumb_func
+ 756              		.fpu fpv4-sp-d16
+ 758              	_ZN24ThermistorCurrentLimiterD2Ev:
+ 759              	.LFB4825:
+ 760              		.file 4 "Inc/thermistor.hpp"
    1:Inc/thermistor.hpp **** #ifndef __THERMISTOR_HPP
    2:Inc/thermistor.hpp **** #define __THERMISTOR_HPP
    3:Inc/thermistor.hpp **** 
@@ -478,9 +1117,6 @@ ARM GAS  /tmp/ccNuAypp.s 			page 1
    9:Inc/thermistor.hpp **** #define THERMISTOR_CURRENT_LIMITER_MIN_TEMP -40.0f
   10:Inc/thermistor.hpp **** 
   11:Inc/thermistor.hpp **** #define THERMISTOR_CURRENT_LIMITER_MAX_CURRENT 3.0f
-ARM GAS  /tmp/ccNuAypp.s 			page 9
-
-
   12:Inc/thermistor.hpp **** 
   13:Inc/thermistor.hpp **** class Axis;
   14:Inc/thermistor.hpp **** 
@@ -488,42 +1124,388 @@ ARM GAS  /tmp/ccNuAypp.s 			page 1
   16:Inc/thermistor.hpp **** class ThermistorCurrentLimiter : public CurrentLimiter, public ODriveIntf::ThermistorCurrentLimiter
   17:Inc/thermistor.hpp **** public:
   18:Inc/thermistor.hpp ****     virtual ~ThermistorCurrentLimiter() = default;
- 138              		.loc 3 18 13 is_stmt 1 view -0
- 139              		.cfi_startproc
- 140              		@ args = 0, pretend = 0, frame = 0
- 141              		@ frame_needed = 0, uses_anonymous_args = 0
- 142              		@ link register save eliminated.
- 143              	.LBB60:
- 144              	.LBI60:
- 145              		.file 4 "Inc/current_limiter.hpp"
-   1:Inc/current_limiter.hpp **** #ifndef __CURRENT_LIMITER_HPP
-   2:Inc/current_limiter.hpp **** #define __CURRENT_LIMITER_HPP
-   3:Inc/current_limiter.hpp **** 
-   4:Inc/current_limiter.hpp **** 
-   5:Inc/current_limiter.hpp **** 
-   6:Inc/current_limiter.hpp **** class CurrentLimiter {
-   7:Inc/current_limiter.hpp **** public:
-   8:Inc/current_limiter.hpp ****     virtual ~CurrentLimiter() = default;
- 146              		.loc 4 8 13 view .LVU32
- 147              		.loc 4 8 13 is_stmt 0 view .LVU33
- 148              	.LBE60:
- 149              		.loc 3 18 13 view .LVU34
- 150 0000 7047     		bx	lr
- 151              		.cfi_endproc
- 152              	.LFE4826:
- 154              		.weak	_ZN24ThermistorCurrentLimiterD1Ev
- 155              		.thumb_set _ZN24ThermistorCurrentLimiterD1Ev,_ZN24ThermistorCurrentLimiterD2Ev
- 156 0002 00BF     		.section	.text._ZN32OffboardThermistorCurrentLimiterD2Ev,"axG",%progbits,_ZN32OffboardThermistorCu
- 157              		.align	1
- 158              		.p2align 2,,3
- 159              		.weak	_ZN32OffboardThermistorCurrentLimiterD2Ev
- 160              		.syntax unified
- 161              		.thumb
- 162              		.thumb_func
- 163              		.fpu fpv4-sp-d16
- 165              	_ZN32OffboardThermistorCurrentLimiterD2Ev:
- 166              	.LVL9:
- 167              	.LFB4985:
+ 761              		.loc 4 18 13
+ 762              		.cfi_startproc
+ 763              		@ args = 0, pretend = 0, frame = 8
+ 764              		@ frame_needed = 1, uses_anonymous_args = 0
+ 765 0000 80B5     		push	{r7, lr}
+ 766              	.LCFI44:
+ 767              		.cfi_def_cfa_offset 8
+ 768              		.cfi_offset 7, -8
+ 769              		.cfi_offset 14, -4
+ 770 0002 82B0     		sub	sp, sp, #8
+ 771              	.LCFI45:
+ 772              		.cfi_def_cfa_offset 16
+ 773 0004 00AF     		add	r7, sp, #0
+ 774              	.LCFI46:
+ARM GAS  /tmp/ccCNpeZo.s 			page 20
+
+
+ 775              		.cfi_def_cfa_register 7
+ 776 0006 7860     		str	r0, [r7, #4]
+ 777              	.LBB5:
+ 778              		.loc 4 18 13
+ 779 0008 054A     		ldr	r2, .L36
+ 780 000a 7B68     		ldr	r3, [r7, #4]
+ 781 000c 1A60     		str	r2, [r3]
+ 782 000e 7B68     		ldr	r3, [r7, #4]
+ 783 0010 1846     		mov	r0, r3
+ 784 0012 FFF7FEFF 		bl	_ZN14CurrentLimiterD2Ev
+ 785              	.LBE5:
+ 786 0016 7B68     		ldr	r3, [r7, #4]
+ 787 0018 1846     		mov	r0, r3
+ 788 001a 0837     		adds	r7, r7, #8
+ 789              	.LCFI47:
+ 790              		.cfi_def_cfa_offset 8
+ 791 001c BD46     		mov	sp, r7
+ 792              	.LCFI48:
+ 793              		.cfi_def_cfa_register 13
+ 794              		@ sp needed
+ 795 001e 80BD     		pop	{r7, pc}
+ 796              	.L37:
+ 797              		.align	2
+ 798              	.L36:
+ 799 0020 08000000 		.word	_ZTV24ThermistorCurrentLimiter+8
+ 800              		.cfi_endproc
+ 801              	.LFE4825:
+ 803              		.weak	_ZN24ThermistorCurrentLimiterD1Ev
+ 804              		.thumb_set _ZN24ThermistorCurrentLimiterD1Ev,_ZN24ThermistorCurrentLimiterD2Ev
+ 805              		.section	.text._ZN24ThermistorCurrentLimiterD0Ev,"axG",%progbits,_ZN24ThermistorCurrentLimiterD5Ev
+ 806              		.align	1
+ 807              		.weak	_ZN24ThermistorCurrentLimiterD0Ev
+ 808              		.syntax unified
+ 809              		.thumb
+ 810              		.thumb_func
+ 811              		.fpu fpv4-sp-d16
+ 813              	_ZN24ThermistorCurrentLimiterD0Ev:
+ 814              	.LFB4827:
+ 815              		.loc 4 18 13
+ 816              		.cfi_startproc
+ 817              		@ args = 0, pretend = 0, frame = 8
+ 818              		@ frame_needed = 1, uses_anonymous_args = 0
+ 819 0000 80B5     		push	{r7, lr}
+ 820              	.LCFI49:
+ 821              		.cfi_def_cfa_offset 8
+ 822              		.cfi_offset 7, -8
+ 823              		.cfi_offset 14, -4
+ 824 0002 82B0     		sub	sp, sp, #8
+ 825              	.LCFI50:
+ 826              		.cfi_def_cfa_offset 16
+ 827 0004 00AF     		add	r7, sp, #0
+ 828              	.LCFI51:
+ 829              		.cfi_def_cfa_register 7
+ 830 0006 7860     		str	r0, [r7, #4]
+ 831              		.loc 4 18 13
+ 832 0008 7868     		ldr	r0, [r7, #4]
+ 833 000a FFF7FEFF 		bl	_ZN24ThermistorCurrentLimiterD1Ev
+ARM GAS  /tmp/ccCNpeZo.s 			page 21
+
+
+ 834 000e 7868     		ldr	r0, [r7, #4]
+ 835 0010 FFF7FEFF 		bl	_ZdlPv
+ 836 0014 7B68     		ldr	r3, [r7, #4]
+ 837 0016 1846     		mov	r0, r3
+ 838 0018 0837     		adds	r7, r7, #8
+ 839              	.LCFI52:
+ 840              		.cfi_def_cfa_offset 8
+ 841 001a BD46     		mov	sp, r7
+ 842              	.LCFI53:
+ 843              		.cfi_def_cfa_register 13
+ 844              		@ sp needed
+ 845 001c 80BD     		pop	{r7, pc}
+ 846              		.cfi_endproc
+ 847              	.LFE4827:
+ 849              		.section	.text._ZN31OnboardThermistorCurrentLimiterC2ERK26ThermistorHardwareConfig_tRNS_8Config_tE
+ 850              		.align	1
+ 851              		.global	_ZN31OnboardThermistorCurrentLimiterC2ERK26ThermistorHardwareConfig_tRNS_8Config_tE
+ 852              		.syntax unified
+ 853              		.thumb
+ 854              		.thumb_func
+ 855              		.fpu fpv4-sp-d16
+ 857              	_ZN31OnboardThermistorCurrentLimiterC2ERK26ThermistorHardwareConfig_tRNS_8Config_tE:
+ 858              	.LFB4828:
+  70:Src/thermistor.cpp **** 
+  71:Src/thermistor.cpp **** OnboardThermistorCurrentLimiter::OnboardThermistorCurrentLimiter(const ThermistorHardwareConfig_t& 
+ 859              		.loc 2 71 1
+ 860              		.cfi_startproc
+ 861              		@ args = 0, pretend = 0, frame = 16
+ 862              		@ frame_needed = 1, uses_anonymous_args = 0
+ 863 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+ 864              	.LCFI54:
+ 865              		.cfi_def_cfa_offset 20
+ 866              		.cfi_offset 4, -20
+ 867              		.cfi_offset 5, -16
+ 868              		.cfi_offset 6, -12
+ 869              		.cfi_offset 7, -8
+ 870              		.cfi_offset 14, -4
+ 871 0002 89B0     		sub	sp, sp, #36
+ 872              	.LCFI55:
+ 873              		.cfi_def_cfa_offset 56
+ 874 0004 04AF     		add	r7, sp, #16
+ 875              	.LCFI56:
+ 876              		.cfi_def_cfa 7, 40
+ 877 0006 F860     		str	r0, [r7, #12]
+ 878 0008 B960     		str	r1, [r7, #8]
+ 879 000a 7A60     		str	r2, [r7, #4]
+ 880              	.LBB6:
+  72:Src/thermistor.cpp ****     ThermistorCurrentLimiter(hw_config.adc_ch,
+  73:Src/thermistor.cpp ****                              hw_config.coeffs,
+  74:Src/thermistor.cpp ****                              hw_config.aux_coefficients,
+  75:Src/thermistor.cpp ****                              hw_config.num_coeffs,
+  76:Src/thermistor.cpp ****                              config.temp_limit_lower,
+  77:Src/thermistor.cpp ****                              config.temp_limit_upper,
+  78:Src/thermistor.cpp ****                              config.enabled),
+  79:Src/thermistor.cpp ****     config_(config)
+ 881              		.loc 2 79 19
+ 882 000c FC68     		ldr	r4, [r7, #12]
+ARM GAS  /tmp/ccCNpeZo.s 			page 22
+
+
+  72:Src/thermistor.cpp ****     ThermistorCurrentLimiter(hw_config.adc_ch,
+ 883              		.loc 2 72 40
+ 884 000e BB68     		ldr	r3, [r7, #8]
+ 885 0010 DB68     		ldr	r3, [r3, #12]
+ 886              		.loc 2 79 19
+ 887 0012 9DB2     		uxth	r5, r3
+  73:Src/thermistor.cpp ****                              hw_config.aux_coefficients,
+ 888              		.loc 2 73 40
+ 889 0014 BB68     		ldr	r3, [r7, #8]
+ 890 0016 1E68     		ldr	r6, [r3]
+  74:Src/thermistor.cpp ****                              hw_config.num_coeffs,
+ 891              		.loc 2 74 40
+ 892 0018 BB68     		ldr	r3, [r7, #8]
+ 893 001a 5B68     		ldr	r3, [r3, #4]
+ 894 001c 3B60     		str	r3, [r7]
+  75:Src/thermistor.cpp ****                              config.temp_limit_lower,
+ 895              		.loc 2 75 40
+ 896 001e BB68     		ldr	r3, [r7, #8]
+ 897 0020 9B68     		ldr	r3, [r3, #8]
+  76:Src/thermistor.cpp ****                              config.temp_limit_upper,
+ 898              		.loc 2 76 37
+ 899 0022 7A68     		ldr	r2, [r7, #4]
+  77:Src/thermistor.cpp ****                              config.enabled),
+ 900              		.loc 2 77 37
+ 901 0024 7968     		ldr	r1, [r7, #4]
+ 902 0026 0431     		adds	r1, r1, #4
+  78:Src/thermistor.cpp ****     config_(config)
+ 903              		.loc 2 78 37
+ 904 0028 7868     		ldr	r0, [r7, #4]
+ 905 002a 0830     		adds	r0, r0, #8
+ 906              		.loc 2 79 19
+ 907 002c 0390     		str	r0, [sp, #12]
+ 908 002e 0291     		str	r1, [sp, #8]
+ 909 0030 0192     		str	r2, [sp, #4]
+ 910 0032 0093     		str	r3, [sp]
+ 911 0034 3B68     		ldr	r3, [r7]
+ 912 0036 3246     		mov	r2, r6
+ 913 0038 2946     		mov	r1, r5
+ 914 003a 2046     		mov	r0, r4
+ 915 003c FFF7FEFF 		bl	_ZN24ThermistorCurrentLimiterC2EtPKfS1_jRS0_S2_RKb
+ 916 0040 054A     		ldr	r2, .L42
+ 917 0042 FB68     		ldr	r3, [r7, #12]
+ 918 0044 1A60     		str	r2, [r3]
+ 919 0046 FB68     		ldr	r3, [r7, #12]
+ 920 0048 7A68     		ldr	r2, [r7, #4]
+ 921 004a 9A63     		str	r2, [r3, #56]
+ 922              	.LBE6:
+  80:Src/thermistor.cpp **** {
+  81:Src/thermistor.cpp **** }
+ 923              		.loc 2 81 1
+ 924 004c FB68     		ldr	r3, [r7, #12]
+ 925 004e 1846     		mov	r0, r3
+ 926 0050 1437     		adds	r7, r7, #20
+ 927              	.LCFI57:
+ 928              		.cfi_def_cfa_offset 20
+ 929 0052 BD46     		mov	sp, r7
+ 930              	.LCFI58:
+ARM GAS  /tmp/ccCNpeZo.s 			page 23
+
+
+ 931              		.cfi_def_cfa_register 13
+ 932              		@ sp needed
+ 933 0054 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 934              	.L43:
+ 935 0056 00BF     		.align	2
+ 936              	.L42:
+ 937 0058 08000000 		.word	_ZTV31OnboardThermistorCurrentLimiter+8
+ 938              		.cfi_endproc
+ 939              	.LFE4828:
+ 941              		.global	_ZN31OnboardThermistorCurrentLimiterC1ERK26ThermistorHardwareConfig_tRNS_8Config_tE
+ 942              		.thumb_set _ZN31OnboardThermistorCurrentLimiterC1ERK26ThermistorHardwareConfig_tRNS_8Config_tE,_ZN
+ 943              		.section	.text._ZN32OffboardThermistorCurrentLimiterC2ERNS_8Config_tE,"ax",%progbits
+ 944              		.align	1
+ 945              		.global	_ZN32OffboardThermistorCurrentLimiterC2ERNS_8Config_tE
+ 946              		.syntax unified
+ 947              		.thumb
+ 948              		.thumb_func
+ 949              		.fpu fpv4-sp-d16
+ 951              	_ZN32OffboardThermistorCurrentLimiterC2ERNS_8Config_tE:
+ 952              	.LFB4831:
+  82:Src/thermistor.cpp **** 
+  83:Src/thermistor.cpp **** OffboardThermistorCurrentLimiter::OffboardThermistorCurrentLimiter(Config_t& config) :
+ 953              		.loc 2 83 1
+ 954              		.cfi_startproc
+ 955              		@ args = 0, pretend = 0, frame = 8
+ 956              		@ frame_needed = 1, uses_anonymous_args = 0
+ 957 0000 B0B5     		push	{r4, r5, r7, lr}
+ 958              	.LCFI59:
+ 959              		.cfi_def_cfa_offset 16
+ 960              		.cfi_offset 4, -16
+ 961              		.cfi_offset 5, -12
+ 962              		.cfi_offset 7, -8
+ 963              		.cfi_offset 14, -4
+ 964 0002 86B0     		sub	sp, sp, #24
+ 965              	.LCFI60:
+ 966              		.cfi_def_cfa_offset 40
+ 967 0004 04AF     		add	r7, sp, #16
+ 968              	.LCFI61:
+ 969              		.cfi_def_cfa 7, 24
+ 970 0006 7860     		str	r0, [r7, #4]
+ 971 0008 3960     		str	r1, [r7]
+ 972              	.LBB7:
+  84:Src/thermistor.cpp ****     ThermistorCurrentLimiter(UINT16_MAX,
+  85:Src/thermistor.cpp ****                              &config.thermistor_poly_coeffs[0],
+  86:Src/thermistor.cpp ****                              &config.thermistor_poly_coeffs2[0],
+  87:Src/thermistor.cpp ****                              num_coeffs_,
+  88:Src/thermistor.cpp ****                              config.temp_limit_lower,
+  89:Src/thermistor.cpp ****                              config.temp_limit_upper,
+  90:Src/thermistor.cpp ****                              config.enabled),
+  91:Src/thermistor.cpp ****     config_(config)
+ 973              		.loc 2 91 19
+ 974 000a 7868     		ldr	r0, [r7, #4]
+  85:Src/thermistor.cpp ****                              &config.thermistor_poly_coeffs2[0],
+ 975              		.loc 2 85 30
+ 976 000c 3C68     		ldr	r4, [r7]
+  86:Src/thermistor.cpp ****                              num_coeffs_,
+ 977              		.loc 2 86 30
+ARM GAS  /tmp/ccCNpeZo.s 			page 24
+
+
+ 978 000e 3B68     		ldr	r3, [r7]
+ 979 0010 03F11005 		add	r5, r3, #16
+  88:Src/thermistor.cpp ****                              config.temp_limit_upper,
+ 980              		.loc 2 88 37
+ 981 0014 3B68     		ldr	r3, [r7]
+ 982 0016 2433     		adds	r3, r3, #36
+  89:Src/thermistor.cpp ****                              config.enabled),
+ 983              		.loc 2 89 37
+ 984 0018 3A68     		ldr	r2, [r7]
+ 985 001a 2832     		adds	r2, r2, #40
+  90:Src/thermistor.cpp ****     config_(config)
+ 986              		.loc 2 90 37
+ 987 001c 3968     		ldr	r1, [r7]
+ 988 001e 2C31     		adds	r1, r1, #44
+ 989              		.loc 2 91 19
+ 990 0020 0391     		str	r1, [sp, #12]
+ 991 0022 0292     		str	r2, [sp, #8]
+ 992 0024 0193     		str	r3, [sp, #4]
+ 993 0026 0423     		movs	r3, #4
+ 994 0028 0093     		str	r3, [sp]
+ 995 002a 2B46     		mov	r3, r5
+ 996 002c 2246     		mov	r2, r4
+ 997 002e 4FF6FF71 		movw	r1, #65535
+ 998 0032 FFF7FEFF 		bl	_ZN24ThermistorCurrentLimiterC2EtPKfS1_jRS0_S2_RKb
+ 999 0036 074A     		ldr	r2, .L46
+ 1000 0038 7B68     		ldr	r3, [r7, #4]
+ 1001 003a 1A60     		str	r2, [r3]
+ 1002 003c 7B68     		ldr	r3, [r7, #4]
+ 1003 003e 3A68     		ldr	r2, [r7]
+ 1004 0040 9A63     		str	r2, [r3, #56]
+  92:Src/thermistor.cpp **** {
+  93:Src/thermistor.cpp ****     decode_pin();
+ 1005              		.loc 2 93 15
+ 1006 0042 7868     		ldr	r0, [r7, #4]
+ 1007 0044 FFF7FEFF 		bl	_ZN32OffboardThermistorCurrentLimiter10decode_pinEv
+ 1008              	.LBE7:
+  94:Src/thermistor.cpp **** }
+ 1009              		.loc 2 94 1
+ 1010 0048 7B68     		ldr	r3, [r7, #4]
+ 1011 004a 1846     		mov	r0, r3
+ 1012 004c 0837     		adds	r7, r7, #8
+ 1013              	.LCFI62:
+ 1014              		.cfi_def_cfa_offset 16
+ 1015 004e BD46     		mov	sp, r7
+ 1016              	.LCFI63:
+ 1017              		.cfi_def_cfa_register 13
+ 1018              		@ sp needed
+ 1019 0050 B0BD     		pop	{r4, r5, r7, pc}
+ 1020              	.L47:
+ 1021 0052 00BF     		.align	2
+ 1022              	.L46:
+ 1023 0054 08000000 		.word	_ZTV32OffboardThermistorCurrentLimiter+8
+ 1024              		.cfi_endproc
+ 1025              	.LFE4831:
+ 1027              		.global	_ZN32OffboardThermistorCurrentLimiterC1ERNS_8Config_tE
+ 1028              		.thumb_set _ZN32OffboardThermistorCurrentLimiterC1ERNS_8Config_tE,_ZN32OffboardThermistorCurrentLi
+ 1029              		.section	.text._ZN32OffboardThermistorCurrentLimiter10decode_pinEv,"ax",%progbits
+ARM GAS  /tmp/ccCNpeZo.s 			page 25
+
+
+ 1030              		.align	1
+ 1031              		.global	_ZN32OffboardThermistorCurrentLimiter10decode_pinEv
+ 1032              		.syntax unified
+ 1033              		.thumb
+ 1034              		.thumb_func
+ 1035              		.fpu fpv4-sp-d16
+ 1037              	_ZN32OffboardThermistorCurrentLimiter10decode_pinEv:
+ 1038              	.LFB4833:
+  95:Src/thermistor.cpp **** 
+  96:Src/thermistor.cpp **** void OffboardThermistorCurrentLimiter::decode_pin() {
+ 1039              		.loc 2 96 53
+ 1040              		.cfi_startproc
+ 1041              		@ args = 0, pretend = 0, frame = 8
+ 1042              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1043              		@ link register save eliminated.
+ 1044 0000 80B4     		push	{r7}
+ 1045              	.LCFI64:
+ 1046              		.cfi_def_cfa_offset 4
+ 1047              		.cfi_offset 7, -4
+ 1048 0002 83B0     		sub	sp, sp, #12
+ 1049              	.LCFI65:
+ 1050              		.cfi_def_cfa_offset 16
+ 1051 0004 00AF     		add	r7, sp, #0
+ 1052              	.LCFI66:
+ 1053              		.cfi_def_cfa_register 7
+ 1054 0006 7860     		str	r0, [r7, #4]
+  97:Src/thermistor.cpp **** 
+  98:Src/thermistor.cpp **** }
+ 1055              		.loc 2 98 1
+ 1056 0008 00BF     		nop
+ 1057 000a 0C37     		adds	r7, r7, #12
+ 1058              	.LCFI67:
+ 1059              		.cfi_def_cfa_offset 4
+ 1060 000c BD46     		mov	sp, r7
+ 1061              	.LCFI68:
+ 1062              		.cfi_def_cfa_register 13
+ 1063              		@ sp needed
+ 1064 000e 5DF8047B 		ldr	r7, [sp], #4
+ 1065              	.LCFI69:
+ 1066              		.cfi_restore 7
+ 1067              		.cfi_def_cfa_offset 0
+ 1068 0012 7047     		bx	lr
+ 1069              		.cfi_endproc
+ 1070              	.LFE4833:
+ 1072              		.weak	_ZTV32OffboardThermistorCurrentLimiter
+ 1073              		.section	.rodata._ZTV32OffboardThermistorCurrentLimiter,"aG",%progbits,_ZTV32OffboardThermistorCur
+ 1074              		.align	2
+ 1077              	_ZTV32OffboardThermistorCurrentLimiter:
+ 1078 0000 00000000 		.word	0
+ 1079 0004 00000000 		.word	0
+ 1080 0008 00000000 		.word	_ZN32OffboardThermistorCurrentLimiterD1Ev
+ 1081 000c 00000000 		.word	_ZN32OffboardThermistorCurrentLimiterD0Ev
+ 1082 0010 00000000 		.word	_ZNK24ThermistorCurrentLimiter17get_current_limitEf
+ 1083              		.section	.text._ZN32OffboardThermistorCurrentLimiterD2Ev,"axG",%progbits,_ZN32OffboardThermistorCu
+ 1084              		.align	1
+ 1085              		.weak	_ZN32OffboardThermistorCurrentLimiterD2Ev
+ 1086              		.syntax unified
+ARM GAS  /tmp/ccCNpeZo.s 			page 26
+
+
+ 1087              		.thumb
+ 1088              		.thumb_func
+ 1089              		.fpu fpv4-sp-d16
+ 1091              	_ZN32OffboardThermistorCurrentLimiterD2Ev:
+ 1092              	.LFB4985:
   19:Inc/thermistor.hpp **** 
   20:Inc/thermistor.hpp ****     ThermistorCurrentLimiter(uint16_t adc_channel,
   21:Inc/thermistor.hpp ****                              const float* const coefficients,
@@ -538,9 +1520,6 @@ ARM GAS  /tmp/ccNuAypp.s 			page 1
   30:Inc/thermistor.hpp ****     float get_current_limit(float base_current_lim) const override;
   31:Inc/thermistor.hpp **** 
   32:Inc/thermistor.hpp ****     uint16_t adc_channel_;
-ARM GAS  /tmp/ccNuAypp.s 			page 10
-
-
   33:Inc/thermistor.hpp ****     const float* const coefficients_;
   34:Inc/thermistor.hpp ****     const float* const aux_coefficients_;
   35:Inc/thermistor.hpp ****     const size_t num_coeffs_;
@@ -579,6 +1558,9 @@ ARM GAS  /tmp/ccNuAypp.s 			page 1
   68:Inc/thermistor.hpp ****         uint16_t gpio_pin = 4;
   69:Inc/thermistor.hpp ****         float temp_limit_lower = 60;
   70:Inc/thermistor.hpp ****         float temp_limit_upper = 80;
+ARM GAS  /tmp/ccCNpeZo.s 			page 27
+
+
   71:Inc/thermistor.hpp ****         bool enabled = true;
   72:Inc/thermistor.hpp **** 
   73:Inc/thermistor.hpp ****         // custom setters
@@ -587,1028 +1569,367 @@ ARM GAS  /tmp/ccNuAypp.s 			page 1
   76:Inc/thermistor.hpp ****     };
   77:Inc/thermistor.hpp **** 
   78:Inc/thermistor.hpp ****     virtual ~OffboardThermistorCurrentLimiter() = default;
- 168              		.loc 3 78 13 is_stmt 1 view -0
- 169              		.cfi_startproc
- 170              		@ args = 0, pretend = 0, frame = 0
- 171              		@ frame_needed = 0, uses_anonymous_args = 0
- 172              		@ link register save eliminated.
- 173              	.LBB61:
- 174              	.LBI61:
-  18:Inc/thermistor.hpp **** 
- 175              		.loc 3 18 13 view .LVU36
- 176              	.LBB62:
- 177              	.LBI62:
-ARM GAS  /tmp/ccNuAypp.s 			page 11
+ 1093              		.loc 4 78 13
+ 1094              		.cfi_startproc
+ 1095              		@ args = 0, pretend = 0, frame = 8
+ 1096              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1097 0000 80B5     		push	{r7, lr}
+ 1098              	.LCFI70:
+ 1099              		.cfi_def_cfa_offset 8
+ 1100              		.cfi_offset 7, -8
+ 1101              		.cfi_offset 14, -4
+ 1102 0002 82B0     		sub	sp, sp, #8
+ 1103              	.LCFI71:
+ 1104              		.cfi_def_cfa_offset 16
+ 1105 0004 00AF     		add	r7, sp, #0
+ 1106              	.LCFI72:
+ 1107              		.cfi_def_cfa_register 7
+ 1108 0006 7860     		str	r0, [r7, #4]
+ 1109              	.LBB8:
+ 1110              		.loc 4 78 13
+ 1111 0008 054A     		ldr	r2, .L51
+ 1112 000a 7B68     		ldr	r3, [r7, #4]
+ 1113 000c 1A60     		str	r2, [r3]
+ 1114 000e 7B68     		ldr	r3, [r7, #4]
+ 1115 0010 1846     		mov	r0, r3
+ 1116 0012 FFF7FEFF 		bl	_ZN24ThermistorCurrentLimiterD2Ev
+ 1117              	.LBE8:
+ 1118 0016 7B68     		ldr	r3, [r7, #4]
+ 1119 0018 1846     		mov	r0, r3
+ 1120 001a 0837     		adds	r7, r7, #8
+ 1121              	.LCFI73:
+ 1122              		.cfi_def_cfa_offset 8
+ 1123 001c BD46     		mov	sp, r7
+ 1124              	.LCFI74:
+ 1125              		.cfi_def_cfa_register 13
+ 1126              		@ sp needed
+ 1127 001e 80BD     		pop	{r7, pc}
+ 1128              	.L52:
+ 1129              		.align	2
+ 1130              	.L51:
+ 1131 0020 08000000 		.word	_ZTV32OffboardThermistorCurrentLimiter+8
+ 1132              		.cfi_endproc
+ 1133              	.LFE4985:
+ 1135              		.weak	_ZN32OffboardThermistorCurrentLimiterD1Ev
+ 1136              		.thumb_set _ZN32OffboardThermistorCurrentLimiterD1Ev,_ZN32OffboardThermistorCurrentLimiterD2Ev
+ 1137              		.section	.text._ZN32OffboardThermistorCurrentLimiterD0Ev,"axG",%progbits,_ZN32OffboardThermistorCu
+ 1138              		.align	1
+ 1139              		.weak	_ZN32OffboardThermistorCurrentLimiterD0Ev
+ 1140              		.syntax unified
+ 1141              		.thumb
+ 1142              		.thumb_func
+ARM GAS  /tmp/ccCNpeZo.s 			page 28
 
 
- 178              		.loc 4 8 13 view .LVU37
- 179              		.loc 4 8 13 is_stmt 0 view .LVU38
- 180              	.LBE62:
- 181              	.LBE61:
- 182              		.loc 3 78 13 view .LVU39
- 183 0000 7047     		bx	lr
- 184              		.cfi_endproc
- 185              	.LFE4985:
- 187              		.weak	_ZN32OffboardThermistorCurrentLimiterD1Ev
- 188              		.thumb_set _ZN32OffboardThermistorCurrentLimiterD1Ev,_ZN32OffboardThermistorCurrentLimiterD2Ev
- 189 0002 00BF     		.section	.text._ZN31OnboardThermistorCurrentLimiterD2Ev,"axG",%progbits,_ZN31OnboardThermistorCurr
- 190              		.align	1
- 191              		.p2align 2,,3
- 192              		.weak	_ZN31OnboardThermistorCurrentLimiterD2Ev
- 193              		.syntax unified
- 194              		.thumb
- 195              		.thumb_func
- 196              		.fpu fpv4-sp-d16
- 198              	_ZN31OnboardThermistorCurrentLimiterD2Ev:
- 199              	.LVL10:
- 200              	.LFB4989:
+ 1143              		.fpu fpv4-sp-d16
+ 1145              	_ZN32OffboardThermistorCurrentLimiterD0Ev:
+ 1146              	.LFB4987:
+ 1147              		.loc 4 78 13
+ 1148              		.cfi_startproc
+ 1149              		@ args = 0, pretend = 0, frame = 8
+ 1150              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1151 0000 80B5     		push	{r7, lr}
+ 1152              	.LCFI75:
+ 1153              		.cfi_def_cfa_offset 8
+ 1154              		.cfi_offset 7, -8
+ 1155              		.cfi_offset 14, -4
+ 1156 0002 82B0     		sub	sp, sp, #8
+ 1157              	.LCFI76:
+ 1158              		.cfi_def_cfa_offset 16
+ 1159 0004 00AF     		add	r7, sp, #0
+ 1160              	.LCFI77:
+ 1161              		.cfi_def_cfa_register 7
+ 1162 0006 7860     		str	r0, [r7, #4]
+ 1163              		.loc 4 78 13
+ 1164 0008 7868     		ldr	r0, [r7, #4]
+ 1165 000a FFF7FEFF 		bl	_ZN32OffboardThermistorCurrentLimiterD1Ev
+ 1166 000e 7868     		ldr	r0, [r7, #4]
+ 1167 0010 FFF7FEFF 		bl	_ZdlPv
+ 1168 0014 7B68     		ldr	r3, [r7, #4]
+ 1169 0016 1846     		mov	r0, r3
+ 1170 0018 0837     		adds	r7, r7, #8
+ 1171              	.LCFI78:
+ 1172              		.cfi_def_cfa_offset 8
+ 1173 001a BD46     		mov	sp, r7
+ 1174              	.LCFI79:
+ 1175              		.cfi_def_cfa_register 13
+ 1176              		@ sp needed
+ 1177 001c 80BD     		pop	{r7, pc}
+ 1178              		.cfi_endproc
+ 1179              	.LFE4987:
+ 1181              		.weak	_ZTV31OnboardThermistorCurrentLimiter
+ 1182              		.section	.rodata._ZTV31OnboardThermistorCurrentLimiter,"aG",%progbits,_ZTV31OnboardThermistorCurre
+ 1183              		.align	2
+ 1186              	_ZTV31OnboardThermistorCurrentLimiter:
+ 1187 0000 00000000 		.word	0
+ 1188 0004 00000000 		.word	0
+ 1189 0008 00000000 		.word	_ZN31OnboardThermistorCurrentLimiterD1Ev
+ 1190 000c 00000000 		.word	_ZN31OnboardThermistorCurrentLimiterD0Ev
+ 1191 0010 00000000 		.word	_ZNK24ThermistorCurrentLimiter17get_current_limitEf
+ 1192              		.section	.text._ZN31OnboardThermistorCurrentLimiterD2Ev,"axG",%progbits,_ZN31OnboardThermistorCurr
+ 1193              		.align	1
+ 1194              		.weak	_ZN31OnboardThermistorCurrentLimiterD2Ev
+ 1195              		.syntax unified
+ 1196              		.thumb
+ 1197              		.thumb_func
+ 1198              		.fpu fpv4-sp-d16
+ 1200              	_ZN31OnboardThermistorCurrentLimiterD2Ev:
+ 1201              	.LFB4989:
   55:Inc/thermistor.hpp ****     OnboardThermistorCurrentLimiter(const ThermistorHardwareConfig_t& hw_config, Config_t& config);
- 201              		.loc 3 55 13 is_stmt 1 view -0
- 202              		.cfi_startproc
- 203              		@ args = 0, pretend = 0, frame = 0
- 204              		@ frame_needed = 0, uses_anonymous_args = 0
- 205              		@ link register save eliminated.
- 206              	.LBB63:
- 207              	.LBI63:
-  18:Inc/thermistor.hpp **** 
- 208              		.loc 3 18 13 view .LVU41
- 209              	.LBB64:
- 210              	.LBI64:
- 211              		.loc 4 8 13 view .LVU42
- 212              		.loc 4 8 13 is_stmt 0 view .LVU43
- 213              	.LBE64:
- 214              	.LBE63:
+ 1202              		.loc 4 55 13
+ 1203              		.cfi_startproc
+ARM GAS  /tmp/ccCNpeZo.s 			page 29
+
+
+ 1204              		@ args = 0, pretend = 0, frame = 8
+ 1205              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1206 0000 80B5     		push	{r7, lr}
+ 1207              	.LCFI80:
+ 1208              		.cfi_def_cfa_offset 8
+ 1209              		.cfi_offset 7, -8
+ 1210              		.cfi_offset 14, -4
+ 1211 0002 82B0     		sub	sp, sp, #8
+ 1212              	.LCFI81:
+ 1213              		.cfi_def_cfa_offset 16
+ 1214 0004 00AF     		add	r7, sp, #0
+ 1215              	.LCFI82:
+ 1216              		.cfi_def_cfa_register 7
+ 1217 0006 7860     		str	r0, [r7, #4]
+ 1218              	.LBB9:
   55:Inc/thermistor.hpp ****     OnboardThermistorCurrentLimiter(const ThermistorHardwareConfig_t& hw_config, Config_t& config);
- 215              		.loc 3 55 13 view .LVU44
- 216 0000 7047     		bx	lr
- 217              		.cfi_endproc
- 218              	.LFE4989:
- 220              		.weak	_ZN31OnboardThermistorCurrentLimiterD1Ev
- 221              		.thumb_set _ZN31OnboardThermistorCurrentLimiterD1Ev,_ZN31OnboardThermistorCurrentLimiterD2Ev
- 222 0002 00BF     		.section	.text._ZN24ThermistorCurrentLimiterD0Ev,"axG",%progbits,_ZN24ThermistorCurrentLimiterD5Ev
- 223              		.align	1
- 224              		.p2align 2,,3
- 225              		.weak	_ZN24ThermistorCurrentLimiterD0Ev
- 226              		.syntax unified
- 227              		.thumb
- 228              		.thumb_func
- 229              		.fpu fpv4-sp-d16
- 231              	_ZN24ThermistorCurrentLimiterD0Ev:
- 232              	.LVL11:
- 233              	.LFB4828:
-  18:Inc/thermistor.hpp **** 
- 234              		.loc 3 18 13 is_stmt 1 view -0
-ARM GAS  /tmp/ccNuAypp.s 			page 12
-
-
- 235              		.cfi_startproc
- 236              		@ args = 0, pretend = 0, frame = 0
- 237              		@ frame_needed = 0, uses_anonymous_args = 0
-  18:Inc/thermistor.hpp **** 
- 238              		.loc 3 18 13 is_stmt 0 view .LVU46
- 239 0000 10B5     		push	{r4, lr}
- 240              	.LCFI0:
- 241              		.cfi_def_cfa_offset 8
- 242              		.cfi_offset 4, -8
- 243              		.cfi_offset 14, -4
-  18:Inc/thermistor.hpp **** 
- 244              		.loc 3 18 13 view .LVU47
- 245 0002 0446     		mov	r4, r0
- 246              	.LVL12:
- 247              	.LBB65:
- 248              	.LBI65:
-  18:Inc/thermistor.hpp **** 
- 249              		.loc 3 18 13 is_stmt 1 view .LVU48
- 250              	.LBB66:
- 251              	.LBI66:
- 252              		.loc 4 8 13 view .LVU49
- 253              		.loc 4 8 13 is_stmt 0 view .LVU50
- 254              	.LBE66:
- 255              	.LBE65:
-  18:Inc/thermistor.hpp **** 
- 256              		.loc 3 18 13 view .LVU51
- 257 0004 FFF7FEFF 		bl	_ZdlPv
- 258              	.LVL13:
-  18:Inc/thermistor.hpp **** 
- 259              		.loc 3 18 13 view .LVU52
- 260 0008 2046     		mov	r0, r4
- 261 000a 10BD     		pop	{r4, pc}
-  18:Inc/thermistor.hpp **** 
- 262              		.loc 3 18 13 view .LVU53
- 263              		.cfi_endproc
- 264              	.LFE4828:
- 266              		.section	.text._ZN31OnboardThermistorCurrentLimiterD0Ev,"axG",%progbits,_ZN31OnboardThermistorCurr
- 267              		.align	1
- 268              		.p2align 2,,3
- 269              		.weak	_ZN31OnboardThermistorCurrentLimiterD0Ev
- 270              		.syntax unified
- 271              		.thumb
- 272              		.thumb_func
- 273              		.fpu fpv4-sp-d16
- 275              	_ZN31OnboardThermistorCurrentLimiterD0Ev:
- 276              	.LVL14:
- 277              	.LFB4991:
+ 1219              		.loc 4 55 13
+ 1220 0008 054A     		ldr	r2, .L57
+ 1221 000a 7B68     		ldr	r3, [r7, #4]
+ 1222 000c 1A60     		str	r2, [r3]
+ 1223 000e 7B68     		ldr	r3, [r7, #4]
+ 1224 0010 1846     		mov	r0, r3
+ 1225 0012 FFF7FEFF 		bl	_ZN24ThermistorCurrentLimiterD2Ev
+ 1226              	.LBE9:
+ 1227 0016 7B68     		ldr	r3, [r7, #4]
+ 1228 0018 1846     		mov	r0, r3
+ 1229 001a 0837     		adds	r7, r7, #8
+ 1230              	.LCFI83:
+ 1231              		.cfi_def_cfa_offset 8
+ 1232 001c BD46     		mov	sp, r7
+ 1233              	.LCFI84:
+ 1234              		.cfi_def_cfa_register 13
+ 1235              		@ sp needed
+ 1236 001e 80BD     		pop	{r7, pc}
+ 1237              	.L58:
+ 1238              		.align	2
+ 1239              	.L57:
+ 1240 0020 08000000 		.word	_ZTV31OnboardThermistorCurrentLimiter+8
+ 1241              		.cfi_endproc
+ 1242              	.LFE4989:
+ 1244              		.weak	_ZN31OnboardThermistorCurrentLimiterD1Ev
+ 1245              		.thumb_set _ZN31OnboardThermistorCurrentLimiterD1Ev,_ZN31OnboardThermistorCurrentLimiterD2Ev
+ 1246              		.section	.text._ZN31OnboardThermistorCurrentLimiterD0Ev,"axG",%progbits,_ZN31OnboardThermistorCurr
+ 1247              		.align	1
+ 1248              		.weak	_ZN31OnboardThermistorCurrentLimiterD0Ev
+ 1249              		.syntax unified
+ 1250              		.thumb
+ 1251              		.thumb_func
+ 1252              		.fpu fpv4-sp-d16
+ 1254              	_ZN31OnboardThermistorCurrentLimiterD0Ev:
+ 1255              	.LFB4991:
   55:Inc/thermistor.hpp ****     OnboardThermistorCurrentLimiter(const ThermistorHardwareConfig_t& hw_config, Config_t& config);
- 278              		.loc 3 55 13 is_stmt 1 view -0
- 279              		.cfi_startproc
- 280              		@ args = 0, pretend = 0, frame = 0
- 281              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1256              		.loc 4 55 13
+ 1257              		.cfi_startproc
+ 1258              		@ args = 0, pretend = 0, frame = 8
+ 1259              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1260 0000 80B5     		push	{r7, lr}
+ARM GAS  /tmp/ccCNpeZo.s 			page 30
+
+
+ 1261              	.LCFI85:
+ 1262              		.cfi_def_cfa_offset 8
+ 1263              		.cfi_offset 7, -8
+ 1264              		.cfi_offset 14, -4
+ 1265 0002 82B0     		sub	sp, sp, #8
+ 1266              	.LCFI86:
+ 1267              		.cfi_def_cfa_offset 16
+ 1268 0004 00AF     		add	r7, sp, #0
+ 1269              	.LCFI87:
+ 1270              		.cfi_def_cfa_register 7
+ 1271 0006 7860     		str	r0, [r7, #4]
   55:Inc/thermistor.hpp ****     OnboardThermistorCurrentLimiter(const ThermistorHardwareConfig_t& hw_config, Config_t& config);
- 282              		.loc 3 55 13 is_stmt 0 view .LVU55
- 283 0000 10B5     		push	{r4, lr}
- 284              	.LCFI1:
- 285              		.cfi_def_cfa_offset 8
-ARM GAS  /tmp/ccNuAypp.s 			page 13
+ 1272              		.loc 4 55 13
+ 1273 0008 7868     		ldr	r0, [r7, #4]
+ 1274 000a FFF7FEFF 		bl	_ZN31OnboardThermistorCurrentLimiterD1Ev
+ 1275 000e 7868     		ldr	r0, [r7, #4]
+ 1276 0010 FFF7FEFF 		bl	_ZdlPv
+ 1277 0014 7B68     		ldr	r3, [r7, #4]
+ 1278 0016 1846     		mov	r0, r3
+ 1279 0018 0837     		adds	r7, r7, #8
+ 1280              	.LCFI88:
+ 1281              		.cfi_def_cfa_offset 8
+ 1282 001a BD46     		mov	sp, r7
+ 1283              	.LCFI89:
+ 1284              		.cfi_def_cfa_register 13
+ 1285              		@ sp needed
+ 1286 001c 80BD     		pop	{r7, pc}
+ 1287              		.cfi_endproc
+ 1288              	.LFE4991:
+ 1290              		.global	_ZTV24ThermistorCurrentLimiter
+ 1291              		.section	.rodata._ZTV24ThermistorCurrentLimiter,"a"
+ 1292              		.align	2
+ 1295              	_ZTV24ThermistorCurrentLimiter:
+ 1296 0000 00000000 		.word	0
+ 1297 0004 00000000 		.word	0
+ 1298 0008 00000000 		.word	_ZN24ThermistorCurrentLimiterD1Ev
+ 1299 000c 00000000 		.word	_ZN24ThermistorCurrentLimiterD0Ev
+ 1300 0010 00000000 		.word	_ZNK24ThermistorCurrentLimiter17get_current_limitEf
+ 1301              		.weak	_ZTV14CurrentLimiter
+ 1302              		.section	.rodata._ZTV14CurrentLimiter,"aG",%progbits,_ZTV14CurrentLimiter,comdat
+ 1303              		.align	2
+ 1306              	_ZTV14CurrentLimiter:
+ 1307 0000 00000000 		.word	0
+ 1308 0004 00000000 		.word	0
+ 1309 0008 00000000 		.word	0
+ 1310 000c 00000000 		.word	0
+ 1311 0010 00000000 		.word	__cxa_pure_virtual
+ 1312              		.text
+ 1313              	.Letext0:
+ 1314              		.file 5 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
+ 1315              		.file 6 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
+ 1316              		.file 7 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h"
+ 1317              		.file 8 "Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g431xx.h"
+ 1318              		.file 9 "Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g4xx.h"
+ 1319              		.file 10 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stdde
+ 1320              		.file 11 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_def.h"
+ 1321              		.file 12 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_dma.h"
+ARM GAS  /tmp/ccCNpeZo.s 			page 31
 
 
- 286              		.cfi_offset 4, -8
- 287              		.cfi_offset 14, -4
-  55:Inc/thermistor.hpp ****     OnboardThermistorCurrentLimiter(const ThermistorHardwareConfig_t& hw_config, Config_t& config);
- 288              		.loc 3 55 13 view .LVU56
- 289 0002 0446     		mov	r4, r0
- 290              	.LVL15:
- 291              	.LBB67:
- 292              	.LBI67:
-  55:Inc/thermistor.hpp ****     OnboardThermistorCurrentLimiter(const ThermistorHardwareConfig_t& hw_config, Config_t& config);
- 293              		.loc 3 55 13 is_stmt 1 view .LVU57
- 294              	.LBB68:
- 295              	.LBI68:
-  18:Inc/thermistor.hpp **** 
- 296              		.loc 3 18 13 view .LVU58
- 297              	.LBB69:
- 298              	.LBI69:
- 299              		.loc 4 8 13 view .LVU59
- 300              		.loc 4 8 13 is_stmt 0 view .LVU60
- 301              	.LBE69:
- 302              	.LBE68:
- 303              	.LBE67:
-  55:Inc/thermistor.hpp ****     OnboardThermistorCurrentLimiter(const ThermistorHardwareConfig_t& hw_config, Config_t& config);
- 304              		.loc 3 55 13 view .LVU61
- 305 0004 FFF7FEFF 		bl	_ZdlPv
- 306              	.LVL16:
-  55:Inc/thermistor.hpp ****     OnboardThermistorCurrentLimiter(const ThermistorHardwareConfig_t& hw_config, Config_t& config);
- 307              		.loc 3 55 13 view .LVU62
- 308 0008 2046     		mov	r0, r4
- 309 000a 10BD     		pop	{r4, pc}
-  55:Inc/thermistor.hpp ****     OnboardThermistorCurrentLimiter(const ThermistorHardwareConfig_t& hw_config, Config_t& config);
- 310              		.loc 3 55 13 view .LVU63
- 311              		.cfi_endproc
- 312              	.LFE4991:
- 314              		.section	.text._ZN32OffboardThermistorCurrentLimiterD0Ev,"axG",%progbits,_ZN32OffboardThermistorCu
- 315              		.align	1
- 316              		.p2align 2,,3
- 317              		.weak	_ZN32OffboardThermistorCurrentLimiterD0Ev
- 318              		.syntax unified
- 319              		.thumb
- 320              		.thumb_func
- 321              		.fpu fpv4-sp-d16
- 323              	_ZN32OffboardThermistorCurrentLimiterD0Ev:
- 324              	.LVL17:
- 325              	.LFB4987:
- 326              		.loc 3 78 13 is_stmt 1 view -0
- 327              		.cfi_startproc
- 328              		@ args = 0, pretend = 0, frame = 0
- 329              		@ frame_needed = 0, uses_anonymous_args = 0
- 330              		.loc 3 78 13 is_stmt 0 view .LVU65
- 331 0000 10B5     		push	{r4, lr}
- 332              	.LCFI2:
- 333              		.cfi_def_cfa_offset 8
- 334              		.cfi_offset 4, -8
- 335              		.cfi_offset 14, -4
- 336              		.loc 3 78 13 view .LVU66
- 337 0002 0446     		mov	r4, r0
- 338              	.LVL18:
-ARM GAS  /tmp/ccNuAypp.s 			page 14
-
-
- 339              	.LBB70:
- 340              	.LBI70:
- 341              		.loc 3 78 13 is_stmt 1 view .LVU67
- 342              	.LBB71:
- 343              	.LBI71:
-  18:Inc/thermistor.hpp **** 
- 344              		.loc 3 18 13 view .LVU68
- 345              	.LBB72:
- 346              	.LBI72:
- 347              		.loc 4 8 13 view .LVU69
- 348              		.loc 4 8 13 is_stmt 0 view .LVU70
- 349              	.LBE72:
- 350              	.LBE71:
- 351              	.LBE70:
- 352              		.loc 3 78 13 view .LVU71
- 353 0004 FFF7FEFF 		bl	_ZdlPv
- 354              	.LVL19:
- 355              		.loc 3 78 13 view .LVU72
- 356 0008 2046     		mov	r0, r4
- 357 000a 10BD     		pop	{r4, pc}
- 358              		.loc 3 78 13 view .LVU73
- 359              		.cfi_endproc
- 360              	.LFE4987:
- 362              		.section	.text._ZN24ThermistorCurrentLimiterC2EtPKfS1_jRS0_S2_RKb,"ax",%progbits
- 363              		.align	1
- 364              		.p2align 2,,3
- 365              		.global	_ZN24ThermistorCurrentLimiterC2EtPKfS1_jRS0_S2_RKb
- 366              		.syntax unified
- 367              		.thumb
- 368              		.thumb_func
- 369              		.fpu fpv4-sp-d16
- 371              	_ZN24ThermistorCurrentLimiterC2EtPKfS1_jRS0_S2_RKb:
- 372              	.LVL20:
- 373              	.LFB4818:
-   8:Src/thermistor.cpp ****                                                    const float* const coefficients,
- 374              		.loc 1 8 1 is_stmt 1 view -0
- 375              		.cfi_startproc
- 376              		@ args = 16, pretend = 0, frame = 0
- 377              		@ frame_needed = 0, uses_anonymous_args = 0
- 378              		@ link register save eliminated.
- 379              	.LBB73:
- 380              	.LBB74:
- 381              	.LBI74:
-   6:Inc/current_limiter.hpp **** public:
- 382              		.loc 4 6 7 view .LVU75
-   6:Inc/current_limiter.hpp **** public:
- 383              		.loc 4 6 7 is_stmt 0 view .LVU76
- 384              	.LBE74:
-  23:Src/thermistor.cpp **** {
- 385              		.loc 1 23 22 view .LVU77
- 386 0000 C0E90223 		strd	r2, r3, [r0, #8]
- 387 0004 0023     		movs	r3, #0
- 388              	.LVL21:
-  23:Src/thermistor.cpp **** {
- 389              		.loc 1 23 22 view .LVU78
- 390 0006 80F83030 		strb	r3, [r0, #48]
- 391 000a 4363     		str	r3, [r0, #52]
-ARM GAS  /tmp/ccNuAypp.s 			page 15
-
-
- 392              	.LBE73:
-   8:Src/thermistor.cpp ****                                                    const float* const coefficients,
- 393              		.loc 1 8 1 view .LVU79
- 394 000c 009B     		ldr	r3, [sp]
- 395              	.LBB75:
-  23:Src/thermistor.cpp **** {
- 396              		.loc 1 23 22 view .LVU80
- 397 000e 0361     		str	r3, [r0, #16]
- 398              	.LBE75:
-   8:Src/thermistor.cpp ****                                                    const float* const coefficients,
- 399              		.loc 1 8 1 view .LVU81
- 400 0010 019B     		ldr	r3, [sp, #4]
- 401              	.LBB76:
-  23:Src/thermistor.cpp **** {
- 402              		.loc 1 23 22 view .LVU82
- 403 0012 4362     		str	r3, [r0, #36]
- 404              	.LBE76:
-   8:Src/thermistor.cpp ****                                                    const float* const coefficients,
- 405              		.loc 1 8 1 view .LVU83
- 406 0014 DDE90223 		ldrd	r2, r3, [sp, #8]
- 407              	.LVL22:
- 408              	.LBB77:
-  23:Src/thermistor.cpp **** {
- 409              		.loc 1 23 22 view .LVU84
- 410 0018 8180     		strh	r1, [r0, #4]	@ movhi
- 411 001a 0349     		ldr	r1, .L21
- 412              	.LVL23:
-  23:Src/thermistor.cpp **** {
- 413              		.loc 1 23 22 view .LVU85
- 414 001c 4161     		str	r1, [r0, #20]	@ float
- 415 001e 0349     		ldr	r1, .L21+4
- 416 0020 0160     		str	r1, [r0]
- 417 0022 C0E90A23 		strd	r2, r3, [r0, #40]
- 418              	.LBE77:
-  25:Src/thermistor.cpp **** 
- 419              		.loc 1 25 1 view .LVU86
- 420 0026 7047     		bx	lr
- 421              	.L22:
- 422              		.align	2
- 423              	.L21:
- 424 0028 0000C07F 		.word	2143289344
- 425 002c 08000000 		.word	.LANCHOR0+8
- 426              		.cfi_endproc
- 427              	.LFE4818:
- 429              		.global	_ZN24ThermistorCurrentLimiterC1EtPKfS1_jRS0_S2_RKb
- 430              		.thumb_set _ZN24ThermistorCurrentLimiterC1EtPKfS1_jRS0_S2_RKb,_ZN24ThermistorCurrentLimiterC2EtPKf
- 431              		.section	.text._ZN24ThermistorCurrentLimiter6updateEv,"ax",%progbits
- 432              		.align	1
- 433              		.p2align 2,,3
- 434              		.global	_ZN24ThermistorCurrentLimiter6updateEv
- 435              		.syntax unified
- 436              		.thumb
- 437              		.thumb_func
- 438              		.fpu fpv4-sp-d16
- 440              	_ZN24ThermistorCurrentLimiter6updateEv:
- 441              	.LVL24:
- 442              	.LFB4820:
-ARM GAS  /tmp/ccNuAypp.s 			page 16
-
-
-  27:Src/thermistor.cpp ****     float voltage = get_adc_voltage_channel(14);
- 443              		.loc 1 27 41 is_stmt 1 view -0
- 444              		.cfi_startproc
- 445              		@ args = 0, pretend = 0, frame = 0
- 446              		@ frame_needed = 0, uses_anonymous_args = 0
-  28:Src/thermistor.cpp ****     float normalized_voltage = voltage / adc_ref_voltage;
- 447              		.loc 1 28 5 view .LVU88
-  27:Src/thermistor.cpp ****     float voltage = get_adc_voltage_channel(14);
- 448              		.loc 1 27 41 is_stmt 0 view .LVU89
- 449 0000 10B5     		push	{r4, lr}
- 450              	.LCFI3:
- 451              		.cfi_def_cfa_offset 8
- 452              		.cfi_offset 4, -8
- 453              		.cfi_offset 14, -4
- 454 0002 0446     		mov	r4, r0
- 455 0004 2DED028B 		vpush.64	{d8}
- 456              	.LCFI4:
- 457              		.cfi_def_cfa_offset 16
- 458              		.cfi_offset 80, -16
- 459              		.cfi_offset 81, -12
-  28:Src/thermistor.cpp ****     float normalized_voltage = voltage / adc_ref_voltage;
- 460              		.loc 1 28 44 view .LVU90
- 461 0008 0E20     		movs	r0, #14
- 462              	.LVL25:
-  28:Src/thermistor.cpp ****     float normalized_voltage = voltage / adc_ref_voltage;
- 463              		.loc 1 28 44 view .LVU91
- 464 000a FFF7FEFF 		bl	get_adc_voltage_channel
- 465              	.LVL26:
-  29:Src/thermistor.cpp ****     temperature_ = horner_fma(normalized_voltage, coefficients_, num_coeffs_);
- 466              		.loc 1 29 5 is_stmt 1 view .LVU92
-  29:Src/thermistor.cpp ****     temperature_ = horner_fma(normalized_voltage, coefficients_, num_coeffs_);
- 467              		.loc 1 29 42 is_stmt 0 view .LVU93
- 468 000e 104B     		ldr	r3, .L25
-  30:Src/thermistor.cpp ****     temperature_int_ = (int32_t)temperature_;
- 469              		.loc 1 30 30 view .LVU94
- 470 0010 2169     		ldr	r1, [r4, #16]
-  29:Src/thermistor.cpp ****     temperature_ = horner_fma(normalized_voltage, coefficients_, num_coeffs_);
- 471              		.loc 1 29 42 view .LVU95
- 472 0012 93ED008A 		vldr.32	s16, [r3]
- 473              	.LVL27:
-  30:Src/thermistor.cpp ****     temperature_int_ = (int32_t)temperature_;
- 474              		.loc 1 30 5 is_stmt 1 view .LVU96
-  30:Src/thermistor.cpp ****     temperature_int_ = (int32_t)temperature_;
- 475              		.loc 1 30 30 is_stmt 0 view .LVU97
- 476 0016 A068     		ldr	r0, [r4, #8]
- 477 0018 80EE080A 		vdiv.f32	s0, s0, s16
- 478              	.LVL28:
-  30:Src/thermistor.cpp ****     temperature_int_ = (int32_t)temperature_;
- 479              		.loc 1 30 30 view .LVU98
- 480 001c FFF7FEFF 		bl	horner_fma
- 481              	.LVL29:
-  32:Src/thermistor.cpp ****     normalized_voltage = voltage / adc_ref_voltage;
- 482              		.loc 1 32 38 view .LVU99
- 483 0020 0F20     		movs	r0, #15
-  31:Src/thermistor.cpp ****     voltage = get_adc_voltage_channel(15);
- 484              		.loc 1 31 24 view .LVU100
- 485 0022 FDEEC07A 		vcvt.s32.f32	s15, s0
-ARM GAS  /tmp/ccNuAypp.s 			page 17
-
-
-  30:Src/thermistor.cpp ****     temperature_int_ = (int32_t)temperature_;
- 486              		.loc 1 30 18 view .LVU101
- 487 0026 84ED050A 		vstr.32	s0, [r4, #20]
-  31:Src/thermistor.cpp ****     voltage = get_adc_voltage_channel(15);
- 488              		.loc 1 31 5 is_stmt 1 view .LVU102
-  31:Src/thermistor.cpp ****     voltage = get_adc_voltage_channel(15);
- 489              		.loc 1 31 24 is_stmt 0 view .LVU103
- 490 002a C4ED067A 		vstr.32	s15, [r4, #24]	@ int
-  32:Src/thermistor.cpp ****     normalized_voltage = voltage / adc_ref_voltage;
- 491              		.loc 1 32 5 is_stmt 1 view .LVU104
-  32:Src/thermistor.cpp ****     normalized_voltage = voltage / adc_ref_voltage;
- 492              		.loc 1 32 38 is_stmt 0 view .LVU105
- 493 002e FFF7FEFF 		bl	get_adc_voltage_channel
- 494              	.LVL30:
-  33:Src/thermistor.cpp ****     aux_temperature_ = horner_fma(normalized_voltage, aux_coefficients_, num_coeffs_);
- 495              		.loc 1 33 5 is_stmt 1 view .LVU106
-  34:Src/thermistor.cpp ****     aux_temperature_int_ = (int32_t)aux_temperature_;
- 496              		.loc 1 34 5 view .LVU107
-  34:Src/thermistor.cpp ****     aux_temperature_int_ = (int32_t)aux_temperature_;
- 497              		.loc 1 34 34 is_stmt 0 view .LVU108
- 498 0032 2169     		ldr	r1, [r4, #16]
- 499 0034 E068     		ldr	r0, [r4, #12]
- 500 0036 80EE080A 		vdiv.f32	s0, s0, s16
- 501              	.LVL31:
-  34:Src/thermistor.cpp ****     aux_temperature_int_ = (int32_t)aux_temperature_;
- 502              		.loc 1 34 34 view .LVU109
- 503 003a FFF7FEFF 		bl	horner_fma
- 504              	.LVL32:
-  37:Src/thermistor.cpp **** 
- 505              		.loc 1 37 1 view .LVU110
- 506 003e BDEC028B 		vldm	sp!, {d8}
- 507              	.LCFI5:
- 508              		.cfi_restore 80
- 509              		.cfi_restore 81
- 510              		.cfi_def_cfa_offset 8
-  35:Src/thermistor.cpp **** 
- 511              		.loc 1 35 28 view .LVU111
- 512 0042 FDEEC07A 		vcvt.s32.f32	s15, s0
-  34:Src/thermistor.cpp ****     aux_temperature_int_ = (int32_t)aux_temperature_;
- 513              		.loc 1 34 22 view .LVU112
- 514 0046 84ED070A 		vstr.32	s0, [r4, #28]
-  35:Src/thermistor.cpp **** 
- 515              		.loc 1 35 5 is_stmt 1 view .LVU113
-  35:Src/thermistor.cpp **** 
- 516              		.loc 1 35 28 is_stmt 0 view .LVU114
- 517 004a C4ED087A 		vstr.32	s15, [r4, #32]	@ int
-  37:Src/thermistor.cpp **** 
- 518              		.loc 1 37 1 view .LVU115
- 519 004e 10BD     		pop	{r4, pc}
- 520              	.LVL33:
- 521              	.L26:
-  37:Src/thermistor.cpp **** 
- 522              		.loc 1 37 1 view .LVU116
- 523              		.align	2
- 524              	.L25:
- 525 0050 00000000 		.word	adc_ref_voltage
- 526              		.cfi_endproc
-ARM GAS  /tmp/ccNuAypp.s 			page 18
-
-
- 527              	.LFE4820:
- 529              		.section	.text._ZN24ThermistorCurrentLimiter9do_checksEv,"ax",%progbits
- 530              		.align	1
- 531              		.p2align 2,,3
- 532              		.global	_ZN24ThermistorCurrentLimiter9do_checksEv
- 533              		.syntax unified
- 534              		.thumb
- 535              		.thumb_func
- 536              		.fpu fpv4-sp-d16
- 538              	_ZN24ThermistorCurrentLimiter9do_checksEv:
- 539              	.LVL34:
- 540              	.LFB4821:
-  39:Src/thermistor.cpp ****     if (enabled_ && ( (temperature_ >= temp_limit_upper_ + 1 ) ||  (aux_temperature_ >= temp_limit_
- 541              		.loc 1 39 44 is_stmt 1 view -0
- 542              		.cfi_startproc
- 543              		@ args = 0, pretend = 0, frame = 0
- 544              		@ frame_needed = 0, uses_anonymous_args = 0
- 545              		@ link register save eliminated.
-  40:Src/thermistor.cpp ****         error_ = ERROR_OVER_TEMP;
- 546              		.loc 1 40 5 view .LVU118
-  40:Src/thermistor.cpp ****         error_ = ERROR_OVER_TEMP;
- 547              		.loc 1 40 9 is_stmt 0 view .LVU119
- 548 0000 C36A     		ldr	r3, [r0, #44]
- 549 0002 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
-  40:Src/thermistor.cpp ****         error_ = ERROR_OVER_TEMP;
- 550              		.loc 1 40 5 view .LVU120
- 551 0004 1BB3     		cbz	r3, .L31
-  40:Src/thermistor.cpp ****         error_ = ERROR_OVER_TEMP;
- 552              		.loc 1 40 40 discriminator 1 view .LVU121
- 553 0006 826A     		ldr	r2, [r0, #40]
-  40:Src/thermistor.cpp ****         error_ = ERROR_OVER_TEMP;
- 554              		.loc 1 40 18 discriminator 1 view .LVU122
- 555 0008 90ED057A 		vldr.32	s14, [r0, #20]
-  40:Src/thermistor.cpp ****         error_ = ERROR_OVER_TEMP;
- 556              		.loc 1 40 58 discriminator 1 view .LVU123
- 557 000c D2ED007A 		vldr.32	s15, [r2]
- 558 0010 F7EE006A 		vmov.f32	s13, #1.0e+0
- 559 0014 77EEA67A 		vadd.f32	s15, s15, s13
-  40:Src/thermistor.cpp ****         error_ = ERROR_OVER_TEMP;
- 560              		.loc 1 40 18 discriminator 1 view .LVU124
- 561 0018 B4EEE77A 		vcmpe.f32	s14, s15
- 562 001c F1EE10FA 		vmrs	APSR_nzcv, FPSCR
- 563 0020 06DA     		bge	.L29
-  40:Src/thermistor.cpp ****         error_ = ERROR_OVER_TEMP;
- 564              		.loc 1 40 64 discriminator 2 view .LVU125
- 565 0022 90ED077A 		vldr.32	s14, [r0, #28]
- 566 0026 F4EEC77A 		vcmpe.f32	s15, s14
- 567 002a F1EE10FA 		vmrs	APSR_nzcv, FPSCR
- 568 002e 0FD8     		bhi	.L28
- 569              	.L29:
-  41:Src/thermistor.cpp ****         // Properly cast error flags when combining
- 570              		.loc 1 41 9 is_stmt 1 view .LVU126
-  44:Src/thermistor.cpp ****             static_cast<uint32_t>(Axis::ERROR_OVER_TEMP)
- 571              		.loc 1 44 35 is_stmt 0 view .LVU127
- 572 0030 436B     		ldr	r3, [r0, #52]
-  44:Src/thermistor.cpp ****             static_cast<uint32_t>(Axis::ERROR_OVER_TEMP)
- 573              		.loc 1 44 50 view .LVU128
-ARM GAS  /tmp/ccNuAypp.s 			page 19
-
-
- 574 0032 D3F85C21 		ldr	r2, [r3, #348]
-  41:Src/thermistor.cpp ****         // Properly cast error flags when combining
- 575              		.loc 1 41 16 view .LVU129
- 576 0036 0121     		movs	r1, #1
-  44:Src/thermistor.cpp ****             static_cast<uint32_t>(Axis::ERROR_OVER_TEMP)
- 577              		.loc 1 44 50 view .LVU130
- 578 0038 42F48022 		orr	r2, r2, #262144
-  41:Src/thermistor.cpp ****         // Properly cast error flags when combining
- 579              		.loc 1 41 16 view .LVU131
- 580 003c 80F83010 		strb	r1, [r0, #48]
-  43:Src/thermistor.cpp ****             static_cast<uint32_t>(axis_->error_) | 
- 581              		.loc 1 43 9 is_stmt 1 view .LVU132
-  43:Src/thermistor.cpp ****             static_cast<uint32_t>(axis_->error_) | 
- 582              		.loc 1 43 23 is_stmt 0 view .LVU133
- 583 0040 C3F85C21 		str	r2, [r3, #348]
-  48:Src/thermistor.cpp ****         return false;
- 584              		.loc 1 48 9 is_stmt 1 view .LVU134
-  48:Src/thermistor.cpp ****         return false;
- 585              		.loc 1 48 33 is_stmt 0 view .LVU135
- 586 0044 83F89611 		strb	r1, [r3, #406]
-  49:Src/thermistor.cpp ****     }
- 587              		.loc 1 49 9 is_stmt 1 view .LVU136
-  49:Src/thermistor.cpp ****     }
- 588              		.loc 1 49 16 is_stmt 0 view .LVU137
- 589 0048 0023     		movs	r3, #0
-  52:Src/thermistor.cpp **** 
- 590              		.loc 1 52 1 view .LVU138
- 591 004a 1846     		mov	r0, r3
- 592              	.LVL35:
-  52:Src/thermistor.cpp **** 
- 593              		.loc 1 52 1 view .LVU139
- 594 004c 7047     		bx	lr
- 595              	.LVL36:
- 596              	.L31:
-  51:Src/thermistor.cpp **** }
- 597              		.loc 1 51 12 view .LVU140
- 598 004e 0123     		movs	r3, #1
- 599              	.L28:
-  52:Src/thermistor.cpp **** 
- 600              		.loc 1 52 1 view .LVU141
- 601 0050 1846     		mov	r0, r3
- 602              	.LVL37:
-  52:Src/thermistor.cpp **** 
- 603              		.loc 1 52 1 view .LVU142
- 604 0052 7047     		bx	lr
- 605              		.cfi_endproc
- 606              	.LFE4821:
- 608              		.section	.text._ZN31OnboardThermistorCurrentLimiterC2ERK26ThermistorHardwareConfig_tRNS_8Config_tE
- 609              		.align	1
- 610              		.p2align 2,,3
- 611              		.global	_ZN31OnboardThermistorCurrentLimiterC2ERK26ThermistorHardwareConfig_tRNS_8Config_tE
- 612              		.syntax unified
- 613              		.thumb
- 614              		.thumb_func
- 615              		.fpu fpv4-sp-d16
- 617              	_ZN31OnboardThermistorCurrentLimiterC2ERK26ThermistorHardwareConfig_tRNS_8Config_tE:
- 618              	.LVL38:
-ARM GAS  /tmp/ccNuAypp.s 			page 20
-
-
- 619              	.LFB4829:
-  70:Src/thermistor.cpp **** 
-  71:Src/thermistor.cpp **** OnboardThermistorCurrentLimiter::OnboardThermistorCurrentLimiter(const ThermistorHardwareConfig_t& 
- 620              		.loc 1 71 1 is_stmt 1 view -0
- 621              		.cfi_startproc
- 622              		@ args = 0, pretend = 0, frame = 0
- 623              		@ frame_needed = 0, uses_anonymous_args = 0
- 624              		@ link register save eliminated.
- 625              		.loc 1 71 1 is_stmt 0 view .LVU144
- 626 0000 70B4     		push	{r4, r5, r6}
- 627              	.LCFI6:
- 628              		.cfi_def_cfa_offset 12
- 629              		.cfi_offset 4, -12
- 630              		.cfi_offset 5, -8
- 631              		.cfi_offset 6, -4
- 632              	.LBB78:
-  72:Src/thermistor.cpp ****     ThermistorCurrentLimiter(hw_config.adc_ch,
-  73:Src/thermistor.cpp ****                              hw_config.coeffs,
-  74:Src/thermistor.cpp ****                              hw_config.aux_coefficients,
-  75:Src/thermistor.cpp ****                              hw_config.num_coeffs,
- 633              		.loc 1 75 40 view .LVU145
- 634 0002 D1E90154 		ldrd	r5, r4, [r1, #4]
- 635              	.LVL39:
-  73:Src/thermistor.cpp ****                              hw_config.aux_coefficients,
- 636              		.loc 1 73 40 view .LVU146
- 637 0006 0E68     		ldr	r6, [r1]
- 638              	.LVL40:
- 639              	.LBB79:
- 640              	.LBI79:
-   8:Src/thermistor.cpp ****                                                    const float* const coefficients,
- 641              		.loc 1 8 1 is_stmt 1 view .LVU147
- 642              	.LBB80:
- 643              	.LBB81:
- 644              	.LBI81:
-   6:Inc/current_limiter.hpp **** public:
- 645              		.loc 4 6 7 view .LVU148
-   6:Inc/current_limiter.hpp **** public:
- 646              		.loc 4 6 7 is_stmt 0 view .LVU149
- 647              	.LBE81:
- 648              	.LBE80:
- 649              	.LBE79:
-  76:Src/thermistor.cpp ****                              config.temp_limit_lower,
-  77:Src/thermistor.cpp ****                              config.temp_limit_upper,
-  78:Src/thermistor.cpp ****                              config.enabled),
-  79:Src/thermistor.cpp ****     config_(config)
- 650              		.loc 1 79 19 view .LVU150
- 651 0008 8263     		str	r2, [r0, #56]
- 652 000a C968     		ldr	r1, [r1, #12]
- 653              	.LVL41:
- 654              	.LBB87:
- 655              	.LBB82:
-  23:Src/thermistor.cpp **** {
- 656              		.loc 1 23 22 view .LVU151
- 657 000c 0461     		str	r4, [r0, #16]
- 658 000e 4262     		str	r2, [r0, #36]
- 659              	.LBE82:
- 660              	.LBE87:
-ARM GAS  /tmp/ccNuAypp.s 			page 21
-
-
-  77:Src/thermistor.cpp ****                              config.enabled),
- 661              		.loc 1 77 37 view .LVU152
- 662 0010 141D     		adds	r4, r2, #4
- 663              	.LVL42:
-  78:Src/thermistor.cpp ****     config_(config)
- 664              		.loc 1 78 37 view .LVU153
- 665 0012 0832     		adds	r2, r2, #8
- 666              	.LVL43:
- 667              	.LBB88:
- 668              	.LBB83:
-  23:Src/thermistor.cpp **** {
- 669              		.loc 1 23 22 view .LVU154
- 670 0014 DFF824C0 		ldr	ip, .L34+4
- 671              	.LBE83:
- 672              	.LBE88:
- 673              		.loc 1 79 19 view .LVU155
- 674 0018 8180     		strh	r1, [r0, #4]	@ movhi
- 675              	.LBB89:
- 676              	.LBB84:
-  23:Src/thermistor.cpp **** {
- 677              		.loc 1 23 22 view .LVU156
- 678 001a C262     		str	r2, [r0, #44]
- 679 001c 0021     		movs	r1, #0
- 680              	.LBE84:
- 681              	.LBE89:
- 682              		.loc 1 79 19 view .LVU157
- 683 001e 064A     		ldr	r2, .L34
- 684              	.LVL44:
- 685              	.LBB90:
- 686              	.LBB85:
-  23:Src/thermistor.cpp **** {
- 687              		.loc 1 23 22 view .LVU158
- 688 0020 8462     		str	r4, [r0, #40]
- 689 0022 C0E90265 		strd	r6, r5, [r0, #8]
- 690 0026 C0F814C0 		str	ip, [r0, #20]	@ float
- 691              	.LBE85:
- 692              	.LBE90:
- 693              	.LBE78:
-  80:Src/thermistor.cpp **** {
-  81:Src/thermistor.cpp **** }
- 694              		.loc 1 81 1 view .LVU159
- 695 002a 70BC     		pop	{r4, r5, r6}
- 696              	.LCFI7:
- 697              		.cfi_restore 6
- 698              		.cfi_restore 5
- 699              		.cfi_restore 4
- 700              		.cfi_def_cfa_offset 0
- 701              	.LVL45:
- 702              	.LBB92:
- 703              	.LBB91:
- 704              	.LBB86:
-  23:Src/thermistor.cpp **** {
- 705              		.loc 1 23 22 view .LVU160
- 706 002c 80F83010 		strb	r1, [r0, #48]
- 707 0030 4163     		str	r1, [r0, #52]
- 708              	.LVL46:
-  23:Src/thermistor.cpp **** {
-ARM GAS  /tmp/ccNuAypp.s 			page 22
-
-
- 709              		.loc 1 23 22 view .LVU161
- 710              	.LBE86:
- 711              	.LBE91:
-  79:Src/thermistor.cpp **** {
- 712              		.loc 1 79 19 view .LVU162
- 713 0032 0260     		str	r2, [r0]
- 714              	.LBE92:
- 715              		.loc 1 81 1 view .LVU163
- 716 0034 7047     		bx	lr
- 717              	.L35:
- 718 0036 00BF     		.align	2
- 719              	.L34:
- 720 0038 08000000 		.word	_ZTV31OnboardThermistorCurrentLimiter+8
- 721 003c 0000C07F 		.word	2143289344
- 722              		.cfi_endproc
- 723              	.LFE4829:
- 725              		.global	_ZN31OnboardThermistorCurrentLimiterC1ERK26ThermistorHardwareConfig_tRNS_8Config_tE
- 726              		.thumb_set _ZN31OnboardThermistorCurrentLimiterC1ERK26ThermistorHardwareConfig_tRNS_8Config_tE,_ZN
- 727              		.section	.text._ZN32OffboardThermistorCurrentLimiterC2ERNS_8Config_tE,"ax",%progbits
- 728              		.align	1
- 729              		.p2align 2,,3
- 730              		.global	_ZN32OffboardThermistorCurrentLimiterC2ERNS_8Config_tE
- 731              		.syntax unified
- 732              		.thumb
- 733              		.thumb_func
- 734              		.fpu fpv4-sp-d16
- 736              	_ZN32OffboardThermistorCurrentLimiterC2ERNS_8Config_tE:
- 737              	.LVL47:
- 738              	.LFB4832:
-  82:Src/thermistor.cpp **** 
-  83:Src/thermistor.cpp **** OffboardThermistorCurrentLimiter::OffboardThermistorCurrentLimiter(Config_t& config) :
- 739              		.loc 1 83 1 is_stmt 1 view -0
- 740              		.cfi_startproc
- 741              		@ args = 0, pretend = 0, frame = 0
- 742              		@ frame_needed = 0, uses_anonymous_args = 0
- 743              		@ link register save eliminated.
- 744              	.LBB93:
- 745              	.LBB94:
- 746              	.LBI94:
-   8:Src/thermistor.cpp ****                                                    const float* const coefficients,
- 747              		.loc 1 8 1 view .LVU165
- 748              	.LBB95:
- 749              	.LBB96:
- 750              	.LBI96:
-   6:Inc/current_limiter.hpp **** public:
- 751              		.loc 4 6 7 view .LVU166
-   6:Inc/current_limiter.hpp **** public:
- 752              		.loc 4 6 7 is_stmt 0 view .LVU167
- 753              	.LBE96:
- 754              	.LBE95:
- 755              	.LBE94:
- 756              	.LBE93:
- 757              		.loc 1 83 1 view .LVU168
- 758 0000 10B4     		push	{r4}
- 759              	.LCFI8:
- 760              		.cfi_def_cfa_offset 4
- 761              		.cfi_offset 4, -4
-ARM GAS  /tmp/ccNuAypp.s 			page 23
-
-
- 762              	.LBB114:
- 763              	.LBB105:
- 764              	.LBB97:
-  23:Src/thermistor.cpp **** {
- 765              		.loc 1 23 22 view .LVU169
- 766 0002 0F4C     		ldr	r4, .L38
- 767 0004 4461     		str	r4, [r0, #20]	@ float
- 768              	.LBE97:
- 769              	.LBE105:
-  84:Src/thermistor.cpp ****     ThermistorCurrentLimiter(UINT16_MAX,
-  85:Src/thermistor.cpp ****                              &config.thermistor_poly_coeffs[0],
-  86:Src/thermistor.cpp ****                              &config.thermistor_poly_coeffs2[0],
-  87:Src/thermistor.cpp ****                              num_coeffs_,
-  88:Src/thermistor.cpp ****                              config.temp_limit_lower,
- 770              		.loc 1 88 37 view .LVU170
- 771 0006 01F12404 		add	r4, r1, #36
- 772              	.LVL48:
- 773              	.LBB106:
- 774              	.LBB98:
-  23:Src/thermistor.cpp **** {
- 775              		.loc 1 23 22 view .LVU171
- 776 000a 4462     		str	r4, [r0, #36]
- 777              	.LBE98:
- 778              	.LBE106:
-  89:Src/thermistor.cpp ****                              config.temp_limit_upper,
- 779              		.loc 1 89 37 view .LVU172
- 780 000c 01F12804 		add	r4, r1, #40
- 781              	.LVL49:
- 782              	.LBB107:
- 783              	.LBB99:
-  23:Src/thermistor.cpp **** {
- 784              		.loc 1 23 22 view .LVU173
- 785 0010 0022     		movs	r2, #0
- 786 0012 8462     		str	r4, [r0, #40]
- 787              	.LBE99:
- 788              	.LBE107:
-  90:Src/thermistor.cpp ****                              config.enabled),
- 789              		.loc 1 90 37 view .LVU174
- 790 0014 01F12C04 		add	r4, r1, #44
- 791              	.LVL50:
- 792              	.LBB108:
- 793              	.LBB100:
-  23:Src/thermistor.cpp **** {
- 794              		.loc 1 23 22 view .LVU175
- 795 0018 4FF6FF7C 		movw	ip, #65535
- 796 001c 8160     		str	r1, [r0, #8]
- 797 001e C462     		str	r4, [r0, #44]
- 798 0020 80F83020 		strb	r2, [r0, #48]
- 799              	.LBE100:
- 800              	.LBE108:
-  91:Src/thermistor.cpp ****     config_(config)
- 801              		.loc 1 91 19 view .LVU176
- 802 0024 074C     		ldr	r4, .L38+4
- 803              	.LVL51:
- 804              	.LBB109:
- 805              	.LBB101:
-  23:Src/thermistor.cpp **** {
-ARM GAS  /tmp/ccNuAypp.s 			page 24
-
-
- 806              		.loc 1 23 22 view .LVU177
- 807 0026 4263     		str	r2, [r0, #52]
- 808              	.LVL52:
-  23:Src/thermistor.cpp **** {
- 809              		.loc 1 23 22 view .LVU178
- 810              	.LBE101:
- 811              	.LBE109:
- 812              		.loc 1 91 19 view .LVU179
- 813 0028 8163     		str	r1, [r0, #56]
-  92:Src/thermistor.cpp **** {
-  93:Src/thermistor.cpp ****     decode_pin();
- 814              		.loc 1 93 5 is_stmt 1 view .LVU180
- 815              	.LVL53:
- 816              	.LBB110:
- 817              	.LBI110:
-  94:Src/thermistor.cpp **** }
-  95:Src/thermistor.cpp **** 
-  96:Src/thermistor.cpp **** void OffboardThermistorCurrentLimiter::decode_pin() {
- 818              		.loc 1 96 6 view .LVU181
- 819              		.loc 1 96 6 is_stmt 0 view .LVU182
- 820              	.LBE110:
- 821              	.LBB111:
- 822              	.LBB102:
-  23:Src/thermistor.cpp **** {
- 823              		.loc 1 23 22 view .LVU183
- 824 002a 0422     		movs	r2, #4
- 825              	.LBE102:
- 826              	.LBE111:
-  86:Src/thermistor.cpp ****                              num_coeffs_,
- 827              		.loc 1 86 30 view .LVU184
- 828 002c 1031     		adds	r1, r1, #16
- 829              	.LVL54:
-  91:Src/thermistor.cpp **** {
- 830              		.loc 1 91 19 view .LVU185
- 831 002e 0460     		str	r4, [r0]
- 832              	.LBB112:
- 833              	.LBB103:
-  23:Src/thermistor.cpp **** {
- 834              		.loc 1 23 22 view .LVU186
- 835 0030 A0F804C0 		strh	ip, [r0, #4]	@ movhi
- 836              	.LBE103:
- 837              	.LBE112:
- 838              	.LBE114:
-  94:Src/thermistor.cpp **** 
- 839              		.loc 1 94 1 view .LVU187
- 840 0034 5DF8044B 		ldr	r4, [sp], #4
- 841              	.LCFI9:
- 842              		.cfi_restore 4
- 843              		.cfi_def_cfa_offset 0
- 844              	.LBB115:
- 845              	.LBB113:
- 846              	.LBB104:
-  23:Src/thermistor.cpp **** {
- 847              		.loc 1 23 22 view .LVU188
- 848 0038 C160     		str	r1, [r0, #12]
- 849 003a 0261     		str	r2, [r0, #16]
- 850              	.LBE104:
-ARM GAS  /tmp/ccNuAypp.s 			page 25
-
-
- 851              	.LBE113:
- 852              	.LBE115:
-  94:Src/thermistor.cpp **** 
- 853              		.loc 1 94 1 view .LVU189
- 854 003c 7047     		bx	lr
- 855              	.L39:
- 856 003e 00BF     		.align	2
- 857              	.L38:
- 858 0040 0000C07F 		.word	2143289344
- 859 0044 08000000 		.word	_ZTV32OffboardThermistorCurrentLimiter+8
- 860              		.cfi_endproc
- 861              	.LFE4832:
- 863              		.global	_ZN32OffboardThermistorCurrentLimiterC1ERNS_8Config_tE
- 864              		.thumb_set _ZN32OffboardThermistorCurrentLimiterC1ERNS_8Config_tE,_ZN32OffboardThermistorCurrentLi
- 865              		.section	.text._ZN32OffboardThermistorCurrentLimiter10decode_pinEv,"ax",%progbits
- 866              		.align	1
- 867              		.p2align 2,,3
- 868              		.global	_ZN32OffboardThermistorCurrentLimiter10decode_pinEv
- 869              		.syntax unified
- 870              		.thumb
- 871              		.thumb_func
- 872              		.fpu fpv4-sp-d16
- 874              	_ZN32OffboardThermistorCurrentLimiter10decode_pinEv:
- 875              	.LVL55:
- 876              	.LFB4834:
- 877              		.loc 1 96 53 is_stmt 1 view -0
- 878              		.cfi_startproc
- 879              		@ args = 0, pretend = 0, frame = 0
- 880              		@ frame_needed = 0, uses_anonymous_args = 0
- 881              		@ link register save eliminated.
-  97:Src/thermistor.cpp **** 
-  98:Src/thermistor.cpp **** }
- 882              		.loc 1 98 1 is_stmt 0 view .LVU191
- 883 0000 7047     		bx	lr
- 884              		.cfi_endproc
- 885              	.LFE4834:
- 887              		.global	_ZTV24ThermistorCurrentLimiter
- 888              		.weak	_ZTV31OnboardThermistorCurrentLimiter
- 889 0002 00BF     		.section	.rodata._ZTV31OnboardThermistorCurrentLimiter,"aG",%progbits,_ZTV31OnboardThermistorCurre
- 890              		.align	2
- 893              	_ZTV31OnboardThermistorCurrentLimiter:
- 894 0000 00000000 		.word	0
- 895 0004 00000000 		.word	0
- 896 0008 00000000 		.word	_ZN31OnboardThermistorCurrentLimiterD1Ev
- 897 000c 00000000 		.word	_ZN31OnboardThermistorCurrentLimiterD0Ev
- 898 0010 00000000 		.word	_ZNK24ThermistorCurrentLimiter17get_current_limitEf
- 899              		.weak	_ZTV32OffboardThermistorCurrentLimiter
- 900              		.section	.rodata._ZTV32OffboardThermistorCurrentLimiter,"aG",%progbits,_ZTV32OffboardThermistorCur
- 901              		.align	2
- 904              	_ZTV32OffboardThermistorCurrentLimiter:
- 905 0000 00000000 		.word	0
- 906 0004 00000000 		.word	0
- 907 0008 00000000 		.word	_ZN32OffboardThermistorCurrentLimiterD1Ev
- 908 000c 00000000 		.word	_ZN32OffboardThermistorCurrentLimiterD0Ev
- 909 0010 00000000 		.word	_ZNK24ThermistorCurrentLimiter17get_current_limitEf
- 910              		.section	.rodata._ZTV24ThermistorCurrentLimiter,"a"
- 911              		.align	2
-ARM GAS  /tmp/ccNuAypp.s 			page 26
-
-
- 912              		.set	.LANCHOR0,. + 0
- 915              	_ZTV24ThermistorCurrentLimiter:
- 916 0000 00000000 		.word	0
- 917 0004 00000000 		.word	0
- 918 0008 00000000 		.word	_ZN24ThermistorCurrentLimiterD1Ev
- 919 000c 00000000 		.word	_ZN24ThermistorCurrentLimiterD0Ev
- 920 0010 00000000 		.word	_ZNK24ThermistorCurrentLimiter17get_current_limitEf
- 921              		.text
- 922              	.Letext0:
- 923              		.file 5 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
- 924              		.file 6 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
- 925              		.file 7 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h"
- 926              		.file 8 "Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g431xx.h"
- 927              		.file 9 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef
- 928              		.file 10 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_def.h"
- 929              		.file 11 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_dma.h"
- 930              		.file 12 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim.h"
- 931              		.file 13 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h"
- 932              		.file 14 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_usart.h"
- 933              		.file 15 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h"
- 934              		.file 16 "Inc/mc_type.h"
- 935              		.file 17 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/cmath"
- 936              		.file 18 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/arm-none-
- 937              		.file 19 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/type_trai
- 938              		.file 20 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/debug/deb
- 939              		.file 21 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/std_
- 940              		.file 22 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/exce
- 941              		.file 23 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/enab
- 942              		.file 24 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/optional"
- 943              		.file 25 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/tr1/speci
- 944              		.file 26 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/variant"
- 945              		.file 27 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_
- 946              		.file 28 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/std_
- 947              		.file 29 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/cstdlib"
- 948              		.file 30 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/algo
- 949              		.file 31 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/functiona
- 950              		.file 32 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/array"
- 951              		.file 33 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_
- 952              		.file 34 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/refw
- 953              		.file 35 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/cstdint"
- 954              		.file 36 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/pars
- 955              		.file 37 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/pred
- 956              		.file 38 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/math.h"
- 957              		.file 39 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h"
- 958              		.file 40 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/math.h"
- 959              		.file 41 "Inc/main.h"
- 960              		.file 42 "Middlewares/Third_Party/FreeRTOS/Source/include/task.h"
- 961              		.file 43 "Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h"
- 962              		.file 44 "Inc/interfaces.hpp"
- 963              		.file 45 "Inc/task_timer.hpp"
- 964              		.file 46 "Inc/component.hpp"
- 965              		.file 47 "Inc/utils.hpp"
- 966              		.file 48 "Inc/axis.hpp"
- 967              		.file 49 "Inc/motor.hpp"
- 968              		.file 50 "Inc/low_level.h"
- 969              		.file 51 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/new"
- 970              		.file 52 "<built-in>"
-ARM GAS  /tmp/ccNuAypp.s 			page 27
-
-
-ARM GAS  /tmp/ccNuAypp.s 			page 28
+ 1322              		.file 13 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_tim.h"
+ 1323              		.file 14 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h"
+ 1324              		.file 15 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_usart.h"
+ 1325              		.file 16 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h"
+ 1326              		.file 17 "Inc/mc_type.h"
+ 1327              		.file 18 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/cmath"
+ 1328              		.file 19 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/arm-none-
+ 1329              		.file 20 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/type_trai
+ 1330              		.file 21 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/debug/deb
+ 1331              		.file 22 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/std_
+ 1332              		.file 23 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/exce
+ 1333              		.file 24 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/enab
+ 1334              		.file 25 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/optional"
+ 1335              		.file 26 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/tr1/speci
+ 1336              		.file 27 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/variant"
+ 1337              		.file 28 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_
+ 1338              		.file 29 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/std_
+ 1339              		.file 30 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/cstdlib"
+ 1340              		.file 31 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/algo
+ 1341              		.file 32 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/functiona
+ 1342              		.file 33 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/array"
+ 1343              		.file 34 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/stl_
+ 1344              		.file 35 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/refw
+ 1345              		.file 36 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/cstdint"
+ 1346              		.file 37 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/pars
+ 1347              		.file 38 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/bits/pred
+ 1348              		.file 39 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/math.h"
+ 1349              		.file 40 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h"
+ 1350              		.file 41 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/c++/10.2.1/math.h"
+ 1351              		.file 42 "Inc/main.h"
+ 1352              		.file 43 "Middlewares/Third_Party/FreeRTOS/Source/include/task.h"
+ 1353              		.file 44 "Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h"
+ 1354              		.file 45 "Inc/interfaces.hpp"
+ 1355              		.file 46 "Inc/task_timer.hpp"
+ 1356              		.file 47 "Inc/component.hpp"
+ 1357              		.file 48 "Inc/utils.hpp"
+ 1358              		.file 49 "Inc/axis.hpp"
+ 1359              		.file 50 "Inc/motor.hpp"
+ 1360              		.file 51 "<built-in>"
+ 1361              		.file 52 "Inc/low_level.h"
+ARM GAS  /tmp/ccCNpeZo.s 			page 32
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 thermistor.cpp
-     /tmp/ccNuAypp.s:18     .text._ZNK24ThermistorCurrentLimiter17get_current_limitEf:0000000000000000 $t
-     /tmp/ccNuAypp.s:27     .text._ZNK24ThermistorCurrentLimiter17get_current_limitEf:0000000000000000 _ZNK24ThermistorCurrentLimiter17get_current_limitEf
-     /tmp/ccNuAypp.s:121    .text._ZNK24ThermistorCurrentLimiter17get_current_limitEf:000000000000005c $d
-     /tmp/ccNuAypp.s:126    .text._ZN24ThermistorCurrentLimiterD2Ev:0000000000000000 $t
-     /tmp/ccNuAypp.s:134    .text._ZN24ThermistorCurrentLimiterD2Ev:0000000000000000 _ZN24ThermistorCurrentLimiterD2Ev
-     /tmp/ccNuAypp.s:134    .text._ZN24ThermistorCurrentLimiterD2Ev:0000000000000000 _ZN24ThermistorCurrentLimiterD1Ev
-     /tmp/ccNuAypp.s:157    .text._ZN32OffboardThermistorCurrentLimiterD2Ev:0000000000000000 $t
-     /tmp/ccNuAypp.s:165    .text._ZN32OffboardThermistorCurrentLimiterD2Ev:0000000000000000 _ZN32OffboardThermistorCurrentLimiterD2Ev
-     /tmp/ccNuAypp.s:165    .text._ZN32OffboardThermistorCurrentLimiterD2Ev:0000000000000000 _ZN32OffboardThermistorCurrentLimiterD1Ev
-     /tmp/ccNuAypp.s:190    .text._ZN31OnboardThermistorCurrentLimiterD2Ev:0000000000000000 $t
-     /tmp/ccNuAypp.s:198    .text._ZN31OnboardThermistorCurrentLimiterD2Ev:0000000000000000 _ZN31OnboardThermistorCurrentLimiterD2Ev
-     /tmp/ccNuAypp.s:198    .text._ZN31OnboardThermistorCurrentLimiterD2Ev:0000000000000000 _ZN31OnboardThermistorCurrentLimiterD1Ev
-     /tmp/ccNuAypp.s:223    .text._ZN24ThermistorCurrentLimiterD0Ev:0000000000000000 $t
-     /tmp/ccNuAypp.s:231    .text._ZN24ThermistorCurrentLimiterD0Ev:0000000000000000 _ZN24ThermistorCurrentLimiterD0Ev
-     /tmp/ccNuAypp.s:267    .text._ZN31OnboardThermistorCurrentLimiterD0Ev:0000000000000000 $t
-     /tmp/ccNuAypp.s:275    .text._ZN31OnboardThermistorCurrentLimiterD0Ev:0000000000000000 _ZN31OnboardThermistorCurrentLimiterD0Ev
-     /tmp/ccNuAypp.s:315    .text._ZN32OffboardThermistorCurrentLimiterD0Ev:0000000000000000 $t
-     /tmp/ccNuAypp.s:323    .text._ZN32OffboardThermistorCurrentLimiterD0Ev:0000000000000000 _ZN32OffboardThermistorCurrentLimiterD0Ev
-     /tmp/ccNuAypp.s:363    .text._ZN24ThermistorCurrentLimiterC2EtPKfS1_jRS0_S2_RKb:0000000000000000 $t
-     /tmp/ccNuAypp.s:371    .text._ZN24ThermistorCurrentLimiterC2EtPKfS1_jRS0_S2_RKb:0000000000000000 _ZN24ThermistorCurrentLimiterC2EtPKfS1_jRS0_S2_RKb
-     /tmp/ccNuAypp.s:424    .text._ZN24ThermistorCurrentLimiterC2EtPKfS1_jRS0_S2_RKb:0000000000000028 $d
-     /tmp/ccNuAypp.s:371    .text._ZN24ThermistorCurrentLimiterC2EtPKfS1_jRS0_S2_RKb:0000000000000000 _ZN24ThermistorCurrentLimiterC1EtPKfS1_jRS0_S2_RKb
-     /tmp/ccNuAypp.s:432    .text._ZN24ThermistorCurrentLimiter6updateEv:0000000000000000 $t
-     /tmp/ccNuAypp.s:440    .text._ZN24ThermistorCurrentLimiter6updateEv:0000000000000000 _ZN24ThermistorCurrentLimiter6updateEv
-     /tmp/ccNuAypp.s:525    .text._ZN24ThermistorCurrentLimiter6updateEv:0000000000000050 $d
-     /tmp/ccNuAypp.s:530    .text._ZN24ThermistorCurrentLimiter9do_checksEv:0000000000000000 $t
-     /tmp/ccNuAypp.s:538    .text._ZN24ThermistorCurrentLimiter9do_checksEv:0000000000000000 _ZN24ThermistorCurrentLimiter9do_checksEv
-     /tmp/ccNuAypp.s:609    .text._ZN31OnboardThermistorCurrentLimiterC2ERK26ThermistorHardwareConfig_tRNS_8Config_tE:0000000000000000 $t
-     /tmp/ccNuAypp.s:617    .text._ZN31OnboardThermistorCurrentLimiterC2ERK26ThermistorHardwareConfig_tRNS_8Config_tE:0000000000000000 _ZN31OnboardThermistorCurrentLimiterC2ERK26ThermistorHardwareConfig_tRNS_8Config_tE
-     /tmp/ccNuAypp.s:720    .text._ZN31OnboardThermistorCurrentLimiterC2ERK26ThermistorHardwareConfig_tRNS_8Config_tE:0000000000000038 $d
-     /tmp/ccNuAypp.s:893    .rodata._ZTV31OnboardThermistorCurrentLimiter:0000000000000000 _ZTV31OnboardThermistorCurrentLimiter
-     /tmp/ccNuAypp.s:617    .text._ZN31OnboardThermistorCurrentLimiterC2ERK26ThermistorHardwareConfig_tRNS_8Config_tE:0000000000000000 _ZN31OnboardThermistorCurrentLimiterC1ERK26ThermistorHardwareConfig_tRNS_8Config_tE
-     /tmp/ccNuAypp.s:728    .text._ZN32OffboardThermistorCurrentLimiterC2ERNS_8Config_tE:0000000000000000 $t
-     /tmp/ccNuAypp.s:736    .text._ZN32OffboardThermistorCurrentLimiterC2ERNS_8Config_tE:0000000000000000 _ZN32OffboardThermistorCurrentLimiterC2ERNS_8Config_tE
-     /tmp/ccNuAypp.s:858    .text._ZN32OffboardThermistorCurrentLimiterC2ERNS_8Config_tE:0000000000000040 $d
-     /tmp/ccNuAypp.s:904    .rodata._ZTV32OffboardThermistorCurrentLimiter:0000000000000000 _ZTV32OffboardThermistorCurrentLimiter
-     /tmp/ccNuAypp.s:736    .text._ZN32OffboardThermistorCurrentLimiterC2ERNS_8Config_tE:0000000000000000 _ZN32OffboardThermistorCurrentLimiterC1ERNS_8Config_tE
-     /tmp/ccNuAypp.s:866    .text._ZN32OffboardThermistorCurrentLimiter10decode_pinEv:0000000000000000 $t
-     /tmp/ccNuAypp.s:874    .text._ZN32OffboardThermistorCurrentLimiter10decode_pinEv:0000000000000000 _ZN32OffboardThermistorCurrentLimiter10decode_pinEv
-     /tmp/ccNuAypp.s:915    .rodata._ZTV24ThermistorCurrentLimiter:0000000000000000 _ZTV24ThermistorCurrentLimiter
-     /tmp/ccNuAypp.s:890    .rodata._ZTV31OnboardThermistorCurrentLimiter:0000000000000000 $d
-     /tmp/ccNuAypp.s:901    .rodata._ZTV32OffboardThermistorCurrentLimiter:0000000000000000 $d
-     /tmp/ccNuAypp.s:911    .rodata._ZTV24ThermistorCurrentLimiter:0000000000000000 $d
+     /tmp/ccCNpeZo.s:18     .rodata._ZL16OFFSET_TAB_CCMRx:0000000000000000 $d
+     /tmp/ccCNpeZo.s:21     .rodata._ZL16OFFSET_TAB_CCMRx:0000000000000000 _ZL16OFFSET_TAB_CCMRx
+     /tmp/ccCNpeZo.s:24     .rodata._ZL14SHIFT_TAB_OCxx:0000000000000000 $d
+     /tmp/ccCNpeZo.s:27     .rodata._ZL14SHIFT_TAB_OCxx:0000000000000000 _ZL14SHIFT_TAB_OCxx
+     /tmp/ccCNpeZo.s:30     .rodata._ZL14SHIFT_TAB_ICxx:0000000000000000 $d
+     /tmp/ccCNpeZo.s:33     .rodata._ZL14SHIFT_TAB_ICxx:0000000000000000 _ZL14SHIFT_TAB_ICxx
+     /tmp/ccCNpeZo.s:36     .rodata._ZL14SHIFT_TAB_CCxP:0000000000000000 $d
+     /tmp/ccCNpeZo.s:39     .rodata._ZL14SHIFT_TAB_CCxP:0000000000000000 _ZL14SHIFT_TAB_CCxP
+     /tmp/ccCNpeZo.s:42     .rodata._ZL14SHIFT_TAB_OISx:0000000000000000 $d
+     /tmp/ccCNpeZo.s:45     .rodata._ZL14SHIFT_TAB_OISx:0000000000000000 _ZL14SHIFT_TAB_OISx
+     /tmp/ccCNpeZo.s:48     .rodata._ZL19USART_PRESCALER_TAB:0000000000000000 $d
+     /tmp/ccCNpeZo.s:51     .rodata._ZL19USART_PRESCALER_TAB:0000000000000000 _ZL19USART_PRESCALER_TAB
+     /tmp/ccCNpeZo.s:65     .rodata._ZL18CHANNEL_OFFSET_TAB:0000000000000000 $d
+     /tmp/ccCNpeZo.s:68     .rodata._ZL18CHANNEL_OFFSET_TAB:0000000000000000 _ZL18CHANNEL_OFFSET_TAB
+     /tmp/ccCNpeZo.s:71     .rodata._ZL12one_by_sqrt3:0000000000000000 $d
+     /tmp/ccCNpeZo.s:74     .rodata._ZL12one_by_sqrt3:0000000000000000 _ZL12one_by_sqrt3
+     /tmp/ccCNpeZo.s:77     .rodata._ZL12two_by_sqrt3:0000000000000000 $d
+     /tmp/ccCNpeZo.s:80     .rodata._ZL12two_by_sqrt3:0000000000000000 _ZL12two_by_sqrt3
+     /tmp/ccCNpeZo.s:83     .rodata._ZL10sqrt3_by_2:0000000000000000 $d
+     /tmp/ccCNpeZo.s:86     .rodata._ZL10sqrt3_by_2:0000000000000000 _ZL10sqrt3_by_2
+     /tmp/ccCNpeZo.s:89     .text._ZN14CurrentLimiterC2Ev:0000000000000000 $t
+     /tmp/ccCNpeZo.s:97     .text._ZN14CurrentLimiterC2Ev:0000000000000000 _ZN14CurrentLimiterC2Ev
+     /tmp/ccCNpeZo.s:139    .text._ZN14CurrentLimiterC2Ev:000000000000001c $d
+     /tmp/ccCNpeZo.s:1306   .rodata._ZTV14CurrentLimiter:0000000000000000 _ZTV14CurrentLimiter
+     /tmp/ccCNpeZo.s:97     .text._ZN14CurrentLimiterC2Ev:0000000000000000 _ZN14CurrentLimiterC1Ev
+     /tmp/ccCNpeZo.s:146    .text._ZN14CurrentLimiterD2Ev:0000000000000000 $t
+     /tmp/ccCNpeZo.s:153    .text._ZN14CurrentLimiterD2Ev:0000000000000000 _ZN14CurrentLimiterD2Ev
+     /tmp/ccCNpeZo.s:194    .text._ZN14CurrentLimiterD2Ev:000000000000001c $d
+     /tmp/ccCNpeZo.s:153    .text._ZN14CurrentLimiterD2Ev:0000000000000000 _ZN14CurrentLimiterD1Ev
+     /tmp/ccCNpeZo.s:201    .text._ZN14CurrentLimiterD0Ev:0000000000000000 $t
+     /tmp/ccCNpeZo.s:208    .text._ZN14CurrentLimiterD0Ev:0000000000000000 _ZN14CurrentLimiterD0Ev
+     /tmp/ccCNpeZo.s:245    .text._ZN24ThermistorCurrentLimiterC2EtPKfS1_jRS0_S2_RKb:0000000000000000 $t
+     /tmp/ccCNpeZo.s:252    .text._ZN24ThermistorCurrentLimiterC2EtPKfS1_jRS0_S2_RKb:0000000000000000 _ZN24ThermistorCurrentLimiterC2EtPKfS1_jRS0_S2_RKb
+     /tmp/ccCNpeZo.s:328    .text._ZN24ThermistorCurrentLimiterC2EtPKfS1_jRS0_S2_RKb:0000000000000068 $d
+     /tmp/ccCNpeZo.s:1295   .rodata._ZTV24ThermistorCurrentLimiter:0000000000000000 _ZTV24ThermistorCurrentLimiter
+     /tmp/ccCNpeZo.s:252    .text._ZN24ThermistorCurrentLimiterC2EtPKfS1_jRS0_S2_RKb:0000000000000000 _ZN24ThermistorCurrentLimiterC1EtPKfS1_jRS0_S2_RKb
+     /tmp/ccCNpeZo.s:336    .text._ZN24ThermistorCurrentLimiter6updateEv:0000000000000000 $t
+     /tmp/ccCNpeZo.s:343    .text._ZN24ThermistorCurrentLimiter6updateEv:0000000000000000 _ZN24ThermistorCurrentLimiter6updateEv
+     /tmp/ccCNpeZo.s:444    .text._ZN24ThermistorCurrentLimiter6updateEv:00000000000000a8 $d
+     /tmp/ccCNpeZo.s:449    .text._ZN24ThermistorCurrentLimiter9do_checksEv:0000000000000000 $t
+     /tmp/ccCNpeZo.s:456    .text._ZN24ThermistorCurrentLimiter9do_checksEv:0000000000000000 _ZN24ThermistorCurrentLimiter9do_checksEv
+     /tmp/ccCNpeZo.s:557    .text._ZSt3minIfERKT_S2_S2_:0000000000000000 $t
+     /tmp/ccCNpeZo.s:564    .text._ZSt3minIfERKT_S2_S2_:0000000000000000 _ZSt3minIfERKT_S2_S2_
+     /tmp/ccCNpeZo.s:618    .text._ZNK24ThermistorCurrentLimiter17get_current_limitEf:0000000000000000 $t
+     /tmp/ccCNpeZo.s:625    .text._ZNK24ThermistorCurrentLimiter17get_current_limitEf:0000000000000000 _ZNK24ThermistorCurrentLimiter17get_current_limitEf
+     /tmp/ccCNpeZo.s:751    .text._ZN24ThermistorCurrentLimiterD2Ev:0000000000000000 $t
+     /tmp/ccCNpeZo.s:758    .text._ZN24ThermistorCurrentLimiterD2Ev:0000000000000000 _ZN24ThermistorCurrentLimiterD2Ev
+     /tmp/ccCNpeZo.s:799    .text._ZN24ThermistorCurrentLimiterD2Ev:0000000000000020 $d
+     /tmp/ccCNpeZo.s:758    .text._ZN24ThermistorCurrentLimiterD2Ev:0000000000000000 _ZN24ThermistorCurrentLimiterD1Ev
+     /tmp/ccCNpeZo.s:806    .text._ZN24ThermistorCurrentLimiterD0Ev:0000000000000000 $t
+     /tmp/ccCNpeZo.s:813    .text._ZN24ThermistorCurrentLimiterD0Ev:0000000000000000 _ZN24ThermistorCurrentLimiterD0Ev
+     /tmp/ccCNpeZo.s:850    .text._ZN31OnboardThermistorCurrentLimiterC2ERK26ThermistorHardwareConfig_tRNS_8Config_tE:0000000000000000 $t
+     /tmp/ccCNpeZo.s:857    .text._ZN31OnboardThermistorCurrentLimiterC2ERK26ThermistorHardwareConfig_tRNS_8Config_tE:0000000000000000 _ZN31OnboardThermistorCurrentLimiterC2ERK26ThermistorHardwareConfig_tRNS_8Config_tE
+     /tmp/ccCNpeZo.s:937    .text._ZN31OnboardThermistorCurrentLimiterC2ERK26ThermistorHardwareConfig_tRNS_8Config_tE:0000000000000058 $d
+     /tmp/ccCNpeZo.s:1186   .rodata._ZTV31OnboardThermistorCurrentLimiter:0000000000000000 _ZTV31OnboardThermistorCurrentLimiter
+ARM GAS  /tmp/ccCNpeZo.s 			page 33
+
+
+     /tmp/ccCNpeZo.s:857    .text._ZN31OnboardThermistorCurrentLimiterC2ERK26ThermistorHardwareConfig_tRNS_8Config_tE:0000000000000000 _ZN31OnboardThermistorCurrentLimiterC1ERK26ThermistorHardwareConfig_tRNS_8Config_tE
+     /tmp/ccCNpeZo.s:944    .text._ZN32OffboardThermistorCurrentLimiterC2ERNS_8Config_tE:0000000000000000 $t
+     /tmp/ccCNpeZo.s:951    .text._ZN32OffboardThermistorCurrentLimiterC2ERNS_8Config_tE:0000000000000000 _ZN32OffboardThermistorCurrentLimiterC2ERNS_8Config_tE
+     /tmp/ccCNpeZo.s:1037   .text._ZN32OffboardThermistorCurrentLimiter10decode_pinEv:0000000000000000 _ZN32OffboardThermistorCurrentLimiter10decode_pinEv
+     /tmp/ccCNpeZo.s:1023   .text._ZN32OffboardThermistorCurrentLimiterC2ERNS_8Config_tE:0000000000000054 $d
+     /tmp/ccCNpeZo.s:1077   .rodata._ZTV32OffboardThermistorCurrentLimiter:0000000000000000 _ZTV32OffboardThermistorCurrentLimiter
+     /tmp/ccCNpeZo.s:951    .text._ZN32OffboardThermistorCurrentLimiterC2ERNS_8Config_tE:0000000000000000 _ZN32OffboardThermistorCurrentLimiterC1ERNS_8Config_tE
+     /tmp/ccCNpeZo.s:1030   .text._ZN32OffboardThermistorCurrentLimiter10decode_pinEv:0000000000000000 $t
+     /tmp/ccCNpeZo.s:1074   .rodata._ZTV32OffboardThermistorCurrentLimiter:0000000000000000 $d
+     /tmp/ccCNpeZo.s:1091   .text._ZN32OffboardThermistorCurrentLimiterD2Ev:0000000000000000 _ZN32OffboardThermistorCurrentLimiterD1Ev
+     /tmp/ccCNpeZo.s:1145   .text._ZN32OffboardThermistorCurrentLimiterD0Ev:0000000000000000 _ZN32OffboardThermistorCurrentLimiterD0Ev
+     /tmp/ccCNpeZo.s:1084   .text._ZN32OffboardThermistorCurrentLimiterD2Ev:0000000000000000 $t
+     /tmp/ccCNpeZo.s:1091   .text._ZN32OffboardThermistorCurrentLimiterD2Ev:0000000000000000 _ZN32OffboardThermistorCurrentLimiterD2Ev
+     /tmp/ccCNpeZo.s:1131   .text._ZN32OffboardThermistorCurrentLimiterD2Ev:0000000000000020 $d
+     /tmp/ccCNpeZo.s:1138   .text._ZN32OffboardThermistorCurrentLimiterD0Ev:0000000000000000 $t
+     /tmp/ccCNpeZo.s:1183   .rodata._ZTV31OnboardThermistorCurrentLimiter:0000000000000000 $d
+     /tmp/ccCNpeZo.s:1200   .text._ZN31OnboardThermistorCurrentLimiterD2Ev:0000000000000000 _ZN31OnboardThermistorCurrentLimiterD1Ev
+     /tmp/ccCNpeZo.s:1254   .text._ZN31OnboardThermistorCurrentLimiterD0Ev:0000000000000000 _ZN31OnboardThermistorCurrentLimiterD0Ev
+     /tmp/ccCNpeZo.s:1193   .text._ZN31OnboardThermistorCurrentLimiterD2Ev:0000000000000000 $t
+     /tmp/ccCNpeZo.s:1200   .text._ZN31OnboardThermistorCurrentLimiterD2Ev:0000000000000000 _ZN31OnboardThermistorCurrentLimiterD2Ev
+     /tmp/ccCNpeZo.s:1240   .text._ZN31OnboardThermistorCurrentLimiterD2Ev:0000000000000020 $d
+     /tmp/ccCNpeZo.s:1247   .text._ZN31OnboardThermistorCurrentLimiterD0Ev:0000000000000000 $t
+     /tmp/ccCNpeZo.s:1292   .rodata._ZTV24ThermistorCurrentLimiter:0000000000000000 $d
+     /tmp/ccCNpeZo.s:1303   .rodata._ZTV14CurrentLimiter:0000000000000000 $d
+                           .group:0000000000000000 _ZN14CurrentLimiterC5Ev
+                           .group:0000000000000000 _ZN14CurrentLimiterD5Ev
                            .group:0000000000000000 _ZN24ThermistorCurrentLimiterD5Ev
                            .group:0000000000000000 _ZN32OffboardThermistorCurrentLimiterD5Ev
                            .group:0000000000000000 _ZN31OnboardThermistorCurrentLimiterD5Ev
@@ -1618,3 +1939,4 @@ _ZdlPv
 get_adc_voltage_channel
 horner_fma
 adc_ref_voltage
+__cxa_pure_virtual

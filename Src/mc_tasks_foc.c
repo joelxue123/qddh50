@@ -89,7 +89,7 @@ __weak void FOC_Init(void)
     /*    PWM and current sensing component initialization    */
     /**********************************************************/
     pwmcHandle[M1] = &PWM_Handle_M1._Super;
-    R3_2_Init(&PWM_Handle_M1);
+   R3_2_Init(&PWM_Handle_M1);
 
     /* USER CODE BEGIN MCboot 1 */
 
@@ -231,7 +231,11 @@ __weak void TSK_MediumFrequencyTaskM1(void)
               STSPIN32G4_clearFaults(&HdlSTSPING4);
               STSPIN32G4_wakeup(&HdlSTSPING4, 4);
               vTaskDelay(100);
-   
+              LL_ADC_INJ_StartConversion(ADC1);
+              LL_ADC_INJ_StartConversion(ADC2);
+              LL_ADC_EnableIT_JEOS(ADC1);  // Enable ADC1 injected end of sequence interrupt
+
+              LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);
 
               /* Calibration already done. Enables only TIM channels */
               pwmcHandle[M1]->OffCalibrWaitTimeCounter = 1u;
@@ -242,7 +246,7 @@ __weak void TSK_MediumFrequencyTaskM1(void)
       //        R3_2_TurnOnLowSides(pwmcHandle[M1],M1_CHARGE_BOOT_CAP_DUTY_CYCLES);
               TSK_SetChargeBootCapDelayM1(M1_CHARGE_BOOT_CAP_TICKS);
 
-             
+              LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);
 
 
               RUC_Clear(&RevUpControlM1, MCI_GetImposedMotorDirection(&Mci[M1]));
@@ -759,14 +763,23 @@ __weak uint8_t FOC_HighFrequencyTask(uint8_t bMotorNbr)
   {
     /* Nothing to do */
   }
-  RCM_ReadOngoingConv();
-  RCM_ExecNextConv();
+  //RCM_ReadOngoingConv();
+  //RCM_ExecNextConv();
   /* The generic function needs to be called here as the undelying
    * implementation changes in time depending on the Profiler's state
    * machine. Calling the generic function ensures that the correct
    * implementation is invoked */
 
-  PWMC_GetPhaseCurrents(pwmcHandle[M1], &Iab);
+  //PWMC_GetPhaseCurrents(pwmcHandle[M1], &Iab);
+
+// ADC1 - Phase U current
+// LL_ADC_INJ_SetSequencerRanks(ADC1, LL_ADC_INJ_RANK_1, LL_ADC_CHANNEL_3); // OPAMP1 output
+
+// // ADC2 - Phase V current  
+// LL_ADC_INJ_SetSequencerRanks(ADC2, LL_ADC_INJ_RANK_1, LL_ADC_CHANNEL_3); // OPAMP2 output
+
+  Iab.a  = ADC1->JDR1>>4 ;
+  Iab.b  = ADC2->JDR1>>4 ;
   FOCVars[M1].Iab = Iab;
 
   a = Iab.a;
@@ -774,6 +787,8 @@ __weak uint8_t FOC_HighFrequencyTask(uint8_t bMotorNbr)
   clark_park(&iq,&id,theta_,a,b);
   FOCVars[M1].Iqd.q = iq;
   FOCVars[M1].Iqd.d = id;
+
+
 
 if(task_run == 1)
 {

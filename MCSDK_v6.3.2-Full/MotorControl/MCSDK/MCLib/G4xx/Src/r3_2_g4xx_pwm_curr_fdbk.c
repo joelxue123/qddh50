@@ -217,6 +217,8 @@ __weak void R3_2_Init(PWMC_R3_2_Handle_t *pHandle)
         /* Nothing to do */
       }
 
+     
+
       if (0U == LL_ADC_IsEnabled(ADCx_1))
       {
         R3_2_ADCxInit(ADCx_1);
@@ -232,7 +234,7 @@ __weak void R3_2_Init(PWMC_R3_2_Handle_t *pHandle)
       }
       if (0U == LL_ADC_IsEnabled(ADCx_2))
       {
-        R3_2_ADCxInit(ADCx_2);
+       // R3_2_ADCxInit(ADCx_2);
       }
       else
       {
@@ -492,7 +494,7 @@ __weak void R3_2_CurrentReadingPolarization(PWMC_Handle_t *pHdl)
 
     /* IF CH4 is enabled, it means that JSQR is now configured to sample polarization current
      * while ( LL_TIM_CC_IsEnabledChannel(TIMx, LL_TIM_CHANNEL_CH4) == 0u ) */
-  //  while (((TIMx->CR2) & TIM_CR2_MMS_Msk) != LL_TIM_TRGO_OC4REF)
+    while (((TIMx->CR2) & TIM_CR2_MMS_Msk) != LL_TIM_TRGO_OC4REF)
     {
       /* Nothing to do */
     }
@@ -1572,10 +1574,10 @@ void fun1(PWMC_R3_2_Handle_t *pHandle)
     {
       pHandle->_Super.Sector = 2;
       // /* We can not change OPAMP source if ADC acquisition is ongoing (Dual motor with internal opamp use case) */
-      // while (0x0u != pHandle->pParams_str->ADCDataReg1[pHandle->_Super.Sector]->JSQR)
-      // {
-      //   /* Nothing to do */
-      // }
+      while (0x0u != pHandle->pParams_str->ADCDataReg1[pHandle->_Super.Sector]->JSQR)
+      {
+        /* Nothing to do */
+      }
    //   return ;
       /* We need to manage the Operational amplifier internal output enable - Dedicated to G4 and the VPSEL selection */
       OpampConfig = OPAMPParams->OPAMPConfig1[pHandle->_Super.Sector];
@@ -1674,8 +1676,8 @@ __weak void *R3_2_TIMx_UP_IRQHandler(PWMC_R3_2_Handle_t *pHandle)
       /* Nothing to do */
     }
 
-    pHandle->pParams_str->ADCDataReg1[pHandle->_Super.Sector]->JSQR = pHandle->pParams_str->ADCConfig1[pHandle->_Super.Sector] | (uint32_t) pHandle->ADC_ExternalPolarityInjected;
-    pHandle->pParams_str->ADCDataReg2[pHandle->_Super.Sector]->JSQR = pHandle->pParams_str->ADCConfig2[pHandle->_Super.Sector] | (uint32_t) pHandle->ADC_ExternalPolarityInjected;
+  //  pHandle->pParams_str->ADCDataReg1[pHandle->_Super.Sector]->JSQR = pHandle->pParams_str->ADCConfig1[pHandle->_Super.Sector] | (uint32_t) pHandle->ADC_ExternalPolarityInjected;
+  //  pHandle->pParams_str->ADCDataReg2[pHandle->_Super.Sector]->JSQR = pHandle->pParams_str->ADCConfig2[pHandle->_Super.Sector] | (uint32_t) pHandle->ADC_ExternalPolarityInjected;
 
     /* Enable ADC trigger source */
 
