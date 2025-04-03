@@ -108,7 +108,8 @@ build/interface_uart.o: Src/interface_uart.cpp Inc/interface_uart.h \
  Inc/power_stage_parameters.h Inc/pmsm_motor_parameters.h Inc/mc_api.h \
  Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_exti.h \
  Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_crs.h \
- Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_pwr.h Inc/mc_config.h \
+ Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_pwr.h \
+ Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_spi.h Inc/mc_config.h \
  Inc/utils.hpp
 Inc/interface_uart.h:
 Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g4xx.h:
@@ -238,5 +239,6 @@ Inc/mc_api.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_exti.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_crs.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_pwr.h:
+Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_spi.h:
 Inc/mc_config.h:
 Inc/utils.hpp:

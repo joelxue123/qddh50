@@ -90,7 +90,8 @@ build/motorcontrol.o: Src/motorcontrol.c Inc/main.h \
  Inc/power_stage_parameters.h Inc/pmsm_motor_parameters.h Inc/mc_api.h \
  Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_exti.h \
  Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_crs.h \
- Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_pwr.h Inc/mc_tasks.h \
+ Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_pwr.h \
+ Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_spi.h Inc/mc_tasks.h \
  Inc/mc_parameters.h Inc/motorcontrol.h
 Inc/main.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h:
@@ -200,6 +201,7 @@ Inc/mc_api.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_exti.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_crs.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_pwr.h:
+Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_spi.h:
 Inc/mc_tasks.h:
 Inc/mc_parameters.h:
 Inc/motorcontrol.h:

@@ -90,7 +90,8 @@ build/dma.o: Src/dma.c Inc/dma.h \
  Inc/power_stage_parameters.h Inc/pmsm_motor_parameters.h Inc/mc_api.h \
  Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_exti.h \
  Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_crs.h \
- Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_pwr.h
+ Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_pwr.h \
+ Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_spi.h
 Inc/dma.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h:
 Inc/stm32g4xx_hal_conf.h:
@@ -200,3 +201,4 @@ Inc/mc_api.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_exti.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_crs.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_pwr.h:
+Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_spi.h:

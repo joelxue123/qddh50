@@ -90,7 +90,8 @@ build/mc_tasks_foc.o: Src/mc_tasks_foc.c Inc/main.h \
  Inc/power_stage_parameters.h Inc/pmsm_motor_parameters.h Inc/mc_api.h \
  Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_exti.h \
  Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_crs.h \
- Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_pwr.h Inc/motorcontrol.h \
+ Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_pwr.h \
+ Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_spi.h Inc/motorcontrol.h \
  MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/digital_output.h \
  Inc/pwm_common.h Inc/mc_tasks.h Inc/mc_parameters.h \
  Inc/parameters_conversion.h Inc/mcp_config.h \
@@ -207,6 +208,7 @@ Inc/mc_api.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_exti.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_crs.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_pwr.h:
+Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_spi.h:
 Inc/motorcontrol.h:
 MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/digital_output.h:
 Inc/pwm_common.h:

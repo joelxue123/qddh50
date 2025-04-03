@@ -110,6 +110,7 @@ build/can_encos.o: Src/can_encos.cpp Inc/can_encos.hpp \
  Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_exti.h \
  Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_crs.h \
  Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_pwr.h \
+ Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_spi.h \
  Inc/open_loop_controller.hpp Inc/component.hpp Inc/user_int.hpp \
  Inc/low_level.h Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_adc.h \
  Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_adc.h \
@@ -249,6 +250,7 @@ Inc/mc_api.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_exti.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_crs.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_pwr.h:
+Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_spi.h:
 Inc/open_loop_controller.hpp:
 Inc/component.hpp:
 Inc/user_int.hpp:

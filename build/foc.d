@@ -112,7 +112,8 @@ build/foc.o: Src/foc.cpp Inc/interfaces.hpp Inc/foc.hpp Inc/user_int.hpp \
  Inc/power_stage_parameters.h Inc/pmsm_motor_parameters.h Inc/mc_api.h \
  Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_exti.h \
  Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_crs.h \
- Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_pwr.h
+ Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_pwr.h \
+ Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_spi.h
 Inc/interfaces.hpp:
 Inc/foc.hpp:
 Inc/user_int.hpp:
@@ -249,3 +250,4 @@ Inc/mc_api.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_exti.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_crs.h:
 Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_pwr.h:
+Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_spi.h:

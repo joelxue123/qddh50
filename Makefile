@@ -100,6 +100,7 @@ Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim.c \
 Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim_ex.c \
 Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_tim.c \
 Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_usart.c \
+Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_spi.c \
 Src/system_stm32g4xx.c \
 Middlewares/Third_Party/FreeRTOS/Source/croutine.c \
 Middlewares/Third_Party/FreeRTOS/Source/event_groups.c \

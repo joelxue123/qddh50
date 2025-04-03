@@ -192,6 +192,8 @@ int32_t  task_run = 0;
  float  theta_ =0.0f;
  int32_t a_offset = 0;
  int32_t b_offset = 0;
+ uint8_t tx[10] ={1,2,3,4,5,6,7,8,9,10};
+ uint8_t rx[10] = {0};
 void test_svm(float mod_q, float mod_d, float *theta, float *ta, float *tb, float *tc) ;
 /**
   * @brief Executes medium frequency periodic Motor Control tasks
@@ -304,6 +306,7 @@ __weak void TSK_MediumFrequencyTaskM1(void)
                 task_run = 1;
                 LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);
                 vTaskDelay(30);
+                SPI1_TransferDMA(tx,rx,10);
               }
               Mci[M1].State = CHARGE_BOOT_CAP;
             }

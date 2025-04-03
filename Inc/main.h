@@ -49,6 +49,7 @@ extern "C" {
 #include "stm32g4xx_ll_tim.h"
 #include "stm32g4xx_ll_usart.h"
 #include "stm32g4xx_ll_gpio.h"
+#include "stm32g4xx_ll_spi.h"
 #include "stm32g4xx_hal_spi.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -152,6 +153,17 @@ void Error_Handler(void);
 #define TCK_Pin LL_GPIO_PIN_14
 #define TCK_GPIO_Port GPIOA
 
+/* SPI1 Pin Definitions */
+#define SPI1_Pin_Clk        LL_GPIO_PIN_3
+#define SPI1_Pin_Clk_Port   GPIOB
+#define SPI1_Pin_MISO       LL_GPIO_PIN_4
+#define SPI1_Pin_MISO_Port  GPIOB  
+#define SPI1_Pin_MOSI       LL_GPIO_PIN_5
+#define SPI1_Pin_MOSI_Port  GPIOB
+#define SPI1_Pin_CS         LL_GPIO_PIN_2
+#define SPI1_Pin_CS_Port    GPIOD
+
+
 
 #define EN_GATE_Pin GPIO_PIN_12
 #define EN_GATE_GPIO_Port GPIOB
@@ -175,6 +187,10 @@ void Error_Handler(void);
 #define MU128_2_GPIO_Port GPIOA
 
 
+
+/* SPI1 DMA Channels */
+#define SPI1_DMA_TX_Channel LL_DMA_CHANNEL_3
+#define SPI1_DMA_RX_Channel LL_DMA_CHANNEL_4
 /* Hardware Definitions */
 #define VESC_UART                   USART1
 #define VESC_DMA                    DMA1
@@ -218,7 +234,7 @@ typedef struct {
   size_t aux_temp;
 } ThermistorHardwareConfig_t;
 
-
+void SPI1_TransferDMA(uint8_t *txData, uint8_t *rxData, uint16_t size);
 
 
 /* USER CODE END Private defines */
