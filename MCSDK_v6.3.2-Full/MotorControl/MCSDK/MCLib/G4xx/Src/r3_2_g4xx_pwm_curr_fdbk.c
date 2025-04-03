@@ -234,7 +234,7 @@ __weak void R3_2_Init(PWMC_R3_2_Handle_t *pHandle)
       }
       if (0U == LL_ADC_IsEnabled(ADCx_2))
       {
-       // R3_2_ADCxInit(ADCx_2);
+        R3_2_ADCxInit(ADCx_2);
       }
       else
       {

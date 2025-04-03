@@ -190,6 +190,8 @@ void TSK_MF_StopProcessing(uint8_t motor)
 }
 int32_t  task_run = 0;
  float  theta_ =0.0f;
+ int32_t a_offset = 0;
+ int32_t b_offset = 0;
 void test_svm(float mod_q, float mod_d, float *theta, float *ta, float *tb, float *tc) ;
 /**
   * @brief Executes medium frequency periodic Motor Control tasks
@@ -228,6 +230,8 @@ __weak void TSK_MediumFrequencyTaskM1(void)
             }
             else
             {
+              a_offset = 0;
+              b_offset = 0;
               STSPIN32G4_clearFaults(&HdlSTSPING4);
               STSPIN32G4_wakeup(&HdlSTSPING4, 4);
               vTaskDelay(100);
@@ -273,6 +277,8 @@ __weak void TSK_MediumFrequencyTaskM1(void)
               LL_TIM_OC_SetCompareCH2(TIM1, 100);
               LL_TIM_OC_SetCompareCH3(TIM1, 100);
               vTaskDelay(1000);
+              
+
               LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);
 
               LL_ADC_EnableIT_JEOS(ADC1);
@@ -288,6 +294,10 @@ __weak void TSK_MediumFrequencyTaskM1(void)
               LL_TIM_EnableAllOutputs(TIM1);
               STSPIN32G4_clearFaults(&HdlSTSPING4);
               LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);
+              vTaskDelay(1000);
+              a_offset =  0 - FOCVars[M1].Iab .a;
+              b_offset = 0 - FOCVars[M1].Iab .b;
+
 
               while(1)
               {
@@ -738,7 +748,7 @@ __weak uint8_t FOC_HighFrequencyTask(uint8_t bMotorNbr)
   float tb =0;
   float tc =0;
   
-  float mod_q = 0.1f;
+  float mod_q = -0.1f;
   float mod_d = 0;
   ab_t Iab;
   float a = 0;
@@ -778,8 +788,9 @@ __weak uint8_t FOC_HighFrequencyTask(uint8_t bMotorNbr)
 // // ADC2 - Phase V current  
 // LL_ADC_INJ_SetSequencerRanks(ADC2, LL_ADC_INJ_RANK_1, LL_ADC_CHANNEL_3); // OPAMP2 output
 
-  Iab.a  = ADC1->JDR1>>4 ;
-  Iab.b  = ADC2->JDR1>>4 ;
+  Iab.a  =  a_offset - (ADC1->JDR1>>4) ;
+  Iab.b  = b_offset -(ADC2->JDR1>>4);
+
   FOCVars[M1].Iab = Iab;
 
   a = Iab.a;
@@ -801,7 +812,7 @@ if(task_run == 1)
                   TIM1->BDTR |= LL_TIM_OSSI_ENABLE;
                   LL_TIM_EnableAllOutputs(TIM1);
   
-                  theta_ = theta_ + 0.001f;
+                  theta_ = theta_ - 0.001f;
 
 }
 LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);  // 使用TIM1 OC4作为触发源
