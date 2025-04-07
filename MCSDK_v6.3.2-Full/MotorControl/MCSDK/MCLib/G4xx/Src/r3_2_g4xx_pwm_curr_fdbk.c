@@ -1439,6 +1439,7 @@ __weak void R3_2_TurnOnLowSides(PWMC_Handle_t *pHdl, uint32_t ticks)
   * @param  pHdl: Handler of the current instance of the PWM component.
   */
 __weak void R3_2_SwitchOnPWM(PWMC_Handle_t *pHdl)
+
 {
   PWMC_R3_2_Handle_t *pHandle = (PWMC_R3_2_Handle_t *)pHdl; //cstat !MISRAC2012-Rule-11.3
   TIM_TypeDef *TIMx = pHandle->pParams_str->TIMx;
