@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccxnSfhR.s 			page 1
+ARM GAS  /tmp/ccJg5ltZ.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -10,7 +10,7 @@ ARM GAS  /tmp/ccxnSfhR.s 			page 1
    7              		.eabi_attribute 24, 1
    8              		.eabi_attribute 25, 1
    9              		.eabi_attribute 26, 1
-  10              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 30, 1
   11              		.eabi_attribute 34, 1
   12              		.eabi_attribute 18, 2
   13              		.file	"arm_sin_f32.c"
@@ -26,8 +26,9 @@ ARM GAS  /tmp/ccxnSfhR.s 			page 1
   23              		.thumb_func
   24              		.fpu fpv4-sp-d16
   26              	our_arm_sin_f32:
-  27              	.LFB173:
-  28              		.file 1 "Src/arm_sin_f32.c"
+  27              	.LVL0:
+  28              	.LFB173:
+  29              		.file 1 "Src/arm_sin_f32.c"
    1:Src/arm_sin_f32.c **** /* ----------------------------------------------------------------------
    2:Src/arm_sin_f32.c ****  * Project:      CMSIS DSP Library
    3:Src/arm_sin_f32.c ****  * Title:        arm_sin_f32.c
@@ -57,10 +58,10 @@ ARM GAS  /tmp/ccxnSfhR.s 			page 1
   27:Src/arm_sin_f32.c ****  */
   28:Src/arm_sin_f32.c **** 
   29:Src/arm_sin_f32.c **** #include <stm32g4xx_hal.h>  // Sets up the correct chip specifc defines required by arm_math
+ARM GAS  /tmp/ccJg5ltZ.s 			page 2
+
+
   30:Src/arm_sin_f32.c **** #define ARM_MATH_CM4 // TODO: might change in future board versions
-ARM GAS  /tmp/ccxnSfhR.s 			page 2
-
-
   31:Src/arm_sin_f32.c **** #include "arm_math.h"
   32:Src/arm_sin_f32.c **** #include "arm_common_tables.h"
   33:Src/arm_sin_f32.c **** 
@@ -106,205 +107,192 @@ ARM GAS  /tmp/ccxnSfhR.s 			page 1
   73:Src/arm_sin_f32.c **** float32_t our_arm_sin_f32(
   74:Src/arm_sin_f32.c ****   float32_t x)
   75:Src/arm_sin_f32.c **** {
-  29              		.loc 1 75 1
-  30              		.cfi_startproc
-  31              		@ args = 0, pretend = 0, frame = 40
-  32              		@ frame_needed = 1, uses_anonymous_args = 0
-  33              		@ link register save eliminated.
-  34 0000 80B4     		push	{r7}
-  35              	.LCFI0:
-  36              		.cfi_def_cfa_offset 4
-  37              		.cfi_offset 7, -4
-  38 0002 8BB0     		sub	sp, sp, #44
-  39              	.LCFI1:
-  40              		.cfi_def_cfa_offset 48
-ARM GAS  /tmp/ccxnSfhR.s 			page 3
-
-
-  41 0004 00AF     		add	r7, sp, #0
-  42              	.LCFI2:
-  43              		.cfi_def_cfa_register 7
-  44 0006 87ED010A 		vstr.32	s0, [r7, #4]
+  30              		.loc 1 75 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		@ link register save eliminated.
   76:Src/arm_sin_f32.c ****   float32_t sinVal, fract, in;                           /* Temporary variables for input, output *
+  35              		.loc 1 76 3 view .LVU1
   77:Src/arm_sin_f32.c ****   uint16_t index;                                        /* Index variable */
+  36              		.loc 1 77 3 view .LVU2
   78:Src/arm_sin_f32.c ****   float32_t a, b;                                        /* Two nearest output values */
+  37              		.loc 1 78 3 view .LVU3
+ARM GAS  /tmp/ccJg5ltZ.s 			page 3
+
+
   79:Src/arm_sin_f32.c ****   int32_t n;
+  38              		.loc 1 79 3 view .LVU4
   80:Src/arm_sin_f32.c ****   float32_t findex;
+  39              		.loc 1 80 3 view .LVU5
   81:Src/arm_sin_f32.c **** 
   82:Src/arm_sin_f32.c ****   /* input x is in radians */
   83:Src/arm_sin_f32.c ****   /* Scale the input to [0 1] range from [0 2*PI] , divide input by 2*pi */
   84:Src/arm_sin_f32.c ****   in = x * 0.159154943092f;
-  45              		.loc 1 84 6
-  46 000a D7ED017A 		vldr.32	s15, [r7, #4]
-  47 000e 9FED3A7A 		vldr.32	s14, .L7
-  48 0012 67EE877A 		vmul.f32	s15, s15, s14
-  49 0016 C7ED067A 		vstr.32	s15, [r7, #24]
+  40              		.loc 1 84 3 view .LVU6
+  41              		.loc 1 84 6 is_stmt 0 view .LVU7
+  42 0000 DFED1E7A 		vldr.32	s15, .L7
+  43 0004 60EE277A 		vmul.f32	s15, s0, s15
+  44              	.LVL1:
   85:Src/arm_sin_f32.c **** 
   86:Src/arm_sin_f32.c ****   /* Calculation of floor value of input */
   87:Src/arm_sin_f32.c ****   n = (int32_t) in;
-  50              		.loc 1 87 5
-  51 001a D7ED067A 		vldr.32	s15, [r7, #24]
-  52 001e FDEEE77A 		vcvt.s32.f32	s15, s15
-  53 0022 17EE903A 		vmov	r3, s15	@ int
-  54 0026 3B62     		str	r3, [r7, #32]
+  45              		.loc 1 87 3 is_stmt 1 view .LVU8
+  46              		.loc 1 87 5 is_stmt 0 view .LVU9
+  47 0008 BDEEE77A 		vcvt.s32.f32	s14, s15
+  48              	.LVL2:
   88:Src/arm_sin_f32.c **** 
   89:Src/arm_sin_f32.c ****   /* Make negative values towards -infinity */
   90:Src/arm_sin_f32.c ****   if (x < 0.0f)
-  55              		.loc 1 90 6
-  56 0028 D7ED017A 		vldr.32	s15, [r7, #4]
-  57 002c F5EEC07A 		vcmpe.f32	s15, #0
-  58 0030 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
-  59 0034 02D5     		bpl	.L2
+  49              		.loc 1 90 3 is_stmt 1 view .LVU10
+  50              		.loc 1 90 6 is_stmt 0 view .LVU11
+  51 000c B5EEC00A 		vcmpe.f32	s0, #0
+  52 0010 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+  53 0014 2CD4     		bmi	.L6
+  54              	.L2:
   91:Src/arm_sin_f32.c ****   {
   92:Src/arm_sin_f32.c ****     n--;
-  60              		.loc 1 92 6
-  61 0036 3B6A     		ldr	r3, [r7, #32]
-  62 0038 013B     		subs	r3, r3, #1
-  63 003a 3B62     		str	r3, [r7, #32]
-  64              	.L2:
   93:Src/arm_sin_f32.c ****   }
   94:Src/arm_sin_f32.c **** 
   95:Src/arm_sin_f32.c ****   /* Map input value to [0 1] */
   96:Src/arm_sin_f32.c ****   in = in - (float32_t) n;
-  65              		.loc 1 96 13
-  66 003c 3B6A     		ldr	r3, [r7, #32]
-  67 003e 07EE903A 		vmov	s15, r3	@ int
-  68 0042 F8EEE77A 		vcvt.f32.s32	s15, s15
-  69              		.loc 1 96 6
-  70 0046 97ED067A 		vldr.32	s14, [r7, #24]
-  71 004a 77EE677A 		vsub.f32	s15, s14, s15
-  72 004e C7ED067A 		vstr.32	s15, [r7, #24]
+  55              		.loc 1 96 3 is_stmt 1 view .LVU12
+  56              	.LVL3:
   97:Src/arm_sin_f32.c **** 
   98:Src/arm_sin_f32.c ****   /* Calculation of index of the table */
   99:Src/arm_sin_f32.c ****   findex = (float32_t)FAST_MATH_TABLE_SIZE * in;
-  73              		.loc 1 99 10
-ARM GAS  /tmp/ccxnSfhR.s 			page 4
-
-
-  74 0052 D7ED067A 		vldr.32	s15, [r7, #24]
-  75 0056 9FED297A 		vldr.32	s14, .L7+4
-  76 005a 67EE877A 		vmul.f32	s15, s15, s14
-  77 005e C7ED077A 		vstr.32	s15, [r7, #28]
+  57              		.loc 1 99 3 view .LVU13
+  96:Src/arm_sin_f32.c **** 
+  58              		.loc 1 96 13 is_stmt 0 view .LVU14
+  59 0016 B8EEC70A 		vcvt.f32.s32	s0, s14
+  60              	.LVL4:
+  96:Src/arm_sin_f32.c **** 
+  61              		.loc 1 96 6 view .LVU15
+  62 001a 37EEC00A 		vsub.f32	s0, s15, s0
+  63              	.LVL5:
+  64              		.loc 1 99 10 view .LVU16
+  65 001e DFED187A 		vldr.32	s15, .L7+4
+  66 0022 20EE270A 		vmul.f32	s0, s0, s15
+  67              	.LVL6:
  100:Src/arm_sin_f32.c ****   index = (uint16_t)findex;
-  78              		.loc 1 100 9
-  79 0062 D7ED077A 		vldr.32	s15, [r7, #28]
-  80 0066 FCEEE77A 		vcvt.u32.f32	s15, s15
-  81 006a 17EE903A 		vmov	r3, s15	@ int
-  82 006e FB84     		strh	r3, [r7, #38]	@ movhi
+  68              		.loc 1 100 3 is_stmt 1 view .LVU17
+  69              		.loc 1 100 9 is_stmt 0 view .LVU18
+  70 0026 FCEEC07A 		vcvt.u32.f32	s15, s0
+ARM GAS  /tmp/ccJg5ltZ.s 			page 4
+
+
+  71 002a 17EE903A 		vmov	r3, s15	@ int
+  72 002e 9BB2     		uxth	r3, r3
+  73              	.LVL7:
  101:Src/arm_sin_f32.c **** 
  102:Src/arm_sin_f32.c ****   /* when "in" is exactly 1, we need to rotate the index down to 0 */
  103:Src/arm_sin_f32.c ****   if (index >= FAST_MATH_TABLE_SIZE) {
-  83              		.loc 1 103 6
-  84 0070 FB8C     		ldrh	r3, [r7, #38]
-  85 0072 B3F5007F 		cmp	r3, #512
-  86 0076 09D3     		bcc	.L4
+  74              		.loc 1 103 3 is_stmt 1 view .LVU19
+  75              		.loc 1 103 6 is_stmt 0 view .LVU20
+  76 0030 B3F5007F 		cmp	r3, #512
+  77 0034 04D3     		bcc	.L4
  104:Src/arm_sin_f32.c ****     index = 0;
-  87              		.loc 1 104 11
-  88 0078 0023     		movs	r3, #0
-  89 007a FB84     		strh	r3, [r7, #38]	@ movhi
+  78              		.loc 1 104 5 is_stmt 1 view .LVU21
+  79              	.LVL8:
  105:Src/arm_sin_f32.c ****     findex -= (float32_t)FAST_MATH_TABLE_SIZE;
-  90              		.loc 1 105 12
-  91 007c D7ED077A 		vldr.32	s15, [r7, #28]
-  92 0080 9FED1E7A 		vldr.32	s14, .L7+4
-  93 0084 77EEC77A 		vsub.f32	s15, s15, s14
-  94 0088 C7ED077A 		vstr.32	s15, [r7, #28]
-  95              	.L4:
+  80              		.loc 1 105 5 view .LVU22
+  81              		.loc 1 105 12 is_stmt 0 view .LVU23
+  82 0036 DFED127A 		vldr.32	s15, .L7+4
+  83 003a 30EE670A 		vsub.f32	s0, s0, s15
+  84              	.LVL9:
+ 104:Src/arm_sin_f32.c ****     index = 0;
+  85              		.loc 1 104 11 view .LVU24
+  86 003e 0023     		movs	r3, #0
+  87              	.LVL10:
+  88              	.L4:
  106:Src/arm_sin_f32.c ****   }
  107:Src/arm_sin_f32.c **** 
  108:Src/arm_sin_f32.c ****   /* fractional value calculation */
  109:Src/arm_sin_f32.c ****   fract = findex - (float32_t) index;
-  96              		.loc 1 109 20
-  97 008c FB8C     		ldrh	r3, [r7, #38]
-  98 008e 07EE903A 		vmov	s15, r3	@ int
-  99 0092 F8EE677A 		vcvt.f32.u32	s15, s15
- 100              		.loc 1 109 9
- 101 0096 97ED077A 		vldr.32	s14, [r7, #28]
- 102 009a 77EE677A 		vsub.f32	s15, s14, s15
- 103 009e C7ED057A 		vstr.32	s15, [r7, #20]
+  89              		.loc 1 109 3 is_stmt 1 view .LVU25
+  90              		.loc 1 109 20 is_stmt 0 view .LVU26
+  91 0040 07EE903A 		vmov	s15, r3	@ int
+  92 0044 F8EE677A 		vcvt.f32.u32	s15, s15
+  93              		.loc 1 109 9 view .LVU27
+  94 0048 30EE670A 		vsub.f32	s0, s0, s15
+  95              	.LVL11:
  110:Src/arm_sin_f32.c **** 
  111:Src/arm_sin_f32.c ****   /* Read two nearest values of input value from the sin table */
  112:Src/arm_sin_f32.c ****   a = sinTable_f32[index];
- 104              		.loc 1 112 19
- 105 00a2 FB8C     		ldrh	r3, [r7, #38]
- 106              		.loc 1 112 5
- 107 00a4 164A     		ldr	r2, .L7+8
- 108 00a6 9B00     		lsls	r3, r3, #2
- 109 00a8 1344     		add	r3, r3, r2
- 110 00aa 1B68     		ldr	r3, [r3]	@ float
- 111 00ac 3B61     		str	r3, [r7, #16]	@ float
+  96              		.loc 1 112 3 is_stmt 1 view .LVU28
  113:Src/arm_sin_f32.c ****   b = sinTable_f32[index+1];
- 112              		.loc 1 113 25
- 113 00ae FB8C     		ldrh	r3, [r7, #38]
- 114 00b0 0133     		adds	r3, r3, #1
- 115              		.loc 1 113 5
- 116 00b2 134A     		ldr	r2, .L7+8
-ARM GAS  /tmp/ccxnSfhR.s 			page 5
-
-
- 117 00b4 9B00     		lsls	r3, r3, #2
- 118 00b6 1344     		add	r3, r3, r2
- 119 00b8 1B68     		ldr	r3, [r3]	@ float
- 120 00ba FB60     		str	r3, [r7, #12]	@ float
+  97              		.loc 1 113 3 view .LVU29
  114:Src/arm_sin_f32.c **** 
  115:Src/arm_sin_f32.c ****   /* Linear interpolation process */
  116:Src/arm_sin_f32.c ****   sinVal = (1.0f-fract)*a + fract*b;
- 121              		.loc 1 116 17
- 122 00bc B7EE007A 		vmov.f32	s14, #1.0e+0
- 123 00c0 D7ED057A 		vldr.32	s15, [r7, #20]
- 124 00c4 37EE677A 		vsub.f32	s14, s14, s15
- 125              		.loc 1 116 24
- 126 00c8 D7ED047A 		vldr.32	s15, [r7, #16]
- 127 00cc 27EE277A 		vmul.f32	s14, s14, s15
- 128              		.loc 1 116 34
- 129 00d0 D7ED056A 		vldr.32	s13, [r7, #20]
- 130 00d4 D7ED037A 		vldr.32	s15, [r7, #12]
- 131 00d8 66EEA77A 		vmul.f32	s15, s13, s15
- 132              		.loc 1 116 10
- 133 00dc 77EE277A 		vadd.f32	s15, s14, s15
- 134 00e0 C7ED027A 		vstr.32	s15, [r7, #8]
+  98              		.loc 1 116 3 view .LVU30
  117:Src/arm_sin_f32.c **** 
  118:Src/arm_sin_f32.c ****   /* Return the output value */
  119:Src/arm_sin_f32.c ****   return (sinVal);
- 135              		.loc 1 119 10
- 136 00e4 BB68     		ldr	r3, [r7, #8]	@ float
- 137 00e6 07EE903A 		vmov	s15, r3
+  99              		.loc 1 119 3 view .LVU31
+ 116:Src/arm_sin_f32.c **** 
+ 100              		.loc 1 116 17 is_stmt 0 view .LVU32
+ 101 004c F7EE007A 		vmov.f32	s15, #1.0e+0
+ 102 0050 77EEC07A 		vsub.f32	s15, s15, s0
+ 112:Src/arm_sin_f32.c ****   b = sinTable_f32[index+1];
+ 103              		.loc 1 112 5 view .LVU33
+ 104 0054 0B4A     		ldr	r2, .L7+8
+ 105 0056 02EB8301 		add	r1, r2, r3, lsl #2
+ARM GAS  /tmp/ccJg5ltZ.s 			page 5
+
+
+ 106              	.LVL12:
+ 116:Src/arm_sin_f32.c **** 
+ 107              		.loc 1 116 24 view .LVU34
+ 108 005a 91ED007A 		vldr.32	s14, [r1]
+ 109              	.LVL13:
+ 116:Src/arm_sin_f32.c **** 
+ 110              		.loc 1 116 24 view .LVU35
+ 111 005e 67EE877A 		vmul.f32	s15, s15, s14
+ 116:Src/arm_sin_f32.c **** 
+ 112              		.loc 1 116 34 view .LVU36
+ 113 0062 91ED017A 		vldr.32	s14, [r1, #4]
+ 114 0066 20EE070A 		vmul.f32	s0, s0, s14
+ 115              	.LVL14:
  120:Src/arm_sin_f32.c **** }
- 138              		.loc 1 120 1
- 139 00ea B0EE670A 		vmov.f32	s0, s15
- 140 00ee 2C37     		adds	r7, r7, #44
- 141              	.LCFI3:
- 142              		.cfi_def_cfa_offset 4
- 143 00f0 BD46     		mov	sp, r7
- 144              	.LCFI4:
- 145              		.cfi_def_cfa_register 13
- 146              		@ sp needed
- 147 00f2 5DF8047B 		ldr	r7, [sp], #4
- 148              	.LCFI5:
- 149              		.cfi_restore 7
- 150              		.cfi_def_cfa_offset 0
- 151 00f6 7047     		bx	lr
- 152              	.L8:
- 153              		.align	2
- 154              	.L7:
- 155 00f8 83F9223E 		.word	1042479491
- 156 00fc 00000044 		.word	1140850688
- 157 0100 00000000 		.word	sinTable_f32
- 158              		.cfi_endproc
- 159              	.LFE173:
- 161              		.text
- 162              	.Letext0:
- 163              		.file 2 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
- 164              		.file 3 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
- 165              		.file 4 "Drivers/CMSIS/DSP/Include/arm_math.h"
- 166              		.file 5 "Drivers/CMSIS/DSP/Include/arm_common_tables.h"
-ARM GAS  /tmp/ccxnSfhR.s 			page 6
+ 116              		.loc 1 120 1 view .LVU37
+ 117 006a 37EE800A 		vadd.f32	s0, s15, s0
+ 118 006e 7047     		bx	lr
+ 119              	.LVL15:
+ 120              	.L6:
+  92:Src/arm_sin_f32.c ****   }
+ 121              		.loc 1 92 5 is_stmt 1 view .LVU38
+  92:Src/arm_sin_f32.c ****   }
+ 122              		.loc 1 92 6 is_stmt 0 view .LVU39
+ 123 0070 17EE103A 		vmov	r3, s14	@ int
+ 124 0074 013B     		subs	r3, r3, #1
+ 125 0076 07EE103A 		vmov	s14, r3	@ int
+ 126              	.LVL16:
+  92:Src/arm_sin_f32.c ****   }
+ 127              		.loc 1 92 6 view .LVU40
+ 128 007a CCE7     		b	.L2
+ 129              	.L8:
+ 130              		.align	2
+ 131              	.L7:
+ 132 007c 83F9223E 		.word	1042479491
+ 133 0080 00000044 		.word	1140850688
+ 134 0084 00000000 		.word	sinTable_f32
+ 135              		.cfi_endproc
+ 136              	.LFE173:
+ 138              		.text
+ 139              	.Letext0:
+ 140              		.file 2 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
+ 141              		.file 3 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
+ 142              		.file 4 "Drivers/CMSIS/DSP/Include/arm_math.h"
+ 143              		.file 5 "Drivers/CMSIS/DSP/Include/arm_common_tables.h"
+ARM GAS  /tmp/ccJg5ltZ.s 			page 6
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 arm_sin_f32.c
-     /tmp/ccxnSfhR.s:18     .text.our_arm_sin_f32:0000000000000000 $t
-     /tmp/ccxnSfhR.s:26     .text.our_arm_sin_f32:0000000000000000 our_arm_sin_f32
-     /tmp/ccxnSfhR.s:155    .text.our_arm_sin_f32:00000000000000f8 $d
+     /tmp/ccJg5ltZ.s:18     .text.our_arm_sin_f32:0000000000000000 $t
+     /tmp/ccJg5ltZ.s:26     .text.our_arm_sin_f32:0000000000000000 our_arm_sin_f32
+     /tmp/ccJg5ltZ.s:132    .text.our_arm_sin_f32:000000000000007c $d
 
 UNDEFINED SYMBOLS
 sinTable_f32

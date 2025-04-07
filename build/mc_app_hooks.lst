@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccUeNUaf.s 			page 1
+ARM GAS  /tmp/ccVNcLc0.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -10,77 +10,24 @@ ARM GAS  /tmp/ccUeNUaf.s 			page 1
    7              		.eabi_attribute 24, 1
    8              		.eabi_attribute 25, 1
    9              		.eabi_attribute 26, 1
-  10              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 30, 1
   11              		.eabi_attribute 34, 1
   12              		.eabi_attribute 18, 2
   13              		.file	"mc_app_hooks.c"
   14              		.text
   15              	.Ltext0:
   16              		.cfi_sections	.debug_frame
-  17              		.section	.rodata.OFFSET_TAB_CCMRx,"a"
-  18              		.align	2
-  21              	OFFSET_TAB_CCMRx:
-  22 0000 00000000 		.ascii	"\000\000\000\000\004\004\004\00488"
-  22      04040404 
-  22      3838
-  23              		.section	.rodata.SHIFT_TAB_OCxx,"a"
-  24              		.align	2
-  27              	SHIFT_TAB_OCxx:
-  28 0000 00000800 		.ascii	"\000\000\010\000\000\000\010\000\000\010"
-  28      00000800 
-  28      0008
-  29              		.section	.rodata.SHIFT_TAB_ICxx,"a"
-  30              		.align	2
-  33              	SHIFT_TAB_ICxx:
-  34 0000 00000800 		.ascii	"\000\000\010\000\000\000\010\000\000\000"
-  34      00000800 
-  34      0000
-  35              		.section	.rodata.SHIFT_TAB_CCxP,"a"
-  36              		.align	2
-  39              	SHIFT_TAB_CCxP:
-  40 0000 00020406 		.ascii	"\000\002\004\006\010\012\014\016\020\024"
-  40      080A0C0E 
-  40      1014
-  41              		.section	.rodata.SHIFT_TAB_OISx,"a"
-  42              		.align	2
-  45              	SHIFT_TAB_OISx:
-  46 0000 00010203 		.ascii	"\000\001\002\003\004\005\006\007\010\012"
-  46      04050607 
-  46      080A
-  47              		.section	.rodata.USART_PRESCALER_TAB,"a"
-  48              		.align	2
-  51              	USART_PRESCALER_TAB:
-  52 0000 01000000 		.word	1
-  53 0004 02000000 		.word	2
-  54 0008 04000000 		.word	4
-  55 000c 06000000 		.word	6
-  56 0010 08000000 		.word	8
-  57 0014 0A000000 		.word	10
-  58 0018 0C000000 		.word	12
-  59 001c 10000000 		.word	16
-ARM GAS  /tmp/ccUeNUaf.s 			page 2
-
-
-  60 0020 20000000 		.word	32
-  61 0024 40000000 		.word	64
-  62 0028 80000000 		.word	128
-  63 002c 00010000 		.word	256
-  64              		.section	.rodata.CHANNEL_OFFSET_TAB,"a"
-  65              		.align	2
-  68              	CHANNEL_OFFSET_TAB:
-  69 0000 081C3044 		.ascii	"\010\0340DXl"
-  69      586C
-  70              		.section	.text.MC_APP_BootHook,"ax",%progbits
-  71              		.align	1
-  72              		.weak	MC_APP_BootHook
-  73              		.arch armv7e-m
-  74              		.syntax unified
-  75              		.thumb
-  76              		.thumb_func
-  77              		.fpu fpv4-sp-d16
-  79              	MC_APP_BootHook:
-  80              	.LFB1435:
-  81              		.file 1 "Src/mc_app_hooks.c"
+  17              		.section	.text.MC_APP_BootHook,"ax",%progbits
+  18              		.align	1
+  19              		.weak	MC_APP_BootHook
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	MC_APP_BootHook:
+  27              	.LFB1435:
+  28              		.file 1 "Src/mc_app_hooks.c"
    1:Src/mc_app_hooks.c **** 
    2:Src/mc_app_hooks.c **** /**
    3:Src/mc_app_hooks.c ****   ******************************************************************************
@@ -111,6 +58,9 @@ ARM GAS  /tmp/ccUeNUaf.s 			page 1
   28:Src/mc_app_hooks.c ****   * @{
   29:Src/mc_app_hooks.c ****   */
   30:Src/mc_app_hooks.c **** 
+ARM GAS  /tmp/ccVNcLc0.s 			page 2
+
+
   31:Src/mc_app_hooks.c **** /** @addtogroup MCTasks
   32:Src/mc_app_hooks.c ****   * @{
   33:Src/mc_app_hooks.c ****   */
@@ -118,9 +68,6 @@ ARM GAS  /tmp/ccUeNUaf.s 			page 1
   35:Src/mc_app_hooks.c **** /**
   36:Src/mc_app_hooks.c ****  * @defgroup MCAppHooks Motor Control Applicative hooks
   37:Src/mc_app_hooks.c ****  * @brief User defined functions that are called in the Motor Control tasks.
-ARM GAS  /tmp/ccUeNUaf.s 			page 3
-
-
   38:Src/mc_app_hooks.c ****  *
   39:Src/mc_app_hooks.c ****  *
   40:Src/mc_app_hooks.c ****  * @{
@@ -134,18 +81,11 @@ ARM GAS  /tmp/ccUeNUaf.s 			page 1
   48:Src/mc_app_hooks.c ****  */
   49:Src/mc_app_hooks.c **** __weak void MC_APP_BootHook(void)
   50:Src/mc_app_hooks.c **** {
-  82              		.loc 1 50 1
-  83              		.cfi_startproc
-  84              		@ args = 0, pretend = 0, frame = 0
-  85              		@ frame_needed = 1, uses_anonymous_args = 0
-  86              		@ link register save eliminated.
-  87 0000 80B4     		push	{r7}
-  88              	.LCFI0:
-  89              		.cfi_def_cfa_offset 4
-  90              		.cfi_offset 7, -4
-  91 0002 00AF     		add	r7, sp, #0
-  92              	.LCFI1:
-  93              		.cfi_def_cfa_register 7
+  29              		.loc 1 50 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
   51:Src/mc_app_hooks.c ****   /*
   52:Src/mc_app_hooks.c ****    * This function can be overloaded or the application can inject
   53:Src/mc_app_hooks.c ****    * code into it that will be executed at the end of MCboot().
@@ -155,32 +95,20 @@ ARM GAS  /tmp/ccUeNUaf.s 			page 1
   57:Src/mc_app_hooks.c **** 
   58:Src/mc_app_hooks.c **** /* USER CODE END BootHook */
   59:Src/mc_app_hooks.c **** }
-  94              		.loc 1 59 1
-  95 0004 00BF     		nop
-  96 0006 BD46     		mov	sp, r7
-  97              	.LCFI2:
-  98              		.cfi_def_cfa_register 13
-  99              		@ sp needed
- 100 0008 5DF8047B 		ldr	r7, [sp], #4
- 101              	.LCFI3:
- 102              		.cfi_restore 7
- 103              		.cfi_def_cfa_offset 0
- 104 000c 7047     		bx	lr
- 105              		.cfi_endproc
- 106              	.LFE1435:
- 108              		.section	.text.MC_APP_PostMediumFrequencyHook_M1,"ax",%progbits
- 109              		.align	1
- 110              		.weak	MC_APP_PostMediumFrequencyHook_M1
- 111              		.syntax unified
- 112              		.thumb
- 113              		.thumb_func
- 114              		.fpu fpv4-sp-d16
- 116              	MC_APP_PostMediumFrequencyHook_M1:
- 117              	.LFB1436:
+  34              		.loc 1 59 1 view .LVU1
+  35 0000 7047     		bx	lr
+  36              		.cfi_endproc
+  37              	.LFE1435:
+  39              		.section	.text.MC_APP_PostMediumFrequencyHook_M1,"ax",%progbits
+  40              		.align	1
+  41              		.weak	MC_APP_PostMediumFrequencyHook_M1
+  42              		.syntax unified
+  43              		.thumb
+  44              		.thumb_func
+  45              		.fpu fpv4-sp-d16
+  47              	MC_APP_PostMediumFrequencyHook_M1:
+  48              	.LFB1436:
   60:Src/mc_app_hooks.c **** 
-ARM GAS  /tmp/ccUeNUaf.s 			page 4
-
-
   61:Src/mc_app_hooks.c **** /**
   62:Src/mc_app_hooks.c ****  * @brief Hook function called right after the Medium Frequency Task for Motor 1.
   63:Src/mc_app_hooks.c ****  *
@@ -189,18 +117,14 @@ ARM GAS  /tmp/ccUeNUaf.s 			page 1
   66:Src/mc_app_hooks.c ****  */
   67:Src/mc_app_hooks.c **** __weak void MC_APP_PostMediumFrequencyHook_M1(void)
   68:Src/mc_app_hooks.c **** {
- 118              		.loc 1 68 1
- 119              		.cfi_startproc
- 120              		@ args = 0, pretend = 0, frame = 0
- 121              		@ frame_needed = 1, uses_anonymous_args = 0
- 122              		@ link register save eliminated.
- 123 0000 80B4     		push	{r7}
- 124              	.LCFI4:
- 125              		.cfi_def_cfa_offset 4
- 126              		.cfi_offset 7, -4
- 127 0002 00AF     		add	r7, sp, #0
- 128              	.LCFI5:
- 129              		.cfi_def_cfa_register 7
+  49              		.loc 1 68 1 view -0
+ARM GAS  /tmp/ccVNcLc0.s 			page 3
+
+
+  50              		.cfi_startproc
+  51              		@ args = 0, pretend = 0, frame = 0
+  52              		@ frame_needed = 0, uses_anonymous_args = 0
+  53              		@ link register save eliminated.
   69:Src/mc_app_hooks.c ****   /*
   70:Src/mc_app_hooks.c ****    * This function can be overloaded or the application can inject
   71:Src/mc_app_hooks.c ****    * code into it that will be executed right after the Medium
@@ -211,48 +135,25 @@ ARM GAS  /tmp/ccUeNUaf.s 			page 1
   76:Src/mc_app_hooks.c **** 
   77:Src/mc_app_hooks.c **** /* USER SECTION END PostMediumFrequencyHookM1 */
   78:Src/mc_app_hooks.c **** }
- 130              		.loc 1 78 1
- 131 0004 00BF     		nop
- 132 0006 BD46     		mov	sp, r7
- 133              	.LCFI6:
- 134              		.cfi_def_cfa_register 13
- 135              		@ sp needed
- 136 0008 5DF8047B 		ldr	r7, [sp], #4
- 137              	.LCFI7:
- 138              		.cfi_restore 7
- 139              		.cfi_def_cfa_offset 0
- 140 000c 7047     		bx	lr
- 141              		.cfi_endproc
- 142              	.LFE1436:
- 144              		.text
- 145              	.Letext0:
- 146              		.file 2 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
- 147              		.file 3 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
- 148              		.file 4 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h"
- 149              		.file 5 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_usart.h"
- 150              		.file 6 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h"
-ARM GAS  /tmp/ccUeNUaf.s 			page 5
+  54              		.loc 1 78 1 view .LVU3
+  55 0000 7047     		bx	lr
+  56              		.cfi_endproc
+  57              	.LFE1436:
+  59              		.text
+  60              	.Letext0:
+  61              		.file 2 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
+  62              		.file 3 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
+  63              		.file 4 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h"
+  64              		.file 5 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_usart.h"
+  65              		.file 6 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h"
+ARM GAS  /tmp/ccVNcLc0.s 			page 4
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 mc_app_hooks.c
-     /tmp/ccUeNUaf.s:18     .rodata.OFFSET_TAB_CCMRx:0000000000000000 $d
-     /tmp/ccUeNUaf.s:21     .rodata.OFFSET_TAB_CCMRx:0000000000000000 OFFSET_TAB_CCMRx
-     /tmp/ccUeNUaf.s:24     .rodata.SHIFT_TAB_OCxx:0000000000000000 $d
-     /tmp/ccUeNUaf.s:27     .rodata.SHIFT_TAB_OCxx:0000000000000000 SHIFT_TAB_OCxx
-     /tmp/ccUeNUaf.s:30     .rodata.SHIFT_TAB_ICxx:0000000000000000 $d
-     /tmp/ccUeNUaf.s:33     .rodata.SHIFT_TAB_ICxx:0000000000000000 SHIFT_TAB_ICxx
-     /tmp/ccUeNUaf.s:36     .rodata.SHIFT_TAB_CCxP:0000000000000000 $d
-     /tmp/ccUeNUaf.s:39     .rodata.SHIFT_TAB_CCxP:0000000000000000 SHIFT_TAB_CCxP
-     /tmp/ccUeNUaf.s:42     .rodata.SHIFT_TAB_OISx:0000000000000000 $d
-     /tmp/ccUeNUaf.s:45     .rodata.SHIFT_TAB_OISx:0000000000000000 SHIFT_TAB_OISx
-     /tmp/ccUeNUaf.s:48     .rodata.USART_PRESCALER_TAB:0000000000000000 $d
-     /tmp/ccUeNUaf.s:51     .rodata.USART_PRESCALER_TAB:0000000000000000 USART_PRESCALER_TAB
-     /tmp/ccUeNUaf.s:65     .rodata.CHANNEL_OFFSET_TAB:0000000000000000 $d
-     /tmp/ccUeNUaf.s:68     .rodata.CHANNEL_OFFSET_TAB:0000000000000000 CHANNEL_OFFSET_TAB
-     /tmp/ccUeNUaf.s:71     .text.MC_APP_BootHook:0000000000000000 $t
-     /tmp/ccUeNUaf.s:79     .text.MC_APP_BootHook:0000000000000000 MC_APP_BootHook
-     /tmp/ccUeNUaf.s:109    .text.MC_APP_PostMediumFrequencyHook_M1:0000000000000000 $t
-     /tmp/ccUeNUaf.s:116    .text.MC_APP_PostMediumFrequencyHook_M1:0000000000000000 MC_APP_PostMediumFrequencyHook_M1
+     /tmp/ccVNcLc0.s:18     .text.MC_APP_BootHook:0000000000000000 $t
+     /tmp/ccVNcLc0.s:26     .text.MC_APP_BootHook:0000000000000000 MC_APP_BootHook
+     /tmp/ccVNcLc0.s:40     .text.MC_APP_PostMediumFrequencyHook_M1:0000000000000000 $t
+     /tmp/ccVNcLc0.s:47     .text.MC_APP_PostMediumFrequencyHook_M1:0000000000000000 MC_APP_PostMediumFrequencyHook_M1
 
 NO UNDEFINED SYMBOLS

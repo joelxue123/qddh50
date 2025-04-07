@@ -204,7 +204,7 @@ extern MotorRuntime motor_runtime;
 
 
 
-
+extern Axis axis;
 
 class ODriveCAN;
 

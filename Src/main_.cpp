@@ -11,6 +11,13 @@ BoardConfig_t board_config;
 SystemStats_t system_stats;
 
 
+const float fet_thermistor_poly_coeffs[] =
+    {257.61f, -324.08f,  258.34f, -23.12f};  //3300 Ohm
+const float fet_thermistor_poly_coeffs2[] =
+    {432.91f,-634.23f, 383.988f, -62.37f};  //100000 Ohm
+const size_t fet_thermistor_num_coeffs = sizeof(fet_thermistor_poly_coeffs)/sizeof(fet_thermistor_poly_coeffs[1]);
+
+
 float current_meas_period = CURRENT_MEAS_PERIOD;
 ODriveCAN::Config_t can_config;
 Encoder::Config_t encoder_configs;
@@ -20,7 +27,27 @@ OnboardThermistorCurrentLimiter::Config_t fet_thermistor_configs;
 OffboardThermistorCurrentLimiter::Config_t motor_thermistor_configs;
 Axis::Config_t axis_configs;
 
-Axis* axes;
+EncoderHardwareConfig_t encoder_hardware_config;
+MotorHardwareConfig_t motor_hardware_config;
+ThermistorHardwareConfig_t thermistor_hardware_config = {
+    .coeffs = fet_thermistor_poly_coeffs,
+    .aux_coefficients = fet_thermistor_poly_coeffs2,
+};
+
+
+ Encoder encoder(encoder_hardware_config,encoder_configs);
+ Controller controller(controller_configs);
+
+ OnboardThermistorCurrentLimiter fet_thermistor(thermistor_hardware_config,fet_thermistor_configs);
+ OffboardThermistorCurrentLimiter motor_thermistor(motor_thermistor_configs);
+
+ Motor motor(motor_hardware_config,motor_configs);
+
+// 初始化 Axis 对象
+ Axis axis(0, axis_configs, encoder, controller, 
+                    fet_thermistor, motor_thermistor, motor);
+
+
 ODriveCAN *odCAN = nullptr;
 
 // 声明全局变量
@@ -46,6 +73,9 @@ void save_configuration(void) {
 }
 
 extern "C" int load_configuration(void) {
+
+
+
 //     // Try to load configs
 //     if (NVM_init() ||
 //         ConfigFormat::safe_load_config(

@@ -255,7 +255,7 @@ bool Motor::disarm()
     uint32_t mask = cpu_enter_critical();
     bool was_armed = armed_state_ != ODriveIntf::MotorIntf::ARMED_STATE_DISARMED;
     armed_state_ = ODriveIntf::MotorIntf::ARMED_STATE_DISARMED;
-    __HAL_TIM_MOE_DISABLE_UNCONDITIONALLY(hw_config_.timer); 
+    LL_TIM_DisableAllOutputs(TIM1);
     control_law_ = nullptr;
     is_armed_ = false;
     cpu_exit_critical(mask);

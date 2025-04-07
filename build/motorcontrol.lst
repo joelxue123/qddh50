@@ -1,4 +1,4 @@
-ARM GAS  /tmp/cce82WUU.s 			page 1
+ARM GAS  /tmp/ccvI5qWy.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -10,82 +10,24 @@ ARM GAS  /tmp/cce82WUU.s 			page 1
    7              		.eabi_attribute 24, 1
    8              		.eabi_attribute 25, 1
    9              		.eabi_attribute 26, 1
-  10              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 30, 1
   11              		.eabi_attribute 34, 1
   12              		.eabi_attribute 18, 2
   13              		.file	"motorcontrol.c"
   14              		.text
   15              	.Ltext0:
   16              		.cfi_sections	.debug_frame
-  17              		.section	.rodata.OFFSET_TAB_CCMRx,"a"
-  18              		.align	2
-  21              	OFFSET_TAB_CCMRx:
-  22 0000 00000000 		.ascii	"\000\000\000\000\004\004\004\00488"
-  22      04040404 
-  22      3838
-  23              		.section	.rodata.SHIFT_TAB_OCxx,"a"
-  24              		.align	2
-  27              	SHIFT_TAB_OCxx:
-  28 0000 00000800 		.ascii	"\000\000\010\000\000\000\010\000\000\010"
-  28      00000800 
-  28      0008
-  29              		.section	.rodata.SHIFT_TAB_ICxx,"a"
-  30              		.align	2
-  33              	SHIFT_TAB_ICxx:
-  34 0000 00000800 		.ascii	"\000\000\010\000\000\000\010\000\000\000"
-  34      00000800 
-  34      0000
-  35              		.section	.rodata.SHIFT_TAB_CCxP,"a"
-  36              		.align	2
-  39              	SHIFT_TAB_CCxP:
-  40 0000 00020406 		.ascii	"\000\002\004\006\010\012\014\016\020\024"
-  40      080A0C0E 
-  40      1014
-  41              		.section	.rodata.SHIFT_TAB_OISx,"a"
-  42              		.align	2
-  45              	SHIFT_TAB_OISx:
-  46 0000 00010203 		.ascii	"\000\001\002\003\004\005\006\007\010\012"
-  46      04050607 
-  46      080A
-  47              		.section	.rodata.USART_PRESCALER_TAB,"a"
-  48              		.align	2
-  51              	USART_PRESCALER_TAB:
-  52 0000 01000000 		.word	1
-  53 0004 02000000 		.word	2
-  54 0008 04000000 		.word	4
-  55 000c 06000000 		.word	6
-  56 0010 08000000 		.word	8
-  57 0014 0A000000 		.word	10
-  58 0018 0C000000 		.word	12
-  59 001c 10000000 		.word	16
-ARM GAS  /tmp/cce82WUU.s 			page 2
-
-
-  60 0020 20000000 		.word	32
-  61 0024 40000000 		.word	64
-  62 0028 80000000 		.word	128
-  63 002c 00010000 		.word	256
-  64              		.section	.rodata.CHANNEL_OFFSET_TAB,"a"
-  65              		.align	2
-  68              	CHANNEL_OFFSET_TAB:
-  69 0000 081C3044 		.ascii	"\010\0340DXl"
-  69      586C
-  70              		.global	pMCI
-  71              		.section	.bss.pMCI,"aw",%nobits
-  72              		.align	2
-  75              	pMCI:
-  76 0000 00000000 		.space	4
-  77              		.section	.text.MX_MotorControl_Init,"ax",%progbits
-  78              		.align	1
-  79              		.weak	MX_MotorControl_Init
-  80              		.arch armv7e-m
-  81              		.syntax unified
-  82              		.thumb
-  83              		.thumb_func
-  84              		.fpu fpv4-sp-d16
-  86              	MX_MotorControl_Init:
-  87              	.LFB1988:
-  88              		.file 1 "Src/motorcontrol.c"
+  17              		.section	.text.MX_MotorControl_Init,"ax",%progbits
+  18              		.align	1
+  19              		.weak	MX_MotorControl_Init
+  20              		.arch armv7e-m
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  26              	MX_MotorControl_Init:
+  27              	.LFB1988:
+  28              		.file 1 "Src/motorcontrol.c"
    1:Src/motorcontrol.c **** /**
    2:Src/motorcontrol.c ****   ******************************************************************************
    3:Src/motorcontrol.c ****   * @file    motorcontrol.c
@@ -116,11 +58,11 @@ ARM GAS  /tmp/cce82WUU.s 			page 1
   28:Src/motorcontrol.c **** /** @addtogroup MCSDK
   29:Src/motorcontrol.c ****   * @{
   30:Src/motorcontrol.c ****   */
+ARM GAS  /tmp/ccvI5qWy.s 			page 2
+
+
   31:Src/motorcontrol.c **** 
   32:Src/motorcontrol.c **** /** @addtogroup MCInterface
-ARM GAS  /tmp/cce82WUU.s 			page 3
-
-
   33:Src/motorcontrol.c ****   * @{
   34:Src/motorcontrol.c ****   */
   35:Src/motorcontrol.c **** 
@@ -139,128 +81,121 @@ ARM GAS  /tmp/cce82WUU.s 			page 1
   48:Src/motorcontrol.c ****  */
   49:Src/motorcontrol.c **** __weak void MX_MotorControl_Init(void)
   50:Src/motorcontrol.c **** {
-  89              		.loc 1 50 1
-  90              		.cfi_startproc
-  91              		@ args = 0, pretend = 0, frame = 0
-  92              		@ frame_needed = 1, uses_anonymous_args = 0
-  93 0000 80B5     		push	{r7, lr}
-  94              	.LCFI0:
-  95              		.cfi_def_cfa_offset 8
-  96              		.cfi_offset 7, -8
-  97              		.cfi_offset 14, -4
-  98 0002 00AF     		add	r7, sp, #0
-  99              	.LCFI1:
- 100              		.cfi_def_cfa_register 7
+  29              		.loc 1 50 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33 0000 08B5     		push	{r3, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 8
+  36              		.cfi_offset 3, -8
+  37              		.cfi_offset 14, -4
   51:Src/motorcontrol.c **** 
   52:Src/motorcontrol.c ****   /* Initialize the Motor Control Subsystem */
   53:Src/motorcontrol.c ****   MCboot(pMCI);
- 101              		.loc 1 53 3
- 102 0004 0348     		ldr	r0, .L2
- 103 0006 FFF7FEFF 		bl	MCboot
+  38              		.loc 1 53 3 view .LVU1
+  39 0002 0348     		ldr	r0, .L3
+  40 0004 FFF7FEFF 		bl	MCboot
+  41              	.LVL0:
   54:Src/motorcontrol.c ****   mc_lock_pins();
- 104              		.loc 1 54 3
- 105 000a FFF7FEFF 		bl	mc_lock_pins
+  42              		.loc 1 54 3 view .LVU2
+  43 0008 FFF7FEFF 		bl	mc_lock_pins
+  44              	.LVL1:
   55:Src/motorcontrol.c **** }
- 106              		.loc 1 55 1
- 107 000e 00BF     		nop
- 108 0010 80BD     		pop	{r7, pc}
- 109              	.L3:
- 110 0012 00BF     		.align	2
- 111              	.L2:
- 112 0014 00000000 		.word	pMCI
- 113              		.cfi_endproc
- 114              	.LFE1988:
- 116              		.section	.text.vPortSetupTimerInterrupt,"ax",%progbits
- 117              		.align	1
- 118              		.global	vPortSetupTimerInterrupt
- 119              		.syntax unified
- 120              		.thumb
- 121              		.thumb_func
- 122              		.fpu fpv4-sp-d16
- 124              	vPortSetupTimerInterrupt:
-ARM GAS  /tmp/cce82WUU.s 			page 4
+  45              		.loc 1 55 1 is_stmt 0 view .LVU3
+  46 000c 08BD     		pop	{r3, pc}
+  47              	.L4:
+  48 000e 00BF     		.align	2
+  49              	.L3:
+  50 0010 00000000 		.word	.LANCHOR0
+  51              		.cfi_endproc
+  52              	.LFE1988:
+  54              		.section	.text.vPortSetupTimerInterrupt,"ax",%progbits
+  55              		.align	1
+  56              		.global	vPortSetupTimerInterrupt
+  57              		.syntax unified
+  58              		.thumb
+  59              		.thumb_func
+  60              		.fpu fpv4-sp-d16
+  62              	vPortSetupTimerInterrupt:
+ARM GAS  /tmp/ccvI5qWy.s 			page 3
 
 
- 125              	.LFB1989:
+  63              	.LFB1989:
   56:Src/motorcontrol.c **** 
   57:Src/motorcontrol.c **** void vPortSetupTimerInterrupt( void )
   58:Src/motorcontrol.c **** {
- 126              		.loc 1 58 1
- 127              		.cfi_startproc
- 128              		@ args = 0, pretend = 0, frame = 0
- 129              		@ frame_needed = 1, uses_anonymous_args = 0
- 130 0000 80B5     		push	{r7, lr}
- 131              	.LCFI2:
- 132              		.cfi_def_cfa_offset 8
- 133              		.cfi_offset 7, -8
- 134              		.cfi_offset 14, -4
- 135 0002 00AF     		add	r7, sp, #0
- 136              	.LCFI3:
- 137              		.cfi_def_cfa_register 7
+  64              		.loc 1 58 1 is_stmt 1 view -0
+  65              		.cfi_startproc
+  66              		@ args = 0, pretend = 0, frame = 0
+  67              		@ frame_needed = 0, uses_anonymous_args = 0
+  68 0000 08B5     		push	{r3, lr}
+  69              	.LCFI1:
+  70              		.cfi_def_cfa_offset 8
+  71              		.cfi_offset 3, -8
+  72              		.cfi_offset 14, -4
   59:Src/motorcontrol.c ****   /* Reconfigure the SysTick interrupt to fire every 500 us. */
   60:Src/motorcontrol.c ****   (void)HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/SYS_TICK_FREQUENCY);
- 138              		.loc 1 60 28
- 139 0004 FFF7FEFF 		bl	HAL_RCC_GetHCLKFreq
- 140 0008 0346     		mov	r3, r0
- 141              		.loc 1 60 9
- 142 000a 044A     		ldr	r2, .L5
- 143 000c A2FB0323 		umull	r2, r3, r2, r3
- 144 0010 DB09     		lsrs	r3, r3, #7
- 145 0012 1846     		mov	r0, r3
- 146 0014 FFF7FEFF 		bl	HAL_SYSTICK_Config
+  73              		.loc 1 60 3 view .LVU5
+  74              		.loc 1 60 28 is_stmt 0 view .LVU6
+  75 0002 FFF7FEFF 		bl	HAL_RCC_GetHCLKFreq
+  76              	.LVL2:
+  77              		.loc 1 60 9 view .LVU7
+  78 0006 034B     		ldr	r3, .L7
+  79 0008 A3FB0030 		umull	r3, r0, r3, r0
+  80 000c C009     		lsrs	r0, r0, #7
+  81 000e FFF7FEFF 		bl	HAL_SYSTICK_Config
+  82              	.LVL3:
   61:Src/motorcontrol.c **** }
- 147              		.loc 1 61 1
- 148 0018 00BF     		nop
- 149 001a 80BD     		pop	{r7, pc}
- 150              	.L6:
- 151              		.align	2
- 152              	.L5:
- 153 001c D34D6210 		.word	274877907
- 154              		.cfi_endproc
- 155              	.LFE1989:
- 157              		.text
- 158              	.Letext0:
- 159              		.file 2 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
- 160              		.file 3 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
- 161              		.file 4 "Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g431xx.h"
- 162              		.file 5 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h"
- 163              		.file 6 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_usart.h"
- 164              		.file 7 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h"
- 165              		.file 8 "Inc/mc_type.h"
- 166              		.file 9 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/pid_regulator.h"
- 167              		.file 10 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h"
- 168              		.file 11 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h"
- 169              		.file 12 "Inc/pwm_curr_fdbk.h"
- 170              		.file 13 "Inc/mc_perf.h"
- 171              		.file 14 "Inc/mc_interface.h"
- 172              		.file 15 "Inc/mc_config.h"
-ARM GAS  /tmp/cce82WUU.s 			page 5
+  83              		.loc 1 61 1 view .LVU8
+  84 0012 08BD     		pop	{r3, pc}
+  85              	.L8:
+  86              		.align	2
+  87              	.L7:
+  88 0014 D34D6210 		.word	274877907
+  89              		.cfi_endproc
+  90              	.LFE1989:
+  92              		.global	pMCI
+  93              		.section	.bss.pMCI,"aw",%nobits
+  94              		.align	2
+  95              		.set	.LANCHOR0,. + 0
+  98              	pMCI:
+  99 0000 00000000 		.space	4
+ 100              		.text
+ 101              	.Letext0:
+ 102              		.file 2 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
+ 103              		.file 3 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
+ 104              		.file 4 "Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g431xx.h"
+ 105              		.file 5 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h"
+ 106              		.file 6 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_usart.h"
+ 107              		.file 7 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h"
+ 108              		.file 8 "Inc/mc_type.h"
+ 109              		.file 9 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/pid_regulator.h"
+ 110              		.file 10 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h"
+ 111              		.file 11 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_torq_ctrl.h"
+ 112              		.file 12 "Inc/pwm_curr_fdbk.h"
+ 113              		.file 13 "Inc/mc_perf.h"
+ 114              		.file 14 "Inc/mc_interface.h"
+ 115              		.file 15 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_rcc.h"
+ 116              		.file 16 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_cortex.h"
+ARM GAS  /tmp/ccvI5qWy.s 			page 4
+
+
+ 117              		.file 17 "Inc/mc_tasks.h"
+ 118              		.file 18 "Inc/mc_config.h"
+ARM GAS  /tmp/ccvI5qWy.s 			page 5
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 motorcontrol.c
-     /tmp/cce82WUU.s:18     .rodata.OFFSET_TAB_CCMRx:0000000000000000 $d
-     /tmp/cce82WUU.s:21     .rodata.OFFSET_TAB_CCMRx:0000000000000000 OFFSET_TAB_CCMRx
-     /tmp/cce82WUU.s:24     .rodata.SHIFT_TAB_OCxx:0000000000000000 $d
-     /tmp/cce82WUU.s:27     .rodata.SHIFT_TAB_OCxx:0000000000000000 SHIFT_TAB_OCxx
-     /tmp/cce82WUU.s:30     .rodata.SHIFT_TAB_ICxx:0000000000000000 $d
-     /tmp/cce82WUU.s:33     .rodata.SHIFT_TAB_ICxx:0000000000000000 SHIFT_TAB_ICxx
-     /tmp/cce82WUU.s:36     .rodata.SHIFT_TAB_CCxP:0000000000000000 $d
-     /tmp/cce82WUU.s:39     .rodata.SHIFT_TAB_CCxP:0000000000000000 SHIFT_TAB_CCxP
-     /tmp/cce82WUU.s:42     .rodata.SHIFT_TAB_OISx:0000000000000000 $d
-     /tmp/cce82WUU.s:45     .rodata.SHIFT_TAB_OISx:0000000000000000 SHIFT_TAB_OISx
-     /tmp/cce82WUU.s:48     .rodata.USART_PRESCALER_TAB:0000000000000000 $d
-     /tmp/cce82WUU.s:51     .rodata.USART_PRESCALER_TAB:0000000000000000 USART_PRESCALER_TAB
-     /tmp/cce82WUU.s:65     .rodata.CHANNEL_OFFSET_TAB:0000000000000000 $d
-     /tmp/cce82WUU.s:68     .rodata.CHANNEL_OFFSET_TAB:0000000000000000 CHANNEL_OFFSET_TAB
-     /tmp/cce82WUU.s:75     .bss.pMCI:0000000000000000 pMCI
-     /tmp/cce82WUU.s:72     .bss.pMCI:0000000000000000 $d
-     /tmp/cce82WUU.s:78     .text.MX_MotorControl_Init:0000000000000000 $t
-     /tmp/cce82WUU.s:86     .text.MX_MotorControl_Init:0000000000000000 MX_MotorControl_Init
-     /tmp/cce82WUU.s:112    .text.MX_MotorControl_Init:0000000000000014 $d
-     /tmp/cce82WUU.s:117    .text.vPortSetupTimerInterrupt:0000000000000000 $t
-     /tmp/cce82WUU.s:124    .text.vPortSetupTimerInterrupt:0000000000000000 vPortSetupTimerInterrupt
-     /tmp/cce82WUU.s:153    .text.vPortSetupTimerInterrupt:000000000000001c $d
+     /tmp/ccvI5qWy.s:18     .text.MX_MotorControl_Init:0000000000000000 $t
+     /tmp/ccvI5qWy.s:26     .text.MX_MotorControl_Init:0000000000000000 MX_MotorControl_Init
+     /tmp/ccvI5qWy.s:50     .text.MX_MotorControl_Init:0000000000000010 $d
+     /tmp/ccvI5qWy.s:55     .text.vPortSetupTimerInterrupt:0000000000000000 $t
+     /tmp/ccvI5qWy.s:62     .text.vPortSetupTimerInterrupt:0000000000000000 vPortSetupTimerInterrupt
+     /tmp/ccvI5qWy.s:88     .text.vPortSetupTimerInterrupt:0000000000000014 $d
+     /tmp/ccvI5qWy.s:98     .bss.pMCI:0000000000000000 pMCI
+     /tmp/ccvI5qWy.s:94     .bss.pMCI:0000000000000000 $d
 
 UNDEFINED SYMBOLS
 MCboot

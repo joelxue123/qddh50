@@ -303,21 +303,27 @@ __weak void TSK_MediumFrequencyTaskM1(void)
 
               while(1)
               {
+                axis_loop();
+                LL_TIM_EnableAllOutputs(TIM1);
                 task_run = 1;
+                
                 LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);
                 vTaskDelay(10000);
 
                 task_run = 0;
 
-                LL_TIM_OC_SetCompareCH1(TIM1, 100);
-                LL_TIM_OC_SetCompareCH2(TIM1, 100);
-                LL_TIM_OC_SetCompareCH3(TIM1, 100);
-                vTaskDelay(100);
+      
                 LL_TIM_DisableAllOutputs(TIM1);
                 vTaskDelay(10000);
-   
-                LL_TIM_EnableAllOutputs(TIM1);
+  
 
+                LL_TIM_OC_SetCompareCH1(TIM1, 0);
+                LL_TIM_OC_SetCompareCH2(TIM1, 0);
+                LL_TIM_OC_SetCompareCH3(TIM1, 0);
+                vTaskDelay(1);
+                LL_TIM_EnableAllOutputs(TIM1);
+   
+                
 
               }
               Mci[M1].State = CHARGE_BOOT_CAP;

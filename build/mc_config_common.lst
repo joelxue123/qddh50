@@ -1,4 +1,4 @@
-ARM GAS  /tmp/cc901sTO.s 			page 1
+ARM GAS  /tmp/ccKYBnP5.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -10,228 +10,161 @@ ARM GAS  /tmp/cc901sTO.s 			page 1
    7              		.eabi_attribute 24, 1
    8              		.eabi_attribute 25, 1
    9              		.eabi_attribute 26, 1
-  10              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 30, 1
   11              		.eabi_attribute 34, 1
   12              		.eabi_attribute 18, 2
   13              		.file	"mc_config_common.c"
   14              		.text
   15              	.Ltext0:
   16              		.cfi_sections	.debug_frame
-  17              		.section	.rodata.OFFSET_TAB_CCMRx,"a"
-  18              		.align	2
-  21              	OFFSET_TAB_CCMRx:
-  22 0000 00000000 		.ascii	"\000\000\000\000\004\004\004\00488"
-  22      04040404 
-  22      3838
-  23              		.section	.rodata.SHIFT_TAB_OCxx,"a"
-  24              		.align	2
-  27              	SHIFT_TAB_OCxx:
-  28 0000 00000800 		.ascii	"\000\000\010\000\000\000\010\000\000\010"
-  28      00000800 
-  28      0008
-  29              		.section	.rodata.SHIFT_TAB_ICxx,"a"
-  30              		.align	2
-  33              	SHIFT_TAB_ICxx:
-  34 0000 00000800 		.ascii	"\000\000\010\000\000\000\010\000\000\000"
-  34      00000800 
-  34      0000
-  35              		.section	.rodata.SHIFT_TAB_CCxP,"a"
-  36              		.align	2
-  39              	SHIFT_TAB_CCxP:
-  40 0000 00020406 		.ascii	"\000\002\004\006\010\012\014\016\020\024"
-  40      080A0C0E 
-  40      1014
-  41              		.section	.rodata.SHIFT_TAB_OISx,"a"
-  42              		.align	2
-  45              	SHIFT_TAB_OISx:
-  46 0000 00010203 		.ascii	"\000\001\002\003\004\005\006\007\010\012"
-  46      04050607 
-  46      080A
-  47              		.section	.rodata.USART_PRESCALER_TAB,"a"
-  48              		.align	2
-  51              	USART_PRESCALER_TAB:
-  52 0000 01000000 		.word	1
-  53 0004 02000000 		.word	2
-  54 0008 04000000 		.word	4
-  55 000c 06000000 		.word	6
-  56 0010 08000000 		.word	8
-  57 0014 0A000000 		.word	10
-  58 0018 0C000000 		.word	12
-  59 001c 10000000 		.word	16
-ARM GAS  /tmp/cc901sTO.s 			page 2
+  17              		.global	pwmcHandle
+  18              		.global	PerfTraces
+  19              		.global	HdlSTSPING4
+  20              		.global	BusVoltageSensor_M1
+  21              		.global	VbusRegConv_M1
+  22              		.global	TempSensor_M1
+  23              		.global	TempRegConv_M1
+  24              		.global	VirtualSpeedSensorM1
+  25              		.section	.bss.HdlSTSPING4,"aw",%nobits
+  26              		.align	2
+  29              	HdlSTSPING4:
+  30 0000 00000000 		.space	4
+  31              		.section	.bss.PerfTraces,"aw",%nobits
+  32              		.align	2
+  35              	PerfTraces:
+  36 0000 00000000 		.space	40
+  36      00000000 
+  36      00000000 
+  36      00000000 
+  36      00000000 
+  37              		.section	.bss.RealBusVoltageSensorFilterBufferM1,"aw",%nobits
+  38              		.align	2
+  41              	RealBusVoltageSensorFilterBufferM1:
+  42 0000 00000000 		.space	12
+  42      00000000 
+  42      00000000 
+  43              		.section	.bss.pwmcHandle,"aw",%nobits
+  44              		.align	2
+  47              	pwmcHandle:
+  48 0000 00000000 		.space	4
+  49              		.section	.data.BusVoltageSensor_M1,"aw"
+  50              		.align	2
+  53              	BusVoltageSensor_M1:
+  54 0000 00       		.byte	0
+  55 0001 00       		.space	1
+  56 0002 5200     		.short	82
+  57 0004 00000000 		.space	6
+  57      0000
+  58 000a 0600     		.short	6
+  59 000c FC59     		.short	23036
+  60 000e FC59     		.short	23036
+ARM GAS  /tmp/ccKYBnP5.s 			page 2
 
 
-  60 0020 20000000 		.word	32
-  61 0024 40000000 		.word	64
-  62 0028 80000000 		.word	128
-  63 002c 00010000 		.word	256
-  64              		.section	.rodata.CHANNEL_OFFSET_TAB,"a"
-  65              		.align	2
-  68              	CHANNEL_OFFSET_TAB:
-  69 0000 081C3044 		.ascii	"\010\0340DXl"
-  69      586C
-  70              		.global	VirtualSpeedSensorM1
-  71              		.section	.data.VirtualSpeedSensorM1,"aw"
-  72              		.align	2
-  75              	VirtualSpeedSensorM1:
-  76 0000 00       		.space	1
-  77 0001 02       		.byte	2
-  78 0002 00       		.space	1
-  79 0003 03       		.byte	3
-  80 0004 00000000 		.space	16
-  80      00000000 
-  80      00000000 
-  80      00000000 
-  81 0014 6E25     		.short	9582
-  82 0016 0000     		.short	0
-  83 0018 FFFF     		.short	-1
-  84 001a 204E     		.short	20000
-  85 001c 00000100 		.word	65536
-  86 0020 00000000 		.space	20
-  86      00000000 
-  86      00000000 
-  86      00000000 
-  86      00000000 
-  87 0034 E803     		.short	1000
-  88 0036 F401     		.short	500
-  89              		.global	TempRegConv_M1
-  90              		.section	.data.TempRegConv_M1,"aw"
-  91              		.align	2
-  94              	TempRegConv_M1:
-  95 0000 00010050 		.word	1342177536
-  96 0004 05       		.byte	5
-  97 0005 000000   		.space	3
-  98 0008 04000000 		.word	4
-  99 000c 00000000 		.space	4
- 100              		.global	TempSensor_M1
- 101              		.section	.data.TempSensor_M1,"aw"
+  61 0010 01       		.byte	1
+  62 0011 00       		.space	1
+  63 0012 381F     		.short	7992
+  64 0014 00000000 		.word	RealBusVoltageSensorFilterBufferM1
+  65 0018 00000000 		.space	4
+  66              		.section	.data.TempRegConv_M1,"aw"
+  67              		.align	2
+  70              	TempRegConv_M1:
+  71 0000 00010050 		.word	1342177536
+  72 0004 05       		.byte	5
+  73 0005 000000   		.space	3
+  74 0008 04000000 		.word	4
+  75 000c 00000000 		.space	4
+  76              		.section	.data.TempSensor_M1,"aw"
+  77              		.align	2
+  80              	TempSensor_M1:
+  81 0000 00       		.byte	0
+  82 0001 00000000 		.space	9
+  82      00000000 
+  82      00
+  83 000a FA00     		.short	250
+  84 000c B9E8     		.short	-5959
+  85 000e 54D5     		.short	-10924
+  86 0010 8300     		.short	131
+  87 0012 0000     		.space	2
+  88 0014 C1870000 		.word	34753
+  89 0018 3200     		.short	50
+  90 001a 0000     		.space	2
+  91              		.section	.data.VbusRegConv_M1,"aw"
+  92              		.align	2
+  95              	VbusRegConv_M1:
+  96 0000 00000050 		.word	1342177280
+  97 0004 01       		.byte	1
+  98 0005 000000   		.space	3
+  99 0008 04000000 		.word	4
+ 100 000c 00000000 		.space	4
+ 101              		.section	.data.VirtualSpeedSensorM1,"aw"
  102              		.align	2
- 105              	TempSensor_M1:
- 106 0000 00       		.byte	0
- 107 0001 00000000 		.space	9
- 107      00000000 
- 107      00
- 108 000a FA00     		.short	250
- 109 000c B9E8     		.short	-5959
- 110 000e 54D5     		.short	-10924
- 111 0010 8300     		.short	131
- 112 0012 0000     		.space	2
- 113 0014 C1870000 		.word	34753
- 114 0018 3200     		.short	50
-ARM GAS  /tmp/cc901sTO.s 			page 3
+ 105              	VirtualSpeedSensorM1:
+ 106 0000 00       		.space	1
+ 107 0001 02       		.byte	2
+ 108 0002 00       		.space	1
+ 109 0003 03       		.byte	3
+ 110 0004 00000000 		.space	16
+ 110      00000000 
+ 110      00000000 
+ 110      00000000 
+ 111 0014 6E25     		.short	9582
+ 112 0016 0000     		.short	0
+ 113 0018 FFFF     		.short	-1
+ 114 001a 204E     		.short	20000
+ 115 001c 00000100 		.word	65536
+ 116 0020 00000000 		.space	20
+ 116      00000000 
+ 116      00000000 
+ 116      00000000 
+ 116      00000000 
+ARM GAS  /tmp/ccKYBnP5.s 			page 3
 
 
- 115 001a 0000     		.space	2
- 116              		.section	.bss.RealBusVoltageSensorFilterBufferM1,"aw",%nobits
- 117              		.align	2
- 120              	RealBusVoltageSensorFilterBufferM1:
- 121 0000 00000000 		.space	12
- 121      00000000 
- 121      00000000 
- 122              		.global	VbusRegConv_M1
- 123              		.section	.data.VbusRegConv_M1,"aw"
- 124              		.align	2
- 127              	VbusRegConv_M1:
- 128 0000 00000050 		.word	1342177280
- 129 0004 01       		.byte	1
- 130 0005 000000   		.space	3
- 131 0008 04000000 		.word	4
- 132 000c 00000000 		.space	4
- 133              		.global	BusVoltageSensor_M1
- 134              		.section	.data.BusVoltageSensor_M1,"aw"
- 135              		.align	2
- 138              	BusVoltageSensor_M1:
- 139 0000 00       		.byte	0
- 140 0001 00       		.space	1
- 141 0002 5200     		.short	82
- 142 0004 00000000 		.space	6
- 142      0000
- 143 000a 0600     		.short	6
- 144 000c FC59     		.short	23036
- 145 000e FC59     		.short	23036
- 146 0010 01       		.byte	1
- 147 0011 00       		.space	1
- 148 0012 381F     		.short	7992
- 149 0014 00000000 		.word	RealBusVoltageSensorFilterBufferM1
- 150 0018 00000000 		.space	4
- 151              		.global	HdlSTSPING4
- 152              		.section	.bss.HdlSTSPING4,"aw",%nobits
- 153              		.align	2
- 156              	HdlSTSPING4:
- 157 0000 00000000 		.space	4
- 158              		.global	PerfTraces
- 159              		.section	.bss.PerfTraces,"aw",%nobits
- 160              		.align	2
- 163              	PerfTraces:
- 164 0000 00000000 		.space	40
- 164      00000000 
- 164      00000000 
- 164      00000000 
- 164      00000000 
- 165              		.global	pwmcHandle
- 166              		.section	.bss.pwmcHandle,"aw",%nobits
- 167              		.align	2
- 170              	pwmcHandle:
- 171 0000 00000000 		.space	4
- 172              		.text
- 173              	.Letext0:
- 174              		.file 1 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
- 175              		.file 2 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
- 176              		.file 3 "Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g431xx.h"
-ARM GAS  /tmp/cc901sTO.s 			page 4
-
-
- 177              		.file 4 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h"
- 178              		.file 5 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_usart.h"
- 179              		.file 6 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h"
- 180              		.file 7 "Inc/mc_type.h"
- 181              		.file 8 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h"
- 182              		.file 9 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/virtual_speed_sensor.h"
- 183              		.file 10 "Inc/pwm_curr_fdbk.h"
- 184              		.file 11 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/ntc_temperature_sensor.h"
- 185              		.file 12 "Inc/mc_perf.h"
- 186              		.file 13 "Inc/regular_conversion_manager.h"
- 187              		.file 14 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/bus_voltage_sensor.h"
- 188              		.file 15 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/r_divider_bus_voltage_sensor.h"
- 189              		.file 16 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/G4xx/Inc/stspin32g4.h"
- 190              		.file 17 "Inc/mc_config_common.h"
- 191              		.file 18 "Src/mc_config_common.c"
-ARM GAS  /tmp/cc901sTO.s 			page 5
+ 117 0034 E803     		.short	1000
+ 118 0036 F401     		.short	500
+ 119              		.text
+ 120              	.Letext0:
+ 121              		.file 1 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_type
+ 122              		.file 2 "/usr/share/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h"
+ 123              		.file 3 "Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g431xx.h"
+ 124              		.file 4 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_tim.h"
+ 125              		.file 5 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_usart.h"
+ 126              		.file 6 "Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_ll_dma.h"
+ 127              		.file 7 "Inc/mc_type.h"
+ 128              		.file 8 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/speed_pos_fdbk.h"
+ 129              		.file 9 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/virtual_speed_sensor.h"
+ 130              		.file 10 "Inc/pwm_curr_fdbk.h"
+ 131              		.file 11 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/ntc_temperature_sensor.h"
+ 132              		.file 12 "Inc/mc_perf.h"
+ 133              		.file 13 "Inc/regular_conversion_manager.h"
+ 134              		.file 14 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/bus_voltage_sensor.h"
+ 135              		.file 15 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/Any/Inc/r_divider_bus_voltage_sensor.h"
+ 136              		.file 16 "MCSDK_v6.3.2-Full/MotorControl/MCSDK/MCLib/G4xx/Inc/stspin32g4.h"
+ 137              		.file 17 "Inc/mc_config_common.h"
+ 138              		.file 18 "Src/mc_config_common.c"
+ARM GAS  /tmp/ccKYBnP5.s 			page 4
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 mc_config_common.c
-     /tmp/cc901sTO.s:18     .rodata.OFFSET_TAB_CCMRx:0000000000000000 $d
-     /tmp/cc901sTO.s:21     .rodata.OFFSET_TAB_CCMRx:0000000000000000 OFFSET_TAB_CCMRx
-     /tmp/cc901sTO.s:24     .rodata.SHIFT_TAB_OCxx:0000000000000000 $d
-     /tmp/cc901sTO.s:27     .rodata.SHIFT_TAB_OCxx:0000000000000000 SHIFT_TAB_OCxx
-     /tmp/cc901sTO.s:30     .rodata.SHIFT_TAB_ICxx:0000000000000000 $d
-     /tmp/cc901sTO.s:33     .rodata.SHIFT_TAB_ICxx:0000000000000000 SHIFT_TAB_ICxx
-     /tmp/cc901sTO.s:36     .rodata.SHIFT_TAB_CCxP:0000000000000000 $d
-     /tmp/cc901sTO.s:39     .rodata.SHIFT_TAB_CCxP:0000000000000000 SHIFT_TAB_CCxP
-     /tmp/cc901sTO.s:42     .rodata.SHIFT_TAB_OISx:0000000000000000 $d
-     /tmp/cc901sTO.s:45     .rodata.SHIFT_TAB_OISx:0000000000000000 SHIFT_TAB_OISx
-     /tmp/cc901sTO.s:48     .rodata.USART_PRESCALER_TAB:0000000000000000 $d
-     /tmp/cc901sTO.s:51     .rodata.USART_PRESCALER_TAB:0000000000000000 USART_PRESCALER_TAB
-     /tmp/cc901sTO.s:65     .rodata.CHANNEL_OFFSET_TAB:0000000000000000 $d
-     /tmp/cc901sTO.s:68     .rodata.CHANNEL_OFFSET_TAB:0000000000000000 CHANNEL_OFFSET_TAB
-     /tmp/cc901sTO.s:75     .data.VirtualSpeedSensorM1:0000000000000000 VirtualSpeedSensorM1
-     /tmp/cc901sTO.s:72     .data.VirtualSpeedSensorM1:0000000000000000 $d
-     /tmp/cc901sTO.s:94     .data.TempRegConv_M1:0000000000000000 TempRegConv_M1
-     /tmp/cc901sTO.s:91     .data.TempRegConv_M1:0000000000000000 $d
-     /tmp/cc901sTO.s:105    .data.TempSensor_M1:0000000000000000 TempSensor_M1
-     /tmp/cc901sTO.s:102    .data.TempSensor_M1:0000000000000000 $d
-     /tmp/cc901sTO.s:117    .bss.RealBusVoltageSensorFilterBufferM1:0000000000000000 $d
-     /tmp/cc901sTO.s:120    .bss.RealBusVoltageSensorFilterBufferM1:0000000000000000 RealBusVoltageSensorFilterBufferM1
-     /tmp/cc901sTO.s:127    .data.VbusRegConv_M1:0000000000000000 VbusRegConv_M1
-     /tmp/cc901sTO.s:124    .data.VbusRegConv_M1:0000000000000000 $d
-     /tmp/cc901sTO.s:138    .data.BusVoltageSensor_M1:0000000000000000 BusVoltageSensor_M1
-     /tmp/cc901sTO.s:135    .data.BusVoltageSensor_M1:0000000000000000 $d
-     /tmp/cc901sTO.s:156    .bss.HdlSTSPING4:0000000000000000 HdlSTSPING4
-     /tmp/cc901sTO.s:153    .bss.HdlSTSPING4:0000000000000000 $d
-     /tmp/cc901sTO.s:163    .bss.PerfTraces:0000000000000000 PerfTraces
-     /tmp/cc901sTO.s:160    .bss.PerfTraces:0000000000000000 $d
-     /tmp/cc901sTO.s:170    .bss.pwmcHandle:0000000000000000 pwmcHandle
-     /tmp/cc901sTO.s:167    .bss.pwmcHandle:0000000000000000 $d
+     /tmp/ccKYBnP5.s:47     .bss.pwmcHandle:0000000000000000 pwmcHandle
+     /tmp/ccKYBnP5.s:35     .bss.PerfTraces:0000000000000000 PerfTraces
+     /tmp/ccKYBnP5.s:29     .bss.HdlSTSPING4:0000000000000000 HdlSTSPING4
+     /tmp/ccKYBnP5.s:53     .data.BusVoltageSensor_M1:0000000000000000 BusVoltageSensor_M1
+     /tmp/ccKYBnP5.s:95     .data.VbusRegConv_M1:0000000000000000 VbusRegConv_M1
+     /tmp/ccKYBnP5.s:80     .data.TempSensor_M1:0000000000000000 TempSensor_M1
+     /tmp/ccKYBnP5.s:70     .data.TempRegConv_M1:0000000000000000 TempRegConv_M1
+     /tmp/ccKYBnP5.s:105    .data.VirtualSpeedSensorM1:0000000000000000 VirtualSpeedSensorM1
+     /tmp/ccKYBnP5.s:26     .bss.HdlSTSPING4:0000000000000000 $d
+     /tmp/ccKYBnP5.s:32     .bss.PerfTraces:0000000000000000 $d
+     /tmp/ccKYBnP5.s:38     .bss.RealBusVoltageSensorFilterBufferM1:0000000000000000 $d
+     /tmp/ccKYBnP5.s:41     .bss.RealBusVoltageSensorFilterBufferM1:0000000000000000 RealBusVoltageSensorFilterBufferM1
+     /tmp/ccKYBnP5.s:44     .bss.pwmcHandle:0000000000000000 $d
+     /tmp/ccKYBnP5.s:50     .data.BusVoltageSensor_M1:0000000000000000 $d
+     /tmp/ccKYBnP5.s:67     .data.TempRegConv_M1:0000000000000000 $d
+     /tmp/ccKYBnP5.s:77     .data.TempSensor_M1:0000000000000000 $d
+     /tmp/ccKYBnP5.s:92     .data.VbusRegConv_M1:0000000000000000 $d
+     /tmp/ccKYBnP5.s:102    .data.VirtualSpeedSensorM1:0000000000000000 $d
 
 NO UNDEFINED SYMBOLS

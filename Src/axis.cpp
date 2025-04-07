@@ -185,12 +185,6 @@ static void run_state_machine_loop_wrapper(const void* ctx) {
     axis->thread_id_valid_ = false;
 }
 
-// @brief Starts run_state_machine_loop in a new thread
-void Axis::start_thread() {
-    osThreadDef(thread_def, run_state_machine_loop_wrapper, osPriorityHigh, 0, stack_size_ / sizeof(StackType_t)); //hw_config_.thread_priority  
-    thread_id_ = osThreadCreate(osThread(thread_def), this);
-    thread_id_valid_ = true;
-}
 
 
 // @brief Unblocks the control loop thread.
@@ -647,7 +641,7 @@ bool Axis::run_idle_loop() {
     // if and only if we're in AXIS_STATE_IDLE
     motor_.disarm();
     while (requested_state_ == AXIS_STATE_UNDEFINED) {
-        osDelay(1);
+        vTaskDelay(1);
     }
     return check_for_errors();
 }

@@ -134,7 +134,7 @@ void Encoder::set_linear_count(int32_t count) {
     tim_cnt_sample_ = count;
 
     //Write hardware last
-    hw_config_.timer->Instance->CNT = count;
+
 
     cpu_exit_critical(prim);
 }
@@ -349,10 +349,6 @@ static bool decode_hall(uint8_t hall_state, int32_t* hall_cnt) {
 
 void Encoder::sample_now() {
     switch (mode_) {
-        case MODE_INCREMENTAL: {
-            tim_cnt_sample_ = (int16_t)hw_config_.timer->Instance->CNT;
-        } break;
-
         case MODE_HALL: {
             // do nothing: samples already captured in general GPIO capture
         } break;

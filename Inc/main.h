@@ -207,15 +207,6 @@ extern float current_meas_period;
 
 
 typedef struct {
-  TIM_HandleTypeDef* timer;
-  GPIO_TypeDef* index_port;
-  uint16_t index_pin;
-  GPIO_TypeDef* hallA_port;
-  uint16_t hallA_pin;
-  GPIO_TypeDef* hallB_port;
-  uint16_t hallB_pin;
-  GPIO_TypeDef* hallC_port;
-  uint16_t hallC_pin;
   SPI_HandleTypeDef* motor_spi;
   SPI_HandleTypeDef* GearboxOutputEncoder_spi;
 //  UART_HandleTypeDef *uart;
