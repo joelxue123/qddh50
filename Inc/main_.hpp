@@ -17,6 +17,8 @@
 
 // @brief general user configurable board configuration
 struct BoardConfig_t {
+    int16_t magic = 0xA5A5;
+    int16_t hw_version = 0x0001;
     bool enable_brake_resistor = false;
     bool enable_uart = true;
     bool enable_i2c_instead_of_can = false;

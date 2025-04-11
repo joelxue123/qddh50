@@ -1,6 +1,8 @@
 #include "canopen.hpp"
 #include "main_.hpp"
 
+
+
 // PDO mapping configuration
 static PDO_Map_t scope_map[6] = {
     {{0x4000, 0}},  // CH1: Current Position
@@ -14,44 +16,44 @@ static PDO_Map_t scope_map[6] = {
 // Object Dictionary
 static const OD_Entry_t OD_List[] = {
     // Device Info (0x1000-0x1FFF)
-    {0x1000, 0, OD_INT16_RO, &motor_params.magic},
-    {0x1001, 0, OD_INT16_RO, &motor_params.version},
-    {0x1002, 0, OD_INT16_RW, &motor_params.motor_id},
+    {0x1000, 0, OD_INT16_RO, &board_config.magic},
+    {0x1001, 0, OD_INT16_RO, &board_config.hw_version},
+    {0x1002, 0, OD_INT16_RW, &axis.config_.can_node_id},
     
     // Motor Parameters (0x2000-0x2FFF)
-    {0x2000, 0, OD_INT16_RW, &motor_params.inductance},
-    {0x2001, 0, OD_INT16_RW, &motor_params.resistance},
+    {0x2000, 0, OD_INT32_RW, &axis.motor_.config_.phase_inductance},
+    {0x2001, 0, OD_INT32_RW, &axis.motor_.config_.phase_resistance},
     
     // Main Encoder Parameters
-    {0x2010, 0, OD_INT16_RW, &motor_params.main_encoder_type},
-    {0x2011, 0, OD_INT16_RW, &motor_params.main_encoder_lines},
-    {0x2012, 0, OD_INT16_RW, &motor_params.main_encoder_offset},
-    {0x2013, 0, OD_INT16_RW, &motor_params.main_encoder_dir},
+    {0x2010, 0, OD_INT32_RW, &motor_params.main_encoder_type},
+    {0x2011, 0, OD_INT32_RW, &motor_params.main_encoder_lines},
+    {0x2012, 0, OD_INT32_RW, &motor_params.main_encoder_offset},
+    {0x2013, 0, OD_INT32_RW, &motor_params.main_encoder_dir},
     
     // Sub Encoder Parameters  
-    {0x2020, 0, OD_INT16_RW, &motor_params.sub_encoder_type},
-    {0x2021, 0, OD_INT16_RW, &motor_params.sub_encoder_lines},
-    {0x2022, 0, OD_INT16_RW, &motor_params.sub_encoder_offset},
-    {0x2023, 0, OD_INT16_RW, &motor_params.sub_encoder_dir},
+    {0x2020, 0, OD_INT32_RW, &motor_params.sub_encoder_type},
+    {0x2021, 0, OD_INT32_RW, &motor_params.sub_encoder_lines},
+    {0x2022, 0, OD_INT32_RW, &motor_params.sub_encoder_offset},
+    {0x2023, 0, OD_INT32_RW, &motor_params.sub_encoder_dir},
     
     // PID Parameters
-    {0x2030, 0, OD_INT16_RW, &motor_params.pos_kp},
-    {0x2031, 0, OD_INT16_RW, &motor_params.pos_kd},
-    {0x2032, 0, OD_INT16_RW, &motor_params.vel_kp},
-    {0x2033, 0, OD_INT16_RW, &motor_params.vel_ki},
-    {0x2034, 0, OD_INT16_RW, &motor_params.cur_kp},
-    {0x2035, 0, OD_INT16_RW, &motor_params.cur_ki},
+    {0x2030, 0, OD_INT32_RW, &motor_params.pos_kp},
+    {0x2031, 0, OD_INT32_RW, &motor_params.pos_kd},
+    {0x2032, 0, OD_INT32_RW, &motor_params.vel_kp},
+    {0x2033, 0, OD_INT32_RW, &motor_params.vel_ki},
+    {0x2034, 0, OD_INT32_RW, &motor_params.cur_kp},
+    {0x2035, 0, OD_INT32_RW, &motor_params.cur_ki},
     
     // Limit Parameters
-    {0x2040, 0, OD_INT16_RW, &motor_params.max_current},
-    {0x2041, 0, OD_INT16_RW, &motor_params.max_speed},
-    {0x2042, 0, OD_INT16_RW, &motor_params.max_position},
-    {0x2043, 0, OD_INT16_RW, &motor_params.min_position},
-    {0x2044, 0, OD_INT16_RW, &motor_params.ctrl_mode},
+    {0x2040, 0, OD_INT32_RW, &motor_params.max_current},
+    {0x2041, 0, OD_INT32_RW, &motor_params.max_speed},
+    {0x2042, 0, OD_INT32_RW, &motor_params.max_position},
+    {0x2043, 0, OD_INT32_RW, &motor_params.min_position},
+    {0x2044, 0, OD_INT32_RW, &motor_params.ctrl_mode},
     
     // Runtime Parameters (0x3000-0x3FFF)
     // Position Related
-    {0x3000, 0, OD_INT16_RW, (void*)&motor_runtime.input_pos},
+    {0x3000, 0, OD_INT32_RW, (void*)&motor_runtime.input_pos},
     {0x3001, 0, OD_INT16_RO, (void*)&motor_runtime.profile_pos},
     {0x3002, 0, OD_INT16_RO, (void*)&motor_runtime.des_pos},
     {0x3003, 0, OD_INT16_RO, (void*)&motor_runtime.current_pos},
