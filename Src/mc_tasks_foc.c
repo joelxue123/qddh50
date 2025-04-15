@@ -801,7 +801,7 @@ __weak uint8_t FOC_HighFrequencyTask(uint8_t bMotorNbr)
    * machine. Calling the generic function ensures that the correct
    * implementation is invoked */
 
-  //PWMC_GetPhaseCurrents(pwmcHandle[M1], &Iab);
+  PWMC_GetPhaseCurrents(pwmcHandle[M1], &Iab);
 
 // ADC1 - Phase U current
 // LL_ADC_INJ_SetSequencerRanks(ADC1, LL_ADC_INJ_RANK_1, LL_ADC_CHANNEL_3); // OPAMP1 output
