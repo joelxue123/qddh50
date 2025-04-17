@@ -8,6 +8,9 @@
 #include "mc_config.h"
 #include "utils.hpp"
 #include "low_level.h"
+#include "main_.hpp"
+#include "interfaces.hpp"
+#
 
 // DMA open loop continous circular buffer
 // 1ms delay periodic, chase DMA ptr around
@@ -127,7 +130,7 @@ void UART_ParseFrame_(uint8_t* pdata) {
     uint16_t index = pdata[3+1]<<8 | pdata[3];
 		uint16_t sub_index = pdata[3 + 2];
 		uint16_t length =0;
-		int16_t value = 0;
+		int32_t value = 0;
 
     switch(cmd) {
         case FRAME_CMD_SDO_READ:
@@ -146,7 +149,7 @@ void UART_ParseFrame_(uint8_t* pdata) {
 						else if(length == 4)
 									value = (pdata[6 + 3] << 24) | (pdata[6 + 2] << 16) | (pdata[6 + 1] << 8) | pdata[6];
                                     
-						OD_Write(index, sub_index,value);
+						OD_Write(index, sub_index,(void*)&value);
 						// Send ACK
 						UART_PushFrame_(0, FRAME_CMD_SDO_WRITE, index,sub_index, NULL);
             break;
@@ -210,6 +213,13 @@ void UART_ParseFrame_(uint8_t* pdata) {
 
             UART_PushFrame_(0, FRAME_CMD_SET_POS, 0,0, NULL);
             break;
+
+		case SET_AXIS_STATE:
+			// Set axis state
+			value = (pdata[6+1] << 8) | pdata[6];
+			axis.requested_state_  =  (Axis::AxisState)value;
+			UART_PushFrame_(0, SET_AXIS_STATE, 0,0, NULL);
+			break;
 
 		case FRAME_CMD_SCOPE:
 			

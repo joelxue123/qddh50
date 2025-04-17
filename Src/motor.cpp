@@ -165,6 +165,7 @@ Motor::Motor(const MotorHardwareConfig_t& hw_config,
         hw_config_(hw_config),
         config_(config)
         {
+    is_calibrated_ = config_.pre_calibrated;
     update_current_controller_gains();
 }
 
@@ -242,6 +243,13 @@ bool Motor::arm(PhaseControlLaw<3>* control_law) {
             control_law_->reset();
         }
         reset_current_control();
+
+        LL_TIM_OC_SetCompareCH1(TIM1, 0);
+        LL_TIM_OC_SetCompareCH2(TIM1, 0);
+        LL_TIM_OC_SetCompareCH3(TIM1, 0);
+        vTaskDelay(1);
+        LL_TIM_EnableAllOutputs(TIM1);
+
         armed_state_ = ODriveIntf::MotorIntf::ARMED_STATE_WAITING_FOR_TIMINGS;
         is_armed_ = true;
 

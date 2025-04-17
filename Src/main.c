@@ -155,7 +155,7 @@ int main(void)
   safetyHandle = osThreadCreate(osThread(safety), NULL);
 
 
-  //odrive_main();
+
   
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */

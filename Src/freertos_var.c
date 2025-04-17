@@ -172,6 +172,8 @@ void MX_FREERTOS_Init(void) {
     Flash_LoadConfig();
   }
 
+  odrive_main();
+
   //odrive_main();
   /* USER CODE END RTOS_SEMAPHORES */
 

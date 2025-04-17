@@ -162,10 +162,6 @@ void Encoder::set_circular_count(int32_t count, bool update_offset) {
 bool Encoder::run_index_search() {
     config_.use_index = true;
     index_found_ = false;
-    if (!config_.idx_search_unidirectional && axis_->motor_.config_.direction == 0) {
-        axis_->motor_.config_.direction = 1;
-    }
-    set_idx_subscribe();
 
     bool status = axis_->run_lockin_spin(axis_->config_.calibration_lockin,false);
     return status;

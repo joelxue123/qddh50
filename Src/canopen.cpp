@@ -30,6 +30,7 @@ static const OD_Entry_t OD_List[] = {
     {0x2006, 0, OD_REAL32_RW, &axis.motor_.config_.current_lim},
     {0x2007, 0, OD_REAL32_RW, &axis.motor_.config_.torque_constant},
     {0x2008, 0, OD_REAL32_RW, &axis.motor_.config_.motor_type},
+    {0x2009, 0, OD_INT16_RW, &axis.motor_.config_.pre_calibrated},
     
     // Main Encoder Parameters
     {0x2010, 0, OD_REAL32_RW, &axis.encoder_.config_.cpr},
@@ -77,8 +78,8 @@ static const OD_Entry_t OD_List[] = {
 
     // current Related
     {0x3020, 0, OD_REAL32_RW, (void*)&axis.controller_.input_torque_},
-    {0x3022, 0, OD_REAL32_RW, (void*)&axis.motor_.current_control_.Idq_setpoint_.value().first},
-    {0x3023, 0, OD_REAL32_RW, (void*)&axis.motor_.current_control_.Idq_setpoint_.value().second},
+    {0x3022, 0, OD_REAL32_RW, (void*)&axis.motor_.current_control_.Idq_setpoint_->first},
+    {0x3023, 0, OD_REAL32_RW, (void*)&axis.motor_.current_control_.Idq_setpoint_->second},
     {0x3024, 0, OD_REAL32_RW, (void*)&axis.motor_.current_control_.Iq_measured_},
     {0x3025, 0, OD_REAL32_RW, (void*)&axis.motor_.current_control_.Id_measured_},
 
@@ -90,6 +91,10 @@ static const OD_Entry_t OD_List[] = {
     {0x3032, 0, OD_REAL32_RW, (void*)&axis.encoder_.error_},
 
     
+
+
+
+
     // PDO Mapping Configuration (0x6000)
     {0x6000, 6, OD_INT32_RW, &scope_map[0]},
     
@@ -127,14 +132,20 @@ int32_t OD_Read(uint16_t index, uint16_t subindex, uint16_t* length) {
     if((entry->type_access & OD_TYPE_INT32)) {
         if(length) *length = 4;
         return ((int32_t*)entry->data)[array_index];
-    } else {
+    } 
+    else if((entry->type_access & OD_TYPE_FLOAT))
+    {
+        if(length) *length = 4;
+        return ((int32_t*)entry->data)[array_index];
+    }
+    else {
         if(length) *length = 2;
         return ((int16_t*)entry->data)[array_index];
     }
 }
 
 // Write value to object dictionary (also update)
-bool OD_Write(uint16_t index, uint16_t subindex, int32_t value) {
+bool OD_Write(uint16_t index, uint16_t subindex, void *value) {
     const OD_Entry_t* entry = OD_FindEntry(index, subindex);
     if(!entry || !(entry->type_access & OD_ACCESS_WO)) {
         return false;
@@ -148,9 +159,13 @@ bool OD_Write(uint16_t index, uint16_t subindex, int32_t value) {
     
     // Write based on data type
     if(entry->type_access & OD_TYPE_INT32) {
-        ((int32_t*)entry->data)[array_index] = value;
-    } else {
-        ((int16_t*)entry->data)[array_index] = (int16_t)value;
+        ((int32_t*)entry->data)[array_index] = *(int32_t*)value;
+    } 
+    else if(entry->type_access & OD_TYPE_FLOAT) {
+        ((float*)entry->data)[array_index] = *(float*)value;
+    }
+    else {
+        ((int16_t*)entry->data)[array_index] = *(int16_t*)value;
     }
     
     return true;

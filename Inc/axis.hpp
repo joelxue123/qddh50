@@ -65,7 +65,7 @@ public:
 
 
 
-    static constexpr uint32_t PARAM_LEN = 128;
+    static constexpr uint32_t PARAM_LEN = 12;
     enum EXT_CONFIG_REG
     {
         EXT_CONFIG_REG_ENABLE_NOTCH_FILTER = 0,

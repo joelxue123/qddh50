@@ -49,7 +49,7 @@ typedef struct {
 // Function prototypes
 const OD_Entry_t* OD_FindEntry(uint16_t index, uint8_t subindex);
 int32_t OD_Read(uint16_t index, uint16_t subindex, uint16_t* length);
-bool OD_Write(uint16_t index, uint16_t subindex, int32_t value);
+bool OD_Write(uint16_t index, uint16_t subindex, void *value);
 int32_t PDO_Read(uint8_t channel, uint16_t *length);
 
 #endif

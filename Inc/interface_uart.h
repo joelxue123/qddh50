@@ -39,6 +39,7 @@ extern "C" {
 #define FRAME_CMD_SET_MODE   0x0A  // Set control mode
 #define FRAME_CMD_RESET      0x0B  // Reset to factory defaults
 
+#define SET_AXIS_STATE      0x20
 //固定高速的通信帧格式
 #define FRAME_CMD_SCOPE      0x80  // 固定的示波器数据命令
 

@@ -515,7 +515,7 @@ volatile uint32_t timestamp_ = 0;
 
 void pwm_trig_adc_cb(ADC_TypeDef *adc, bool injected) {
 
-    Axis& axis = *axes;
+#if 0
     
   //  axis.motor_.log_timing(TIMING_LOG_ADC_CB_I);
 
@@ -583,6 +583,7 @@ void pwm_trig_adc_cb(ADC_TypeDef *adc, bool injected) {
     axis.control_loop_cb(timestamp);
 
     axis.motor_.pwm_update_cb(timestamp + TIM_1_8_PERIOD_CLOCKS * (TIM_1_8_RCR + 1));
+#endif 
 
     axis.signal_current_meas(); 
  //   axis.motor_.log_timing(TIMING_LOG_ADC_CB_DC);

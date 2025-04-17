@@ -36,22 +36,14 @@ public:
         float calib_scan_distance = 16.0f * M_PI; // rad electrical
         float calib_scan_omega = 4.0f * M_PI; // rad/s electrical
         float bandwidth = 4000.0f;
-        bool find_idx_on_lockin_only = false; // Only be sensitive during lockin scan constant vel state
-        bool idx_search_unidirectional = false; // Only allow index search in known direction
         bool ignore_illegal_hall_state = false; // dont error on bad states like 000 or 111
-        uint16_t abs_spi_cs_gpio_pin = 1;
-        uint16_t sincos_gpio_pin_sin = 3;
-        uint16_t sincos_gpio_pin_cos = 4;
 
-        uint16_t abs_485_cs_gpio_pin = 2;
         int32_t GearboxOutputEncoder_cpr = (1<<18);
         int32_t Gearoffset = 0;
         int32_t direction =1;
         // custom setters
         Encoder* parent = nullptr;
         void set_use_index(bool value) { use_index = value; parent->set_idx_subscribe(); }
-        void set_find_idx_on_lockin_only(bool value) { find_idx_on_lockin_only = value; parent->set_idx_subscribe(); }
-        void set_abs_spi_cs_gpio_pin(uint16_t value) { abs_spi_cs_gpio_pin = value; parent->abs_spi_cs_pin_init(); }
         void set_pre_calibrated(bool value) { pre_calibrated = value; parent->check_pre_calibrated(); }
         void set_bandwidth(float value) { bandwidth = value; parent->update_pll_gains(); }
         void set_is_high_speed_encode_query_enabled (bool value) { is_high_speed_encode_query_enabled = value; parent->set_spi_enable(); }

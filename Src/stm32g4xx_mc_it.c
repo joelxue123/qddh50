@@ -104,7 +104,7 @@ void ADC1_2_IRQHandler(void)
 
 
 
-  //pwm_trig_adc_cb(ADC1,0);
+  pwm_trig_adc_cb(ADC1,0);
 
   /* USER CODE BEGIN HighFreq */
 

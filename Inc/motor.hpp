@@ -74,18 +74,13 @@ public:
         // float current_lim = 70.0f; //[A]
         float current_lim = 10.0f;          //[A]
         float current_lim_margin = 8.0f;    // Maximum violation of current_lim
-        float torque_lim = std::numeric_limits<float>::infinity();           //[Nm]. 
+        float torque_lim = 60.f;//std::numeric_limits<float>::infinity();           //[Nm]. 
         // Value used to compute shunt amplifier gains
         float requested_current_range = 60.0f; // [A]
         float current_control_bandwidth = 3000.0f;  // [rad/s]
         float inverter_temp_limit_lower = 100;
         float inverter_temp_limit_upper = 120;
-        float acim_slip_velocity = 14.706f; // [rad/s electrical] = 1/rotor_tau
-        float acim_gain_min_flux = 10; // [A]
-        float acim_autoflux_min_Id = 10; // [A]
-        bool acim_autoflux_enable = false;
-        float acim_autoflux_attack_gain = 10.0f;
-        float acim_autoflux_decay_gain = 1.0f;
+  
 
         float Torque_LINEARITY_[NUM_LINEARITY_SEG];
         float CURRENT_LINEARITY_[NUM_LINEARITY_SEG];
@@ -120,12 +115,17 @@ public:
 
     void setup() {
         int32_t index = 0;
-        DRV8301_setup();
+
+        is_calibrated_ = config_.pre_calibrated;
+        update_current_controller_gains();
+        
         for( index = 0;index < NUM_LINEARITY_SEG;index++)
         {
             L_Slop_Array_P_[index] = config_.Torque_LINEARITY_[index];
             L_Slop_Array_N_[index] = config_.CURRENT_LINEARITY_[index];
         }
+
+
 
     }
     void reset_current_control();

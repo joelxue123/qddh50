@@ -649,6 +649,7 @@ bool Axis::run_idle_loop() {
 // Infinite loop that does calibration and enters main control loop as appropriate
 void Axis::run_state_machine_loop() {
 
+    thread_id_valid_ = true;
     for (;;) {
         // Load the task chain if a specific request is pending
         if (requested_state_ != AXIS_STATE_UNDEFINED) {
@@ -696,8 +697,6 @@ void Axis::run_state_machine_loop() {
 
             case AXIS_STATE_ENCODER_INDEX_SEARCH: {
                 if (!motor_.is_calibrated_)
-                    goto invalid_state_label;
-                if (encoder_.config_.idx_search_unidirectional && motor_.config_.direction==0)
                     goto invalid_state_label;
 
                 status = encoder_.run_index_search();

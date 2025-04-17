@@ -228,6 +228,8 @@ void vApplicationIdleHook(void) {
 }
 
 int odrive_main(void) {
+    motor.setup();
+    return 0;
     // Start ADC for temperature measurements and user measurements
     start_general_purpose_adc();
 
