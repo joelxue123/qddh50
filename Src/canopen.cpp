@@ -21,60 +21,74 @@ static const OD_Entry_t OD_List[] = {
     {0x1002, 0, OD_INT16_RW, &axis.config_.can_node_id},
     
     // Motor Parameters (0x2000-0x2FFF)
-    {0x2000, 0, OD_INT32_RW, &axis.motor_.config_.phase_inductance},
-    {0x2001, 0, OD_INT32_RW, &axis.motor_.config_.phase_resistance},
+    {0x2000, 0, OD_REAL32_RW, &axis.motor_.config_.phase_inductance},
+    {0x2001, 0, OD_REAL32_RW, &axis.motor_.config_.phase_resistance},
+    {0x2002, 0, OD_REAL32_RW, &axis.motor_.config_.current_control_bandwidth},
+    {0x2003, 0, OD_INT16_RW, &axis.motor_.config_.pole_pairs},
+    {0x2004, 0, OD_INT16_RW, &axis.motor_.config_.gear_ratio},
+    {0x2005, 0, OD_REAL32_RW, &axis.motor_.config_.torque_lim},
+    {0x2006, 0, OD_REAL32_RW, &axis.motor_.config_.current_lim},
+    {0x2007, 0, OD_REAL32_RW, &axis.motor_.config_.torque_constant},
+    {0x2008, 0, OD_REAL32_RW, &axis.motor_.config_.motor_type},
     
     // Main Encoder Parameters
-    {0x2010, 0, OD_INT32_RW, &motor_params.main_encoder_type},
-    {0x2011, 0, OD_INT32_RW, &motor_params.main_encoder_lines},
-    {0x2012, 0, OD_INT32_RW, &motor_params.main_encoder_offset},
-    {0x2013, 0, OD_INT32_RW, &motor_params.main_encoder_dir},
+    {0x2010, 0, OD_REAL32_RW, &axis.encoder_.config_.cpr},
+    {0x2011, 0, OD_REAL32_RW, &axis.encoder_.config_.offset},
+    {0x2012, 0, OD_REAL32_RW, &axis.encoder_.config_.offset_float},
+    {0x2013, 0, OD_REAL32_RW, &axis.encoder_.config_.pre_calibrated},
+    
     
     // Sub Encoder Parameters  
-    {0x2020, 0, OD_INT32_RW, &motor_params.sub_encoder_type},
-    {0x2021, 0, OD_INT32_RW, &motor_params.sub_encoder_lines},
-    {0x2022, 0, OD_INT32_RW, &motor_params.sub_encoder_offset},
-    {0x2023, 0, OD_INT32_RW, &motor_params.sub_encoder_dir},
+    {0x2020, 0, OD_REAL32_RW, &axis.encoder_.config_.GearboxOutputEncoder_cpr},
+    {0x2021, 0, OD_REAL32_RW, &axis.encoder_.config_.Gearoffset},
     
     // PID Parameters
-    {0x2030, 0, OD_INT32_RW, &motor_params.pos_kp},
-    {0x2031, 0, OD_INT32_RW, &motor_params.pos_kd},
-    {0x2032, 0, OD_INT32_RW, &motor_params.vel_kp},
-    {0x2033, 0, OD_INT32_RW, &motor_params.vel_ki},
-    {0x2034, 0, OD_INT32_RW, &motor_params.cur_kp},
-    {0x2035, 0, OD_INT32_RW, &motor_params.cur_ki},
-    
-    // Limit Parameters
-    {0x2040, 0, OD_INT32_RW, &motor_params.max_current},
-    {0x2041, 0, OD_INT32_RW, &motor_params.max_speed},
-    {0x2042, 0, OD_INT32_RW, &motor_params.max_position},
-    {0x2043, 0, OD_INT32_RW, &motor_params.min_position},
-    {0x2044, 0, OD_INT32_RW, &motor_params.ctrl_mode},
+    {0x2030, 0, OD_REAL32_RW, &axis.controller_.config_.kp},
+    {0x2031, 0, OD_REAL32_RW, &axis.controller_.config_.kd},
+    {0x2032, 0, OD_REAL32_RW, &axis.controller_.config_.pos_gain},
+    {0x2033, 0, OD_REAL32_RW, &axis.controller_.config_.vel_gain},
+    {0x2034, 0, OD_REAL32_RW, &axis.controller_.config_.vel_integrator_gain},
+
+
+    // temperature Parameters
+
+    {0x2040, 0, OD_REAL32_RW, &axis.fet_thermistor_.temperature_},
+    {0x2041, 0, OD_REAL32_RW, &axis.fet_thermistor_.aux_temperature_},
+    {0x2042, 0, OD_REAL32_RW, &axis.fet_thermistor_.config_.temp_limit_lower},
+    {0x2043, 0, OD_REAL32_RW, &axis.fet_thermistor_.config_.temp_limit_upper},
+  
     
     // Runtime Parameters (0x3000-0x3FFF)
     // Position Related
-    {0x3000, 0, OD_INT32_RW, (void*)&motor_runtime.input_pos},
-    {0x3001, 0, OD_INT16_RO, (void*)&motor_runtime.profile_pos},
-    {0x3002, 0, OD_INT16_RO, (void*)&motor_runtime.des_pos},
-    {0x3003, 0, OD_INT16_RO, (void*)&motor_runtime.current_pos},
-    
+    {0x3000, 0, OD_REAL32_RW, (void*)&axis.controller_.config_.pos_gain},
+    {0x3001, 0, OD_REAL32_RW, (void*)&axis.controller_.input_pos_},
+    {0x3002, 0, OD_REAL32_RW, (void*)&axis.encoder_.gearboxpos_},
+
+
+
     // Velocity Related
-    {0x3010, 0, OD_INT16_RW, (void*)&motor_runtime.input_vel},
-    {0x3011, 0, OD_INT16_RO, (void*)&motor_runtime.profile_vel},
-    {0x3012, 0, OD_INT16_RO, (void*)&motor_runtime.des_vel},
-    {0x3013, 0, OD_INT16_RO, (void*)&motor_runtime.current_vel},
-    
-    // Current Related
-    {0x3020, 0, OD_INT16_RW, (void*)&motor_runtime.input_cur},
-    {0x3021, 0, OD_INT16_RO, (void*)&motor_runtime.profile_cur},
-    {0x3022, 0, OD_INT16_RO, (void*)&motor_runtime.des_cur},
-    {0x3023, 0, OD_INT16_RO, (void*)&motor_runtime.current_cur},
+    {0x3010, 0, OD_REAL32_RW, (void*)&axis.controller_.config_.vel_gain},
+    {0x3011, 0, OD_REAL32_RW, (void*)&axis.controller_.config_.vel_integrator_gain},
+    {0x3012, 0, OD_REAL32_RW, (void*)&axis.controller_.config_.vel_limit},
+    {0x3014, 0, OD_REAL32_RW, (void*)&axis.controller_.input_vel_},
+    {0x3015, 0, OD_REAL32_RW, (void*)&axis.encoder_.vel_estimate_},
+    {0x3016, 0, OD_REAL32_RW, (void*)&axis.encoder_.gear_vel_estimate_},
+
+
+    // current Related
+    {0x3020, 0, OD_REAL32_RW, (void*)&axis.controller_.input_torque_},
+    {0x3022, 0, OD_REAL32_RW, (void*)&axis.motor_.current_control_.Idq_setpoint_.value().first},
+    {0x3023, 0, OD_REAL32_RW, (void*)&axis.motor_.current_control_.Idq_setpoint_.value().second},
+    {0x3024, 0, OD_REAL32_RW, (void*)&axis.motor_.current_control_.Iq_measured_},
+    {0x3025, 0, OD_REAL32_RW, (void*)&axis.motor_.current_control_.Id_measured_},
+
+
     
     // Status
-    {0x3030, 0, OD_INT16_RO, (void*)&motor_runtime.is_enabled},
-    {0x3031, 0, OD_INT16_RO, (void*)&motor_runtime.is_running},
-    {0x3032, 0, OD_INT16_RO, (void*)&motor_runtime.temperatrue},
-    {0x3033, 0, OD_INT16_RO, (void*)&motor_runtime.error_code},
+    {0x3030, 0, OD_REAL32_RW, (void*)&axis.error_},
+    {0x3031, 0, OD_REAL32_RW, (void*)&axis.motor_.error_},
+    {0x3032, 0, OD_REAL32_RW, (void*)&axis.encoder_.error_},
+
     
     // PDO Mapping Configuration (0x6000)
     {0x6000, 6, OD_INT32_RW, &scope_map[0]},
@@ -110,7 +124,7 @@ int32_t OD_Read(uint16_t index, uint16_t subindex, uint16_t* length) {
     }
     
     // Read value based on data type
-    if(entry->type_access & OD_TYPE_INT32) {
+    if((entry->type_access & OD_TYPE_INT32)) {
         if(length) *length = 4;
         return ((int32_t*)entry->data)[array_index];
     } else {

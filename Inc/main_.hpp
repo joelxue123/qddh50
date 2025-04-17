@@ -199,10 +199,6 @@ typedef struct {
 
 
 
-// 声明全局变量
-extern MotorParams motor_params;
-extern MotorRuntime motor_runtime;
-
 
 
 
@@ -250,7 +246,7 @@ extern "C" {
 
 int load_configuration(void);
 int construct_objects(void);
-int odrive_main(void);
+
 
 #ifdef __cplusplus
 }

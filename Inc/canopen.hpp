@@ -7,7 +7,8 @@
 // Data type definitions (bits 4-5)
 #define OD_TYPE_INT16    0x10    // int16_t type
 #define OD_TYPE_INT32    0x20    // int32_t type
-#define OD_TYPE_MASK     0x30    // Data type mask
+#define OD_TYPE_FLOAT    0x30    // float type
+#define OD_TYPE_MASK     0xF0    // Type mask
 
 // Access rights (bits 0-1)
 #define OD_ACCESS_RO     0x01    // Read Only
@@ -22,6 +23,11 @@
 #define OD_INT32_RO      (OD_TYPE_INT32 | OD_ACCESS_RO)
 #define OD_INT32_WO      (OD_TYPE_INT32 | OD_ACCESS_WO)
 #define OD_INT32_RW      (OD_TYPE_INT32 | OD_ACCESS_RW)
+#define OD_REAL32_RO     (OD_TYPE_FLOAT | OD_ACCESS_RO)
+#define OD_REAL32_WO     (OD_TYPE_FLOAT | OD_ACCESS_WO)
+#define OD_REAL32_RW     (OD_TYPE_FLOAT | OD_ACCESS_RW)
+
+
 
 // PDO Mapping Entry
 typedef union {

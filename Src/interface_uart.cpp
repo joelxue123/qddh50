@@ -7,6 +7,7 @@
 
 #include "mc_config.h"
 #include "utils.hpp"
+#include "low_level.h"
 
 // DMA open loop continous circular buffer
 // 1ms delay periodic, chase DMA ptr around
@@ -187,7 +188,7 @@ void UART_ParseFrame_(uint8_t* pdata) {
 		// ...existing code...
         case FRAME_CMD_SAVE:
             // Save all parameters to flash
-            //Flash_SaveMotorParams(&motor_params);
+            Flash_SaveConfig();
             // Send ACK
             UART_PushFrame_(0, FRAME_CMD_SAVE, 0,0, NULL);
             break;

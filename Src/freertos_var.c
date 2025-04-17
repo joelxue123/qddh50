@@ -58,6 +58,8 @@
 /* USER CODE BEGIN Includes */     
 #include "freertos_vars.h"
 
+
+
 void start_uart_server(void);
 
 int odrive_main(void);
@@ -163,8 +165,12 @@ void MX_FREERTOS_Init(void) {
   
   VESC_UART_Init();
   // Load persistent configuration (or defaults)
-  //load_configuration();
-  //construct_objects();
+
+
+  if(Flash_Init())
+  {
+    Flash_LoadConfig();
+  }
 
   //odrive_main();
   /* USER CODE END RTOS_SEMAPHORES */

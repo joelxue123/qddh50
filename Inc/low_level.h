@@ -46,6 +46,11 @@ void tim_update_cb(TIM_HandleTypeDef* htim);
 void pwm_in_cb(int channel, uint32_t timestamp);
 void send_notification(void);
 void axis_loop(void);
+
+bool Flash_Init(void);
+bool Flash_LoadConfig(void);
+bool Flash_SaveConfig(void);
+
 }
 
 // Initalisation
