@@ -136,6 +136,7 @@ typedef struct {
 void initNotchFilter(NotchFilter* filter, float frequency, float sampleRate, float bandwidth);
 float applyNotchFilter(NotchFilter* filter, float input);
 
+void cordic_sin_cos(float theta,float *sin,float *cos);
 void test_svm(float mod_q, float mod_d, float *theta, float *ta, float *tb, float *tc) ;
 void clark_park(float *iq, float *id, float theta, float ia, float ib);
 #ifdef __cplusplus

@@ -30,7 +30,10 @@ ODriveCAN::Config_t can_config;
 Axis::Config_t axis_configs;
 
 EncoderHardwareConfig_t encoder_hardware_config;
-MotorHardwareConfig_t motor_hardware_config;
+MotorHardwareConfig_t motor_hardware_config ={
+    .timer = TIM1,
+
+};
 ThermistorHardwareConfig_t thermistor_hardware_config = {
     .coeffs = fet_thermistor_poly_coeffs,
     .aux_coefficients = fet_thermistor_poly_coeffs2,
@@ -229,9 +232,11 @@ void vApplicationIdleHook(void) {
 
 int odrive_main(void) {
     motor.setup();
-    return 0;
+    
     // Start ADC for temperature measurements and user measurements
-    start_general_purpose_adc();
+   // start_general_purpose_adc();
+
+    return 0;
 
     // TODO: make dynamically reconfigurable
 #if HW_VERSION_MAJOR == 3 && HW_VERSION_MINOR >= 3

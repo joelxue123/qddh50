@@ -104,8 +104,10 @@ ODriveIntf::MotorIntf::Error FieldOrientedController::get_alpha_beta_output(
     if (Ialpha_beta_measured_.has_value()) {
         auto [Ialpha, Ibeta] = *Ialpha_beta_measured_;
         float I_phase = phase + phase_vel * ((float)(int32_t)(i_timestamp_ - ctrl_timestamp_) / (float)TIM_1_8_CLOCK_HZ);
-        float c_I = our_arm_cos_f32(I_phase);
-        float s_I = our_arm_sin_f32(I_phase);
+        float c_I = 0.0f;
+        float s_I = 0.0f;
+
+        cordic_sin_cos(I_phase, &s_I, &c_I);
         Idq = {
             c_I * Ialpha + s_I * Ibeta,
             c_I * Ibeta - s_I * Ialpha
@@ -167,8 +169,9 @@ ODriveIntf::MotorIntf::Error FieldOrientedController::get_alpha_beta_output(
 
     // Inverse park transform
     float pwm_phase = phase + phase_vel * ((float)(int32_t)(output_timestamp - ctrl_timestamp_) / (float)TIM_1_8_CLOCK_HZ);
-    float c_p = our_arm_cos_f32(pwm_phase);
-    float s_p = our_arm_sin_f32(pwm_phase);
+    float c_p = 0.0f;
+    float s_p = 0.0f;
+    cordic_sin_cos(pwm_phase, &s_p, &c_p);
     float mod_alpha = c_p * mod_d - s_p * mod_q;
     float mod_beta = c_p * mod_q + s_p * mod_d;
 

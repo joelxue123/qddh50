@@ -127,13 +127,13 @@ __weak void MCboot( MCI_Handle_t* pMCIList[NBR_OF_MOTORS] )
     /********************************************************/
     /*   Bus voltage sensor component initialization        */
     /********************************************************/
-    (void)RCM_RegisterRegConv(&VbusRegConv_M1);
+ //   (void)RCM_RegisterRegConv(&VbusRegConv_M1);
     RVBS_Init(&BusVoltageSensor_M1);
 
     /*******************************************************/
     /*   Temperature measurement component initialization  */
     /*******************************************************/
-    (void)RCM_RegisterRegConv(&TempRegConv_M1);
+   // (void)RCM_RegisterRegConv(&TempRegConv_M1);
     NTC_Init(&TempSensor_M1);
 
     Mci[M1].pPerfMeasure = &PerfTraces;

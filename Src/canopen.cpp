@@ -83,6 +83,8 @@ static const OD_Entry_t OD_List[] = {
     {0x3024, 0, OD_REAL32_RW, (void*)&axis.motor_.current_control_.Iq_measured_},
     {0x3025, 0, OD_REAL32_RW, (void*)&axis.motor_.current_control_.Id_measured_},
 
+    //open loop
+    {0x3026, 0, OD_REAL32_RW, (void*)&axis.config_.general_lockin.current},
 
     
     // Status

@@ -822,20 +822,20 @@ __weak uint8_t FOC_HighFrequencyTask(uint8_t bMotorNbr)
 
 
 
-if(task_run == 1)
-{
-                  //STSPIN32G4_clearFaults(&HdlSTSPING4);
-                  test_svm(mod_q, mod_d, &theta_, &ta, &tb, &tc);
-                  /* Turn on the three low side switches */
-                  LL_TIM_OC_SetCompareCH1(TIM1, ta*TIM_1_8_PERIOD_CLOCKS);
-                  LL_TIM_OC_SetCompareCH2(TIM1, tb*TIM_1_8_PERIOD_CLOCKS);
-                  LL_TIM_OC_SetCompareCH3(TIM1, tc*TIM_1_8_PERIOD_CLOCKS);
-                  TIM1->BDTR |= LL_TIM_OSSI_ENABLE;
-                  LL_TIM_EnableAllOutputs(TIM1);
+// if(task_run == 1)
+// {
+//                   //STSPIN32G4_clearFaults(&HdlSTSPING4);
+//                   test_svm(mod_q, mod_d, &theta_, &ta, &tb, &tc);
+//                   /* Turn on the three low side switches */
+//                   LL_TIM_OC_SetCompareCH1(TIM1, ta*TIM_1_8_PERIOD_CLOCKS);
+//                   LL_TIM_OC_SetCompareCH2(TIM1, tb*TIM_1_8_PERIOD_CLOCKS);
+//                   LL_TIM_OC_SetCompareCH3(TIM1, tc*TIM_1_8_PERIOD_CLOCKS);
+//                   TIM1->BDTR |= LL_TIM_OSSI_ENABLE;
+//                   LL_TIM_EnableAllOutputs(TIM1);
   
-                  theta_ = theta_ + 0.01f;
+//                   theta_ = theta_ + 0.01f;
 
-}
+// }
 LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);  // 使用TIM1 OC4作为触发源
 
  // SCC_SetPhaseVoltage(&SCC);
@@ -848,3 +848,4 @@ LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);  // 使用TIM1 OC4作为触�
 /* USER CODE END mc_task 0 */
 
 /******************* (C) COPYRIGHT 2024 STMicroelectronics *****END OF FILE****/
+

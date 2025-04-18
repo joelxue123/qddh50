@@ -122,10 +122,11 @@ bool safety_critical_disarm_motor_pwm(Motor& motor) {
     uint32_t mask = cpu_enter_critical();
     bool was_armed = motor.armed_state_ != Motor::ARMED_STATE_DISARMED;
     motor.armed_state_ = Motor::ARMED_STATE_DISARMED;
-    __HAL_TIM_MOE_DISABLE_UNCONDITIONALLY(motor.hw_config_.timer); //进入刹车模式 2024-10-11
+    LL_TIM_DisableAllOutputs(motor.hw_config_.timer); //进入刹车模式 2024-10-11
     cpu_exit_critical(mask);
     return was_armed;
 }
+
 
 // @brief Updates the phase timings unless the motor is disarmed.
 //
@@ -138,9 +139,9 @@ void safety_critical_apply_motor_pwm_timings(Motor& motor, uint16_t timings[3]) 
         motor.armed_state_ = Motor::ARMED_STATE_DISARMED;
     }
 
-    motor.hw_config_.timer->Instance->CCR1 = timings[0];
-    motor.hw_config_.timer->Instance->CCR2 = timings[1];
-    motor.hw_config_.timer->Instance->CCR3 = timings[2];
+    motor.hw_config_.timer->CCR1 = timings[0];
+    motor.hw_config_.timer->CCR2 = timings[1];
+    motor.hw_config_.timer->CCR3 = timings[2];
 
     if (motor.armed_state_ == Motor::ARMED_STATE_WAITING_FOR_TIMINGS) {
         // timings were just loaded into the timer registers
@@ -152,7 +153,7 @@ void safety_critical_apply_motor_pwm_timings(Motor& motor, uint16_t timings[3]) 
         // now we waited long enough. Enter armed state and
         // enable the actual PWM outputs.
         motor.armed_state_ = Motor::ARMED_STATE_ARMED;
-        __HAL_TIM_MOE_ENABLE(motor.hw_config_.timer);  // enable pwm outputs
+        LL_TIM_EnableAllOutputs(motor.hw_config_.timer);  // enable pwm outputs
     } else if (motor.armed_state_ == Motor::ARMED_STATE_ARMED) {
         // nothing to do, PWM is running, all good
     } else {
@@ -373,14 +374,23 @@ void start_general_purpose_adc() {
     hadc1.Init.DMAContinuousRequests = ENABLE;
     hadc1.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
 
+    if (HAL_ADC_Init(&hadc1) != HAL_OK)
+    {
+        _Error_Handler((char*)__FILE__, __LINE__);
+    }
+
+
 
     // Set up sampling sequence (channel 0 ... channel 15)
     sConfig.SamplingTime = ADC_SAMPLETIME_12CYCLES_5;
     for (uint32_t channel = 0; channel < ADC_CHANNEL_COUNT; ++channel) {
-        sConfig.Channel = channel;
+        sConfig.Channel = channel << 0;
         sConfig.Rank = channel + 1; // rank numbering starts at 1
+        if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
+            _Error_Handler((char*)__FILE__, __LINE__);
     }
 
+    HAL_ADC_Start_DMA(&hadc1, reinterpret_cast<uint32_t*>(adc_measurements_), ADC_CHANNEL_COUNT);
 
 }
 
@@ -515,13 +525,13 @@ volatile uint32_t timestamp_ = 0;
 
 void pwm_trig_adc_cb(ADC_TypeDef *adc, bool injected) {
 
-#if 0
+
     
   //  axis.motor_.log_timing(TIMING_LOG_ADC_CB_I);
 
     timestamp_ += TIM_1_8_PERIOD_CLOCKS * (TIM_1_8_RCR + 1 + 1);
     uint32_t timestamp = timestamp_;
-
+#if 0
     axis.encoder_.set_cs_high();
 #define calib_tau 0.2f  //@TOTO make more easily configurable
     constexpr float calib_filter_k = CURRENT_MEAS_PERIOD / calib_tau;
@@ -582,8 +592,9 @@ void pwm_trig_adc_cb(ADC_TypeDef *adc, bool injected) {
 
     axis.control_loop_cb(timestamp);
 
+    #endif 
     axis.motor_.pwm_update_cb(timestamp + TIM_1_8_PERIOD_CLOCKS * (TIM_1_8_RCR + 1));
-#endif 
+
 
     axis.signal_current_meas(); 
  //   axis.motor_.log_timing(TIMING_LOG_ADC_CB_DC);

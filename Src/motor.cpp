@@ -182,9 +182,9 @@ Motor::Motor(const MotorHardwareConfig_t& hw_config,
 void Motor::apply_pwm_timings(uint16_t timings[3], bool tentative) {
 
     (void)tentative;
-    hw_config_.timer->Instance->CCR1 = timings[0];
-    hw_config_.timer->Instance->CCR2 = timings[1];
-    hw_config_.timer->Instance->CCR3 = timings[2];
+    hw_config_.timer->CCR1 = timings[0];
+    hw_config_.timer->CCR2 = timings[1];
+    hw_config_.timer->CCR3 = timings[2];
 
     if (armed_state_ == ARMED_STATE_WAITING_FOR_TIMINGS) {
         // timings were just loaded into the timer registers
@@ -196,7 +196,7 @@ void Motor::apply_pwm_timings(uint16_t timings[3], bool tentative) {
         // now we waited long enough. Enter armed state and
         // enable the actual PWM outputs.
         armed_state_ = ARMED_STATE_ARMED;
-        __HAL_TIM_MOE_ENABLE(hw_config_.timer);  // enable pwm outputs
+        LL_TIM_EnableAllOutputs(hw_config_.timer);  // enable pwm outputs
     } else if (armed_state_ == Motor::ARMED_STATE_ARMED) {
         // nothing to do, PWM is running, all good
     } else {
@@ -247,7 +247,7 @@ bool Motor::arm(PhaseControlLaw<3>* control_law) {
         LL_TIM_OC_SetCompareCH1(TIM1, 0);
         LL_TIM_OC_SetCompareCH2(TIM1, 0);
         LL_TIM_OC_SetCompareCH3(TIM1, 0);
-        vTaskDelay(1);
+        vTaskDelay(10);
         LL_TIM_EnableAllOutputs(TIM1);
 
         armed_state_ = ODriveIntf::MotorIntf::ARMED_STATE_WAITING_FOR_TIMINGS;
@@ -263,6 +263,9 @@ bool Motor::disarm()
     uint32_t mask = cpu_enter_critical();
     bool was_armed = armed_state_ != ODriveIntf::MotorIntf::ARMED_STATE_DISARMED;
     armed_state_ = ODriveIntf::MotorIntf::ARMED_STATE_DISARMED;
+    LL_TIM_OC_SetCompareCH1(TIM1, 0);
+    LL_TIM_OC_SetCompareCH2(TIM1, 0);
+    LL_TIM_OC_SetCompareCH3(TIM1, 0);
     LL_TIM_DisableAllOutputs(TIM1);
     control_law_ = nullptr;
     is_armed_ = false;
@@ -693,8 +696,9 @@ if( deadtime_compensation_coff_ < 0.0f)
     float Ibeta = one_by_sqrt3 * (current_meas_.phB - current_meas_.phC);
     
     // Park transform
-    float c_I = our_arm_cos_f32(I_phase_);
-    float s_I = our_arm_sin_f32(I_phase_);
+    float c_I = 0.0f;
+    float s_I = 0.0f;
+    cordic_sin_cos(I_phase_, &s_I, &c_I);
     float Id = c_I * Ialpha + s_I * Ibeta;
     float Iq = c_I * Ibeta - s_I * Ialpha;
 
@@ -746,8 +750,9 @@ bool Motor::enqueue_voltage_timings(float v_alpha, float v_beta) {
 
 // We should probably make FOC Current call FOC Voltage to avoid duplication.
 bool Motor::FOC_voltage(float v_d, float v_q, float pwm_phase) {
-    float c = our_arm_cos_f32(pwm_phase);
-    float s = our_arm_sin_f32(pwm_phase);
+    float c = 0.0f;
+    float s = 0.0f;
+    cordic_sin_cos(pwm_phase, &s, &c);
     float v_alpha = c*v_d - s*v_q;
     float v_beta = c*v_q + s*v_d;
 
@@ -814,8 +819,10 @@ bool Motor::FOC_current(float Id_des, float Iq_des, float I_phase, float pwm_pha
   //  float Ibeta = one_by_sqrt3 * (-current_meas_.phA - current_meas_.phC  - current_meas_.phC);
 
     // Park transform
-    float c_I = our_arm_cos_f32(I_phase);
-    float s_I = our_arm_sin_f32(I_phase);
+    float c_I = 0.0f;
+    float s_I = 0.0f;
+    cordic_sin_cos(I_phase, &s_I, &c_I);
+
     float Id = c_I * Ialpha + s_I * Ibeta;
     float Iq = c_I * Ibeta - s_I * Ialpha;
     ictrl.Iq_measured_ += ictrl.I_measured_report_filter_k_ * (Iq - ictrl.Iq_measured_);
@@ -878,8 +885,11 @@ bool Motor::FOC_current(float Id_des, float Iq_des, float I_phase, float pwm_pha
     I_bus_ = mod_d * Id + mod_q * Iq;
 
     // Inverse park transform
-    float c_p = our_arm_cos_f32(pwm_phase);
-    float s_p = our_arm_sin_f32(pwm_phase);
+    float c_p = 0.0f;
+    float s_p = 0.0f;
+
+    cordic_sin_cos(pwm_phase, &s_p, &c_p);
+
     float mod_alpha = c_p * mod_d - s_p * mod_q;
     float mod_beta = c_p * mod_q + s_p * mod_d;
 
@@ -1077,6 +1087,14 @@ void Motor::current_meas_cb(uint32_t timestamp) {
 
 
 void Motor::pwm_update_cb(uint32_t output_timestamp) {
+    float ta =0;
+    float tb =0;
+    float tc =0;
+    
+    float mod_q = 0.1f;
+    float mod_d = 0;
+    static float theta_ = 0.0f;
+
     TaskTimerContext tmr{axis_->task_times_.pwm_update};
 
     ODriveIntf::MotorIntf::Error control_law_status =  ODriveIntf::MotorIntf::ERROR_CONTROLLER_FAILED;
@@ -1087,8 +1105,13 @@ void Motor::pwm_update_cb(uint32_t output_timestamp) {
         control_law_status = control_law_->get_output(
             output_timestamp, pwm_timings, &i_bus);
     }
-
-    // Apply control law to calculate PWM duty cycles
+    // control_law_status = ODriveIntf::MotorIntf::ERROR_NONE;
+    // test_svm(mod_q, mod_d, &theta_, &ta, &tb, &tc);
+    // theta_ = theta_ + 0.01f;
+    // pwm_timings[0] = ta;
+    // pwm_timings[1] = tb;
+    // pwm_timings[2] = tc;
+    //Apply control law to calculate PWM duty cycles
     if (is_armed_ && control_law_status == ODriveIntf::MotorIntf::ERROR_NONE) {
         uint16_t next_timings[] = {
             (uint16_t)(pwm_timings[0] * (float)TIM_1_8_PERIOD_CLOCKS),
@@ -1097,7 +1120,7 @@ void Motor::pwm_update_cb(uint32_t output_timestamp) {
         };
         apply_pwm_timings(next_timings, false);
     } else if (is_armed_) {
-        if (!( hw_config_.timer->Instance->BDTR & TIM_BDTR_MOE) && (control_law_status == ODriveIntf::MotorIntf::ERROR_CONTROLLER_INITIALIZING)) {
+        if (!( hw_config_.timer->BDTR & TIM_BDTR_MOE) && (control_law_status == ODriveIntf::MotorIntf::ERROR_CONTROLLER_INITIALIZING)) {
             // If the PWM output is armed in software but not yet in
             // hardware we tolerate the "initializing" error.
             i_bus = 0.0f;
@@ -1111,14 +1134,14 @@ void Motor::pwm_update_cb(uint32_t output_timestamp) {
         i_bus = 0.0f;
     } else if (is_armed_ && !i_bus.has_value()) {
         // If the motor is armed then i_bus must be known
-        set_error(ODriveIntf::MotorIntf::ERROR_UNKNOWN_CURRENT_MEASUREMENT);
+  //      set_error(ODriveIntf::MotorIntf::ERROR_UNKNOWN_CURRENT_MEASUREMENT);
         i_bus = 0.0f;
     }
 
     I_bus_ = *i_bus;
 
     if (*i_bus < config_.I_bus_hard_min || *i_bus > config_.I_bus_hard_max) {
-        set_error(ODriveIntf::MotorIntf::ERROR_I_BUS_OUT_OF_RANGE);
+//        set_error(ODriveIntf::MotorIntf::ERROR_I_BUS_OUT_OF_RANGE);
     }
 
 

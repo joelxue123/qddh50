@@ -213,7 +213,7 @@ typedef struct {
 
 } EncoderHardwareConfig_t;
 typedef struct {
-  TIM_HandleTypeDef* timer;
+  TIM_TypeDef* timer;
   uint16_t control_deadline;
   float shunt_conductance;
 } MotorHardwareConfig_t;
