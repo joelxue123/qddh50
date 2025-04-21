@@ -816,13 +816,13 @@ void Axis::control_loop_cb(uint32_t timestamp)
  //   MEASURE_TIME(task_times_.encoder_update)
         encoder_.update();
 
-    MEASURE_TIME(task_times_.controller_update) {
+ //   MEASURE_TIME(task_times_.controller_update) {
         if (!controller_.update()) { // uses position and velocity from encoder
 
             error_ = static_cast<Error>(static_cast<uint32_t>(error_) | static_cast<uint32_t>(ERROR_CONTROLLER_FAILED));
 
         }
-    }
+  //  }
 
     // MEASURE_TIME(task_times_.open_loop_controller_update)
     //     open_loop_controller_.update(timestamp);

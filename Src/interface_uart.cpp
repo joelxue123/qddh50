@@ -237,7 +237,7 @@ void UART_ParseFrame_(uint8_t* pdata) {
 			int16_t target_pos = 0;
 			int16_t target_vel =  FOCVars[M1].Iqd.d;
 			int16_t target_cur =  FOCVars[0].Iab.b;
-			int16_t temp = 0;
+			int16_t temp = vbus_voltage;
 			uint16_t erro = 0x01;
 			
 			// 打包数据 (小端序)

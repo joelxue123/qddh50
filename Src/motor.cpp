@@ -660,7 +660,13 @@ bool Motor::measure_phase_inductance(float test_voltage) {
 
     return success;
 }
-
+void Motor::measure_current_offset(void)
+{
+    for (size_t i = 0; i < 100; ++i) {
+        
+        osDelay(1);
+    }
+}
 
 bool Motor::run_calibration() {
     float R_calib_max_voltage = config_.resistance_calib_max_voltage;
@@ -1070,7 +1076,7 @@ void Motor::update(uint32_t timestamp) {
 void Motor::current_meas_cb(uint32_t timestamp) {
     // TODO: this is platform specific
     //const float current_meas_period = static_cast<float>(2 * TIM_1_8_PERIOD_CLOCKS * (TIM_1_8_RCR + 1)) / TIM_1_8_CLOCK_HZ;
-    TaskTimerContext tmr{axis_->task_times_.current_sense};
+    //TaskTimerContext tmr{axis_->task_times_.current_sense};
 
 
 

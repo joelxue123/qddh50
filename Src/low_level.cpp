@@ -37,7 +37,7 @@ ADC_HandleTypeDef hadc2;
 /* Private macros ------------------------------------------------------------*/
 /* Private typedef -----------------------------------------------------------*/
 /* Global constant data ------------------------------------------------------*/
-constexpr float adc_full_scale = static_cast<float>(1UL << 12UL);
+constexpr float adc_full_scale = static_cast<float>(1UL << 16UL);
 constexpr float adc_ref_voltage = 3.3f;
 /* Global variables ----------------------------------------------------------*/
 
@@ -531,6 +531,17 @@ void pwm_trig_adc_cb(ADC_TypeDef *adc, bool injected) {
 
     timestamp_ += TIM_1_8_PERIOD_CLOCKS * (TIM_1_8_RCR + 1 + 1);
     uint32_t timestamp = timestamp_;
+
+    vbus_voltage = get_adc_voltage_channel(1) *23.4604f;
+
+    Iab.a  =  a_offset - (ADC1->JDR1>>4) ;
+    Iab.b  = b_offset -(ADC2->JDR1>>4);
+    
+    axis.motor_.current_meas_.Q16_phA = 
+    axis.motor_.current_meas_.phA = current_a - axis.motor_.DC_calib_.phA;
+    axis.motor_.current_meas_.phC = current_c - axis.motor_.DC_calib_.phC;
+    axis.motor_.current_meas_.phB =  1.06f*(0 - axis.motor_.current_meas_.phA - axis.motor_.current_meas_.phC) ;//0.12
+
 #if 0
     axis.encoder_.set_cs_high();
 #define calib_tau 0.2f  //@TOTO make more easily configurable

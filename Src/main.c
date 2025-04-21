@@ -20,6 +20,11 @@
 #include "main.h"
 #include "cmsis_os.h"
 
+
+extern uint16_t adc_measurements_[16];
+
+
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -254,7 +259,7 @@ static void MX_NVIC_Init(void)
   // NVIC_EnableIRQ(EXTI15_10_IRQn);
 }
 
-uint16_t adc_values[16];  // ADC数据缓冲区
+
 /**
   * @brief ADC1 Initialization Function
   * @param None
@@ -451,7 +456,7 @@ while(LL_ADC_IsCalibrationOnGoing(ADC1));
     // 设置DMA传输参数
     LL_DMA_ConfigAddresses(DMA1, LL_DMA_CHANNEL_5,
       (uint32_t)&ADC1->DR,
-      (uint32_t)adc_values,
+      (uint32_t)adc_measurements_,
       LL_DMA_DIRECTION_PERIPH_TO_MEMORY);
 
 
@@ -482,10 +487,7 @@ while(LL_ADC_IsCalibrationOnGoing(ADC1));
   LL_DMA_EnableChannel(DMA1, LL_DMA_CHANNEL_5);
   LL_ADC_Enable(ADC1);
 
-  while(1)
-  {
-    LL_ADC_REG_StartConversion(ADC1);
-  }
+  LL_ADC_REG_StartConversion(ADC1);
 
 
 
