@@ -126,6 +126,21 @@ public:
                 MOTOR_TYPE_GIMBAL                = 2,
                 MOTOR_TYPE_ACIM                  = 3,
             };
+            enum TimingLog_t {
+                TIMING_LOG_GENERAL,
+                TIMING_LOG_ADC_CB_I,
+                TIMING_LOG_ADC_CB_DC,
+                TIMING_LOG_MEAS_R,
+                TIMING_LOG_MEAS_L,
+                TIMING_LOG_ENC_CALIB,
+                TIMING_LOG_IDX_SEARCH,
+                TIMING_LOG_FOC_VOLTAGE,
+                TIMING_LOG_FOC_CURRENT,
+                TIMING_LOG_SPI_START,
+                TIMING_LOG_SAMPLE_NOW,
+                TIMING_LOG_SPI_END,
+                TIMING_LOG_NUM_SLOTS
+            };
 
     };
 

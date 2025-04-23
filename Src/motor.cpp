@@ -662,10 +662,19 @@ bool Motor::measure_phase_inductance(float test_voltage) {
 }
 void Motor::measure_current_offset(void)
 {
+    int32_t phA_sum_ADCValue = 0;  
+    int32_t phB_sum_ADCValue = 0;
+    
+    DC_calib_.Q16_phA = 0;
+    DC_calib_.Q16_phB = 0;
     for (size_t i = 0; i < 100; ++i) {
-        
+
+        phA_sum_ADCValue += current_meas_.Q16_phA;
+        phB_sum_ADCValue += current_meas_.Q16_phB;
         osDelay(1);
     }
+    DC_calib_.Q16_phA =  -1* phA_sum_ADCValue / 100;
+    DC_calib_.Q16_phB = -1* phB_sum_ADCValue / 100;
 }
 
 bool Motor::run_calibration() {
@@ -1097,11 +1106,11 @@ void Motor::pwm_update_cb(uint32_t output_timestamp) {
     float tb =0;
     float tc =0;
     
-    float mod_q = 0.1f;
+    float mod_q = 0.05f;
     float mod_d = 0;
     static float theta_ = 0.0f;
 
-    TaskTimerContext tmr{axis_->task_times_.pwm_update};
+  //  TaskTimerContext tmr{axis_->task_times_.pwm_update};
 
     ODriveIntf::MotorIntf::Error control_law_status =  ODriveIntf::MotorIntf::ERROR_CONTROLLER_FAILED;
     float pwm_timings[3] = {NAN, NAN, NAN};
@@ -1113,11 +1122,11 @@ void Motor::pwm_update_cb(uint32_t output_timestamp) {
     }
     // control_law_status = ODriveIntf::MotorIntf::ERROR_NONE;
     // test_svm(mod_q, mod_d, &theta_, &ta, &tb, &tc);
-    // theta_ = theta_ + 0.01f;
+    // theta_ = theta_ + 0.00001f;
     // pwm_timings[0] = ta;
     // pwm_timings[1] = tb;
     // pwm_timings[2] = tc;
-    //Apply control law to calculate PWM duty cycles
+   // Apply control law to calculate PWM duty cycles
     if (is_armed_ && control_law_status == ODriveIntf::MotorIntf::ERROR_NONE) {
         uint16_t next_timings[] = {
             (uint16_t)(pwm_timings[0] * (float)TIM_1_8_PERIOD_CLOCKS),

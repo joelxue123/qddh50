@@ -525,7 +525,7 @@ volatile uint32_t timestamp_ = 0;
 
 void pwm_trig_adc_cb(ADC_TypeDef *adc, bool injected) {
 
-
+    axis.motor_.timing_log_[0] = TIM1->CNT;
     
   //  axis.motor_.log_timing(TIMING_LOG_ADC_CB_I);
 
@@ -534,13 +534,18 @@ void pwm_trig_adc_cb(ADC_TypeDef *adc, bool injected) {
 
     vbus_voltage = get_adc_voltage_channel(1) *23.4604f;
 
-    Iab.a  =  a_offset - (ADC1->JDR1>>4) ;
-    Iab.b  = b_offset -(ADC2->JDR1>>4);
-    
-    axis.motor_.current_meas_.Q16_phA = 
-    axis.motor_.current_meas_.phA = current_a - axis.motor_.DC_calib_.phA;
-    axis.motor_.current_meas_.phC = current_c - axis.motor_.DC_calib_.phC;
-    axis.motor_.current_meas_.phB =  1.06f*(0 - axis.motor_.current_meas_.phA - axis.motor_.current_meas_.phC) ;//0.12
+
+    axis.motor_.current_meas_.Q16_phA = ADC1->JDR1;
+    axis.motor_.current_meas_.Q16_phB = ADC2->JDR1;
+
+    axis.motor_.current_meas_.Q16_phA = axis.motor_.DC_calib_.Q16_phA - axis.motor_.current_meas_.Q16_phA;
+    axis.motor_.current_meas_.Q16_phB = axis.motor_.DC_calib_.Q16_phB - axis.motor_.current_meas_.Q16_phB;
+    axis.motor_.current_meas_.Q16_phC = (0 - axis.motor_.current_meas_.Q16_phA - axis.motor_.current_meas_.Q16_phB);
+
+    axis.motor_.current_meas_.phA= axis.motor_.current_meas_.Q16_phA*CURRENT_BASE;
+    axis.motor_.current_meas_.phB= axis.motor_.current_meas_.Q16_phB*CURRENT_BASE;
+    axis.motor_.current_meas_.phC= axis.motor_.current_meas_.Q16_phC*CURRENT_BASE;
+    axis.motor_.timing_log_[1] = TIM1->CNT;
 
 #if 0
     axis.encoder_.set_cs_high();
@@ -599,14 +604,18 @@ void pwm_trig_adc_cb(ADC_TypeDef *adc, bool injected) {
  //   axis.motor_.current_meas_.phC = current_c - axis.motor_.DC_calib_.phC;
     axis.motor_.current_meas_.phB =  1.06f*(0 - axis.motor_.current_meas_.phA - axis.motor_.current_meas_.phC) ;//0.12
 
-    axis.motor_.current_meas_cb(timestamp);
+#endif 
 
+    axis.motor_.current_meas_cb(timestamp);
+    axis.motor_.timing_log_[2] = TIM1->CNT;
     axis.control_loop_cb(timestamp);
 
-    #endif 
+    axis.motor_.timing_log_[3] = TIM1->CNT;
+
+    
     axis.motor_.pwm_update_cb(timestamp + TIM_1_8_PERIOD_CLOCKS * (TIM_1_8_RCR + 1));
 
-
+    axis.motor_.timing_log_[4] = TIM1->CNT;
     axis.signal_current_meas(); 
  //   axis.motor_.log_timing(TIMING_LOG_ADC_CB_DC);
     

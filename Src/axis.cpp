@@ -649,6 +649,8 @@ bool Axis::run_idle_loop() {
 // Infinite loop that does calibration and enters main control loop as appropriate
 void Axis::run_state_machine_loop() {
 
+
+    motor_.measure_current_offset();
     thread_id_valid_ = true;
     for (;;) {
         // Load the task chain if a specific request is pending
@@ -805,16 +807,16 @@ void Axis::control_loop_cb(uint32_t timestamp)
 
     // make sure the watchdog is being fed. 
     bool watchdog_ok = watchdog_check();
-    bool updates_ok = do_updates(); 
+  //  bool updates_ok = do_updates(); 
     
-    if (!checks_ok_ || !updates_ok || !watchdog_ok) {
+    if (!checks_ok_  || !watchdog_ok) {
         // It's not useful to quit idle since that is the safe action
         // Also leaving idle would rearm the motors
         motor_.disarm();
     }
     //??? 是否放在这里呢？等待验证
  //   MEASURE_TIME(task_times_.encoder_update)
-        encoder_.update();
+ //       encoder_.update();
 
  //   MEASURE_TIME(task_times_.controller_update) {
         if (!controller_.update()) { // uses position and velocity from encoder
@@ -825,7 +827,7 @@ void Axis::control_loop_cb(uint32_t timestamp)
   //  }
 
     // MEASURE_TIME(task_times_.open_loop_controller_update)
-    //     open_loop_controller_.update(timestamp);
+         open_loop_controller_.update(timestamp);
 
   //  MEASURE_TIME(task_times_.motor_update)
         motor_.update(timestamp); // uses torque from controller and phase_vel from encoder

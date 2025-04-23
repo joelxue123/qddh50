@@ -297,8 +297,10 @@ __weak void TSK_MediumFrequencyTaskM1(void)
               STSPIN32G4_clearFaults(&HdlSTSPING4);
               LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);
               vTaskDelay(1000);
-              a_offset =  0 - FOCVars[M1].Iab .a;
-              b_offset = 0 - FOCVars[M1].Iab .b;
+              //a_offset =  0 - FOCVars[M1].Iab .a;
+              //b_offset = 0 - FOCVars[M1].Iab .b;
+
+              
 
 
               while(1)
@@ -801,7 +803,7 @@ __weak uint8_t FOC_HighFrequencyTask(uint8_t bMotorNbr)
    * machine. Calling the generic function ensures that the correct
    * implementation is invoked */
 
-  PWMC_GetPhaseCurrents(pwmcHandle[M1], &Iab);
+  //PWMC_GetPhaseCurrents(pwmcHandle[M1], &Iab);
 
 // ADC1 - Phase U current
 // LL_ADC_INJ_SetSequencerRanks(ADC1, LL_ADC_INJ_RANK_1, LL_ADC_CHANNEL_3); // OPAMP1 output
@@ -809,19 +811,9 @@ __weak uint8_t FOC_HighFrequencyTask(uint8_t bMotorNbr)
 // // ADC2 - Phase V current  
 // LL_ADC_INJ_SetSequencerRanks(ADC2, LL_ADC_INJ_RANK_1, LL_ADC_CHANNEL_3); // OPAMP2 output
 
-  Iab.a  =  a_offset - (ADC1->JDR1>>4) ;
-  Iab.b  = b_offset -(ADC2->JDR1>>4);
-
-  FOCVars[M1].Iab = Iab;
-
-  a = Iab.a;
-  b = Iab.b;
-  clark_park(&iq,&id,theta_,a,b);
-  FOCVars[M1].Iqd.q = iq;
-  FOCVars[M1].Iqd.d = id;
 
 
-
+  SPI1_TransferDMA(tx,rx,10);
 // if(task_run == 1)
 // {
 //                   //STSPIN32G4_clearFaults(&HdlSTSPING4);

@@ -32,6 +32,7 @@ public:
         MOTOR_TYPE_ACIM                  = 3,
     };
 
+    int16_t timing_log_[TIMING_LOG_NUM_SLOTS];
     struct CurrentControl_t{
         float p_gain; // [V/A]
         float i_gain; // [V/As]
@@ -67,7 +68,7 @@ public:
         int32_t gear_ratio = 16;
         float motor_torque_base = 60.0f; // [Nm]
         float calibration_current = 10.0f;    // [A]
-        float resistance_calib_max_voltage = 2.0f; // [V] - You may need to increase this if this voltage isn't sufficient to drive calibration_current through the motor.
+        float resistance_calib_max_voltage = 6.0f; // [V] - You may need to increase this if this voltage isn't sufficient to drive calibration_current through the motor.
         float phase_inductance = 0.000055f;        // to be set by measure_phase_inductance
         float phase_resistance = 0.07f;        // to be set by measure_phase_resistance
         float torque_constant = 0.087f;         // [Nm/A] for PM motors, [Nm/A^2] for induction motors. Equal to 8.27/Kv of the motor
@@ -147,6 +148,8 @@ public:
     bool measure_phase_resistance(float test_current, float max_voltage);
     bool measure_phase_inductance(float test_voltage);
     bool run_calibration();
+    void measure_current_offset();
+
     bool enqueue_modulation_timings(float mod_alpha, float mod_beta);
     bool enqueue_voltage_timings(float v_alpha, float v_beta);
     bool FOC_voltage(float v_d, float v_q, float pwm_phase);
@@ -170,12 +173,6 @@ public:
     };
     bool next_timings_valid_ = false;
     uint16_t last_cpu_time_ = 0;
-    int timing_log_index_ = 0;
-    struct {
-        uint16_t& operator[](size_t idx) { return content[idx]; }
-        uint16_t& get(size_t idx) { return content[idx]; }
-        uint16_t content[ODriveIntf::TIMING_LOG_NUM_SLOTS];
-    } timing_log_;
 
     
     // variables exposed on protocol

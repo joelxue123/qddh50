@@ -58,7 +58,10 @@ static const OD_Entry_t OD_List[] = {
     {0x2042, 0, OD_REAL32_RW, &axis.fet_thermistor_.config_.temp_limit_lower},
     {0x2043, 0, OD_REAL32_RW, &axis.fet_thermistor_.config_.temp_limit_upper},
   
-    
+    // can parameter
+    {0x2050, 0, OD_INT16_RW, &axis.config_.enable_watchdog},
+
+
     // Runtime Parameters (0x3000-0x3FFF)
     // Position Related
     {0x3000, 0, OD_REAL32_RW, (void*)&axis.controller_.config_.pos_gain},

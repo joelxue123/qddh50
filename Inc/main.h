@@ -98,6 +98,9 @@ void Error_Handler(void);
 
 #define VBUS_S_DIVIDER_RATIO 19.0f
 
+#define CURRENT_BASE 0.0012f //40a/32768
+
+
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/

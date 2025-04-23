@@ -231,14 +231,16 @@ void UART_ParseFrame_(uint8_t* pdata) {
 			int pos = 0;
 	
 			// 获取当前状态
-			int16_t current_pos = 0;
-			int16_t current_vel =  FOCVars[M1].Iqd.q;
-			int16_t current_cur = FOCVars[0].Iab.a;;
-			int16_t target_pos = 0;
-			int16_t target_vel =  FOCVars[M1].Iqd.d;
-			int16_t target_cur =  FOCVars[0].Iab.b;
-			int16_t temp = vbus_voltage;
-			uint16_t erro = 0x01;
+			int16_t target_pos = axis.motor_.timing_log_[0];
+			int16_t current_pos = axis.motor_.timing_log_[1];
+			int16_t target_vel =  axis.motor_.timing_log_[2];;
+			int16_t current_vel = axis.motor_.timing_log_[3];;
+			int16_t target_cur =  axis.motor_.timing_log_[4];;
+			int16_t current_cur =axis.motor_.timing_log_[5];;
+			
+		
+			int16_t temp = axis.motor_.error_;//vbus_voltage;
+			uint16_t erro = axis.error_;
 			
 			// 打包数据 (小端序)
 			tx_buf[pos++] = (target_pos) & 0xFF;
