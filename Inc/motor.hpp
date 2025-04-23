@@ -253,6 +253,8 @@ public:
     OutputPort<float2D> Vdq_setpoint_ = {{0.0f, 0.0f}}; // fed to the FOC
     OutputPort<float2D> Idq_setpoint_ = {{0.0f, 0.0f}}; // fed to the FOC
     
+    float v_alpha_ = 0.0f;
+    float v_beta_ = 0.0f;
 
     void setting_motor_current_linearity(uint32_t index, float value);
     void setting_motor_torque_linearity(uint32_t index, float value);

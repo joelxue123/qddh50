@@ -231,8 +231,8 @@ void UART_ParseFrame_(uint8_t* pdata) {
 			int pos = 0;
 	
 			// 获取当前状态
-			int16_t target_pos = axis.motor_.timing_log_[0];
-			int16_t current_pos = axis.motor_.timing_log_[1];
+			int16_t target_pos = axis.motor_.v_alpha_*1000;
+			int16_t current_pos = axis.motor_.v_beta_*1000;
 			int16_t target_vel =  axis.motor_.timing_log_[2];;
 			int16_t current_vel = axis.motor_.timing_log_[3];;
 			int16_t target_cur =  axis.motor_.timing_log_[4];;

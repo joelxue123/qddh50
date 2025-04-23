@@ -608,11 +608,13 @@ void pwm_trig_adc_cb(ADC_TypeDef *adc, bool injected) {
 
     axis.motor_.current_meas_cb(timestamp);
     axis.motor_.timing_log_[2] = TIM1->CNT;
+    while(TIM1->CNT>10);
     axis.control_loop_cb(timestamp);
 
+    
     axis.motor_.timing_log_[3] = TIM1->CNT;
 
-    
+    while(TIM1->CNT<3000);
     axis.motor_.pwm_update_cb(timestamp + TIM_1_8_PERIOD_CLOCKS * (TIM_1_8_RCR + 1));
 
     axis.motor_.timing_log_[4] = TIM1->CNT;

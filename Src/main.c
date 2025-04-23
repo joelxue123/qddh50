@@ -1042,9 +1042,9 @@ static void MX_TIM1_Init(void)
   TIM_InitStruct.CounterMode = LL_TIM_COUNTERMODE_CENTER_DOWN;
   TIM_InitStruct.Autoreload = ((PWM_PERIOD_CYCLES) / 2);
   TIM_InitStruct.ClockDivision = LL_TIM_CLOCKDIVISION_DIV2;
-  TIM_InitStruct.RepetitionCounter = (REP_COUNTER);
+  TIM_InitStruct.RepetitionCounter = 0;//(REP_COUNTER);
   LL_TIM_Init(TIM1, &TIM_InitStruct);
-  LL_TIM_DisableARRPreload(TIM1);
+  LL_TIM_EnableARRPreload(TIM1); //LL_TIM_EnableARRPreload  LL_TIM_DisableARRPreload
   LL_TIM_OC_EnablePreload(TIM1, LL_TIM_CHANNEL_CH1);
   TIM_OC_InitStruct.OCMode = LL_TIM_OCMODE_PWM1;
   TIM_OC_InitStruct.OCState = LL_TIM_OCSTATE_DISABLE;

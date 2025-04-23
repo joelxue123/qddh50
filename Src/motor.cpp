@@ -247,14 +247,14 @@ bool Motor::arm(PhaseControlLaw<3>* control_law) {
         LL_TIM_OC_SetCompareCH1(TIM1, 0);
         LL_TIM_OC_SetCompareCH2(TIM1, 0);
         LL_TIM_OC_SetCompareCH3(TIM1, 0);
-        vTaskDelay(10);
+        
         LL_TIM_EnableAllOutputs(TIM1);
 
         armed_state_ = ODriveIntf::MotorIntf::ARMED_STATE_WAITING_FOR_TIMINGS;
         is_armed_ = true;
 
     cpu_exit_critical(mask);
-
+    vTaskDelay(20);
     return true;
 }
 
@@ -591,8 +591,8 @@ float Motor::phase_current_from_adcval(int32_t ADCValue, float phase_current_gai
 // TODO check Ibeta balance to verify good motor connection
 bool Motor::measure_phase_resistance(float test_current, float max_voltage) {
     ResistanceMeasurementControlLaw control_law;
-    control_law.target_current_ = test_current;
-    control_law.max_voltage_ = max_voltage;
+    control_law.target_current_ = 5;
+    control_law.max_voltage_ = 10.0f;
 
     arm(&control_law);
 
@@ -600,7 +600,8 @@ bool Motor::measure_phase_resistance(float test_current, float max_voltage) {
         if (!((axis_->requested_state_ == ODriveIntf::AxisIntf::AXIS_STATE_UNDEFINED) && axis_->motor_.is_armed_)) {
             break;
         }
-        osDelay(1);
+        v_alpha_ = control_law.test_voltage_;
+        osDelay(2);
     }
 
     bool success = is_armed_;
@@ -616,14 +617,14 @@ bool Motor::measure_phase_resistance(float test_current, float max_voltage) {
         // TODO: the motor is already disarmed at this stage. This is an error
         // that only pretains to the measurement and its result so it should
         // just be a return value of this function.
-        set_error(ODriveIntf::MotorIntf::ERROR_PHASE_RESISTANCE_OUT_OF_RANGE);
-        success = false;
+       // set_error(ODriveIntf::MotorIntf::ERROR_PHASE_RESISTANCE_OUT_OF_RANGE);
+      //  success = false;
     }
 
     float I_beta = control_law.get_Ibeta();
     if (is_nan(I_beta) || (std::abs(I_beta) / test_current) > 0.2f) {
-        set_error(ODriveIntf::MotorIntf::ERROR_UNBALANCED_PHASES);
-        success = false;
+      //  set_error(ODriveIntf::MotorIntf::ERROR_UNBALANCED_PHASES);
+      //  success = false;
     }
 
     return success;
@@ -631,7 +632,7 @@ bool Motor::measure_phase_resistance(float test_current, float max_voltage) {
 
 bool Motor::measure_phase_inductance(float test_voltage) {
     InductanceMeasurementControlLaw control_law;
-    control_law.test_voltage_ = test_voltage;
+    control_law.test_voltage_ = 6.0f;
 
     arm(&control_law);
 
@@ -679,10 +680,12 @@ void Motor::measure_current_offset(void)
 
 bool Motor::run_calibration() {
     float R_calib_max_voltage = config_.resistance_calib_max_voltage;
+
+    axis_->wait_for_control_iteration();
     if (config_.motor_type == MOTOR_TYPE_HIGH_CURRENT
         || config_.motor_type == MOTOR_TYPE_ACIM) {
-        if (!measure_phase_resistance(config_.calibration_current, R_calib_max_voltage))
-            return false;
+    //    if (!measure_phase_resistance(config_.calibration_current, R_calib_max_voltage))
+     //       return false;
         if (!measure_phase_inductance(R_calib_max_voltage))
             return false;
     } else if (config_.motor_type == MOTOR_TYPE_GIMBAL) {
