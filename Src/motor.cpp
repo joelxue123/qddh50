@@ -88,6 +88,7 @@ struct ResistanceMeasurementControlLaw : AlphaBetaFrameController {
 
 
 
+
 /**
  * @brief This control law toggles rapidly between positive and negative output
  * voltage. By measuring how large the current ripples are, the phase inductance
@@ -591,8 +592,8 @@ float Motor::phase_current_from_adcval(int32_t ADCValue, float phase_current_gai
 // TODO check Ibeta balance to verify good motor connection
 bool Motor::measure_phase_resistance(float test_current, float max_voltage) {
     ResistanceMeasurementControlLaw control_law;
-    control_law.target_current_ = 5;
-    control_law.max_voltage_ = 10.0f;
+    control_law.target_current_ = test_current;
+    control_law.max_voltage_ = max_voltage;
 
     arm(&control_law);
 
@@ -632,7 +633,7 @@ bool Motor::measure_phase_resistance(float test_current, float max_voltage) {
 
 bool Motor::measure_phase_inductance(float test_voltage) {
     InductanceMeasurementControlLaw control_law;
-    control_law.test_voltage_ = 6.0f;
+    control_law.test_voltage_ = test_voltage;
 
     arm(&control_law);
 

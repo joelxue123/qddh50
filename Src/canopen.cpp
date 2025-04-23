@@ -31,17 +31,19 @@ static const OD_Entry_t OD_List[] = {
     {0x2007, 0, OD_REAL32_RW, &axis.motor_.config_.torque_constant},
     {0x2008, 0, OD_REAL32_RW, &axis.motor_.config_.motor_type},
     {0x2009, 0, OD_INT16_RW, &axis.motor_.config_.pre_calibrated},
+    {0x200a, 0, OD_REAL32_RW, &axis.motor_.config_.calibration_current},
+    {0x200b, 0, OD_REAL32_RW, &axis.motor_.config_.resistance_calib_max_voltage},
     
     // Main Encoder Parameters
-    {0x2010, 0, OD_REAL32_RW, &axis.encoder_.config_.cpr},
-    {0x2011, 0, OD_REAL32_RW, &axis.encoder_.config_.offset},
-    {0x2012, 0, OD_REAL32_RW, &axis.encoder_.config_.offset_float},
-    {0x2013, 0, OD_REAL32_RW, &axis.encoder_.config_.pre_calibrated},
+    {0x2020, 0, OD_INT32_RW, &axis.encoder_.config_.cpr},
+    {0x2021, 0, OD_INT32_RW, &axis.encoder_.config_.offset},
+    {0x2022, 0, OD_REAL32_RW, &axis.encoder_.config_.offset_float},
+    {0x2023, 0, OD_INT16_RW, &axis.encoder_.config_.pre_calibrated},
     
     
     // Sub Encoder Parameters  
-    {0x2020, 0, OD_REAL32_RW, &axis.encoder_.config_.GearboxOutputEncoder_cpr},
-    {0x2021, 0, OD_REAL32_RW, &axis.encoder_.config_.Gearoffset},
+    {0x2026, 0, OD_INT32_RW, &axis.encoder_.config_.GearboxOutputEncoder_cpr},
+    {0x2027, 0, OD_INT32_RW, &axis.encoder_.config_.Gearoffset},
     
     // PID Parameters
     {0x2030, 0, OD_REAL32_RW, &axis.controller_.config_.kp},

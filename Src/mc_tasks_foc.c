@@ -300,7 +300,7 @@ __weak void TSK_MediumFrequencyTaskM1(void)
               //a_offset =  0 - FOCVars[M1].Iab .a;
               //b_offset = 0 - FOCVars[M1].Iab .b;
 
-              
+              LL_TIM_SetRepetitionCounter(TIM1, 1);
 
 
               while(1)

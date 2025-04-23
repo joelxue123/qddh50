@@ -7,7 +7,7 @@
 // Data type definitions (bits 4-5)
 #define OD_TYPE_INT16    0x10    // int16_t type
 #define OD_TYPE_INT32    0x20    // int32_t type
-#define OD_TYPE_FLOAT    0x30    // float type
+#define OD_TYPE_FLOAT    0x40    // float type
 #define OD_TYPE_MASK     0xF0    // Type mask
 
 // Access rights (bits 0-1)
