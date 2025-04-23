@@ -477,10 +477,6 @@ bool Axis::run_lockin_spin(const LockinConfig_t &lockin_config, bool remain_arme
     motor_.phase_vel_src_.connect_to(&open_loop_controller_.phase_vel_);
     motor_.current_control_.phase_vel_src_.connect_to(&open_loop_controller_.phase_vel_);
 
-    
-
-
-    wait_for_control_iteration();
 
     motor_.arm(&motor_.current_control_);
 
@@ -686,12 +682,13 @@ void Axis::run_state_machine_loop() {
             error_ = static_cast<Error>(static_cast<uint32_t>(error_) | static_cast<uint32_t>(ERROR_INVALID_STATE));
 
         }
-
+        wait_for_control_iteration();
         // Note that current_state is a reference to task_chain_[0]
 
         // Run the specified state
         // Handlers should exit if requested_state != AXIS_STATE_UNDEFINED
         bool status = false;
+        
         switch (current_state_) {
             case AXIS_STATE_MOTOR_CALIBRATION: {
                 status = motor_.run_calibration();
@@ -724,6 +721,7 @@ void Axis::run_state_machine_loop() {
             case AXIS_STATE_ENCODER_OFFSET_CALIBRATION: {
                 if (!motor_.is_calibrated_)
                     goto invalid_state_label;
+
                 status = encoder_.run_offset_calibration();
             } break;
 

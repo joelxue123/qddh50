@@ -681,11 +681,10 @@ void Motor::measure_current_offset(void)
 bool Motor::run_calibration() {
     float R_calib_max_voltage = config_.resistance_calib_max_voltage;
 
-    axis_->wait_for_control_iteration();
     if (config_.motor_type == MOTOR_TYPE_HIGH_CURRENT
         || config_.motor_type == MOTOR_TYPE_ACIM) {
-    //    if (!measure_phase_resistance(config_.calibration_current, R_calib_max_voltage))
-     //       return false;
+        if (!measure_phase_resistance(config_.calibration_current, R_calib_max_voltage))
+            return false;
         if (!measure_phase_inductance(R_calib_max_voltage))
             return false;
     } else if (config_.motor_type == MOTOR_TYPE_GIMBAL) {
