@@ -252,10 +252,11 @@ bool Motor::arm(PhaseControlLaw<3>* control_law) {
         LL_TIM_EnableAllOutputs(TIM1);
 
         armed_state_ = ODriveIntf::MotorIntf::ARMED_STATE_WAITING_FOR_TIMINGS;
-        is_armed_ = true;
+        
 
     cpu_exit_critical(mask);
     vTaskDelay(20);
+    is_armed_ = true;
     return true;
 }
 
@@ -633,7 +634,7 @@ bool Motor::measure_phase_resistance(float test_current, float max_voltage) {
 
 bool Motor::measure_phase_inductance(float test_voltage) {
     InductanceMeasurementControlLaw control_law;
-    control_law.test_voltage_ = test_voltage;
+    control_law.test_voltage_ =test_voltage ;
 
     arm(&control_law);
 
