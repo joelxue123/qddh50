@@ -8,6 +8,7 @@
 #include "low_level.h"
 #include "flash_storage.hpp"
 
+
 extern FlashStorage_t flash_storage;
 
 BoardConfig_t board_config;
@@ -56,6 +57,12 @@ ThermistorHardwareConfig_t thermistor_hardware_config = {
 ODriveCAN *odCAN = nullptr;
 
 
+// Edit these to suit your capture needs
+Oscilloscope oscilloscope_{
+    &motor.current_control_.q15_id_measured_, // trigger_src
+    100, // trigger_threshold
+    &motor.current_control_.q15_id_measured_,// data_src TODO: change data type
+};
 
 void save_configuration(void) {
     // if (ConfigFormat::safe_store_config(

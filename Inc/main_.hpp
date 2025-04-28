@@ -9,6 +9,7 @@
 #include "encoder.hpp"
 #include "controller.hpp"
 #include "motor.hpp"
+#include "oscilloscope.hpp"
 // Forward declarations
 
 
@@ -203,6 +204,7 @@ typedef struct {
 
 
 extern Axis axis;
+extern Oscilloscope oscilloscope_;
 
 class ODriveCAN;
 

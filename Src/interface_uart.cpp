@@ -109,6 +109,7 @@ void UART_PushFrame_(uint8_t DataLen,uint8_t Cmd, uint16_t Index, uint8_t Subind
 	for (i=0; i<DataLen; i++)
 	{
 		dma_tx_buffer[pos++] = pdata[i];
+
 	}
 	dma_tx_buffer[pos] = CheckSum(&dma_tx_buffer[2], pos-2);  // У���
 	pos++;
@@ -125,6 +126,8 @@ void UART_PushFrame_(uint8_t DataLen,uint8_t Cmd, uint16_t Index, uint8_t Subind
 
 void UART_ParseFrame_(uint8_t* pdata) {
 
+	uint8_t tx_buf[96];  // 6个int16_t数据
+	int pos = 0;
 	
     uint8_t cmd = pdata[2];
     uint16_t index = pdata[3+1]<<8 | pdata[3];
@@ -227,8 +230,6 @@ void UART_ParseFrame_(uint8_t* pdata) {
 		//AA 55 15 01 80 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 96 
 		// 发送一帧状态数据
 		{
-			uint8_t tx_buf[24];  // 6个int16_t数据
-			int pos = 0;
 	
 			// 获取当前状态
 			int16_t target_pos = axis.motor_.v_alpha_*1000;
@@ -264,6 +265,46 @@ void UART_ParseFrame_(uint8_t* pdata) {
 			UART_PushFrame_(pos, FRAME_CMD_SCOPE, 0,0, tx_buf);
 		}
 		break;
+
+		case OSCILLOSCOPE_CMD:
+		{
+
+			int8_t sub_cmd =  pdata[6];
+			
+
+			switch(sub_cmd)
+			{
+				case OSCILLOSCOPE_CMD_START:
+				{
+					uint16_t data  =  (pdata[8]<<8) |pdata[7];
+					oscilloscope_.trigger_threshold_ = data;
+					oscilloscope_.restart();
+				}
+					// Start oscilloscope
+					break;
+				case OSCILLOSCOPE_CMD_READ:
+				{
+					uint16_t addr  =  (pdata[8]<<8) |pdata[7];
+					pos =0;
+					for(int i = addr; i < addr + 6; i++) {
+						int16_t data = oscilloscope_.get_val(i);
+						tx_buf[pos++] = data & 0xFF;
+						tx_buf[pos++] = (data >> 8) & 0xFF;
+					}
+				}
+					// Stop oscilloscope
+					break;
+				case OSCILLOSCOPE_CMD_CONFIG_CHANNEL:
+					// Set oscilloscope address
+					break;
+				default:
+					break;
+			}
+
+			UART_PushFrame_(pos, OSCILLOSCOPE_CMD, 0,0, tx_buf);
+		}
+		break;
+	
 
 		default:
 			break;

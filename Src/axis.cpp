@@ -833,5 +833,5 @@ void Axis::control_loop_cb(uint32_t timestamp)
   //  MEASURE_TIME(task_times_.current_controller_update)
         motor_.current_control_.update(timestamp); // uses the output of controller_ or open_loop_contoller_ and encoder_ or sensorless_estimator_ or acim_estimator_
 
-
+        oscilloscope_.update();
 }

@@ -56,6 +56,8 @@ public:
     std::optional<float2D> Ialpha_beta_measured_; // [A, A]
     float Id_measured_; // [A]
     float Iq_measured_; // [A]
+    int16_t q15_iq_measured_; // [A]
+    int16_t q15_id_measured_; // [A]
     float v_current_control_integral_d_ = 0.0f; // [V]
     float v_current_control_integral_q_ = 0.0f; // [V]
     //float mod_to_V_ = 0.0f;

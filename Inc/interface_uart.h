@@ -22,8 +22,8 @@ extern "C" {
 #include <cmsis_os.h>
 
 
-#define UART_TX_BUFFER_SIZE 64
-#define UART_RX_BUFFER_SIZE 64
+#define UART_TX_BUFFER_SIZE 96
+#define UART_RX_BUFFER_SIZE 96
 
 // Communication frame format
 #define FRAME_HEADER1    0xAA
@@ -48,6 +48,15 @@ extern "C" {
 #define FRAME_CMD_SDO_WRITE    0x83  // Write object dictionary entry (SDO)
 #define FRAME_CMD_PDO_READ     0x84  // Read PDO mapped value
 
+
+
+typedef enum {
+    OSCILLOSCOPE_CMD_START = 0x01,
+    OSCILLOSCOPE_CMD_READ = 0x02,
+    OSCILLOSCOPE_CMD_CONFIG_CHANNEL = 0x04,
+}oscilloscope_cmd_t;
+
+#define OSCILLOSCOPE_CMD  0x90  // Start capture
 
 
 

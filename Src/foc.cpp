@@ -119,6 +119,8 @@ ODriveIntf::MotorIntf::Error FieldOrientedController::get_alpha_beta_output(
         Iq_measured_ = 0.0f;
     }
 
+    q15_iq_measured_ = (int16_t)(Iq_measured_ * 819.2f);
+    q15_id_measured_ = (int16_t)(Id_measured_ * 819.2f);
 
     float mod_to_V = (2.0f / 3.0f) * vbus_voltage;
     float V_to_mod = 1.0f / mod_to_V;
