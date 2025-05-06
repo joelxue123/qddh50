@@ -88,6 +88,31 @@ bool ODriveCAN::start_can_server() {
         return false;
     }
 
+        // 配置标准ID过滤器
+        FDCAN_FilterTypeDef sFilterConfig;
+        sFilterConfig.IdType = FDCAN_STANDARD_ID;
+        sFilterConfig.FilterIndex = 0;
+        sFilterConfig.FilterType = FDCAN_FILTER_MASK;  // 使用掩码模式
+        sFilterConfig.FilterConfig = FDCAN_FILTER_TO_RXFIFO0;  // 匹配的消息存入FIFO0
+        sFilterConfig.FilterID1 = 0x000;  // 根据实际需要的ID设置
+        sFilterConfig.FilterID2 = 0x7FF;  // 掩码，0表示必须匹配，1表示不关心
+        
+        if (HAL_FDCAN_ConfigFilter(handle_, &sFilterConfig) != HAL_OK) {
+            return false;
+        }
+    
+        // 如果需要扩展ID过滤器
+        sFilterConfig.IdType = FDCAN_EXTENDED_ID;
+        sFilterConfig.FilterIndex = 0;  // 扩展ID过滤器独立编号
+        sFilterConfig.FilterID1 = 0x00000000;  // 根据实际需要的扩展ID设置
+        sFilterConfig.FilterID2 = 0x1FFFFFFF;  // 扩展ID掩码
+        
+        if (HAL_FDCAN_ConfigFilter(handle_, &sFilterConfig) != HAL_OK) {
+            return false;
+        }
+    
+
+    
     // Configure FDCAN global filter
     HAL_FDCAN_ConfigGlobalFilter(handle_,
                                 FDCAN_ACCEPT_IN_RX_FIFO0,
@@ -100,6 +125,12 @@ bool ODriveCAN::start_can_server() {
     if (status != HAL_OK) {
         return false;
     }
+    
+    HAL_FDCAN_ConfigInterruptLines(handle_,
+        FDCAN_IT_RX_FIFO0_NEW_MESSAGE | 
+        FDCAN_IT_RX_FIFO0_FULL | 
+        FDCAN_IT_ERROR_WARNING,
+        FDCAN_INTERRUPT_LINE0);
 
     // Enable FDCAN notifications
     status = HAL_FDCAN_ActivateNotification(handle_,
@@ -191,35 +222,35 @@ bool ODriveCAN::read(can_Message_t &rxmsg) {
 void ODriveCAN::set_baud_rate(uint32_t baudRate) {
     switch (baudRate) {
         case CAN_BAUD_125K:
-            handle_->Init.NominalPrescaler = 16;    // 21 TQ's
-            handle_->Init.NominalTimeSeg1 = 13;     // 80% sample point
-            handle_->Init.NominalTimeSeg2 = 2;
+            handle_->Init.NominalPrescaler = 17;    // 21 TQ's
+            handle_->Init.NominalTimeSeg1 = 67;     // 80% sample point
+            handle_->Init.NominalTimeSeg2 = 12;
             handle_->Init.NominalSyncJumpWidth = 1;
             config_.baud_rate = baudRate;
             reinit_can();
             break;
 
         case CAN_BAUD_250K:
-            handle_->Init.NominalPrescaler = 8;     // 21 TQ's
-            handle_->Init.NominalTimeSeg1 = 13;     // 80% sample point
-            handle_->Init.NominalTimeSeg2 = 2;
+            handle_->Init.NominalPrescaler = 17;     // 21 TQ's
+            handle_->Init.NominalTimeSeg1 = 31;     // 80% sample point
+            handle_->Init.NominalTimeSeg2 = 8;
             handle_->Init.NominalSyncJumpWidth = 1;
             config_.baud_rate = baudRate;
             reinit_can();
             break;
 
         case CAN_BAUD_500K:
-            handle_->Init.NominalPrescaler = 4;     // 21 TQ's
-            handle_->Init.NominalTimeSeg1 = 13;     // 80% sample point
-            handle_->Init.NominalTimeSeg2 = 2;
+            handle_->Init.NominalPrescaler = 17;     // 21 TQ's
+            handle_->Init.NominalTimeSeg1 = 15;     // 80% sample point
+            handle_->Init.NominalTimeSeg2 = 4;
             handle_->Init.NominalSyncJumpWidth = 1;
             config_.baud_rate = baudRate;
             reinit_can();
             break;
 
         case CAN_BAUD_1000K:
-            handle_->Init.NominalPrescaler = 2;     // 21 TQ's
-            handle_->Init.NominalTimeSeg1 = 13;     // 80% sample point
+            handle_->Init.NominalPrescaler = 17;     // 21 TQ's
+            handle_->Init.NominalTimeSeg1 = 7;     // 80% sample point
             handle_->Init.NominalTimeSeg2 = 2;
             handle_->Init.NominalSyncJumpWidth = 1;
             config_.baud_rate = baudRate;
@@ -245,8 +276,9 @@ void ODriveCAN::reinit_can() {
     // Set timing parameters for the selected baud rate
     handle_->Init.NominalPrescaler = handle_->Init.NominalPrescaler; // Use existing prescaler
     handle_->Init.NominalSyncJumpWidth = 1;
-    handle_->Init.NominalTimeSeg1 = 13; // 80% sample point
-    handle_->Init.NominalTimeSeg2 = 2;
+    handle_->Init.NominalPrescaler = handle_->Init.NominalPrescaler; // Use existing prescaler
+    handle_->Init.NominalTimeSeg1 = handle_->Init.NominalTimeSeg1; // 80% sample point
+    handle_->Init.NominalTimeSeg2 = handle_->Init.NominalTimeSeg2; // Remaining TQ's
     
     // Reinitialize FDCAN
     HAL_FDCAN_Init(handle_);

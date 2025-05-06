@@ -7,6 +7,8 @@
 #include "main_.hpp"
 #include "low_level.h"
 #include "flash_storage.hpp"
+#include "can.h"
+
 
 
 extern FlashStorage_t flash_storage;
@@ -54,7 +56,7 @@ ThermistorHardwareConfig_t thermistor_hardware_config = {
                     fet_thermistor, motor_thermistor, motor);
 
 
-ODriveCAN *odCAN = nullptr;
+ODriveCAN odCAN(can_config, &hfdcan1);
 
 
 // Edit these to suit your capture needs
@@ -205,7 +207,7 @@ extern "C" {
 int odrive_main(void);
 void vApplicationStackOverflowHook(xTaskHandle *pxTask, signed portCHAR *pcTaskName) {
 
-        safety_critical_disarm_motor_pwm(axes->motor_);
+        safety_critical_disarm_motor_pwm(axis.motor_);
 
         safety_critical_disarm_brake_resistor();
     for (;;); // TODO: safe action
@@ -226,11 +228,11 @@ void vApplicationIdleHook(void) {
         // system_stats.stack_usage_uart = stack_size_uart_thread - system_stats_.min_stack_space_uart;
         // system_stats.stack_usage_startup = stack_size_default_task - system_stats_.min_stack_space_startup;
         // system_stats.stack_usage_can = odCAN->stack_size_ - system_stats_.min_stack_space_can;
-        for (ThermistorCurrentLimiter* thermistor : axes->thermistors_) {
+        for (ThermistorCurrentLimiter* thermistor : axis.thermistors_) {
             thermistor->update();
         }
        
-       axes->checks_ok_ = axes->do_checks();
+        axis.checks_ok_ = axis.do_checks();
        
 
     }
@@ -239,6 +241,7 @@ void vApplicationIdleHook(void) {
 
 int odrive_main(void) {
     motor.setup();
+    odCAN.start_can_server();
     
     // Start ADC for temperature measurements and user measurements
    // start_general_purpose_adc();
@@ -259,23 +262,23 @@ int odrive_main(void) {
 
     // Set up the CS pins for absolute encoders
 
-    if(axes->encoder_.config_.mode & Encoder::MODE_FLAG_ABS){
-        axes->encoder_.abs_spi_cs_pin_init();
+    if(axis.encoder_.config_.mode & Encoder::MODE_FLAG_ABS){
+        axis.encoder_.abs_spi_cs_pin_init();
     }
 
 
     // Setup motors (DRV8301 SPI transactions here)
    // for(auto& axis : axes){
-    axes->motor_.setup();
+    axis.motor_.setup();
    // }
 
     // Setup encoders (Starts encoder SPI transactions)
 
-    axes->encoder_.setup();
+    axis.encoder_.setup();
 
 
     // Setup anything remaining in each axis
-    axes->setup();
+    axis.setup();
 
     // Start PWM and enable adc interrupts/callbacks
     start_adc_pwm();
@@ -291,7 +294,7 @@ int odrive_main(void) {
     // procedures and then run the actual controller loops.
     // TODO: generalize for AXIS_COUNT != 2
     for (size_t i = 0; i < 1; ++i) {
-        axes->start_thread();
+        axis.start_thread();
     }
 
     start_analog_thread();

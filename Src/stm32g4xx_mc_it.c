@@ -28,7 +28,8 @@
 #include "mc_tasks.h"
 //cstat +MISRAC2012-Rule-3.1
 #include "motorcontrol.h"
-
+#include "can.h"
+#include "stm32g4xx_hal_fdcan.h"
 /* USER CODE BEGIN Includes */
 
 /* USER CODE END Includes */
@@ -230,6 +231,15 @@ void TIMx_BRK_M1_IRQHandler(void)
          LL_DMA_DisableChannel(DMA1, LL_DMA_CHANNEL_2);
      }
  }
+
+
+
+ // 中断服务函数 
+ void FDCAN1_IT0_IRQHandler(void) 
+ { 
+  HAL_FDCAN_IRQHandler(&hfdcan1);
+ }
+
 
 /* USER CODE END 1 */
 

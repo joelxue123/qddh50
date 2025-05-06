@@ -207,7 +207,7 @@ extern Axis axis;
 extern Oscilloscope oscilloscope_;
 
 class ODriveCAN;
-
+extern ODriveCAN odCAN;
 
 #define AXIS_COUNT 1
 // Global variables declarations
@@ -220,8 +220,8 @@ extern OnboardThermistorCurrentLimiter::Config_t fet_thermistor_configs;
 extern OffboardThermistorCurrentLimiter::Config_t motor_thermistor_configs;
 extern Axis::Config_t axis_configs;
 
-extern Axis* axes;
-extern ODriveCAN* odCAN;
+
+
 extern BoardConfig_t board_config;
 #include "nvm_config.hpp"
 

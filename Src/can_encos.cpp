@@ -45,10 +45,10 @@ void encos_ack_type_1(Axis* &axis)
     txmsg.buf[6] = state.motor_temperature;
     txmsg.buf[7] = state.mos_temperature;
 
-    odCAN->write(txmsg);
+    odCAN.write(txmsg);
 }
 
-void encos_cmd_handle(Axis* &axis, can_Message_t& msg)
+void encos_cmd_handle(Axis* axis, can_Message_t& msg)
 {
     if (axis->config_.can_node_id == msg.id) {
     switch (msg.len) {
@@ -112,7 +112,7 @@ void encos_cmd_handle(Axis* &axis, can_Message_t& msg)
                         txmsg.buf[2] = 0x01;
                         txmsg.buf[3] = 0x80;
                     }
-                    odCAN->write(txmsg);
+                    odCAN.write(txmsg);
                 } else {
                     uint32_t id = (msg.buf[0] << 8) + msg.buf[1];
                     if (axis->config_.can_node_id == id) {
@@ -132,7 +132,7 @@ void encos_cmd_handle(Axis* &axis, can_Message_t& msg)
                             txmsg.buf[1] = axis->config_.can_node_id & 0xFF;
                             txmsg.buf[2] = 0x01;
                             txmsg.buf[3] = success ? 3 : 0;
-                            odCAN->write(txmsg);
+                            odCAN.write(txmsg);
                         }
                     }
                 }
@@ -154,7 +154,7 @@ void encos_cmd_handle(Axis* &axis, can_Message_t& msg)
                         txmsg.buf[3] = 0x05;
                         txmsg.buf[4] = 0x7F;
                         txmsg.buf[5] = 0x7F;
-                        odCAN->write(txmsg);
+                        odCAN.write(txmsg);
                     }
                 } else {
                 uint32_t id = (msg.buf[0] << 8) + msg.buf[1];
@@ -185,7 +185,7 @@ void encos_cmd_handle(Axis* &axis, can_Message_t& msg)
                             txmsg.buf[1] = id & 0xFF;
                             txmsg.buf[3] = 0;
                         }
-                        odCAN->write(txmsg);
+                        odCAN.write(txmsg);
                     }
                     }
                 }
@@ -218,43 +218,28 @@ void encos_cmd_handle(Axis* &axis, can_Message_t& msg)
             txmsg.buf[1] = msg.buf[1];
             txmsg.buf[2] = msg.buf[2];
             txmsg.buf[3] = success;
-            odCAN->write(txmsg);
+            odCAN.write(txmsg);
         }
     }
 }
 
 void CANEncos::handle_can_message(can_Message_t& msg)
 {
-    Axis* axis = nullptr;
 
-    for (uint8_t i = 0; i < 1; i++) {
-        if (axes->config_.can_node_id_extended != msg.isExt)
-            continue;
-
-        if (0x7FF == msg.id) {
-            encos_cmd_handle(axes, msg);
-            continue;
-        }
-
-        if (axes->config_.can_node_id == msg.id) {
-            if (nullptr == axis) {
-                axis = axes;
-            } else {
-                // Duplicate can IDs, don't assign to any axis
-                odCAN->set_error(ODriveCAN::ERROR_DUPLICATE_CAN_IDS);
-                return;
-            }
-        }
-    }
-    
-    if (nullptr == axis)
+    if (axis.config_.can_node_id_extended != msg.isExt)
         return;
 
-    encos_cmd_handle(axis, msg);
-    axis->watchdog_feed();
-    if(axis->config_.can_node_id == msg.id)
+    if (0x7FF == msg.id) {
+        encos_cmd_handle(&axis, msg);
+        return;
+    }
+
+
+    encos_cmd_handle(&axis, msg);
+    axis.watchdog_feed();
+    if(axis.config_.can_node_id == msg.id)
     {
-        axis->axis_enable_by_encos();
+        axis.axis_enable_by_encos();
     }
         
 }

@@ -161,6 +161,7 @@ void MX_FREERTOS_Init(void) {
 
   start_uart_server();
   start_analog_thread() ;
+ 
 
   
   VESC_UART_Init();

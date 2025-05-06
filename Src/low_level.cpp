@@ -96,8 +96,8 @@ static uint16_t GPIO_port_samples [2][num_GPIO];
 void low_level_fault(Motor::Error error) {
     // Disable all motors NOW!
 
-    safety_critical_disarm_motor_pwm(axes->motor_);
-    axes->motor_.error_ = error;
+    safety_critical_disarm_motor_pwm(axis.motor_);
+    axis.motor_.error_ = error;
 
     safety_critical_disarm_brake_resistor();
 }
@@ -182,7 +182,7 @@ void safety_critical_disarm_brake_resistor() {
     htim2.Instance->CCR3 = 0;
     htim2.Instance->CCR4 = TIM_APB1_PERIOD_CLOCKS + 1;
     for (size_t i = 0; i < AXIS_COUNT; ++i) {
-        safety_critical_disarm_motor_pwm(axes->motor_);
+        safety_critical_disarm_motor_pwm(axis.motor_);
     }
     cpu_exit_critical(mask);
 }
@@ -250,8 +250,8 @@ void start_adc_pwm() {
 
     // Disarm motors and arm brake resistor
 
-    safety_critical_disarm_motor_pwm(axes->motor_);
-    safety_critical_disarm_motor_pwm(axes->motor_);
+    safety_critical_disarm_motor_pwm(axis.motor_);
+    safety_critical_disarm_motor_pwm(axis.motor_);
     safety_critical_arm_brake_resistor();
 }
 
