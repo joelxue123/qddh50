@@ -82,6 +82,7 @@ void ADC1_2_IRQHandler(void)
     /* Clear Flags M1 */
     LL_ADC_ClearFlag_JEOS(ADC1);
     LL_ADC_ClearFlag_JEOS(ADC2);
+    LL_GPIO_SetOutputPin(SPI1_Pin_CS_Port, SPI1_Pin_CS); // 设置 CS 初始为高电平（非激活）
   /* Highfrequency task */
   (void)TSK_HighFrequencyTask();
 
@@ -105,7 +106,7 @@ void ADC1_2_IRQHandler(void)
 
 
 
-  pwm_trig_adc_cb(ADC1,0);
+  //pwm_trig_adc_cb(ADC1,0);
 
   /* USER CODE BEGIN HighFreq */
 

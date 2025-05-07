@@ -683,6 +683,7 @@ void Axis::run_state_machine_loop() {
 
         }
         wait_for_control_iteration();
+        
         // Note that current_state is a reference to task_chain_[0]
 
         // Run the specified state

@@ -70,6 +70,7 @@ static void MX_OPAMP2_Init(void);
 static void MX_TIM1_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_SPI1_Init(void);
+static void MX_SPI3_Init(void);
 void startMediumFrequencyTask(void const * argument);
 extern void StartSafetyTask(void const * argument);
 
@@ -125,8 +126,11 @@ int main(void)
   MX_OPAMP1_Init();
   MX_OPAMP2_Init();
   MX_TIM1_Init();
+
   MX_USART1_UART_Init();
+
   MX_SPI1_Init();
+  MX_SPI3_Init();
   MX_MotorControl_Init();
 
   /* Initialize interrupts */
@@ -530,7 +534,7 @@ static void MX_ADC2_Init(void)
   GPIO_InitStruct.Pin = M1_OPAMP2_OUT_Pin;
   GPIO_InitStruct.Mode = LL_GPIO_MODE_ANALOG;
   GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-  LL_GPIO_Init(M1_OPAMP2_OUT_GPIO_Port, &GPIO_InitStruct);
+  //LL_GPIO_Init(M1_OPAMP2_OUT_GPIO_Port, &GPIO_InitStruct);
 
   GPIO_InitStruct.Pin = M1_TEMPERATURE_Pin;
   GPIO_InitStruct.Mode = LL_GPIO_MODE_ANALOG;
@@ -621,7 +625,7 @@ static void MX_COMP1_Init(void)
   GPIO_InitStruct.Pin = M1_CURR_SHUNT_U_Pin;
   GPIO_InitStruct.Mode = LL_GPIO_MODE_ANALOG;
   GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-  LL_GPIO_Init(M1_CURR_SHUNT_U_GPIO_Port, &GPIO_InitStruct);
+ // LL_GPIO_Init(M1_CURR_SHUNT_U_GPIO_Port, &GPIO_InitStruct);
 
   /* USER CODE BEGIN COMP1_Init 1 */
 
@@ -631,7 +635,7 @@ static void MX_COMP1_Init(void)
   COMP_InitStruct.InputHysteresis = LL_COMP_HYSTERESIS_NONE;
   COMP_InitStruct.OutputPolarity = LL_COMP_OUTPUTPOL_NONINVERTED;
   COMP_InitStruct.OutputBlankingSource = LL_COMP_BLANKINGSRC_NONE;
-  LL_COMP_Init(COMP1, &COMP_InitStruct);
+  //LL_COMP_Init(COMP1, &COMP_InitStruct);
 
   /* Wait loop initialization and execution */
   /* Note: Variable divided by 2 to compensate partially CPU processing cycles */
@@ -672,7 +676,7 @@ static void MX_COMP2_Init(void)
   GPIO_InitStruct.Pin = M1_CURR_SHUNT_V_Pin;
   GPIO_InitStruct.Mode = LL_GPIO_MODE_ANALOG;
   GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-  LL_GPIO_Init(M1_CURR_SHUNT_V_GPIO_Port, &GPIO_InitStruct);
+ // LL_GPIO_Init(M1_CURR_SHUNT_V_GPIO_Port, &GPIO_InitStruct);
 
   /* USER CODE BEGIN COMP2_Init 1 */
 
@@ -682,7 +686,7 @@ static void MX_COMP2_Init(void)
   COMP_InitStruct.InputHysteresis = LL_COMP_HYSTERESIS_NONE;
   COMP_InitStruct.OutputPolarity = LL_COMP_OUTPUTPOL_NONINVERTED;
   COMP_InitStruct.OutputBlankingSource = LL_COMP_BLANKINGSRC_NONE;
-  LL_COMP_Init(COMP2, &COMP_InitStruct);
+  //LL_COMP_Init(COMP2, &COMP_InitStruct);
 
   /* Wait loop initialization and execution */
   /* Note: Variable divided by 2 to compensate partially CPU processing cycles */
@@ -981,12 +985,12 @@ static void MX_OPAMP2_Init(void)
   GPIO_InitStruct.Pin = M1_OPAMP2_OUT_Pin;
   GPIO_InitStruct.Mode = LL_GPIO_MODE_ANALOG;
   GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-  LL_GPIO_Init(M1_OPAMP2_OUT_GPIO_Port, &GPIO_InitStruct);
+  //LL_GPIO_Init(M1_OPAMP2_OUT_GPIO_Port, &GPIO_InitStruct);
 
   GPIO_InitStruct.Pin = M1_CURR_SHUNT_V_Pin;
   GPIO_InitStruct.Mode = LL_GPIO_MODE_ANALOG;
   GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-  LL_GPIO_Init(M1_CURR_SHUNT_V_GPIO_Port, &GPIO_InitStruct);
+  //LL_GPIO_Init(M1_CURR_SHUNT_V_GPIO_Port, &GPIO_InitStruct);
 
   GPIO_InitStruct.Pin = M1_OPAMP2_EXT_GAIN_Pin;
   GPIO_InitStruct.Mode = LL_GPIO_MODE_ANALOG;
@@ -1344,14 +1348,16 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 
-static void MX_SPI1_Init(void)
+static void MX_SPI3_Init(void)
 {
     LL_SPI_InitTypeDef SPI_InitStruct = {0};
     LL_GPIO_InitTypeDef GPIO_InitStruct = {0};
 
-    /* Enable peripherals clocks */
     LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_GPIOB);
-    LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_SPI1);
+    LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_GPIOD);
+    LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_SPI3);
+    LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_DMA1);
+    LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_DMAMUX1);
 
     /* Configure SPI1 pins */
     // PB3  -> SCK
@@ -1362,18 +1368,18 @@ static void MX_SPI1_Init(void)
     GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_HIGH;
     GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
     GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-    GPIO_InitStruct.Alternate = LL_GPIO_AF_5;  // AF5 for SPI1
+    GPIO_InitStruct.Alternate = LL_GPIO_AF_6;  // AF6 for SPI3
     LL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-    GPIO_InitStruct.Pin =  LL_GPIO_PIN_2; //CS
+    GPIO_InitStruct.Pin =  LL_GPIO_PIN_6; //CS
     GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
     GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_HIGH;
     GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
     GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-    LL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+    LL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
         // 在 MX_SPI1_Init 函数中 LL_GPIO_Init(GPIOD, &GPIO_InitStruct) 后添加：
-    LL_GPIO_SetOutputPin(GPIOD, LL_GPIO_PIN_2); // 设置 CS 初始为高电平（非激活）
+    LL_GPIO_SetOutputPin(GPIOB, LL_GPIO_PIN_6); // 设置 CS 初始为高电平（非激活）
     
     SPI_InitStruct.TransferDirection = LL_SPI_FULL_DUPLEX;
     SPI_InitStruct.Mode = LL_SPI_MODE_MASTER;
@@ -1384,11 +1390,11 @@ static void MX_SPI1_Init(void)
     SPI_InitStruct.BaudRate = LL_SPI_BAUDRATEPRESCALER_DIV8;
     SPI_InitStruct.BitOrder = LL_SPI_MSB_FIRST;  // Changed from MSB_FIRST
     SPI_InitStruct.CRCCalculation = LL_SPI_CRCCALCULATION_DISABLE;
-    LL_SPI_Init(SPI1, &SPI_InitStruct);
+    LL_SPI_Init(SPI3, &SPI_InitStruct);
     // ...existing GPIO and SPI init code...
 
     /* Configure DMA for SPI1 TX - Channel 3 */
-    LL_DMA_SetPeriphRequest(DMA1, LL_DMA_CHANNEL_3, LL_DMAMUX_REQ_SPI1_TX);
+    LL_DMA_SetPeriphRequest(DMA1, LL_DMA_CHANNEL_3, LL_DMAMUX_REQ_SPI3_TX);
     LL_DMA_SetDataTransferDirection(DMA1, LL_DMA_CHANNEL_3, LL_DMA_DIRECTION_MEMORY_TO_PERIPH);
     LL_DMA_SetChannelPriorityLevel(DMA1, LL_DMA_CHANNEL_3, LL_DMA_PRIORITY_LOW);
     LL_DMA_SetMode(DMA1, LL_DMA_CHANNEL_3, LL_DMA_MODE_NORMAL);
@@ -1398,7 +1404,7 @@ static void MX_SPI1_Init(void)
     LL_DMA_SetMemorySize(DMA1, LL_DMA_CHANNEL_3, LL_DMA_MDATAALIGN_BYTE);
 
     /* Configure DMA for SPI1 RX - Channel 4 */
-    LL_DMA_SetPeriphRequest(DMA1, LL_DMA_CHANNEL_4, LL_DMAMUX_REQ_SPI1_RX);
+    LL_DMA_SetPeriphRequest(DMA1, LL_DMA_CHANNEL_4, LL_DMAMUX_REQ_SPI3_RX);
     LL_DMA_SetDataTransferDirection(DMA1, LL_DMA_CHANNEL_4, LL_DMA_DIRECTION_PERIPH_TO_MEMORY);
     LL_DMA_SetChannelPriorityLevel(DMA1, LL_DMA_CHANNEL_4, LL_DMA_PRIORITY_LOW);
     LL_DMA_SetMode(DMA1, LL_DMA_CHANNEL_4, LL_DMA_MODE_NORMAL);
@@ -1409,18 +1415,18 @@ static void MX_SPI1_Init(void)
 
 
     /* Enable SPI1 DMA requests */
-    LL_SPI_EnableDMAReq_TX(SPI1);
-    LL_SPI_EnableDMAReq_RX(SPI1);
+    LL_SPI_EnableDMAReq_TX(SPI3);
+    LL_SPI_EnableDMAReq_RX(SPI3);
 
     /* Enable SPI1 */
-    LL_SPI_Enable(SPI1);
+    LL_SPI_Enable(SPI3);
 
 }
 
 
 
 // Add function to start DMA transfer
-void SPI1_TransferDMA(uint8_t *txData, uint8_t *rxData, uint16_t size)
+void SPI3_TransferDMA(uint8_t *txData, uint8_t *rxData, uint16_t size)
 {
     // 清除标志
     LL_DMA_ClearFlag_TC3(DMA1);
@@ -1432,23 +1438,82 @@ void SPI1_TransferDMA(uint8_t *txData, uint8_t *rxData, uint16_t size)
     // Configure TX DMA
     LL_DMA_DisableChannel(DMA1, LL_DMA_CHANNEL_3);
     LL_DMA_SetMemoryAddress(DMA1, LL_DMA_CHANNEL_3, (uint32_t)txData);
-    LL_DMA_SetPeriphAddress(DMA1, LL_DMA_CHANNEL_3, (uint32_t)&SPI1->DR);
+    LL_DMA_SetPeriphAddress(DMA1, LL_DMA_CHANNEL_3, (uint32_t)&SPI3->DR);
     LL_DMA_SetDataLength(DMA1, LL_DMA_CHANNEL_3, size);
 
     // Configure RX DMA
     LL_DMA_DisableChannel(DMA1, LL_DMA_CHANNEL_4);
     LL_DMA_SetMemoryAddress(DMA1, LL_DMA_CHANNEL_4, (uint32_t)rxData);
-    LL_DMA_SetPeriphAddress(DMA1, LL_DMA_CHANNEL_4, (uint32_t)&SPI1->DR);
+    LL_DMA_SetPeriphAddress(DMA1, LL_DMA_CHANNEL_4, (uint32_t)&SPI3->DR);
     LL_DMA_SetDataLength(DMA1, LL_DMA_CHANNEL_4, size);
 
     // Enable DMA channels
     LL_DMA_EnableChannel(DMA1, LL_DMA_CHANNEL_4);  // Enable RX first
     LL_DMA_EnableChannel(DMA1, LL_DMA_CHANNEL_3);  // Then enable TX
         // Enable SPI DMA requests
-        LL_SPI_EnableDMAReq_TX(SPI1);
-        LL_SPI_EnableDMAReq_RX(SPI1);
+        LL_SPI_EnableDMAReq_TX(SPI3);
+        LL_SPI_EnableDMAReq_RX(SPI3);
 
 }
+
+
+
+
+static void MX_SPI1_Init(void)
+{
+    LL_SPI_InitTypeDef SPI_InitStruct = {0};
+    LL_GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+    /* Enable peripherals clocks */
+    LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_GPIOA);
+    LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_SPI1);
+
+    /* Configure SPI1 pins */
+    // PB3  -> SCK
+    // PB4  -> MISO 
+    // PB5  -> MOSI
+    GPIO_InitStruct.Pin = LL_GPIO_PIN_5 | LL_GPIO_PIN_6 | LL_GPIO_PIN_7;
+    GPIO_InitStruct.Mode = LL_GPIO_MODE_ALTERNATE;
+    GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_HIGH;
+    GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+    GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+    GPIO_InitStruct.Alternate = LL_GPIO_AF_5;  // AF5 for SPI1
+    LL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+    GPIO_InitStruct.Pin =  SPI1_Pin_CS; //CS
+    GPIO_InitStruct.Mode = LL_GPIO_MODE_OUTPUT;
+    GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_HIGH;
+    GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+    GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+    LL_GPIO_Init(SPI1_Pin_CS_Port, &GPIO_InitStruct);
+
+        // 在 MX_SPI1_Init 函数中 LL_GPIO_Init(GPIOD, &GPIO_InitStruct) 后添加：
+    LL_GPIO_SetOutputPin(SPI1_Pin_CS_Port, SPI1_Pin_CS); // 设置 CS 初始为高电平（非激活）
+    
+    SPI_InitStruct.TransferDirection = LL_SPI_FULL_DUPLEX;
+    SPI_InitStruct.Mode = LL_SPI_MODE_MASTER;
+    SPI_InitStruct.DataWidth = LL_SPI_DATAWIDTH_16BIT;
+    SPI_InitStruct.ClockPolarity = LL_SPI_POLARITY_HIGH;
+    SPI_InitStruct.ClockPhase = LL_SPI_PHASE_2EDGE;
+    SPI_InitStruct.NSS = LL_SPI_NSS_SOFT;
+    SPI_InitStruct.BaudRate = LL_SPI_BAUDRATEPRESCALER_DIV8;
+    SPI_InitStruct.BitOrder = LL_SPI_MSB_FIRST;  // Changed from MSB_FIRST
+    SPI_InitStruct.CRCCalculation = LL_SPI_CRCCALCULATION_DISABLE;
+    LL_SPI_Init(SPI1, &SPI_InitStruct);
+    // ...existing GPIO and SPI init code...
+
+
+    /* Enable SPI1 */
+    LL_SPI_Enable(SPI1);
+
+}
+
+
+
+
+
+
+
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_startMediumFrequencyTask */

@@ -89,7 +89,7 @@ __weak void FOC_Init(void)
     /*    PWM and current sensing component initialization    */
     /**********************************************************/
     pwmcHandle[M1] = &PWM_Handle_M1._Super;
-   R3_2_Init(&PWM_Handle_M1);
+   //R3_2_Init(&PWM_Handle_M1);
 
     /* USER CODE BEGIN MCboot 1 */
 
@@ -237,6 +237,10 @@ __weak void TSK_MediumFrequencyTaskM1(void)
               STSPIN32G4_clearFaults(&HdlSTSPING4);
               STSPIN32G4_wakeup(&HdlSTSPING4, 4);
               vTaskDelay(100);
+
+
+
+
               LL_ADC_INJ_StartConversion(ADC1);
               LL_ADC_INJ_StartConversion(ADC2);
               LL_ADC_EnableIT_JEOS(ADC1);  // Enable ADC1 injected end of sequence interrupt
@@ -247,7 +251,7 @@ __weak void TSK_MediumFrequencyTaskM1(void)
               pwmcHandle[M1]->OffCalibrWaitTimeCounter = 1u;
 
               //(void)PWMC_CurrentReadingCalibr(pwmcHandle[M1], CRC_EXEC);
-              (void)PWMC_CurrentReadingCalibr(pwmcHandle[M1], CRC_START);
+   //           (void)PWMC_CurrentReadingCalibr(pwmcHandle[M1], CRC_START);
               R3_2_SwitchOnPWM(pwmcHandle[M1]);
       //        R3_2_TurnOnLowSides(pwmcHandle[M1],M1_CHARGE_BOOT_CAP_DUTY_CYCLES);
               TSK_SetChargeBootCapDelayM1(M1_CHARGE_BOOT_CAP_TICKS);
@@ -275,10 +279,11 @@ __weak void TSK_MediumFrequencyTaskM1(void)
               LL_TIM_OC_EnablePreload(TIM1, LL_TIM_CHANNEL_CH1);
               LL_TIM_OC_EnablePreload(TIM1, LL_TIM_CHANNEL_CH2);
               LL_TIM_OC_EnablePreload(TIM1, LL_TIM_CHANNEL_CH3);
-              LL_TIM_OC_SetCompareCH1(TIM1, 100);
-              LL_TIM_OC_SetCompareCH2(TIM1, 100);
-              LL_TIM_OC_SetCompareCH3(TIM1, 100);
-              vTaskDelay(1000);
+              LL_TIM_OC_SetCompareCH1(TIM1, 0);
+              LL_TIM_OC_SetCompareCH2(TIM1, 0);
+              LL_TIM_OC_SetCompareCH3(TIM1, 0);
+              LL_TIM_EnableAllOutputs(TIM1);
+              
               
 
               LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);
@@ -305,25 +310,25 @@ __weak void TSK_MediumFrequencyTaskM1(void)
 
               while(1)
               {
-                axis_loop();
+               // axis_loop();
                 LL_TIM_EnableAllOutputs(TIM1);
                 task_run = 1;
                 
                 LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);
-                vTaskDelay(10000);
+                vTaskDelay(1000);
 
                 task_run = 0;
 
       
-                LL_TIM_DisableAllOutputs(TIM1);
-                vTaskDelay(10000);
+             //   LL_TIM_DisableAllOutputs(TIM1);
+                vTaskDelay(1000);
   
 
-                LL_TIM_OC_SetCompareCH1(TIM1, 0);
-                LL_TIM_OC_SetCompareCH2(TIM1, 0);
-                LL_TIM_OC_SetCompareCH3(TIM1, 0);
-                vTaskDelay(1);
-                LL_TIM_EnableAllOutputs(TIM1);
+                // LL_TIM_OC_SetCompareCH1(TIM1, 0);
+                // LL_TIM_OC_SetCompareCH2(TIM1, 0);
+                // LL_TIM_OC_SetCompareCH3(TIM1, 0);
+                // vTaskDelay(1);
+                // LL_TIM_EnableAllOutputs(TIM1);
    
                 
 
@@ -771,7 +776,7 @@ __weak uint8_t FOC_HighFrequencyTask(uint8_t bMotorNbr)
   float tb =0;
   float tc =0;
   
-  float mod_q = 0.1f;
+  float mod_q = 0.0f;
   float mod_d = 0;
   ab_t Iab;
   float a = 0;
@@ -812,22 +817,24 @@ __weak uint8_t FOC_HighFrequencyTask(uint8_t bMotorNbr)
 // LL_ADC_INJ_SetSequencerRanks(ADC2, LL_ADC_INJ_RANK_1, LL_ADC_CHANNEL_3); // OPAMP2 output
 
 
+LL_GPIO_ResetOutputPin(SPI1_Pin_CS_Port, SPI1_Pin_CS); // 设置 CS 初始为低电平（激活）
 
-  SPI1_TransferDMA(tx,rx,10);
-// if(task_run == 1)
-// {
-//                   //STSPIN32G4_clearFaults(&HdlSTSPING4);
-//                   test_svm(mod_q, mod_d, &theta_, &ta, &tb, &tc);
-//                   /* Turn on the three low side switches */
-//                   LL_TIM_OC_SetCompareCH1(TIM1, ta*TIM_1_8_PERIOD_CLOCKS);
-//                   LL_TIM_OC_SetCompareCH2(TIM1, tb*TIM_1_8_PERIOD_CLOCKS);
-//                   LL_TIM_OC_SetCompareCH3(TIM1, tc*TIM_1_8_PERIOD_CLOCKS);
-//                   TIM1->BDTR |= LL_TIM_OSSI_ENABLE;
-//                   LL_TIM_EnableAllOutputs(TIM1);
+SPI3_TransferDMA(tx,rx,10);
+SPI1->DR =0;
+if(task_run == 1)
+{
+                  //STSPIN32G4_clearFaults(&HdlSTSPING4);
+                  test_svm(mod_q, mod_d, &theta_, &ta, &tb, &tc);
+                  /* Turn on the three low side switches */
+                  LL_TIM_OC_SetCompareCH1(TIM1, ta*TIM_1_8_PERIOD_CLOCKS);
+                  LL_TIM_OC_SetCompareCH2(TIM1, tb*TIM_1_8_PERIOD_CLOCKS);
+                  LL_TIM_OC_SetCompareCH3(TIM1, tc*TIM_1_8_PERIOD_CLOCKS);
+                  TIM1->BDTR |= LL_TIM_OSSI_ENABLE;
+                  LL_TIM_EnableAllOutputs(TIM1);
   
-//                   theta_ = theta_ + 0.01f;
+                  theta_ = theta_ + 0.01f;
 
-// }
+ }
 LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);  // 使用TIM1 OC4作为触发源
 
  // SCC_SetPhaseVoltage(&SCC);

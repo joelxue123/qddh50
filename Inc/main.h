@@ -157,14 +157,25 @@ void Error_Handler(void);
 #define TCK_GPIO_Port GPIOA
 
 /* SPI1 Pin Definitions */
-#define SPI1_Pin_Clk        LL_GPIO_PIN_3
-#define SPI1_Pin_Clk_Port   GPIOB
-#define SPI1_Pin_MISO       LL_GPIO_PIN_4
-#define SPI1_Pin_MISO_Port  GPIOB  
-#define SPI1_Pin_MOSI       LL_GPIO_PIN_5
-#define SPI1_Pin_MOSI_Port  GPIOB
-#define SPI1_Pin_CS         LL_GPIO_PIN_2
-#define SPI1_Pin_CS_Port    GPIOD
+#define SPI1_Pin_Clk        LL_GPIO_PIN_5
+#define SPI1_Pin_Clk_Port   GPIOA
+#define SPI1_Pin_MISO       LL_GPIO_PIN_6
+#define SPI1_Pin_MISO_Port  GPIOA  
+#define SPI1_Pin_MOSI       LL_GPIO_PIN_7
+#define SPI1_Pin_MOSI_Port  GPIOA
+#define SPI1_Pin_CS         LL_GPIO_PIN_4
+#define SPI1_Pin_CS_Port    GPIOA
+
+
+/* SPI3 Pin Definitions */
+#define SPI3_Pin_Clk        LL_GPIO_PIN_3
+#define SPI3_Pin_Clk_Port   GPIOB
+#define SPI3_Pin_MISO       LL_GPIO_PIN_4
+#define SPI3_Pin_MISO_Port  GPIOB  
+#define SPI3_Pin_MOSI       LL_GPIO_PIN_5
+#define SPI3_Pin_MOSI_Port  GPIOB
+#define SPI3_Pin_CS         LL_GPIO_PIN_6
+#define SPI3_Pin_CS_Port    GPIOB
 
 
 
@@ -228,7 +239,7 @@ typedef struct {
   size_t aux_temp;
 } ThermistorHardwareConfig_t;
 
-void SPI1_TransferDMA(uint8_t *txData, uint8_t *rxData, uint16_t size);
+void SPI3_TransferDMA(uint8_t *txData, uint8_t *rxData, uint16_t size);
 
 
 /* USER CODE END Private defines */

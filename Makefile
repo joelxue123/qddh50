@@ -294,7 +294,7 @@ all: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET
 FIRMWARE = $(BUILD_DIR)/$(TARGET).elf
 
 
-USE_STLINK ?= 0
+USE_STLINK ?= 1
 
 # Configure OpenOCD for different debuggers
 ifeq ($(USE_STLINK),1)
