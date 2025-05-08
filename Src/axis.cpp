@@ -127,6 +127,12 @@ void Axis::set_axis_current(int16_t current)
 }
 
 
+void Axis::setup( Config_t& config)
+{
+    config_ = config;
+}
+
+
 // @brief Does Nothing
 void Axis::setup() {
     bool sensorless_mode = config_.enable_sensorless_mode;

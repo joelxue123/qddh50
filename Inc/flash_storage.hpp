@@ -13,11 +13,12 @@
 #include "interface_can.hpp"
 
 // Flash configuration
-#define FLASH_CONFIG_START_ADDR   (0x0801F000)  // Use last 2KB page
+#define FLASH_CONFIG_START_ADDR   (0x0801e000)  // Use last 2KB page
 #define FLASH_PAGE_SIZE          (0x800)        // 2KB per page
 #define FLASH_CONFIG_VERSION     (0x01)         // Initial version
 #define FLASH_CONFIG_MAGIC      (0xCAFE0001)   // Magic number for validation
 
+#pragma pack(4)
 typedef struct {
     uint32_t magic;
     uint32_t version;
@@ -30,6 +31,7 @@ typedef struct {
     Axis::Config_t axis_configs;
     uint32_t crc;
 } FlashStorage_t;
+#pragma pack()
 
 // Function declarations
 bool Flash_EraseConfig(void);
