@@ -89,7 +89,7 @@ __weak void FOC_Init(void)
     /*    PWM and current sensing component initialization    */
     /**********************************************************/
     pwmcHandle[M1] = &PWM_Handle_M1._Super;
-   //R3_2_Init(&PWM_Handle_M1);
+   // R3_2_Init(&PWM_Handle_M1);
 
     /* USER CODE BEGIN MCboot 1 */
 
@@ -192,7 +192,7 @@ int32_t  task_run = 0;
  float  theta_ =0.0f;
  int32_t a_offset = 0;
  int32_t b_offset = 0;
- uint8_t tx[10] ={1,2,3,4,5,6,7,8,9,10};
+ uint8_t tx[10] = {0xA0,0x03,0x00,0x00,0x00,0x00};
  uint8_t rx[10] = {0};
 void test_svm(float mod_q, float mod_d, float *theta, float *ta, float *tb, float *tc) ;
 /**
@@ -307,17 +307,16 @@ __weak void TSK_MediumFrequencyTaskM1(void)
 
               LL_TIM_SetRepetitionCounter(TIM1, 1);
 
-
+              axis_loop();
               while(1)
               {
-               // axis_loop();
+                
                 LL_TIM_EnableAllOutputs(TIM1);
-                task_run = 1;
                 
                 LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);
                 vTaskDelay(1000);
 
-                task_run = 0;
+                task_run = 1;
 
       
              //   LL_TIM_DisableAllOutputs(TIM1);
@@ -776,7 +775,7 @@ __weak uint8_t FOC_HighFrequencyTask(uint8_t bMotorNbr)
   float tb =0;
   float tc =0;
   
-  float mod_q = 0.0f;
+  float mod_q = 0.05f;
   float mod_d = 0;
   ab_t Iab;
   float a = 0;
@@ -788,14 +787,14 @@ __weak uint8_t FOC_HighFrequencyTask(uint8_t bMotorNbr)
 
   if (SWITCH_OVER == Mci[M1].State)
   {
-    if (!REMNG_RampCompleted(pREMNG[M1]))
-    {
-      FOCVars[M1].Iqdref.q = (int16_t)REMNG_Calc(pREMNG[M1]);
-    }
-    else
-    {
-      /* Nothing to do */
-    }
+    // if (!REMNG_RampCompleted(pREMNG[M1]))
+    // {
+    //   FOCVars[M1].Iqdref.q = (int16_t)REMNG_Calc(pREMNG[M1]);
+    // }
+    // else
+    // {
+    //   /* Nothing to do */
+    // }
   }
   else
   {
@@ -818,9 +817,12 @@ __weak uint8_t FOC_HighFrequencyTask(uint8_t bMotorNbr)
 
 
 LL_GPIO_ResetOutputPin(SPI1_Pin_CS_Port, SPI1_Pin_CS); // 设置 CS 初始为低电平（激活）
+LL_GPIO_ResetOutputPin(SPI3_Pin_CS_Port, SPI3_Pin_CS); // 设置 CS 初始为低电平（激活）
 
-SPI3_TransferDMA(tx,rx,10);
+
+SPI3_TransferDMA(tx,rx,6);
 SPI1->DR =0;
+#if 0
 if(task_run == 1)
 {
                   //STSPIN32G4_clearFaults(&HdlSTSPING4);
@@ -832,10 +834,12 @@ if(task_run == 1)
                   TIM1->BDTR |= LL_TIM_OSSI_ENABLE;
                   LL_TIM_EnableAllOutputs(TIM1);
   
-                  theta_ = theta_ + 0.01f;
+                  theta_ = theta_ + 0.00001f;
 
  }
 LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);  // 使用TIM1 OC4作为触发源
+
+#endif
 
  // SCC_SetPhaseVoltage(&SCC);
 

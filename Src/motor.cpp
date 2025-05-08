@@ -672,12 +672,13 @@ void Motor::measure_current_offset(void)
     DC_calib_.Q16_phB = 0;
     for (size_t i = 0; i < 100; ++i) {
 
-        phA_sum_ADCValue += current_meas_.Q16_phA;
-        phB_sum_ADCValue += current_meas_.Q16_phB;
+        phA_sum_ADCValue += (uint16_t)current_meas_.Q16_phA;
+        phB_sum_ADCValue += (uint16_t)current_meas_.Q16_phB;
+
         osDelay(1);
     }
-    DC_calib_.Q16_phA =  -1* phA_sum_ADCValue / 100;
-    DC_calib_.Q16_phB = -1* phB_sum_ADCValue / 100;
+    DC_calib_.Q16_phA =   phA_sum_ADCValue / 100;
+    DC_calib_.Q16_phB =   phB_sum_ADCValue / 100;
 }
 
 bool Motor::run_calibration() {
@@ -1112,7 +1113,7 @@ void Motor::pwm_update_cb(uint32_t output_timestamp) {
     
     float mod_q = 0.05f;
     float mod_d = 0;
-    static float theta_ = 0.0f;
+   // static float theta_ = 0.0f;
 
   //  TaskTimerContext tmr{axis_->task_times_.pwm_update};
 

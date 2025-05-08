@@ -98,7 +98,7 @@ void Error_Handler(void);
 
 #define VBUS_S_DIVIDER_RATIO 19.0f
 
-#define CURRENT_BASE 0.0012f //40a/32768
+#define CURRENT_BASE 0.0013f //40a/32768
 
 
 /* USER CODE END EFP */
@@ -155,6 +155,13 @@ void Error_Handler(void);
 #define TMS_GPIO_Port GPIOA
 #define TCK_Pin LL_GPIO_PIN_14
 #define TCK_GPIO_Port GPIOA
+
+#define CURRENT_U_PIN LL_GPIO_PIN_0
+#define CURRENT_U_PORT GPIOC
+#define CURRENT_V_PIN LL_GPIO_PIN_1
+#define CURRENT_V_PORT GPIOC
+#define CURRENT_W_PIN LL_GPIO_PIN_2
+#define CURRENT_W_PORT GPIOC
 
 /* SPI1 Pin Definitions */
 #define SPI1_Pin_Clk        LL_GPIO_PIN_5

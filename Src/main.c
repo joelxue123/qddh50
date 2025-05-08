@@ -301,20 +301,12 @@ static void MX_ADC1_Init(void)
   LL_GPIO_Init(M1_BUS_VOLTAGE_GPIO_Port, &GPIO_InitStruct);
 
 
-  GPIO_InitStruct.Pin = LL_GPIO_PIN_0;
+  GPIO_InitStruct.Pin = CURRENT_U_PIN;
   GPIO_InitStruct.Mode = LL_GPIO_MODE_ANALOG;
   GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-  LL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+  LL_GPIO_Init(CURRENT_U_PORT, &GPIO_InitStruct);
 
-  GPIO_InitStruct.Pin = LL_GPIO_PIN_1;
-  GPIO_InitStruct.Mode = LL_GPIO_MODE_ANALOG;
-  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-  LL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  GPIO_InitStruct.Pin = M1_OPAMP1_OUT_Pin;
-  GPIO_InitStruct.Mode = LL_GPIO_MODE_ANALOG;
-  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-  LL_GPIO_Init(M1_OPAMP1_OUT_GPIO_Port, &GPIO_InitStruct);
 
   /* USER CODE BEGIN ADC1_Init 1 */
 
@@ -365,9 +357,9 @@ static void MX_ADC1_Init(void)
 
   /** Configure Injected Channel
   */
-  LL_ADC_INJ_SetSequencerRanks(ADC1, LL_ADC_INJ_RANK_1, LL_ADC_CHANNEL_3);
-  LL_ADC_SetChannelSamplingTime(ADC1, LL_ADC_CHANNEL_3, LL_ADC_SAMPLINGTIME_2CYCLES_5);
-  LL_ADC_SetChannelSingleDiff(ADC1, LL_ADC_CHANNEL_3, LL_ADC_SINGLE_ENDED);
+  LL_ADC_INJ_SetSequencerRanks(ADC1, LL_ADC_INJ_RANK_1, LL_ADC_CHANNEL_6);
+  LL_ADC_SetChannelSamplingTime(ADC1, LL_ADC_CHANNEL_6, LL_ADC_SAMPLINGTIME_2CYCLES_5);
+  LL_ADC_SetChannelSingleDiff(ADC1, LL_ADC_CHANNEL_6, LL_ADC_SINGLE_ENDED);
 
   /** Configure Regular Channel
   */
@@ -531,10 +523,22 @@ static void MX_ADC2_Init(void)
   PA6   ------> ADC2_IN3
   PC4   ------> ADC2_IN5
   */
-  GPIO_InitStruct.Pin = M1_OPAMP2_OUT_Pin;
+ GPIO_InitStruct.Pin = CURRENT_U_PIN;
+ GPIO_InitStruct.Mode = LL_GPIO_MODE_ANALOG;
+ GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+ LL_GPIO_Init(CURRENT_U_PORT, &GPIO_InitStruct);
+
+  GPIO_InitStruct.Pin = CURRENT_V_PIN;
   GPIO_InitStruct.Mode = LL_GPIO_MODE_ANALOG;
   GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
-  //LL_GPIO_Init(M1_OPAMP2_OUT_GPIO_Port, &GPIO_InitStruct);
+  LL_GPIO_Init(CURRENT_V_PORT, &GPIO_InitStruct);
+
+
+  GPIO_InitStruct.Pin = CURRENT_W_PIN;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_ANALOG;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  LL_GPIO_Init(CURRENT_W_PORT, &GPIO_InitStruct);
+
 
   GPIO_InitStruct.Pin = M1_TEMPERATURE_Pin;
   GPIO_InitStruct.Mode = LL_GPIO_MODE_ANALOG;
@@ -587,9 +591,18 @@ static void MX_ADC2_Init(void)
 
   /** Configure Injected Channel
   */
-  LL_ADC_INJ_SetSequencerRanks(ADC2, LL_ADC_INJ_RANK_1, LL_ADC_CHANNEL_3);
-  LL_ADC_SetChannelSamplingTime(ADC2, LL_ADC_CHANNEL_3, LL_ADC_SAMPLINGTIME_6CYCLES_5);
-  LL_ADC_SetChannelSingleDiff(ADC2, LL_ADC_CHANNEL_3, LL_ADC_SINGLE_ENDED);
+  LL_ADC_INJ_SetSequencerRanks(ADC2, LL_ADC_INJ_RANK_1, LL_ADC_CHANNEL_6);
+  LL_ADC_SetChannelSamplingTime(ADC2, LL_ADC_CHANNEL_6, LL_ADC_SAMPLINGTIME_2CYCLES_5);
+  LL_ADC_SetChannelSingleDiff(ADC2, LL_ADC_CHANNEL_6, LL_ADC_SINGLE_ENDED);
+
+  // LL_ADC_INJ_SetSequencerRanks(ADC2, LL_ADC_INJ_RANK_2, LL_ADC_CHANNEL_8);
+  // LL_ADC_SetChannelSamplingTime(ADC2, LL_ADC_CHANNEL_8, LL_ADC_SAMPLINGTIME_2CYCLES_5);
+  // LL_ADC_SetChannelSingleDiff(ADC2, LL_ADC_CHANNEL_8, LL_ADC_SINGLE_ENDED);
+
+
+  LL_ADC_StartCalibration(ADC2, LL_ADC_SINGLE_ENDED);
+  while(LL_ADC_IsCalibrationOnGoing(ADC2));
+
 
   /** Configure Regular Channel
   */
@@ -598,6 +611,10 @@ static void MX_ADC2_Init(void)
   LL_ADC_SetChannelSingleDiff(ADC2, LL_ADC_CHANNEL_5, LL_ADC_SINGLE_ENDED);
   /* USER CODE BEGIN ADC2_Init 2 */
 
+
+    // 8. 使能ADC
+    LL_ADC_Enable(ADC2);
+    while(!LL_ADC_IsActiveFlag_ADRDY(ADC2));
   /* USER CODE END ADC2_Init 2 */
 
 }

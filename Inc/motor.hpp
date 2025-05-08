@@ -18,9 +18,9 @@ class Axis;
 class Motor : public ODriveIntf::MotorIntf{
 public:
     struct Iph_BC_t {
-        int16_t Q16_phA;
-        int16_t Q16_phB;    
-        int16_t Q16_phC;
+        volatile int16_t Q16_phA;
+        volatile int16_t Q16_phB;    
+        volatile int16_t Q16_phC;
         float phA;
         float phB;
         float phC;

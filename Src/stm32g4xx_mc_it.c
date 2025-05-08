@@ -83,30 +83,40 @@ void ADC1_2_IRQHandler(void)
     LL_ADC_ClearFlag_JEOS(ADC1);
     LL_ADC_ClearFlag_JEOS(ADC2);
     LL_GPIO_SetOutputPin(SPI1_Pin_CS_Port, SPI1_Pin_CS); // 设置 CS 初始为高电平（非激活）
+    LL_GPIO_SetOutputPin(SPI3_Pin_CS_Port, SPI3_Pin_CS); // 设置 CS 初始为低电平（激活）
   /* Highfrequency task */
   (void)TSK_HighFrequencyTask();
 
 
     /* Configure ADC2 JSQR directly */
-    ADC2->JSQR = (uint32_t)(
+    ADC1->JSQR = (uint32_t)(
       (LL_ADC_INJ_TRIG_EXT_TIM1_TRGO & ADC_JSQR_JEXTSEL) |  // External trigger selection
       (0x1UL << ADC_JSQR_JEXTEN_Pos) |                       // Rising edge trigger
-      (0x03 << 9) |             // Channel 3 as first conversion
+      (0x06 << 9) |             // Channel 3 as first conversion
       (0x0UL << ADC_JSQR_JL_Pos)                            // Length = 1 conversion
   );
+
+      /* Configure ADC2 JSQR directly */
+      ADC2->JSQR = (uint32_t)(
+        (LL_ADC_INJ_TRIG_EXT_TIM1_TRGO & ADC_JSQR_JEXTSEL) |  // External trigger selection
+        (0x1UL << ADC_JSQR_JEXTEN_Pos) |                       // Rising edge trigger
+        (0x07 << 9) |             // Channel 3 as first conversion
+        (0x0UL << ADC_JSQR_JL_Pos)                            // Length = 1 conversion
+    );
   
   /* Start ADC2 conversion */
-  LL_ADC_INJ_StartConversion(ADC2);
+ // LL_ADC_INJ_StartConversion(ADC2);
 
-   LL_ADC_INJ_SetSequencerRanks(ADC1, LL_ADC_INJ_RANK_1, LL_ADC_CHANNEL_3); // OPAMP1 output
-   LL_ADC_INJ_SetTriggerSource(ADC1, LL_ADC_INJ_TRIG_EXT_TIM1_TRGO);
-   LL_ADC_INJ_SetTriggerEdge(ADC1, LL_ADC_INJ_TRIG_EXT_RISING);
+ // LL_ADC_INJ_SetSequencerRanks(ADC1, LL_ADC_INJ_RANK_1, LL_ADC_CHANNEL_6); // OPAMP1 output
+ // LL_ADC_INJ_SetSequencerRanks(ADC2, LL_ADC_INJ_RANK_1, LL_ADC_CHANNEL_6); // OPAMP1 output
+ //  LL_ADC_INJ_SetTriggerSource(ADC1, LL_ADC_INJ_TRIG_EXT_TIM1_TRGO);
+ //  LL_ADC_INJ_SetTriggerEdge(ADC1, LL_ADC_INJ_TRIG_EXT_RISING);
   LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);
 
 
 
 
-  //pwm_trig_adc_cb(ADC1,0);
+  pwm_trig_adc_cb(ADC1,0);
 
   /* USER CODE BEGIN HighFreq */
 

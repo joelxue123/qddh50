@@ -532,14 +532,14 @@ void pwm_trig_adc_cb(ADC_TypeDef *adc, bool injected) {
     timestamp_ += TIM_1_8_PERIOD_CLOCKS * (TIM_1_8_RCR + 1 + 1);
     uint32_t timestamp = timestamp_;
 
-    vbus_voltage = get_adc_voltage_channel(1) *23.4604f;
+    vbus_voltage = get_adc_voltage_channel(3) *19.f;
 
 
-    axis.motor_.current_meas_.Q16_phA = ADC1->JDR1;
-    axis.motor_.current_meas_.Q16_phB = ADC2->JDR1;
+    int16_t adc1_raw = ADC1->JDR1;
+    int16_t adc2_raw = ADC2->JDR1;
 
-    axis.motor_.current_meas_.Q16_phA = axis.motor_.DC_calib_.Q16_phA - axis.motor_.current_meas_.Q16_phA;
-    axis.motor_.current_meas_.Q16_phB = axis.motor_.DC_calib_.Q16_phB - axis.motor_.current_meas_.Q16_phB;
+    axis.motor_.current_meas_.Q16_phA = adc1_raw  - axis.motor_.DC_calib_.Q16_phA;
+    axis.motor_.current_meas_.Q16_phB = adc2_raw - axis.motor_.DC_calib_.Q16_phB ;
     axis.motor_.current_meas_.Q16_phC = (0 - axis.motor_.current_meas_.Q16_phA - axis.motor_.current_meas_.Q16_phB);
 
     axis.motor_.current_meas_.phA= axis.motor_.current_meas_.Q16_phA*CURRENT_BASE;
@@ -547,7 +547,9 @@ void pwm_trig_adc_cb(ADC_TypeDef *adc, bool injected) {
     axis.motor_.current_meas_.phC= axis.motor_.current_meas_.Q16_phC*CURRENT_BASE;
     axis.motor_.timing_log_[1] = TIM1->CNT;
 
-#if 0
+
+
+#if 1
     axis.encoder_.set_cs_high();
 #define calib_tau 0.2f  //@TOTO make more easily configurable
     constexpr float calib_filter_k = CURRENT_MEAS_PERIOD / calib_tau;

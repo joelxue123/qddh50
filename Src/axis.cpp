@@ -645,9 +645,9 @@ bool Axis::run_idle_loop() {
 // Infinite loop that does calibration and enters main control loop as appropriate
 void Axis::run_state_machine_loop() {
 
-
-    motor_.measure_current_offset();
     thread_id_valid_ = true;
+    wait_for_control_iteration();
+    motor_.measure_current_offset();
     for (;;) {
         // Load the task chain if a specific request is pending
         if (requested_state_ != AXIS_STATE_UNDEFINED) {

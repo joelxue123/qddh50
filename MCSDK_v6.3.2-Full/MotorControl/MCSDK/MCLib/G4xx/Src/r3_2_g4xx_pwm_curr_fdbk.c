@@ -124,9 +124,9 @@ __weak void R3_2_Init(PWMC_R3_2_Handle_t *pHandle)
       if (OPAMPParams != NULL)
       {
         /* Enable OpAmp defined in OPAMPSelect_X table */
-        LL_OPAMP_Enable(OPAMPParams->OPAMPSelect_1[0]);
-        LL_OPAMP_Enable(OPAMPParams->OPAMPSelect_1[1]);
-        LL_OPAMP_Enable(OPAMPParams->OPAMPSelect_2[0]);
+   //     LL_OPAMP_Enable(OPAMPParams->OPAMPSelect_1[0]);
+    //    LL_OPAMP_Enable(OPAMPParams->OPAMPSelect_1[1]);
+    //    LL_OPAMP_Enable(OPAMPParams->OPAMPSelect_2[0]);
       }
       else
       {
@@ -139,16 +139,16 @@ __weak void R3_2_Init(PWMC_R3_2_Handle_t *pHandle)
         /* Inverting input */
         if ((pHandle->pParams_str->CompOCPAInvInput_MODE != EXT_MODE) && (DAC_OCPAx != MC_NULL))
         {
-          R3_2_SetAOReferenceVoltage(pHandle->pParams_str->DAC_Channel_OCPA, DAC_OCPAx,
-                                     (uint16_t)(pHandle->pParams_str->DAC_OCP_Threshold));
+      //    R3_2_SetAOReferenceVoltage(pHandle->pParams_str->DAC_Channel_OCPA, DAC_OCPAx,
+      //                               (uint16_t)(pHandle->pParams_str->DAC_OCP_Threshold));
         }
         else
         {
           /* Nothing to do */
         }
         /* Output */
-        LL_COMP_Enable(COMP_OCPAx);
-        LL_COMP_Lock(COMP_OCPAx);
+      ////  LL_COMP_Enable(COMP_OCPAx);
+     //   LL_COMP_Lock(COMP_OCPAx);
       }
       else
       {
@@ -160,15 +160,15 @@ __weak void R3_2_Init(PWMC_R3_2_Handle_t *pHandle)
       {
         if ((pHandle->pParams_str->CompOCPBInvInput_MODE != EXT_MODE) && (DAC_OCPBx != MC_NULL))
         {
-          R3_2_SetAOReferenceVoltage(pHandle->pParams_str->DAC_Channel_OCPB, DAC_OCPBx,
-                                     (uint16_t)(pHandle->pParams_str->DAC_OCP_Threshold));
+      //    R3_2_SetAOReferenceVoltage(pHandle->pParams_str->DAC_Channel_OCPB, DAC_OCPBx,
+       //                              (uint16_t)(pHandle->pParams_str->DAC_OCP_Threshold));
         }
         else
         {
           /* Nothing to do */
         }
-        LL_COMP_Enable(COMP_OCPBx);
-        LL_COMP_Lock(COMP_OCPBx);
+     //   LL_COMP_Enable(COMP_OCPBx);
+    //    LL_COMP_Lock(COMP_OCPBx);
       }
       else
       {
@@ -180,15 +180,15 @@ __weak void R3_2_Init(PWMC_R3_2_Handle_t *pHandle)
       {
         if ((pHandle->pParams_str->CompOCPCInvInput_MODE != EXT_MODE)  && (DAC_OCPCx != MC_NULL))
         {
-          R3_2_SetAOReferenceVoltage(pHandle->pParams_str->DAC_Channel_OCPC, DAC_OCPCx,
-                                     (uint16_t)(pHandle->pParams_str->DAC_OCP_Threshold));
+     //     R3_2_SetAOReferenceVoltage(pHandle->pParams_str->DAC_Channel_OCPC, DAC_OCPCx,
+     //                                (uint16_t)(pHandle->pParams_str->DAC_OCP_Threshold));
         }
         else
         {
           /* Nothing to do */
         }
-        LL_COMP_Enable(COMP_OCPCx);
-        LL_COMP_Lock(COMP_OCPCx);
+     //   LL_COMP_Enable(COMP_OCPCx);
+     //   LL_COMP_Lock(COMP_OCPCx);
       }
       else
       {
@@ -201,16 +201,16 @@ __weak void R3_2_Init(PWMC_R3_2_Handle_t *pHandle)
         /* Inverting input */
         if ((pHandle->pParams_str->CompOVPInvInput_MODE != EXT_MODE) && (DAC_OVPx != MC_NULL))
         {
-          R3_2_SetAOReferenceVoltage(pHandle->pParams_str->DAC_Channel_OVP, DAC_OVPx,
-                                     (uint16_t)(pHandle->pParams_str->DAC_OVP_Threshold));
+       //   R3_2_SetAOReferenceVoltage(pHandle->pParams_str->DAC_Channel_OVP, DAC_OVPx,
+         //                            (uint16_t)(pHandle->pParams_str->DAC_OVP_Threshold));
         }
         else
         {
           /* Nothing to do */
         }
         /* Output */
-        LL_COMP_Enable(COMP_OVPx);
-        LL_COMP_Lock(COMP_OVPx);
+      //  LL_COMP_Enable(COMP_OVPx);
+       // LL_COMP_Lock(COMP_OVPx);
       }
       else
       {
