@@ -79,78 +79,62 @@ extern "C"  bool Flash_LoadConfig(void) {
 }
 
 extern "C" bool Flash_SaveConfig(void) {
+
+
+
+    LL_TIM_DisableCounter(TIM1);
+    osDelay(10); // Wait for PWM to stop
+
+    portENTER_CRITICAL();
+
+
     // Calculate CRC before saving
     flash_storage.crc = Flash_CalculateCRC((uint8_t*)&flash_storage, 
                                          sizeof(FlashStorage_t) - sizeof(uint32_t));
     
     // Erase config section
     if(!Flash_EraseConfig()) {
+        portEXIT_CRITICAL();
+
         return false;
     }
     
     // Write configuration to flash
     if(Flash_WriteData(FLASH_CONFIG_START_ADDR, (uint8_t*)&flash_storage, 
                       sizeof(FlashStorage_t)) != HAL_OK) {
+        portEXIT_CRITICAL();
         return false;
     }
-    
+
+    portEXIT_CRITICAL();
+    LL_TIM_EnableCounter(TIM1);
+
     return true;
 }
 
 bool Flash_EraseConfig(void) {
+
+ 
     HAL_StatusTypeDef status;
     FLASH_EraseInitTypeDef erase_init;
-    FLASH_OBProgramInitTypeDef ob_config;
-
     uint32_t page_error;
-    
-
-    // 1. Unlock flash
-    // Unlock flash
-    HAL_FLASH_Unlock();
-    HAL_FLASH_OB_Unlock();
-
-
-    // 2. Clear any pending errors 
-    __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR | 
-                        FLASH_FLAG_PGSERR | FLASH_FLAG_OPTVERR);
-
-
-// 4. Write data
-// Make sure data is 8-byte aligned
-// Use HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, addr, data)
-
-    ob_config.OptionType = OPTIONBYTE_WRP;
-    ob_config.WRPArea = OB_WRPAREA_BANK1_AREAA;
-    ob_config.WRPStartOffset = 0xFF;
-    ob_config.WRPEndOffset = 0;
-
-    HAL_FLASHEx_OBProgram(&ob_config);
-
-
-    HAL_FLASH_OB_Launch();
-
-
-
     
     // Configure erase operation
     erase_init.TypeErase = FLASH_TYPEERASE_PAGES;
     erase_init.Page = (FLASH_CONFIG_START_ADDR - FLASH_BASE) / FLASH_PAGE_SIZE;
     erase_init.NbPages = 1;
     
-
-
+    // Unlock flash
+    HAL_FLASH_Unlock();
     
-
     // Erase page
     status = HAL_FLASHEx_Erase(&erase_init, &page_error);
     
     // Lock flash
-    HAL_FLASH_OB_Lock();
-
     HAL_FLASH_Lock();
     
     return (status == HAL_OK);
+
 }
 
 bool Flash_ValidateConfig(void) {

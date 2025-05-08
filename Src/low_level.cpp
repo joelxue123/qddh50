@@ -547,16 +547,16 @@ void pwm_trig_adc_cb(ADC_TypeDef *adc, bool injected) {
     axis.motor_.current_meas_.phC= axis.motor_.current_meas_.Q16_phC*CURRENT_BASE;
     axis.motor_.timing_log_[1] = TIM1->CNT;
 
-
+  
 
 #if 1
-    axis.encoder_.set_cs_high();
+   // axis.encoder_.set_cs_high();
 #define calib_tau 0.2f  //@TOTO make more easily configurable
     constexpr float calib_filter_k = CURRENT_MEAS_PERIOD / calib_tau;
     (void)calib_filter_k;
 
-
-   // current_meas_period = CURRENT_MEAS_PERIOD * (8400.f+this_sample_time - last_sample_time)/8400.0f;  
+    return ;
+   // current_meras_period = CURRENT_MEAS_PERIOD * (8400.f+this_sample_time - last_sample_time)/8400.0f;  
     
     // Ensure ADCs are expected ones to simplify the logic below
     if (!(adc == ADC1 || adc == ADC2)) {

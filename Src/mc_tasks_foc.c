@@ -820,8 +820,8 @@ LL_GPIO_ResetOutputPin(SPI1_Pin_CS_Port, SPI1_Pin_CS); // 设置 CS 初始为低
 LL_GPIO_ResetOutputPin(SPI3_Pin_CS_Port, SPI3_Pin_CS); // 设置 CS 初始为低电平（激活）
 
 
-SPI3_TransferDMA(tx,rx,6);
-SPI1->DR =0;
+//SPI3_TransferDMA(tx,rx,6);
+//SPI1->DR =0;
 #if 0
 if(task_run == 1)
 {
