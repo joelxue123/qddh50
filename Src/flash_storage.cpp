@@ -94,6 +94,7 @@ extern "C" bool Flash_SaveConfig(void) {
     
     // Erase config section
     if(!Flash_EraseConfig()) {
+        LL_TIM_EnableCounter(TIM1);
         portEXIT_CRITICAL();
 
         return false;
@@ -102,12 +103,14 @@ extern "C" bool Flash_SaveConfig(void) {
     // Write configuration to flash
     if(Flash_WriteData(FLASH_CONFIG_START_ADDR, (uint8_t*)&flash_storage, 
                       sizeof(FlashStorage_t)) != HAL_OK) {
+        LL_TIM_EnableCounter(TIM1);
         portEXIT_CRITICAL();
         return false;
     }
 
-    portEXIT_CRITICAL();
     LL_TIM_EnableCounter(TIM1);
+    portEXIT_CRITICAL();
+    
 
     return true;
 }

@@ -121,7 +121,7 @@ void encos_cmd_handle(Axis* axis, can_Message_t& msg)
                             bool success = axis->set_offset();
                             if(success)
                             {
-                                save_configuration();
+                                Flash_SaveConfig();
                             }
                             
                             can_Message_t txmsg;

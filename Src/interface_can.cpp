@@ -167,7 +167,7 @@ uint32_t ODriveCAN::write(can_Message_t &txmsg) {
         header.Identifier = txmsg.id;
         header.IdType = txmsg.isExt ? FDCAN_EXTENDED_ID : FDCAN_STANDARD_ID;
         header.TxFrameType = txmsg.rtr ? FDCAN_REMOTE_FRAME : FDCAN_DATA_FRAME;
-        header.DataLength = txmsg.len << 16;  // FDCAN uses shifted DLC format
+        header.DataLength = txmsg.len;  
         header.ErrorStateIndicator = FDCAN_ESI_ACTIVE;
         header.BitRateSwitch = FDCAN_BRS_OFF;
         header.FDFormat = FDCAN_CLASSIC_CAN;
@@ -209,7 +209,7 @@ bool ODriveCAN::read(can_Message_t &rxmsg) {
     if (validRead) {
         rxmsg.isExt = (header.IdType == FDCAN_EXTENDED_ID);
         rxmsg.id = rxmsg.isExt ? header.Identifier : header.Identifier;
-        rxmsg.len = header.DataLength >> 16; // Convert FDCAN DLC to actual length
+        rxmsg.len = header.DataLength; //
         rxmsg.rtr = (header.RxFrameType == FDCAN_REMOTE_FRAME);
     }
 
@@ -330,7 +330,7 @@ void ODriveCAN::send_heartbeat(Axis *axis) {
 void HAL_FDCAN_TxFifoEmptyCallback(FDCAN_HandleTypeDef *hfdcan) {}
 void HAL_FDCAN_TxBufferCompleteCallback(FDCAN_HandleTypeDef *hfdcan) {}
 void HAL_FDCAN_TxBufferAbortCallback(FDCAN_HandleTypeDef *hfdcan) {}
-void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan) {
+void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs){
     HAL_FDCAN_DeactivateNotification(hfdcan, FDCAN_IT_RX_FIFO0_NEW_MESSAGE);
     osSemaphoreRelease(sem_can);
 }

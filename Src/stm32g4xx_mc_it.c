@@ -250,7 +250,10 @@ void TIMx_BRK_M1_IRQHandler(void)
  { 
   HAL_FDCAN_IRQHandler(&hfdcan1);
  }
-
+ void FDCAN1_IT1_IRQHandler(void) 
+ { 
+    HAL_FDCAN_IRQHandler(&hfdcan1);
+ }
 
 /* USER CODE END 1 */
 
