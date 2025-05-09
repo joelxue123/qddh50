@@ -40,6 +40,7 @@ MotorHardwareConfig_t motor_hardware_config ={
 ThermistorHardwareConfig_t thermistor_hardware_config = {
     .coeffs = fet_thermistor_poly_coeffs,
     .aux_coefficients = fet_thermistor_poly_coeffs2,
+    .num_coeffs = 4,
 };
 
 
@@ -228,9 +229,9 @@ void vApplicationIdleHook(void) {
         // system_stats.stack_usage_uart = stack_size_uart_thread - system_stats_.min_stack_space_uart;
         // system_stats.stack_usage_startup = stack_size_default_task - system_stats_.min_stack_space_startup;
         // system_stats.stack_usage_can = odCAN->stack_size_ - system_stats_.min_stack_space_can;
-        for (ThermistorCurrentLimiter* thermistor : axis.thermistors_) {
-            thermistor->update();
-        }
+        // for (ThermistorCurrentLimiter* thermistor : axis.thermistors_) {
+        //     thermistor->update();
+        // }
        
         axis.checks_ok_ = axis.do_checks();
        

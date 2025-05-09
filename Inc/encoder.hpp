@@ -138,11 +138,11 @@ public:
     void abs_spi_cs_pin_init();
     void abs_485_cs_pin_init();
     void set_cs_high(void);
-    uint8_t abs_spi_dma_tx_[4] = {0xA6,0x00,0x00,0x00};
+    uint8_t abs_spi_dma_tx_[4] = {0x00,0x00,0x00,0x00};
     uint8_t abs_spi_dma_rx_[4];
 
-    uint8_t GearboxOutputEncoder_spi_dma_tx_[4] = {0xA6,0x00,0x00,0x00};
-    uint8_t GearboxOutputEncoder_spi_dma_rx_[4];
+    uint8_t GearboxOutputEncoder_spi_dma_tx_[6] = {0xA0,0x03,0x00,0x00,0x00,0x00};
+    uint8_t GearboxOutputEncoder_spi_dma_rx_[6];
 
     uint8_t abs_485_dma_tx_[4] = {0xA6,0x00,0x00,0x00};
     uint8_t abs_485_dma_rx_[7];

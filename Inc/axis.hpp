@@ -175,7 +175,7 @@ bool get_nodeID(uint32_t &id) { id = config_.can_node_id; return true; };
             Motor& motor);
 
     void setup();
-    void setup( Config_t& config);
+
     
     void start_thread();
     void signal_current_meas();

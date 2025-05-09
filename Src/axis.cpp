@@ -127,11 +127,6 @@ void Axis::set_axis_current(int16_t current)
 }
 
 
-void Axis::setup( Config_t& config)
-{
-    config_ = config;
-}
-
 
 // @brief Does Nothing
 void Axis::setup() {
@@ -271,12 +266,6 @@ void Axis::set_step_dir_active(bool active) {
 // @brief Do axis level checks and call subcomponent do_checks
 // Returns true if everything is ok.
 bool Axis::do_checks() {
-    if (!brake_resistor_armed)
-        error_ = static_cast<Error>(static_cast<uint32_t>(error_) | static_cast<uint32_t>(ERROR_BRAKE_RESISTOR_DISARMED));
-
-    if ((current_state_ != AXIS_STATE_IDLE) && (motor_.armed_state_ == Motor::ARMED_STATE_DISARMED))
-        // motor got disarmed in something other than the idle loop
-        error_ = static_cast<Error>(static_cast<uint32_t>(error_) | static_cast<uint32_t>(ERROR_MOTOR_DISARMED));
 
     if (!(vbus_voltage >= board_config.dc_bus_undervoltage_trip_level))
     {
@@ -297,7 +286,7 @@ bool Axis::do_checks() {
     for (ThermistorCurrentLimiter* thermistor : thermistors_) {
         thermistor->do_checks();
     }
-    motor_.do_checks();
+    //motor_.do_checks();
     // encoder_.do_checks();
     // sensorless_estimator_.do_checks();
     // controller_.do_checks();
@@ -788,7 +777,7 @@ void Axis::run_state_machine_loop() {
 void Axis::control_loop_cb(uint32_t timestamp)
 {
     // look for errors at axis level and also all subcomponents
-    // bool checks_ok = do_checks();
+     bool checks_ok = do_checks();
     // Update all estimators
     // Note: updates run even if checks fail
     
@@ -821,7 +810,7 @@ void Axis::control_loop_cb(uint32_t timestamp)
     }
     //??? 是否放在这里呢？等待验证
  //   MEASURE_TIME(task_times_.encoder_update)
- //       encoder_.update();
+        encoder_.update();
 
  //   MEASURE_TIME(task_times_.controller_update) {
         if (!controller_.update()) { // uses position and velocity from encoder

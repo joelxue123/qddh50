@@ -202,11 +202,6 @@ void Error_Handler(void);
 #define M0_CH_Pin GPIO_PIN_10
 #define M0_CH_GPIO_Port GPIOA
 
-#define MU128_1_Pin GPIO_PIN_4
-#define MU128_1_GPIO_Port GPIOA
-#define MU128_2_Pin GPIO_PIN_15
-#define MU128_2_GPIO_Port GPIOA
-
 
 
 /* SPI1 DMA Channels */

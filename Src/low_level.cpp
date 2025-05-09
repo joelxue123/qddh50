@@ -535,8 +535,12 @@ void pwm_trig_adc_cb(ADC_TypeDef *adc, bool injected) {
     vbus_voltage = get_adc_voltage_channel(3) *19.f;
 
 
-    int16_t adc1_raw = ADC1->JDR1;
-    int16_t adc2_raw = ADC2->JDR1;
+    int32_t adc1_raw = ADC1->JDR1;
+    int32_t adc2_raw = ADC2->JDR1;
+
+
+    axis.motor_.check_for_current_saturation(adc1_raw);
+    axis.motor_.check_for_current_saturation(adc2_raw);
 
     axis.motor_.current_meas_.Q16_phA = adc1_raw  - axis.motor_.DC_calib_.Q16_phA;
     axis.motor_.current_meas_.Q16_phB = adc2_raw - axis.motor_.DC_calib_.Q16_phB ;
@@ -547,66 +551,10 @@ void pwm_trig_adc_cb(ADC_TypeDef *adc, bool injected) {
     axis.motor_.current_meas_.phC= axis.motor_.current_meas_.Q16_phC*CURRENT_BASE;
     axis.motor_.timing_log_[1] = TIM1->CNT;
 
-  
-
-#if 1
    // axis.encoder_.set_cs_high();
-#define calib_tau 0.2f  //@TOTO make more easily configurable
-    constexpr float calib_filter_k = CURRENT_MEAS_PERIOD / calib_tau;
-    (void)calib_filter_k;
-
-    return ;
-   // current_meras_period = CURRENT_MEAS_PERIOD * (8400.f+this_sample_time - last_sample_time)/8400.0f;  
-    
-    // Ensure ADCs are expected ones to simplify the logic below
-    if (!(adc == ADC1 || adc == ADC2)) {
-        low_level_fault(Motor::ERROR_ADC_FAILED);
-        return;
-    };
-
-    // Motor 0 is on Timer 1, which triggers ADC 2 and 3 on an injected conversion
-    // Motor 1 is on Timer 8, which triggers ADC 2 and 3 on a regular conversion
-    // If the corresponding timer is counting up, we just sampled in SVM vector 0, i.e. real current
-    // If we are counting down, we just sampled in SVM vector 7, with zero current
-    
-
     axis.encoder_.abs_start_transaction();
 
-    
-    // Check the timing of the sequencing
-     
-    
 
-
-    // update_brake_current(); todo
-    
-    int32_t ADCValue_dc_a = LL_ADC_INJ_ReadConversionData12(ADC1, LL_ADC_INJ_RANK_1);
-    int32_t ADCValue_dc_c = LL_ADC_INJ_ReadConversionData12(ADC1, LL_ADC_INJ_RANK_1);
-    int32_t ADCValue_a = LL_ADC_INJ_ReadConversionData12(ADC2, LL_ADC_INJ_RANK_2);
-    int32_t ADCValue_c = LL_ADC_INJ_ReadConversionData12(ADC2, LL_ADC_INJ_RANK_2);
-
-    axis.motor_.check_for_current_saturation(ADCValue_dc_a);
-    axis.motor_.check_for_current_saturation(ADCValue_dc_c);
-    axis.motor_.check_for_current_saturation(ADCValue_a);
-    axis.motor_.check_for_current_saturation(ADCValue_c);
-
-
-    smooth_filter(ADCValue_dc_a, &dc_current_a);
-    smooth_filter(ADCValue_dc_c, &dc_current_c);
-
-  //  float current_a = axis.motor_.phase_current_from_adcval(ADCValue_a,0.94f);
-   // float current_c = axis.motor_.phase_current_from_adcval(ADCValue_c,0.74f);//0.718
-  //  axis.motor_.DC_calib_.phA = axis.motor_.phase_current_from_adcval(ADCValue_dc_a,0.94f);
-  //  axis.motor_.DC_calib_.phC = axis.motor_.phase_current_from_adcval(ADCValue_dc_c,0.74f);
-
-    axis.motor_.current_meas_.phA = axis.motor_.phase_current_from_adcval((ADCValue_a - dc_current_a.filtered_value) ,0.94f);
-    axis.motor_.current_meas_.phC = axis.motor_.phase_current_from_adcval((ADCValue_c - dc_current_c.filtered_value) ,0.74f);
-
- //   axis.motor_.current_meas_.phA = current_a - axis.motor_.DC_calib_.phA;
- //   axis.motor_.current_meas_.phC = current_c - axis.motor_.DC_calib_.phC;
-    axis.motor_.current_meas_.phB =  1.06f*(0 - axis.motor_.current_meas_.phA - axis.motor_.current_meas_.phC) ;//0.12
-
-#endif 
 
     axis.motor_.current_meas_cb(timestamp);
     axis.motor_.timing_log_[2] = TIM1->CNT;
@@ -712,6 +660,7 @@ static void update_analog_endpoint(const struct PWMMapping_t *map, int gpio)
 // Change function signature to match os_pthread type
 static void analog_polling_thread(const void* argument) {
     while (true) {
+        axis.fet_thermistor_.update();
         osDelay(10);
     }
 }
