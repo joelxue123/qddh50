@@ -83,7 +83,7 @@ extern "C" bool Flash_SaveConfig(void) {
 
 
     LL_TIM_DisableCounter(TIM1);
-    osDelay(10); // Wait for PWM to stop
+    osDelay(1); // Wait for PWM to stop
 
     portENTER_CRITICAL();
 

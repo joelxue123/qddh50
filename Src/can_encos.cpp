@@ -143,7 +143,7 @@ void encos_cmd_handle(Axis* axis, can_Message_t& msg)
                 if (0x7F == msg.buf[0] && 0x7F == msg.buf[1] && 0 == msg.buf[2] && 5 == msg.buf[3] && 0x7F == msg.buf[4] && 0x7F == msg.buf[5]) {
                     // 重置ID为1
                     if (axis->set_nodeID(1)) {
-                        save_configuration();
+                        Flash_SaveConfig();
                         can_Message_t txmsg;
                         txmsg.id = 0x7FF;
                         txmsg.isExt = axis->config_.can_node_id_extended;
@@ -167,7 +167,7 @@ void encos_cmd_handle(Axis* axis, can_Message_t& msg)
                             success = axis->set_nodeID(new_id);
                             if(success)
                             {
-                                save_configuration();
+                                Flash_SaveConfig();
                             }
                             
                         }
@@ -199,7 +199,7 @@ void encos_cmd_handle(Axis* axis, can_Message_t& msg)
             bool success = false;
 
             if (0xFF == index) {
-                    save_configuration();
+                Flash_SaveConfig();
                 success = true;
             } else if (index < sizeof(axis->config_.ext_cfg) / sizeof(axis->config_.ext_cfg[0])) {
                 if (7 == msg.len){
