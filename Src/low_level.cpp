@@ -538,9 +538,9 @@ void pwm_trig_adc_cb(ADC_TypeDef *adc, bool injected) {
     axis.motor_.current_meas_.Q16_phB = adc2_raw - axis.motor_.DC_calib_.Q16_phB ;
     axis.motor_.current_meas_.Q16_phC = (0 - axis.motor_.current_meas_.Q16_phA - axis.motor_.current_meas_.Q16_phB);
 
-    axis.motor_.current_meas_.phA= axis.motor_.current_meas_.Q16_phA*CURRENT_BASE;
-    axis.motor_.current_meas_.phB= axis.motor_.current_meas_.Q16_phB*CURRENT_BASE;
-    axis.motor_.current_meas_.phC= axis.motor_.current_meas_.Q16_phC*CURRENT_BASE;
+    axis.motor_.current_meas_.phA= axis.motor_.current_meas_.Q16_phA*CURRENT_SCALE_FACTOR;
+    axis.motor_.current_meas_.phB= axis.motor_.current_meas_.Q16_phB*CURRENT_SCALE_FACTOR;
+    axis.motor_.current_meas_.phC= axis.motor_.current_meas_.Q16_phC*CURRENT_SCALE_FACTOR;
     axis.motor_.timing_log_[1] = TIM1->CNT;
 
    // axis.encoder_.set_cs_high();

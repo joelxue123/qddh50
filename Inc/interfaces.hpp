@@ -113,6 +113,8 @@ public:
                 ERROR_I_BUS_OUT_OF_RANGE         = 0x08000000,
                 ERROR_UNBALANCED_PHASES          = 0x10000000,
                 ERROR_MODULATION_IS_NAN          = 0x20000000,
+                ERROR_I2T_INTEGRAL               = 0x40000000,
+                ERROR_CURRENT_STALL              = 0x80000000,
             };
             enum ArmedState {
                 ARMED_STATE_DISARMED             = 0,

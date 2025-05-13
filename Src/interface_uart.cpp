@@ -241,8 +241,8 @@ void UART_ParseFrame_(uint8_t* pdata) {
 			int16_t current_pos = axis.encoder_.sencond_pos_abs_>>2;
 			int16_t target_vel =  vbus_voltage;
 			int16_t current_vel = axis.motor_.timing_log_[3];;
-			int16_t target_cur =   axis.motor_.current_meas_.phA;
-			int16_t current_cur = axis.motor_.current_meas_.phB;
+			int16_t target_cur =   axis.motor_.current_meas_.phA*1000;
+			int16_t current_cur = axis.motor_.current_meas_.phB*1000;
 			
 		
 			int16_t temp = axis.fet_thermistor_.temperature_;//vbus_voltage;

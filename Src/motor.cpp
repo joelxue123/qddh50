@@ -1117,3 +1117,66 @@ void Motor::pwm_update_cb(uint32_t output_timestamp) {
 
 
 }
+
+
+
+bool Motor::check_protection(void) {
+
+    const auto & protection  = protection_config_;
+    FieldOrientedController& ictrl = current_control_;
+    // Calculate I2t with fixed point approximation
+    int32_t current_q15 =  ictrl.q15_iq_measured_;
+     ictrl.q15_iq_measured_ = 0;
+
+    float current = current_q15 * ProtectionConfig::CURRENT_SCALE; // 1/32767
+
+    float decay = ProtectionConfig::DECAY_FACTOR;
+    
+    if(current > 0.9f*nominal_current_)
+    {
+        i2t_integral_ += 
+        (current * current * ProtectionConfig::THERMAL_INTEGRATION_RATE);
+    }
+    else
+    {
+        i2t_integral_ = 
+        decay * i2t_integral_ + 
+        (current * current * ProtectionConfig::THERMAL_INTEGRATION_RATE);
+    }
+
+    if(i2t_integral_ > 5.f*protection.I2T_THRESHOLD)
+    {
+        i2t_integral_ = 5.f*protection.I2T_THRESHOLD;
+     
+    }
+    
+    
+    if (i2t_integral_ > protection.I2T_THRESHOLD) {
+       // set_error(ERROR_I2T_INTEGRAL);
+
+        return false;
+    }
+
+    if(current > protection.CURRENT_THRESHOLD)
+    {
+        current_stall_cnt_++;
+        if( current_stall_cnt_ > ProtectionConfig::STALL_COUNT_THRESHOLD)
+        {
+            delay_restart_cnt_ = 0xffffffff;
+            set_error(ERROR_CURRENT_STALL);
+            return false;
+        }
+    }
+    else
+    {
+        current_stall_cnt_ = 0;
+    }
+    
+    return true;
+}
+
+
+
+
+
+

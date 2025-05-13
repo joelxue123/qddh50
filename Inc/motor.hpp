@@ -108,6 +108,19 @@ public:
         void set_current_control_bandwidth(float value) { current_control_bandwidth = value; parent->update_current_controller_gains(); }
     };
 
+    struct ProtectionConfig {
+        float CURRENT_THRESHOLD = 40.0f * 0.95f;    // Stall current threshold
+        float I2T_THRESHOLD = 3360.0f;              // I2t protection threshold
+        static constexpr float DECAY_FACTOR = 0.9998f;               // I2t decay factor
+        static constexpr float CURRENT_SCALE = 1.0f / 32767.0f;      // Q15 to float conversion
+        static constexpr float THERMAL_INTEGRATION_RATE = 0.002f;    // Integration time constant
+        static constexpr int STALL_COUNT_THRESHOLD = 250;           // Stall detection time
+    };
+
+
+
+
+
     Motor(const MotorHardwareConfig_t& hw_config,
          Config_t& config);
 
@@ -129,7 +142,10 @@ public:
             L_Slop_Array_P_[index] = config_.TORQUE_LINEARITY_POSITIVE[index];
             L_Slop_Array_N_[index] = config_.TORQUE_LINEARITY_NEGATIVE[index];
         }
-
+        protection_config_.CURRENT_THRESHOLD = config_.current_lim  - 1.5f;
+        peak_current_ = config_.current_lim *1.414f* 0.5f ;
+        nominal_current_ = peak_current_ * 0.5f;
+        protection_config_.I2T_THRESHOLD = peak_current_ * peak_current_*3.0f;
 
 
     }
@@ -150,6 +166,10 @@ public:
     bool measure_phase_inductance(float test_voltage);
     bool run_calibration();
     void measure_current_offset();
+
+
+    bool check_protection(void);
+
 
     bool enqueue_modulation_timings(float mod_alpha, float mod_beta);
     bool enqueue_voltage_timings(float v_alpha, float v_beta);
@@ -256,6 +276,21 @@ public:
     
     float v_alpha_ = 0.0f;
     float v_beta_ = 0.0f;
+
+
+    struct ProtectionConfig protection_config_ = 
+    {
+        .CURRENT_THRESHOLD = 40.0f * 0.95f,
+        .I2T_THRESHOLD = 3360.0f,
+    };
+
+    float peak_current_ = 0.0f;      // Peak current limit
+    float nominal_current_ = 0.0f;   // Nominal (continuous) current limit
+    uint32_t delay_restart_cnt_ = 0;
+
+    float i2t_integral_ = 0;
+    int32_t current_stall_cnt_ = 0;
+
 
     void setting_motor_current_linearity(uint32_t index, float value);
     void setting_motor_torque_linearity(uint32_t index, float value);
