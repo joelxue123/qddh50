@@ -221,12 +221,12 @@ __weak void R3_2_Init(PWMC_R3_2_Handle_t *pHandle)
 
       if (0U == LL_ADC_IsEnabled(ADCx_1))
       {
-        R3_2_ADCxInit(ADCx_1);
+      //  R3_2_ADCxInit(ADCx_1);
         /* Only the Interrupt of the first ADC is enabled.
          * As Both ADCs are fired by HW at the same moment
          * It is safe to consider that both conversion are ready at the same time */
-        LL_ADC_ClearFlag_JEOS(ADCx_1);
-        LL_ADC_EnableIT_JEOS(ADCx_1);
+      //  LL_ADC_ClearFlag_JEOS(ADCx_1);
+      //  LL_ADC_EnableIT_JEOS(ADCx_1);
       }
       else
       {
@@ -234,7 +234,7 @@ __weak void R3_2_Init(PWMC_R3_2_Handle_t *pHandle)
       }
       if (0U == LL_ADC_IsEnabled(ADCx_2))
       {
-        R3_2_ADCxInit(ADCx_2);
+      //  R3_2_ADCxInit(ADCx_2);
       }
       else
       {

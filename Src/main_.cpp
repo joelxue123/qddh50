@@ -241,6 +241,7 @@ void vApplicationIdleHook(void) {
 }
 
 int odrive_main(void) {
+    start_adc_pwm();
     motor.setup();
     odCAN.start_can_server();
     

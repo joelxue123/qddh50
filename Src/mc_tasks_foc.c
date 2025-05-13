@@ -238,12 +238,20 @@ __weak void TSK_MediumFrequencyTaskM1(void)
               STSPIN32G4_wakeup(&HdlSTSPING4, 4);
               vTaskDelay(100);
 
-
+              LL_ADC_INJ_SetTriggerSource(ADC2, LL_ADC_INJ_TRIG_EXT_TIM1_TRGO);
+              LL_ADC_INJ_SetTriggerEdge(ADC2, LL_ADC_INJ_TRIG_EXT_RISING);
+              ADC2->JSQR = (uint32_t)(
+                (LL_ADC_INJ_TRIG_EXT_TIM1_TRGO & ADC_JSQR_JEXTSEL) |  // External trigger selection
+                (0x1UL << ADC_JSQR_JEXTEN_Pos) |                       // Rising edge trigger
+                (0x07 << 9) |             // Channel 3 as first conversion
+                (0x0UL << ADC_JSQR_JL_Pos)                            // Length = 1 conversion
+            );
+              LL_ADC_INJ_StartConversion(ADC2);
 
 
               LL_ADC_INJ_StartConversion(ADC1);
-              LL_ADC_INJ_StartConversion(ADC2);
-              LL_ADC_EnableIT_JEOS(ADC1);  // Enable ADC1 injected end of sequence interrupt
+              
+             // LL_ADC_EnableIT_JEOS(ADC2);  // Enable ADC1 injected end of sequence interrupt
 
               LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);
 
@@ -273,7 +281,7 @@ __weak void TSK_MediumFrequencyTaskM1(void)
               LL_TIM_OC_SetMode(TIM1, LL_TIM_CHANNEL_CH3, LL_TIM_OCMODE_PWM1);
               
               // 3. 设置死区时间
-              LL_TIM_OC_SetDeadTime(TIM1, 50); // 根据实际需求调整死区时间
+              //LL_TIM_OC_SetDeadTime(TIM1, 25); // 根据实际需求调整死区时间
               
               // 4. 使能预加载
               LL_TIM_OC_EnablePreload(TIM1, LL_TIM_CHANNEL_CH1);
@@ -286,11 +294,12 @@ __weak void TSK_MediumFrequencyTaskM1(void)
               
               
 
-              LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);
+            LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);
 
-              LL_ADC_EnableIT_JEOS(ADC1);
-                            // Check Timer trigger configuration
-              LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);  // 使用TIM1 OC4作为触发源
+            LL_ADC_EnableIT_JEOS(ADC2);
+                          // Check Timer trigger configuration
+            LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);  // 使用TIM1 OC4作为触发源
+
 
               // ADC注入组触发配置
               LL_ADC_INJ_SetTriggerSource(ADC1, LL_ADC_INJ_TRIG_EXT_TIM1_TRGO);

@@ -50,11 +50,12 @@ void axis_loop(void);
 bool Flash_Init(void);
 bool Flash_LoadConfig(void);
 bool Flash_SaveConfig(void);
+void start_adc_pwm();
 
 }
 
 // Initalisation
-void start_adc_pwm();
+
 void start_pwm(TIM_HandleTypeDef* htim);
 void sync_timers(TIM_HandleTypeDef* htim_a, TIM_HandleTypeDef* htim_b,
                  uint16_t TIM_CLOCKSOURCE_ITRx, uint16_t count_offset,

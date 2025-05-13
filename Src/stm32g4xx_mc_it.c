@@ -88,21 +88,7 @@ void ADC1_2_IRQHandler(void)
   (void)TSK_HighFrequencyTask();
 
 
-    /* Configure ADC2 JSQR directly */
-    ADC1->JSQR = (uint32_t)(
-      (LL_ADC_INJ_TRIG_EXT_TIM1_TRGO & ADC_JSQR_JEXTSEL) |  // External trigger selection
-      (0x1UL << ADC_JSQR_JEXTEN_Pos) |                       // Rising edge trigger
-      (0x06 << 9) |             // Channel 3 as first conversion
-      (0x0UL << ADC_JSQR_JL_Pos)                            // Length = 1 conversion
-  );
 
-      /* Configure ADC2 JSQR directly */
-      ADC2->JSQR = (uint32_t)(
-        (LL_ADC_INJ_TRIG_EXT_TIM1_TRGO & ADC_JSQR_JEXTSEL) |  // External trigger selection
-        (0x1UL << ADC_JSQR_JEXTEN_Pos) |                       // Rising edge trigger
-        (0x07 << 9) |             // Channel 3 as first conversion
-        (0x0UL << ADC_JSQR_JL_Pos)                            // Length = 1 conversion
-    );
   
   /* Start ADC2 conversion */
  // LL_ADC_INJ_StartConversion(ADC2);
@@ -117,7 +103,21 @@ void ADC1_2_IRQHandler(void)
 
 
   pwm_trig_adc_cb(ADC1,0);
+    /* Configure ADC2 JSQR directly */
+  //   ADC1->JSQR = (uint32_t)(
+  //     (LL_ADC_INJ_TRIG_EXT_TIM1_TRGO & ADC_JSQR_JEXTSEL) |  // External trigger selection
+  //     (0x1UL << ADC_JSQR_JEXTEN_Pos) |                       // Rising edge trigger
+  //     (0x06 << 9) |             // Channel 3 as first conversion
+  //     (0x0UL << ADC_JSQR_JL_Pos)                            // Length = 1 conversion
+  // );
 
+  //     /* Configure ADC2 JSQR directly */
+  //     ADC2->JSQR = (uint32_t)(
+  //       (LL_ADC_INJ_TRIG_EXT_TIM1_TRGO & ADC_JSQR_JEXTSEL) |  // External trigger selection
+  //       (0x1UL << ADC_JSQR_JEXTEN_Pos) |                       // Rising edge trigger
+  //       (0x07 << 9) |             // Channel 3 as first conversion
+  //       (0x0UL << ADC_JSQR_JL_Pos)                            // Length = 1 conversion
+  //   );
   /* USER CODE BEGIN HighFreq */
 
   /* USER CODE END HighFreq  */

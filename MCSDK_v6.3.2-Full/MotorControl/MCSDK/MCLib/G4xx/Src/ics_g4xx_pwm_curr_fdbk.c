@@ -102,8 +102,8 @@ __weak void ICS_Init(PWMC_ICS_Handle_t *pHandle)
       /* Only the Interrupt of the first ADC is enabled.
        * As Both ADCs are fired by HW at the same moment
        * It is safe to consider that both conversion are ready at the same time*/
-      LL_ADC_ClearFlag_JEOS(ADCx_1);
-      LL_ADC_EnableIT_JEOS(ADCx_1);
+   //   LL_ADC_ClearFlag_JEOS(ADCx_1);
+    //  LL_ADC_EnableIT_JEOS(ADCx_1);
     }
     else
     {

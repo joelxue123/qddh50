@@ -209,50 +209,38 @@ void safety_critical_apply_brake_resistor_timings(uint32_t low_off, uint32_t hig
 
 void start_adc_pwm() {
     // Enable ADC and interrupts
-    LL_ADC_Enable(ADC1);
+    //LL_ADC_Enable(ADC1);
+    //LL_ADC_Enable(ADC2);
+
+    // 1. 使能 ADC2
     LL_ADC_Enable(ADC2);
+    LL_ADC_Enable(ADC1);
+    
+    // 2. 等待 ADC 就绪
+    while(!(ADC2->ISR & ADC_ISR_ADRDY));
+    while(!(ADC1->ISR & ADC_ISR_ADRDY));
+    
+    // 3. 配置注入序列
+    ADC2->JSQR = (uint32_t)(
+        (LL_ADC_INJ_TRIG_EXT_TIM1_TRGO & ADC_JSQR_JEXTSEL) |
+        (0x1UL << ADC_JSQR_JEXTEN_Pos) |
+        (0x07 << 9) |
+        (0x0UL << ADC_JSQR_JL_Pos)
+    );
+    
+    // 3. 配置注入序列
+    ADC1->JSQR = (uint32_t)(
+        (LL_ADC_INJ_TRIG_EXT_TIM1_TRGO & ADC_JSQR_JEXTSEL) |
+        (0x1UL << ADC_JSQR_JEXTEN_Pos) |
+        (0x06 << 9) |
+        (0x0UL << ADC_JSQR_JL_Pos)
+    );
+        
+    
+    // 5. 开始注入组转换
+    ADC1->CR |= ADC_CR_JADSTART;
+    ADC2->CR |= ADC_CR_JADSTART;
 
-    // Wait for ADC ready
-    while (!LL_ADC_IsActiveFlag_ADRDY(ADC1)) {}
-    while (!LL_ADC_IsActiveFlag_ADRDY(ADC2)) {}
-    // Warp field stabilize.
-    osDelay(2);
-   // __HAL_ADC_ENABLE_IT(&hadc1, ADC_IT_JEOC);
-  //  __HAL_ADC_ENABLE_IT(&hadc2, ADC_IT_JEOC);
-    __HAL_ADC_ENABLE_IT(&hadc2, ADC_IT_JEOC);
-  //  __HAL_ADC_ENABLE_IT(&hadc2, ADC_IT_EOC);
-  //  __HAL_ADC_ENABLE_IT(&hadc3, ADC_IT_EOC);
-
-    // Ensure that debug halting of the core doesn't leave the motor PWM running
-    __HAL_DBGMCU_FREEZE_TIM1();
-    __HAL_DBGMCU_FREEZE_TIM8();
-    __HAL_DBGMCU_FREEZE_TIM15();
-
-    start_pwm(&htim1);
-    start_pwm(&htim8);
-    // TODO: explain why this offset
-    sync_timers(&htim1, &htim8, TIM_CLOCKSOURCE_ITR0, TIM_1_8_PERIOD_CLOCKS,
-            &htim15);
-
-
-    // Motor output starts in the disabled state
-    __HAL_TIM_MOE_DISABLE_UNCONDITIONALLY(&htim1);
-    __HAL_TIM_MOE_DISABLE_UNCONDITIONALLY(&htim8);
-    // Enable the update interrupt (used to coherently sample GPIO)
-    __HAL_TIM_ENABLE_IT(&htim1, TIM_IT_UPDATE);
-    __HAL_TIM_ENABLE_IT(&htim8, TIM_IT_UPDATE);
-
-    // Start brake resistor PWM in floating output configuration
-    htim2.Instance->CCR3 = 0;
-    htim2.Instance->CCR4 = TIM_APB1_PERIOD_CLOCKS + 1;
-    HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
-    HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_4);
-
-    // Disarm motors and arm brake resistor
-
-    safety_critical_disarm_motor_pwm(axis.motor_);
-    safety_critical_disarm_motor_pwm(axis.motor_);
-    safety_critical_arm_brake_resistor();
 }
 
 void start_pwm(TIM_HandleTypeDef* htim) {
@@ -534,10 +522,14 @@ void pwm_trig_adc_cb(ADC_TypeDef *adc, bool injected) {
 
     vbus_voltage = get_adc_voltage_channel(3) *19.f;
 
+    //while(!(ADC2->ISR & ADC_ISR_JEOC));
+    //while(!(ADC2->ISR & ADC_ISR_JEOS));
 
-    int32_t adc1_raw = ADC1->JDR1;
-    int32_t adc2_raw = ADC2->JDR1;
+    volatile int32_t adc1_raw = ADC1->JDR1;
+    volatile int32_t adc2_raw = ADC2->JDR1;
 
+
+    
 
     axis.motor_.check_for_current_saturation(adc1_raw);
     axis.motor_.check_for_current_saturation(adc2_raw);

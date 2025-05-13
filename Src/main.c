@@ -200,35 +200,35 @@ void SystemClock_Config(void)
 
   LL_PWR_EnableRange1BoostMode();
 
-  // LL_RCC_HSI_Enable();
-  //  /* Wait till HSI is ready */
-  // while(LL_RCC_HSI_IsReady() != 1)
-  // {
-  // }
+  LL_RCC_HSI_Enable();
+   /* Wait till HSI is ready */
+  while(LL_RCC_HSI_IsReady() != 1)
+  {
+  }
 
 
 
 
 
-  // LL_RCC_HSI_SetCalibTrimming(64);
-  // LL_RCC_PLL_ConfigDomain_SYS(LL_RCC_PLLSOURCE_HSI, LL_RCC_PLLM_DIV_4, 85, LL_RCC_PLLR_DIV_2);
-  // LL_RCC_PLL_ConfigDomain_ADC(LL_RCC_PLLSOURCE_HSI, LL_RCC_PLLM_DIV_4, 85, LL_RCC_PLLP_DIV_8);
+  LL_RCC_HSI_SetCalibTrimming(64);
+  LL_RCC_PLL_ConfigDomain_SYS(LL_RCC_PLLSOURCE_HSI, LL_RCC_PLLM_DIV_4, 85, LL_RCC_PLLR_DIV_2);
+  LL_RCC_PLL_ConfigDomain_ADC(LL_RCC_PLLSOURCE_HSI, LL_RCC_PLLM_DIV_4, 85, LL_RCC_PLLP_DIV_8);
 
-  LL_RCC_HSE_Enable(); /* Wait till HSE is ready */
-   while(LL_RCC_HSE_IsReady() != 1) { }
+  // LL_RCC_HSE_Enable(); /* Wait till HSE is ready */
+  //  while(LL_RCC_HSE_IsReady() != 1) { }
 
-  // PLL配置 (假设要达到170MHz系统时钟)
-// 24MHz * (85/6) = 340MHz, /2 = 170MHz
-LL_RCC_PLL_ConfigDomain_SYS(LL_RCC_PLLSOURCE_HSE,   // 使用HSE作为PLL源
-  LL_RCC_PLLM_DIV_6,        // 预分频6
-  85,                        // 倍频85
-  LL_RCC_PLLR_DIV_2);       // R分频2
+//   // PLL配置 (假设要达到170MHz系统时钟)
+// // 24MHz * (85/6) = 340MHz, /2 = 170MHz
+// LL_RCC_PLL_ConfigDomain_SYS(LL_RCC_PLLSOURCE_HSE,   // 使用HSE作为PLL源
+//   LL_RCC_PLLM_DIV_2,        // 预分频2
+//   85,                        // 倍频85
+//   LL_RCC_PLLR_DIV_2);       // R分频2
 
 
-LL_RCC_PLL_ConfigDomain_ADC(LL_RCC_PLLSOURCE_HSE,   
-  LL_RCC_PLLM_DIV_6,
-  85,
-  LL_RCC_PLLP_DIV_8);
+// LL_RCC_PLL_ConfigDomain_ADC(LL_RCC_PLLSOURCE_HSE,   
+//   LL_RCC_PLLM_DIV_2,
+//   85,
+//   LL_RCC_PLLP_DIV_8);
 
 
   LL_RCC_PLL_EnableDomain_SYS();
@@ -584,7 +584,7 @@ static void MX_ADC2_Init(void)
   ADC_REG_InitStruct.SequencerDiscont = LL_ADC_REG_SEQ_DISCONT_DISABLE;
   ADC_REG_InitStruct.ContinuousMode = LL_ADC_REG_CONV_SINGLE;
   ADC_REG_InitStruct.DMATransfer = LL_ADC_REG_DMA_TRANSFER_NONE;
-  ADC_REG_InitStruct.Overrun = LL_ADC_REG_OVR_DATA_PRESERVED;
+  ADC_REG_InitStruct.Overrun = LL_ADC_REG_OVR_DATA_OVERWRITTEN;
   LL_ADC_REG_Init(ADC2, &ADC_REG_InitStruct);
   LL_ADC_SetGainCompensation(ADC2, 0);
   LL_ADC_SetOverSamplingScope(ADC2, LL_ADC_OVS_DISABLE);
@@ -615,9 +615,9 @@ static void MX_ADC2_Init(void)
 
   /** Configure Injected Channel
   */
-  LL_ADC_INJ_SetSequencerRanks(ADC2, LL_ADC_INJ_RANK_1, LL_ADC_CHANNEL_6);
-  LL_ADC_SetChannelSamplingTime(ADC2, LL_ADC_CHANNEL_6, LL_ADC_SAMPLINGTIME_2CYCLES_5);
-  LL_ADC_SetChannelSingleDiff(ADC2, LL_ADC_CHANNEL_6, LL_ADC_SINGLE_ENDED);
+  LL_ADC_INJ_SetSequencerRanks(ADC2, LL_ADC_INJ_RANK_1, LL_ADC_CHANNEL_7);
+  LL_ADC_SetChannelSamplingTime(ADC2, LL_ADC_CHANNEL_7, LL_ADC_SAMPLINGTIME_2CYCLES_5);
+  LL_ADC_SetChannelSingleDiff(ADC2, LL_ADC_CHANNEL_7, LL_ADC_SINGLE_ENDED);
 
   // LL_ADC_INJ_SetSequencerRanks(ADC2, LL_ADC_INJ_RANK_2, LL_ADC_CHANNEL_8);
   // LL_ADC_SetChannelSamplingTime(ADC2, LL_ADC_CHANNEL_8, LL_ADC_SAMPLINGTIME_2CYCLES_5);
