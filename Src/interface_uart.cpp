@@ -152,15 +152,20 @@ void UART_ParseFrame_(uint8_t* pdata) {
 						else if(length == 4)
 									value = (pdata[6 + 3] << 24) | (pdata[6 + 2] << 16) | (pdata[6 + 1] << 8) | pdata[6];
                                     
-						OD_Write(index, sub_index,(void*)&value);
+						if(OD_Write(index, sub_index,(void*)&value) ==true)
+						{
+							UART_PushFrame_(length, FRAME_CMD_SDO_WRITE, index,sub_index, (uint8_t*)&value);
+						}
+						else
+						{
+							UART_PushFrame_(0, FRAME_CMD_SDO_WRITE, index,sub_index, NULL);
+						}
 						// Send ACK
-						UART_PushFrame_(0, FRAME_CMD_SDO_WRITE, index,sub_index, NULL);
+						
             break;
 
 		case FRAME_CMD_PDO_READ:
 			{
-				uint8_t tx_buf[24];  // Buffer for up to 6 PDO values
-				int pos = 0;
 			
 				// Read all PDO channels
 				for(int i = 0; i < 6; i++) {

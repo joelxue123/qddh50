@@ -438,78 +438,12 @@ float Motor::current_Correct(int32_t Torque_Org)
 
 
 
-
-void Motor::setting_motor_current_linearity(uint32_t index, float value)
-{
-    if( index < NUM_LINEARITY_SEG )
-    {
-        config_.CURRENT_LINEARITY_[index] = value;
-    }
-	
-}
-
-float Motor::get_motor_current_linearity(uint32_t index)
-{
-    if( index < NUM_LINEARITY_SEG )
-    {
-        return config_.CURRENT_LINEARITY_[index];
-    }
-    else
-    {
-        return 0;
-    }
-}
-
-void Motor::setting_motor_torque_linearity(uint32_t index, float value)
-{
-    if(index < NUM_LINEARITY_SEG )
-    {
-        config_.Torque_LINEARITY_[index] = value;
-    }
-	
-}
-
-float Motor::get_motor_torque_linearity(uint32_t index)
-{
-    if( index < NUM_LINEARITY_SEG )
-    {
-        return config_.Torque_LINEARITY_[index];
-    }
-    else
-    {
-        return 0;
-    }
-}
-
-float Motor::get_positive_torque_slope(uint32_t index)
-{
-    if(index < NUM_LINEARITY_SEG)
-    {
-        return L_Slop_Array_P_[index];
-    }
-    else
-    {
-        return 0;
-    }
-}
-float Motor::get_negative_torque_slope(uint32_t index)
-{
-    if(index < NUM_LINEARITY_SEG)
-    {
-        return L_Slop_Array_N_[index];
-    }
-    else
-    {
-        return 0;
-    }
-}
-
 void  Motor::setting_positive_torque_slope(uint32_t index, float value)
 {
     if(index < NUM_LINEARITY_SEG )
     {
         L_Slop_Array_P_[index] = value;
-        config_.Torque_LINEARITY_[index] = value;
+        config_.TORQUE_LINEARITY_POSITIVE[index] = value;
     }
 }
 void  Motor::setting_negative_torque_slope(uint32_t index, float value)
@@ -517,49 +451,66 @@ void  Motor::setting_negative_torque_slope(uint32_t index, float value)
     if(index < NUM_LINEARITY_SEG )
     {
         L_Slop_Array_N_[index] = value;
-        config_.CURRENT_LINEARITY_[index] = value;
-    }
-}
-
-void  Motor::setting_current2torque_slope(uint32_t index, float value)
-{
-    if(index < 2*NUM_LINEARITY_SEG )
-    {
-        config_.CURRENT2TORQUE_COEFF[index] = value;
+        config_.TORQUE_LINEARITY_NEGATIVE[index] = value;
     }
 }
 
 
-float Motor::getting_current2torque_slope(uint32_t index)
-{
-    if(index < 2*NUM_LINEARITY_SEG)
-    {
-        return config_.CURRENT2TORQUE_COEFF[index];
-    }
-    else
-    {
-        return 0;
-    }
-}
-float Motor::convert_torque_from_current(float current,float *current2torque_coeff,uint32_t coeff_size,float current_step)
-{
-    uint32_t idex = (uint32_t)((fabsf(current) *current_step)); 
-    float torque_constant = 0;
 
-    if(using_old_torque_constant_ == true)
-    {
-        return current;
+float Motor::convert_torque_from_current(float current, float *positive_coeff, 
+    float *negative_coeff, uint32_t coeff_size, 
+    float current_step) {
+    uint32_t idx = (uint32_t)((fabsf(current) * current_step));
+    float torque_constant = 0.0f;
+
+    // 使用传统模式
+    if(using_old_torque_constant_ == true) {
+    return current;
     }
-    
-    if( idex > (coeff_size -1) )
-    {
-        idex = coeff_size -1;
+
+    // 限制索引范围
+    if(idx > (coeff_size - 1)) {
+    idx = coeff_size - 1;
     }
-    
-    torque_constant = current2torque_coeff[2*idex + (current < 0.0f)];
-    
+
+    // 根据电流正负选择不同的系数数组
+    if(current >= 0.0f) {
+    torque_constant = positive_coeff[idx];
+    } else {
+    torque_constant = negative_coeff[idx];
+    }
+
     return current * torque_constant;
 }
+
+// 更新系数设置函数
+void Motor::setting_current2torque_slope_positive(uint32_t index, float value) {
+if(index < NUM_LINEARITY_SEG) {
+config_.CURRENT2TORQUE_COEFF_POSITIVE[index] = value;
+}
+}
+
+void Motor::setting_current2torque_slope_negative(uint32_t index, float value) {
+if(index < NUM_LINEARITY_SEG) {
+config_.CURRENT2TORQUE_COEFF_NEGATIVE[index] = value;
+}
+}
+
+// 更新系数获取函数
+float Motor::getting_current2torque_slope_positive(uint32_t index) {
+if(index < NUM_LINEARITY_SEG) {
+return config_.CURRENT2TORQUE_COEFF_POSITIVE[index];
+}
+return 0.0f;
+}
+
+float Motor::getting_current2torque_slope_negative(uint32_t index) {
+    if(index < NUM_LINEARITY_SEG) {
+    return config_.CURRENT2TORQUE_COEFF_NEGATIVE[index];
+    }
+    return 0.0f;
+}
+
 
 
 bool Motor::check_for_current_saturation(const uint32_t ADCValue)

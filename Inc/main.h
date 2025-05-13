@@ -101,6 +101,10 @@ void Error_Handler(void);
 #define CURRENT_BASE 0.0013f //40a/32768
 
 
+
+/* 用户参数配置*/
+#define  NUM_LINEARITY_SEG   60
+
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/

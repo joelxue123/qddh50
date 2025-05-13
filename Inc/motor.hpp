@@ -57,8 +57,8 @@ public:
         float async_phase_vel; // [rad/s electrical]
         float async_phase_offset; // [rad electrical]
     };
-    static constexpr int32_t NUM_LINEARITY_SEG = 60;
-    static constexpr float CALIBRATION_INCREMENT = 1;
+    
+     float CALIBRATION_INCREMENT = 1.0f;
     // NOTE: for gimbal motors, all units of Nm are instead V.
     // example: vel_gain is [V/(turn/s)] instead of [Nm/(turn/s)]
     // example: current_lim and calibration_current will instead determine the maximum voltage applied to the motor.
@@ -86,10 +86,11 @@ public:
         float inverter_temp_limit_upper = 120;
   
 
-        float Torque_LINEARITY_[NUM_LINEARITY_SEG];
-        float CURRENT_LINEARITY_[NUM_LINEARITY_SEG];
+        float TORQUE_LINEARITY_POSITIVE[NUM_LINEARITY_SEG]={1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+        float TORQUE_LINEARITY_NEGATIVE[NUM_LINEARITY_SEG]={1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
 
-        float CURRENT2TORQUE_COEFF[2*NUM_LINEARITY_SEG];
+        float CURRENT2TORQUE_COEFF_POSITIVE[NUM_LINEARITY_SEG]={1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};  // 正向电流-力矩系数
+        float CURRENT2TORQUE_COEFF_NEGATIVE[NUM_LINEARITY_SEG]={1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};  // 负向电流-力矩系数
 
         bool R_wL_FF_enable = false; // Enable feedforwards for R*I and w*L*I terms
         bool bEMF_FF_enable = false; // Enable feedforward for bEMF
@@ -125,8 +126,8 @@ public:
         
         for( index = 0;index < NUM_LINEARITY_SEG;index++)
         {
-            L_Slop_Array_P_[index] = config_.Torque_LINEARITY_[index];
-            L_Slop_Array_N_[index] = config_.CURRENT_LINEARITY_[index];
+            L_Slop_Array_P_[index] = config_.TORQUE_LINEARITY_POSITIVE[index];
+            L_Slop_Array_N_[index] = config_.TORQUE_LINEARITY_NEGATIVE[index];
         }
 
 
@@ -264,9 +265,15 @@ public:
     float get_positive_torque_slope(uint32_t index);
     void setting_negative_torque_slope(uint32_t index, float value);
     float get_negative_torque_slope(uint32_t index);
-    void  setting_current2torque_slope(uint32_t index, float value);
-    float getting_current2torque_slope(uint32_t index);
-    float convert_torque_from_current(float current,float *current2torque_coeff,uint32_t coeff_size,float current_step);
+
+    void  setting_current2torque_slope_positive(uint32_t index, float value);
+    void setting_current2torque_slope_negative(uint32_t index, float value);
+    float getting_current2torque_slope_negative(uint32_t index);
+    float getting_current2torque_slope_positive(uint32_t index);
+
+    float convert_torque_from_current(float current, float *positive_coeff, 
+        float *negative_coeff, uint32_t coeff_size, 
+        float current_step);
     void pos_linearity_init(void);
 };
 

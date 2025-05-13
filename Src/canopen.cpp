@@ -89,16 +89,22 @@ static const OD_Entry_t OD_List[] = {
     {0x3025, 0, OD_REAL32_RW, (void*)&axis.motor_.current_control_.Id_measured_},
 
     //open loop
-    {0x3026, 0, OD_REAL32_RW, (void*)&axis.config_.general_lockin.current},
-
+    {0x3030, 0, OD_REAL32_RW, (void*)&axis.config_.general_lockin.current},
+    {0x3031, 0, OD_REAL32_RW, (void*)&axis.config_.general_lockin.accel},
+    {0x3032, 0, OD_REAL32_RW, (void*)&axis.config_.general_lockin.vel},
+    
     
     // Status
-    {0x3030, 0, OD_REAL32_RW, (void*)&axis.error_},
-    {0x3031, 0, OD_REAL32_RW, (void*)&axis.motor_.error_},
-    {0x3032, 0, OD_REAL32_RW, (void*)&axis.encoder_.error_},
+    {0x3040, 0, OD_REAL32_RW, (void*)&axis.error_},
+    {0x3041, 0, OD_REAL32_RW, (void*)&axis.motor_.error_},
+    {0x3042, 0, OD_REAL32_RW, (void*)&axis.encoder_.error_},
 
     
-
+    // Current-Torque Linearity Parameters (0x4000-0x4003)
+    {0x4000, NUM_LINEARITY_SEG, OD_REAL32_RW, axis.motor_.config_.TORQUE_LINEARITY_POSITIVE},
+    {0x4001, NUM_LINEARITY_SEG, OD_REAL32_RW, axis.motor_.config_.TORQUE_LINEARITY_NEGATIVE},
+    {0x4002, NUM_LINEARITY_SEG, OD_REAL32_RW, axis.motor_.config_.CURRENT2TORQUE_COEFF_POSITIVE},
+    {0x4003, NUM_LINEARITY_SEG, OD_REAL32_RW, axis.motor_.config_.CURRENT2TORQUE_COEFF_NEGATIVE},
 
 
 

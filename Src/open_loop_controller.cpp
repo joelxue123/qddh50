@@ -15,16 +15,22 @@ void OpenLoopController::update(uint32_t timestamp) {
 
     float dt = (float)(timestamp - timestamp_) / (float)TIM_1_8_CLOCK_HZ;
     
+    float max_current_ramp = std::abs(max_current_ramp_);
+    float max_voltage_ramp = std::abs(max_voltage_ramp_);
+    float max_phase_vel_ramp = std::abs(max_phase_vel_ramp_);
+
     Idq_setpoint_ = {
-        std::clamp(target_current_, prev_Id - max_current_ramp_ * dt, prev_Id + max_current_ramp_ * dt),
+        std::clamp(target_current_, prev_Id - max_current_ramp * dt, prev_Id + max_current_ramp * dt),
         0.0f
     };
     Vdq_setpoint_ = {
-        std::clamp(target_voltage_, prev_Vd - max_voltage_ramp_ * dt, prev_Vd + max_voltage_ramp_ * dt),
+        std::clamp(target_voltage_, prev_Vd - max_voltage_ramp * dt, prev_Vd + max_voltage_ramp * dt),
         0.0f
     };
+
+
     
-    phase_vel = std::clamp(target_vel_, phase_vel - max_phase_vel_ramp_ * dt, phase_vel + max_phase_vel_ramp_ * dt);
+    phase_vel = std::clamp(target_vel_, phase_vel - max_phase_vel_ramp * dt, phase_vel + max_phase_vel_ramp * dt);
     phase_vel_ = phase_vel;
     phase_ = wrap_pm_pi(phase + phase_vel * dt);
     total_distance_ = total_distance_.previous().value_or(0.0f) + phase_vel * dt;

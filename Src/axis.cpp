@@ -85,7 +85,7 @@ static void step_cb_wrapper(void* ctx) {
 void Axis::get_axis_state(axis_state_t* state)
 {
 
-    float actual_torque = motor_.convert_torque_from_current(motor_.current_control_.Iq_measured_, motor_.config_.CURRENT2TORQUE_COEFF, motor_.NUM_LINEARITY_SEG,  motor_.CALIBRATION_INCREMENT);
+    float actual_torque = motor_.convert_torque_from_current(motor_.current_control_.Iq_measured_, motor_.config_.CURRENT2TORQUE_COEFF_POSITIVE,motor_.config_.CURRENT2TORQUE_COEFF_NEGATIVE, NUM_LINEARITY_SEG,  motor_.CALIBRATION_INCREMENT);
     state->erro =  axis_state_.erro;
     state->pos = ((encoder_.gearboxpos_q15_ * position_coeff_motor2encos_q15_)>>15) +32768;   // 2pi*12.5*32768
 
