@@ -825,8 +825,6 @@ __weak uint8_t FOC_HighFrequencyTask(uint8_t bMotorNbr)
 // LL_ADC_INJ_SetSequencerRanks(ADC2, LL_ADC_INJ_RANK_1, LL_ADC_CHANNEL_3); // OPAMP2 output
 
 
-LL_GPIO_ResetOutputPin(SPI1_Pin_CS_Port, SPI1_Pin_CS); // 设置 CS 初始为低电平（激活）
-LL_GPIO_ResetOutputPin(SPI3_Pin_CS_Port, SPI3_Pin_CS); // 设置 CS 初始为低电平（激活）
 
 #if 0
 if(task_run == 1)

@@ -78,6 +78,19 @@ Axis::LockinConfig_t Axis::default_sensorless() {
     return config;
 }
 
+
+float *  Axis::get_pos_src(bool is_gear_position){
+    float * pos_src_ = nullptr;
+    if(true == is_gear_position )
+    {
+        pos_src_ = &encoder_.gear_boxpos_rad_;
+    }
+    else
+    {
+        pos_src_ = &encoder_.pos_estimate_rad_;
+    }
+    return pos_src_;
+}
 static void step_cb_wrapper(void* ctx) {
     reinterpret_cast<Axis*>(ctx)->step_cb();
 }
@@ -86,14 +99,18 @@ void Axis::get_axis_state(axis_state_t* state)
 {
 
     float actual_torque = motor_.convert_torque_from_current(motor_.current_control_.Iq_measured_, motor_.config_.CURRENT2TORQUE_COEFF_POSITIVE,motor_.config_.CURRENT2TORQUE_COEFF_NEGATIVE, NUM_LINEARITY_SEG,  motor_.CALIBRATION_INCREMENT);
+
     state->erro =  axis_state_.erro;
-    state->pos = ((encoder_.gearboxpos_q15_ * position_coeff_motor2encos_q15_)>>15) +32768;   // 2pi*12.5*32768
+    
+    
+    state->pos = saturation((int32_t)((*pos_src_) * position_coeff_motor2encos +32768),0,65535 );   // 2pi*12.5*32768
 
-    state->vel = ((encoder_.vel_estimate_q11_* speed_coeff_motor2encos_q11_)>>11) + 2048;   // 1/2/pi/36*2048/16将速度的系数再减半 22.3402f
 
-    state->cur = (int32_t)(actual_torque *current_coeff_motor2encos) + 2048;  //这是有问题的代码，不要忘记 2024-10-8
-    state->motor_temperature = (int32_t)fet_thermistor_.aux_temperature_int_ *2 + 50 ;
-    state->mos_temperature = (int32_t)fet_thermistor_.temperature_int_ *2 + 50;
+    state->vel = saturation((int32_t)(encoder_.gear_vel_estimate_rad_ *speed_coeff_motor2encos + 2048),0,4095);   // 1/2/pi/36*2048/16将速度的系数再减半 22.3402f
+   
+    state->cur = saturation((int32_t)(actual_torque *current_coeff_motor2encos + 2048),10,4090);  //这是有问题的代码，不要忘记 2024-10-8
+    state->motor_temperature = (int32_t)fet_thermistor_.aux_temperature_ *2 + 50 ;
+    state->mos_temperature = (int32_t)fet_thermistor_.temperature_ *2 + 50;
     
 }
 
@@ -104,13 +121,12 @@ void Axis::set_axis_pvt_parm(axis_pvt_parm_t *axis_pvt_parm)
 
     motor_.using_old_torque_constant_ = false;
 
-    controller_.config_.kp = ((float)axis_pvt_parm->kp)*1.0f;   //1000/4096
+    controller_.config_.kp = ((float)axis_pvt_parm->kp)*0.1220703125f;   //500/4096
 
-    controller_.config_.kd = ((float)axis_pvt_parm->kd) * 0.0195f;      // 10/512
-
+    controller_.config_.kd = ((float)axis_pvt_parm->kd) *0.009765625f;      // 5/512
     
-    controller_.pos_setpoint_ = (axis_pvt_parm->pos_setpoint - 32768)*position_coeff_encos2motor;  //12.5/2/pi / 32768
-    controller_.vel_setpoint_ = (axis_pvt_parm->vel_setpoint - 2048) * speed_coeff_encos2motor;   // 36/2/pi / 2048
+    controller_.pos_setpoint_ = (axis_pvt_parm->pos_setpoint - 32768)*position_coeff_encos2motor;  //12.5/ 32768
+    controller_.vel_setpoint_ = (axis_pvt_parm->vel_setpoint - 2048) * speed_coeff_encos2motor;   // 18/ 2048
 
     torque_setpoint = axis_pvt_parm->torque_setpoint - 2048;
     controller_.input_torque_ = torque_setpoint*motor_.config_.motor_torque_base * 4.8828e-04f;
@@ -145,6 +161,7 @@ void Axis::setup() {
     // Does nothing - Motor and encoder setup called separately.
     axis_state_.erro = 0;
 
+    get_pos_src(true);
 
     if (sensorless_mode) {
         controller_.pos_estimate_linear_src_.disconnect();
@@ -155,7 +172,7 @@ void Axis::setup() {
         controller_.pos_estimate_circular_src_.connect_to(&encoder_.pos_circular_);
         controller_.pos_wrap_src_.connect_to(&controller_.config_.circular_setpoint_range);
         controller_.pos_estimate_linear_src_.connect_to(&encoder_.pos_estimate_);
-        controller_.vel_estimate_src_.connect_to(&encoder_.vel_estimate_);
+        controller_.vel_estimate_src_.connect_to(&encoder_.gear_vel_estimate_rad_);
     }
 
 }
@@ -472,6 +489,7 @@ bool Axis::run_lockin_spin(const LockinConfig_t &lockin_config, bool remain_arme
     motor_.phase_vel_src_.connect_to(&open_loop_controller_.phase_vel_);
     motor_.current_control_.phase_vel_src_.connect_to(&open_loop_controller_.phase_vel_);
 
+    motor_.config_.R_wL_FF_enable  = false;
 
     motor_.arm(&motor_.current_control_);
 
@@ -554,7 +572,7 @@ bool Axis::start_closed_loop_control() {
             controller_.pos_estimate_circular_src_.connect_to(&encoder_.pos_circular_);
             controller_.pos_wrap_src_.connect_to(&controller_.config_.circular_setpoint_range);
             controller_.pos_estimate_linear_src_.connect_to(&encoder_.pos_estimate_);
-            controller_.vel_estimate_src_.connect_to(&encoder_.vel_estimate_);
+            controller_.vel_estimate_src_.connect_to(&encoder_.gear_vel_estimate_rad_);
         }
         // To avoid any transient on startup, we intialize the setpoint to be the current position
         controller_.control_mode_updated();
@@ -578,6 +596,8 @@ bool Axis::start_closed_loop_control() {
         motor_.phase_vel_src_.connect_to(phase_vel_src);
         motor_.current_control_.phase_vel_src_.connect_to(phase_vel_src);
         
+        motor_.config_.R_wL_FF_enable  = true;
+
         if (sensorless_mode) {
             // Make the final velocity of the loĉk-in spin the setpoint of the
             // closed loop controller to allow for smooth transition.
@@ -790,6 +810,8 @@ void Axis::control_loop_cb(uint32_t timestamp)
         encoder_.vel_estimate_.reset();
         motor_.Vdq_setpoint_.reset();
         motor_.Idq_setpoint_.reset();
+        motor_.current_control_.q_iq_measured_ =0 ;
+        motor_.current_control_.q_id_measured_ =0 ;
         open_loop_controller_.Idq_setpoint_.reset();
         open_loop_controller_.Vdq_setpoint_.reset();
         open_loop_controller_.phase_.reset();
@@ -801,9 +823,10 @@ void Axis::control_loop_cb(uint32_t timestamp)
 
     // make sure the watchdog is being fed. 
     bool watchdog_ok = watchdog_check();
+    bool motor_ok = motor_.do_checks();
   //  bool updates_ok = do_updates(); 
     
-    if (!checks_ok_  || !watchdog_ok) {
+    if (!checks_ok_  || !watchdog_ok || !motor_ok) {
         // It's not useful to quit idle since that is the safe action
         // Also leaving idle would rearm the motors
         motor_.disarm();

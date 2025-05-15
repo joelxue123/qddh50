@@ -99,12 +99,27 @@ void Error_Handler(void);
 #define VBUS_S_DIVIDER_RATIO 19.0f
 
 /* Current Measurement Scale Factors */
-#define ADC_CURRENT_FULL_SCALE  32768.0f     // ADC full scale value (15-bit)
-#define MAX_PHASE_CURRENT       42.0f        // Maximum measurable phase current (A)
+#define ADC_CURRENT_FULL_SCALE  2048.0f     // ADC full scale value (15-bit)
+#define MAX_PHASE_CURRENT       55.0f        // Maximum measurable phase current (A)
 #define CURRENT_SCALE_FACTOR    (MAX_PHASE_CURRENT/ADC_CURRENT_FULL_SCALE)  // ~0.0013f A/bit
+#define CURRENT_TO_ADC_RATIO    (ADC_CURRENT_FULL_SCALE/MAX_PHASE_CURRENT)
+
+#define MAX_PHASE_VOLTAGE     40.0f        // Maximum measurable phase voltage (V)
+#define ADC_VOLTAGE_FULL_SCALE  2048.0f     // ADC full scale value (15-bit)
+#define VOLTAGE_SCALE_FACTOR  (MAX_PHASE_VOLTAGE/ADC_VOLTAGE_FULL_SCALE)
+#define VOLTAGE_TO_ADC_RATIO (ADC_VOLTAGE_FULL_SCALE/MAX_PHASE_VOLTAGE)
 
 
-#define CURRENT_TO_ADC_RATIO (ADC_CURRENT_FULL_SCALE/MAX_PHASE_CURRENT)
+
+
+#define MAX_PHASE_VEL  18.0f   //rad/s
+#define VEL_FULL_SCALE  2048.0f
+#define VEL_TO_ADC_RATIO (VEL_FULL_SCALE/MAX_PHASE_VEL)
+
+
+#define MAX_PHASE (12.5f)
+#define PHASE_FULL_SCALE  32768.0f
+#define PHASE_TO_ADC_RATIO (PHASE_FULL_SCALE/MAX_PHASE)
 
 
 /* 用户参数配置*/

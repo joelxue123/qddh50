@@ -85,8 +85,10 @@ void VESC_UART_Init(void)
 
 /**
  * @brief Send VESC packet
+*/
 
 void copy_data_to_uart_buffer(const uint8_t *data, size_t length);
+
 /**
  * @brief UART IDLE interrupt handler
  */

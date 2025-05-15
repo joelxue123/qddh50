@@ -104,7 +104,10 @@ public:
 
     OutputPort<float> pos_estimate_ = 0.0f; // [turn]
     OutputPort<float> vel_estimate_ = 0.0f; // [turn/s]
-    int32_t vel_estimate_q11_ = 0;
+
+    float gear_vel_estimate_rad_ = 0.0f; // [rad/s] 
+
+    int32_t q_vel_estimate_= 0;
     float pos_cpr_ = 0.0f;      // [turn]
     float pos_circular_ = 0.0f; // [turn]
 
@@ -120,8 +123,9 @@ public:
     float gear_pos_cpr_counts_ = 0.0f;
     float gear_vel_estimate_counts_ = 0.0f;
     float gear_vel_estimate_ = 0.0f;
-
-
+    float gear_outside_vel_estimate_rad_ = 0.0f;
+    float gear_boxpos_rad_ = 0.0f;
+    float pos_estimate_rad_ = 0.0f; // [rad]
 
     int16_t tim_cnt_sample_ = 0; // 
     // Updated by low_level pwm_adc_cb
@@ -138,6 +142,8 @@ public:
     void abs_spi_cs_pin_init();
     void abs_485_cs_pin_init();
     void set_cs_high(void);
+    void set_cs_low(void);
+
     uint8_t abs_spi_dma_tx_[4] = {0x00,0x00,0x00,0x00};
     uint8_t abs_spi_dma_rx_[4];
 

@@ -168,24 +168,23 @@ bool Controller::update() {
 
     if( CONTROL_MODE_PVT_CONTROL == config_.control_mode )
     {
+        
         float kp = config_.kp;
         float kd = config_.kd;
         
         if(axis_->config_.gear_vel_used == true)
         {
-            torque = kp*(pos_setpoint_ - axis_->encoder_.gearboxpos_) + input_torque_ + kd*(vel_setpoint_ - axis_->encoder_.gear_vel_estimate_);
+            torque = kp*(pos_setpoint_ - axis_->encoder_.gear_boxpos_rad_) + input_torque_ + kd*(vel_setpoint_ - axis_->encoder_.gear_outside_vel_estimate_rad_);
         }
         else
         {
-            torque = kp*(pos_setpoint_ - axis_->encoder_.gearboxpos_) + input_torque_ + kd*(vel_setpoint_ - (*vel_estimate));
-
+            torque = kp*(pos_setpoint_ - axis_->encoder_.gear_boxpos_rad_) + input_torque_ + kd*(vel_setpoint_ - (*vel_estimate));
         }
 
         float vel_gain = config_.vel_gain;
         torque = limitVel(config_.vel_limit, *vel_estimate, vel_gain, torque);
         // Torque limiting
         
-        //float Tlim = axis_->motor_.max_available_torque() * axis_->motor_.config_.gear_ratio;
         float Tlim = axis_->motor_.config_.torque_lim;
         if (torque > Tlim) {
             limited = true;

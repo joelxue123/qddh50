@@ -15,6 +15,10 @@
 #define OD_ACCESS_WO     0x02    // Write Only
 #define OD_ACCESS_RW     0x03    // Read/Write
 #define OD_ACCESS_MASK   0x03    // Access mask
+// Add to existing definitions in canopen.hpp
+
+
+
 
 // Combined type and access
 #define OD_INT16_RO      (OD_TYPE_INT16 | OD_ACCESS_RO)
@@ -51,5 +55,6 @@ const OD_Entry_t* OD_FindEntry(uint16_t index, uint8_t subindex);
 int32_t OD_Read(uint16_t index, uint16_t subindex, uint16_t* length);
 bool OD_Write(uint16_t index, uint16_t subindex, void *value);
 int32_t PDO_Read(uint8_t channel, uint16_t *length);
+void canopen_cmd_process( int16_t index, int16_t sub_index, void* value);
 
 #endif

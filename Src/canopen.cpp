@@ -83,10 +83,10 @@ static const OD_Entry_t OD_List[] = {
 
     // current Related
     {0x3020, 0, OD_REAL32_RW, (void*)&axis.controller_.input_torque_},
-    {0x3022, 0, OD_REAL32_RW, (void*)&axis.motor_.current_control_.Idq_setpoint_->first},
-    {0x3023, 0, OD_REAL32_RW, (void*)&axis.motor_.current_control_.Idq_setpoint_->second},
-    {0x3024, 0, OD_REAL32_RW, (void*)&axis.motor_.current_control_.Iq_measured_},
-    {0x3025, 0, OD_REAL32_RW, (void*)&axis.motor_.current_control_.Id_measured_},
+    {0x3022, 0, OD_INT16_RO, (void*)&axis.motor_.current_control_.q_Idq_setpoint_[0]},
+    {0x3023, 0, OD_INT16_RO, (void*)&axis.motor_.current_control_.q_Idq_setpoint_[1]},
+    {0x3024, 0, OD_INT16_RO, (void*)&axis.motor_.current_control_.q_iq_measured_},
+    {0x3025, 0, OD_INT16_RO, (void*)&axis.motor_.current_control_.q_id_measured_},
 
     //open loop
     {0x3030, 0, OD_REAL32_RW, (void*)&axis.config_.general_lockin.current},
@@ -215,4 +215,21 @@ int32_t PDO_Read(uint8_t channel, uint16_t *length) {
     if(length) *length = data_length;
     
     return data;
+}
+
+
+
+void canopen_cmd_process( int16_t index, int16_t sub_index, void* value)
+{
+    int16_t cmd  = index;
+
+    switch (cmd)
+    {
+    case 0:
+        /* code */
+        break;
+    
+    default:
+        break;
+    }
 }

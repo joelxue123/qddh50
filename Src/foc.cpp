@@ -4,6 +4,7 @@
 #include "low_level.h"
 #include "utils.hpp"
 #include "main.h"
+#include "motor.hpp"
 
 ODriveIntf::MotorIntf::Error AlphaBetaFrameController::on_measurement(
             std::optional<float> vbus_voltage,
@@ -55,6 +56,10 @@ void FieldOrientedController::reset() {
     v_current_control_integral_q_ = 0.0f;
     vbus_voltage_measured_ = std::nullopt;
     Ialpha_beta_measured_ = std::nullopt;
+
+    q_iq_measured_ = 0;
+    q_id_measured_ = 0;
+
     power_ = 0.0f;
 }
 
@@ -119,8 +124,12 @@ ODriveIntf::MotorIntf::Error FieldOrientedController::get_alpha_beta_output(
         Iq_measured_ = 0.0f;
     }
 
-    q15_iq_measured_ = (int16_t)(Iq_measured_ * CURRENT_TO_ADC_RATIO);
-    q15_id_measured_ = (int16_t)(Id_measured_ * CURRENT_TO_ADC_RATIO);
+
+
+
+
+    q_iq_measured_ = (int16_t)(Iq_measured_ * CURRENT_TO_ADC_RATIO);
+    q_id_measured_ = (int16_t)(Id_measured_ * CURRENT_TO_ADC_RATIO);
 
     float mod_to_V = (2.0f / 3.0f) * vbus_voltage;
     float V_to_mod = 1.0f / mod_to_V;
@@ -137,10 +146,32 @@ ODriveIntf::MotorIntf::Error FieldOrientedController::get_alpha_beta_output(
         } else if (!Idq_setpoint_.has_value()) {
             return ODriveIntf::MotorIntf::Error::ERROR_UNKNOWN_CURRENT_COMMAND;
         }
+  
+        Vd = 0.f;
+        Vq = 0.f;
+
+        if(motor_->config_.R_wL_FF_enable == true)
+        {
+            float dec_vd=0, dec_vq=0,pm_flux_linkage=0;
+            pm_flux_linkage =  0.6f*motor_->config_.torque_constant/ (motor_->config_.pole_pairs);
+            dec_vd  -= Iq_measured_ * phase_vel * motor_->config_.phase_inductance;
+            dec_vd += motor_->config_.phase_resistance * Id_measured_;
+        
+            dec_vq = Id_measured_ * phase_vel * motor_->config_.phase_inductance;
+            dec_vq += Iq_measured_ * motor_->config_.phase_resistance;
+            dec_bemf_ = phase_vel * pm_flux_linkage;
+        
+            Vd = dec_vd;
+            Vq = dec_vq + dec_bemf_;
+        }
 
         auto [p_gain, i_gain] = *pi_gains_;
         auto [Id, Iq] = *Idq;
         auto [Id_setpoint, Iq_setpoint] = *Idq_setpoint_;
+
+        float ilim = motor_->effective_current_lim();
+        Id_setpoint = std::clamp(Id_setpoint, -ilim, ilim);
+        Iq_setpoint = std::clamp(Iq_setpoint, -ilim, ilim);
 
         float Ierr_d = Id_setpoint - Id;
         float Ierr_q = Iq_setpoint - Iq;
@@ -201,6 +232,21 @@ void FieldOrientedController::update(uint32_t timestamp) {
         Vdq_setpoint_ = Vdq_setpoint_src_.present();
         phase_ = phase_src_.present();
         phase_vel_ = phase_vel_src_.present();
+
+        q_Idq_setpoint_[0] = Idq_setpoint_->first * CURRENT_TO_ADC_RATIO;
+        q_Idq_setpoint_[1] = Idq_setpoint_->second * CURRENT_TO_ADC_RATIO;
+
+        q_Vdq_setpoint_[0] = Vdq_setpoint_->first * VOLTAGE_TO_ADC_RATIO;
+        q_Vdq_setpoint_[1] = Vdq_setpoint_->second * VOLTAGE_TO_ADC_RATIO;
+
+        q_phase_ = (*phase_)* PHASE_TO_ADC_RATIO;
+        q_phase_vel_ = (*phase_vel_) * VEL_TO_ADC_RATIO ;
+
+
+
+
+
+
     }
     cpu_exit_critical(mask);
 }

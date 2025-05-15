@@ -335,6 +335,16 @@ bool get_nodeID(uint32_t &id) { id = config_.can_node_id; return true; };
     bool checks_ok_ = true;
     volatile bool is_current_meas_update_ = false;
     uint32_t set_torque_raw_data_ = 0;
+
+    bool is_gear_position_ = true;
+    float* pos_src_ = nullptr;
+
+    float * get_pos_src(bool is_gear_position);
+    void set_encos_position_src(bool value){
+        pos_src_ = get_pos_src(value); 
+    }
+
+
 };
 
 

@@ -10,6 +10,7 @@
 #include "main.h"
 #include "current_limiter.hpp"
 #include "foc.hpp"
+#include <algorithm>  // Add this for std::clamp
 
 
 class FieldOrientedController;
@@ -112,7 +113,6 @@ public:
         float CURRENT_THRESHOLD = 40.0f * 0.95f;    // Stall current threshold
         float I2T_THRESHOLD = 3360.0f;              // I2t protection threshold
         static constexpr float DECAY_FACTOR = 0.9998f;               // I2t decay factor
-        static constexpr float CURRENT_SCALE = 1.0f / 32767.0f;      // Q15 to float conversion
         static constexpr float THERMAL_INTEGRATION_RATE = 0.002f;    // Integration time constant
         static constexpr int STALL_COUNT_THRESHOLD = 250;           // Stall detection time
     };
@@ -142,7 +142,7 @@ public:
             L_Slop_Array_P_[index] = config_.TORQUE_LINEARITY_POSITIVE[index];
             L_Slop_Array_N_[index] = config_.TORQUE_LINEARITY_NEGATIVE[index];
         }
-        protection_config_.CURRENT_THRESHOLD = config_.current_lim  - 1.5f;
+        protection_config_.CURRENT_THRESHOLD = std::clamp(config_.current_lim  - 1.5f,1.0f,config_.current_lim);
         peak_current_ = config_.current_lim *1.414f* 0.5f ;
         nominal_current_ = peak_current_ * 0.5f;
         protection_config_.I2T_THRESHOLD = peak_current_ * peak_current_*3.0f;

@@ -41,6 +41,7 @@ void safety_critical_apply_brake_resistor_timings(uint32_t low_off, uint32_t hig
 // called from STM platform code
 extern "C" {
 void pwm_trig_adc_cb(ADC_TypeDef* hadc, bool injected);
+void sample_encoder(void ) ;
 void vbus_sense_adc_cb(ADC_HandleTypeDef* hadc, bool injected);
 void tim_update_cb(TIM_HandleTypeDef* htim);
 void pwm_in_cb(int channel, uint32_t timestamp);

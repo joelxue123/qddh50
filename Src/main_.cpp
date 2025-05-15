@@ -62,9 +62,9 @@ ODriveCAN odCAN(can_config, &hfdcan1);
 
 // Edit these to suit your capture needs
 Oscilloscope oscilloscope_{
-    &motor.current_control_.q15_id_measured_, // trigger_src
+    &motor.current_control_.q_id_measured_, // trigger_src
     100, // trigger_threshold
-    &motor.current_control_.q15_id_measured_,// data_src TODO: change data type
+    &motor.current_control_.q_id_measured_,// data_src TODO: change data type
 };
 
 void save_configuration(void) {

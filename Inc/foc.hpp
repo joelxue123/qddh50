@@ -7,6 +7,8 @@
 #include "component.hpp"
 #include "phase_control_law.hpp"
 
+
+class Motor;
 /**
  * @brief Field oriented controller.
  * 
@@ -16,6 +18,7 @@
 class FieldOrientedController: public AlphaBetaFrameController, public ComponentBase {
 
 public:
+
     void update(uint32_t timestamp) final;
 
     void reset() final;
@@ -47,8 +50,17 @@ public:
     bool enable_current_control_ = false; // true: FOC runs in current control mode using I{dq}_setpoint, false: FOC runs in voltage control mode using V{dq}_setpoint
     std::optional<float2D> Idq_setpoint_; // [A] only used if enable_current_control_ == true
     std::optional<float2D> Vdq_setpoint_; // [V] feed-forward voltage term (or standalone setpoint if enable_current_control_ == false)
+
+    int16_t q_Idq_setpoint_[2]; // [A] only used if enable_current_control_ == true
+    int16_t q_Vdq_setpoint_[2]; // [V] feed-forward voltage term (or standalone setpoint if enable_current_control_ == false)
+
     std::optional<float> phase_; // [rad]
     std::optional<float> phase_vel_; // [rad/s]
+
+
+
+    int16_t q_phase_; // [rad]
+    int16_t q_phase_vel_; // [rad/s]
 
     // These values (or some of them) are updated inside on_measurement() and get_alpha_beta_output()
     uint32_t i_timestamp_;
@@ -56,8 +68,8 @@ public:
     std::optional<float2D> Ialpha_beta_measured_; // [A, A]
     float Id_measured_; // [A]
     float Iq_measured_; // [A]
-    int16_t q15_iq_measured_; // [A]
-    int16_t q15_id_measured_; // [A]
+    int16_t q_iq_measured_; // [A]
+    int16_t q_id_measured_; // [A]
     float v_current_control_integral_d_ = 0.0f; // [V]
     float v_current_control_integral_q_ = 0.0f; // [V]
     //float mod_to_V_ = 0.0f;
@@ -69,6 +81,9 @@ public:
     float final_v_d_ = 0.0f; // [V]
     float final_v_q_ = 0.0f; // [V]
     float power_ = 0.0f; // [W] dot product of Vdq and Idq
+
+    float dec_bemf_ = 0;
+    Motor *motor_ = nullptr;
 
 };
 

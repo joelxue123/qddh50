@@ -27,10 +27,18 @@ void Encoder::set_cs_high(void)
 {
     if(mode_ & MODE_FLAG_ABS)
     {  
-        HAL_GPIO_WritePin(SPI1_Pin_CS_Port, SPI1_Pin_CS, GPIO_PIN_SET);
-        HAL_GPIO_WritePin(SPI3_Pin_CS_Port,SPI3_Pin_CS, GPIO_PIN_SET);
+        LL_GPIO_SetOutputPin(SPI1_Pin_CS_Port, SPI1_Pin_CS); // 设置 CS 初始为高电平（非激活）
+        LL_GPIO_SetOutputPin(SPI3_Pin_CS_Port, SPI3_Pin_CS); // 设置 CS 初始为低电平（激活）
     }    
 }
+
+void Encoder::set_cs_low(void)
+{
+    LL_GPIO_ResetOutputPin(SPI1_Pin_CS_Port, SPI1_Pin_CS); // 设置 CS 初始为低电平（激活）
+    LL_GPIO_ResetOutputPin(SPI3_Pin_CS_Port, SPI3_Pin_CS); // 设置 CS 初始为低电平（激活）
+
+}
+
 
 void Encoder::setup() {
    // HAL_TIM_Encoder_Start(hw_config_.timer, TIM_CHANNEL_ALL);
@@ -473,6 +481,7 @@ bool Encoder::abs_start_transaction(){
     if(config_.is_high_speed_encode_query_enabled == false)
     return true;
 
+    set_cs_low();
     if (mode_ & MODE_FLAG_485_ABS){
         abs_485_start_transaction();
     }
@@ -646,6 +655,8 @@ bool Encoder::update() {
         case MODE_SPI_ABS_AEAT: {
 
             uint32_t rawVal = SPI1->DR;
+
+            set_cs_high();
             pos_abs_  = ((rawVal & 0x000000ff)) | ( (rawVal & 0x0000ff00)) ;
             pos_abs_ = config_.cpr - pos_abs_; //取反
 
@@ -717,6 +728,7 @@ bool Encoder::update() {
 
             GearboxOutputEncoder_counts = GearboxOutputEncoder_turns_*2*HALF_CPR+ gear_single_turn_abs_by_user_;
             gearboxpos_ = GearboxOutputEncoder_counts * GearboxOutputEncoder_cpr_inverse_;
+            gear_boxpos_rad_ = gearboxpos_ * 2 * PI;
             gearboxpos_q15_ = (int32_t)(gearboxpos_ * 32768.f);
             
 
@@ -778,14 +790,15 @@ bool Encoder::update() {
 
 
     vel_estimate_ = vel_estimate_counts_ * cpr_inverse_;
-    vel_estimate_q11_ = (int32_t)(*vel_estimate_.present() * 2048.0f);
+    q_vel_estimate_ = (int32_t)(*vel_estimate_.present()*VEL_TO_ADC_RATIO);
+    gear_vel_estimate_rad_ = (*vel_estimate_.present()) * 2.0f * M_PI*axis_->gear_ratio_inverse_;
     gear_vel_estimate_ = gear_vel_estimate_counts_ * GearboxOutputEncoder_cpr_inverse_;
 
     float pos_cpr_last = pos_cpr_;
     (void)pos_cpr_last;
 
     pos_estimate_ = pos_estimate_counts_ / (float)config_.cpr;
-    
+    pos_estimate_rad_  = (*pos_estimate_.present()) * 2.0f * M_PI;
 
     //// run encoder count interpolation
     int32_t corrected_enc = count_in_cpr_ - config_.offset;

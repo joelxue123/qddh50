@@ -154,6 +154,7 @@ void UART_ParseFrame_(uint8_t* pdata) {
                                     
 						if(OD_Write(index, sub_index,(void*)&value) ==true)
 						{
+							canopen_cmd_process(index, sub_index, (void*)&value);
 							UART_PushFrame_(length, FRAME_CMD_SDO_WRITE, index,sub_index, (uint8_t*)&value);
 						}
 						else
@@ -239,10 +240,10 @@ void UART_ParseFrame_(uint8_t* pdata) {
 			// 获取当前状态
 			int16_t target_pos = axis.encoder_.pos_abs_;
 			int16_t current_pos = axis.encoder_.sencond_pos_abs_>>2;
-			int16_t target_vel =  vbus_voltage;
-			int16_t current_vel = axis.motor_.timing_log_[3];;
-			int16_t target_cur =   axis.motor_.current_meas_.phA*1000;
-			int16_t current_cur = axis.motor_.current_meas_.phB*1000;
+			int16_t target_vel =  axis.motor_.i2t_integral_;
+			int16_t current_vel = axis.motor_.current_stall_cnt_;
+			int16_t target_cur =   axis.motor_.current_control_.Iq_measured_ *1000;
+			int16_t current_cur = axis.motor_.current_control_.Id_measured_ *1000;
 			
 		
 			int16_t temp = axis.fet_thermistor_.temperature_;//vbus_voltage;

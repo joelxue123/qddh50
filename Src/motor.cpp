@@ -166,6 +166,7 @@ Motor::Motor(const MotorHardwareConfig_t& hw_config,
         hw_config_(hw_config),
         config_(config)
         {
+    current_control_.motor_ = this;
     is_calibrated_ = config_.pre_calibrated;
     update_current_controller_gains();
 }
@@ -331,9 +332,11 @@ bool Motor::check_DRV_fault() {
 }
 
 bool Motor::do_checks() {
-    if (!check_DRV_fault()) {
-        set_error(ODriveIntf::MotorIntf::ERROR_DRV_FAULT);
-        axis_->axis_state_.erro = Axis::ENCOS_ERRO::ENCOS_ERROR_DRV_FAULT;
+
+    if(delay_restart_cnt_ > 0)
+    {
+        delay_restart_cnt_--;
+        set_error(ERROR_CURRENT_STALL);
         return false;
     }
 
@@ -347,15 +350,35 @@ float Motor::effective_current_lim() {
     if (axis_->motor_.config_.motor_type == Motor::MOTOR_TYPE_GIMBAL) {
         current_lim = std::min(current_lim, 0.98f*one_by_sqrt3*vbus_voltage); //gimbal motor is voltage control
     } else {
-        current_lim = std::min(current_lim, axis_->motor_.max_allowed_current_);
+        current_lim = std::min(current_lim, MAX_PHASE_CURRENT);
     }
 
-    // Apply axis current limiters
-    for (const CurrentLimiter* const limiter : axis_->current_limiters_) {
-        current_lim = std::min(current_lim, limiter->get_current_limit(config_.current_lim));
-    }
 
-    effective_current_lim_ = current_lim;
+    current_lim = std::min(current_lim, axis_->current_limiters_[0]->get_current_limit(config_.current_lim));
+
+    float temp_current_lim = current_lim;
+
+    float i2t_current_lim_ = std::abs(current_control_.Iq_measured_  + current_control_.Id_measured_);
+
+    if (i2t_integral_ > protection_config_.I2T_THRESHOLD) 
+    {
+        // float i2t_integral_margin = i2t_integral_ - protection_config_.I2T_THRESHOLD;
+        // float i2t_integral_margin_ratio = i2t_integral_margin / (protection_config_.I2T_THRESHOLD *0.1f);
+        // if (i2t_integral_margin_ratio > 1.0f)
+        //     i2t_integral_margin_ratio = 1.0f;
+        // float current_margin = (peak_current_ - nominal_current_) * (1.0f - i2t_integral_margin_ratio);
+
+
+        i2t_current_lim_ = std::max(i2t_current_lim_ - 0.07f, nominal_current_); //current_lim + current_margin;
+   
+
+    }
+    else
+    {
+        i2t_current_lim_ = config_.current_lim;
+    }
+    effective_current_lim_ = std::min(temp_current_lim, i2t_current_lim_);
+
 
     return effective_current_lim_;
 }
@@ -964,7 +987,10 @@ void Motor::update(uint32_t timestamp) {
 
         return;
     }
-    float torque = direction_ * *maybe_torque;
+
+
+    float torque_setpoint = *maybe_torque;
+    
 
     // Load setpoints from previous iteration.
     float id, iq;
@@ -976,16 +1002,41 @@ void Motor::update(uint32_t timestamp) {
         iq = 0.0f;
 }
     // Load effective current limit
-    float ilim = axis_->motor_.effective_current_lim_;
+    
 
+    float current_setpoint = 0.0f;
+
+    if( using_old_torque_constant_ ==  true)
+    {
+        current_setpoint = torque_setpoint / (config_.torque_constant );
+    }
+    else
+    {
+        float torque_constant = 0.12f;
+        float torque_setpoint_abs = fabsf(torque_setpoint);
+        uint32_t idex = (uint32_t)((torque_setpoint_abs*CALIBRATION_INCREMENT)); 
+        const float* torque_constant_array  = torque_setpoint > 0.0f ? L_Slop_Array_P_ : L_Slop_Array_N_;
+        if( idex > (NUM_LINEARITY_SEG -2) )
+        {
+            idex = NUM_LINEARITY_SEG -1;
+            torque_constant = torque_constant_array [idex];
+        }
+        else
+        {
+            torque_constant = torque_constant_array [idex]*( 1.0f - torque_setpoint_abs+ (uint32_t)torque_setpoint_abs ) + torque_constant_array [idex+1]*( torque_setpoint_abs- (uint32_t)torque_setpoint_abs);
+        }
+
+        current_setpoint = torque_setpoint / torque_constant;
+
+    }
+
+    current_setpoint *= direction_;
+
+    float ilim = config_.current_lim;
 
     id = std::clamp(id, -ilim*0.99f, ilim*0.99f); // 1% space reserved for Iq to avoid numerical issues
 
-
-    // Convert requested torque to current
-
-    iq = torque / axis_->motor_.config_.torque_constant;
-    
+    iq = current_setpoint;
 
     // 2-norm clamping where Id takes priority
     float iq_lim_sqr = SQ(ilim) - SQ(id);
@@ -1007,27 +1058,6 @@ void Motor::update(uint32_t timestamp) {
     float vq = 0.0f;
 
     std::optional<float> phase_vel = phase_vel_src_.present();
-
-    if (config_.R_wL_FF_enable) {
-        if (!phase_vel.has_value()) {
-            error_ = static_cast<ODriveIntf::MotorIntf::Error>(static_cast<uint32_t>(error_) | static_cast<uint32_t>(ODriveIntf::MotorIntf::ERROR_UNKNOWN_PHASE_VEL));
-            return;
-        }
-
-        vd -= *phase_vel * config_.phase_inductance * iq;
-        vq += *phase_vel * config_.phase_inductance * id;
-        vd += config_.phase_resistance * id;
-        vq += config_.phase_resistance * iq;
-    }
-
-    if (config_.bEMF_FF_enable) {
-        if (!phase_vel.has_value()) {
-            error_ = static_cast<ODriveIntf::MotorIntf::Error>(static_cast<uint32_t>(error_) | static_cast<uint32_t>(ODriveIntf::MotorIntf::ERROR_UNKNOWN_PHASE_VEL));
-            return;
-        }
-
-        vq += *phase_vel * 0.4444444f * (config_.torque_constant / config_.pole_pairs);
-    }
 
     Vdq_setpoint_ = {vd, vq};
 
@@ -1058,13 +1088,8 @@ void Motor::current_meas_cb(uint32_t timestamp) {
 
 
 void Motor::pwm_update_cb(uint32_t output_timestamp) {
-    float ta =0;
-    float tb =0;
-    float tc =0;
-    
-    float mod_q = 0.05f;
-    float mod_d = 0;
-   // static float theta_ = 0.0f;
+
+
 
   //  TaskTimerContext tmr{axis_->task_times_.pwm_update};
 
@@ -1076,12 +1101,7 @@ void Motor::pwm_update_cb(uint32_t output_timestamp) {
         control_law_status = control_law_->get_output(
             output_timestamp, pwm_timings, &i_bus);
     }
-    // control_law_status = ODriveIntf::MotorIntf::ERROR_NONE;
-    // test_svm(mod_q, mod_d, &theta_, &ta, &tb, &tc);
-    // theta_ = theta_ + 0.00001f;
-    // pwm_timings[0] = ta;
-    // pwm_timings[1] = tb;
-    // pwm_timings[2] = tc;
+
    // Apply control law to calculate PWM duty cycles
     if (is_armed_ && control_law_status == ODriveIntf::MotorIntf::ERROR_NONE) {
         uint16_t next_timings[] = {
@@ -1125,10 +1145,22 @@ bool Motor::check_protection(void) {
     const auto & protection  = protection_config_;
     FieldOrientedController& ictrl = current_control_;
     // Calculate I2t with fixed point approximation
-    int32_t current_q15 =  ictrl.q15_iq_measured_;
-     ictrl.q15_iq_measured_ = 0;
 
-    float current = current_q15 * ProtectionConfig::CURRENT_SCALE; // 1/32767
+
+    int32_t iq_q =  0;
+    int32_t id_q =  0;
+
+
+    if(control_law_)
+    {
+        iq_q =  ictrl.q_iq_measured_;
+        id_q =  ictrl.q_id_measured_;
+    }
+
+    float iq = std::abs(iq_q * CURRENT_SCALE_FACTOR); // 1/32767
+    float id = std::abs(id_q * CURRENT_SCALE_FACTOR); // 1/32767
+
+    float current = iq + id;
 
     float decay = ProtectionConfig::DECAY_FACTOR;
     
@@ -1153,8 +1185,7 @@ bool Motor::check_protection(void) {
     
     if (i2t_integral_ > protection.I2T_THRESHOLD) {
        // set_error(ERROR_I2T_INTEGRAL);
-
-        return false;
+        //return false;
     }
 
     if(current > protection.CURRENT_THRESHOLD)

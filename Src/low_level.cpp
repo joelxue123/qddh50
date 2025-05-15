@@ -504,6 +504,13 @@ void vbus_sense_adc_cb(ADC_TypeDef *adc, bool injected) {
 
 
 
+void sample_encoder(void ) { 
+    axis.encoder_.abs_start_transaction();
+}
+
+
+
+
 volatile uint32_t timestamp_ = 0;
 
 
@@ -520,7 +527,7 @@ void pwm_trig_adc_cb(ADC_TypeDef *adc, bool injected) {
     timestamp_ += TIM_1_8_PERIOD_CLOCKS * (TIM_1_8_RCR + 1 + 1);
     uint32_t timestamp = timestamp_;
 
-    vbus_voltage = get_adc_voltage_channel(3) *19.f;
+    vbus_voltage = get_adc_voltage_channel(3) *VBUS_S_DIVIDER_RATIO;
 
     //while(!(ADC2->ISR & ADC_ISR_JEOC));
     //while(!(ADC2->ISR & ADC_ISR_JEOS));
@@ -543,14 +550,15 @@ void pwm_trig_adc_cb(ADC_TypeDef *adc, bool injected) {
     axis.motor_.current_meas_.phC= axis.motor_.current_meas_.Q16_phC*CURRENT_SCALE_FACTOR;
     axis.motor_.timing_log_[1] = TIM1->CNT;
 
-   // axis.encoder_.set_cs_high();
-    axis.encoder_.abs_start_transaction();
+ 
+
 
 
 
     axis.motor_.current_meas_cb(timestamp);
     axis.motor_.timing_log_[2] = TIM1->CNT;
     //while(TIM1->CNT>10);
+
     axis.control_loop_cb(timestamp);
 
     
@@ -559,9 +567,11 @@ void pwm_trig_adc_cb(ADC_TypeDef *adc, bool injected) {
     //while(TIM1->CNT<3000);
     axis.motor_.pwm_update_cb(timestamp + TIM_1_8_PERIOD_CLOCKS * (TIM_1_8_RCR + 1));
 
+
     axis.motor_.timing_log_[4] = TIM1->CNT;
     axis.signal_current_meas(); 
  //   axis.motor_.log_timing(TIMING_LOG_ADC_CB_DC);
+    
     
 }
 
@@ -653,7 +663,8 @@ static void update_analog_endpoint(const struct PWMMapping_t *map, int gpio)
 static void analog_polling_thread(const void* argument) {
     while (true) {
         axis.fet_thermistor_.update();
-        osDelay(10);
+        axis.motor_.check_protection();
+        osDelay(2);
     }
 }
 
