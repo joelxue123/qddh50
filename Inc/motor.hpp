@@ -83,8 +83,8 @@ public:
         // Value used to compute shunt amplifier gains
         float requested_current_range = 60.0f; // [A]
         float current_control_bandwidth = 3000.0f;  // [rad/s]
-        float inverter_temp_limit_lower = 100;
-        float inverter_temp_limit_upper = 120;
+        float peak_current = 16.0f;
+        float nominal_current = 10.0f;
   
 
         float TORQUE_LINEARITY_POSITIVE[NUM_LINEARITY_SEG]={1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
@@ -143,8 +143,8 @@ public:
             L_Slop_Array_N_[index] = config_.TORQUE_LINEARITY_NEGATIVE[index];
         }
         protection_config_.CURRENT_THRESHOLD = std::clamp(config_.current_lim  - 1.5f,1.0f,config_.current_lim);
-        peak_current_ = config_.current_lim *1.414f* 0.5f ;
-        nominal_current_ = peak_current_ * 0.5f;
+        peak_current_ = config_.peak_current;
+        nominal_current_ = config_.nominal_current;
         protection_config_.I2T_THRESHOLD = peak_current_ * peak_current_*3.0f;
 
 

@@ -572,7 +572,7 @@ bool Motor::measure_phase_resistance(float test_current, float max_voltage) {
 
     arm(&control_law);
 
-    for (size_t i = 0; i < 3000; ++i) {
+    for (size_t i = 0; i < 1000; ++i) {
         if (!((axis_->requested_state_ == ODriveIntf::AxisIntf::AXIS_STATE_UNDEFINED) && axis_->motor_.is_armed_)) {
             break;
         }
@@ -612,7 +612,7 @@ bool Motor::measure_phase_inductance(float test_voltage) {
 
     arm(&control_law);
 
-    for (size_t i = 0; i < 1250; ++i) {
+    for (size_t i = 0; i < 625; ++i) {
         if (!((axis_->requested_state_ == ODriveIntf::AxisIntf::AXIS_STATE_UNDEFINED) && axis_->motor_.is_armed_)) {
             break;
         }
@@ -660,9 +660,10 @@ bool Motor::run_calibration() {
 
     if (config_.motor_type == MOTOR_TYPE_HIGH_CURRENT
         || config_.motor_type == MOTOR_TYPE_ACIM) {
-        if (!measure_phase_resistance(config_.calibration_current, R_calib_max_voltage))
-            return false;
+
         if (!measure_phase_inductance(R_calib_max_voltage))
+            return false;
+        if (!measure_phase_resistance(config_.calibration_current, R_calib_max_voltage))
             return false;
     } else if (config_.motor_type == MOTOR_TYPE_GIMBAL) {
         // no calibration needed

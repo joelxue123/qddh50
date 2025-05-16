@@ -41,12 +41,16 @@ static const OD_Entry_t OD_List[] = {
     {0x2009, 0, OD_INT16_RW, &axis.motor_.config_.pre_calibrated},
     {0x200a, 0, OD_REAL32_RW, &axis.motor_.config_.calibration_current},
     {0x200b, 0, OD_REAL32_RW, &axis.motor_.config_.resistance_calib_max_voltage},
+    {0x200c, 0, OD_REAL32_RW, &axis.motor_.config_.peak_current},
+    {0x200d, 0, OD_REAL32_RW, &axis.motor_.config_.nominal_current},
+
     
     // Main Encoder Parameters
     {0x2020, 0, OD_INT32_RW, &axis.encoder_.config_.cpr},
     {0x2021, 0, OD_INT32_RW, &axis.encoder_.config_.offset},
     {0x2022, 0, OD_REAL32_RW, &axis.encoder_.config_.offset_float},
     {0x2023, 0, OD_INT16_RW, &axis.encoder_.config_.pre_calibrated},
+    {0x2024, 0, OD_INT16_RW, &axis.encoder_.config_.is_high_speed_encode_query_enabled},
     
     
     // Sub Encoder Parameters  

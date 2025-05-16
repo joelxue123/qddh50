@@ -197,7 +197,7 @@ void update_msp_info(SystemStats_t* stats) {
  void USART1_IRQHandler(void)
  {
      VESC_UART_IRQHandler();
-  //   update_msp_info(&system_stats_);
+     update_msp_info(&system_stats_);
  }
  
  /**

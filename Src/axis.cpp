@@ -770,6 +770,7 @@ void Axis::run_state_machine_loop() {
             } break;
 
             case AXIS_STATE_IDLE: {
+                motor_.config_.R_wL_FF_enable  = false;
                 run_idle_loop();
                 status = true;
             } break;
