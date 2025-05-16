@@ -232,9 +232,7 @@ __weak void TSK_MediumFrequencyTaskM1(void)
             }
             else
             {
-              #if 0 
-              a_offset = 0;
-              b_offset = 0;
+
               STSPIN32G4_clearFaults(&HdlSTSPING4);
               STSPIN32G4_wakeup(&HdlSTSPING4, 4);
               vTaskDelay(100);
@@ -252,7 +250,7 @@ __weak void TSK_MediumFrequencyTaskM1(void)
 
               LL_ADC_INJ_StartConversion(ADC1);
               
-             // LL_ADC_EnableIT_JEOS(ADC2);  // Enable ADC1 injected end of sequence interrupt
+              LL_ADC_EnableIT_JEOS(ADC2);  // Enable ADC1 injected end of sequence interrupt
 
               LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);
 
@@ -281,23 +279,21 @@ __weak void TSK_MediumFrequencyTaskM1(void)
               LL_TIM_OC_SetMode(TIM1, LL_TIM_CHANNEL_CH2, LL_TIM_OCMODE_PWM1);
               LL_TIM_OC_SetMode(TIM1, LL_TIM_CHANNEL_CH3, LL_TIM_OCMODE_PWM1);
               
-              // 3. 设置死区时间
-              //LL_TIM_OC_SetDeadTime(TIM1, 25); // 根据实际需求调整死区时间
               
               // 4. 使能预加载
               LL_TIM_OC_EnablePreload(TIM1, LL_TIM_CHANNEL_CH1);
               LL_TIM_OC_EnablePreload(TIM1, LL_TIM_CHANNEL_CH2);
               LL_TIM_OC_EnablePreload(TIM1, LL_TIM_CHANNEL_CH3);
-              LL_TIM_OC_SetCompareCH1(TIM1, 0);
-              LL_TIM_OC_SetCompareCH2(TIM1, 0);
-              LL_TIM_OC_SetCompareCH3(TIM1, 0);
-              LL_TIM_EnableAllOutputs(TIM1);
+              LL_TIM_OC_SetCompareCH1(TIM1, 1); //必须设置为1,用于触发adc中断
+              LL_TIM_OC_SetCompareCH2(TIM1, 1);
+              LL_TIM_OC_SetCompareCH3(TIM1, 1);
+              vTaskDelay(10);
               
               
 
             LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);
 
-             LL_ADC_EnableIT_JEOS(ADC1);
+           //  LL_ADC_EnableIT_JEOS(ADC1);
                           // Check Timer trigger configuration
             LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);  // 使用TIM1 OC4作为触发源
 
@@ -312,83 +308,10 @@ __weak void TSK_MediumFrequencyTaskM1(void)
               STSPIN32G4_clearFaults(&HdlSTSPING4);
               LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);
               vTaskDelay(1000);
-              //a_offset =  0 - FOCVars[M1].Iab .a;
-              //b_offset = 0 - FOCVars[M1].Iab .b;
+
 
               LL_TIM_SetRepetitionCounter(TIM1, 1);
 
-              #endif 
-
-
-              a_offset = 0;
-              b_offset = 0;
-              STSPIN32G4_clearFaults(&HdlSTSPING4);
-              STSPIN32G4_wakeup(&HdlSTSPING4, 4);
-              vTaskDelay(100);
-              LL_ADC_INJ_StartConversion(ADC1);
-              LL_ADC_INJ_StartConversion(ADC2);
-              LL_ADC_EnableIT_JEOS(ADC1);  // Enable ADC1 injected end of sequence interrupt
-
-              LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);
-
-              /* Calibration already done. Enables only TIM channels */
-              pwmcHandle[M1]->OffCalibrWaitTimeCounter = 1u;
-
-              //(void)PWMC_CurrentReadingCalibr(pwmcHandle[M1], CRC_EXEC);
-              (void)PWMC_CurrentReadingCalibr(pwmcHandle[M1], CRC_START);
-              R3_2_SwitchOnPWM(pwmcHandle[M1]);
-      //        R3_2_TurnOnLowSides(pwmcHandle[M1],M1_CHARGE_BOOT_CAP_DUTY_CYCLES);
-              TSK_SetChargeBootCapDelayM1(M1_CHARGE_BOOT_CAP_TICKS);
-
-              LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);
-
-
-              RUC_Clear(&RevUpControlM1, MCI_GetImposedMotorDirection(&Mci[M1]));
-        
-              /* PWM Configuration */
-              // 1. 配置所有PWM通道
-              LL_TIM_CC_EnableChannel(TIM1, LL_TIM_CHANNEL_CH1 | LL_TIM_CHANNEL_CH1N |
-                                          LL_TIM_CHANNEL_CH2 | LL_TIM_CHANNEL_CH2N |
-                                          LL_TIM_CHANNEL_CH3 | LL_TIM_CHANNEL_CH3N);
-              
-              // 2. 配置PWM模式
-              LL_TIM_OC_SetMode(TIM1, LL_TIM_CHANNEL_CH1, LL_TIM_OCMODE_PWM1);
-              LL_TIM_OC_SetMode(TIM1, LL_TIM_CHANNEL_CH2, LL_TIM_OCMODE_PWM1);
-              LL_TIM_OC_SetMode(TIM1, LL_TIM_CHANNEL_CH3, LL_TIM_OCMODE_PWM1);
-              
-              // 3. 设置死区时间
-              LL_TIM_OC_SetDeadTime(TIM1, 50); // 根据实际需求调整死区时间
-              
-              // 4. 使能预加载
-              LL_TIM_OC_EnablePreload(TIM1, LL_TIM_CHANNEL_CH1);
-              LL_TIM_OC_EnablePreload(TIM1, LL_TIM_CHANNEL_CH2);
-              LL_TIM_OC_EnablePreload(TIM1, LL_TIM_CHANNEL_CH3);
-              LL_TIM_OC_SetCompareCH1(TIM1, 100);
-              LL_TIM_OC_SetCompareCH2(TIM1, 100);
-              LL_TIM_OC_SetCompareCH3(TIM1, 100);
-              vTaskDelay(1000);
-              
-
-              LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);
-
-              LL_ADC_EnableIT_JEOS(ADC1);
-                            // Check Timer trigger configuration
-              LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);  // 使用TIM1 OC4作为触发源
-
-              // ADC注入组触发配置
-              LL_ADC_INJ_SetTriggerSource(ADC1, LL_ADC_INJ_TRIG_EXT_TIM1_TRGO);
-              LL_ADC_INJ_SetTriggerEdge(ADC1, LL_ADC_INJ_TRIG_EXT_RISING);
-
-              // 5. 启用 Break 功能
-              TIM1->BDTR |= LL_TIM_OSSI_ENABLE;
-              LL_TIM_EnableAllOutputs(TIM1);
-              STSPIN32G4_clearFaults(&HdlSTSPING4);
-              LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);
-              vTaskDelay(1000);
-              //a_offset =  0 - FOCVars[M1].Iab .a;
-              //b_offset = 0 - FOCVars[M1].Iab .b;
-
-              LL_TIM_SetRepetitionCounter(TIM1, 1);
 
 
 
