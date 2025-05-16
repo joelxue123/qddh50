@@ -14,7 +14,7 @@
 extern FlashStorage_t flash_storage;
 
 BoardConfig_t board_config;
-SystemStats_t system_stats;
+
 
 
 const float fet_thermistor_poly_coeffs[] =
@@ -214,27 +214,22 @@ void vApplicationStackOverflowHook(xTaskHandle *pxTask, signed portCHAR *pcTaskN
     for (;;); // TODO: safe action
 }
 void vApplicationIdleHook(void) {
-    if (system_stats.fully_booted) {
-        // system_stats.uptime = xTaskGetTickCount();
-        // system_stats.min_heap_space = xPortGetMinimumEverFreeHeapSize();
-        // system_stats.min_stack_space_comms = uxTaskGetStackHighWaterMark(comm_thread) * sizeof(StackType_t);
-        // system_stats.min_stack_space_axis0 = uxTaskGetStackHighWaterMark(axes[0]->thread_id_) * sizeof(StackType_t);
-        // system_stats.min_stack_space_uart = uxTaskGetStackHighWaterMark(uart_thread) * sizeof(StackType_t);
-        // system_stats.min_stack_space_startup = uxTaskGetStackHighWaterMark(defaultTaskHandle) * sizeof(StackType_t);
-        // system_stats.min_stack_space_can = uxTaskGetStackHighWaterMark(odCAN->thread_id_) * sizeof(StackType_t);
+    if (system_stats_.fully_booted) {
+        system_stats_.uptime = xTaskGetTickCount();
+        system_stats_.min_heap_space = xPortGetMinimumEverFreeHeapSize();
+        system_stats_.min_stack_space_mediumFrequencyHandle = uxTaskGetStackHighWaterMark(mediumFrequencyHandle);
+        system_stats_.min_stack_space_safetyHandle = uxTaskGetStackHighWaterMark(safetyHandle) ;
+        system_stats_.min_stack_space_uart_thread = uxTaskGetStackHighWaterMark(uart_thread) ;
+        system_stats_.min_stack_space_analog_thread = uxTaskGetStackHighWaterMark(analog_thread_) ;
+        system_stats_.min_stack_space_can_thread = uxTaskGetStackHighWaterMark(odCAN.thread_id_);
 
-        // // Actual usage, in bytes, so we don't have to math
-        // system_stats.stack_usage_axis0 = axes[0]->stack_size_ - system_stats_.min_stack_space_axis0;
-        // system_stats.stack_usage_comms = stack_size_comm_thread - system_stats_.min_stack_space_comms;
-        // system_stats.stack_usage_uart = stack_size_uart_thread - system_stats_.min_stack_space_uart;
-        // system_stats.stack_usage_startup = stack_size_default_task - system_stats_.min_stack_space_startup;
-        // system_stats.stack_usage_can = odCAN->stack_size_ - system_stats_.min_stack_space_can;
-        // for (ThermistorCurrentLimiter* thermistor : axis.thermistors_) {
-        //     thermistor->update();
-        // }
-       
-        axis.checks_ok_ = axis.do_checks();
-       
+        // Actual usage, in bytes, so we don't have to math
+        system_stats_.stack_usage_mediumFrequencyHandle = mediumFrequencyHandle_stack_size- system_stats_.min_stack_space_mediumFrequencyHandle;
+        system_stats_.stack_usage_safetyHandle = 128 - system_stats_.min_stack_space_safetyHandle;
+        system_stats_.stack_usage_uart_thread = 256 - system_stats_.min_stack_space_uart_thread;
+        system_stats_.stack_usage_analog_thread = 128 - system_stats_.min_stack_space_analog_thread;
+        system_stats_.stack_usage_can = 256 - system_stats_.min_stack_space_can_thread;
+ 
 
     }
 }
@@ -244,6 +239,7 @@ int odrive_main(void) {
     start_adc_pwm();
     motor.setup();
     odCAN.start_can_server();
+    system_stats_.fully_booted = true;
     
     // Start ADC for temperature measurements and user measurements
    // start_general_purpose_adc();
@@ -301,6 +297,6 @@ int odrive_main(void) {
 
     start_analog_thread();
 
-    system_stats.fully_booted = true;
+    
     return 0;
 }

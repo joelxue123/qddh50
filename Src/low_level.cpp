@@ -527,7 +527,9 @@ void pwm_trig_adc_cb(ADC_TypeDef *adc, bool injected) {
     timestamp_ += TIM_1_8_PERIOD_CLOCKS * (TIM_1_8_RCR + 1 + 1);
     uint32_t timestamp = timestamp_;
 
-    vbus_voltage = get_adc_voltage_channel(3) *VBUS_S_DIVIDER_RATIO;
+    vbus_voltage = get_adc_voltage_channel(3) *19.f;
+
+   // vbus_voltage = get_adc_voltage_channel(3) *VBUS_S_DIVIDER_RATIO;
 
     //while(!(ADC2->ISR & ADC_ISR_JEOC));
     //while(!(ADC2->ISR & ADC_ISR_JEOS));
@@ -668,10 +670,11 @@ static void analog_polling_thread(const void* argument) {
     }
 }
 
+osThreadId analog_thread_ = NULL;
 
 void start_analog_thread() {
     osThreadDef(thread_def, analog_polling_thread, osPriorityLow, 0, 512 / sizeof(StackType_t));
-    osThreadCreate(osThread(thread_def), NULL);
+    analog_thread_ = osThreadCreate(osThread(thread_def), NULL);
 }
 
 

@@ -52,6 +52,8 @@ extern "C" {
 #include "stm32g4xx_ll_spi.h"
 #include "stm32g4xx_hal_spi.h"
 
+
+#include "cmsis_os.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -245,6 +247,39 @@ void Error_Handler(void);
 
 extern float current_meas_period;
 
+
+typedef struct {
+  bool fully_booted;
+  uint16_t uptime; // [ms]
+  uint16_t min_heap_space; // FreeRTOS heap [Bytes]
+  uint16_t min_stack_space_mediumFrequencyHandle; // minimum remaining space since startup [Bytes]
+  uint16_t min_stack_space_safetyHandle;
+  uint16_t min_stack_space_uart_thread;
+  uint16_t min_stack_space_analog_thread;
+  uint16_t min_stack_space_can_thread;
+
+  uint16_t stack_usage_mediumFrequencyHandle;
+  uint16_t stack_usage_safetyHandle;
+  uint16_t stack_usage_uart_thread;
+  uint16_t stack_usage_analog_thread;
+  uint16_t stack_usage_can;
+
+
+   uint32_t  msp_start;
+   uint32_t  msp_lowest;
+  volatile uint16_t  msp_used;
+
+
+} SystemStats_t;
+
+
+#define mediumFrequencyHandle_stack_size  (256)
+
+extern SystemStats_t system_stats_;
+extern osThreadId mediumFrequencyHandle;
+extern osThreadId safetyHandle;
+extern osThreadId uart_thread;
+extern osThreadId analog_thread_;
 
 typedef struct {
   SPI_HandleTypeDef* motor_spi;

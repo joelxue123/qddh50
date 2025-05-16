@@ -88,30 +88,7 @@ struct BoardConfig_t {
     uint32_t uart_baudrate = 115200;
   };
   
-  typedef struct {
-    bool fully_booted;
-    uint32_t uptime; // [ms]
-    uint32_t min_heap_space; // FreeRTOS heap [Bytes]
-    uint32_t min_stack_space_axis0; // minimum remaining space since startup [Bytes]
-    uint32_t min_stack_space_axis1;
-    uint32_t min_stack_space_comms;
-    uint32_t min_stack_space_usb;
-    uint32_t min_stack_space_uart;
-    uint32_t min_stack_space_usb_irq;
-    uint32_t min_stack_space_startup;
-    uint32_t min_stack_space_can;
 
-    uint32_t stack_usage_axis0;
-    uint32_t stack_usage_axis1;
-    uint32_t stack_usage_comms;
-    uint32_t stack_usage_usb;
-    uint32_t stack_usage_uart;
-    uint32_t stack_usage_usb_irq;
-    uint32_t stack_usage_startup;
-    uint32_t stack_usage_can;
-
-
-} SystemStats_t;
 
 #define FACTORY_RESET_MAGIC  0x55AA  
 #define MOTOR_PARAMS_MAGIC        0xAA55      // 用于验证参数有效性

@@ -19,6 +19,14 @@ static const OD_Entry_t OD_List[] = {
     {0x1000, 0, OD_INT16_RO, &board_config.magic},
     {0x1001, 0, OD_INT16_RO, &board_config.hw_version},
     {0x1002, 0, OD_INT16_RW, &axis.config_.can_node_id},
+    {0x1003, 0, OD_INT16_RW, &system_stats_.min_heap_space},
+    {0x1004, 0, OD_INT16_RW, &system_stats_.stack_usage_mediumFrequencyHandle},
+    {0x1005, 0, OD_INT16_RW, &system_stats_.stack_usage_safetyHandle},
+    {0x1006, 0, OD_INT16_RW, &system_stats_.stack_usage_uart_thread},
+    {0x1007, 0, OD_INT16_RW, &system_stats_.stack_usage_analog_thread},
+    {0x1008, 0, OD_INT16_RW, &system_stats_.stack_usage_can},
+    {0x1009, 0, OD_INT16_RW, (void*)&system_stats_.msp_used},
+
     
     // Motor Parameters (0x2000-0x2FFF)
     {0x2000, 0, OD_REAL32_RW, &axis.motor_.config_.phase_inductance},

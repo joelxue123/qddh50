@@ -154,7 +154,7 @@ void UART_ParseFrame_(uint8_t* pdata) {
                                     
 						if(OD_Write(index, sub_index,(void*)&value) ==true)
 						{
-							canopen_cmd_process(index, sub_index, (void*)&value);
+							//canopen_cmd_process(index, sub_index, (void*)&value);
 							UART_PushFrame_(length, FRAME_CMD_SDO_WRITE, index,sub_index, (uint8_t*)&value);
 						}
 						else

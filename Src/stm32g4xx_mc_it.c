@@ -165,6 +165,31 @@ void TIMx_BRK_M1_IRQHandler(void)
 
 /* USER CODE BEGIN 1 */
 
+
+
+static inline uint32_t get_current_msp(void) {
+  uint32_t result;
+  __asm volatile ("MRS %0, MSP" : "=r" (result));
+  return result;
+}
+
+void update_msp_info(SystemStats_t* stats) {
+  extern uint32_t _estack;  // 从链接脚本获取栈顶
+  
+  // 更新MSP信息
+  uint32_t current_msp = get_current_msp();
+  stats->msp_start = 0x20008000;
+  
+  // 更新最低值记录
+  if (current_msp < stats->msp_lowest) {
+      stats->msp_lowest = current_msp;
+  }
+  
+  // 计算使用情况
+  stats->msp_used = stats->msp_start - stats->msp_lowest;
+
+}
+
 /**
   * @brief  This function handles USART1 interrupt request.
   * @param  None
@@ -172,6 +197,7 @@ void TIMx_BRK_M1_IRQHandler(void)
  void USART1_IRQHandler(void)
  {
      VESC_UART_IRQHandler();
+  //   update_msp_info(&system_stats_);
  }
  
  /**

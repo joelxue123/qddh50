@@ -13,8 +13,7 @@ extern "C" {
 extern osSemaphoreId sem_uart_dma;
 extern osSemaphoreId sem_can;
 
-// Thread handles (using CMSIS-RTOS v1 types)
-extern osThreadId defaultTaskHandle;
+
 
 // Stack sizes
 extern const uint32_t stack_size_default_task;

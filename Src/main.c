@@ -18,12 +18,12 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "cmsis_os.h"
+
 
 
 extern uint16_t adc_measurements_[16];
 
-
+SystemStats_t system_stats_;
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -78,7 +78,10 @@ static void MX_NVIC_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
-
+void usr_param_init(void)
+{
+  system_stats_.msp_lowest = 0x20008000;
+}
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
@@ -133,6 +136,7 @@ int main(void)
   MX_SPI3_Init();
   MX_MotorControl_Init();
 
+  usr_param_init();
   /* Initialize interrupts */
   MX_NVIC_Init();
   /* USER CODE BEGIN 2 */
@@ -157,7 +161,7 @@ int main(void)
 
   /* Create the thread(s) */
   /* definition and creation of mediumFrequency */
-  osThreadDef(mediumFrequency, startMediumFrequencyTask, osPriorityNormal, 0, 128);
+  osThreadDef(mediumFrequency, startMediumFrequencyTask, osPriorityNormal, 0, mediumFrequencyHandle_stack_size);
   mediumFrequencyHandle = osThreadCreate(osThread(mediumFrequency), NULL);
 
   /* definition and creation of safety */
