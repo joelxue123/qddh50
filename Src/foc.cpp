@@ -169,9 +169,9 @@ ODriveIntf::MotorIntf::Error FieldOrientedController::get_alpha_beta_output(
         auto [Id, Iq] = *Idq;
         auto [Id_setpoint, Iq_setpoint] = *Idq_setpoint_;
 
-        // float ilim = motor_->effective_current_lim();
-        // Id_setpoint = std::clamp(Id_setpoint, -ilim, ilim);
-        // Iq_setpoint = std::clamp(Iq_setpoint, -ilim, ilim);
+        float ilim = motor_->effective_current_lim();
+        Id_setpoint = std::clamp(Id_setpoint, -ilim, ilim);
+        Iq_setpoint = std::clamp(Iq_setpoint, -ilim, ilim);
 
         float Ierr_d = Id_setpoint - Id;
         float Ierr_q = Iq_setpoint - Iq;

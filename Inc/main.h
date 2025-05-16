@@ -101,7 +101,7 @@ void Error_Handler(void);
 #define VBUS_S_DIVIDER_RATIO 19.0f
 
 /* Current Measurement Scale Factors */
-#define ADC_CURRENT_FULL_SCALE  2048.0f     // ADC full scale value (15-bit)
+#define ADC_CURRENT_FULL_SCALE  32768.0f     // ADC full scale value (15-bit)
 #define MAX_PHASE_CURRENT       55.0f        // Maximum measurable phase current (A)
 #define CURRENT_SCALE_FACTOR    (MAX_PHASE_CURRENT/ADC_CURRENT_FULL_SCALE)  // ~0.0013f A/bit
 #define CURRENT_TO_ADC_RATIO    (ADC_CURRENT_FULL_SCALE/MAX_PHASE_CURRENT)
