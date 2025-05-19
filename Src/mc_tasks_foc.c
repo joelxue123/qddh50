@@ -211,6 +211,8 @@ int32_t  task_run = 0;
   
   // 1. 首先禁用所有输出
   LL_TIM_DisableAllOutputs(TIM1);
+  LL_TIM_DisableCounter(TIM1);
+
   
   // 2. 配置所有PWM通道 - 使用临时变量避免优化
   temp = LL_TIM_CHANNEL_CH1 | LL_TIM_CHANNEL_CH1N |
@@ -244,9 +246,14 @@ int32_t  task_run = 0;
   __DSB();
   LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);
   __DSB();
-  
+  TIM1->CNT = 1;
+  __DSB();
   // 7. 最后启用所有输出
   LL_TIM_EnableAllOutputs(TIM1);
+  LL_TIM_EnableCounter(TIM1);
+  __DSB();
+  /* 改变pwm的输出时序，下降触发*/
+  LL_TIM_SetRepetitionCounter(TIM1, 1);
 }
 
 
@@ -308,18 +315,16 @@ __weak void TSK_MediumFrequencyTaskM1(void)
         
 
               re_start_timer();
-
+              __DSB();
               vTaskDelay(100);
 
-              /* 改变pwm的输出时序，下降触发*/
-              LL_TIM_SetRepetitionCounter(TIM1, 1);
-
+              __DSB();
               /*清除栅驱动器可能的错误 */
               STSPIN32G4_clearFaults(&HdlSTSPING4);
+              __DSB();
               vTaskDelay(100);
+              __DSB();
 
-
-              
               while(1)
               {
                 axis_loop();

@@ -256,7 +256,7 @@ bool Motor::arm(PhaseControlLaw<3>* control_law) {
         
 
     cpu_exit_critical(mask);
-    vTaskDelay(20);
+    vTaskDelay(10);
     is_armed_ = true;
     return true;
 }

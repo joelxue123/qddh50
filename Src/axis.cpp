@@ -774,6 +774,13 @@ void Axis::run_state_machine_loop() {
                 status = true;
             } break;
 
+            case AXIS_STATE_BANDWIDTH_TEST: {
+                if (!motor_.is_calibrated_ || motor_.config_.direction==0)
+                    goto invalid_state_label;
+                bandwidth_test_cb();
+
+            } break;
+
             default:
             invalid_state_label:
                 error_ = static_cast<Error>(static_cast<uint32_t>(error_) | static_cast<uint32_t>(ERROR_INVALID_STATE));
@@ -801,7 +808,7 @@ void Axis::control_loop_cb(uint32_t timestamp)
     // Note: updates run even if checks fail
     
     oscilloscope_.update();
-    
+
     {
         controller_.torque_output_.reset();
         encoder_.phase_.reset();
@@ -848,6 +855,7 @@ void Axis::control_loop_cb(uint32_t timestamp)
 
     // MEASURE_TIME(task_times_.open_loop_controller_update)
          open_loop_controller_.update(timestamp);
+         current_test_controller_.update(timestamp);
 
   //  MEASURE_TIME(task_times_.motor_update)
         motor_.update(timestamp); // uses torque from controller and phase_vel from encoder
@@ -856,4 +864,40 @@ void Axis::control_loop_cb(uint32_t timestamp)
         motor_.current_control_.update(timestamp); // uses the output of controller_ or open_loop_contoller_ and encoder_ or sensorless_estimator_ or acim_estimator_
 
         
+}
+
+bool Axis::bandwidth_test_cb() {
+    // Configure current test
+    CurrentTestController::Config test_config{
+        .test_amplitude = 2.0f,    // 2A test amplitude
+        .period_cycles = 100       // Switch every 100 cycles
+    };
+    // Start test
+    current_test_controller_.set_config(test_config);
+    current_test_controller_.start_bandwidth_test();
+
+
+    motor_.current_control_.enable_current_control_src_ = motor_.config_.motor_type != Motor::MOTOR_TYPE_GIMBAL;
+    motor_.current_control_.Idq_setpoint_src_.connect_to(&current_test_controller_.current_setpoint_);
+
+    motor_.current_control_.phase_src_.connect_to(&current_test_controller_.phase_);
+
+    
+    motor_.phase_vel_src_.connect_to(&current_test_controller_.phase_vel_);
+    motor_.current_control_.phase_vel_src_.connect_to(&current_test_controller_.phase_vel_);
+
+    
+    motor_.arm(&motor_.current_control_);
+
+    while ((requested_state_ == AXIS_STATE_UNDEFINED) && motor_.is_armed_)
+    {
+        osDelay(1);
+    }
+    
+    // Stop test and analyze results
+    current_test_controller_.stop_bandwidth_test();
+    current_test_controller_.analyze_bandwidth();
+    
+    motor_.disarm();
+    return check_for_errors();
 }

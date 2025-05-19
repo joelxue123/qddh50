@@ -10,6 +10,7 @@
 #include "low_level.h"  // Add this for safety_critical_disarm_motor_pwm declaration
 #include  "current_limiter.hpp"
 #include "utils.hpp"
+#include "CurrentTest.hpp"
 
 class Motor;
 class Controller;
@@ -264,6 +265,8 @@ bool get_nodeID(uint32_t &id) { id = config_.can_node_id; return true; };
     bool start_closed_loop_control();
     bool stop_closed_loop_control();
     bool  wait_for_control_iteration();
+    
+    bool bandwidth_test_cb();
 
     void control_loop_cb(uint32_t timestamp);
 
@@ -283,6 +286,7 @@ bool get_nodeID(uint32_t &id) { id = config_.can_node_id; return true; };
   
     Controller& controller_;
     OpenLoopController open_loop_controller_;
+    CurrentTestController current_test_controller_;
 
     OnboardThermistorCurrentLimiter& fet_thermistor_;
     OffboardThermistorCurrentLimiter& motor_thermistor_;

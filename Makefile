@@ -156,7 +156,8 @@ Src/thermistor.cpp \
 Src/open_loop_controller.cpp \
 Src/canopen.cpp \
 Src/flash_storage.cpp \
-Src/oscilloscope.cpp
+Src/oscilloscope.cpp \
+Src/CurrentTest.cpp
 
 
 

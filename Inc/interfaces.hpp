@@ -76,6 +76,7 @@ public:
             AXIS_STATE_LOCKIN_SPIN           = 9,
             AXIS_STATE_ENCODER_DIR_FIND      = 10,
             AXIS_STATE_HOMING                = 11,
+            AXIS_STATE_BANDWIDTH_TEST        = 12,
         };
     };
 

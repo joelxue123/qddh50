@@ -238,12 +238,12 @@ void UART_ParseFrame_(uint8_t* pdata) {
 		{
 	
 			// 获取当前状态
-			int16_t target_pos = axis.encoder_.pos_abs_;
-			int16_t current_pos = axis.encoder_.sencond_pos_abs_;
-			int16_t target_vel =  axis.motor_.i2t_integral_;
-			int16_t current_vel = axis.motor_.current_stall_cnt_;
-			int16_t target_cur =  axis.motor_.current_meas_.phA*1000;
-			int16_t current_cur = axis.motor_.current_meas_.phB*1000;
+			int16_t target_pos =  axis.motor_.timing_log_[3];
+			int16_t current_pos = axis.motor_.timing_log_[4];
+			int16_t target_vel =  axis.encoder_.pos_abs_;
+			int16_t current_vel = axis.encoder_.sencond_pos_abs_;
+			int16_t target_cur =  axis.motor_.current_meas_.Q16_phA;
+			int16_t current_cur = axis.motor_.current_meas_.Q16_phB;
 			
 		
 			int16_t temp = axis.fet_thermistor_.temperature_;//vbus_voltage;
@@ -292,7 +292,7 @@ void UART_ParseFrame_(uint8_t* pdata) {
 				{
 					uint16_t addr  =  (pdata[8]<<8) |pdata[7];
 					pos =0;
-					for(int i = addr; i < addr + 6; i++) {
+					for(int i = addr; i < addr + 10; i++) {
 						int16_t data = oscilloscope_.get_val(i);
 						tx_buf[pos++] = data & 0xFF;
 						tx_buf[pos++] = (data >> 8) & 0xFF;
