@@ -239,7 +239,7 @@ void UART_ParseFrame_(uint8_t* pdata) {
 	
 			// 获取当前状态
 			int16_t target_pos = axis.encoder_.pos_abs_;
-			int16_t current_pos = axis.encoder_.sencond_pos_abs_>>2;
+			int16_t current_pos = axis.encoder_.sencond_pos_abs_;
 			int16_t target_vel =  axis.motor_.i2t_integral_;
 			int16_t current_vel = axis.motor_.current_stall_cnt_;
 			int16_t target_cur =  axis.motor_.current_meas_.phA*1000;

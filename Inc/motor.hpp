@@ -82,7 +82,7 @@ public:
         float torque_lim = 60.f;//std::numeric_limits<float>::infinity();           //[Nm]. 
         // Value used to compute shunt amplifier gains
         float requested_current_range = 60.0f; // [A]
-        float current_control_bandwidth = 3000.0f;  // [rad/s]
+        float current_control_bandwidth = 4000.0f;  // [rad/s]
         float peak_current = 16.0f;
         float nominal_current = 10.0f;
   

@@ -19,6 +19,9 @@ public:
     float target_voltage_ = 0.0f;
     float initial_phase_ = 0.0f;
 
+    float test_target_current_ = 3.0f;
+    int32_t cnt = 0;
+
     // State/Outputs
     uint32_t timestamp_ = 0;
     OutputPort<float2D> Idq_setpoint_ = {{0.0f, 0.0f}};

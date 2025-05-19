@@ -16,7 +16,7 @@ class Encoder : public ODriveIntf::EncoderIntf {
 public:
     static constexpr uint32_t MODE_FLAG_ABS = 0x100;
     static constexpr uint32_t MODE_FLAG_485_ABS = 0x200;
-    static constexpr int32_t HALF_CPR =  (1<<18) / 2;
+    static constexpr int32_t HALF_CPR =  (1<<15) / 2;
 
     struct Config_t {
         Mode mode = MODE_SPI_ABS_RLS;
@@ -38,7 +38,7 @@ public:
         float bandwidth = 4000.0f;
         bool ignore_illegal_hall_state = false; // dont error on bad states like 000 or 111
 
-        int32_t GearboxOutputEncoder_cpr = (1<<18);
+        int32_t GearboxOutputEncoder_cpr = (1<<15);
         int32_t Gearoffset = 0;
         int32_t direction =1;
         // custom setters
@@ -119,7 +119,7 @@ public:
     bool vel_estimate_valid_ = false;
     
     float cpr_inverse_ = 1.0f/1000;
-    float GearboxOutputEncoder_cpr_inverse_ = 1.0f/1000;
+    float GearboxOutputEncoder_cpr_inverse_ = 1.0f/(1<<15);
 
     float gear_pos_cpr_counts_ = 0.0f;
     float gear_vel_estimate_counts_ = 0.0f;
