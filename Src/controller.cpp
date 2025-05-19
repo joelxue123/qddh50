@@ -169,9 +169,12 @@ bool Controller::update() {
     if( CONTROL_MODE_PVT_CONTROL == config_.control_mode )
     {
         
-        float kp = config_.kp;
-        float kd = config_.kd;
+        float kp = (float)config_.kp_pu_q12_ * 0.1220703125f;
+        float kd = (float)config_.kd_pu_q9_ * 0.009765625f;
         
+        pos_setpoint_ = axis_->position_coeff_encos2motor * pos_setpoint_pu_q15_ ;
+        vel_setpoint_ = axis_->speed_coeff_encos2motor * vel_setpoint_pu_q11_ ;
+        input_torque_ = axis_->current_coeff_encos2motor * input_pos_pu_q11_;
         if(axis_->config_.gear_vel_used == true)
         {
             torque = kp*(pos_setpoint_ - axis_->encoder_.gear_boxpos_rad_) + input_torque_ + kd*(vel_setpoint_ - axis_->encoder_.gear_outside_vel_estimate_rad_);

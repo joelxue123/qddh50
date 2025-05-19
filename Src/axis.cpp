@@ -79,15 +79,15 @@ Axis::LockinConfig_t Axis::default_sensorless() {
 }
 
 
-float *  Axis::get_pos_src(bool is_gear_position){
-    float * pos_src_ = nullptr;
+int32_t *  Axis::get_pos_src(bool is_gear_position){
+    int32_t * pos_src_ = nullptr;
     if(true == is_gear_position )
     {
-        pos_src_ = &encoder_.gear_boxpos_rad_;
+        pos_src_ = &encoder_.gearboxpos_rad_pu_q15_;
     }
     else
     {
-        pos_src_ = &encoder_.pos_estimate_rad_;
+        pos_src_ = &encoder_.pos_estimate_rad_pu_q15_;
     }
     return pos_src_;
 }
@@ -103,10 +103,10 @@ void Axis::get_axis_state(axis_state_t* state)
     state->erro =  axis_state_.erro;
     
     
-    state->pos = saturation((int32_t)((*pos_src_) * position_coeff_motor2encos +32768),0,65535 );   // 2pi*12.5*32768
+    state->pos = saturation((int32_t)( *pos_src_ +32768),0,65535 );   // 2pi*12.5*32768
 
 
-    state->vel = saturation((int32_t)(encoder_.gear_vel_estimate_rad_ *speed_coeff_motor2encos + 2048),0,4095);   // 1/2/pi/36*2048/16将速度的系数再减半 22.3402f
+    state->vel = saturation((int32_t)(encoder_.gear_vel_estimate_rad_pu_q11_  + 2048),0,4095);   // 1/2/pi/36*2048/16将速度的系数再减半 22.3402f
    
     state->cur = saturation((int32_t)(actual_torque *current_coeff_motor2encos + 2048),10,4090);  //这是有问题的代码，不要忘记 2024-10-8
     state->motor_temperature = (int32_t)fet_thermistor_.aux_temperature_ *2 + 50 ;
@@ -121,23 +121,23 @@ void Axis::set_axis_pvt_parm(axis_pvt_parm_t *axis_pvt_parm)
 
     motor_.using_old_torque_constant_ = false;
 
-    controller_.config_.kp = ((float)axis_pvt_parm->kp)*0.1220703125f;   //500/4096
+    controller_.config_.kp_pu_q12_ = ((float)axis_pvt_parm->kp);   //500/4096
 
-    controller_.config_.kd = ((float)axis_pvt_parm->kd) *0.009765625f;      // 5/512
+    controller_.config_.kd_pu_q9_ = ((float)axis_pvt_parm->kd) ;      // 5/512
     
-    controller_.pos_setpoint_ = (axis_pvt_parm->pos_setpoint - 32768)*position_coeff_encos2motor;  //12.5/ 32768
-    controller_.vel_setpoint_ = (axis_pvt_parm->vel_setpoint - 2048) * speed_coeff_encos2motor;   // 18/ 2048
+    controller_.pos_setpoint_pu_q15_ = (axis_pvt_parm->pos_setpoint - 32768);  //12.5/ 32768
+    controller_.vel_setpoint_pu_q11_ = (axis_pvt_parm->vel_setpoint - 2048);   // 18/ 2048
 
     torque_setpoint = axis_pvt_parm->torque_setpoint - 2048;
-    controller_.input_torque_ = torque_setpoint*motor_.config_.motor_torque_base * 4.8828e-04f;
+    controller_.input_pos_pu_q11_ = torque_setpoint;
     can_raw_ = axis_pvt_parm->torque_setpoint;
 } 
 
 void Axis::set_axis_current(int16_t current)
 {
     motor_.using_old_torque_constant_ = true;
-    controller_.config_.kp = 0;
-    controller_.config_.kd = 0;
+    controller_.config_.kp_pu_q12_ = 0;
+    controller_.config_.kd_pu_q9_ = 0;
     controller_.input_torque_ = current * motor_.config_.torque_constant * 0.01f;
 
 }
@@ -148,16 +148,18 @@ void Axis::set_axis_current(int16_t current)
 void Axis::setup() {
     bool sensorless_mode = config_.enable_sensorless_mode;
 
+    speed_base_inverse_ = 1.0f / config_.speed_base;
+    position_base_inverse_ = 1.0f / config_.position_base;
     gear_ratio_inverse_  = 1/motor_.config_.gear_ratio;
 
-    speed_coeff_motor2encos = 2*M_PI/config_.speed_base/motor_.config_.gear_ratio;
-    speed_coeff_motor2encos_q11_ =(int32_t) (2048.f*speed_coeff_motor2encos);
-    
-    speed_coeff_encos2motor = 1.0f / (2048.f*speed_coeff_motor2encos);
-    position_coeff_motor2encos = 2*M_PI/config_.position_base;
-    position_coeff_motor2encos_q15_ = (int32_t)(32768.f*position_coeff_motor2encos);
-    position_coeff_encos2motor = 1.0f / (32758*position_coeff_motor2encos);
-    current_coeff_motor2encos = (float)(2048.0f/config_.current_base);
+
+    speed_coeff_motor2encos = 2048/config_.speed_base;
+
+    speed_coeff_encos2motor = 1.0f / speed_coeff_motor2encos;
+    position_coeff_motor2encos = 32768/config_.position_base;
+    position_coeff_encos2motor = 1.0f / position_coeff_motor2encos;
+    current_coeff_motor2encos = 2048.0f/config_.current_base;
+    current_coeff_encos2motor = (float)(2048.0f/config_.current_base);
     // Does nothing - Motor and encoder setup called separately.
     axis_state_.erro = 0;
 
@@ -298,11 +300,8 @@ bool Axis::do_checks() {
 
     }
         
+    thermistors_[0]->do_checks();
 
-    // Sub-components should use set_error which will propegate to this error_
-    for (ThermistorCurrentLimiter* thermistor : thermistors_) {
-        thermistor->do_checks();
-    }
     //motor_.do_checks();
     // encoder_.do_checks();
     // sensorless_estimator_.do_checks();
@@ -694,7 +693,7 @@ void Axis::run_state_machine_loop() {
             task_chain_[pos++] = AXIS_STATE_UNDEFINED;  // TODO: bounds checking
             requested_state_ = AXIS_STATE_UNDEFINED;
             // Auto-clear any invalid state error
-            error_ = static_cast<Error>(static_cast<uint32_t>(error_) | static_cast<uint32_t>(ERROR_INVALID_STATE));
+            error_ = static_cast<Error>(static_cast<uint32_t>(error_) & (~ static_cast<uint32_t>(ERROR_INVALID_STATE)));
 
         }
         wait_for_control_iteration();
@@ -797,8 +796,7 @@ void Axis::run_state_machine_loop() {
 
 void Axis::control_loop_cb(uint32_t timestamp)
 {
-    // look for errors at axis level and also all subcomponents
-     bool checks_ok = do_checks();
+
     // Update all estimators
     // Note: updates run even if checks fail
     
@@ -821,13 +819,16 @@ void Axis::control_loop_cb(uint32_t timestamp)
     }
 
 
-
+    // look for errors at axis level and also all subcomponents
+    bool checks_ok = do_checks();
     // make sure the watchdog is being fed. 
     bool watchdog_ok = watchdog_check();
     bool motor_ok = motor_.do_checks();
-  //  bool updates_ok = do_updates(); 
+
+
+
     
-    if (!checks_ok_  || !watchdog_ok || !motor_ok) {
+    if (!checks_ok  || !watchdog_ok || !motor_ok) {
         // It's not useful to quit idle since that is the safe action
         // Also leaving idle would rearm the motors
         motor_.disarm();

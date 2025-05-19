@@ -309,8 +309,8 @@ bool get_nodeID(uint32_t &id) { id = config_.can_node_id; return true; };
     GPIO_TypeDef* dir_port_;
     uint16_t dir_pin_;
 
-    AxisState requested_state_ =  AXIS_STATE_STARTUP_SEQUENCE;
-    std::array<AxisState, 10> task_chain_ = { AXIS_STATE_UNDEFINED };
+    AxisState requested_state_ =  AXIS_STATE_IDLE;
+    std::array<AxisState, 10> task_chain_ = { AXIS_STATE_IDLE };
     AxisState& current_state_ = task_chain_.front();
     uint32_t loop_counter_ = 0;
     LockinState lockin_state_ = LOCKIN_STATE_INACTIVE;
@@ -318,16 +318,17 @@ bool get_nodeID(uint32_t &id) { id = config_.can_node_id; return true; };
     Homing_t homing_;
     uint32_t last_heartbeat_ = 0;
     float gear_ratio_inverse_ = 1.0f/16.f;
-    float position_base_inverse_ = 12.5f;
+    float position_base_inverse_ = 1/12.5f;
     float speed_base_inverse_ = 18.0f;
     float current_base_inverse_ = 120.0f;  
     float speed_coeff_motor2encos = (int32_t)(2048.f*2*M_PI/18.0f/16.0f);
     int32_t speed_coeff_motor2encos_q11_ = 0;
-    float speed_coeff_encos2motor = 18.0f*16.0f/(2*M_PI*2048);
-    float position_coeff_motor2encos = (int32_t)(2*M_PI*32768/12.5f);
+    float speed_coeff_encos2motor = 18.0f/2048;
+    float position_coeff_motor2encos = (int32_t)(32768/12.5f);
     int32_t position_coeff_motor2encos_q15_ = 0;
-    float position_coeff_encos2motor = 12.5f / (2*M_PI*32768);
+    float position_coeff_encos2motor = 12.5f /32768;
     float current_coeff_motor2encos = (float)(2048.0f/60.f);
+    float current_coeff_encos2motor = 60.f/2048.0f;
     float can_raw_ = 0.0f;
     
     // watchdog
@@ -336,10 +337,10 @@ bool get_nodeID(uint32_t &id) { id = config_.can_node_id; return true; };
     volatile bool is_current_meas_update_ = false;
     uint32_t set_torque_raw_data_ = 0;
 
-    bool is_gear_position_ = true;
-    float* pos_src_ = nullptr;
+    bool is_gear_position_used_ = true;
+    int32_t * pos_src_ = nullptr;
 
-    float * get_pos_src(bool is_gear_position);
+    int32_t * get_pos_src(bool is_gear_position);
     void set_encos_position_src(bool value){
         pos_src_ = get_pos_src(value); 
     }

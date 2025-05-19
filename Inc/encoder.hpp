@@ -106,13 +106,14 @@ public:
     OutputPort<float> vel_estimate_ = 0.0f; // [turn/s]
 
     float gear_vel_estimate_rad_ = 0.0f; // [rad/s] 
+    int32_t gear_vel_estimate_rad_pu_q11_ =0 ;
 
     int32_t q_vel_estimate_= 0;
     float pos_cpr_ = 0.0f;      // [turn]
     float pos_circular_ = 0.0f; // [turn]
 
     float gearboxpos_ = 0;
-    int32_t gearboxpos_q15_ = 0;
+    int32_t gearboxpos_rad_pu_q15_ = 0;
     
     bool pos_estimate_valid_ = false;
     bool vel_estimate_valid_ = false;
@@ -126,6 +127,7 @@ public:
     float gear_outside_vel_estimate_rad_ = 0.0f;
     float gear_boxpos_rad_ = 0.0f;
     float pos_estimate_rad_ = 0.0f; // [rad]
+    int32_t pos_estimate_rad_pu_q15_ = 0; // [rad]
 
     int16_t tim_cnt_sample_ = 0; // 
     // Updated by low_level pwm_adc_cb

@@ -56,10 +56,13 @@ static const OD_Entry_t OD_List[] = {
     // Sub Encoder Parameters  
     {0x2026, 0, OD_INT32_RW, &axis.encoder_.config_.GearboxOutputEncoder_cpr},
     {0x2027, 0, OD_INT32_RW, &axis.encoder_.config_.Gearoffset},
+    {0x2028, 0, OD_INT16_RW, &axis.is_gear_position_used_},
+
+
     
     // PID Parameters
-    {0x2030, 0, OD_REAL32_RW, &axis.controller_.config_.kp},
-    {0x2031, 0, OD_REAL32_RW, &axis.controller_.config_.kd},
+    {0x2030, 0, OD_REAL32_RW, &axis.controller_.config_.kp_pu_q12_},
+    {0x2031, 0, OD_REAL32_RW, &axis.controller_.config_.kd_pu_q9_},
     {0x2032, 0, OD_REAL32_RW, &axis.controller_.config_.pos_gain},
     {0x2033, 0, OD_REAL32_RW, &axis.controller_.config_.vel_gain},
     {0x2034, 0, OD_REAL32_RW, &axis.controller_.config_.vel_integrator_gain},
@@ -234,10 +237,13 @@ int32_t PDO_Read(uint8_t channel, uint16_t *length) {
 void canopen_cmd_process( int16_t index, int16_t sub_index, void* value)
 {
     int16_t cmd  = index;
+    int16_t data = *(int16_t*)value;
 
     switch (cmd)
     {
-    case 0:
+    case 0x2028:
+        axis.is_gear_position_used_ = data;
+        axis.set_encos_position_src(axis.is_gear_position_used_);
         /* code */
         break;
     

@@ -729,7 +729,7 @@ bool Encoder::update() {
             GearboxOutputEncoder_counts = GearboxOutputEncoder_turns_*2*HALF_CPR+ gear_single_turn_abs_by_user_;
             gearboxpos_ = GearboxOutputEncoder_counts * GearboxOutputEncoder_cpr_inverse_;
             gear_boxpos_rad_ = gearboxpos_ * 2 * PI;
-            gearboxpos_q15_ = (int32_t)(gearboxpos_ * 32768.f);
+            gearboxpos_rad_pu_q15_ = (int32_t)(gear_boxpos_rad_ * axis_->position_coeff_motor2encos);
             
 
         }break;
@@ -792,6 +792,8 @@ bool Encoder::update() {
     vel_estimate_ = vel_estimate_counts_ * cpr_inverse_;
     q_vel_estimate_ = (int32_t)(*vel_estimate_.present()*VEL_TO_ADC_RATIO);
     gear_vel_estimate_rad_ = (*vel_estimate_.present()) * 2.0f * M_PI*axis_->gear_ratio_inverse_;
+    gear_vel_estimate_rad_pu_q11_ = gear_vel_estimate_rad_ * 2048 * axis_->speed_base_inverse_;
+
     gear_vel_estimate_ = gear_vel_estimate_counts_ * GearboxOutputEncoder_cpr_inverse_;
 
     float pos_cpr_last = pos_cpr_;
@@ -799,6 +801,7 @@ bool Encoder::update() {
 
     pos_estimate_ = pos_estimate_counts_ / (float)config_.cpr;
     pos_estimate_rad_  = (*pos_estimate_.present()) * 2.0f * M_PI;
+    pos_estimate_rad_pu_q15_ = (int32_t)(pos_estimate_rad_ * 32768.f * axis_->position_base_inverse_);
 
     //// run encoder count interpolation
     int32_t corrected_enc = count_in_cpr_ - config_.offset;

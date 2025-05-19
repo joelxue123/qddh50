@@ -304,7 +304,6 @@ __weak void TSK_MediumFrequencyTaskM1(void)
 
               TSK_SetChargeBootCapDelayM1(M1_CHARGE_BOOT_CAP_TICKS);
 
-
               RUC_Clear(&RevUpControlM1, MCI_GetImposedMotorDirection(&Mci[M1]));
         
 
