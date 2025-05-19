@@ -194,6 +194,62 @@ int32_t  task_run = 0;
  int32_t b_offset = 0;
  uint8_t tx[10] = {0xA0,0x03,0x00,0x00,0x00,0x00};
  uint8_t rx[10] = {0};
+
+ void re_start_adc(void)
+ {
+   LL_ADC_INJ_StartConversion(ADC2);
+   LL_ADC_INJ_StartConversion(ADC1);
+   
+   LL_ADC_EnableIT_JEOS(ADC1);  // Enable ADC1 injected end of sequence interrupt
+
+   LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);
+ }
+
+
+ __attribute__((noinline)) void re_start_timer(void) {
+  volatile uint32_t temp;  // Add volatile to prevent optimization
+  
+  // 1. 首先禁用所有输出
+  LL_TIM_DisableAllOutputs(TIM1);
+  
+  // 2. 配置所有PWM通道 - 使用临时变量避免优化
+  temp = LL_TIM_CHANNEL_CH1 | LL_TIM_CHANNEL_CH1N |
+         LL_TIM_CHANNEL_CH2 | LL_TIM_CHANNEL_CH2N |
+         LL_TIM_CHANNEL_CH3 | LL_TIM_CHANNEL_CH3N;
+  LL_TIM_CC_EnableChannel(TIM1, temp);
+  
+  // 3. 配置PWM模式 - 添加延时确保顺序执行
+  LL_TIM_OC_SetMode(TIM1, LL_TIM_CHANNEL_CH1, LL_TIM_OCMODE_PWM1);
+  __DSB();  // 添加内存屏障
+  LL_TIM_OC_SetMode(TIM1, LL_TIM_CHANNEL_CH2, LL_TIM_OCMODE_PWM1);
+  __DSB();
+  LL_TIM_OC_SetMode(TIM1, LL_TIM_CHANNEL_CH3, LL_TIM_OCMODE_PWM1);
+  __DSB();
+  
+  // 4. 使能预加载 - 按顺序执行
+  LL_TIM_OC_EnablePreload(TIM1, LL_TIM_CHANNEL_CH1);
+  __DSB();
+  LL_TIM_OC_EnablePreload(TIM1, LL_TIM_CHANNEL_CH2);
+  __DSB();
+  LL_TIM_OC_EnablePreload(TIM1, LL_TIM_CHANNEL_CH3);
+  __DSB();
+  
+  // 5. 设置比较值
+  LL_TIM_OC_SetCompareCH1(TIM1, 10);
+  LL_TIM_OC_SetCompareCH2(TIM1, 10);
+  LL_TIM_OC_SetCompareCH3(TIM1, 10);
+  
+  // 6. 配置输出和触发
+  TIM1->BDTR |= LL_TIM_OSSI_ENABLE;
+  __DSB();
+  LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);
+  __DSB();
+  
+  // 7. 最后启用所有输出
+  LL_TIM_EnableAllOutputs(TIM1);
+}
+
+
 void test_svm(float mod_q, float mod_d, float *theta, float *ta, float *tb, float *tc) ;
 /**
   * @brief Executes medium frequency periodic Motor Control tasks
@@ -237,107 +293,37 @@ __weak void TSK_MediumFrequencyTaskM1(void)
               STSPIN32G4_wakeup(&HdlSTSPING4, 4);
               vTaskDelay(100);
 
-              LL_ADC_INJ_SetTriggerSource(ADC2, LL_ADC_INJ_TRIG_EXT_TIM1_TRGO);
-              LL_ADC_INJ_SetTriggerEdge(ADC2, LL_ADC_INJ_TRIG_EXT_RISING);
-              ADC2->JSQR = (uint32_t)(
-                (LL_ADC_INJ_TRIG_EXT_TIM1_TRGO & ADC_JSQR_JEXTSEL) |  // External trigger selection
-                (0x1UL << ADC_JSQR_JEXTEN_Pos) |                       // Rising edge trigger
-                (0x07 << 9) |             // Channel 3 as first conversion
-                (0x0UL << ADC_JSQR_JL_Pos)                            // Length = 1 conversion
-            );
-              LL_ADC_INJ_StartConversion(ADC2);
 
+              re_start_adc();
 
-              LL_ADC_INJ_StartConversion(ADC1);
-              
-              LL_ADC_EnableIT_JEOS(ADC2);  // Enable ADC1 injected end of sequence interrupt
-
-              LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);
 
               /* Calibration already done. Enables only TIM channels */
               pwmcHandle[M1]->OffCalibrWaitTimeCounter = 1u;
 
-              //(void)PWMC_CurrentReadingCalibr(pwmcHandle[M1], CRC_EXEC);
-   //           (void)PWMC_CurrentReadingCalibr(pwmcHandle[M1], CRC_START);
               R3_2_SwitchOnPWM(pwmcHandle[M1]);
-      //        R3_2_TurnOnLowSides(pwmcHandle[M1],M1_CHARGE_BOOT_CAP_DUTY_CYCLES);
-              TSK_SetChargeBootCapDelayM1(M1_CHARGE_BOOT_CAP_TICKS);
 
-              LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);
+              TSK_SetChargeBootCapDelayM1(M1_CHARGE_BOOT_CAP_TICKS);
 
 
               RUC_Clear(&RevUpControlM1, MCI_GetImposedMotorDirection(&Mci[M1]));
         
-              /* PWM Configuration */
-              // 1. 配置所有PWM通道
-              LL_TIM_CC_EnableChannel(TIM1, LL_TIM_CHANNEL_CH1 | LL_TIM_CHANNEL_CH1N |
-                                          LL_TIM_CHANNEL_CH2 | LL_TIM_CHANNEL_CH2N |
-                                          LL_TIM_CHANNEL_CH3 | LL_TIM_CHANNEL_CH3N);
-              
-              // 2. 配置PWM模式
-              LL_TIM_OC_SetMode(TIM1, LL_TIM_CHANNEL_CH1, LL_TIM_OCMODE_PWM1);
-              LL_TIM_OC_SetMode(TIM1, LL_TIM_CHANNEL_CH2, LL_TIM_OCMODE_PWM1);
-              LL_TIM_OC_SetMode(TIM1, LL_TIM_CHANNEL_CH3, LL_TIM_OCMODE_PWM1);
-              
-              
-              // 4. 使能预加载
-              LL_TIM_OC_EnablePreload(TIM1, LL_TIM_CHANNEL_CH1);
-              LL_TIM_OC_EnablePreload(TIM1, LL_TIM_CHANNEL_CH2);
-              LL_TIM_OC_EnablePreload(TIM1, LL_TIM_CHANNEL_CH3);
-              LL_TIM_OC_SetCompareCH1(TIM1, 1); //必须设置为1,用于触发adc中断
-              LL_TIM_OC_SetCompareCH2(TIM1, 1);
-              LL_TIM_OC_SetCompareCH3(TIM1, 1);
-              vTaskDelay(10);
-              
-              
 
-            LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);
+              re_start_timer();
 
-           //  LL_ADC_EnableIT_JEOS(ADC1);
-                          // Check Timer trigger configuration
-            LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);  // 使用TIM1 OC4作为触发源
+              vTaskDelay(100);
 
-
-              // ADC注入组触发配置
-              LL_ADC_INJ_SetTriggerSource(ADC1, LL_ADC_INJ_TRIG_EXT_TIM1_TRGO);
-              LL_ADC_INJ_SetTriggerEdge(ADC1, LL_ADC_INJ_TRIG_EXT_RISING);
-
-              // 5. 启用 Break 功能
-              TIM1->BDTR |= LL_TIM_OSSI_ENABLE;
-              LL_TIM_EnableAllOutputs(TIM1);
-              STSPIN32G4_clearFaults(&HdlSTSPING4);
-              LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);
-              vTaskDelay(1000);
-
-
+              /* 改变pwm的输出时序，下降触发*/
               LL_TIM_SetRepetitionCounter(TIM1, 1);
 
-
+              /*清除栅驱动器可能的错误 */
+              STSPIN32G4_clearFaults(&HdlSTSPING4);
+              vTaskDelay(100);
 
 
               
               while(1)
               {
                 axis_loop();
-                LL_TIM_EnableAllOutputs(TIM1);
-                
-                LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_OC4REF);
-                vTaskDelay(1000);
-
-                task_run = 1;
-
-      
-             //   LL_TIM_DisableAllOutputs(TIM1);
-                vTaskDelay(1000);
-  
-
-                // LL_TIM_OC_SetCompareCH1(TIM1, 0);
-                // LL_TIM_OC_SetCompareCH2(TIM1, 0);
-                // LL_TIM_OC_SetCompareCH3(TIM1, 0);
-                // vTaskDelay(1);
-                // LL_TIM_EnableAllOutputs(TIM1);
-   
-                
 
               }
               Mci[M1].State = CHARGE_BOOT_CAP;

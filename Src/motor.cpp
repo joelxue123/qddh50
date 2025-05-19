@@ -612,7 +612,7 @@ bool Motor::measure_phase_inductance(float test_voltage) {
 
     arm(&control_law);
 
-    for (size_t i = 0; i < 625; ++i) {
+    for (size_t i = 0; i < 2500; ++i) {
         if (!((axis_->requested_state_ == ODriveIntf::AxisIntf::AXIS_STATE_UNDEFINED) && axis_->motor_.is_armed_)) {
             break;
         }
