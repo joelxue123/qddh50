@@ -795,7 +795,7 @@ bool Encoder::update() {
 
     pos_estimate_ = pos_estimate_counts_ / (float)config_.cpr;
     pos_estimate_rad_  = (*pos_estimate_.present()) * 2.0f * M_PI;
-    pos_estimate_rad_pu_q15_ = (int32_t)(pos_estimate_rad_ * 32768.f * axis_->position_base_inverse_);
+    pos_estimate_rad_pu_q15_ = (int32_t)(pos_estimate_rad_ * axis_->position_coeff_motor2encos);
 
     //// run encoder count interpolation
     int32_t corrected_enc = count_in_cpr_ - config_.offset;

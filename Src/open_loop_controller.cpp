@@ -33,22 +33,6 @@ void OpenLoopController::update(uint32_t timestamp) {
     phase_vel_ = phase_vel;
     phase_ = wrap_pm_pi(phase + phase_vel * dt);
     total_distance_ = total_distance_.previous().value_or(0.0f) + phase_vel * dt;
-
-    // phase_vel_ = 0;
-    // phase_ = 0;
-
-    // cnt++;
-
-    // if(cnt  == 100)
-    // {
-
-    //     test_target_current_ = -test_target_current_;
-
-    //     cnt = 0;
-    // }
-
-
-    // Idq_setpoint_ ={ test_target_current_, 0.0f };
     
 
     timestamp_ = timestamp;

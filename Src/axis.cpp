@@ -841,26 +841,22 @@ void Axis::control_loop_cb(uint32_t timestamp)
         // Also leaving idle would rearm the motors
         motor_.disarm();
     }
-    //??? 是否放在这里呢？等待验证
- //   MEASURE_TIME(task_times_.encoder_update)
+
         encoder_.update();
 
- //   MEASURE_TIME(task_times_.controller_update) {
         if (!controller_.update()) { // uses position and velocity from encoder
 
             error_ = static_cast<Error>(static_cast<uint32_t>(error_) | static_cast<uint32_t>(ERROR_CONTROLLER_FAILED));
 
         }
-  //  }
 
-    // MEASURE_TIME(task_times_.open_loop_controller_update)
+
          open_loop_controller_.update(timestamp);
          current_test_controller_.update(timestamp);
 
-  //  MEASURE_TIME(task_times_.motor_update)
+
         motor_.update(timestamp); // uses torque from controller and phase_vel from encoder
 
-  //  MEASURE_TIME(task_times_.current_controller_update)
         motor_.current_control_.update(timestamp); // uses the output of controller_ or open_loop_contoller_ and encoder_ or sensorless_estimator_ or acim_estimator_
 
         
